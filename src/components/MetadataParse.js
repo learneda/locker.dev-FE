@@ -39,10 +39,11 @@ export default class MetadataParse extends Component {
       p {
         max-width: 600px;
         margin: 10px auto;
-        font-size: 1.2rem;
+        font-size: 1.8rem;
       }
       h1 {
         margin: 10px auto;
+        font-size: 3rem;
       }
     `;
 
