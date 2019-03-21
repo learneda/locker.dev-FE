@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
+// variables
 export const bgColor = '#e6e9f3';
 export const hoverBg = '#d3d7e7';
+export const buttonBg = '#4163f2';
 
 // Flexbox custom layout
 export const customLayout = (justify = 'flex-start', align = 'flex-start') =>
