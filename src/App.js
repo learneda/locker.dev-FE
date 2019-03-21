@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import LandingPage from './components/LandingPage';
+import Navbar from './components/Navbar';
+
+import { Container } from './components/mixins';
+
 class App extends Component {
   componentDidMount() {
     const api = 'https://still-shynin-still-strugglin.herokuapp.com/';
@@ -13,11 +18,10 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1>Learned</h1>
-        </header>
-      </div>
+      <Container>
+        <Navbar />
+        <LandingPage />
+      </Container>
     );
   }
 }
