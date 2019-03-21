@@ -1,3 +1,6 @@
+/* Font Family: Roboto */
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
+
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
@@ -32,7 +35,9 @@ footer, header, hgroup, menu, nav, section {
   box-sizing: border-box;
 }
 html {
+  font-family: 'Roboto', sans-serif;
   font-size: 62.5%;
+  color: #333;
 }
 body {
   font-size: 1.6rem;
@@ -52,4 +57,8 @@ q:before, q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+a {
+  color: #333;
+  text-decoration: none;
 }
