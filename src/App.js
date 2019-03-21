@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Newsfeed from './components/Newsfeed';
+import { Grommet } from 'grommet';
 
 class App extends Component {
   componentDidMount() {
