@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Newsfeed from './components/Newsfeed';
+import { Grommet } from 'grommet';
+import { Route, Switch } from 'react-router-dom';
 
 import LandingPage from './components/LandingPage';
 import Navbar from './components/Navbar';
@@ -20,7 +23,10 @@ class App extends Component {
     return (
       <Container>
         <Navbar />
-        <LandingPage />
+        <Switch>
+          <Route component={LandingPage} exact path="/" />
+          <Route component={Newsfeed} path="/news-feed" />
+        </Switch>
       </Container>
     );
   }
