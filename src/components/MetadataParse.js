@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { post } from '../services/postURL';
 
 export default class MetadataParse extends Component {
   state = {
@@ -10,17 +11,13 @@ export default class MetadataParse extends Component {
   };
 
   componentDidMount() {
-    axios
-      .get(
-        `http://localhost:8000/api/post/?url=${this.props.children.props.href}`
-      )
-      .then(res => {
-        this.setState({
-          image: res.data.image,
-          title: res.data.title,
-          description: res.data.description
-        });
+    axios.get(`${post}${this.props.children.props.href}`).then(res => {
+      this.setState({
+        image: res.data.image,
+        title: res.data.title,
+        description: res.data.description
       });
+    });
   }
   render() {
     const Post = styled.div`
