@@ -11,7 +11,9 @@ export default class MetadataParse extends Component {
 
   componentDidMount() {
     axios
-      .get(`http://localhost:9000/?url=${this.props.children.props.href}`)
+      .get(
+        `http://localhost:8000/api/post/?url=${this.props.children.props.href}`
+      )
       .then(res => {
         this.setState({
           image: res.data.image,
