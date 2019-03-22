@@ -18,9 +18,9 @@ const User = styled.div`
   font-size: 5rem;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   align-content: flex-start;
-  max-width: 500px;
+  max-width: 300px;
 `;
 
 const Cards = styled.div`
@@ -32,7 +32,9 @@ const Cards = styled.div`
 const Card = styled.div`
   display: flex;
   width: 200px;
-  height: 200px;
+  height: 150px;
+  border: solid 1px pink;
+  margin: 15px 15px 15px 0;
 `;
 
 class UserProfile extends Component {
@@ -41,8 +43,26 @@ class UserProfile extends Component {
     this.state = {
       picture: 'https://avatars3.githubusercontent.com/u/28912696?s=400&v=4',
       name: 'Sam',
-      courses: ['123', '123'],
-      articles: ['1234', '1234']
+      courses: [
+        '123',
+        'sumi',
+        'david',
+        'jasmine',
+        '1234',
+        'sam',
+        'riley',
+        'luis'
+      ],
+      articles: [
+        '123',
+        'sumi',
+        'david',
+        'jasmine',
+        '1234',
+        'sam',
+        'riley',
+        'luis'
+      ]
     };
   }
 
