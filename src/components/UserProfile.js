@@ -1,12 +1,29 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+const UserWrapper = styled.div`
+  max-width: 1000px;
+  margin: 0 auto;
+`;
+
 const Container = styled.div`
   width: 100%;
-  max-width: 1000px;
   min-height: 100vh;
   margin: 0 auto;
   font-size: 2rem;
+  h1 {
+    font-size: 3.5rem;
+    margin: 15px 15px 15px 0;
+  }
+`;
+
+const SubContainer = styled.div`
+  max-width: 875px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 `;
 
 const User = styled.div`
@@ -78,27 +95,28 @@ class UserProfile extends Component {
 
   render() {
     return (
-      <Container>
-        <div>
-          <User>
-            <img src={this.state.picture} />
-
-            <div>{this.state.name}</div>
-          </User>
-          <h1>My Courses: {this.state.courses.length}</h1>
-          <Cards>
-            {this.state.courses.map(course => (
-              <Card>{course}</Card>
-            ))}
-          </Cards>
-          <h1>My Articles: {this.state.articles.length}</h1>
-          <Cards>
-            {this.state.articles.map(article => (
-              <Card>{article}</Card>
-            ))}
-          </Cards>
-        </div>
-      </Container>
+      <UserWrapper>
+        <Container>
+          <SubContainer>
+            <User>
+              <img src={this.state.picture} />
+              <div>{this.state.name}</div>
+            </User>
+            <h1>My Courses: {this.state.courses.length}</h1>
+            <Cards>
+              {this.state.courses.map(course => (
+                <Card>{course}</Card>
+              ))}
+            </Cards>
+            <h1>My Articles: {this.state.articles.length}</h1>
+            <Cards>
+              {this.state.articles.map(article => (
+                <Card>{article}</Card>
+              ))}
+            </Cards>
+          </SubContainer>
+        </Container>
+      </UserWrapper>
     );
   }
 }
