@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Newsfeed from './components/Newsfeed';
+import { Grommet } from 'grommet';
+import { Route, Switch } from 'react-router-dom';
+
+import LandingPage from './components/LandingPage';
+import Navbar from './components/Navbar';
+
+import { Container } from './components/mixins';
 
 class App extends Component {
   componentDidMount() {
@@ -13,11 +21,13 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1>Learned</h1>
-        </header>
-      </div>
+      <Container>
+        <Navbar />
+        <Switch>
+          <Route component={LandingPage} exact path="/" />
+          <Route component={Newsfeed} path="/news-feed" />
+        </Switch>
+      </Container>
     );
   }
 }
