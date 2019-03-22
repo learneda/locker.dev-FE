@@ -62,7 +62,7 @@ class UserProfile extends Component {
       picture: 'https://avatars3.githubusercontent.com/u/28912696?s=400&v=4',
       name: 'Sam',
       courses: [
-        'https://www.udemy.com/coding-interview-bootcamp-algorithms-and-data-structure/',
+        '123',
         'sumi',
         'david',
         'jasmine',
