@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import MetadataParse from './MetadataParse';
 
 const UserWrapper = styled.div`
   max-width: 1000px;
@@ -61,7 +62,7 @@ class UserProfile extends Component {
       picture: 'https://avatars3.githubusercontent.com/u/28912696?s=400&v=4',
       name: 'Sam',
       courses: [
-        '123',
+        'https://www.udemy.com/coding-interview-bootcamp-algorithms-and-data-structure/',
         'sumi',
         'david',
         'jasmine',
