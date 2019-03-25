@@ -17,9 +17,10 @@ const Nav = styled.nav`
     a {
       padding: 10px;
       font-weight: 700;
+      border: transparent;
 
       &:hover {
-        border: 1px solid ${hoverBg};
+        border: 1px solid ${hoverBg} transparent;
         border-radius: 5px;
         background-color: ${hoverBg};
       }
