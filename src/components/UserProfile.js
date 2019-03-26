@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import MetadataParse from './MetadataParse';
+import { Wrapper } from './mixins';
 
-const UserWrapper = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 90%;
-`;
+// const UserWrapper = styled.div`
+//   max-width: 1200px;
+//   margin: 0 auto;
+//   width: 80%;
+// `;
 
 const Container = styled.div`
   width: 100%;
@@ -108,7 +109,7 @@ class UserProfile extends Component {
 
   render() {
     return (
-      <UserWrapper>
+      <Wrapper>
         <Container>
           <SubContainer>
             <User>
@@ -137,7 +138,7 @@ class UserProfile extends Component {
             </Cards>
           </SubContainer>
         </Container>
-      </UserWrapper>
+      </Wrapper>
     );
   }
 }
