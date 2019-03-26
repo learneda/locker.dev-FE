@@ -1,13 +1,16 @@
-import { FETCH_COURSES, ERROR } from '../actions/types';
+import { FETCH_COURSES, FETCH_ARTICLES, ERROR } from '../actions/types';
 
 const initialState = {
   courses: [],
+  articles: [],
   error: null
 };
-export const udemyReducer = (state = initialState, action) => {
+export const browseReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_COURSES:
       return { ...state, courses: [...action.payload] };
+    case FETCH_ARTICLES:
+      return { ...state, articles: [...action.payload] };
     case ERROR:
       return { ...state, error: action.payload };
     default:

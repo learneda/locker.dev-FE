@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import { authReducer } from './authReducer';
-import { udemyReducer } from './udemyReducer';
+import { browseReducer } from './browseReducer';
 
 export default combineReducers({
   auth: authReducer,
-  udemy: udemyReducer
+  browse: browseReducer
 });

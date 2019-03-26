@@ -1,18 +1,40 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getCourses } from '../actions';
+import { getCourses, getArticles } from '../actions';
 
 class Browse extends Component {
   componentDidMount() {
     this.props.getCourses();
+    this.props.getArticles();
   }
 
   render() {
+    const { articles, courses } = this.props;
+
     return (
       <div>
-        {this.props.courses.map(course => (
-          <h1 key={course.id}>Course title: {course.title}</h1>
-        ))}
+        <div>
+          <h2>Courses</h2>
+          {courses.length === 0 ? (
+            <h1>Loading courses...</h1>
+          ) : (
+            courses.map(course => (
+              <h1 key={course.id}>Course title: {course.title}</h1>
+            ))
+          )}
+        </div>
+
+        <div>
+          <br />
+          <h2>Articles</h2>
+          {articles.length === 0 ? (
+            <h1>Loading articles...</h1>
+          ) : (
+            articles.map(article => (
+              <h1 key={article.created}>Article title: {article.title}</h1>
+            ))
+          )}
+        </div>
       </div>
     );
   }
@@ -21,11 +43,12 @@ class Browse extends Component {
 const mapStateToProps = state => {
   console.log('STATE', state);
   return {
-    courses: state.udemy.courses
+    courses: state.browse.courses,
+    articles: state.browse.articles
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getCourses }
+  { getCourses, getArticles }
 )(Browse);
