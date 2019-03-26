@@ -45,14 +45,30 @@ const Cards = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  justify-content: space-between;
 `;
 
 const Card = styled.div`
-  display: flex;
-  width: 200px;
-  height: 150px;
-  border: solid 1px pink;
-  margin: 15px 15px 15px 0;
+  // display: flex;
+  width: 47%;
+  width: 400px;
+  // height: 200px;
+  overflow: hidden;
+  border: solid 1px lightgrey;
+  // margin: 15px 15px 15px 0;
+  p {
+    display: none; // CHANGE LATER
+  }
+  h1 {
+    max-height: 24px;
+    overflow: hidden;
+    font-size: 2.4rem;
+    text-align: center;
+  }
+  margin-bottom: 40px;
+  img {
+    width: 100%;
+  }
 `;
 
 class UserProfile extends Component {
@@ -62,24 +78,16 @@ class UserProfile extends Component {
       picture: 'https://avatars3.githubusercontent.com/u/28912696?s=400&v=4',
       name: 'Sam',
       courses: [
-        '123',
-        'sumi',
-        'david',
-        'jasmine',
-        '1234',
-        'sam',
-        'riley',
-        'luis'
+        'https://www.youtube.com/watch?v=wqhNoDE6pb4',
+        'https://www.youtube.com/watch?v=H6u0VBqNBQ8',
+        'https://udemy.com/coding-interview-bootcamp-algorithms-and-data-structure/'
       ],
       articles: [
-        '123',
-        'sumi',
-        'david',
-        'jasmine',
-        '1234',
-        'sam',
-        'riley',
-        'luis'
+        'https://medium.freecodecamp.org/how-to-build-a-cli-tool-in-nodejs-bc4f67d898ec',
+        'https://medium.freecodecamp.org/how-i-style-my-websites-with-my-favorite-css-resets-7ace41dbc43d',
+        'https://medium.freecodecamp.org/my-experience-with-a-coding-bootcamp-and-whether-it-might-be-right-for-you-5c32b4ed0a8',
+        'https://medium.freecodecamp.org/the-100-correct-way-to-do-css-breakpoints-88d6a5ba1862',
+        'https://medium.freecodecamp.org/an-animated-guide-to-flexbox-d280cf6afc35'
       ]
     };
   }
@@ -106,13 +114,21 @@ class UserProfile extends Component {
             <h1>My Courses: {this.state.courses.length}</h1>
             <Cards>
               {this.state.courses.map(course => (
-                <Card>{course}</Card>
+                <Card>
+                  <MetadataParse>
+                    <a href={course} />
+                  </MetadataParse>
+                </Card>
               ))}
             </Cards>
             <h1>My Articles: {this.state.articles.length}</h1>
             <Cards>
               {this.state.articles.map(article => (
-                <Card>{article}</Card>
+                <Card>
+                  <MetadataParse>
+                    <a href={article} />
+                  </MetadataParse>
+                </Card>
               ))}
             </Cards>
           </SubContainer>
