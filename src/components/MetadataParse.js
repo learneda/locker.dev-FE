@@ -20,40 +20,40 @@ export default class MetadataParse extends Component {
     });
   }
   render() {
-    const Post = styled.div`
-      max-width: 700px;
-      margin: auto;
-      text-align: center;
+    // const Post = styled.div`
+    //   max-width: 700px;
+    //   margin: auto;
+    //   text-align: center;
 
-      a {
-        text-decoration: none;
-        color: #444;
-      }
+    //   a {
+    //     text-decoration: none;
+    //     color: #444;
+    //   }
 
-      img {
-        width: 100%;
-        border-radius: 10px;
-        margin-bottom: 60px;
-      }
-      p {
-        max-width: 600px;
-        margin: 10px auto;
-        font-size: 1.8rem;
-      }
-      h1 {
-        margin: 10px auto;
-        font-size: 3rem;
-      }
-    `;
+    //   img {
+    //     width: 100%;
+    //     border-radius: 10px;
+    //     margin-bottom: 60px;
+    //   }
+    //   p {
+    //     max-width: 600px;
+    //     margin: 10px auto;
+    //     font-size: 1.8rem;
+    //   }
+    //   h1 {
+    //     margin: 10px auto;
+    //     font-size: 3rem;
+    //   }
+    // `;
 
     let metaData = (
-      <Post>
+      <div>
         <a href={this.props.children.props.href} target="_blank">
           <h1>{this.state.title}</h1>
           <p>{this.state.description}</p>
           <img src={this.state.image} alt="" />
         </a>
-      </Post>
+      </div>
     );
     return <div>{metaData}</div>;
   }
