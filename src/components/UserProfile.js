@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import MetadataParse from './MetadataParse';
 
 const UserWrapper = styled.div`
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
+  width: 90%;
 `;
 
 const Container = styled.div`
@@ -19,7 +20,7 @@ const Container = styled.div`
 `;
 
 const SubContainer = styled.div`
-  max-width: 875px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
   display: flex;
@@ -49,12 +50,13 @@ const Cards = styled.div`
 `;
 
 const Card = styled.div`
-  // display: flex;
-  width: 47%;
-  width: 400px;
-  // height: 200px;
+  display: flex;
+  width: 30%;
+  // width: 500px;
+  // height: 720px;
   overflow: hidden;
   border: solid 1px lightgrey;
+
   // margin: 15px 15px 15px 0;
   p {
     display: none; // CHANGE LATER
@@ -65,9 +67,11 @@ const Card = styled.div`
     font-size: 2.4rem;
     text-align: center;
   }
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   img {
-    width: 100%;
+    max-width: 100%;
+    display: block;
+    object-fit: fill;
   }
 `;
 
