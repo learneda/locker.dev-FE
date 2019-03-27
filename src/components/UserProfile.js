@@ -119,7 +119,7 @@ class UserProfile extends Component {
         <Container>
           <SubContainer>
             <User>
-              <img src={this.state.picture} />
+              <img src={this.state.picture} alt="avatar" />
               <div>{this.state.name}</div>
             </User>
             <h1>My Courses: {this.state.courses.length}</h1>
@@ -127,7 +127,7 @@ class UserProfile extends Component {
               {this.state.courses.map(course => (
                 <Card>
                   <MetadataParse>
-                    <a href={course} />
+                    <span href={course} />
                   </MetadataParse>
                 </Card>
               ))}
@@ -141,7 +141,7 @@ class UserProfile extends Component {
                 // }}
                 >
                   <MetadataParse>
-                    <a href={article} />
+                    <span href={article} />
                   </MetadataParse>
                 </Card>
               ))}
