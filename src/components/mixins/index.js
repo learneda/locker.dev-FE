@@ -19,6 +19,7 @@ export const Container = styled.div`
 
 export const Wrapper = styled.div`
   // border: 1px solid blue;
+  max-width: 1000px;
   width: 80%;
   margin: 0 auto;
 `;
