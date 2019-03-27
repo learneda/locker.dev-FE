@@ -21,7 +21,6 @@ const Container = styled.div`
 `;
 
 const SubContainer = styled.div`
-  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
   display: flex;
@@ -70,7 +69,8 @@ const Card = styled.div`
   }
   margin-bottom: 30px;
   img {
-    max-width: 100%;
+    width: 100%;
+    height: 100%;
     display: block;
     object-fit: fill;
   }
@@ -129,7 +129,11 @@ class UserProfile extends Component {
             <h1>My Articles: {this.state.articles.length}</h1>
             <Cards>
               {this.state.articles.map(article => (
-                <Card>
+                <Card
+                // style={{
+                //   flexGrow: this.state.articles.length % 3 == 0 ? '0' : '1'
+                // }}
+                >
                   <MetadataParse>
                     <a href={article} />
                   </MetadataParse>
