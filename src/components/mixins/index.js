@@ -12,13 +12,13 @@ export const customLayout = (justify = 'flex-start', align = 'flex-start') =>
   align-items: ${align};`;
 
 export const Container = styled.div`
-  border: 1px solid green;
+  // border: 1px solid green;
   width: 100%;
   background-color: ${bgColor};
 `;
 
 export const Wrapper = styled.div`
-  border: 1px solid blue;
+  // border: 1px solid blue;
   width: 80%;
   margin: 0 auto;
 `;
