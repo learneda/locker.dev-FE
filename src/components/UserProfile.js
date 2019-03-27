@@ -21,7 +21,6 @@ const Container = styled.div`
 `;
 
 const SubContainer = styled.div`
-  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
   display: flex;
@@ -41,6 +40,7 @@ const User = styled.div`
   justify-content: space-between;
   align-content: flex-start;
   max-width: 300px;
+  margin-bottom: 50px;
 `;
 
 const Cards = styled.div`
@@ -57,7 +57,12 @@ const Card = styled.div`
   // height: 720px;
   overflow: hidden;
   border: solid 1px lightgrey;
-
+  @media (max-width: 1092px) {
+    width: 45%;
+  }
+  @media (max-width: 692px) {
+    width: 100%;
+  }
   // margin: 15px 15px 15px 0;
   p {
     display: none; // CHANGE LATER
@@ -70,7 +75,8 @@ const Card = styled.div`
   }
   margin-bottom: 30px;
   img {
-    max-width: 100%;
+    width: 100%;
+    height: 100%;
     display: block;
     object-fit: fill;
   }
@@ -129,7 +135,11 @@ class UserProfile extends Component {
             <h1>My Articles: {this.state.articles.length}</h1>
             <Cards>
               {this.state.articles.map(article => (
-                <Card>
+                <Card
+                // style={{
+                //   flexGrow: this.state.articles.length % 3 == 0 ? '0' : '1'
+                // }}
+                >
                   <MetadataParse>
                     <a href={article} />
                   </MetadataParse>
