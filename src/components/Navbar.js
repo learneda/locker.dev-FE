@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { customLayout, Wrapper, hoverBg } from './mixins';
 import Auth from './Auth';
+import {Link} from 'react-router-dom'
 
 const Nav = styled.nav`
   ${customLayout('space-between', 'center')}
@@ -15,10 +16,11 @@ const Nav = styled.nav`
   ul {
     ${customLayout('space-between')}
 
-    a {
+    span {
       padding: 10px;
       font-weight: 700;
       border: transparent;
+      cursor: pointer;
 
       &:hover {
         border: 1px solid ${hoverBg} transparent;
@@ -37,28 +39,26 @@ const Navbar = () => {
       <Wrapper>
         <Nav>
           <h1>
-            <a href="#">Learned</a>
+            <Link to='/home'>Learned</Link>
           </h1>
           <ul>
             <li>
-              <a
-                href="#"
+              <span
                 onClick={() =>
                   (document.querySelector('.login').style.display = 'flex')
                 }
               >
                 Log In
-              </a>
+              </span>
             </li>
             <li>
-              <a
-                href="#"
+              <span
                 onClick={() =>
                   (document.querySelector('.login').style.display = 'flex')
                 }
               >
                 Sign Up
-              </a>
+              </span>
             </li>
           </ul>
         </Nav>
