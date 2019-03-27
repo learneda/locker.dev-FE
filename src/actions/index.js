@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { FETCH_USER, FETCH_COURSES, FETCH_ARTICLES } from './types';
+import { FETCH_USER, FETCH_COURSES, FETCH_ARTICLES, ADD_LINK } from './types';
+import { url } from '../services/baseURL';
 
 export const getCourses = () => async dispatch => {
   const res = await axios.get(`http://localhost:8000/api/courses`);
@@ -10,4 +11,9 @@ export const getCourses = () => async dispatch => {
 export const getArticles = () => async dispatch => {
   const res = await axios.get(`http://localhost:8000/api/articles`);
   dispatch({ type: FETCH_ARTICLES, payload: res.data });
+};
+
+export const addLinktoHome = post => async dispatch => {
+  const res = await axios.post(`${url}/posts`, post);
+  dispatch({ type: ADD_LINK, payload: res.data });
 };
