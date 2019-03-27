@@ -1,0 +1,188 @@
+.login {
+  /* background: inherit; */
+  /* width: 450px;
+  height: 550px; */
+  position: fixed;
+  overflow: hidden;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 20;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  transition: 400ms;
+  animation: 400ms fadeIn;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.modal-fadeout {
+  animation: 400ms fadeOut;
+}
+/* img,
+p,
+h1,
+h2,
+h3,
+span {
+  filter: blur(10px);
+} */
+/* .login:before {
+  content: '';
+  width: 100%;
+  height: 100vh;
+  background: inherit;
+  position: absolute;
+  left: -25px;
+  right: 0;
+  top: -25px;
+  bottom: 0;
+  box-shadow: inset 0 0 0 200px rgba(255, 255, 255, 0.2);
+  filter: blur(10px);
+} */
+
+.login-content {
+  position: absolute;
+  color: #fff;
+  background: #fff;
+  border-radius: 7px;
+  /* height: 509px; */
+  transition: 400ms ease-in-out;
+}
+.login-content span {
+  padding: 20px;
+  width: 187px;
+  text-align: center;
+  font-size: 1.4rem;
+  opacity: 0.9;
+  color: #222;
+  cursor: pointer;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.login-content .not-current-view {
+  opacity: 0.7;
+  transition: 200ms ease-out;
+  background: rgb(226, 226, 226);
+  border: 1px solid #999;
+}
+
+.login-content .not-current-view:hover {
+  opacity: 1;
+  transition: 200ms ease-in;
+}
+
+.login-content form {
+  display: flex;
+  flex-direction: column;
+  max-width: 290px;
+  margin: auto;
+  margin-top: 15px;
+  -webkit-appearance: none;
+}
+.login-content form label {
+  margin-bottom: 7px;
+  /* color: #bebebe; */
+  color: #999;
+  font-size: 14px;
+}
+.login-content form input {
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  padding: 10px;
+  /* background: rgba(255, 255, 255, 0.1); */
+  margin-bottom: 20px;
+}
+.login-content form input:valid {
+  border: 1px solid #4163f2;
+  opacity: 1;
+}
+
+#submit {
+  margin-top: 10px;
+  background-color: #4163f2;
+  color: #fff;
+  padding: 14px;
+  font-size: 1rem;
+  letter-spacing: 0.08rem;
+  cursor: pointer;
+}
+#google {
+  display: flex;
+  align-items: center;
+  width: 240px;
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+  padding-top: 10px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: 200ms ease-out;
+}
+#google:hover {
+  opacity: 1;
+  transition: 200ms ease-in;
+}
+#google p {
+  text-align: center;
+  margin-left: 7px;
+  color: #222;
+}
+#google img {
+  max-width: 25px;
+}
+
+/* body {
+ 
+} */
+/* 
+body > *:not(#login) {
+  filter: blur(3px);
+} */
+
+.close-modal {
+  position: absolute;
+  right: -70px;
+  color: #fff;
+  top: -10px;
+  font-size: 6rem;
+  cursor: pointer;
+}
+
+.no_match {
+  background-image: url('../assets/img/bumble-bee-man-ay-yi-no-me-gusta.jpg');
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.no_match_content {
+  background-color: white;
+  width: 500px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  text-transform: uppercase;
+}
