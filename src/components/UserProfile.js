@@ -40,6 +40,7 @@ const User = styled.div`
   justify-content: space-between;
   align-content: flex-start;
   max-width: 300px;
+  margin-bottom: 50px;
 `;
 
 const Cards = styled.div`
