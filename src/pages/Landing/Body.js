@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Grommet } from 'grommet';
 import { FormNextLink } from 'grommet-icons';
 import styled from 'styled-components';
-import { buttonBg } from '../mixins';
+import { buttonBg } from '../../components/mixins';
 
 const theme = {
   button: {
