@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/Auth.css';
 import svg from '../assets/svg/google.svg';
+import {authURL} from '../services/authURL';
 export default class Auth extends Component {
   constructor() {
     super();
@@ -59,7 +60,7 @@ export default class Auth extends Component {
             <input name="password2" type="password" required />
             <input type="submit" id="submit" value="SIGN UP" />
             <div id="google">
-              <a href="https://learned-a.herokuapp.com/auth/google">
+              <a href={`${authURL}google`}>
                 <img src={svg} alt="" />
                 <p>Sign up with Google</p>
               </a>
@@ -77,7 +78,7 @@ export default class Auth extends Component {
             <input name="password" type="password" required />
             <input type="submit" id="submit" value="LOG IN" />
             <div id="google">
-              <a href="https://learned-a.herokuapp.com/auth/google">
+              <a href={`${authURL}google`}>
                 <img src={svg} alt="" />
                 <p>Log in with Google</p>
               </a>
