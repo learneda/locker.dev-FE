@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { customLayout, Wrapper, hoverBg } from './mixins';
+import Auth from './Auth';
 
 const Nav = styled.nav`
   ${customLayout('space-between', 'center')}
@@ -31,21 +32,38 @@ const Nav = styled.nav`
 const Navbar = () => {
   // if user not logged in/signed up
   return (
-    <Wrapper>
-      <Nav>
-        <h1>
-          <a href="#">Learned</a>
-        </h1>
-        <ul>
-          <li>
-            <a href="#">Log In</a>
-          </li>
-          <li>
-            <a href="#">Sign Up</a>
-          </li>
-        </ul>
-      </Nav>
-    </Wrapper>
+    <React.Fragment>
+      <Auth />
+      <Wrapper>
+        <Nav>
+          <h1>
+            <a href="#">Learned</a>
+          </h1>
+          <ul>
+            <li>
+              <a
+                href="#"
+                onClick={() =>
+                  (document.querySelector('.login').style.display = 'flex')
+                }
+              >
+                Log In
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                onClick={() =>
+                  (document.querySelector('.login').style.display = 'flex')
+                }
+              >
+                Sign Up
+              </a>
+            </li>
+          </ul>
+        </Nav>
+      </Wrapper>
+    </React.Fragment>
   );
   // when logged in:
   // return(
