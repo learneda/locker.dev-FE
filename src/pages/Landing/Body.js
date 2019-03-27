@@ -19,7 +19,7 @@ const theme = {
   }
 };
 
-const CallToAction = styled.h1`
+const CallToAction = styled.div`
   padding: 90px 0;
   h1 {
     padding-bottom: 45px;
