@@ -2,11 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { customLayout, Wrapper, hoverBg } from './mixins';
 import Auth from './Auth';
-<<<<<<< HEAD
 import { Link } from 'react-router-dom';
-=======
-import {Link} from 'react-router-dom'
->>>>>>> 05641242bdc3b6ff5ca4dafea5649075dc1e0003
 
 const Nav = styled.nav`
   ${customLayout('space-between', 'center')}
@@ -44,7 +40,7 @@ const Navbar = () => {
       <Wrapper>
         <Nav>
           <h1>
-            <Link to='/home'>Learned</Link>
+            <Link to="/home">Learned</Link>
           </h1>
           <ul>
             <li>
