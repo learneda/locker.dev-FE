@@ -128,8 +128,6 @@ span {
   cursor: pointer;
 }
 #google {
-  display: flex;
-  align-items: center;
   width: 240px;
   margin: auto;
   text-align: center;
@@ -138,6 +136,11 @@ span {
   cursor: pointer;
   opacity: 0.7;
   transition: 200ms ease-out;
+}
+#google a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 #google:hover {
   opacity: 1;
