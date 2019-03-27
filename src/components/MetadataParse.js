@@ -47,13 +47,13 @@ export default class MetadataParse extends Component {
     // `;
 
     let metaData = (
-      <div>
+      <React.Fragment>
         <a href={this.props.children.props.href} target="_blank">
           <h1>{this.state.title}</h1>
           <p>{this.state.description}</p>
           <img src={this.state.image} alt="" />
         </a>
-      </div>
+      </React.Fragment>
     );
     return <div>{metaData}</div>;
   }
