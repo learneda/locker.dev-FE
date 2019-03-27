@@ -56,7 +56,12 @@ const Card = styled.div`
   // height: 720px;
   overflow: hidden;
   border: solid 1px lightgrey;
-
+  @media (max-width: 1092px) {
+    width: 45%;
+  }
+  @media (max-width: 692px) {
+    width: 100%;
+  }
   // margin: 15px 15px 15px 0;
   p {
     display: none; // CHANGE LATER
