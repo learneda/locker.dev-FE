@@ -31,6 +31,7 @@ class Browse extends Component {
                       <a
                         href={`https://www.udemy.com${course.url}`}
                         target="_blank"
+                        rel="noopener noreferrer"
                       >
                         <img
                           src={course.image_480x270}
@@ -56,7 +57,11 @@ class Browse extends Component {
                 ) : (
                   articles.map(article => (
                     <Card key={article.created}>
-                      <a href={article.url} target="_blank">
+                      <a
+                        href={article.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <img src={article.thumbnail} alt="article-thumbnail" />
                         <h3>{article.title}</h3>
                         <p>{article.description}</p>
