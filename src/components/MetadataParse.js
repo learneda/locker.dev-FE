@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import { post } from '../services/postURL';
 
 export default class MetadataParse extends Component {
@@ -20,15 +19,16 @@ export default class MetadataParse extends Component {
     });
   }
   render() {
-    let metaData = (
-      <React.Fragment>
-        <a href={this.props.children.props.href} target="_blank">
-          <h1>{this.state.title}</h1>
-          <p>{this.state.description}</p>
-          <img src={this.state.image} alt="" />
-        </a>
-      </React.Fragment>
+    return (
+      <a
+        href={this.props.children.props.href}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <h1>{this.state.title}</h1>
+        <p>{this.state.description}</p>
+        <img src={this.state.image} alt="" />
+      </a>
     );
-    return <div>{metaData}</div>;
   }
 }

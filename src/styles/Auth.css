@@ -173,7 +173,7 @@ body > *:not(#login) {
 }
 
 .no_match {
-  background-image: url('../images/bumble-bee-man-ay-yi-no-me-gusta.jpg');
+  background-image: url('../assets/img/bumble-bee-man-ay-yi-no-me-gusta.jpg');
   height: 100vh;
   display: flex;
   justify-content: center;

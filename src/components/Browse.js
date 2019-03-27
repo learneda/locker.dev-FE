@@ -5,6 +5,7 @@ import { getCourses, getArticles } from '../actions';
 import { Tab, Tabs } from 'grommet';
 import { Wrapper, customLayout } from './mixins';
 import styled from 'styled-components';
+import { ReactComponent as Add } from '../assets/svg/add-icon.svg';
 
 class Browse extends Component {
   componentDidMount() {
@@ -31,11 +32,13 @@ class Browse extends Component {
                       <a
                         href={`https://www.udemy.com${course.url}`}
                         target="_blank"
+                        rel="noopener noreferrer"
                       >
                         <img
                           src={course.image_480x270}
                           alt="course-thumbnail"
                         />
+                        <Add className="save-icon" />
                         <h3>{course.title}</h3>
                         <p>
                           Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -56,8 +59,13 @@ class Browse extends Component {
                 ) : (
                   articles.map(article => (
                     <Card key={article.created}>
-                      <a href={article.url} target="_blank">
+                      <a
+                        href={article.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <img src={article.thumbnail} alt="article-thumbnail" />
+                        <Add className="save-icon" />
                         <h3>{article.title}</h3>
                         <p>{article.description}</p>
                       </a>
@@ -96,12 +104,19 @@ const Card = styled.div`
   margin-bottom: 30px;
   background-color: #fff;
   cursor: pointer;
+  position: relative;
 
   img {
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
     width: 100%;
     height: 180px;
+  }
+
+  .save-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
   }
 
   h3 {
