@@ -168,3 +168,21 @@ body > *:not(#login) {
   font-size: 6rem;
   cursor: pointer;
 }
+
+.no_match {
+  background-image: url('../images/bumble-bee-man-ay-yi-no-me-gusta.jpg');
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.no_match_content {
+  background-color: white;
+  width: 500px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  text-transform: uppercase;
+}

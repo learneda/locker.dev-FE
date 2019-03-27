@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import UserProfile from './components/UserProfile';
 import Homepage from './components/Homepage';
 import Browse from './components/Browse';
+import NoMatch from './components/NoMatch';
 
 import { Container } from './components/mixins';
 
@@ -18,6 +19,7 @@ export default function App() {
         <Route component={Homepage} path="/home" />
         <Route component={Browse} path="/browse" />
         <Route component={UserProfile} path="/profile" />
+        <Route component={NoMatch}/>
       </Switch>
     </Container>
   );
