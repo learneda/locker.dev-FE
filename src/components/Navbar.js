@@ -1,10 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
-import { customLayout, Wrapper, hoverBg } from './mixins';
-import Auth from './Auth';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
+
+import Auth from './Auth';
+import { customLayout, Wrapper, hoverBg } from './mixins';
 import { modalState } from '../actions/index';
+import { authURL } from '../services/authURL';
 
 const Nav = styled.nav`
   ${customLayout('space-between', 'center')}
@@ -34,11 +36,9 @@ const Nav = styled.nav`
   }
 `;
 
-const Navbar = props => {
-  // if user not logged in/signed up
-  return (
-    <React.Fragment>
-      <Auth />
+const Navbar = ({ modalState, auth }) => {
+  if (auth) {
+    return (
       <Wrapper>
         <Nav>
           <h1>
@@ -46,31 +46,52 @@ const Navbar = props => {
           </h1>
           <ul>
             <li>
-              <span onClick={props.modalState}>Log In</span>
+              <Link to="/browse">
+                <span>Browse</span>
+              </Link>
             </li>
             <li>
-              <span onClick={props.modalState}>Sign Up</span>
+              <Link to="/profile">
+                <span>Profile</span>
+              </Link>
+            </li>
+            <li>
+              <span>
+                <a href={`${authURL}logout`}>Logout</a>
+              </span>
             </li>
           </ul>
         </Nav>
       </Wrapper>
-    </React.Fragment>
-  );
-  // when logged in:
-  // return(
-  //   <Nav>
-  //     <a href="#">Lernedd</a>
-  //     <ul>
-  //     <li><a href="#">Home</a></li>
-  //     <li><a href="#">Browse</a></li>
-  //     <li><a href="#">Profile</a></li> {/* Dropdown for log out*/}
-  //     </ul>
-  //   </Nav>
-  // );
+    );
+  } else {
+    return (
+      <React.Fragment>
+        <Auth />
+        <Wrapper>
+          <Nav>
+            <h1>
+              <Link to="/home">Learned</Link>
+            </h1>
+            <ul>
+              <li>
+                <span onClick={modalState}>Log In</span>
+              </li>
+              <li>
+                <span onClick={modalState}>Sign Up</span>
+              </li>
+            </ul>
+          </Nav>
+        </Wrapper>
+      </React.Fragment>
+    );
+  }
 };
-const mapStateToProps = state => {
+
+const mapStateToProps = ({ modalState, auth }) => {
   return {
-    modalOpen: state.modalState.modalOpen
+    modalOpen: modalState.modalOpen,
+    auth
   };
 };
 
