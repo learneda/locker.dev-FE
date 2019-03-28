@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getCourses, getArticles } from '../actions';
+import { getCourses, getArticles, saveLink } from '../actions';
 
 import { Tab, Tabs } from 'grommet';
 import { Wrapper, customLayout } from './mixins';
@@ -142,11 +142,12 @@ const mapStateToProps = state => {
   console.log('STATE', state);
   return {
     courses: state.browse.courses,
-    articles: state.browse.articles
+    articles: state.browse.articles,
+    posts: state.post.posts
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getCourses, getArticles }
+  { getCourses, getArticles, saveLink }
 )(Browse);
