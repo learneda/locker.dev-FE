@@ -8,9 +8,15 @@ import {
 } from './types';
 import { post as URL } from '../services/baseURL';
 
+export const fetchUser = () => async dispatch => {
+  const res = await axios.get(`${URL}/auth/current_user`, {
+    withCredentials: true
+  });
+  dispatch({ type: FETCH_USER, payload: res.data });
+};
+
 export const getCourses = () => async dispatch => {
   const res = await axios.get(`${URL}/api/courses`);
-  console.log('RES', res);
   dispatch({ type: FETCH_COURSES, payload: res.data });
 };
 
@@ -20,10 +26,7 @@ export const getArticles = () => async dispatch => {
 };
 
 export const modalState = () => async dispatch => {
-  console.log('hi from actions');
-  dispatch({
-    type: AUTH_MODAL_DISPLAY
-  });
+  dispatch({ type: AUTH_MODAL_DISPLAY });
 };
 
 export const saveLink = post => async dispatch => {
