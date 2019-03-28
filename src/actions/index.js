@@ -9,7 +9,7 @@ import {
 export const getCourses = () => async dispatch => {
   const res = await axios.get(`http://localhost:8000/api/courses`);
   console.log('RES', res);
-  dispatch({ type: FETCH_COURSES, payload: res.data.results });
+  dispatch({ type: FETCH_COURSES, payload: res.data });
 };
 
 export const getArticles = () => async dispatch => {
