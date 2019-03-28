@@ -35,7 +35,10 @@ class Browse extends Component {
                         rel="noopener noreferrer"
                       >
                         <img src={course.thumbnail} alt="course-thumbnail" />
-                        <Add className="save-icon" />
+                        <Add
+                          className="save-icon"
+                          onClick={() => this.props.saveLink(course.url)}
+                        />
                         <h3>{course.title}</h3>
                         <p>{course.description}</p>
                       </a>
@@ -58,7 +61,10 @@ class Browse extends Component {
                         rel="noopener noreferrer"
                       >
                         <img src={article.thumbnail} alt="article-thumbnail" />
-                        <Add className="save-icon" />
+                        <Add
+                          className="save-icon"
+                          onClick={() => this.props.saveLink(article.url)}
+                        />
                         <h3>{article.title}</h3>
                         <p>{article.description}</p>
                       </a>
@@ -142,8 +148,7 @@ const mapStateToProps = state => {
   console.log('STATE', state);
   return {
     courses: state.browse.courses,
-    articles: state.browse.articles,
-    posts: state.post.posts
+    articles: state.browse.articles
   };
 };
 
