@@ -3,7 +3,9 @@ import '../styles/Auth.css';
 import googleSvg from '../assets/svg/google.svg';
 import githubSvg from '../assets/svg/github.svg';
 import { authURL } from '../services/authURL';
-export default class Auth extends Component {
+import { connect } from 'react-redux';
+import { modalState } from '../actions/index';
+class Auth extends Component {
   constructor() {
     super();
     this.state = {
@@ -14,14 +16,16 @@ export default class Auth extends Component {
         email: '',
         password: '',
         password2: ''
-      },
-      modalOpen: false
+      }
+      // modalOpen: false
     };
   }
   onSubmit = e => {
     console.log(e);
   };
-
+  componentDidMount() {
+    console.log(this.props);
+  }
   render() {
     let authForm = '';
 
@@ -87,11 +91,18 @@ export default class Auth extends Component {
       );
     }
     return (
-      <div className="login" id="login">
+      <div
+        className="login"
+        id="login"
+        style={{ display: this.props.modalOpen ? 'flex' : 'none' }}
+      >
         <div className="login-content">
           <div
             className="close-modal"
-            onClick={() => this.setState({ modalOpen: !this.state.modalOpen })}
+            // onClick={() => this.setState({ modalOpen: !this.state.modalOpen })}
+            onClick={() => {
+              this.props.modalState();
+            }}
           >
             &times;
           </div>
@@ -123,3 +134,13 @@ export default class Auth extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  console.log('auth component state', state.modalState.modalOpen);
+  return {
+    modalOpen: state.modalState.modalOpen
+  };
+};
+export default connect(
+  mapStateToProps,
+  { modalState }
+)(Auth);
