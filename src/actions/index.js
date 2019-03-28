@@ -3,7 +3,8 @@ import {
   FETCH_USER,
   FETCH_COURSES,
   FETCH_ARTICLES,
-  AUTH_MODAL_DISPLAY
+  AUTH_MODAL_DISPLAY,
+  SAVE_LINK
 } from './types';
 import { post as URL } from '../services/baseURL';
 

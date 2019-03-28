@@ -1,4 +1,4 @@
-import { SAVE_LINK } from '../actions/types';
+import { SAVE_LINK, ERROR } from '../actions/types';
 
 const initialState = {
   posts: []
