@@ -36,7 +36,6 @@ const Nav = styled.nav`
 
 const Navbar = props => {
   // if user not logged in/signed up
-  console.log(props);
   return (
     <React.Fragment>
       <Auth />
@@ -70,7 +69,6 @@ const Navbar = props => {
   // );
 };
 const mapStateToProps = state => {
-  console.log('auth component state', state.modalState.modalOpen);
   return {
     modalOpen: state.modalState.modalOpen
   };
