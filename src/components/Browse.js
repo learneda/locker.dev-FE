@@ -30,21 +30,14 @@ class Browse extends Component {
                   courses.map(course => (
                     <Card key={course.course_id}>
                       <a
-                        href={`https://www.udemy.com${course.url}`}
+                        href={course.url}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <img
-                          src={course.image_480x270}
-                          alt="course-thumbnail"
-                        />
+                        <img src={course.thumbnail} alt="course-thumbnail" />
                         <Add className="save-icon" />
                         <h3>{course.title}</h3>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua.
-                        </p>
+                        <p>{course.description}</p>
                       </a>
                     </Card>
                   ))
