@@ -30,6 +30,6 @@ export const modalState = () => async dispatch => {
 };
 
 export const saveLink = post => async dispatch => {
-  const res = await axios.get(`${URL}/api/posts`, post);
+  const res = await axios.post(`${URL}/api/posts`, post);
   dispatch({ type: SAVE_LINK, payload: res.data });
 };
