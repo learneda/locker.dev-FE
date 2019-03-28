@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { customLayout, Wrapper, hoverBg } from './mixins';
 import Auth from './Auth';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { modalState } from '../actions/index';
 
 const Nav = styled.nav`
   ${customLayout('space-between', 'center')}
@@ -32,8 +34,9 @@ const Nav = styled.nav`
   }
 `;
 
-const Navbar = () => {
+const Navbar = props => {
   // if user not logged in/signed up
+  console.log(props);
   return (
     <React.Fragment>
       <Auth />
@@ -44,22 +47,10 @@ const Navbar = () => {
           </h1>
           <ul>
             <li>
-              <span
-                onClick={() =>
-                  (document.querySelector('.login').style.display = 'flex')
-                }
-              >
-                Log In
-              </span>
+              <span onClick={props.modalState}>Log In</span>
             </li>
             <li>
-              <span
-                onClick={() =>
-                  (document.querySelector('.login').style.display = 'flex')
-                }
-              >
-                Sign Up
-              </span>
+              <span onClick={props.modalState}>Sign Up</span>
             </li>
           </ul>
         </Nav>
@@ -78,5 +69,14 @@ const Navbar = () => {
   //   </Nav>
   // );
 };
+const mapStateToProps = state => {
+  console.log('auth component state', state.modalState.modalOpen);
+  return {
+    modalOpen: state.modalState.modalOpen
+  };
+};
 
-export default Navbar;
+export default connect(
+  mapStateToProps,
+  { modalState }
+)(Navbar);

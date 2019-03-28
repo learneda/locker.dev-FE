@@ -7,3 +7,5 @@ export const FETCH_COURSES = 'FETCH_COURSES';
 export const FETCH_ARTICLES = 'FETCH_ARTICLES';
 
 export const ERROR = 'ERROR';
+
+export const AUTH_MODAL_DISPLAY = 'AUTH_MODAL_DISPLAY';
