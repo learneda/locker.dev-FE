@@ -1,16 +1,9 @@
-import { AUTH_MODAL_DISPLAY } from '../actions/types';
-const initalState = {
-  modalOpen: false
-};
-export const authReducer = (state = initalState, action) => {
+import { FETCH_USER } from '../actions/types';
+
+export const authReducer = (state = null, action) => {
   switch (action.type) {
-    case AUTH_MODAL_DISPLAY: {
-      // console.log('redux working');
-      return {
-        ...state,
-        modalOpen: !state.modalOpen
-      };
-    }
+    case FETCH_USER:
+      return action.payload || false;
     default:
       return state;
   }
