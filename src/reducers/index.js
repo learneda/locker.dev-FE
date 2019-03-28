@@ -4,5 +4,6 @@ import { browseReducer } from './browseReducer';
 
 export default combineReducers({
   auth: authReducer,
-  browse: browseReducer
+  browse: browseReducer,
+  modalState: authReducer
 });
