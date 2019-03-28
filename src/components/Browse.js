@@ -28,7 +28,7 @@ class Browse extends Component {
                   <h3>Loading courses...</h3>
                 ) : (
                   courses.map(course => (
-                    <Card key={course.id}>
+                    <Card key={course.course_id}>
                       <a
                         href={`https://www.udemy.com${course.url}`}
                         target="_blank"
