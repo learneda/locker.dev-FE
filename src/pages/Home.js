@@ -3,7 +3,14 @@ import MetadataParse from '../components/MetadataParse';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { getPosts } from '../actions';
-const Post = styled.div`
+import Toggle from '../components/Toggle'
+
+class Home extends Component {
+  componentDidMount = () => this.props.getPosts();
+
+  render() {
+    console.log('this is props sammy', this.props);
+    const Post = styled.div`
       max-width: 1000px;
       margin: auto;
       text-align: center;
@@ -41,23 +48,16 @@ const Post = styled.div`
         max-width: 600px;
       }
     `;
-class Home extends Component {
-  componentDidMount = () => this.props.getPosts();
 
-  render() {
-    console.log('this is props sammy', this.props);
-    if (this.state.savedArticles.length <= 0) {
-      return (
-        <Toggles />
-      )
-    } else {
     return (
       <React.Fragment>
+        <Toggle />
         {/*<Post>
           <MetadataParse path={this.props.location.pathname}>
             <a href="https://riley.gg">test</a>
           </MetadataParse>
         </Post>
+
         <Post>
           <MetadataParse path={this.props.location.pathname}>
             <a href="https://www.youtube.com/watch?v=HSwjGP19rTg">test</a>
