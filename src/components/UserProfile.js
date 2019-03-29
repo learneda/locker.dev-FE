@@ -76,7 +76,7 @@ const Card = styled.div`
   margin-bottom: 30px;
   img {
     width: 100%;
-    height: 100%;
+    // height: 100%;
     display: block;
     object-fit: fill;
   }
@@ -91,7 +91,9 @@ class UserProfile extends Component {
       courses: [
         'https://www.youtube.com/watch?v=wqhNoDE6pb4',
         'https://www.youtube.com/watch?v=H6u0VBqNBQ8',
-        'https://udemy.com/coding-interview-bootcamp-algorithms-and-data-structure/'
+        'https://udemy.com/coding-interview-bootcamp-algorithms-and-data-structure/',
+        'https://www.udemy.com/react-front-to-back',
+        'https://www.youtube.com/watch?v=7co2v8vSaqU'
       ],
       articles: [
         'https://medium.freecodecamp.org/how-to-build-a-cli-tool-in-nodejs-bc4f67d898ec',
