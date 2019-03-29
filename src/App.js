@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import LandingPage from './pages/Landing';
 import Navbar from './components/Navbar';
 import UserProfile from './components/UserProfile';
-import Homepage from './components/Homepage';
+import Home from './pages/Home';
 import Browse from './components/Browse';
 import NoMatch from './components/NoMatch';
 
@@ -26,7 +26,7 @@ class App extends Component {
         <Navbar />
         <Switch>
           <Route component={LandingPage} exact path="/" />
-          <Route component={Homepage} path="/home" />
+          <Route component={Home} path="/home" />
           <Route component={Browse} path="/browse" />
           <Route component={UserProfile} path="/profile" />
           <Route component={NoMatch} />
