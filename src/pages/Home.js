@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import MetadataParse from '../components/MetadataParse';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { getPosts } from '../actions';
+import Toggle from '../components/Toggle';
 
 class Home extends Component {
   componentDidMount = () => this.props.getPosts();
@@ -53,6 +53,7 @@ class Home extends Component {
 
     return (
       <React.Fragment>
+        <Toggle />
         {this.props.posts.map(post => (
           <Post key={post.id}>
             <img src={post.thumbnail_url} alt="" />
