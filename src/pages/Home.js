@@ -56,9 +56,13 @@ class Home extends Component {
         <Toggle />
         {this.props.posts.map(post => (
           <Post key={post.id}>
-            <img src={post.thumbnail_url} alt="" />
+            <a href={post.post_url} target="_blank">
+              <img src={post.thumbnail_url} alt="" />
+            </a>
             <div>
-              <h1>{post.title}</h1>
+              <a href={post.post_url} target="_blank">
+                <h1>{post.title}</h1>
+              </a>
               <p>{post.description}</p>
             </div>
           </Post>
