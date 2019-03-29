@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import MetadataParse from '../components/MetadataParse';
 import styled from 'styled-components';
-import axios from 'axios'
+import axios from 'axios';
+import AddLinkPortal from '../components/AddLinkPortal'
+import Toggles from '../components/Toggle';
 axios.defaults.withCredentials = true;
 
 export default class Home extends Component {
@@ -15,7 +17,7 @@ export default class Home extends Component {
   componentDidMount(){
     axios.get('http://localhost:8000/api/posts').then((res) => {
       // res.data == array of savedArticles that belong to user
-      this.state.savedArticles.push(res.data)
+      res.data.map((post) => this.state.savedArticles.push(post))
     })
   }
   render() {
@@ -57,19 +59,20 @@ export default class Home extends Component {
     `;
     if (this.state.savedArticles.length <= 0) {
       return (
-        <div className='home_body'>
-          No articles saved
-        </div>
+        <Toggles />
       )
     } else {
     return (
-      <React.Fragment>
+      // <React.Fragment>
+        <div>
+          {/* <AddLinkPortal>
+            Add Link
+          </AddLinkPortal> */}
         <Post>
           <MetadataParse path={this.props.location.pathname}>
             <a href="https://riley.gg">test</a>
           </MetadataParse>
         </Post>
-
         <Post>
           <MetadataParse path={this.props.location.pathname}>
             <a href="https://www.youtube.com/watch?v=HSwjGP19rTg">test</a>
@@ -85,7 +88,8 @@ export default class Home extends Component {
             <a href="https://www.youtube.com/watch?v=93p3LxR9xfM">test</a>
           </MetadataParse>
         </Post>
-      </React.Fragment>
+        </div>
+      // </React.Fragment>
       );
     }
   }
