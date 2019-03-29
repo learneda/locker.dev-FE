@@ -19,16 +19,31 @@ export default class MetadataParse extends Component {
     });
   }
   render() {
-    return (
-      <a
-        href={this.props.children.props.href}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <h1>{this.state.title}</h1>
-        <p>{this.state.description}</p>
-        <img src={this.state.image} alt="" />
-      </a>
-    );
+    let metaData = '';
+    if (this.props.path === '/home') {
+      metaData = (
+        <React.Fragment>
+          <img src={this.state.image} alt="" />
+          <div>
+            <h1>{this.state.title}</h1>
+            <p>{this.state.description}</p>
+          </div>
+        </React.Fragment>
+      );
+    } else {
+      metaData = (
+        <a
+          href={this.props.children.props.href}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h1>{this.state.title}</h1>
+          <p>{this.state.description}</p>
+          <img src={this.state.image} alt="" />
+        </a>
+      );
+    }
+
+    return <React.Fragment>{metaData}</React.Fragment>;
   }
 }
