@@ -29,7 +29,6 @@ export const modalState = () => async dispatch => {
 };
 
 export const saveLink = post => async dispatch => {
-  console.log('this is save', post);
   const res = await axios.post(`${URL}/api/posts`, { post_url: post });
   dispatch({ type: SAVE_LINK, payload: res.data });
 };
