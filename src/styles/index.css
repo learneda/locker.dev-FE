@@ -39,12 +39,7 @@ html {
 body {
   font-size: 1.6rem;
   line-height: 1;
-<<<<<<< HEAD
-  background-color: #e6e9f3;
-  border:2px solid yellow;
-=======
   background-color: rgb(230, 233, 243); 
->>>>>>> b59f1089e342ffc82faa6e1f96a2b6c814550a36
 }
 ol, ul {
   list-style: none;

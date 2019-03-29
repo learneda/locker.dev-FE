@@ -3,13 +3,7 @@ import MetadataParse from '../components/MetadataParse';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { getPosts } from '../actions';
-
-class Home extends Component {
-  componentDidMount = () => this.props.getPosts();
-
-  render() {
-    console.log('this is props sammy', this.props);
-    const Post = styled.div`
+const Post = styled.div`
       max-width: 1000px;
       margin: auto;
       text-align: center;
@@ -47,6 +41,11 @@ class Home extends Component {
         max-width: 600px;
       }
     `;
+class Home extends Component {
+  componentDidMount = () => this.props.getPosts();
+
+  render() {
+    console.log('this is props sammy', this.props);
     if (this.state.savedArticles.length <= 0) {
       return (
         <Toggles />
