@@ -39,6 +39,7 @@ html {
 body {
   font-size: 1.6rem;
   line-height: 1;
+  background-color: rgb(230, 233, 243); 
 }
 ol, ul {
   list-style: none;
