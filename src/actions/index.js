@@ -4,7 +4,8 @@ import {
   FETCH_COURSES,
   FETCH_ARTICLES,
   AUTH_MODAL_DISPLAY,
-  SAVE_LINK
+  SAVE_LINK,
+  FETCH_POSTS
 } from './types';
 import { post as URL } from '../services/baseURL';
 axios.defaults.withCredentials = true;
@@ -31,4 +32,11 @@ export const modalState = () => async dispatch => {
 export const saveLink = post => async dispatch => {
   const res = await axios.post(`${URL}/api/posts`, { post_url: post });
   dispatch({ type: SAVE_LINK, payload: res.data });
+};
+
+export const getPosts = () => async dispatch => {
+  console.log('in here');
+  const res = await axios.get(`${URL}/api/posts`);
+  console.log('resss data', res.data);
+  dispatch({ type: FETCH_POSTS, payload: res.data });
 };
