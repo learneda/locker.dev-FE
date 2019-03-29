@@ -88,8 +88,6 @@ class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      picture: 'https://avatars3.githubusercontent.com/u/28912696?s=400&v=4',
-      name: 'Sam',
       courses: [
         'https://www.youtube.com/watch?v=wqhNoDE6pb4',
         'https://www.youtube.com/watch?v=H6u0VBqNBQ8',
