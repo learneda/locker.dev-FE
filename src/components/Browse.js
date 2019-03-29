@@ -14,17 +14,14 @@ class Browse extends Component {
   componentDidMount() {
     this.props.getCourses();
     this.props.getArticles();
-    this.handleSaveLink('https://github.com/learneda/labs11_learned_a-FE', '3');
   }
 
   handleSaveLink = url => {
-    console.log('props autht', this.props);
     if (this.props.auth) {
       axios.post(`${URL}/api/posts`, {
         post_url: url,
         id: this.props.auth.id
       });
-      console.log('click');
     }
   };
 
@@ -168,7 +165,6 @@ const Card = styled.div`
 `;
 
 const mapStateToProps = state => {
-  console.log('STATE', state);
   return {
     courses: state.browse.courses,
     articles: state.browse.articles,
