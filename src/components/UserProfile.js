@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import MetadataParse from './MetadataParse';
 import { Wrapper } from './mixins';
+import {connect} from 'react-redux';
 
 // const UserWrapper = styled.div`
 //   max-width: 1200px;
@@ -105,24 +106,25 @@ class UserProfile extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   const api = '';
-  //   axios
-  //     .get(api)
-  //     .then(res => {
-  //       this.setState({ courses: res.data });
-  //     })
-  //     .catch(err => console.error(err));
-  // }
+  componentDidMount() {
+    // const api = '';
+    // axios
+    //   .get(api)
+    //   .then(res => {
+    //     this.setState({ courses: res.data });
+    //   })
+    //   .catch(err => console.error(err));
+  }
 
   render() {
+    if (this.props.auth) {
     return (
       <Wrapper>
         <Container>
           <SubContainer>
             <User>
-              <img src={this.state.picture} alt="avatar" />
-              <div>{this.state.name}</div>
+              <img src={this.props.auth.profile_picture} alt="avatar" />
+              <div>{this.props.auth.display_name}</div>
             </User>
             <h1>My Courses: {this.state.courses.length}</h1>
             <Cards>
@@ -151,8 +153,18 @@ class UserProfile extends Component {
           </SubContainer>
         </Container>
       </Wrapper>
-    );
+    )
+  } else {
+    return (<div>LOADING </div>)
+    }
   }
 }
 
-export default UserProfile;
+
+const mapStateToProps = ({auth}) => {
+  return {
+    auth:auth
+  }
+}
+
+export default connect(mapStateToProps, {})(UserProfile)
