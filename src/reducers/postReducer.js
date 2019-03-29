@@ -1,12 +1,9 @@
-import { ERROR } from '../actions/types';
+import { FETCH_POSTS } from '../actions/types';
 
-const initialState = {
-  posts: []
-};
-export const postReducer = (state = initialState, action) => {
+export const postReducer = (state = [], action) => {
   switch (action.type) {
-    case ERROR:
-      return { ...state, error: action.payload };
+    case FETCH_POSTS:
+      return action.payload;
     default:
       return state;
   }
