@@ -38,6 +38,8 @@ class Home extends Component {
         margin: 10px auto;
         font-size: 1.8rem;
         text-align: justify;
+        word-break: break-all;
+        line-height: 1.5;
       }
       h1 {
         margin: 10px auto;
