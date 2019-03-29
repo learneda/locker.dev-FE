@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import MetadataParse from './MetadataParse';
 import { Wrapper } from './mixins';
 import { connect } from 'react-redux';
+import { getPosts } from '../actions';
 
 // const UserWrapper = styled.div`
 //   max-width: 1200px;
@@ -89,15 +90,58 @@ class UserProfile extends Component {
     super(props);
     this.state = {
       courses: [
-        'https://www.youtube.com/watch?v=wqhNoDE6pb4',
-        'https://www.youtube.com/watch?v=H6u0VBqNBQ8',
-        'https://www.youtube.com/watch?v=7co2v8vSaqU'
+        {
+          id: 1,
+          title: 'Complete Python Bootcamp: Learn Python Programming and Code',
+          description:
+            'Learn Python like a Professional! Start from the basics and go all the way to creating your own applications and games!',
+          thumbnail_url:
+            'https://udemy-images.udemy.com/course/480x270/567828_67d0.jpg'
+        },
+        {
+          id: 2,
+          title: 'Complete Java Masterclass (Updated for Java 10)',
+          description:
+            'Learn Java In This Course And Become a Computer Programmer. Obtain valuable Core Java Skills And Java Certification',
+          thumbnail_url:
+            'https://udemy-images.udemy.com/course/480x270/533682_c10c_4.jpg'
+        },
+        {
+          id: 3,
+          title: 'Microsoft Excel - Excel from Beginner to Advanced',
+          description:
+            'Excel with this A-Z Microsoft Excel Course. Microsoft Excel 2010, Excel 2013, Excel 2016',
+          thumbnail_url:
+            'https://udemy-images.udemy.com/course/480x270/793796_0e89.jpg'
+        }
       ],
       articles: [
-        'https://medium.freecodecamp.org/how-to-build-a-cli-tool-in-nodejs-bc4f67d898ec',
-        'https://medium.freecodecamp.org/how-i-style-my-websites-with-my-favorite-css-resets-7ace41dbc43d',
-        'https://medium.freecodecamp.org/my-experience-with-a-coding-bootcamp-and-whether-it-might-be-right-for-you-5c32b4ed0a8',
-        'https://medium.freecodecamp.org/an-animated-guide-to-flexbox-d280cf6afc35'
+        {
+          id: 1,
+          title:
+            'A practical guide to learning front end development for beginners',
+          description:
+            'I started my coding journey in spring 2018, a bit less than one year ago. I earned some programming skills since that time but still, I understand there are many more things to learn ahead. Anyway, I…',
+          thumbnail_url:
+            'https://cdn-images-1.medium.com/max/1200/0*TtYYyhF4qZTk2Bkj'
+        },
+        {
+          id: 2,
+          title:
+            "What I've learned about front-end development from age 12 to 22",
+          description:
+            "10 years ago, I made my first website. Now, my apps have over 300,000 users. Here's what I learned.",
+          thumbnail_url:
+            'https://cdn-images-1.medium.com/max/1200/1*xGnfXR-yLw17SStwT7v8wQ.png'
+        },
+        {
+          id: 3,
+          title: 'Learn the Dropbox API in 5 minutes',
+          description:
+            "This article will teach you the bare minimum you need to know in order to start creating apps on top of the Dropbox API. Once you've read it, you can also check out our free course on the Dropbox API…",
+          thumbnail_url:
+            'https://cdn-images-1.medium.com/max/1200/1*KOiao8Wi7g8KSNP2HfxssA.png'
+        }
       ]
     };
   }
@@ -126,9 +170,11 @@ class UserProfile extends Component {
               <Cards>
                 {this.state.courses.map(course => (
                   <Card>
-                    <MetadataParse>
-                      <span href={course} />
-                    </MetadataParse>
+                    <img src={course.thumbnail_url} alt="" />
+                    <div>
+                      <h1>{course.title}</h1>
+                      <p>{course.description}</p>
+                    </div>
                   </Card>
                 ))}
               </Cards>
@@ -140,9 +186,11 @@ class UserProfile extends Component {
                   //   flexGrow: this.state.articles.length % 3 == 0 ? '0' : '1'
                   // }}
                   >
-                    <MetadataParse>
-                      <span href={article} />
-                    </MetadataParse>
+                    <img src={article.thumbnail_url} alt="" />
+                    <div>
+                      <h1>{article.title}</h1>
+                      <p>{article.description}</p>
+                    </div>
                   </Card>
                 ))}
               </Cards>
@@ -159,10 +207,11 @@ class UserProfile extends Component {
 const mapStateToProps = ({ auth }) => {
   return {
     auth: auth
+    // posts: state.posts
   };
 };
 
 export default connect(
   mapStateToProps,
-  {}
+  { getPosts }
 )(UserProfile);
