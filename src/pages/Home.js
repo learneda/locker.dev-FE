@@ -73,9 +73,10 @@ class Home extends Component {
         </Post>*/}
         {this.props.posts.map(post => (
           <Post>
-            <MetadataParse path={this.props.location.pathname}>
-              <a href={post.post_url}>{post.metadata.title}</a>
-            </MetadataParse>
+            <h1>{post.title}</h1>
+            {/* <MetadataParse path={this.props.location.pathname}>
+              <a href={post.post_url}>{post.title}</a>
+            </MetadataParse> */}
           </Post>
         ))}
       </React.Fragment>
