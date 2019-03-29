@@ -12,8 +12,8 @@ export default class Home extends Component {
       margin: auto;
       text-align: center;
       display: flex;
-      margin-bottom: 40px;
-      border: 1px solid lightgrey;
+      margin-bottom: 50px;
+      border: 1px solid #555;
       border-radius: 6px;
       a {
         text-decoration: none;
@@ -36,6 +36,8 @@ export default class Home extends Component {
         margin: 10px auto;
         font-size: 1.8rem;
         text-align: justify;
+        word-break: break-all;
+        line-height: 1.5;
       }
       h1 {
         margin: 10px auto;
