@@ -3,6 +3,7 @@ import MetadataParse from '../components/MetadataParse';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { getPosts } from '../actions';
+import Toggle from '../components/Toggle'
 
 class Home extends Component {
   componentDidMount = () => this.props.getPosts();
@@ -50,6 +51,7 @@ class Home extends Component {
 
     return (
       <React.Fragment>
+        <Toggle />
         {/*<Post>
           <MetadataParse path={this.props.location.pathname}>
             <a href="https://riley.gg">test</a>
