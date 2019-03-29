@@ -1,17 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getCourses, getArticles, saveLink } from '../actions';
+import { getCourses, getArticles, fetchUser } from '../actions';
 
 import { Tab, Tabs } from 'grommet';
 import { Wrapper, customLayout } from './mixins';
 import styled from 'styled-components';
 import { ReactComponent as Add } from '../assets/svg/add-icon.svg';
+import axios from 'axios';
+import { post as URL } from '../services/baseURL';
+axios.defaults.withCredentials = true;
 
 class Browse extends Component {
   componentDidMount() {
     this.props.getCourses();
     this.props.getArticles();
+    this.handleSaveLink('https://github.com/learneda/labs11_learned_a-FE', '3');
   }
+
+  handleSaveLink = url => {
+    console.log('props autht', this.props);
+    if (this.props.auth) {
+      axios.post(`${URL}/api/posts`, {
+        post_url: url,
+        id: this.props.auth.id
+      });
+      console.log('click');
+    }
+  };
 
   render() {
     const { articles, courses } = this.props;
@@ -28,20 +43,26 @@ class Browse extends Component {
                   <h3>Loading courses...</h3>
                 ) : (
                   courses.map(course => (
-                    <Card key={course.course_id}>
+                    <Card key={course.id}>
                       <a
-                        href={course.url}
+                        href={`https://www.udemy.com${course.url}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <img src={course.thumbnail} alt="course-thumbnail" />
-                        <Add
-                          className="save-icon"
-                          onClick={() => this.props.saveLink(course.url)}
+                        <img
+                          src={course.image_480x270}
+                          alt="course-thumbnail"
                         />
                         <h3>{course.title}</h3>
-                        <p>{course.description}</p>
                       </a>
+                      <Add
+                        className="save-icon"
+                        onClick={() =>
+                          this.handleSaveLink(
+                            `https://www.udemy.com${course.url}`
+                          )
+                        }
+                      />
                     </Card>
                   ))
                 )}
@@ -61,13 +82,14 @@ class Browse extends Component {
                         rel="noopener noreferrer"
                       >
                         <img src={article.thumbnail} alt="article-thumbnail" />
-                        <Add
-                          className="save-icon"
-                          onClick={() => this.props.saveLink(article.url)}
-                        />
+
                         <h3>{article.title}</h3>
                         <p>{article.description}</p>
                       </a>
+                      <Add
+                        className="save-icon"
+                        onClick={() => this.handleSaveLink(article.url)}
+                      />
                     </Card>
                   ))
                 )}
@@ -116,6 +138,7 @@ const Card = styled.div`
     position: absolute;
     top: 5px;
     right: 5px;
+    z-index: 1;
   }
 
   h3 {
@@ -148,11 +171,12 @@ const mapStateToProps = state => {
   console.log('STATE', state);
   return {
     courses: state.browse.courses,
-    articles: state.browse.articles
+    articles: state.browse.articles,
+    auth: state.auth
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getCourses, getArticles, saveLink }
+  { getCourses, getArticles, fetchUser }
 )(Browse);
