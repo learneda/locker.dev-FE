@@ -1,25 +1,14 @@
 import React, { Component } from 'react';
 import MetadataParse from '../components/MetadataParse';
 import styled from 'styled-components';
-import axios from 'axios';
-import AddLinkPortal from '../components/AddLinkPortal'
-import Toggles from '../components/Toggle';
-axios.defaults.withCredentials = true;
+import { connect } from 'react-redux';
+import { getPosts } from '../actions';
 
-export default class Home extends Component {
-  constructor (props) {
-    super(props)
-   this.state = {
-      users: [],
-      savedArticles: []
-    }; 
-  }
-  componentDidMount(){
-    axios.get('http://localhost:8000/api/posts').then((res) => {
-      res.data.map((post) => this.state.savedArticles.push(post))
-    })
-  }
+class Home extends Component {
+  componentDidMount = () => this.props.getPosts();
+
   render() {
+    console.log('this is props sammy', this.props);
     const Post = styled.div`
       max-width: 1000px;
       margin: auto;
@@ -49,6 +38,8 @@ export default class Home extends Component {
         margin: 10px auto;
         font-size: 1.8rem;
         text-align: justify;
+        word-break: break-all;
+        line-height: 1.5;
       }
       h1 {
         margin: 10px auto;
@@ -62,12 +53,8 @@ export default class Home extends Component {
       )
     } else {
     return (
-      // <React.Fragment>
-        <div>
-          {/* <AddLinkPortal>
-            Add Link
-          </AddLinkPortal> */}
-        <Post>
+      <React.Fragment>
+        {/*<Post>
           <MetadataParse path={this.props.location.pathname}>
             <a href="https://riley.gg">test</a>
           </MetadataParse>
@@ -86,10 +73,26 @@ export default class Home extends Component {
           <MetadataParse path={this.props.location.pathname}>
             <a href="https://www.youtube.com/watch?v=93p3LxR9xfM">test</a>
           </MetadataParse>
-        </Post>
-        </div>
-      // </React.Fragment>
-      );
-    }
+        </Post>*/}
+        {this.props.posts.map(post => (
+          <Post>
+            <MetadataParse path={this.props.location.pathname}>
+              <a href={post.post_url}>{post.metadata.title}</a>
+            </MetadataParse>
+          </Post>
+        ))}
+      </React.Fragment>
+    );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    posts: state.posts
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { getPosts }
+)(Home);

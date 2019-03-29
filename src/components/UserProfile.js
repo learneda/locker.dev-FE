@@ -4,7 +4,6 @@ import MetadataParse from './MetadataParse';
 import { Wrapper } from './mixins';
 import { connect } from 'react-redux';
 
-
 // const UserWrapper = styled.div`
 //   max-width: 1200px;
 //   margin: 0 auto;
@@ -33,8 +32,9 @@ const SubContainer = styled.div`
 const User = styled.div`
   img {
     border-radius: 50%;
-    height: 150px;
+    height: auto;
     width: 150px;
+    margin-right: 20px;
   }
   font-size: 5rem;
   display: flex;
@@ -91,15 +91,12 @@ class UserProfile extends Component {
       courses: [
         'https://www.youtube.com/watch?v=wqhNoDE6pb4',
         'https://www.youtube.com/watch?v=H6u0VBqNBQ8',
-        'https://udemy.com/coding-interview-bootcamp-algorithms-and-data-structure/',
-        'https://www.udemy.com/react-front-to-back',
         'https://www.youtube.com/watch?v=7co2v8vSaqU'
       ],
       articles: [
         'https://medium.freecodecamp.org/how-to-build-a-cli-tool-in-nodejs-bc4f67d898ec',
         'https://medium.freecodecamp.org/how-i-style-my-websites-with-my-favorite-css-resets-7ace41dbc43d',
         'https://medium.freecodecamp.org/my-experience-with-a-coding-bootcamp-and-whether-it-might-be-right-for-you-5c32b4ed0a8',
-        'https://medium.freecodecamp.org/the-100-correct-way-to-do-css-breakpoints-88d6a5ba1862',
         'https://medium.freecodecamp.org/an-animated-guide-to-flexbox-d280cf6afc35'
       ]
     };
@@ -113,7 +110,6 @@ class UserProfile extends Component {
     //     this.setState({ courses: res.data });
     //   })
     //   .catch(err => console.error(err));
-
   }
 
   render() {
@@ -154,20 +150,19 @@ class UserProfile extends Component {
           </Container>
         </Wrapper>
       );
-    } else{
-      return (
-        <div>LOADING</div>
-      )
+    } else {
+      return <div>LOADING </div>;
     }
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ auth }) => {
   return {
-    auth: state.auth
+    auth: auth
   };
 };
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  {}
 )(UserProfile);
