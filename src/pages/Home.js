@@ -16,7 +16,6 @@ export default class Home extends Component {
   }
   componentDidMount(){
     axios.get('http://localhost:8000/api/posts').then((res) => {
-      // res.data == array of savedArticles that belong to user
       res.data.map((post) => this.state.savedArticles.push(post))
     })
   }

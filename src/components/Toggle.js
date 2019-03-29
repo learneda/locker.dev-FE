@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import AddLinkPortal from './AddLinkPortal';
 import axios from 'axios'
+import { connect } from 'react-redux';
+
 class Toggle extends Component {
   constructor (props) {
     super(props)
@@ -18,8 +20,13 @@ class Toggle extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8000/api/posts', {post_url: this.state.inputValue})
+    if (this.props.auth){
+      console.log('in handle submit')
+    axios.post('http://localhost:8000/api/posts', {post_url: this.state.inputValue, user_id: this.props.auth.id }).then((res) => {
+      console.log(res)
+    })
   }
+}
   render() {
     return (
       <div className='toggle'>
@@ -43,4 +50,9 @@ class Toggle extends Component {
   }
 };
 
-export default Toggle
+const mapStateToProps = ({auth}) => {
+  return auth
+};
+
+export default connect(mapStateToProps, {})(Toggle);
+
