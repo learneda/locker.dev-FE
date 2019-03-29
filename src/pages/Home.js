@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
 import MetadataParse from '../components/MetadataParse';
 import styled from 'styled-components';
+import axios from 'axios'
+axios.defaults.withCredentials = true;
 
 export default class Home extends Component {
-  state = {
-    users: []
-  };
+  constructor (props) {
+    super(props)
+   this.state = {
+      users: [],
+      savedArticles: []
+    }; 
+  }
+  componentDidMount(){
+    axios.get('http://localhost:8000/api/posts').then((res) => {
+      // res.data == array of savedArticles that belong to user
+      this.state.savedArticles.push(res.data)
+    })
+  }
   render() {
     const Post = styled.div`
       max-width: 1000px;
@@ -43,7 +55,13 @@ export default class Home extends Component {
         max-width: 600px;
       }
     `;
-
+    if (this.state.savedArticles.length <= 0) {
+      return (
+        <div className='home_body'>
+          No articles saved
+        </div>
+      )
+    } else {
     return (
       <React.Fragment>
         <Post>
@@ -68,6 +86,7 @@ export default class Home extends Component {
           </MetadataParse>
         </Post>
       </React.Fragment>
-    );
+      );
+    }
   }
 }

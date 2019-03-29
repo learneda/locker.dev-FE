@@ -189,3 +189,6 @@ body > *:not(#login) {
   font-weight: 600;
   text-transform: uppercase;
 }
+.home_body {
+  border: 2px solid red;
+}
