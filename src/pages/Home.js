@@ -12,18 +12,19 @@ class Home extends Component {
     const Post = styled.div`
       max-width: 1000px;
       margin: auto;
-      text-align: center;
       display: flex;
       margin-bottom: 50px;
-      border: 1px solid #555;
+      // border: 1px solid #555;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
       border-radius: 6px;
+      background-color: #fff;
       a {
         text-decoration: none;
         color: #444;
       }
       div {
         padding: 15px;
-        margin: 0 auto;
+        margin: 0 5px;
       }
 
       img {
@@ -31,7 +32,9 @@ class Home extends Component {
         border-radius: 6px;
         // margin-bottom: 60px;
         max-width: 320px;
-        max-height: 180px;
+        min-height: 201px;
+        height: 100%;
+        // align-self: center;
       }
       p {
         max-width: 600px;
@@ -50,33 +53,13 @@ class Home extends Component {
 
     return (
       <React.Fragment>
-        {/*<Post>
-          <MetadataParse path={this.props.location.pathname}>
-            <a href="https://riley.gg">test</a>
-          </MetadataParse>
-        </Post>
-
-        <Post>
-          <MetadataParse path={this.props.location.pathname}>
-            <a href="https://www.youtube.com/watch?v=HSwjGP19rTg">test</a>
-          </MetadataParse>
-        </Post>
-        <Post>
-          <MetadataParse path={this.props.location.pathname}>
-            <a href="https://www.youtube.com/watch?v=-W_VsLXmjJU">test</a>
-          </MetadataParse>
-        </Post>
-        <Post>
-          <MetadataParse path={this.props.location.pathname}>
-            <a href="https://www.youtube.com/watch?v=93p3LxR9xfM">test</a>
-          </MetadataParse>
-        </Post>*/}
         {this.props.posts.map(post => (
-          <Post>
-            <h1>{post.title}</h1>
-            {/* <MetadataParse path={this.props.location.pathname}>
-              <a href={post.post_url}>{post.title}</a>
-            </MetadataParse> */}
+          <Post key={post.id}>
+            <img src={post.thumbnail_url} alt="" />
+            <div>
+              <h1>{post.title}</h1>
+              <p>{post.description}</p>
+            </div>
           </Post>
         ))}
       </React.Fragment>
