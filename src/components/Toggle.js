@@ -18,6 +18,7 @@ class Toggle extends Component {
     this.setState({
       on: !this.state.on
     });
+    document.querySelector('#root').classList.toggle('root-modal-open');
   };
   handleSubmit = e => {
     e.preventDefault();
@@ -40,27 +41,29 @@ class Toggle extends Component {
         <img src={addSvg} alt="" onClick={() => this.toggle()} />
         {this.state.on && (
           <AddLinkPortal>
-            <div className="modal_">
-              <div className="top">
-                <div className="modal_name">Add a link</div>
-                <div className="modal_close" onClick={() => this.toggle()}>
-                  x
+            <div className="modal-wrapper">
+              <div className="modal_">
+                <div className="top">
+                  <div className="modal_name">Add a link</div>
+                  <div className="modal_close" onClick={() => this.toggle()}>
+                    x
+                  </div>
                 </div>
-              </div>
-              <div className="modal_group">
-                <form
-                  onSubmit={e => this.handleSubmit(e)}
-                  className="add_link_form"
-                >
-                  <input
-                    id="form-key"
-                    value={this.state.inputValue}
-                    onChange={this.handleChange}
-                    placeholder="www.example.com/article.html"
-                    type="input"
-                  />
-                  <button className="add-btn">add</button>
-                </form>
+                <div className="modal_group">
+                  <form
+                    onSubmit={e => this.handleSubmit(e)}
+                    className="add_link_form"
+                  >
+                    <input
+                      id="form-key"
+                      value={this.state.inputValue}
+                      onChange={this.handleChange}
+                      placeholder="www.example.com/article.html"
+                      type="input"
+                    />
+                    <button className="add-btn">add</button>
+                  </form>
+                </div>
               </div>
             </div>
           </AddLinkPortal>
