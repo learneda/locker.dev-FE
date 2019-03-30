@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import MetadataParse from './MetadataParse';
-import { Wrapper } from './mixins';
+import { Wrapper, customLayout } from './mixins';
 import { connect } from 'react-redux';
 import { getPosts } from '../actions';
-
-// const UserWrapper = styled.div`
-//   max-width: 1200px;
-//   margin: 0 auto;
-//   width: 80%;
-// `;
 
 const Container = styled.div`
   width: 100%;
@@ -47,42 +40,52 @@ const User = styled.div`
 `;
 
 const Cards = styled.div`
-  display: flex;
+  ${customLayout('space-between')}
   flex-wrap: wrap;
   width: 100%;
-  justify-content: space-between;
+  margin: 40px 0;
 `;
 
 const Card = styled.div`
-  display: flex;
+  border: 1px solid lightgrey;
+  border-radius: 6px;
   width: 30%;
-  // width: 500px;
-  // height: 720px;
-  overflow: hidden;
-  border: solid 1px lightgrey;
+  height: 350px;
+  margin-bottom: 30px;
+  background-color: #fff;
+  cursor: pointer;
+  position: relative;
+
+  img {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    width: 100%;
+    height: 180px;
+  }
   @media (max-width: 1092px) {
     width: 45%;
   }
   @media (max-width: 692px) {
     width: 100%;
   }
-  // margin: 15px 15px 15px 0;
-  p {
-    display: none; // CHANGE LATER
-  }
   h1 {
-    max-height: 24px;
+    // border: 1px solid red;
+    height: 50px;
+    margin: 10px 0;
+    padding: 0 2%;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 25px;
+    word-break: break-word;
     overflow: hidden;
-    font-size: 2.4rem;
-    text-align: center;
+  }
+  p {
+    padding: 0 2%;
+    font-size: 1.2rem;
+    line-height: 20px;
+    color: #6d767e;
   }
   margin-bottom: 30px;
-  img {
-    width: 100%;
-    // height: 100%;
-    display: block;
-    object-fit: fill;
-  }
 `;
 
 class UserProfile extends Component {
@@ -181,11 +184,7 @@ class UserProfile extends Component {
               <h1>My Articles: {this.state.articles.length}</h1>
               <Cards>
                 {this.state.articles.map(article => (
-                  <Card
-                  // style={{
-                  //   flexGrow: this.state.articles.length % 3 == 0 ? '0' : '1'
-                  // }}
-                  >
+                  <Card>
                     <img src={article.thumbnail_url} alt="" />
                     <div>
                       <h1>{article.title}</h1>
