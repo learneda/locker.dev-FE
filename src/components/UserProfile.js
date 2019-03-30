@@ -27,15 +27,15 @@ const User = styled.div`
   img {
     border-radius: 50%;
     height: auto;
-    width: 150px;
+    width: 130px;
     margin-right: 20px;
   }
   font-size: 5rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-content: flex-start;
-  max-width: 300px;
+  // max-width: 300px;
   margin-bottom: 50px;
 `;
 
@@ -43,15 +43,15 @@ const Cards = styled.div`
   ${customLayout('space-between')}
   flex-wrap: wrap;
   width: 100%;
-  margin: 40px 0;
+  margin: 10px 0 40px;
 `;
 
 const Card = styled.div`
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border: 1px solid lightgrey;
   border-radius: 6px;
   width: 30%;
   height: 350px;
-  margin-bottom: 30px;
   background-color: #fff;
   cursor: pointer;
   position: relative;
