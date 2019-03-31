@@ -58,7 +58,6 @@ class Toggle extends Component {
   render() {
     return (
       <div className="toggle">
-        {/* <button>Add Link</button> */}
         <img src={addSvg} alt="" onClick={() => this.toggle()} />
         {this.state.on && (
           <AddLinkPortal>
