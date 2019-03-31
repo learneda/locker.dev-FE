@@ -95,6 +95,9 @@ class Auth extends Component {
         className="login"
         id="login"
         style={{ display: this.props.modalOpen ? 'flex' : 'none' }}
+        onClick={e => {
+          if (e.target.className === 'login') this.props.modalState();
+        }}
       >
         <div className="login-content">
           <div
