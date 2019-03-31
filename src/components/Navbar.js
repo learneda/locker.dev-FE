@@ -11,8 +11,7 @@ import { authURL } from '../services/authURL';
 const Nav = styled.nav`
   ${customLayout('space-between', 'center')}
   padding: 30px 0;
-  position: sticky;
-  top: 0;
+  margin-bottom: 40px;
   h1 {
     font-size: 3rem;
     font-weight: 700;

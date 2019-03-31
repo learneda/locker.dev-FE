@@ -3,11 +3,15 @@ import AddLinkPortal from './AddLinkPortal';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import addSvg from '../assets/svg/add-link.svg';
+import { getPosts } from '../actions';
 
 class Toggle extends Component {
   constructor(props) {
     super(props);
-    this.state = { on: false, inputValue: '' };
+    this.state = {
+      on: false,
+      inputValue: ''
+    };
   }
 
   handleChange = event => {
@@ -21,16 +25,33 @@ class Toggle extends Component {
     document.querySelector('#root').classList.toggle('root-modal-open');
   };
   handleSubmit = e => {
+    // axios.post('http://localhost:8000/api/posts',
+    //     {
+    //       post_url: this.state.inputValue,
+    //       id: this.props.auth.id,
+    //     }
+    //   )
+    //   .then(res => {
+    //     console.log(res)
+    //   })
+    // }
     e.preventDefault();
+
     if (this.props.auth) {
       console.log('in handle submit');
       axios
         .post('http://localhost:8000/api/posts', {
           post_url: this.state.inputValue,
-          user_id: this.props.auth.id
+          id: this.props.auth.id
         })
         .then(res => {
-          console.log(res);
+          this.props.getPosts();
+          console.log(res.data);
+          this.setState({
+            inputValue: '',
+            on: false
+          });
+          document.querySelector('#root').classList.remove('root-modal-open');
         });
     }
   };
@@ -50,10 +71,7 @@ class Toggle extends Component {
                   </div>
                 </div>
                 <div className="modal_group">
-                  <form
-                    onSubmit={e => this.handleSubmit(e)}
-                    className="add_link_form"
-                  >
+                  <form onSubmit={this.handleSubmit} className="add_link_form">
                     <input
                       id="form-key"
                       value={this.state.inputValue}
@@ -74,10 +92,12 @@ class Toggle extends Component {
 }
 
 const mapStateToProps = ({ auth }) => {
-  return auth;
+  return {
+    auth: auth
+  };
 };
 
 export default connect(
   mapStateToProps,
-  {}
+  { getPosts }
 )(Toggle);
