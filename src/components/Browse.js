@@ -25,6 +25,16 @@ class Browse extends Component {
     }
   };
 
+  truncateText = (content, limit = 10) => {
+    if (content.split(' ').length < limit) {
+      return content;
+    } else {
+      content = content.split(' ').slice(0, limit);
+      content = content.join(' ');
+      return content + '...';
+    }
+  };
+
   render() {
     const { articles, courses } = this.props;
 
@@ -50,16 +60,19 @@ class Browse extends Component {
                           src={course.image_480x270}
                           alt="course-thumbnail"
                         />
-                        <h3>{course.title}</h3>
+                        <h3>{this.truncateText(course.title)}</h3>
+                        <p>{this.truncateText(course.headline, 15)}</p>
                       </a>
-                      <Add
-                        className="save-icon"
-                        onClick={() =>
-                          this.handleSaveLink(
-                            `https://www.udemy.com${course.url}`
-                          )
-                        }
-                      />
+                      <SaveIcon>
+                        <Add
+                          className="save-icon"
+                          onClick={() =>
+                            this.handleSaveLink(
+                              `https://www.udemy.com${course.url}`
+                            )
+                          }
+                        />
+                      </SaveIcon>
                     </Card>
                   ))
                 )}
@@ -80,13 +93,15 @@ class Browse extends Component {
                       >
                         <img src={article.thumbnail} alt="article-thumbnail" />
 
-                        <h3>{article.title}</h3>
-                        <p>{article.description}</p>
+                        <h3>{this.truncateText(article.title)}</h3>
+                        <p>{this.truncateText(article.description, 15)}</p>
                       </a>
-                      <Add
-                        className="save-icon"
-                        onClick={() => this.handleSaveLink(article.url)}
-                      />
+                      <SaveIcon>
+                        <Add
+                          className="save-icon"
+                          onClick={() => this.handleSaveLink(article.url)}
+                        />
+                      </SaveIcon>
                     </Card>
                   ))
                 )}
@@ -115,7 +130,7 @@ const Cards = styled.div`
 `;
 
 const Card = styled.div`
-  border: 1px solid lightgrey;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 6px;
   width: 30%;
   height: 350px;
@@ -131,18 +146,11 @@ const Card = styled.div`
     height: 180px;
   }
 
-  .save-icon {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    z-index: 1;
-  }
-
   h3 {
     // border: 1px solid red;
     height: 50px;
     margin: 10px 0;
-    padding: 0 2%;
+    padding: 0 3%;
     font-size: 1.8rem;
     font-weight: 700;
     line-height: 25px;
@@ -151,7 +159,8 @@ const Card = styled.div`
   }
 
   p {
-    padding: 0 2%;
+    padding: 0 3%;
+    height: 45px;
     font-size: 1.2rem;
     line-height: 20px;
     color: #6d767e;
@@ -162,6 +171,13 @@ const Card = styled.div`
       text-decoration: underline;
     }
   }
+`;
+
+const SaveIcon = styled.div`
+  // border: 1px solid red;
+  ${customLayout('flex-end')}
+  margin-top: 15px;
+  padding: 0 4%;
 `;
 
 const mapStateToProps = state => {
