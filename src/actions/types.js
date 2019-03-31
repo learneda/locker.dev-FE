@@ -16,3 +16,5 @@ export const FETCH_POSTS = 'FETCH_POSTS';
 export const ERROR = 'ERROR';
 
 export const AUTH_MODAL_DISPLAY = 'AUTH_MODAL_DISPLAY';
+
+export const DELETE_POST = 'DELETE_POST';
