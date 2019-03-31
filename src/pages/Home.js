@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { getPosts } from '../actions';
+import { getPosts, deletePost } from '../actions';
 import Toggle from '../components/Toggle';
 
 class Home extends Component {
@@ -18,6 +18,20 @@ class Home extends Component {
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
       border-radius: 6px;
       background-color: #fff;
+      position: relative;
+      .delete-icon {
+        color: red;
+        position: absolute;
+        right: 20px;
+        font-size: 4rem;
+        cursor: pointer;
+        opacity: 0.6;
+        transition: 200ms ease-out;
+        &:hover {
+          opacity: 1;
+          transition: 200ms ease-in;
+        }
+      }
       a {
         text-decoration: none;
         color: #444;
@@ -56,6 +70,16 @@ class Home extends Component {
         <Toggle />
         {this.props.posts.map(post => (
           <Post key={post.id}>
+            <span
+              className="delete-icon"
+              onClick={async () =>
+                await this.props
+                  .deletePost(post.id)
+                  .then(res => this.props.getPosts())
+              }
+            >
+              &times;
+            </span>
             <a href={post.post_url} target="_blank">
               <img src={post.thumbnail_url} alt="" />
             </a>
@@ -74,11 +98,12 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    posts: state.posts
+    posts: state.posts,
+    deletePost: state.deletePost
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getPosts }
+  { getPosts, deletePost }
 )(Home);
