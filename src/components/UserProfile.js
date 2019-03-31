@@ -48,7 +48,6 @@ const Cards = styled.div`
 
 const Card = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  border: 1px solid lightgrey;
   border-radius: 6px;
   width: 30%;
   height: 350px;
@@ -72,7 +71,7 @@ const Card = styled.div`
     // border: 1px solid red;
     height: 50px;
     margin: 10px 0;
-    padding: 0 2%;
+    padding: 0 3%;
     font-size: 1.8rem;
     font-weight: 700;
     line-height: 25px;
@@ -80,7 +79,7 @@ const Card = styled.div`
     overflow: hidden;
   }
   p {
-    padding: 0 2%;
+    padding: 0 3%;
     font-size: 1.2rem;
     line-height: 20px;
     color: #6d767e;
