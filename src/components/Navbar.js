@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import Auth from './Auth';
 import { customLayout, Wrapper, hoverBg } from './mixins';
-import { modalState } from '../actions/index';
+import { modalState, modalLogin, modalSignUp } from '../actions/index';
 import { authURL } from '../services/authURL';
 
 const Nav = styled.nav`
@@ -35,7 +35,7 @@ const Nav = styled.nav`
   }
 `;
 
-const Navbar = ({ modalState, auth }) => {
+const Navbar = ({ modalState, modalLogin, modalSignUp, auth }) => {
   if (auth) {
     return (
       <Wrapper>
@@ -74,10 +74,24 @@ const Navbar = ({ modalState, auth }) => {
             </h1>
             <ul>
               <li>
-                <span onClick={modalState}>Log In</span>
+                <span
+                  onClick={() => {
+                    modalState();
+                    modalLogin();
+                  }}
+                >
+                  Log In
+                </span>
               </li>
               <li>
-                <span onClick={modalState}>Sign Up</span>
+                <span
+                  onClick={() => {
+                    modalState();
+                    modalSignUp();
+                  }}
+                >
+                  Sign Up
+                </span>
               </li>
             </ul>
           </Nav>
@@ -96,5 +110,5 @@ const mapStateToProps = ({ modalState, auth }) => {
 
 export default connect(
   mapStateToProps,
-  { modalState }
+  { modalState, modalLogin, modalSignUp }
 )(Navbar);

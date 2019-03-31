@@ -4,14 +4,11 @@ import googleSvg from '../assets/svg/google.svg';
 import githubSvg from '../assets/svg/github.svg';
 import { authURL } from '../services/authURL';
 import { connect } from 'react-redux';
-import { modalState } from '../actions/index';
+import { modalState, modalLogin, modalSignUp } from '../actions/index';
 class Auth extends Component {
   constructor() {
     super();
     this.state = {
-      authView: {
-        signUp: true
-      },
       authFormData: {
         email: '',
         password: '',
@@ -29,7 +26,7 @@ class Auth extends Component {
   render() {
     let authForm = '';
 
-    if (this.state.authView.signUp === true) {
+    if (this.props.signUp) {
       authForm = (
         // Sign up form
         <form id="signup-form" onSubmit={this.onSubmit}>
@@ -102,7 +99,6 @@ class Auth extends Component {
         <div className="login-content">
           <div
             className="close-modal"
-            // onClick={() => this.setState({ modalOpen: !this.state.modalOpen })}
             onClick={() => {
               this.props.modalState();
             }}
@@ -110,24 +106,16 @@ class Auth extends Component {
             &times;
           </div>
           <span
-            className={this.state.authView.signUp ? null : 'not-current-view'}
+            className={this.props.signUp ? null : 'not-current-view'}
             id="sign-up"
-            onClick={() =>
-              this.setState({
-                authView: { signUp: true }
-              })
-            }
+            onClick={this.props.modalSignUp}
           >
             Sign up
           </span>
           <span
-            className={this.state.authView.signUp ? 'not-current-view' : null}
+            className={this.props.signUp ? 'not-current-view' : null}
             id="log-in"
-            onClick={() =>
-              this.setState({
-                authView: { signUp: false }
-              })
-            }
+            onClick={this.props.modalLogin}
           >
             Login
           </span>
@@ -140,10 +128,11 @@ class Auth extends Component {
 const mapStateToProps = state => {
   console.log('auth component state', state.modalState.modalOpen);
   return {
-    modalOpen: state.modalState.modalOpen
+    modalOpen: state.modalState.modalOpen,
+    signUp: state.modalState.signUp
   };
 };
 export default connect(
   mapStateToProps,
-  { modalState }
+  { modalState, modalSignUp, modalLogin }
 )(Auth);
