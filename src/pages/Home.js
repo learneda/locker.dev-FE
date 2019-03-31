@@ -90,7 +90,7 @@ class Home extends Component {
               <p>{post.description}</p>
             </div>
           </Post>
-        ))}
+        )).reverse()}
       </React.Fragment>
     );
   }
