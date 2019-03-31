@@ -5,7 +5,8 @@ import {
   FETCH_ARTICLES,
   AUTH_MODAL_DISPLAY,
   SAVE_LINK,
-  FETCH_POSTS
+  FETCH_POSTS,
+  DELETE_POST
 } from './types';
 import { post as URL } from '../services/baseURL';
 axios.defaults.withCredentials = true;
@@ -39,4 +40,10 @@ export const getPosts = () => async dispatch => {
   const res = await axios.get(`${URL}/api/posts`);
   console.log('resss data', res.data);
   dispatch({ type: FETCH_POSTS, payload: res.data });
+};
+
+export const deletePost = id => async dispatch => {
+  console.log('delete post action');
+  const res = await axios.delete(`${URL}/api/posts/${id}`);
+  dispatch({ type: DELETE_POST, payload: res.data });
 };
