@@ -8,12 +8,14 @@ import styled from 'styled-components';
 import { ReactComponent as Add } from '../assets/svg/add-icon.svg';
 import axios from 'axios';
 import { post as URL } from '../services/baseURL';
+import { withAlert } from 'react-alert';
 axios.defaults.withCredentials = true;
 
 class Browse extends Component {
   componentDidMount() {
     this.props.getCourses();
     this.props.getArticles();
+    this.props.alert.success('HELLO SUMAYAH WAKE UP');
   }
 
   handleSaveLink = url => {
@@ -188,7 +190,9 @@ const mapStateToProps = state => {
   };
 };
 
+const Alert = withAlert()(Browse);
+
 export default connect(
   mapStateToProps,
   { getCourses, getArticles, fetchUser }
-)(Browse);
+)(Alert);
