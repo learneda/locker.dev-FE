@@ -96,11 +96,15 @@ class Home extends Component {
               >
                 &times;
               </span>
-              <a href={post.post_url} target="_blank">
+              <a href={post.post_url} target="_blank" rel="noopener noreferrer">
                 <img src={post.thumbnail_url} alt="" />
               </a>
               <div>
-                <a href={post.post_url} target="_blank">
+                <a
+                  href={post.post_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <h1>{post.title}</h1>
                 </a>
                 <p>{post.description}</p>
