@@ -4,6 +4,8 @@ import {
   FETCH_COURSES,
   FETCH_ARTICLES,
   AUTH_MODAL_DISPLAY,
+  AUTH_MODAL_LOGIN,
+  AUTH_MODAL_SIGNUP,
   SAVE_LINK,
   FETCH_POSTS,
   DELETE_POST
@@ -28,6 +30,14 @@ export const getArticles = () => async dispatch => {
 
 export const modalState = () => async dispatch => {
   dispatch({ type: AUTH_MODAL_DISPLAY });
+};
+
+export const modalSignUp = () => async dispatch => {
+  dispatch({ type: AUTH_MODAL_SIGNUP });
+};
+
+export const modalLogin = () => async dispatch => {
+  dispatch({ type: AUTH_MODAL_LOGIN });
 };
 
 export const saveLink = post => async dispatch => {

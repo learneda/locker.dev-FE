@@ -17,4 +17,8 @@ export const ERROR = 'ERROR';
 
 export const AUTH_MODAL_DISPLAY = 'AUTH_MODAL_DISPLAY';
 
+export const AUTH_MODAL_SIGNUP = 'AUTH_MODAL_SIGNUP';
+
+export const AUTH_MODAL_LOGIN = 'AUTH_MODAL_LOGIN';
+
 export const DELETE_POST = 'DELETE_POST';
