@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getCourses, getArticles, fetchUser } from '../actions';
 
-import { Tab, Tabs } from 'grommet';
+import { Grommet, Tab, Tabs } from 'grommet';
 import { Wrapper, customLayout } from './mixins';
 import styled from 'styled-components';
 import { ReactComponent as Add } from '../assets/svg/add-icon.svg';
@@ -41,84 +41,123 @@ class Browse extends Component {
     const { articles, courses } = this.props;
 
     return (
-      <Wrapper>
-        <BrowseContainer>
-          <h2>Browse</h2>
+      <Grommet theme={theme}>
+        <Wrapper>
+          <BrowseContainer>
+            <h2>Browse</h2>
 
-          <Tabs justify="start" alignSelf="center">
-            <Tab title="Courses">
-              <Cards>
-                {courses.length === 0 ? (
-                  <h3>Loading courses...</h3>
-                ) : (
-                  courses.map(course => (
-                    <Card key={course.id}>
-                      <a
-                        href={`https://www.udemy.com${course.url}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <img
-                          src={course.image_480x270}
-                          alt="course-thumbnail"
-                        />
-                        <h3>{this.truncateText(course.title)}</h3>
-                        <p>{this.truncateText(course.headline, 15)}</p>
-                      </a>
-                      <SaveIcon>
-                        <Add
-                          className="save-icon"
-                          onClick={() => {
-                            this.handleSaveLink(
-                              `https://www.udemy.com${course.url}`
-                            );
-                            this.props.alert.success('hello');
-                          }}
-                        />
-                      </SaveIcon>
-                    </Card>
-                  ))
-                )}
-              </Cards>
-            </Tab>
+            <Tabs justify="start" alignSelf="center">
+              <Tab title="Courses">
+                <Cards>
+                  {courses.length === 0 ? (
+                    <h3>Loading courses...</h3>
+                  ) : (
+                    courses.map(course => (
+                      <Card key={course.id}>
+                        <a
+                          href={`https://www.udemy.com${course.url}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <img
+                            src={course.image_480x270}
+                            alt="course-thumbnail"
+                          />
+                          <h3>{this.truncateText(course.title)}</h3>
+                          <p>{this.truncateText(course.headline, 15)}</p>
+                        </a>
+                        <SaveIcon>
+                          <Add
+                            className="save-icon"
+                            onClick={() => {
+                              this.handleSaveLink(
+                                `https://www.udemy.com${course.url}`
+                              );
+                              this.props.alert.success(
+                                'Course added to Home page'
+                              );
+                            }}
+                          />
+                        </SaveIcon>
+                      </Card>
+                    ))
+                  )}
+                </Cards>
+              </Tab>
 
-            <Tab title="Articles">
-              <Cards>
-                {articles.length === 0 ? (
-                  <h3>Loading articles...</h3>
-                ) : (
-                  articles.map(article => (
-                    <Card key={article.created}>
-                      <a
-                        href={article.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <img src={article.thumbnail} alt="article-thumbnail" />
+              <Tab title="Articles">
+                <Cards>
+                  {articles.length === 0 ? (
+                    <h3>Loading articles...</h3>
+                  ) : (
+                    articles.map(article => (
+                      <Card key={article.created}>
+                        <a
+                          href={article.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <img
+                            src={article.thumbnail}
+                            alt="article-thumbnail"
+                          />
 
-                        <h3>{this.truncateText(article.title)}</h3>
-                        <p>{this.truncateText(article.description, 15)}</p>
-                      </a>
-                      <SaveIcon>
-                        <Add
-                          className="save-icon"
-                          onClick={() => {
-                            this.handleSaveLink(article.url);
-                            this.props.alert.success('HELLO SUMAYAH WAKE UP');
-                          }}
-                        />
-                      </SaveIcon>
-                    </Card>
-                  ))
-                )}
-              </Cards>
-            </Tab>
-          </Tabs>
-        </BrowseContainer>
-      </Wrapper>
+                          <h3>{this.truncateText(article.title)}</h3>
+                          <p>{this.truncateText(article.description, 15)}</p>
+                        </a>
+                        <SaveIcon>
+                          <Add
+                            className="save-icon"
+                            onClick={() => {
+                              this.handleSaveLink(article.url);
+                              this.props.alert.success(
+                                'Article added to Home page'
+                              );
+                            }}
+                          />
+                        </SaveIcon>
+                      </Card>
+                    ))
+                  )}
+                </Cards>
+              </Tab>
+            </Tabs>
+          </BrowseContainer>
+        </Wrapper>
+      </Grommet>
     );
   }
 }
+
+const theme = {
+  tab: {
+    color: 'dark-1',
+    active: {
+      weight: 'bold'
+    },
+    border: {
+      side: 'bottom',
+      size: 'medium',
+      color: {
+        light: null
+      },
+      active: {
+        color: {
+          light: 'dark-1'
+        }
+      },
+      hover: {
+        color: {
+          light: null
+        }
+      }
+    },
+    margin: {
+      vertical: 'small',
+      horizontal: 'xsmall'
+    }
+  }
+};
 
 const BrowseContainer = styled.div`
   h2 {
@@ -128,11 +167,13 @@ const BrowseContainer = styled.div`
 `;
 
 const Cards = styled.div`
-  // border: 1px solid red;
+  border-top: 1px solid #bdbdbd;
   ${customLayout('space-between')}
   flex-wrap: wrap;
   width: 100%;
-  margin: 40px 0;
+  margin: 0 6px;
+  margin-top: -12px;
+  padding: 40px 0;
 `;
 
 const Card = styled.div`
@@ -144,6 +185,21 @@ const Card = styled.div`
   background-color: #fff;
   cursor: pointer;
   position: relative;
+  @media (max-width: 960px) {
+    width: 45%;
+  }
+
+  @media (max-width: 570px) {
+    width: 100%;
+  }
+
+  a {
+    &:hover {
+      h3 {
+        text-decoration: underline;
+      }
+    }
+  }
 
   img {
     border-top-right-radius: 5px;
@@ -171,12 +227,6 @@ const Card = styled.div`
     line-height: 20px;
     color: #6d767e;
   }
-
-  &:hover {
-    h3 {
-      text-decoration: underline;
-    }
-  }
 `;
 
 const SaveIcon = styled.div`
@@ -184,6 +234,12 @@ const SaveIcon = styled.div`
   ${customLayout('flex-end')}
   margin-top: 15px;
   padding: 0 4%;
+  opacity: 0.8;
+  transition: 200ms ease-out;
+  &:hover {
+    opacity: 1;
+    transition: 200ms ease-in;
+  }
 `;
 
 const mapStateToProps = state => {
