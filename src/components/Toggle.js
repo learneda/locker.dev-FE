@@ -20,9 +20,16 @@ class Toggle extends Component {
   };
 
   toggle = () => {
-    this.setState({
-      on: !this.state.on
-    });
+    this.setState(
+      {
+        on: !this.state.on
+      },
+      () => {
+        if (this.state.on) {
+          document.getElementById('form-key').focus();
+        }
+      }
+    );
     document.querySelector('#root').classList.toggle('root-modal-open');
   };
   handleSubmit = e => {
@@ -58,12 +65,17 @@ class Toggle extends Component {
   };
   render() {
     return (
-      <div className="toggle">
+      <div className="toggle" onKeyDown={e => e.which === 27 && this.toggle()}>
         {/* <button>Add Link</button> */}
         <img src={addSvg} alt="" onClick={() => this.toggle()} />
         {this.state.on && (
           <AddLinkPortal>
-            <div className="modal-wrapper">
+            <div
+              className="modal-wrapper"
+              onClick={e =>
+                e.target.className === 'modal-wrapper' && this.toggle()
+              }
+            >
               <div className="modal_">
                 <div className="top">
                   <div className="modal_name">Add a link</div>
