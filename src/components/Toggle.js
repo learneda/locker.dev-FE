@@ -4,6 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import addSvg from '../assets/svg/add-link.svg';
 import { getPosts } from '../actions';
+import { post as URL } from '../services/baseURL';
 
 class Toggle extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ class Toggle extends Component {
     if (this.props.auth) {
       console.log('in handle submit');
       axios
-        .post('http://localhost:8000/api/posts', {
+        .post(`${URL}/api/posts`, {
           post_url: this.state.inputValue,
           id: this.props.auth.id
         })
