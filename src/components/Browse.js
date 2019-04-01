@@ -15,7 +15,7 @@ class Browse extends Component {
   componentDidMount() {
     this.props.getCourses();
     this.props.getArticles();
-    this.props.alert.success('HELLO SUMAYAH WAKE UP');
+    // this.props.alert.success('HELLO SUMAYAH WAKE UP');
   }
 
   handleSaveLink = url => {
@@ -69,11 +69,14 @@ class Browse extends Component {
                         <SaveIcon>
                           <Add
                             className="save-icon"
-                            onClick={() =>
+                            onClick={() => {
                               this.handleSaveLink(
                                 `https://www.udemy.com${course.url}`
-                              )
-                            }
+                              );
+                              this.props.alert.success(
+                                'Course added to Home page'
+                              );
+                            }}
                           />
                         </SaveIcon>
                       </Card>
@@ -105,7 +108,12 @@ class Browse extends Component {
                         <SaveIcon>
                           <Add
                             className="save-icon"
-                            onClick={() => this.handleSaveLink(article.url)}
+                            onClick={() => {
+                              this.handleSaveLink(article.url);
+                              this.props.alert.success(
+                                'Article added to Home page'
+                              );
+                            }}
                           />
                         </SaveIcon>
                       </Card>

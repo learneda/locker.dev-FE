@@ -25,7 +25,9 @@ if (process.env.NODE_ENV === 'production') {
   );
 }
 const options = {
-  position: positions.TOP_CENTER
+  position: positions.TOP_CENTER,
+  timeout: 3000,
+  offset: '200px'
 };
 
 ReactDOM.render(
