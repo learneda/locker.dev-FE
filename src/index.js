@@ -4,13 +4,14 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { positions, Provider as AlertProvider } from 'react-alert';
+import AlertTemplate from 'react-alert-template-basic';
 
 import App from './App';
 import rootReducer from './reducers';
 import 'typeface-roboto';
 import './styles/index.css';
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 let store;
 
@@ -18,13 +19,21 @@ if (process.env.NODE_ENV === 'production') {
   store = createStore(rootReducer, applyMiddleware(thunk));
 } else {
   const logger = require('redux-logger').default;
-  store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk, logger)));
+  store = createStore(
+    rootReducer,
+    composeEnhancers(applyMiddleware(thunk, logger))
+  );
 }
+const options = {
+  position: positions.TOP_CENTER
+};
 
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <App />
+      <AlertProvider template={AlertTemplate} {...options}>
+        <App />
+      </AlertProvider>
     </Router>
   </Provider>,
 
