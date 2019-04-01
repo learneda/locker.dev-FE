@@ -11,6 +11,7 @@ class Home extends Component {
     console.log('this is props sammy', this.props);
     const Post = styled.div`
       max-width: 1000px;
+      width: 90%;
       margin: auto;
       display: flex;
       margin-bottom: 50px;
@@ -19,6 +20,10 @@ class Home extends Component {
       border-radius: 6px;
       background-color: #fff;
       position: relative;
+      @media (max-width: 960px) {
+        flex-direction: column;
+        align-items: center;
+      }
       .delete-icon {
         color: red;
         position: absolute;
@@ -46,9 +51,19 @@ class Home extends Component {
         border-radius: 6px;
         // margin-bottom: 60px;
         max-width: 320px;
-        min-height: 201px;
+        // min-height: 204px;
+        max-height: 204px;
+        height: 204px;
+        object-fit: fill;
         height: 100%;
         // align-self: center;
+        @media (max-width: 960px) {
+          max-width: 600px;
+          // margin-top: 15px;
+          max-height: 400px;
+          border-radius: 6px;
+          border-radius: 0 0 6px 6px;
+        }
       }
       p {
         max-width: 600px;
@@ -68,29 +83,31 @@ class Home extends Component {
     return (
       <React.Fragment>
         <Toggle />
-        {this.props.posts.map(post => (
-          <Post key={post.id}>
-            <span
-              className="delete-icon"
-              onClick={async () =>
-                await this.props
-                  .deletePost(post.id)
-                  .then(res => this.props.getPosts())
-              }
-            >
-              &times;
-            </span>
-            <a href={post.post_url} target="_blank">
-              <img src={post.thumbnail_url} alt="" />
-            </a>
-            <div>
+        {this.props.posts
+          .map(post => (
+            <Post key={post.id}>
+              <span
+                className="delete-icon"
+                onClick={async () =>
+                  await this.props
+                    .deletePost(post.id)
+                    .then(res => this.props.getPosts())
+                }
+              >
+                &times;
+              </span>
               <a href={post.post_url} target="_blank">
-                <h1>{post.title}</h1>
+                <img src={post.thumbnail_url} alt="" />
               </a>
-              <p>{post.description}</p>
-            </div>
-          </Post>
-        )).reverse()}
+              <div>
+                <a href={post.post_url} target="_blank">
+                  <h1>{post.title}</h1>
+                </a>
+                <p>{post.description}</p>
+              </div>
+            </Post>
+          ))
+          .reverse()}
       </React.Fragment>
     );
   }
