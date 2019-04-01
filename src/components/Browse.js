@@ -138,6 +138,21 @@ const Card = styled.div`
   background-color: #fff;
   cursor: pointer;
   position: relative;
+  @media (max-width: 960px) {
+    width: 45%;
+  }
+
+  @media (max-width: 570px) {
+    width: 100%;
+  }
+
+  a {
+    &:hover {
+      h3 {
+        text-decoration: underline;
+      }
+    }
+  }
 
   img {
     border-top-right-radius: 5px;
@@ -165,12 +180,6 @@ const Card = styled.div`
     line-height: 20px;
     color: #6d767e;
   }
-
-  &:hover {
-    h3 {
-      text-decoration: underline;
-    }
-  }
 `;
 
 const SaveIcon = styled.div`
@@ -178,6 +187,12 @@ const SaveIcon = styled.div`
   ${customLayout('flex-end')}
   margin-top: 15px;
   padding: 0 4%;
+  opacity: 0.8;
+  transition: 200ms ease-out;
+  &:hover {
+    opacity: 1;
+    transition: 200ms ease-in;
+  }
 `;
 
 const mapStateToProps = state => {
