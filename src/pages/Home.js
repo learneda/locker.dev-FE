@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { getPosts, deletePost } from '../actions';
 import Toggle from '../components/Toggle';
+import { ReactComponent as Like } from '../assets/svg/heart.svg';
 
 class Home extends Component {
   componentDidMount = () => this.props.getPosts();
@@ -31,6 +32,18 @@ class Home extends Component {
         font-size: 4rem;
         cursor: pointer;
         opacity: 0.6;
+        transition: 200ms ease-out;
+        &:hover {
+          opacity: 1;
+          transition: 200ms ease-in;
+        }
+      }
+      .like-icon {
+        position: absolute;
+        right: 60px;
+        top: 8px;
+        opacity: 0.6;
+        cursor: pointer;
         transition: 200ms ease-out;
         &:hover {
           opacity: 1;
@@ -86,6 +99,7 @@ class Home extends Component {
         {this.props.posts
           .map(post => (
             <Post key={post.id}>
+              <Like className="like-icon" />
               <span
                 className="delete-icon"
                 onClick={async () =>
