@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import '../styles/Auth.css';
-import googleSvg from '../assets/svg/google.svg';
-import githubSvg from '../assets/svg/github.svg';
-import { authURL } from '../services/authURL';
+import '../../styles/Auth.css';
+import googleSvg from '../../assets/svg/google.svg';
+import githubSvg from '../../assets/svg/github.svg';
+import { authURL } from '../../services/authURL';
 import { connect } from 'react-redux';
-import { modalState, modalLogin, modalSignUp } from '../actions/index';
+import { modalState, modalLogin, modalSignUp } from '../../actions/index';
 class Auth extends Component {
   constructor() {
     super();
