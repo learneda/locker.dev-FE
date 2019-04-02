@@ -3,11 +3,18 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { getPosts, deletePost } from '../actions';
 import Toggle from '../components/Toggle';
-import { ReactComponent as Like } from '../assets/svg/heart.svg';
+import Like from '../components/Like';
 import Moment from 'react-moment';
+import axios from 'axios';
+import { post as URL } from '../services/baseURL';
 
 class Home extends Component {
   componentDidMount = () => this.props.getPosts();
+
+  handleLike = async (id, liked) => {
+    await axios.put(`${URL}/api/posts/like/${id}`, { status: !liked });
+    this.props.getPosts();
+  };
 
   render() {
     console.log('this is props sammy', this.props);
@@ -108,7 +115,11 @@ class Home extends Component {
         {this.props.posts
           .map(post => (
             <Post key={post.id}>
-              <Like className="like-icon" />
+              <Like
+                liked={post.liked}
+                handleLike={this.handleLike}
+                id={post.id}
+              />
               <span
                 className="delete-icon"
                 onClick={async () =>
