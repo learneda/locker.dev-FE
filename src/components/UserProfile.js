@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Wrapper, customLayout } from './mixins';
+import { customWrapper, customLayout } from './mixins';
 import { connect } from 'react-redux';
 import { getPosts } from '../actions';
+
+const Wrapper = styled.div`
+  ${customWrapper('80%', '0 auto')}
+`;
 
 const Container = styled.div`
   width: 100%;

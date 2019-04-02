@@ -11,15 +11,17 @@ export const customLayout = (justify = 'flex-start', align = 'flex-start') =>
   justify-content: ${justify};
   align-items: ${align};`;
 
+export const customWrapper = (
+  width = '100%',
+  margin = 0,
+  maxWidth = '1000px'
+) =>
+  `max-width: ${maxWidth};
+  width: ${width};
+  margin: ${margin};`;
+
 export const Container = styled.div`
   // border: 1px solid green;
   width: 100%;
   background-color: ${bgColor};
-`;
-
-export const Wrapper = styled.div`
-  // border: 1px solid blue;
-  max-width: 1000px;
-  width: 80%;
-  margin: 0 auto;
 `;
