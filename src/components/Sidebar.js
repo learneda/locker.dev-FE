@@ -6,8 +6,7 @@ class Sidebar extends Component {
   render() {
     return (
       <Wrapper>
-        <h3>Categories</h3>
-        <button>+ Add a category</button>
+        <h3>Profile here</h3>
       </Wrapper>
     );
   }
