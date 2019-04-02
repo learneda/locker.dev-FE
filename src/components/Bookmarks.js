@@ -8,6 +8,8 @@ import Moment from 'react-moment';
 import axios from 'axios';
 import { post as URL } from '../services/baseURL';
 
+import { customWrapper } from '../components/mixins';
+
 class Bookmarks extends Component {
   componentDidMount = () => this.props.getPosts();
 
@@ -18,10 +20,15 @@ class Bookmarks extends Component {
 
   render() {
     console.log('this is props sammy', this.props);
+
+    const Wrapper = styled.div`
+      // border: 1px solid blue;
+      ${customWrapper('100%', '0 auto')}
+      padding-left: 3%;
+    `;
+
     const Post = styled.div`
-      max-width: 1000px;
-      width: 90%;
-      margin: auto;
+      ${customWrapper('100%', 'auto')}
       display: flex;
       margin-bottom: 50px;
       // border: 1px solid #555;
@@ -110,7 +117,7 @@ class Bookmarks extends Component {
     `;
 
     return (
-      <React.Fragment>
+      <Wrapper>
         <Toggle />
         {this.props.posts
           .map(post => (
@@ -149,7 +156,7 @@ class Bookmarks extends Component {
             </Post>
           ))
           .reverse()}
-      </React.Fragment>
+      </Wrapper>
     );
   }
 }
