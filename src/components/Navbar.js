@@ -16,6 +16,9 @@ const Nav = styled.nav`
   ${customLayout('space-between', 'center')}
   padding: 30px 0;
   margin-bottom: 40px;
+  @media (max-width: 960px) {
+    margin-bottom: 20px;
+  }
   h1 {
     font-size: 3rem;
     font-weight: 700;
