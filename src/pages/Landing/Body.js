@@ -21,7 +21,7 @@ const theme = {
 
 const CallToAction = styled.div`
   padding: 90px 0;
-  @media (max-width: 900px) {
+  @media (max-width: 500px) {
     padding: 0px 0;
   }
   h1 {
@@ -29,7 +29,7 @@ const CallToAction = styled.div`
     font-size: 7rem;
     line-height: 8.5rem;
     font-weight: 700;
-    @media (max-width: 900px) {
+    @media (max-width: 500px) {
       font-size: 3.3rem;
       text-align: center;
       margin: auto;
