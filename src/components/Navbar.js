@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import Auth from './Auth';
+import Auth from './authentication/Auth';
 import { customLayout, Wrapper, hoverBg } from './mixins';
 import { modalState, modalLogin, modalSignUp } from '../actions/index';
 import { authURL } from '../services/authURL';
