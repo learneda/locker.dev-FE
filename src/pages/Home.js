@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { getPosts, deletePost } from '../actions';
 import Toggle from '../components/Toggle';
+import { ReactComponent as Like } from '../assets/svg/heart.svg';
 import Moment from 'react-moment';
-import 'moment-timezone';
 
 class Home extends Component {
   componentDidMount = () => this.props.getPosts();
@@ -34,6 +34,18 @@ class Home extends Component {
         font-size: 4rem;
         cursor: pointer;
         opacity: 0.6;
+        transition: 200ms ease-out;
+        &:hover {
+          opacity: 1;
+          transition: 200ms ease-in;
+        }
+      }
+      .like-icon {
+        position: absolute;
+        right: 60px;
+        top: 8px;
+        opacity: 0.6;
+        cursor: pointer;
         transition: 200ms ease-out;
         &:hover {
           opacity: 1;
@@ -94,45 +106,37 @@ class Home extends Component {
       <React.Fragment>
         <Toggle />
         {this.props.posts
-          .map(
-            post => (
-              console.log(post),
-              (
-                <Post key={post.id}>
-                  <span
-                    className="delete-icon"
-                    onClick={async () =>
-                      await this.props
-                        .deletePost(post.id)
-                        .then(res => this.props.getPosts())
-                    }
-                  >
-                    &times;
-                  </span>
-                  <a
-                    href={post.post_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <img src={post.thumbnail_url} alt="" />
-                  </a>
-                  <div>
-                    <a
-                      href={post.post_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <h1>{post.title}</h1>
-                    </a>
-                    <p>{post.description}</p>
-                    <span className="formatted-date">
-                      Added <Moment fromNow>{post.created_at}</Moment>
-                    </span>
-                  </div>
-                </Post>
-              )
-            )
-          )
+          .map(post => (
+            <Post key={post.id}>
+              <Like className="like-icon" />
+              <span
+                className="delete-icon"
+                onClick={async () =>
+                  await this.props
+                    .deletePost(post.id)
+                    .then(res => this.props.getPosts())
+                }
+              >
+                &times;
+              </span>
+              <a href={post.post_url} target="_blank" rel="noopener noreferrer">
+                <img src={post.thumbnail_url} alt="" />
+              </a>
+              <div>
+                <a
+                  href={post.post_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <h1>{post.title}</h1>
+                </a>
+                <p>{post.description}</p>
+                <span className="formatted-date">
+                  Added <Moment fromNow>{post.created_at}</Moment>
+                </span>
+              </div>
+            </Post>
+          ))
           .reverse()}
       </React.Fragment>
     );
