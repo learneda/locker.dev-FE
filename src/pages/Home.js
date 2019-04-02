@@ -81,7 +81,7 @@ class Home extends Component {
         font-size: 2.6rem;
         max-width: 600px;
       }
-      .formated-date {
+      .formatted-date {
         font-size: 1.2rem;
         opacity: 0.8;
         // align-self: flex-end;
@@ -125,7 +125,7 @@ class Home extends Component {
                       <h1>{post.title}</h1>
                     </a>
                     <p>{post.description}</p>
-                    <span className="formated-date">
+                    <span className="formatted-date">
                       Added <Moment fromNow>{post.created_at}</Moment>
                     </span>
                   </div>
