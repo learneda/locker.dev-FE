@@ -9,6 +9,8 @@ import Home from './pages/Home';
 import Browse from './components/Browse';
 import NoMatch from './components/NoMatch';
 
+import { composedIndexRedirect as index } from './components/authentication/indexRedirect';
+import { composedHomeRedirect as home } from './components/authentication/homeRedirect';
 import { Container } from './components/mixins';
 import { fetchUser } from './actions';
 
@@ -25,10 +27,10 @@ class App extends Component {
       <Container>
         <Navbar />
         <Switch>
-          <Route component={LandingPage} exact path="/" />
-          <Route component={Home} path="/home" />
-          <Route component={Browse} path="/browse" />
-          <Route component={UserProfile} path="/profile" />
+          <Route component={home(LandingPage)} exact path="/" />
+          <Route component={index(Home)} path="/home" />
+          <Route component={index(Browse)} path="/browse" />
+          <Route component={index(UserProfile)} path="/profile" />
           <Route component={NoMatch} />
         </Switch>
       </Container>
