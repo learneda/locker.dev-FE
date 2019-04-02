@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getPosts, deletePost } from '../actions';
 import Toggle from '../components/Toggle';
 import { ReactComponent as Like } from '../assets/svg/heart.svg';
+import Moment from 'react-moment';
 
 class Home extends Component {
   componentDidMount = () => this.props.getPosts();
@@ -21,6 +22,7 @@ class Home extends Component {
       border-radius: 6px;
       background-color: #fff;
       position: relative;
+
       @media (max-width: 960px) {
         flex-direction: column;
         align-items: center;
@@ -81,15 +83,22 @@ class Home extends Component {
       p {
         max-width: 600px;
         margin: 10px auto;
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         text-align: justify;
         word-break: break-all;
         line-height: 1.5;
       }
       h1 {
         margin: 10px auto;
-        font-size: 3rem;
+        font-size: 2.6rem;
         max-width: 600px;
+      }
+      .formatted-date {
+        font-size: 1.2rem;
+        opacity: 0.8;
+        // align-self: flex-end;
+        float: left;
+        position: absolute;
       }
     `;
 
@@ -122,6 +131,9 @@ class Home extends Component {
                   <h1>{post.title}</h1>
                 </a>
                 <p>{post.description}</p>
+                <span className="formatted-date">
+                  Added <Moment fromNow>{post.created_at}</Moment>
+                </span>
               </div>
             </Post>
           ))
