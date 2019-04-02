@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getCourses, getArticles, fetchUser } from '../actions';
 
 import { Grommet, Tab, Tabs } from 'grommet';
-import { Wrapper, customLayout } from './mixins';
+import { customWrapper, customLayout } from './mixins';
 import styled from 'styled-components';
 import { ReactComponent as Add } from '../assets/svg/add-icon.svg';
 import axios from 'axios';
@@ -164,6 +164,10 @@ const BrowseContainer = styled.div`
     font-size: 3.5rem;
     margin: 35px 0;
   }
+`;
+
+const Wrapper = styled.div`
+  ${customWrapper('80%', '0 auto')}
 `;
 
 const Cards = styled.div`

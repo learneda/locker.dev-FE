@@ -4,9 +4,13 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import Auth from './authentication/Auth';
-import { customLayout, Wrapper, hoverBg } from './mixins';
+import { customLayout, customWrapper, hoverBg } from './mixins';
 import { modalState, modalLogin, modalSignUp } from '../actions/index';
 import { authURL } from '../services/authURL';
+
+const Wrapper = styled.div`
+  ${customWrapper('80%', '0 auto')}
+`;
 
 const Nav = styled.nav`
   ${customLayout('space-between', 'center')}
