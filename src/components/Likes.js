@@ -8,18 +8,17 @@ import { customWrapper } from '../components/mixins';
 const Wrapper = styled.div`
   // border: 1px solid blue;
   ${customWrapper('100%', '0 auto')}
-  padding-left: 3%;
 `;
 
 const Post = styled.div`
   ${customWrapper('100%', 'auto')}
   display: flex;
   margin-bottom: 50px;
-  // border: 1px solid #555;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 6px;
   background-color: #fff;
   position: relative;
+  padding-bottom: 30px;
 
   @media (max-width: 960px) {
     flex-direction: column;
