@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
+import DummySearch from './DummySearch';
 import Auth from './authentication/Auth';
 import { customLayout, customWrapper, hoverBg } from './mixins';
 import { modalState, modalLogin, modalSignUp } from '../actions/index';
@@ -47,10 +48,12 @@ const Navbar = ({ modalState, modalLogin, modalSignUp, auth }) => {
     return (
       <Wrapper>
         <Nav>
-          <h1>
-            <Link to="/home">Learned</Link>
-          </h1>
           <ul>
+            <li>
+              <Link to="/home">
+                <span>Home</span>
+              </Link>
+            </li>
             <li>
               <Link to="/browse">
                 <span>Browse</span>
@@ -61,6 +64,9 @@ const Navbar = ({ modalState, modalLogin, modalSignUp, auth }) => {
                 <span>Profile</span>
               </Link>
             </li>
+          </ul>
+          <DummySearch />
+          <ul>
             <li>
               <span>
                 <a href={`${authURL}logout`}>Logout</a>
@@ -72,7 +78,7 @@ const Navbar = ({ modalState, modalLogin, modalSignUp, auth }) => {
     );
   } else {
     return (
-      <React.Fragment>
+      <Fragment>
         <Auth />
         <Wrapper>
           <Nav>
@@ -103,7 +109,7 @@ const Navbar = ({ modalState, modalLogin, modalSignUp, auth }) => {
             </ul>
           </Nav>
         </Wrapper>
-      </React.Fragment>
+      </Fragment>
     );
   }
 };
