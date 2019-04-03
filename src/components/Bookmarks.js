@@ -7,6 +7,7 @@ import Like from '../components/Like';
 import Moment from 'react-moment';
 import axios from 'axios';
 import { post as URL } from '../services/baseURL';
+import deleteIcon from '../assets/svg/delete-icon.svg';
 
 import { customWrapper } from '../components/mixins';
 
@@ -31,64 +32,63 @@ class Bookmarks extends Component {
       ${customWrapper('100%', 'auto')}
       display: flex;
       margin-bottom: 50px;
-      // border: 1px solid #555;
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
       border-radius: 6px;
       background-color: #fff;
-      position: relative;
-
+      max-height: 204px;
+      &:hover {
+        .like {
+          opacity: 1;
+          transition: 200ms ease-in;
+        }
+        .delete-icon {
+          opacity: 1;
+          transition: 200ms ease-in;
+        }
+      }
       @media (max-width: 960px) {
         flex-direction: column;
         align-items: center;
+        max-height: initial;
       }
       .delete-icon {
-        color: red;
-        position: absolute;
-        right: 20px;
-        font-size: 4rem;
+        // color: red;
+        // right: 20px;
+        // font-size: 4rem;
         cursor: pointer;
-        opacity: 0.6;
-        transition: 200ms ease-out;
-        &:hover {
-          opacity: 1;
-          transition: 200ms ease-in;
-        }
+        opacity: 0;
+        // transition: 200ms ease-out;
+        width: 24px;
+        height: 24px;
       }
-      .like-icon {
-        position: absolute;
-        right: 60px;
-        top: 8px;
-        opacity: 0.6;
+      .like {
+        display: inline;
+        // right: 40px;
+        // top: 0px;
         cursor: pointer;
         transition: 200ms ease-out;
-        &:hover {
-          opacity: 1;
-          transition: 200ms ease-in;
-        }
+        margin-right: 20px;
+        opacity: 0;
       }
       a {
         text-decoration: none;
         color: #444;
       }
-      div {
-        padding: 15px;
+      .post-content {
         margin: 0 5px;
+        padding: 15px;
       }
 
       img {
         width: 100%;
         border-radius: 6px;
-        // margin-bottom: 60px;
         max-width: 320px;
-        // min-height: 204px;
         max-height: 204px;
         height: 204px;
         object-fit: fill;
         height: 100%;
-        // align-self: center;
         @media (max-width: 960px) {
-          max-width: 600px;
-          // margin-top: 15px;
+          max-width: 100%;
           max-height: 400px;
           border-radius: 6px;
           border-radius: 0 0 6px 6px;
@@ -110,9 +110,14 @@ class Bookmarks extends Component {
       .formatted-date {
         font-size: 1.2rem;
         opacity: 0.8;
-        // align-self: flex-end;
-        float: left;
-        position: absolute;
+        // display: inline-block;
+        // margin-bottom: 5px;
+        position: relative;
+        margin-right: 30px;
+      }
+      .date-like-heart {
+        display: flex;
+        // align-items: center;
       }
     `;
 
@@ -122,25 +127,10 @@ class Bookmarks extends Component {
         {this.props.posts
           .map(post => (
             <Post key={post.id}>
-              <Like
-                liked={post.liked}
-                handleLike={this.handleLike}
-                id={post.id}
-              />
-              <span
-                className="delete-icon"
-                onClick={async () =>
-                  await this.props
-                    .deletePost(post.id)
-                    .then(res => this.props.getPosts())
-                }
-              >
-                &times;
-              </span>
               <a href={post.post_url} target="_blank" rel="noopener noreferrer">
                 <img src={post.thumbnail_url} alt="" />
               </a>
-              <div>
+              <div className="post-content">
                 <a
                   href={post.post_url}
                   target="_blank"
@@ -149,9 +139,25 @@ class Bookmarks extends Component {
                   <h1>{post.title}</h1>
                 </a>
                 <p>{post.description}</p>
-                <span className="formatted-date">
-                  Added <Moment fromNow>{post.created_at}</Moment>
-                </span>
+                <div className="date-like-heart">
+                  <span className="formatted-date">
+                    Added <Moment fromNow>{post.created_at}</Moment>
+                  </span>
+                  <Like
+                    liked={post.liked}
+                    handleLike={this.handleLike}
+                    id={post.id}
+                  />
+                  <img
+                    src={deleteIcon}
+                    className="delete-icon"
+                    onClick={async () =>
+                      await this.props
+                        .deletePost(post.id)
+                        .then(res => this.props.getPosts())
+                    }
+                  />
+                </div>
               </div>
             </Post>
           ))
