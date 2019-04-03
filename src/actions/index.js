@@ -59,7 +59,7 @@ export const deletePost = id => async dispatch => {
   dispatch({ type: DELETE_POST, payload: res.data });
 };
 
-export const likedPosts = () => async dispatch => {
+export const getlikedPosts = () => async dispatch => {
   const res = await axios.get(`${URL}/api/posts/likes`);
   dispatch({ type: LIKED_POSTS, payload: res.data });
 };
