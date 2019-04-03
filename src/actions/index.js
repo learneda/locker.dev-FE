@@ -8,7 +8,8 @@ import {
   AUTH_MODAL_SIGNUP,
   SAVE_LINK,
   FETCH_POSTS,
-  DELETE_POST
+  DELETE_POST,
+  LIKED_POSTS
 } from './types';
 import { post as URL } from '../services/baseURL';
 axios.defaults.withCredentials = true;
@@ -56,4 +57,9 @@ export const deletePost = id => async dispatch => {
   console.log('delete post action');
   const res = await axios.delete(`${URL}/api/posts/${id}`);
   dispatch({ type: DELETE_POST, payload: res.data });
+};
+
+export const likedPosts = () => async dispatch => {
+  const res = await axios.get(`${URL}/api/posts/likes`);
+  dispatch({ type: LIKED_POSTS, payload: res.data });
 };
