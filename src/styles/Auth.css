@@ -216,10 +216,10 @@
   /* border: 2px solid red; */
   display: flex;
   justify-content: flex-start;
-  max-width: 1000px;
+  /* max-width: 1000px; */
   margin: auto;
   margin-bottom: 15px;
-  width: 90%;
+  /* width: 90%; */
 }
 
 .toggle img {
