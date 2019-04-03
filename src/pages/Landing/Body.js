@@ -48,10 +48,13 @@ const CallToAction = styled.div`
   }
   h1 {
     padding-bottom: 45px;
-    font-size: 7rem;
+    font-size: 8rem;
     line-height: 8.5rem;
     font-weight: 700;
     // max-width: 70%;
+    @media(max-width: 1250px) {
+      font-size: 7rem;
+    }
     @media (max-width: 500px) {
       font-size: 3.3rem;
       text-align: center;
@@ -84,7 +87,9 @@ const Body = () => {
     <Grommet theme={theme}>
       <CallToAction>
         <div className="landing-content">
-          <h1>The exciting new way to learn.</h1>
+          <h1>
+            The exciting new <br /> way to learn.
+          </h1>
           <Button
             className="get-started"
             primary
