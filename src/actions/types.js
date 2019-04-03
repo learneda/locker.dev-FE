@@ -22,3 +22,5 @@ export const AUTH_MODAL_SIGNUP = 'AUTH_MODAL_SIGNUP';
 export const AUTH_MODAL_LOGIN = 'AUTH_MODAL_LOGIN';
 
 export const DELETE_POST = 'DELETE_POST';
+
+export const LIKED_POSTS = 'LIKED_POSTS';
