@@ -21,12 +21,29 @@ const theme = {
 
 const CallToAction = styled.div`
   padding: 90px 0;
+  @media (max-width: 500px) {
+    padding: 0px 0;
+    .get-started {
+      margin: auto;
+      display: block;
+    }
+  }
   h1 {
     padding-bottom: 45px;
     font-size: 7rem;
     line-height: 8.5rem;
     font-weight: 700;
+    @media (max-width: 500px) {
+      font-size: 3.3rem;
+      text-align: center;
+      // margin: auto;
+      line-height: 5rem;
+      padding-bottom: 20px;
+    }
   }
+
+}
+
 `;
 
 const Body = () => {
@@ -35,6 +52,7 @@ const Body = () => {
       <CallToAction>
         <h1>Lorem ipsum dolor sit amet, consectetur elit</h1>
         <Button
+          className="get-started"
           primary
           label="Get Started for Free"
           icon={<FormNextLink />}

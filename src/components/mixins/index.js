@@ -14,7 +14,7 @@ export const customLayout = (justify = 'flex-start', align = 'flex-start') =>
 export const customWrapper = (
   width = '100%',
   margin = 0,
-  maxWidth = '1000px'
+  maxWidth = '1400px'
 ) =>
   `max-width: ${maxWidth};
   width: ${width};
