@@ -25,7 +25,6 @@ class Bookmarks extends Component {
     const Wrapper = styled.div`
       // border: 1px solid blue;
       ${customWrapper('100%', '0 auto')}
-      padding-left: 3%;
     `;
 
     const Post = styled.div`
