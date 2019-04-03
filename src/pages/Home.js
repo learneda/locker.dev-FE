@@ -19,16 +19,18 @@ export default class Home extends Component {
     return (
       <Container>
         <Sidebar />
-        <Grommet theme={theme}>
-          <Tabs justify="start">
-            <Tab title="Bookmarks">
-              <Bookmarks />
-            </Tab>
-            <Tab title="Likes">
-              <Likes />
-            </Tab>
-          </Tabs>
-        </Grommet>
+        <Wrapper>
+          <Grommet theme={theme}>
+            <Tabs justify="start">
+              <Tab title="Bookmarks">
+                <Bookmarks />
+              </Tab>
+              <Tab title="Likes">
+                <Likes />
+              </Tab>
+            </Tabs>
+          </Grommet>
+        </Wrapper>
       </Container>
     );
   }
@@ -37,4 +39,9 @@ export default class Home extends Component {
 const Container = styled.div`
   ${customWrapper('80%', '0 auto')}
   display: flex;
+`;
+
+const Wrapper = styled.div`
+  ${customWrapper('75%')}
+  padding-left: 2%;
 `;
