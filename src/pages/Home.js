@@ -9,28 +9,9 @@ import { Grommet, Tab, Tabs } from 'grommet';
 
 export default class Home extends Component {
   render() {
-    const theme = {
-      tab: {
-        margin: {
-          bottom: '30px'
-        }
-      }
-    };
     return (
       <Container>
-        <Sidebar />
-        <Wrapper>
-          <Grommet theme={theme}>
-            <Tabs justify="start">
-              <Tab title="Bookmarks">
-                <Bookmarks />
-              </Tab>
-              <Tab title="Likes">
-                <Likes />
-              </Tab>
-            </Tabs>
-          </Grommet>
-        </Wrapper>
+        <h2>News Feed</h2>
       </Container>
     );
   }
@@ -38,10 +19,4 @@ export default class Home extends Component {
 
 const Container = styled.div`
   ${customWrapper('80%', '0 auto')}
-  display: flex;
-`;
-
-const Wrapper = styled.div`
-  ${customWrapper('75%')}
-  padding-left: 2%;
 `;
