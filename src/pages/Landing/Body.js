@@ -84,9 +84,7 @@ const Body = () => {
     <Grommet theme={theme}>
       <CallToAction>
         <div className="landing-content">
-          <h1>
-            The exciting new way <br /> to learn.
-          </h1>
+          <h1>The exciting new way to learn.</h1>
           <Button
             className="get-started"
             primary
