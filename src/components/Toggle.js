@@ -5,7 +5,26 @@ import { connect } from 'react-redux';
 import addSvg from '../assets/svg/add-link.svg';
 import { getPosts } from '../actions';
 import { post as URL } from '../services/baseURL';
+import { customLayout, hoverBg } from './mixins';
+import styled from 'styled-components';
 
+const ToggleWrapper = styled.li`
+  ${customLayout('space-between')}
+  span {
+    padding: 10px;
+    font-weight: 700;
+    border: transparent;
+    cursor: pointer;
+    width: 100px;
+    text-align: center;
+
+    &:hover {
+      border: 1px solid ${hoverBg} transparent;
+      border-radius: 5px;
+      background-color: ${hoverBg};
+    }
+  }
+`;
 class Toggle extends Component {
   constructor(props) {
     super(props);
@@ -65,9 +84,11 @@ class Toggle extends Component {
   };
   render() {
     return (
-      <div className="toggle" onKeyDown={e => e.which === 27 && this.toggle()}>
-        {/* <button>Add Link</button> */}
-        <img src={addSvg} alt="" onClick={() => this.toggle()} />
+      <ul onKeyDown={e => e.which === 27 && this.toggle()}>
+        <ToggleWrapper>
+          <span onClick={() => this.toggle()}>Add Link</span>
+        </ToggleWrapper>
+        {/* <img src={addSvg} alt="" onClick={() => this.toggle()} /> */}
         {this.state.on && (
           <AddLinkPortal>
             <div
@@ -99,7 +120,7 @@ class Toggle extends Component {
             </div>
           </AddLinkPortal>
         )}
-      </div>
+      </ul>
     );
   }
 }
