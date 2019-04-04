@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import {
+  getPosts,
+  deletePost,
+  editModalDisplay,
+  editPostGetDefaultData,
+  getSearchValue
+} from '../actions';
+
 import Toggle from '../components/Toggle';
-import { getPosts, deletePost, editModalDisplay, getSearchValue } from '../actions';
+
 import Like from '../components/Like';
 import Moment from 'react-moment';
 import axios from 'axios';
@@ -27,7 +35,7 @@ class Bookmarks extends Component {
   };
 
   render() {
-    console.log('this is props sammy', this.props);
+    console.log('this is props riley', this.props);
 
     const Wrapper = styled.div`
       // border: 1px solid blue;
@@ -130,18 +138,19 @@ class Bookmarks extends Component {
       }
     `;
 
-        const search = this.props.search_term
+    const search = this.props.search_term;
 
-          const filteredPosts = this.props.posts.filter((post) => {
-        return (
-          post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
-          post.thumbnail_url.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
-          post.description.toLowerCase().indexOf(search.toLowerCase()) !== -1
-        )
-      })
-    
+    const filteredPosts = this.props.posts.filter(post => {
+      return (
+        post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
+        post.thumbnail_url.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
+        post.description.toLowerCase().indexOf(search.toLowerCase()) !== -1
+      );
+    });
+
     return (
       <Wrapper>
+        <EditModal />
         <Toggle />
         {filteredPosts
           .map(post => (
@@ -181,7 +190,11 @@ class Bookmarks extends Component {
               <img
                 src={editSvg}
                 alt=""
-                onClick={() => this.props.editModalDisplay(post.id)}
+                onClick={async () => {
+                  this.props
+                    .editPostGetDefaultData(post.id)
+                    .then(res => this.props.editModalDisplay());
+                }}
                 className="edit-icon"
               />
             </Post>
@@ -203,5 +216,11 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getPosts, deletePost, editModalDisplay, getSearchValue }
+  {
+    getPosts,
+    deletePost,
+    editModalDisplay,
+    editPostGetDefaultData,
+    getSearchValue
+  }
 )(Bookmarks);
