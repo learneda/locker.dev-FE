@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { editModalDisplay } from '../actions/index';
 
 class EditModal extends Component {
   state = {
@@ -13,6 +15,15 @@ class EditModal extends Component {
     //   modalOpen: !this.state.modalOpen
     // });
   };
+  componentDidMount() {
+    if (this.props.modalFormData) {
+      this.setState({
+        postDescription: this.props.modalFormData.post.description,
+        post_url: this.props.modalFormData.post.post_url,
+        title: this.props.modalFormData.post.title
+      });
+    }
+  }
 
   onSubmit = e => {
     e.preventDefault();
@@ -23,12 +34,18 @@ class EditModal extends Component {
       title: this.state.postTitle
     };
   };
+
+  onChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
   render() {
     const EditModal = styled.div`
       width: 100vw;
       height: 100vh;
       position: fixed;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.7);
       top: 0;
       bottom: 0;
       left: 0;
@@ -117,29 +134,63 @@ class EditModal extends Component {
         }
       }
     `;
-    return (
-      <EditModal style={{ display: this.props.modalOpen ? 'block' : 'none' }}>
+    let test = (
+      <EditModal
+        style={{
+          display: this.props.modalOpen ? 'block' : 'none'
+        }}
+      >
         <form className="edit-form" onSubmit={this.onSubmit}>
-          <span className="close-modal-x">&times;</span>
+          <span onClick={this.props.editModalDisplay} className="close-modal-x">
+            &times;
+          </span>
           <div className="form-title">
             <h3>Edit Post</h3>
           </div>
           <label htmlFor="Post Url">Post Url</label>
-          <input type="text" />
+          <input
+            type="text"
+            // defaultValue={this.state.post_url}
+            defaultValue={this.state.post_url}
+            name="post_url"
+            onChange={this.onChange}
+            key="post_url"
+          />
           <label htmlFor="Post Url">Post Title</label>
-          <input type="text" />
+          <input
+            type="text"
+            defaultValue={this.state.title}
+            name="title"
+            onChange={this.onChange}
+            key="title"
+          />
           <label htmlFor="Post Description">Post Description</label>
           <textarea
             name="post_description"
             id="post-description"
             cols="30"
             rows="10"
+            name="postDescription"
+            defaultValue={this.state.postDescription}
+            onChange={this.onChange}
+            key="description"
           />
+
           <input type="submit" id="edit-submit" value="Update Post" />
         </form>
       </EditModal>
     );
+    return <React.Fragment>{test}</React.Fragment>;
   }
 }
 
-export default EditModal;
+const mapStateToProps = state => {
+  return {
+    modalOpen: state.modalState.editModalOpen,
+    modalFormData: state.modalState.editFormData
+  };
+};
+export default connect(
+  mapStateToProps,
+  { editModalDisplay }
+)(EditModal);

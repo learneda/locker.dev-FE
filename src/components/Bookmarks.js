@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { getPosts, deletePost } from '../actions';
+import { getPosts, deletePost, editModalDisplay } from '../actions';
 import Like from '../components/Like';
 import Moment from 'react-moment';
 import axios from 'axios';
@@ -141,10 +141,10 @@ class Bookmarks extends Component {
 
     return (
       <Wrapper>
+        <EditModal />
         {this.props.posts
           .map(post => (
             <Post key={post.id}>
-              <EditModal modalOpen={this.state.modalOpen} />
               <a href={post.post_url} target="_blank" rel="noopener noreferrer">
                 <img src={post.thumbnail_url} alt="" />
               </a>
@@ -180,9 +180,7 @@ class Bookmarks extends Component {
               <img
                 src={editSvg}
                 alt=""
-                onClick={() =>
-                  this.setState({ modalOpen: !this.state.modalOpen })
-                }
+                onClick={() => this.props.editModalDisplay(post.id)}
                 className="edit-icon"
               />
             </Post>
@@ -196,11 +194,12 @@ class Bookmarks extends Component {
 const mapStateToProps = state => {
   return {
     posts: state.posts,
-    deletePost: state.deletePost
+    deletePost: state.deletePost,
+    modalOpen: state.modalState.editModalOpen
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getPosts, deletePost }
+  { getPosts, deletePost, editModalDisplay }
 )(Bookmarks);

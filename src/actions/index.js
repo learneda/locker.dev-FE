@@ -10,6 +10,7 @@ import {
   FETCH_POSTS,
   DELETE_POST,
   LIKED_POSTS,
+  EDIT_MODAL_DISPLAY,
   EDIT_PROFILE
 } from './types';
 import { post as URL } from '../services/baseURL';
@@ -63,6 +64,11 @@ export const deletePost = id => async dispatch => {
 export const getlikedPosts = () => async dispatch => {
   const res = await axios.get(`${URL}/api/posts/likes`);
   dispatch({ type: LIKED_POSTS, payload: res.data });
+};
+
+export const editModalDisplay = id => async dispatch => {
+  const res = await axios.get(`${URL}/api/posts/${id}`);
+  dispatch({ type: EDIT_MODAL_DISPLAY, payload: res.data });
 };
 
 export const editProfile = (id, profile) => async dispatch => {
