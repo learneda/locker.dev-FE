@@ -12,6 +12,7 @@ export const modalReducer = (state = initialState, action) => {
     case EDIT_MODAL_DISPLAY: {
       return {
         ...state,
+        editFormData: action.payload,
         editModalOpen: !state.editModalOpen
       };
     }
