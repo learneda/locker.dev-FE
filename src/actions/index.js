@@ -9,7 +9,8 @@ import {
   SAVE_LINK,
   FETCH_POSTS,
   DELETE_POST,
-  LIKED_POSTS
+  LIKED_POSTS,
+  EDIT_PROFILE
 } from './types';
 import { post as URL } from '../services/baseURL';
 axios.defaults.withCredentials = true;
@@ -62,4 +63,10 @@ export const deletePost = id => async dispatch => {
 export const getlikedPosts = () => async dispatch => {
   const res = await axios.get(`${URL}/api/posts/likes`);
   dispatch({ type: LIKED_POSTS, payload: res.data });
+};
+
+export const editProfile = (id, profile) => async dispatch => {
+  await axios.put(`${URL}/auth/current_user/${id}`, profile);
+  const res = await axios.get(`${URL}/auth/current_user`);
+  dispatch({ type: EDIT_NOTE, payload: res.data });
 };
