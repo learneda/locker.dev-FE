@@ -196,7 +196,7 @@ const mapStateToProps = state => {
   return {
     posts: state.posts,
     deletePost: state.deletePost,
-    search_term: state.search_term
+    search_term: state.search_term,
     modalOpen: state.modalState.editModalOpen
   };
 };
