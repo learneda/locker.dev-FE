@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { editModalDisplay } from '../actions/index';
+import { editModalDisplay, editPostSubmit } from '../actions/index';
 
 class EditModal extends Component {
   state = {
@@ -16,12 +16,12 @@ class EditModal extends Component {
   //   // });
   // };
   componentDidMount() {
-    if (this.props.modalFormData) {
+    if (this.props.editFormData) {
       this.setState({
-        description: this.props.modalFormData.post.description,
-        post_url: this.props.modalFormData.post.post_url,
-        title: this.props.modalFormData.post.title,
-        post_id: this.props.modalFormData.post.id
+        description: this.props.editFormData.post.description,
+        post_url: this.props.editFormData.post.post_url,
+        title: this.props.editFormData.post.title,
+        post_id: this.props.editFormData.post.id
       });
     }
   }
@@ -190,12 +190,13 @@ const StyledEditModal = styled.div`
 `;
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
     modalOpen: state.modalState.editModalOpen,
-    modalFormData: state.modalState.editFormData
+    editFormData: state.modalState.editFormData
   };
 };
 export default connect(
   mapStateToProps,
-  { editModalDisplay }
+  { editModalDisplay, editPostSubmit }
 )(EditModal);
