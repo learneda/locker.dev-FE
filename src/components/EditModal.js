@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { editModalDisplay, editPostSubmit } from '../actions/index';
+import { editModalDisplay, editPostSubmit, getPosts } from '../actions/index';
 
 class EditModal extends Component {
   state = {
@@ -26,7 +26,7 @@ class EditModal extends Component {
     }
   }
 
-  onSubmit = e => {
+  onSubmit = async e => {
     e.preventDefault();
 
     const editedPost = {
@@ -36,6 +36,13 @@ class EditModal extends Component {
     };
 
     console.log(editedPost);
+
+    await this.props
+      .editPostSubmit(editedPost, this.state.post_id)
+      .then(res => {
+        this.props.editModalDisplay();
+        this.props.getPosts();
+      });
   };
 
   onChange = e => {
@@ -198,5 +205,5 @@ const mapStateToProps = state => {
 };
 export default connect(
   mapStateToProps,
-  { editModalDisplay, editPostSubmit }
+  { editModalDisplay, editPostSubmit, getPosts }
 )(EditModal);
