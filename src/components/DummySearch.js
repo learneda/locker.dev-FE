@@ -6,7 +6,7 @@ export default function DummySearch() {
   const handleChange = e => setValue(e.target.value);
 
   return (
-    <div style={{ width: '200px' }}>
+    <div style={{ width: '500px' }}>
       <TextInput
         size="small"
         placeholder="search"
