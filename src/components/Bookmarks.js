@@ -58,19 +58,13 @@ class Bookmarks extends Component {
         max-height: initial;
       }
       .delete-icon {
-        // color: red;
-        // right: 20px;
-        // font-size: 4rem;
         cursor: pointer;
         opacity: 0;
-        // transition: 200ms ease-out;
         width: 24px;
         height: 24px;
       }
       .like {
         display: inline;
-        // right: 40px;
-        // top: 0px;
         cursor: pointer;
         transition: 200ms ease-out;
         margin-right: 20px;
@@ -90,7 +84,6 @@ class Bookmarks extends Component {
         border-radius: 6px;
         max-width: 320px;
         max-height: 204px;
-        height: 204px;
         object-fit: fill;
         height: 100%;
         @media (max-width: 960px) {
@@ -116,14 +109,11 @@ class Bookmarks extends Component {
       .formatted-date {
         font-size: 1.2rem;
         opacity: 0.8;
-        // display: inline-block;
-        // margin-bottom: 5px;
         position: relative;
         margin-right: 30px;
       }
       .date-like-heart {
         display: flex;
-        // align-items: center;
       }
       .edit-modal {
         height: 100vh;
