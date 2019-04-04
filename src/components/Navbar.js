@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-
+import DummySearch from './DummySearch';
 import Auth from './authentication/Auth';
 import { customLayout, customWrapper, hoverBg } from './mixins';
 import { modalState, modalLogin, modalSignUp } from '../actions/index';
 import { authURL } from '../services/authURL';
+import Toggle from './Toggle';
 
 const Wrapper = styled.div`
   ${customWrapper('80%', '0 auto')}
@@ -40,6 +41,29 @@ const Nav = styled.nav`
       }
     }
   }
+  .auth-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+`;
+
+const NavRight = styled.div`
+  display: flex;
+  align-items: center;
+  span {
+    padding: 10px;
+    margin-right: 10px;
+    font-weight: 700;
+    border: transparent;
+    cursor: pointer;
+    &:hover {
+      border: 1px solid ${hoverBg} transparent;
+      border-radius: 5px;
+      background-color: ${hoverBg};
+    }
+  }
 `;
 
 const Navbar = ({ modalState, modalLogin, modalSignUp, auth }) => {
@@ -47,13 +71,10 @@ const Navbar = ({ modalState, modalLogin, modalSignUp, auth }) => {
     return (
       <Wrapper>
         <Nav>
-          <h1>
-            <Link to="/home">Learned</Link>
-          </h1>
           <ul>
             <li>
-              <Link to="/browse">
-                <span>Browse</span>
+              <Link to="/home">
+                <span>Home</span>
               </Link>
             </li>
             <li>
@@ -62,17 +83,28 @@ const Navbar = ({ modalState, modalLogin, modalSignUp, auth }) => {
               </Link>
             </li>
             <li>
-              <span>
-                <a href={`${authURL}logout`}>Logout</a>
-              </span>
+              <Link to="/browse">
+                <span>Browse</span>
+              </Link>
             </li>
           </ul>
+          <DummySearch />
+          <NavRight>
+            <Toggle />
+            <a href={`${authURL}logout`}>
+              <img
+                src={auth.profile_picture}
+                className="auth-icon"
+                alt="avatar"
+              />
+            </a>
+          </NavRight>
         </Nav>
       </Wrapper>
     );
   } else {
     return (
-      <React.Fragment>
+      <Fragment>
         <Auth />
         <Wrapper>
           <Nav>
@@ -103,7 +135,7 @@ const Navbar = ({ modalState, modalLogin, modalSignUp, auth }) => {
             </ul>
           </Nav>
         </Wrapper>
-      </React.Fragment>
+      </Fragment>
     );
   }
 };

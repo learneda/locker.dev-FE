@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import AddLinkPortal from './AddLinkPortal';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import addSvg from '../assets/svg/add-link.svg';
 import { getPosts } from '../actions';
 import { post as URL } from '../services/baseURL';
 
@@ -46,7 +45,6 @@ class Toggle extends Component {
     e.preventDefault();
 
     if (this.props.auth) {
-      console.log('in handle submit');
       axios
         .post(`${URL}/api/posts`, {
           post_url: this.state.inputValue,
@@ -54,7 +52,6 @@ class Toggle extends Component {
         })
         .then(res => {
           this.props.getPosts();
-          console.log(res.data);
           this.setState({
             inputValue: '',
             on: false
@@ -65,9 +62,9 @@ class Toggle extends Component {
   };
   render() {
     return (
-      <div className="toggle" onKeyDown={e => e.which === 27 && this.toggle()}>
-        {/* <button>Add Link</button> */}
-        <img src={addSvg} alt="" onClick={() => this.toggle()} />
+      <div onKeyDown={e => e.which === 27 && this.toggle()}>
+        <span onClick={() => this.toggle()}>Add Link</span>
+        {/* <img src={addSvg} alt="" onClick={() => this.toggle()} /> */}
         {this.state.on && (
           <AddLinkPortal>
             <div
