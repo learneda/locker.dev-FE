@@ -11,7 +11,8 @@ import {
   DELETE_POST,
   LIKED_POSTS,
   EDIT_MODAL_DISPLAY,
-  EDIT_PROFILE
+  EDIT_PROFILE,
+  SEARCH_TERM
 } from './types';
 import { post as URL } from '../services/baseURL';
 axios.defaults.withCredentials = true;
@@ -77,3 +78,9 @@ export const editProfile = (id, profile) => async dispatch => {
   console.log('RES', res);
   dispatch({ type: EDIT_PROFILE, payload: res.data });
 };
+
+
+export const getSearchValue = (e) => dispatch => {
+  console.log('hererere')
+  dispatch({ type: SEARCH_TERM, payload: e.target.value});
+}
