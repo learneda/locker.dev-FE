@@ -141,10 +141,10 @@ class Bookmarks extends Component {
 
     return (
       <Wrapper>
+        <EditModal />
         {this.props.posts
           .map(post => (
             <Post key={post.id}>
-              <EditModal />
               <a href={post.post_url} target="_blank" rel="noopener noreferrer">
                 <img src={post.thumbnail_url} alt="" />
               </a>
@@ -180,7 +180,7 @@ class Bookmarks extends Component {
               <img
                 src={editSvg}
                 alt=""
-                onClick={this.props.editModalDisplay}
+                onClick={() => this.props.editModalDisplay(post.id)}
                 className="edit-icon"
               />
             </Post>
