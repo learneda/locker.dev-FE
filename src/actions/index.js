@@ -13,7 +13,8 @@ import {
   EDIT_MODAL_DISPLAY,
   EDIT_PROFILE,
   EDIT_POST_SUBMIT,
-  EDIT_POST_GET_DEFAULT_DATA
+  EDIT_POST_GET_DEFAULT_DATA,
+  SEARCH_TERM
 } from './types';
 import { post as URL } from '../services/baseURL';
 axios.defaults.withCredentials = true;
@@ -87,4 +88,9 @@ export const editPostGetDefaultData = id => async dispatch => {
 export const editPostSubmit = (editedPost, id) => async dispatch => {
   const res = await axios.put(`${URL}/api/posts/${id}`, editedPost);
   dispatch({ type: EDIT_POST_SUBMIT, payload: res.data });
+};
+
+export const getSearchValue = e => dispatch => {
+  console.log('hererere');
+  dispatch({ type: SEARCH_TERM, payload: e.target.value });
 };
