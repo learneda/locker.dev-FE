@@ -76,11 +76,40 @@ const NavRight = styled.div`
   }
 `;
 
+const Burger = styled.div`
+  border: 1px solid red;
+  // min-height: 100vh;
+`;
+
 const Navbar = ({ modalState, modalLogin, modalSignUp, auth }) => {
   if (auth) {
     return (
       <NavWrapper>
+        <Burger>
+          <ul>
+            <li>
+              <Link to="/home">
+                <span>Home</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/profile">
+                <span>Profile</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/browse">
+                <span>Browse</span>
+              </Link>
+            </li>
+            <li>
+              <a href={`${authURL}logout`}>Log out</a>
+            </li>
+          </ul>
+        </Burger>
+
         <Nav>
+          <button>Menu</button>
           <ul>
             <li>
               <Link to="/home">
