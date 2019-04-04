@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { TextInput } from 'grommet';
+import {connect} from 'react-redux';
+import { getSearchValue } from '../actions/index';
 
-export default function DummySearch() {
+function DummySearch(props) {
   const [value, setValue] = useState('');
 
   const handleChange = e => setValue(e.target.value);
@@ -10,8 +12,22 @@ export default function DummySearch() {
     <TextInput
       size="small"
       placeholder="search"
-      value={value}
-      onChange={handleChange}
+      value={props.search_term}
+      onChange={(e)=> {
+        console.log(
+          'jaja'
+        )
+        props.getSearchValue(e)
+      }
+      }
     />
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    search_term: state.search_term
+  };
+};
+
+export default connect(mapStateToProps, {getSearchValue})(DummySearch);
