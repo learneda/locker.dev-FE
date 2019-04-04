@@ -9,14 +9,24 @@ import { modalState, modalLogin, modalSignUp } from '../actions/index';
 import { authURL } from '../services/authURL';
 import Toggle from './Toggle';
 
+const NavWrapper = styled.div`
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23);
+  position: sticky;
+  top: 0;
+  z-index: 3;
+`;
+
 const Wrapper = styled.div`
   ${customWrapper('80%', '0 auto')}
 `;
 
 const Nav = styled.nav`
   ${customLayout('space-between', 'center')}
-  padding: 30px 0;
+  padding: 7.5px 0;
+  margin: 0 auto;
   margin-bottom: 40px;
+  width: 80%;
   @media (max-width: 960px) {
     margin-bottom: 20px;
   }
@@ -69,7 +79,7 @@ const NavRight = styled.div`
 const Navbar = ({ modalState, modalLogin, modalSignUp, auth }) => {
   if (auth) {
     return (
-      <Wrapper>
+      <NavWrapper>
         <Nav>
           <ul>
             <li>
@@ -100,7 +110,7 @@ const Navbar = ({ modalState, modalLogin, modalSignUp, auth }) => {
             </a>
           </NavRight>
         </Nav>
-      </Wrapper>
+      </NavWrapper>
     );
   } else {
     return (
