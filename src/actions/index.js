@@ -81,5 +81,6 @@ export const editProfile = (id, profile) => async dispatch => {
 
 
 export const getSearchValue = (e) => dispatch => {
+  console.log('hererere')
   dispatch({ type: SEARCH_TERM, payload: e.target.value});
 }

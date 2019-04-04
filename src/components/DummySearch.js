@@ -4,8 +4,6 @@ import {getSearchValue} from '../actions';
 import {connect} from 'react-redux';
 
 function DummySearch(props) {
-  const [value, setValue] = useState('');
-  const handleChange = e => setValue(e.target.value);
 
   return (
     <div style={{ width: '500px' }}>
