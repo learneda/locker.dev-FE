@@ -77,3 +77,8 @@ export const editProfile = (id, profile) => async dispatch => {
   console.log('RES', res);
   dispatch({ type: EDIT_PROFILE, payload: res.data });
 };
+
+
+export const getSearchValue = (e) => dispatch => {
+  dispatch({ type: SEARCH_TERM, payload: e.target.value});
+}
