@@ -8,10 +8,16 @@ import Moment from 'react-moment';
 import axios from 'axios';
 import { post as URL } from '../services/baseURL';
 import deleteIcon from '../assets/svg/delete-icon.svg';
+import EditModal from './EditModal';
+import editSvg from '../assets/svg/edit.svg';
 
 import { customWrapper } from '../components/mixins';
 
 class Bookmarks extends Component {
+  state = {
+    modalOpen: false
+  };
+
   componentDidMount = () => this.props.getPosts();
 
   handleLike = async (id, liked) => {
@@ -35,6 +41,7 @@ class Bookmarks extends Component {
       border-radius: 6px;
       background-color: #fff;
       max-height: 204px;
+      position: relative;
       &:hover {
         .like {
           opacity: 1;
@@ -118,11 +125,24 @@ class Bookmarks extends Component {
         display: flex;
         // align-items: center;
       }
+      .edit-modal {
+        height: 100vh;
+        width: 100vw;
+      }
+      .edit-icon {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        width: 30px;
+        cursor: pointer;
+        height: 30px;
+      }
     `;
 
     return (
       <Wrapper>
         <Toggle />
+        <EditModal modalOpen={this.state.modalOpen} />
         {this.props.posts
           .map(post => (
             <Post key={post.id}>
@@ -158,6 +178,14 @@ class Bookmarks extends Component {
                   />
                 </div>
               </div>
+              <img
+                src={editSvg}
+                alt=""
+                onClick={() =>
+                  this.setState({ modalOpen: !this.state.modalOpen })
+                }
+                className="edit-icon"
+              />
             </Post>
           ))
           .reverse()}
