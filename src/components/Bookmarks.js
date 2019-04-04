@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { getPosts, deletePost, editModalDisplay } from '../actions';
+import {
+  getPosts,
+  deletePost,
+  editModalDisplay,
+  editPostGetDefaultData
+} from '../actions';
 import Like from '../components/Like';
 import Moment from 'react-moment';
 import axios from 'axios';
@@ -26,7 +31,7 @@ class Bookmarks extends Component {
   };
 
   render() {
-    console.log('this is props sammy', this.props);
+    console.log('this is props riley', this.props);
 
     const Wrapper = styled.div`
       // border: 1px solid blue;
@@ -170,7 +175,11 @@ class Bookmarks extends Component {
               <img
                 src={editSvg}
                 alt=""
-                onClick={() => this.props.editModalDisplay(post.id)}
+                onClick={async () => {
+                  this.props
+                    .editPostGetDefaultData(post.id)
+                    .then(res => this.props.editModalDisplay());
+                }}
                 className="edit-icon"
               />
             </Post>
@@ -191,5 +200,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getPosts, deletePost, editModalDisplay }
+  { getPosts, deletePost, editModalDisplay, editPostGetDefaultData }
 )(Bookmarks);
