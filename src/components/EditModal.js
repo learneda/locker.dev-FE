@@ -28,7 +28,7 @@ class EditModal extends Component {
       width: 100vw;
       height: 100vh;
       position: fixed;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.3);
       top: 0;
       bottom: 0;
       left: 0;
@@ -111,6 +111,7 @@ class EditModal extends Component {
         padding: 10px;
         font-size: 1.6rem;
         font-family: inherit;
+        border: 1px solid lightgrey;
         &:focus {
           outline: none;
         }
