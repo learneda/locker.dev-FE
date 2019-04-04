@@ -1,9 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { editProfile } from '../actions';
 import styled from 'styled-components';
 import { customLayout, customWrapper } from './mixins';
 
 class Sidebar extends Component {
+  state = {
+    bio: '',
+    location: '',
+    website_url: ''
+  };
+
+  editProfileHandler = (e, id) => {
+    e.preventDefault();
+    const { bio, location, website_url } = this.state;
+    this.props.editProfile(id, { bio, location, website_url });
+  };
+
+  handleInputChange = e => this.setState({ [e.target.name]: e.target.value });
+
   render() {
     return (
       <Wrapper>
@@ -13,11 +28,40 @@ class Sidebar extends Component {
           </div>
           <div className="user-bio">
             <h3>{this.props.auth.display_name}</h3>
-            <p>
-              I am a Full-Stack Web Developer student at Lambda School. I'm
-              learning JavaScript, Python, and C.
-            </p>
-            <button>Edit bio</button>
+            <p>{this.props.auth.bio}</p>
+            <p>{this.props.auth.location}</p>
+            <p>{this.props.auth.website_url}</p>
+
+            <input
+              type="text"
+              onChange={this.handleInputChange}
+              placeholder="Edit bio"
+              value={this.state.bio}
+              name="bio"
+              required
+            />
+            <input
+              type="text"
+              onChange={this.handleInputChange}
+              placeholder="Edit location"
+              value={this.state.location}
+              name="location"
+              required
+            />
+            <input
+              type="text"
+              onChange={this.handleInputChange}
+              placeholder="Edit website url"
+              value={this.state.website_url}
+              name="website_url"
+              required
+            />
+            <button
+              type="submit"
+              onClick={e => this.editProfileHandler(e, this.props.auth.id)}
+            >
+              Edit bio
+            </button>
           </div>
         </Profile>
       </Wrapper>
@@ -72,7 +116,7 @@ const Profile = styled.div`
 
     p {
       line-height: 25px;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       color: #6d767e;
     }
 
@@ -98,11 +142,10 @@ const Profile = styled.div`
 const mapStateToProps = ({ auth }) => {
   return {
     auth: auth
-    // posts: state.posts
   };
 };
 
 export default connect(
   mapStateToProps,
-  null
+  { editProfile }
 )(Sidebar);

@@ -68,5 +68,6 @@ export const getlikedPosts = () => async dispatch => {
 export const editProfile = (id, profile) => async dispatch => {
   await axios.put(`${URL}/auth/current_user/${id}`, profile);
   const res = await axios.get(`${URL}/auth/current_user`);
-  dispatch({ type: EDIT_NOTE, payload: res.data });
+  console.log('RES', res);
+  dispatch({ type: EDIT_PROFILE, payload: res.data });
 };
