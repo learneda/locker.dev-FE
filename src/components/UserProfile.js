@@ -20,7 +20,7 @@ export default class Home extends Component {
                   <Bookmarks />
                 </TabWrapper>
               </Tab>
-              <Tab title="Likes">
+              <Tab title="Recommended">
                 <TabWrapper>
                   <Likes />
                 </TabWrapper>

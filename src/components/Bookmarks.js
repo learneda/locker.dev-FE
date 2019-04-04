@@ -49,7 +49,7 @@ class Bookmarks extends Component {
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
       border-radius: 6px;
       background-color: #fff;
-      max-height: 204px;
+      max-height: 220px;
       position: relative;
       &:hover {
         .like {
@@ -60,6 +60,16 @@ class Bookmarks extends Component {
           opacity: 1;
           transition: 200ms ease-in;
         }
+        .rec-span {
+          transition: 200ms ease-in;
+          font-size: 1.2rem;
+          opacity: 0.8;
+        }
+        .del-span {
+          transition: 200ms ease-in;
+          font-size: 1.2rem;
+          opacity: 0.8;
+        }
       }
       @media (max-width: 960px) {
         flex-direction: column;
@@ -69,14 +79,15 @@ class Bookmarks extends Component {
       .delete-icon {
         cursor: pointer;
         opacity: 0;
-        width: 24px;
-        height: 24px;
+        width: 17px;
+        height: 17px;
+        margin-right: 5px;
       }
       .like {
         display: inline;
         cursor: pointer;
         transition: 200ms ease-out;
-        margin-right: 20px;
+        margin-right: 5px;
         opacity: 0;
       }
       a {
@@ -92,7 +103,7 @@ class Bookmarks extends Component {
         width: 100%;
         border-radius: 6px;
         max-width: 320px;
-        max-height: 204px;
+        max-height: 220px;
         object-fit: fill;
         height: 100%;
         @media (max-width: 960px) {
@@ -136,6 +147,18 @@ class Bookmarks extends Component {
         cursor: pointer;
         height: 30px;
       }
+
+      .rec-span {
+        margin-right: 15px;
+        opacity: 0;
+        font-size: 1.2rem;
+      }
+
+      .del-span {
+        margin-right: 5px;
+        opacity: 0;
+        font-size: 1.2rem;
+      }
     `;
 
     const search = this.props.search_term;
@@ -176,6 +199,7 @@ class Bookmarks extends Component {
                     handleLike={this.handleLike}
                     id={post.id}
                   />
+                  <span className="rec-span">recommend</span>
                   <img
                     src={deleteIcon}
                     className="delete-icon"
@@ -185,6 +209,7 @@ class Bookmarks extends Component {
                         .then(res => this.props.getPosts())
                     }
                   />
+                  <span className="del-span">delete</span>
                 </div>
               </div>
               <img
