@@ -11,7 +11,9 @@ import {
   DELETE_POST,
   LIKED_POSTS,
   EDIT_MODAL_DISPLAY,
-  EDIT_PROFILE
+  EDIT_PROFILE,
+  EDIT_POST_SUBMIT,
+  EDIT_POST_GET_DEFAULT_DATA
 } from './types';
 import { post as URL } from '../services/baseURL';
 axios.defaults.withCredentials = true;
@@ -66,14 +68,23 @@ export const getlikedPosts = () => async dispatch => {
   dispatch({ type: LIKED_POSTS, payload: res.data });
 };
 
-export const editModalDisplay = id => async dispatch => {
-  const res = await axios.get(`${URL}/api/posts/${id}`);
-  dispatch({ type: EDIT_MODAL_DISPLAY, payload: res.data });
-};
-
 export const editProfile = (id, profile) => async dispatch => {
   await axios.put(`${URL}/auth/current_user/${id}`, profile);
   const res = await axios.get(`${URL}/auth/current_user`);
   console.log('RES', res);
   dispatch({ type: EDIT_PROFILE, payload: res.data });
+};
+
+/* ===== EDIT POST ACTIONS ===== */
+export const editModalDisplay = () => async dispatch => {
+  dispatch({ type: EDIT_MODAL_DISPLAY });
+};
+
+export const editPostGetDefaultData = id => async dispatch => {
+  const res = await axios.get(`${URL}/api/posts/${id}`);
+  dispatch({ type: EDIT_POST_GET_DEFAULT_DATA, payload: res.data });
+};
+export const editPostSubmit = (editedPost, id) => async dispatch => {
+  const res = await axios.put(`${URL}/api/posts/${id}`, editedPost);
+  dispatch({ type: EDIT_POST_SUBMIT, payload: res.data });
 };
