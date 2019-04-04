@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Bookmarks from '../components/Bookmarks';
-import Likes from '../components/Likes';
-import Sidebar from '../components/Sidebar';
+import Bookmarks from './Bookmarks';
+import Likes from './Likes';
+import Sidebar from './Sidebar';
 import styled from 'styled-components';
 
 import { customWrapper } from '../components/mixins';

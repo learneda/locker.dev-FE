@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { editProfile } from '../actions';
+import { editProfile } from '../../actions';
 import styled from 'styled-components';
-import { customLayout, customWrapper } from './mixins';
+import { customLayout, customWrapper } from '../mixins';
 
 class Sidebar extends Component {
   state = {
@@ -60,7 +60,7 @@ class Sidebar extends Component {
               type="submit"
               onClick={e => this.editProfileHandler(e, this.props.auth.id)}
             >
-              Edit bio
+              Save
             </button>
           </div>
         </Profile>
