@@ -9,7 +9,8 @@ import {
   SAVE_LINK,
   FETCH_POSTS,
   DELETE_POST,
-  LIKED_POSTS
+  LIKED_POSTS,
+  EDIT_MODAL_DISPLAY
 } from './types';
 import { post as URL } from '../services/baseURL';
 axios.defaults.withCredentials = true;
@@ -62,4 +63,8 @@ export const deletePost = id => async dispatch => {
 export const getlikedPosts = () => async dispatch => {
   const res = await axios.get(`${URL}/api/posts/likes`);
   dispatch({ type: LIKED_POSTS, payload: res.data });
+};
+
+export const editModalDisplay = () => async dispatch => {
+  dispatch({ type: EDIT_MODAL_DISPLAY });
 };
