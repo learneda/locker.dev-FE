@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { positions, Provider as AlertProvider } from 'react-alert';
-import AlertTemplate from 'react-alert-template-basic';
+import Alert from './components/Alert';
 
 import App from './App';
 import rootReducer from './reducers';
@@ -26,14 +26,13 @@ if (process.env.NODE_ENV === 'production') {
 }
 const options = {
   position: positions.TOP_CENTER,
-  timeout: 3000,
-  offset: '200px'
+  timeout: 3000
 };
 
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <AlertProvider template={AlertTemplate} {...options}>
+      <AlertProvider template={Alert} {...options}>
         <App />
       </AlertProvider>
     </Router>

@@ -74,7 +74,7 @@ class Browse extends Component {
                                 `https://www.udemy.com${course.url}`
                               );
                               this.props.alert.success(
-                                'Course added to Home page'
+                                'Course added to Bookmarks'
                               );
                             }}
                           />
@@ -111,7 +111,7 @@ class Browse extends Component {
                             onClick={() => {
                               this.handleSaveLink(article.url);
                               this.props.alert.success(
-                                'Article added to Home page'
+                                'Article added to Bookmarks'
                               );
                             }}
                           />
