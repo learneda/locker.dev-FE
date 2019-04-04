@@ -7,10 +7,17 @@ import Moment from 'react-moment';
 import axios from 'axios';
 import { post as URL } from '../services/baseURL';
 import deleteIcon from '../assets/svg/delete-icon.svg';
+import EditModal from './EditModal';
+import editSvg from '../assets/svg/edit.svg';
 
 import { customWrapper } from '../components/mixins';
+import { Edit } from 'grommet-icons';
 
 class Bookmarks extends Component {
+  state = {
+    modalOpen: false
+  };
+
   componentDidMount = () => this.props.getPosts();
 
   handleLike = async (id, liked) => {
@@ -34,6 +41,7 @@ class Bookmarks extends Component {
       border-radius: 6px;
       background-color: #fff;
       max-height: 204px;
+      position: relative;
       &:hover {
         .like {
           opacity: 1;
@@ -117,6 +125,18 @@ class Bookmarks extends Component {
         display: flex;
         // align-items: center;
       }
+      .edit-modal {
+        height: 100vh;
+        width: 100vw;
+      }
+      .edit-icon {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        width: 30px;
+        cursor: pointer;
+        height: 30px;
+      }
     `;
 
     return (
@@ -124,6 +144,7 @@ class Bookmarks extends Component {
         {this.props.posts
           .map(post => (
             <Post key={post.id}>
+              <EditModal modalOpen={this.state.modalOpen} />
               <a href={post.post_url} target="_blank" rel="noopener noreferrer">
                 <img src={post.thumbnail_url} alt="" />
               </a>
@@ -156,6 +177,14 @@ class Bookmarks extends Component {
                   />
                 </div>
               </div>
+              <img
+                src={editSvg}
+                alt=""
+                onClick={() =>
+                  this.setState({ modalOpen: !this.state.modalOpen })
+                }
+                className="edit-icon"
+              />
             </Post>
           ))
           .reverse()}
