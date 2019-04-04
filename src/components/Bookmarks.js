@@ -11,6 +11,7 @@ import EditModal from './EditModal';
 import editSvg from '../assets/svg/edit.svg';
 
 import { customWrapper } from '../components/mixins';
+import { Edit } from 'grommet-icons';
 
 class Bookmarks extends Component {
   state = {
@@ -143,6 +144,7 @@ class Bookmarks extends Component {
         {this.props.posts
           .map(post => (
             <Post key={post.id}>
+              <EditModal modalOpen={this.state.modalOpen} />
               <a href={post.post_url} target="_blank" rel="noopener noreferrer">
                 <img src={post.thumbnail_url} alt="" />
               </a>
