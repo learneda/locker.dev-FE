@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -81,103 +81,110 @@ const Burger = styled.div`
   // min-height: 100vh;
 `;
 
-const Navbar = ({ modalState, modalLogin, modalSignUp, auth }) => {
-  if (auth) {
-    return (
-      <NavWrapper>
-        <Burger>
-          <ul>
-            <li>
-              <Link to="/home">
-                <span>Home</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/profile">
-                <span>Profile</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/browse">
-                <span>Browse</span>
-              </Link>
-            </li>
-            <li>
-              <a href={`${authURL}logout`}>Log out</a>
-            </li>
-          </ul>
-        </Burger>
+class Navbar extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-        <Nav>
-          <button>Menu</button>
-          <ul>
-            <li>
-              <Link to="/home">
-                <span>Home</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/profile">
-                <span>Profile</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/browse">
-                <span>Browse</span>
-              </Link>
-            </li>
-          </ul>
-          <DummySearch />
-          <NavRight>
-            <Toggle />
-            <a href={`${authURL}logout`}>
-              <img
-                src={auth.profile_picture}
-                className="auth-icon"
-                alt="avatar"
-              />
-            </a>
-          </NavRight>
-        </Nav>
-      </NavWrapper>
-    );
-  } else {
-    return (
-      <Fragment>
-        <Auth />
-        <Wrapper>
-          <Nav>
-            <h1>
-              <Link to="/home">Learned</Link>
-            </h1>
+  render() {
+    const { modalState, modalLogin, modalSignUp, auth } = this.props;
+    if (auth) {
+      return (
+        <NavWrapper>
+          <Burger>
             <ul>
               <li>
-                <span
-                  onClick={() => {
-                    modalState();
-                    modalLogin();
-                  }}
-                >
-                  Log In
-                </span>
+                <Link to="/home">
+                  <span>Home</span>
+                </Link>
               </li>
               <li>
-                <span
-                  onClick={() => {
-                    modalState();
-                    modalSignUp();
-                  }}
-                >
-                  Sign Up
-                </span>
+                <Link to="/profile">
+                  <span>Profile</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/browse">
+                  <span>Browse</span>
+                </Link>
+              </li>
+              <li>
+                <a href={`${authURL}logout`}>Log out</a>
               </li>
             </ul>
+          </Burger>
+
+          <Nav>
+            <button>Menu</button>
+            <ul>
+              <li>
+                <Link to="/home">
+                  <span>Home</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/profile">
+                  <span>Profile</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/browse">
+                  <span>Browse</span>
+                </Link>
+              </li>
+            </ul>
+            <DummySearch />
+            <NavRight>
+              <Toggle />
+              <a href={`${authURL}logout`}>
+                <img
+                  src={auth.profile_picture}
+                  className="auth-icon"
+                  alt="avatar"
+                />
+              </a>
+            </NavRight>
           </Nav>
-        </Wrapper>
-      </Fragment>
-    );
+        </NavWrapper>
+      );
+    } else {
+      return (
+        <Fragment>
+          <Auth />
+          <Wrapper>
+            <Nav>
+              <h1>
+                <Link to="/home">Learned</Link>
+              </h1>
+              <ul>
+                <li>
+                  <span
+                    onClick={() => {
+                      modalState();
+                      modalLogin();
+                    }}
+                  >
+                    Log In
+                  </span>
+                </li>
+                <li>
+                  <span
+                    onClick={() => {
+                      modalState();
+                      modalSignUp();
+                    }}
+                  >
+                    Sign Up
+                  </span>
+                </li>
+              </ul>
+            </Nav>
+          </Wrapper>
+        </Fragment>
+      );
+    }
   }
-};
+}
 
 const mapStateToProps = ({ modalState, auth }) => {
   return {
