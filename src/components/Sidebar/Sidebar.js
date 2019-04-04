@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { editProfile } from '../../actions';
+import EditProfile from './EditProfile';
+
 import styled from 'styled-components';
 import { customLayout, customWrapper } from '../mixins';
 
@@ -32,36 +34,14 @@ class Sidebar extends Component {
             <p>{this.props.auth.location}</p>
             <p>{this.props.auth.website_url}</p>
 
-            <input
-              type="text"
-              onChange={this.handleInputChange}
-              placeholder="Edit bio"
-              value={this.state.bio}
-              name="bio"
-              required
-            />
-            <input
-              type="text"
-              onChange={this.handleInputChange}
-              placeholder="Edit location"
-              value={this.state.location}
-              name="location"
-              required
-            />
-            <input
-              type="text"
-              onChange={this.handleInputChange}
-              placeholder="Edit website url"
-              value={this.state.website_url}
-              name="website_url"
-              required
-            />
-            <button
-              type="submit"
-              onClick={e => this.editProfileHandler(e, this.props.auth.id)}
-            >
-              Save
-            </button>
+            <div>
+              <EditProfile
+                handleChange={this.handleInputChange}
+                id={this.props.auth.id}
+                state={this.state}
+                editProfile={this.editProfileHandler}
+              />
+            </div>
           </div>
         </Profile>
       </Wrapper>
