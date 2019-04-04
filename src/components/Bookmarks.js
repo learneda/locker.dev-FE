@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { getPosts, deletePost, editModalDisplay } from '../actions';
+import Toggle from '../components/Toggle';
+import { getPosts, deletePost, editModalDisplay, getSearchValue } from '../actions';
 import Like from '../components/Like';
 import Moment from 'react-moment';
 import axios from 'axios';
@@ -129,10 +130,20 @@ class Bookmarks extends Component {
       }
     `;
 
+        const search = this.props.search_term
+
+          const filteredPosts = this.props.posts.filter((post) => {
+        return (
+          post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
+          post.thumbnail_url.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
+          post.description.toLowerCase().indexOf(search.toLowerCase()) !== -1
+        )
+      })
+    
     return (
       <Wrapper>
-        <EditModal />
-        {this.props.posts
+        <Toggle />
+        {filteredPosts
           .map(post => (
             <Post key={post.id}>
               <a href={post.post_url} target="_blank" rel="noopener noreferrer">
@@ -185,11 +196,12 @@ const mapStateToProps = state => {
   return {
     posts: state.posts,
     deletePost: state.deletePost,
+    search_term: state.search_term,
     modalOpen: state.modalState.editModalOpen
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getPosts, deletePost, editModalDisplay }
+  { getPosts, deletePost, editModalDisplay, getSearchValue }
 )(Bookmarks);
