@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { editModalDisplay } from '../actions/index';
 
 class EditModal extends Component {
   state = {
@@ -7,6 +9,9 @@ class EditModal extends Component {
     post_url: '',
     title: ''
   };
+  componentDidMount() {
+    console.log(this.props.modalOpen);
+  }
 
   handleModalState = () => {
     // this.setState({
@@ -118,9 +123,15 @@ class EditModal extends Component {
       }
     `;
     return (
-      <EditModal style={{ display: this.props.modalOpen ? 'block' : 'none' }}>
+      <EditModal
+        style={{
+          display: this.props.modalOpen ? 'block' : 'none'
+        }}
+      >
         <form className="edit-form" onSubmit={this.onSubmit}>
-          <span className="close-modal-x">&times;</span>
+          <span onClick={this.props.editModalDisplay} className="close-modal-x">
+            &times;
+          </span>
           <div className="form-title">
             <h3>Edit Post</h3>
           </div>
@@ -142,4 +153,12 @@ class EditModal extends Component {
   }
 }
 
-export default EditModal;
+const mapStateToProps = state => {
+  return {
+    modalOpen: state.modalState.editModalOpen
+  };
+};
+export default connect(
+  mapStateToProps,
+  { editModalDisplay }
+)(EditModal);
