@@ -16,13 +16,13 @@ class EditModal extends Component {
     // });
   };
   componentDidMount() {
-    // if (this.props.modalFormData) {
-    //   this.setState({
-    //     postDescription: this.props.modalFormData.post.description,
-    //     post_url: this.props.modalFormData.post.post_url,
-    //     title: this.props.modalFormData.post.title
-    //   });
-    // }
+    if (this.props.modalFormData) {
+      this.setState({
+        postDescription: this.props.modalFormData.post.description,
+        post_url: this.props.modalFormData.post.post_url,
+        title: this.props.modalFormData.post.title
+      });
+    }
   }
 
   onSubmit = e => {
@@ -37,7 +37,7 @@ class EditModal extends Component {
 
   onChange = e => {
     this.setState({
-      title: e.target.value
+      [e.target.name]: e.target.value
     });
   };
   render() {
@@ -151,7 +151,7 @@ class EditModal extends Component {
           <input
             type="text"
             // defaultValue={this.state.post_url}
-            value={this.state.post_url}
+            defaultValue={this.state.post_url}
             name="post_url"
             onChange={this.onChange}
             key="post_url"
