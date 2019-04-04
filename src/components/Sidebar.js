@@ -1,9 +1,40 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { editProfile } from '../actions';
+
 import styled from 'styled-components';
 import { customLayout, customWrapper } from './mixins';
+import EditableLabel from 'react-inline-edition';
 
 class Sidebar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      bio: 'Add bio',
+      location: 'Add location',
+      website_url: 'Add website URL'
+    };
+
+    this._bioFocusOut = this._bioFocusOut.bind(this);
+    this._locationFocusOut = this._locationFocusOut.bind(this);
+    this._websiteFocusOut = this._websiteFocusOut.bind(this);
+  }
+
+  _bioFocusOut(text) {
+    this.props.editProfile(this.props.auth.id, { bio: text });
+  }
+
+  _locationFocusOut(text) {
+    this.props.editProfile(this.props.auth.id, { location: text });
+  }
+
+  _websiteFocusOut(text) {
+    this.props.editProfile(this.props.auth.id, { website_url: text });
+  }
+
+  handleInputChange = e => this.setState({ [e.target.name]: e.target.value });
+
   render() {
     return (
       <Wrapper>
@@ -14,10 +45,51 @@ class Sidebar extends Component {
           <div className="user-bio">
             <h3>{this.props.auth.display_name}</h3>
             <p>
-              I am a Full-Stack Web Developer student at Lambda School. I'm
-              learning JavaScript, Python, and C.
+              <EditableLabel
+                text={
+                  this.props.auth.bio ? this.props.auth.bio : this.state.bio
+                }
+                labelClassName="myLabelClass"
+                labelPlaceHolder="ADD BIO"
+                inputClassName="myInputClass"
+                inputWidth="200px"
+                inputHeight="25px"
+                inputMaxLength={100}
+                onFocusOut={this._bioFocusOut}
+              />
             </p>
-            <button>Edit bio</button>
+
+            <p>
+              <EditableLabel
+                text={
+                  this.props.auth.location
+                    ? this.props.auth.location
+                    : this.state.location
+                }
+                labelClassName="myLabelClass"
+                inputClassName="myInputClass"
+                inputWidth="200px"
+                inputHeight="25px"
+                inputMaxLength={50}
+                onFocusOut={this._locationFocusOut}
+              />
+            </p>
+
+            <p>
+              <EditableLabel
+                text={
+                  this.props.auth.website_url
+                    ? this.props.auth.website_url
+                    : this.state.website_url
+                }
+                labelClassName="myLabelClass"
+                inputClassName="myInputClass"
+                inputWidth="200px"
+                inputHeight="25px"
+                inputMaxLength={50}
+                onFocusOut={this._websiteFocusOut}
+              />
+            </p>
           </div>
         </Profile>
       </Wrapper>
@@ -72,8 +144,13 @@ const Profile = styled.div`
 
     p {
       line-height: 25px;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       color: #6d767e;
+    }
+
+    mark {
+      background-color: transparent;
+      color: #333;
     }
 
     button {
@@ -98,11 +175,10 @@ const Profile = styled.div`
 const mapStateToProps = ({ auth }) => {
   return {
     auth: auth
-    // posts: state.posts
   };
 };
 
 export default connect(
   mapStateToProps,
-  null
+  { editProfile }
 )(Sidebar);

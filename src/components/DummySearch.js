@@ -5,7 +5,6 @@ import { getSearchValue } from '../actions/index';
 
 function DummySearch(props) {
   const [value, setValue] = useState('');
-
   const handleChange = e => setValue(e.target.value);
 
   return (
@@ -13,13 +12,7 @@ function DummySearch(props) {
       size="small"
       placeholder="search"
       value={props.search_term}
-      onChange={(e)=> {
-        console.log(
-          'jaja'
-        )
-        props.getSearchValue(e)
-      }
-      }
+      onChange={(e)=>props.getSearchValue(e)}
     />
   );
 }

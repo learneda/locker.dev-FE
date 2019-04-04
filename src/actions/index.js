@@ -11,6 +11,8 @@ import {
   DELETE_POST,
   LIKED_POSTS,
   SEARCH_TERM
+  EDIT_MODAL_DISPLAY,
+  EDIT_PROFILE
 } from './types';
 import { post as URL } from '../services/baseURL';
 axios.defaults.withCredentials = true;
@@ -66,6 +68,16 @@ export const getlikedPosts = () => async dispatch => {
 };
 
 export const getSearchValue = (e) => dispatch => {
-  console.log('in actions HERERERER')
   dispatch({ type: SEARCH_TERM, payload: e.target.value});
 }
+export const editModalDisplay = id => async dispatch => {
+  const res = await axios.get(`${URL}/api/posts/${id}`);
+  dispatch({ type: EDIT_MODAL_DISPLAY, payload: res.data });
+};
+
+export const editProfile = (id, profile) => async dispatch => {
+  await axios.put(`${URL}/auth/current_user/${id}`, profile);
+  const res = await axios.get(`${URL}/auth/current_user`);
+  console.log('RES', res);
+  dispatch({ type: EDIT_PROFILE, payload: res.data });
+};

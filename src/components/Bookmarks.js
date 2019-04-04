@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { getPosts, deletePost,getSearchValue } from '../actions';
 import Toggle from '../components/Toggle';
+import { getPosts, deletePost, editModalDisplay, getSearchValue } from '../actions';
 import Like from '../components/Like';
 import Moment from 'react-moment';
 import axios from 'axios';
 import { post as URL } from '../services/baseURL';
 import deleteIcon from '../assets/svg/delete-icon.svg';
+import EditModal from './EditModal';
+import editSvg from '../assets/svg/edit.svg';
 
 import { customWrapper } from '../components/mixins';
+import { Edit } from 'grommet-icons';
 
 class Bookmarks extends Component {
+  state = {
+    modalOpen: false
+  };
+
   componentDidMount = () => this.props.getPosts();
 
   handleLike = async (id, liked) => {
@@ -35,6 +42,7 @@ class Bookmarks extends Component {
       border-radius: 6px;
       background-color: #fff;
       max-height: 204px;
+      position: relative;
       &:hover {
         .like {
           opacity: 1;
@@ -51,19 +59,13 @@ class Bookmarks extends Component {
         max-height: initial;
       }
       .delete-icon {
-        // color: red;
-        // right: 20px;
-        // font-size: 4rem;
         cursor: pointer;
         opacity: 0;
-        // transition: 200ms ease-out;
         width: 24px;
         height: 24px;
       }
       .like {
         display: inline;
-        // right: 40px;
-        // top: 0px;
         cursor: pointer;
         transition: 200ms ease-out;
         margin-right: 20px;
@@ -83,7 +85,6 @@ class Bookmarks extends Component {
         border-radius: 6px;
         max-width: 320px;
         max-height: 204px;
-        height: 204px;
         object-fit: fill;
         height: 100%;
         @media (max-width: 960px) {
@@ -109,14 +110,23 @@ class Bookmarks extends Component {
       .formatted-date {
         font-size: 1.2rem;
         opacity: 0.8;
-        // display: inline-block;
-        // margin-bottom: 5px;
         position: relative;
         margin-right: 30px;
       }
       .date-like-heart {
         display: flex;
-        // align-items: center;
+      }
+      .edit-modal {
+        height: 100vh;
+        width: 100vw;
+      }
+      .edit-icon {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        width: 30px;
+        cursor: pointer;
+        height: 30px;
       }
     `;
 
@@ -168,6 +178,12 @@ class Bookmarks extends Component {
                   />
                 </div>
               </div>
+              <img
+                src={editSvg}
+                alt=""
+                onClick={() => this.props.editModalDisplay(post.id)}
+                className="edit-icon"
+              />
             </Post>
           ))
           .reverse()}
@@ -181,10 +197,11 @@ const mapStateToProps = state => {
     posts: state.posts,
     deletePost: state.deletePost,
     search_term: state.search_term
+    modalOpen: state.modalState.editModalOpen
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getPosts, deletePost, getSearchValue }
+  { getPosts, deletePost, editModalDisplay,getSearchValue }
 )(Bookmarks);

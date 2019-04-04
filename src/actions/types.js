@@ -25,4 +25,8 @@ export const DELETE_POST = 'DELETE_POST';
 
 export const LIKED_POSTS = 'LIKED_POSTS';
 
+export const EDIT_PROFILE = 'EDIT_PROFILE';
+
+export const EDIT_MODAL_DISPLAY = 'EDIT_MODAL_DISPLAY';
+
 export const SEARCH_TERM = 'SEARCH_TERM';

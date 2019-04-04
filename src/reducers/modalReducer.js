@@ -1,13 +1,21 @@
 import {
   AUTH_MODAL_DISPLAY,
   AUTH_MODAL_LOGIN,
-  AUTH_MODAL_SIGNUP
+  AUTH_MODAL_SIGNUP,
+  EDIT_MODAL_DISPLAY
 } from '../actions/types';
 
-const initialState = { modalOpen: false, signUp: true };
+const initialState = { modalOpen: false, signUp: true, editModalOpen: false };
 
 export const modalReducer = (state = initialState, action) => {
   switch (action.type) {
+    case EDIT_MODAL_DISPLAY: {
+      return {
+        ...state,
+        editFormData: action.payload,
+        editModalOpen: !state.editModalOpen
+      };
+    }
     case AUTH_MODAL_DISPLAY: {
       return {
         ...state,

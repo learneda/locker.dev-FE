@@ -18,8 +18,7 @@ const Post = styled.div`
   border-radius: 6px;
   background-color: #fff;
   position: relative;
-  padding-bottom: 30px;
-
+  max-height: 204px;
   @media (max-width: 960px) {
     flex-direction: column;
     align-items: center;
@@ -36,17 +35,12 @@ const Post = styled.div`
   img {
     width: 100%;
     border-radius: 6px;
-    // margin-bottom: 60px;
     max-width: 320px;
-    // min-height: 204px;
     max-height: 204px;
-    height: 204px;
     object-fit: fill;
     height: 100%;
-    // align-self: center;
     @media (max-width: 960px) {
-      max-width: 600px;
-      // margin-top: 15px;
+      max-width: 100%;
       max-height: 400px;
       border-radius: 6px;
       border-radius: 0 0 6px 6px;
@@ -68,9 +62,8 @@ const Post = styled.div`
   .formatted-date {
     font-size: 1.2rem;
     opacity: 0.8;
-    // align-self: flex-end;
-    float: left;
-    position: absolute;
+    position: relative;
+    margin-right: 30px;
   }
 `;
 
