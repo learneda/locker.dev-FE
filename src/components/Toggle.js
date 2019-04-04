@@ -2,29 +2,9 @@ import React, { Component } from 'react';
 import AddLinkPortal from './AddLinkPortal';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import addSvg from '../assets/svg/add-link.svg';
 import { getPosts } from '../actions';
 import { post as URL } from '../services/baseURL';
-import { customLayout, hoverBg } from './mixins';
-import styled from 'styled-components';
 
-const ToggleWrapper = styled.li`
-  ${customLayout('space-between')}
-  span {
-    padding: 10px;
-    font-weight: 700;
-    border: transparent;
-    cursor: pointer;
-    width: 100px;
-    text-align: center;
-
-    &:hover {
-      border: 1px solid ${hoverBg} transparent;
-      border-radius: 5px;
-      background-color: ${hoverBg};
-    }
-  }
-`;
 class Toggle extends Component {
   constructor(props) {
     super(props);
@@ -65,7 +45,6 @@ class Toggle extends Component {
     e.preventDefault();
 
     if (this.props.auth) {
-      console.log('in handle submit');
       axios
         .post(`${URL}/api/posts`, {
           post_url: this.state.inputValue,
@@ -73,7 +52,6 @@ class Toggle extends Component {
         })
         .then(res => {
           this.props.getPosts();
-          console.log(res.data);
           this.setState({
             inputValue: '',
             on: false
@@ -84,10 +62,8 @@ class Toggle extends Component {
   };
   render() {
     return (
-      <ul onKeyDown={e => e.which === 27 && this.toggle()}>
-        <ToggleWrapper>
-          <span onClick={() => this.toggle()}>Add Link</span>
-        </ToggleWrapper>
+      <div onKeyDown={e => e.which === 27 && this.toggle()}>
+        <span onClick={() => this.toggle()}>Add Link</span>
         {/* <img src={addSvg} alt="" onClick={() => this.toggle()} /> */}
         {this.state.on && (
           <AddLinkPortal>
@@ -120,7 +96,7 @@ class Toggle extends Component {
             </div>
           </AddLinkPortal>
         )}
-      </ul>
+      </div>
     );
   }
 }

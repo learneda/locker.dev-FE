@@ -49,6 +49,23 @@ const Nav = styled.nav`
   }
 `;
 
+const NavRight = styled.div`
+  display: flex;
+  align-items: center;
+  span {
+    padding: 10px;
+    margin-right: 10px;
+    font-weight: 700;
+    border: transparent;
+    cursor: pointer;
+    &:hover {
+      border: 1px solid ${hoverBg} transparent;
+      border-radius: 5px;
+      background-color: ${hoverBg};
+    }
+  }
+`;
+
 const Navbar = ({ modalState, modalLogin, modalSignUp, auth }) => {
   if (auth) {
     return (
@@ -72,18 +89,16 @@ const Navbar = ({ modalState, modalLogin, modalSignUp, auth }) => {
             </li>
           </ul>
           <DummySearch />
-          <ul>
-            <li>
-              <Toggle />
-            </li>
-            <li>
-              <span>
-                <a href={`${authURL}logout`}>
-                  <img src={auth.profile_picture} className="auth-icon" />
-                </a>
-              </span>
-            </li>
-          </ul>
+          <NavRight>
+            <Toggle />
+            <a href={`${authURL}logout`}>
+              <img
+                src={auth.profile_picture}
+                className="auth-icon"
+                alt="avatar"
+              />
+            </a>
+          </NavRight>
         </Nav>
       </Wrapper>
     );
