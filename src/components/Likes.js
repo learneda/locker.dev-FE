@@ -4,7 +4,7 @@ import { getlikedPosts } from '../actions';
 import styled from 'styled-components';
 import Moment from 'react-moment';
 import { customWrapper } from '../components/mixins';
-
+// This is the reccomended component now
 const Wrapper = styled.div`
   // border: 1px solid blue;
   ${customWrapper('100%', '0 auto')}

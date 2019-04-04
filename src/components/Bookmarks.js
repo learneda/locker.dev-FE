@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import {
+  getPosts,
+  deletePost,
+  editModalDisplay,
+  editPostGetDefaultData,
+  getSearchValue
+} from '../actions';
+
 import Toggle from '../components/Toggle';
-import { getPosts, deletePost, editModalDisplay, getSearchValue } from '../actions';
+
 import Like from '../components/Like';
 import Moment from 'react-moment';
 import axios from 'axios';
@@ -27,7 +35,7 @@ class Bookmarks extends Component {
   };
 
   render() {
-    console.log('this is props sammy', this.props);
+    console.log('this is props riley', this.props);
 
     const Wrapper = styled.div`
       // border: 1px solid blue;
@@ -41,7 +49,7 @@ class Bookmarks extends Component {
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
       border-radius: 6px;
       background-color: #fff;
-      max-height: 204px;
+      max-height: 220px;
       position: relative;
       &:hover {
         .like {
@@ -52,6 +60,16 @@ class Bookmarks extends Component {
           opacity: 1;
           transition: 200ms ease-in;
         }
+        .rec-span {
+          transition: 200ms ease-in;
+          font-size: 1.2rem;
+          opacity: 0.8;
+        }
+        .del-span {
+          transition: 200ms ease-in;
+          font-size: 1.2rem;
+          opacity: 0.8;
+        }
       }
       @media (max-width: 960px) {
         flex-direction: column;
@@ -61,14 +79,15 @@ class Bookmarks extends Component {
       .delete-icon {
         cursor: pointer;
         opacity: 0;
-        width: 24px;
-        height: 24px;
+        width: 17px;
+        height: 17px;
+        margin-right: 5px;
       }
       .like {
         display: inline;
         cursor: pointer;
         transition: 200ms ease-out;
-        margin-right: 20px;
+        margin-right: 5px;
         opacity: 0;
       }
       a {
@@ -84,7 +103,7 @@ class Bookmarks extends Component {
         width: 100%;
         border-radius: 6px;
         max-width: 320px;
-        max-height: 204px;
+        max-height: 220px;
         object-fit: fill;
         height: 100%;
         @media (max-width: 960px) {
@@ -128,20 +147,33 @@ class Bookmarks extends Component {
         cursor: pointer;
         height: 30px;
       }
+
+      .rec-span {
+        margin-right: 15px;
+        opacity: 0;
+        font-size: 1.2rem;
+      }
+
+      .del-span {
+        margin-right: 5px;
+        opacity: 0;
+        font-size: 1.2rem;
+      }
     `;
 
-        const search = this.props.search_term
+    const search = this.props.search_term;
 
-          const filteredPosts = this.props.posts.filter((post) => {
-        return (
-          post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
-          post.thumbnail_url.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
-          post.description.toLowerCase().indexOf(search.toLowerCase()) !== -1
-        )
-      })
-    
+    const filteredPosts = this.props.posts.filter(post => {
+      return (
+        post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
+        post.thumbnail_url.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
+        post.description.toLowerCase().indexOf(search.toLowerCase()) !== -1
+      );
+    });
+
     return (
       <Wrapper>
+        <EditModal />
         <Toggle />
         {filteredPosts
           .map(post => (
@@ -167,6 +199,7 @@ class Bookmarks extends Component {
                     handleLike={this.handleLike}
                     id={post.id}
                   />
+                  <span className="rec-span">recommend</span>
                   <img
                     src={deleteIcon}
                     className="delete-icon"
@@ -176,12 +209,17 @@ class Bookmarks extends Component {
                         .then(res => this.props.getPosts())
                     }
                   />
+                  <span className="del-span">delete</span>
                 </div>
               </div>
               <img
                 src={editSvg}
                 alt=""
-                onClick={() => this.props.editModalDisplay(post.id)}
+                onClick={async () => {
+                  this.props
+                    .editPostGetDefaultData(post.id)
+                    .then(res => this.props.editModalDisplay());
+                }}
                 className="edit-icon"
               />
             </Post>
@@ -203,5 +241,11 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getPosts, deletePost, editModalDisplay, getSearchValue }
+  {
+    getPosts,
+    deletePost,
+    editModalDisplay,
+    editPostGetDefaultData,
+    getSearchValue
+  }
 )(Bookmarks);
