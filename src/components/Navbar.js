@@ -2,12 +2,12 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-
 import DummySearch from './DummySearch';
 import Auth from './authentication/Auth';
 import { customLayout, customWrapper, hoverBg } from './mixins';
 import { modalState, modalLogin, modalSignUp } from '../actions/index';
 import { authURL } from '../services/authURL';
+import Toggle from './Toggle';
 
 const Wrapper = styled.div`
   ${customWrapper('80%', '0 auto')}
@@ -41,6 +41,12 @@ const Nav = styled.nav`
       }
     }
   }
+  .auth-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
 `;
 
 const Navbar = ({ modalState, modalLogin, modalSignUp, auth }) => {
@@ -55,21 +61,26 @@ const Navbar = ({ modalState, modalLogin, modalSignUp, auth }) => {
               </Link>
             </li>
             <li>
-              <Link to="/browse">
-                <span>Browse</span>
+              <Link to="/profile">
+                <span>Profile</span>
               </Link>
             </li>
             <li>
-              <Link to="/profile">
-                <span>Profile</span>
+              <Link to="/browse">
+                <span>Browse</span>
               </Link>
             </li>
           </ul>
           <DummySearch />
           <ul>
             <li>
+              <Toggle />
+            </li>
+            <li>
               <span>
-                <a href={`${authURL}logout`}>Logout</a>
+                <a href={`${authURL}logout`}>
+                  <img src={auth.profile_picture} className="auth-icon" />
+                </a>
               </span>
             </li>
           </ul>

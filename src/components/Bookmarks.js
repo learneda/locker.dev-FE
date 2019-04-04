@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { getPosts, deletePost } from '../actions';
-import Toggle from '../components/Toggle';
 import Like from '../components/Like';
 import Moment from 'react-moment';
 import axios from 'axios';
@@ -122,7 +121,6 @@ class Bookmarks extends Component {
 
     return (
       <Wrapper>
-        <Toggle />
         {this.props.posts
           .map(post => (
             <Post key={post.id}>
