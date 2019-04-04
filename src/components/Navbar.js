@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import DummySearch from './DummySearch';
 import Auth from './authentication/Auth';
 import { customLayout, customWrapper, hoverBg } from './mixins';
+import burgerIcon from '../assets/svg/burger.svg';
+import closeIcon from '../assets/svg/close.svg';
 import { modalState, modalLogin, modalSignUp } from '../actions/index';
 import { authURL } from '../services/authURL';
 import Toggle from './Toggle';
@@ -15,6 +17,12 @@ const NavWrapper = styled.div`
   position: sticky;
   top: 0;
   z-index: 3;
+
+  @media (max-width: 760px) {
+    .main-nav {
+      display: none;
+    }
+  }
 `;
 
 const Wrapper = styled.div`
@@ -77,45 +85,143 @@ const NavRight = styled.div`
 `;
 
 const Burger = styled.div`
-  border: 1px solid red;
+  display: none;
+
+  @media (max-width: 760px) {
+    margin: 0 auto;
+    margin-bottom: 20px;
+    padding: 10px;
+    ${customLayout('space-between', 'center')}
+    width: 90%;
+  }
+
+  input {
+    width: 50%;
+    height: 30px;
+  }
+
+  .burger-icon {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: 200ms ease-in;
+
+    &:hover {
+      opacity: 1;
+      transition: 200ms ease-in;
+    }
+  }
+`;
+
+const BurgerMenu = styled.div`
   // min-height: 100vh;
+
+  .burger {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    background: #fff;
+    z-index: 10;
+
+    animation: fadeBackground 200ms;
+
+    @keyframes fadeBackground {
+      from {
+        background-color: transparent;
+      }
+      to {
+        background-color: #fff;
+      }
+    }
+  }
+
+  .close-btn {
+    ${customLayout('flex-end')}
+    // border: 1px solid red;
+    padding: 20px 8%;
+
+    .close-icon {
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: 200ms ease-in;
+
+      &:hover {
+        opacity: 1;
+        transition: 200ms ease-in;
+      }
+    }
+  }
+
+  .burger-main {
+    ${customLayout('center', 'center')}
+    flex-wrap: wrap;
+    margin: 20px 0;
+
+    li {
+      width: 100%;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 3rem;
+      opacity: 0.8;
+      transition: 200ms ease-in;
+
+      &:hover {
+        opacity: 1;
+        transition: 200ms ease-in;
+        background-color: #e6e8f3;
+      }
+    }
+  }
+
+  .display-block {
+    display: block;
+  }
+
+  .display-none {
+    display: none;
+  }
 `;
 
 class Navbar extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      show: false
+    };
   }
+
+  showBurgerMenu = () => {
+    this.setState({ show: true });
+  };
+
+  hideBurgerMenu = () => {
+    this.setState({ show: false });
+  };
 
   render() {
     const { modalState, modalLogin, modalSignUp, auth } = this.props;
     if (auth) {
       return (
         <NavWrapper>
+          <MobileNav show={this.state.show} handleClose={this.hideBurgerMenu} />
+
           <Burger>
-            <ul>
-              <li>
-                <Link to="/home">
-                  <span>Home</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/profile">
-                  <span>Profile</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/browse">
-                  <span>Browse</span>
-                </Link>
-              </li>
-              <li>
-                <a href={`${authURL}logout`}>Log out</a>
-              </li>
-            </ul>
+            <DummySearch />
+            <img
+              src={burgerIcon}
+              alt="burger"
+              className="burger-icon"
+              onClick={this.showBurgerMenu}
+            />
           </Burger>
 
-          <Nav>
-            <button>Menu</button>
+          <Nav className="main-nav">
             <ul>
               <li>
                 <Link to="/home">
@@ -185,6 +291,47 @@ class Navbar extends Component {
     }
   }
 }
+
+const MobileNav = ({ handleClose, show }) => {
+  const showHideClassName = show
+    ? 'burger display-block'
+    : 'burger display-none';
+
+  return (
+    <BurgerMenu>
+      <div className={showHideClassName}>
+        <div className="close-btn">
+          <img
+            src={closeIcon}
+            alt="close-icon"
+            onClick={handleClose}
+            className="close-icon"
+          />
+        </div>
+        <ul className="burger-main">
+          <li onClick={handleClose}>
+            <Link to="/home">
+              <span>Home</span>
+            </Link>
+          </li>
+          <li onClick={handleClose}>
+            <Link to="/profile">
+              <span>Profile</span>
+            </Link>
+          </li>
+          <li onClick={handleClose}>
+            <Link to="/browse">
+              <span>Browse</span>
+            </Link>
+          </li>
+          <li>
+            <a href={`${authURL}logout`}>Log out</a>
+          </li>
+        </ul>
+      </div>
+    </BurgerMenu>
+  );
+};
 
 const mapStateToProps = ({ modalState, auth }) => {
   return {
