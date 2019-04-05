@@ -44,7 +44,7 @@ export default class Home extends Component {
 
     if (event.keyCode === 13 && body) {
       socket.emit('comments', comment)
-              this.setState({ comments: [ {content:body}, ...this.state.comments ] })
+      this.setState({ comments: [ {content:body}, ...this.state.comments ] })
 
       event.target.value = ''
     }
