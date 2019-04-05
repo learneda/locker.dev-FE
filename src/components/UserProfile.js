@@ -70,6 +70,9 @@ const Container = styled.div`
 const Wrapper = styled.div`
   ${customWrapper('75%')}
   padding-left: 2%;
+  @media (max-width: 960px) {
+    width: 100%;
+  }
 `;
 
 const TabWrapper = styled.div`
