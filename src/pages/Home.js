@@ -7,9 +7,10 @@ import openSocket from 'socket.io-client'
 import { customWrapper } from '../components/mixins';
 import { Grommet, Tab, Tabs } from 'grommet';
 import { post as URL } from '../services/baseURL';
-import axios form 'axios'
-
+// import axios form 'axios'
 const socket = openSocket(URL)
+
+
 
 export default class Home extends Component {
   constructor () {
@@ -22,15 +23,16 @@ export default class Home extends Component {
 
   componentDidMount () {
     socket.on('comments', (msg) => {
-      if (msg.action === 'create') {
-        console.log(msg)
-        this.setState({ comments: [ msg.content, ...this.state.comments ] })
-      }
+      console.log('here',msg)
+      this.setState({ comments: [ {username: msg.username, content:msg.msg.content}, ...this.state.comments ] })
     })
   }
 
   handleChange = ({ target }) => {
+    console.log(value)
     const { name, value } = target
+    console.log(value)
+
     this.setState({ [name]: value })
   }
 
@@ -42,16 +44,19 @@ export default class Home extends Component {
 
     if (event.keyCode === 13 && body) {
       socket.emit('comments', comment)
+              this.setState({ comments: [ {content:body}, ...this.state.comments ] })
+
       event.target.value = ''
     }
   }
 
   render() {
+    console.log(this.state.comments)
     const comments = this.state.comments.map((message, index) => {
+      console.log(message)
       return (
         <li key={index}>
-          <b>{}</b>
-          {message}
+         {message.username} <SPAN>{message.content}</SPAN>
         </li>
       )
     });
@@ -71,4 +76,8 @@ export default class Home extends Component {
 
 const Container = styled.div`
   ${customWrapper('80%', '0 auto')}
+`;
+const SPAN = styled.span`
+  font-weight:bold;
+  font-size: 2rem;
 `;
