@@ -22,6 +22,145 @@ import editSvg from '../assets/svg/edit.svg';
 import { customWrapper } from '../components/mixins';
 import { Edit } from 'grommet-icons';
 
+const Wrapper = styled.div`
+  // border: 1px solid blue;
+  ${customWrapper('100%', '0 auto')}
+`;
+
+const Post = styled.div`
+  ${customWrapper('100%', 'auto')}
+  display: flex;
+  margin-bottom: 50px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 6px;
+  background-color: #fff;
+  max-height: 220px;
+  position: relative;
+  &:hover {
+    .like {
+      opacity: 1;
+      transition: 200ms ease-in;
+    }
+    .delete-icon {
+      opacity: 1;
+      transition: 200ms ease-in;
+    }
+    .rec-span {
+      transition: 200ms ease-in;
+      font-size: 1.2rem;
+      opacity: 0.8;
+    }
+    .del-span {
+      transition: 200ms ease-in;
+      font-size: 1.2rem;
+      opacity: 0.8;
+    }
+  }
+  @media (max-width: 1100px) {
+    flex-direction: column;
+    // align-items: center;
+    max-height: initial;
+  }
+  .delete-icon {
+    cursor: pointer;
+    opacity: 0;
+    width: 17px;
+    height: 17px;
+    margin-right: 5px;
+  }
+  .like {
+    display: inline;
+    cursor: pointer;
+    transition: 200ms ease-out;
+    margin-right: 5px;
+    opacity: 0;
+  }
+  a {
+    text-decoration: none;
+    color: #444;
+  }
+  .post-content {
+    margin: 0 5px;
+    padding: 15px;
+  }
+
+  img {
+    width: 100%;
+    border-radius: 6px 0 0px 6px;
+    max-width: 320px;
+    max-height: 220px;
+    object-fit: cover;
+    height: 100%;
+    @media (max-width: 1100px) {
+      max-width: 100%;
+      max-height: 400px;
+      border-radius: 6px;
+      border-radius: 6px 6px 0 0;
+    }
+  }
+  p {
+    max-width: 600px;
+    margin: 10px auto;
+    font-size: 1.6rem;
+    word-break: break-word;
+    line-height: 1.5;
+    @media (max-width: 960px) {
+      max-width: initial;
+    }
+  }
+  h1 {
+    margin: 0px auto;
+    font-size: 2.6rem;
+    max-width: 600px;
+    line-height: 1.2;
+    margin-right: 10px;
+    @media (max-width: 1100px) {
+      margin: auto;
+    }
+    @media (max-width: 960px) {
+      max-width: initial;
+    }
+  }
+  .formatted-date {
+    font-size: 1.2rem;
+    opacity: 0.8;
+    position: relative;
+    margin-right: 30px;
+  }
+  .date-like-heart {
+    display: flex;
+  }
+  .edit-modal {
+    height: 100vh;
+    width: 100vw;
+  }
+  .edit-icon {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 25px;
+    cursor: pointer;
+    height: 25px;
+
+    @media (max-width: 1100px) {
+      bottom: 20px;
+      top: initial;
+    }
+  }
+
+  .rec-span {
+    margin-right: 15px;
+    opacity: 0;
+    font-size: 1.2rem;
+  }
+
+  .del-span {
+    margin-right: 5px;
+    opacity: 0;
+    font-size: 1.2rem;
+  }
+`;
+
 class Bookmarks extends Component {
   state = {
     modalOpen: false
@@ -35,135 +174,6 @@ class Bookmarks extends Component {
   };
 
   render() {
-    console.log('this is props riley', this.props);
-
-    const Wrapper = styled.div`
-      // border: 1px solid blue;
-      ${customWrapper('100%', '0 auto')}
-    `;
-
-    const Post = styled.div`
-      ${customWrapper('100%', 'auto')}
-      display: flex;
-      margin-bottom: 50px;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-      border-radius: 6px;
-      background-color: #fff;
-      max-height: 220px;
-      position: relative;
-      &:hover {
-        .like {
-          opacity: 1;
-          transition: 200ms ease-in;
-        }
-        .delete-icon {
-          opacity: 1;
-          transition: 200ms ease-in;
-        }
-        .rec-span {
-          transition: 200ms ease-in;
-          font-size: 1.2rem;
-          opacity: 0.8;
-        }
-        .del-span {
-          transition: 200ms ease-in;
-          font-size: 1.2rem;
-          opacity: 0.8;
-        }
-      }
-      @media (max-width: 1100px) {
-        flex-direction: column;
-        // align-items: center;
-        max-height: initial;
-      }
-      .delete-icon {
-        cursor: pointer;
-        opacity: 0;
-        width: 17px;
-        height: 17px;
-        margin-right: 5px;
-      }
-      .like {
-        display: inline;
-        cursor: pointer;
-        transition: 200ms ease-out;
-        margin-right: 5px;
-        opacity: 0;
-      }
-      a {
-        text-decoration: none;
-        color: #444;
-      }
-      .post-content {
-        margin: 0 5px;
-        padding: 15px;
-      }
-
-      img {
-        width: 100%;
-        border-radius: 6px 0 0px 6px;
-        max-width: 320px;
-        max-height: 220px;
-        object-fit: cover;
-        height: 100%;
-        @media (max-width: 1100px) {
-          max-width: 100%;
-          max-height: 400px;
-          border-radius: 6px;
-          border-radius: 6px 6px 0 0;
-        }
-      }
-      p {
-        max-width: 600px;
-        margin: 10px auto;
-        font-size: 1.6rem;
-        word-break: break-word;
-        line-height: 1.5;
-      }
-      h1 {
-        margin: 0px auto;
-        font-size: 2.6rem;
-        max-width: 600px;
-        line-height: 1.2;
-        @media (max-width: 1000px) {
-          margin: 0 auto;
-        }
-      }
-      .formatted-date {
-        font-size: 1.2rem;
-        opacity: 0.8;
-        position: relative;
-        margin-right: 30px;
-      }
-      .date-like-heart {
-        display: flex;
-      }
-      .edit-modal {
-        height: 100vh;
-        width: 100vw;
-      }
-      .edit-icon {
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        width: 30px;
-        cursor: pointer;
-        height: 30px;
-      }
-
-      .rec-span {
-        margin-right: 15px;
-        opacity: 0;
-        font-size: 1.2rem;
-      }
-
-      .del-span {
-        margin-right: 5px;
-        opacity: 0;
-        font-size: 1.2rem;
-      }
-    `;
-
     const search = this.props.search_term;
 
     const filteredPosts = this.props.posts.filter(post => {
