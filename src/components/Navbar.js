@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import DummySearch from './DummySearch';
@@ -58,6 +58,12 @@ const Nav = styled.nav`
         background-color: ${hoverBg};
       }
     }
+  }
+  .active {
+    border: 1px solid ${hoverBg} transparent;
+    border-radius: 5px;
+    background-color: ${hoverBg};
+    padding: 10px 0;
   }
   .auth-icon {
     width: 40px;
@@ -224,19 +230,19 @@ class Navbar extends Component {
           <Nav className="main-nav">
             <ul>
               <li>
-                <Link to="/home">
+                <NavLink to="/home" activeClassName="active">
                   <span>Home</span>
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link to="/profile">
+                <NavLink to="/profile" activeClassName="active">
                   <span>Profile</span>
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link to="/browse">
+                <NavLink to="/browse" activeClassName="active">
                   <span>Browse</span>
-                </Link>
+                </NavLink>
               </li>
             </ul>
             <DummySearch />
