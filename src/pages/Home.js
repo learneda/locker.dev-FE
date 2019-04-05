@@ -6,8 +6,9 @@ import styled from 'styled-components';
 import openSocket from 'socket.io-client'
 import { customWrapper } from '../components/mixins';
 import { Grommet, Tab, Tabs } from 'grommet';
+import { post as URL } from '../services/baseURL'
 
-const socket = openSocket('http://localhost:8000')
+const socket = openSocket(URL)
 
 export default class Home extends Component {
   constructor () {
