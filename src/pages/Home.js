@@ -6,7 +6,8 @@ import styled from 'styled-components';
 import openSocket from 'socket.io-client'
 import { customWrapper } from '../components/mixins';
 import { Grommet, Tab, Tabs } from 'grommet';
-import { post as URL } from '../services/baseURL'
+import { post as URL } from '../services/baseURL';
+import axios form 'axios'
 
 const socket = openSocket(URL)
 
@@ -56,7 +57,7 @@ export default class Home extends Component {
     });
     return (
       <Container>
-        <h1>hello hawmies!</h1>
+        <h1>hello computer people !</h1>
         <input
           placeholder='enter a message...'
           type='text'
