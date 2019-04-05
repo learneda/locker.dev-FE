@@ -264,7 +264,7 @@ class Navbar extends Component {
         <Fragment>
           <Auth />
           <Wrapper>
-            <Nav>
+            <Nav style={{ marginTop: '20px' }}>
               <h1>
                 <Link to="/home">Learned</Link>
               </h1>
