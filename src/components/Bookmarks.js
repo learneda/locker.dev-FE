@@ -186,8 +186,10 @@ class Bookmarks extends Component {
 
     return (
       <Wrapper>
-        <EditModal />
-        {/*<Toggle />*/}
+        {this.props.editFormData ? (
+          <EditModal key={this.props.editFormData.post.id} />
+        ) : null}
+        {/* <Toggle /> */}
         {filteredPosts
           .map(post => (
             <Post key={post.id}>
@@ -229,7 +231,7 @@ class Bookmarks extends Component {
                 src={editSvg}
                 alt=""
                 onClick={async () => {
-                  this.props
+                  await this.props
                     .editPostGetDefaultData(post.id)
                     .then(res => this.props.editModalDisplay());
                 }}
@@ -248,7 +250,8 @@ const mapStateToProps = state => {
     posts: state.posts,
     deletePost: state.deletePost,
     search_term: state.search_term,
-    modalOpen: state.modalState.editModalOpen
+    modalOpen: state.modalState.editModalOpen,
+    editFormData: state.modalState.editFormData
   };
 };
 
