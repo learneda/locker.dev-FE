@@ -10,11 +10,6 @@ class EditModal extends Component {
     title: ''
   };
 
-  // handleModalState = () => {
-  //   // this.setState({
-  //   //   modalOpen: !this.state.modalOpen
-  //   // });
-  // };
   componentDidMount() {
     if (this.props.editFormData) {
       this.setState({
@@ -34,8 +29,6 @@ class EditModal extends Component {
       description: this.state.description,
       title: this.state.title
     };
-
-    console.log(editedPost);
 
     await this.props
       .editPostSubmit(editedPost, this.state.post_id)
@@ -67,21 +60,16 @@ class EditModal extends Component {
           <label htmlFor="Post Url">Post Url</label>
           <input
             type="text"
-            // defaultValue={this.state.post_url}
-            // defaultValue={this.state.post_url}
             value={this.state.post_url}
             name="post_url"
             onChange={this.onChange}
-            key="post_url"
           />
           <label htmlFor="Post Url">Post Title</label>
           <input
             type="text"
-            // defaultValue={this.state.title}
             value={this.state.title}
             name="title"
             onChange={this.onChange}
-            key="title"
           />
           <label htmlFor="Post Description">Post Description</label>
           <textarea
@@ -92,9 +80,7 @@ class EditModal extends Component {
             name="description"
             value={this.state.description}
             onChange={this.onChange}
-            key="description"
           />
-
           <input type="submit" id="edit-submit" value="Update Post" />
         </form>
       </StyledEditModal>
@@ -197,7 +183,6 @@ const StyledEditModal = styled.div`
 `;
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     modalOpen: state.modalState.editModalOpen,
     editFormData: state.modalState.editFormData
