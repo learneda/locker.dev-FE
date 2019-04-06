@@ -189,7 +189,7 @@ class Bookmarks extends Component {
         {this.props.editFormData ? (
           <EditModal key={this.props.editFormData.post.id} />
         ) : null}
-        <Toggle />
+        {/* <Toggle /> */}
         {filteredPosts
           .map(post => (
             <Post key={post.id}>
