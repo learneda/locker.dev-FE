@@ -57,18 +57,18 @@ class EditModal extends Component {
           <div className="form-title">
             <h3>Edit Post</h3>
           </div>
-          <label htmlFor="Post Url">Post Url</label>
-          <input
-            type="text"
-            value={this.state.post_url}
-            name="post_url"
-            onChange={this.onChange}
-          />
           <label htmlFor="Post Url">Post Title</label>
           <input
             type="text"
             value={this.state.title}
             name="title"
+            onChange={this.onChange}
+          />
+          <label htmlFor="Post Url">Post Url</label>
+          <input
+            type="text"
+            value={this.state.post_url}
+            name="post_url"
             onChange={this.onChange}
           />
           <label htmlFor="Post Description">Post Description</label>
