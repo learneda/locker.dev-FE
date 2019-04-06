@@ -187,7 +187,7 @@ class Bookmarks extends Component {
     return (
       <Wrapper>
         <EditModal />
-        <Toggle />
+        {/*<Toggle />*/}
         {filteredPosts
           .map(post => (
             <Post key={post.id}>
