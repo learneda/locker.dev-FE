@@ -5,6 +5,10 @@ import { editProfile } from '../actions';
 import styled from 'styled-components';
 import { customLayout, customWrapper } from './mixins';
 import EditableLabel from 'react-inline-edition';
+import Moment from 'react-moment';
+import locationSvg from '../assets/svg/location.svg';
+import linkSvg from '../assets/svg/link-symbol.svg';
+import calendarSvg from '../assets/svg/calendar.svg';
 
 class Sidebar extends Component {
   constructor(props) {
@@ -60,6 +64,7 @@ class Sidebar extends Component {
             </p>
 
             <p>
+              <img src={locationSvg} />
               <EditableLabel
                 text={
                   this.props.auth.location
@@ -76,6 +81,7 @@ class Sidebar extends Component {
             </p>
 
             <p>
+              <img src={linkSvg} />
               <EditableLabel
                 text={
                   this.props.auth.website_url
@@ -89,6 +95,10 @@ class Sidebar extends Component {
                 inputMaxLength={50}
                 onFocusOut={this._websiteFocusOut}
               />
+            </p>
+            <p>
+              <img src={calendarSvg} />
+              Joined <Moment format="MMMM YYYY">{this.props.created_at}</Moment>
             </p>
           </div>
         </Profile>
@@ -148,6 +158,11 @@ const Profile = styled.div`
       line-height: 25px;
       margin-bottom: 10px;
       color: #6d767e;
+      img {
+        width: 18px;
+        height: 18px;
+        margin-right: 5px;
+      }
     }
 
     mark {
