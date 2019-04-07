@@ -92,7 +92,9 @@ class Auth extends Component {
         className="login"
         id="login"
         style={{ display: this.props.modalOpen ? 'flex' : 'none' }}
-        onClick={e => e.target.className === 'login' ? this.props.modalState(): null}
+        onClick={e =>
+          e.target.className === 'login' ? this.props.modalState() : null
+        }
       >
         <div className="login-content">
           <div
@@ -124,7 +126,7 @@ class Auth extends Component {
   }
 }
 const mapStateToProps = state => {
-  console.log('auth component state', state.modalState.modalOpen);
+  // console.log('auth component state', state.modalState.modalOpen);
   return {
     modalOpen: state.modalState.modalOpen,
     signUp: state.modalState.signUp
