@@ -87,10 +87,16 @@ const Post = styled.div`
   img {
     width: 100%;
     border-radius: 6px 0 0px 6px;
-    max-width: 320px;
-    max-height: 220px;
+    width: 335px;
+    height: 220px;
     object-fit: cover;
-    height: 100%;
+    // height: 100%;
+    @media (max-width: 1450px) {
+      width: 100%;
+      height: 100%;
+      max-width: 320px;
+      max-height: 220px;
+    }
     @media (max-width: 1100px) {
       max-width: 100%;
       max-height: 400px;
@@ -239,6 +245,7 @@ class Bookmarks extends Component {
               />
             </Post>
           ))
+
           .reverse()}
       </Wrapper>
     );
