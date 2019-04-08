@@ -11,8 +11,10 @@ import NoMatch from './components/NoMatch';
 
 import { composedIndexRedirect as index } from './components/authentication/indexRedirect';
 import { composedHomeRedirect as home } from './components/authentication/homeRedirect';
-import { Container } from './components/mixins';
 import { fetchUser } from './actions';
+
+import styled from 'styled-components';
+import { customContainer } from './components/mixins';
 
 class App extends Component {
   componentDidMount = () => this.props.fetchUser();
@@ -37,6 +39,10 @@ class App extends Component {
     );
   }
 }
+
+const Container = styled.div`
+  ${customContainer()}
+`;
 
 export default withRouter(
   connect(
