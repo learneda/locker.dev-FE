@@ -123,7 +123,7 @@ const Post = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 6px;
   background-color: #fff;
-  max-height: 220px;
+  max-height: 180px;
   position: relative;
   &:hover {
     .like {

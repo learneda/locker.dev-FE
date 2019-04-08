@@ -56,7 +56,7 @@ const Post = styled.div`
   border-radius: 6px;
   background-color: #fff;
   position: relative;
-  max-height: 220px;
+  max-height: 180px;
   @media (max-width: 1100px) {
     flex-direction: column;
     // align-items: center;
