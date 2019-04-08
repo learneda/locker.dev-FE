@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import DummySearch from './DummySearch';
 import Auth from './authentication/Auth';
-import { customLayout, customWrapper, hoverBg } from './mixins';
+import { customLayout, hoverBg } from './mixins';
 import burgerIcon from '../assets/svg/burger.svg';
 import closeIcon from '../assets/svg/close.svg';
 import { modalState, modalLogin, modalSignUp } from '../actions/index';
