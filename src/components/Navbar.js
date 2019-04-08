@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import DummySearch from './DummySearch';
 import Auth from './authentication/Auth';
-import { customLayout, customWrapper, hoverBg } from './mixins';
+import { customLayout, hoverBg } from './mixins';
 import burgerIcon from '../assets/svg/burger.svg';
 import closeIcon from '../assets/svg/close.svg';
 import { modalState, modalLogin, modalSignUp } from '../actions/index';
@@ -31,6 +31,7 @@ class Navbar extends Component {
   render() {
     const { modalState, modalLogin, modalSignUp, auth } = this.props;
     if (auth) {
+      // When user logged in
       return (
         <NavWrapper>
           <MobileNav show={this.state.show} handleClose={this.hideBurgerMenu} />
@@ -63,7 +64,9 @@ class Navbar extends Component {
                 </NavLink>
               </li>
             </ul>
+
             <DummySearch />
+
             <NavRight>
               <Toggle />
               <a href={`${authURL}logout`}>
@@ -78,38 +81,37 @@ class Navbar extends Component {
         </NavWrapper>
       );
     } else {
+      // When user NOT logged in
       return (
         <Fragment>
           <Auth />
-          <Wrapper>
-            <Nav style={{ marginTop: '20px' }}>
-              <h1>
-                <Link to="/home">Learned</Link>
-              </h1>
-              <ul>
-                <li>
-                  <span
-                    onClick={() => {
-                      modalState();
-                      modalLogin();
-                    }}
-                  >
-                    Log In
-                  </span>
-                </li>
-                <li>
-                  <span
-                    onClick={() => {
-                      modalState();
-                      modalSignUp();
-                    }}
-                  >
-                    Sign Up
-                  </span>
-                </li>
-              </ul>
-            </Nav>
-          </Wrapper>
+          <Nav style={{ marginTop: '20px' }}>
+            <h1>
+              <Link to="/home">Learned</Link>
+            </h1>
+            <ul>
+              <li>
+                <span
+                  onClick={() => {
+                    modalState();
+                    modalLogin();
+                  }}
+                >
+                  Log In
+                </span>
+              </li>
+              <li>
+                <span
+                  onClick={() => {
+                    modalState();
+                    modalSignUp();
+                  }}
+                >
+                  Sign Up
+                </span>
+              </li>
+            </ul>
+          </Nav>
         </Fragment>
       );
     }
@@ -169,10 +171,6 @@ const NavWrapper = styled.div`
       display: none;
     }
   }
-`;
-
-const Wrapper = styled.div`
-  ${customWrapper('80%', '0 auto')}
 `;
 
 const Nav = styled.nav`

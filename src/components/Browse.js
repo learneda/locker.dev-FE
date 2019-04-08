@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getCourses, getArticles, fetchUser } from '../actions';
 
 import { Grommet, Tab, Tabs } from 'grommet';
-import { customWrapper, customLayout } from './mixins';
+import { customWrapper, customLayout, truncateText } from './mixins';
 import styled from 'styled-components';
 import { ReactComponent as Add } from '../assets/svg/add-icon.svg';
 import axios from 'axios';
@@ -27,14 +27,8 @@ class Browse extends Component {
     }
   };
 
-  truncateText = (content, limit = 10) => {
-    if (content.split(' ').length < limit) {
-      return content;
-    } else {
-      content = content.split(' ').slice(0, limit);
-      content = content.join(' ');
-      return content + '...';
-    }
+  handleTruncateText = (content, limit = 10) => {
+    return truncateText(content, limit);
   };
 
   render() {
@@ -63,8 +57,8 @@ class Browse extends Component {
                             src={course.image_480x270}
                             alt="course-thumbnail"
                           />
-                          <h3>{this.truncateText(course.title)}</h3>
-                          <p>{this.truncateText(course.headline, 15)}</p>
+                          <h3>{this.handleTruncateText(course.title)}</h3>
+                          <p>{this.handleTruncateText(course.headline, 15)}</p>
                         </a>
                         <SaveIcon>
                           <Add
@@ -102,8 +96,10 @@ class Browse extends Component {
                             alt="article-thumbnail"
                           />
 
-                          <h3>{this.truncateText(article.title)}</h3>
-                          <p>{this.truncateText(article.description, 15)}</p>
+                          <h3>{this.handleTruncateText(article.title)}</h3>
+                          <p>
+                            {this.handleTruncateText(article.description, 15)}
+                          </p>
                         </a>
                         <SaveIcon>
                           <Add

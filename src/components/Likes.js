@@ -3,11 +3,15 @@ import { connect } from 'react-redux';
 import { getlikedPosts } from '../actions';
 import styled from 'styled-components';
 import Moment from 'react-moment';
-import { customWrapper } from '../components/mixins';
+import { customWrapper, truncateText } from '../components/mixins';
 // This is the reccomended component now
 
 class Likes extends Component {
   componentDidMount = () => this.props.getlikedPosts();
+
+  handleTruncateText = (content, limit = 10) => {
+    return truncateText(content, limit);
+  };
 
   render() {
     return (
@@ -24,9 +28,9 @@ class Likes extends Component {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <h1>{post.title}</h1>
+                  <h1>{this.handleTruncateText(post.title)}</h1>
                 </a>
-                <p>{post.description}</p>
+                <p>{this.handleTruncateText(post.description, 20)}</p>
                 <span className="formatted-date">
                   Added <Moment fromNow>{post.created_at}</Moment>
                 </span>

@@ -1,5 +1,3 @@
-import styled from 'styled-components';
-
 // variables
 export const bgColor = '#e6e9f3';
 export const hoverBg = '#d3d7e7';
@@ -20,8 +18,17 @@ export const customWrapper = (
   width: ${width};
   margin: ${margin};`;
 
-export const Container = styled.div`
-  // border: 1px solid green;
-  width: 100%;
-  background-color: ${bgColor};
+export const customContainer = (width = '100%', bg = bgColor) => `
+  width: ${width};
+  background-color: ${bg};
 `;
+
+export const truncateText = (content, limit = 10) => {
+  if (content.split(' ').length < limit) {
+    return content;
+  } else {
+    content = content.split(' ').slice(0, limit);
+    content = content.join(' ');
+    return content + '...';
+  }
+};

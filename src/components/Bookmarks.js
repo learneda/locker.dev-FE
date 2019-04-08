@@ -19,7 +19,7 @@ import deleteIcon from '../assets/svg/delete-icon.svg';
 import EditModal from './EditModal';
 import editSvg from '../assets/svg/edit.svg';
 
-import { customWrapper } from '../components/mixins';
+import { customWrapper, truncateText } from '../components/mixins';
 import { Edit } from 'grommet-icons';
 
 class Bookmarks extends Component {
@@ -32,6 +32,10 @@ class Bookmarks extends Component {
   handleLike = async (id, liked) => {
     await axios.put(`${URL}/api/posts/like/${id}`, { status: !liked });
     this.props.getPosts();
+  };
+
+  handleTruncateText = (content, limit = 10) => {
+    return truncateText(content, limit);
   };
 
   render() {
@@ -63,9 +67,9 @@ class Bookmarks extends Component {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <h1>{post.title}</h1>
+                  <h1>{this.handleTruncateText(post.title)}</h1>
                 </a>
-                <p>{post.description}</p>
+                <p>{this.handleTruncateText(post.description, 20)}</p>
                 <div className="date-like-heart">
                   <span className="formatted-date">
                     Added <Moment fromNow>{post.created_at}</Moment>
@@ -172,10 +176,10 @@ const Post = styled.div`
   img {
     width: 100%;
     border-radius: 6px 0 0px 6px;
-    width: 335px;
-    height: 220px;
+    max-width: 320px;
+    max-height: 220px;
     object-fit: cover;
-    // height: 100%;
+    height: 100%;
     @media (max-width: 1450px) {
       width: 100%;
       height: 100%;
