@@ -22,3 +22,13 @@ export const customContainer = (width = '100%', bg = bgColor) => `
   width: ${width};
   background-color: ${bg};
 `;
+
+export const truncateText = (content, limit = 10) => {
+  if (content.split(' ').length < limit) {
+    return content;
+  } else {
+    content = content.split(' ').slice(0, limit);
+    content = content.join(' ');
+    return content + '...';
+  }
+};
