@@ -2,6 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as X } from '../assets/svg/x.svg';
 
+export default function Alert({ message, close }) {
+  return (
+    <Container>
+      <div />
+      <Message>{message}</Message>
+      <X onClick={close} />
+    </Container>
+  );
+}
+
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -16,13 +26,3 @@ const Container = styled.div`
 const Message = styled.span`
   text-align: center;
 `;
-
-export default function Alert({ message, close }) {
-  return (
-    <Container>
-      <div />
-      <Message>{message}</Message>
-      <X onClick={close} />
-    </Container>
-  );
-}

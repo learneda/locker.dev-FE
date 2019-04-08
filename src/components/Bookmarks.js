@@ -22,6 +22,91 @@ import editSvg from '../assets/svg/edit.svg';
 import { customWrapper } from '../components/mixins';
 import { Edit } from 'grommet-icons';
 
+class Bookmarks extends Component {
+  state = {
+    modalOpen: false
+  };
+
+  componentDidMount = () => this.props.getPosts();
+
+  handleLike = async (id, liked) => {
+    await axios.put(`${URL}/api/posts/like/${id}`, { status: !liked });
+    this.props.getPosts();
+  };
+
+  render() {
+    const search = this.props.search_term;
+
+    const filteredPosts = this.props.posts.filter(post => {
+      return (
+        post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
+        post.thumbnail_url.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
+        post.description.toLowerCase().indexOf(search.toLowerCase()) !== -1
+      );
+    });
+
+    return (
+      <Wrapper>
+        {this.props.editFormData ? (
+          <EditModal key={this.props.editFormData.post.id} />
+        ) : null}
+        {/* <Toggle /> */}
+        {filteredPosts
+          .map(post => (
+            <Post key={post.id}>
+              <a href={post.post_url} target="_blank" rel="noopener noreferrer">
+                <img src={post.thumbnail_url} alt="" />
+              </a>
+              <div className="post-content">
+                <a
+                  href={post.post_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <h1>{post.title}</h1>
+                </a>
+                <p>{post.description}</p>
+                <div className="date-like-heart">
+                  <span className="formatted-date">
+                    Added <Moment fromNow>{post.created_at}</Moment>
+                  </span>
+                  <Like
+                    liked={post.liked}
+                    handleLike={this.handleLike}
+                    id={post.id}
+                  />
+                  <span className="rec-span">recommend</span>
+                  <img
+                    src={deleteIcon}
+                    className="delete-icon"
+                    onClick={async () =>
+                      await this.props
+                        .deletePost(post.id)
+                        .then(res => this.props.getPosts())
+                    }
+                  />
+                  <span className="del-span">delete</span>
+                </div>
+              </div>
+              <img
+                src={editSvg}
+                alt=""
+                onClick={async () => {
+                  await this.props
+                    .editPostGetDefaultData(post.id)
+                    .then(res => this.props.editModalDisplay());
+                }}
+                className="edit-icon"
+              />
+            </Post>
+          ))
+
+          .reverse()}
+      </Wrapper>
+    );
+  }
+}
+
 const Wrapper = styled.div`
   // border: 1px solid blue;
   ${customWrapper('100%', '0 auto')}
@@ -166,91 +251,6 @@ const Post = styled.div`
     font-size: 1.2rem;
   }
 `;
-
-class Bookmarks extends Component {
-  state = {
-    modalOpen: false
-  };
-
-  componentDidMount = () => this.props.getPosts();
-
-  handleLike = async (id, liked) => {
-    await axios.put(`${URL}/api/posts/like/${id}`, { status: !liked });
-    this.props.getPosts();
-  };
-
-  render() {
-    const search = this.props.search_term;
-
-    const filteredPosts = this.props.posts.filter(post => {
-      return (
-        post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
-        post.thumbnail_url.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
-        post.description.toLowerCase().indexOf(search.toLowerCase()) !== -1
-      );
-    });
-
-    return (
-      <Wrapper>
-        {this.props.editFormData ? (
-          <EditModal key={this.props.editFormData.post.id} />
-        ) : null}
-        {/* <Toggle /> */}
-        {filteredPosts
-          .map(post => (
-            <Post key={post.id}>
-              <a href={post.post_url} target="_blank" rel="noopener noreferrer">
-                <img src={post.thumbnail_url} alt="" />
-              </a>
-              <div className="post-content">
-                <a
-                  href={post.post_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <h1>{post.title}</h1>
-                </a>
-                <p>{post.description}</p>
-                <div className="date-like-heart">
-                  <span className="formatted-date">
-                    Added <Moment fromNow>{post.created_at}</Moment>
-                  </span>
-                  <Like
-                    liked={post.liked}
-                    handleLike={this.handleLike}
-                    id={post.id}
-                  />
-                  <span className="rec-span">recommend</span>
-                  <img
-                    src={deleteIcon}
-                    className="delete-icon"
-                    onClick={async () =>
-                      await this.props
-                        .deletePost(post.id)
-                        .then(res => this.props.getPosts())
-                    }
-                  />
-                  <span className="del-span">delete</span>
-                </div>
-              </div>
-              <img
-                src={editSvg}
-                alt=""
-                onClick={async () => {
-                  await this.props
-                    .editPostGetDefaultData(post.id)
-                    .then(res => this.props.editModalDisplay());
-                }}
-                className="edit-icon"
-              />
-            </Post>
-          ))
-
-          .reverse()}
-      </Wrapper>
-    );
-  }
-}
 
 const mapStateToProps = state => {
   return {

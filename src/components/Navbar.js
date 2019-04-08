@@ -11,6 +11,152 @@ import { modalState, modalLogin, modalSignUp } from '../actions/index';
 import { authURL } from '../services/authURL';
 import Toggle from './Toggle';
 
+class Navbar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      show: false
+    };
+  }
+
+  showBurgerMenu = () => {
+    this.setState({ show: true });
+  };
+
+  hideBurgerMenu = () => {
+    this.setState({ show: false });
+  };
+
+  render() {
+    const { modalState, modalLogin, modalSignUp, auth } = this.props;
+    if (auth) {
+      return (
+        <NavWrapper>
+          <MobileNav show={this.state.show} handleClose={this.hideBurgerMenu} />
+
+          <Burger>
+            <DummySearch />
+            <img
+              src={burgerIcon}
+              alt="burger"
+              className="burger-icon"
+              onClick={this.showBurgerMenu}
+            />
+          </Burger>
+
+          <Nav className="main-nav">
+            <ul>
+              <li>
+                <NavLink to="/home" activeClassName="active">
+                  <span>Home</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/profile" activeClassName="active">
+                  <span>Profile</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/browse" activeClassName="active">
+                  <span>Browse</span>
+                </NavLink>
+              </li>
+            </ul>
+            <DummySearch />
+            <NavRight>
+              <Toggle />
+              <a href={`${authURL}logout`}>
+                <img
+                  src={auth.profile_picture}
+                  className="auth-icon"
+                  alt="avatar"
+                />
+              </a>
+            </NavRight>
+          </Nav>
+        </NavWrapper>
+      );
+    } else {
+      return (
+        <Fragment>
+          <Auth />
+          <Wrapper>
+            <Nav style={{ marginTop: '20px' }}>
+              <h1>
+                <Link to="/home">Learned</Link>
+              </h1>
+              <ul>
+                <li>
+                  <span
+                    onClick={() => {
+                      modalState();
+                      modalLogin();
+                    }}
+                  >
+                    Log In
+                  </span>
+                </li>
+                <li>
+                  <span
+                    onClick={() => {
+                      modalState();
+                      modalSignUp();
+                    }}
+                  >
+                    Sign Up
+                  </span>
+                </li>
+              </ul>
+            </Nav>
+          </Wrapper>
+        </Fragment>
+      );
+    }
+  }
+}
+
+const MobileNav = ({ handleClose, show }) => {
+  const showHideClassName = show
+    ? 'burger display-block'
+    : 'burger display-none';
+
+  return (
+    <BurgerMenu>
+      <div className={showHideClassName}>
+        <div className="close-btn">
+          <img
+            src={closeIcon}
+            alt="close-icon"
+            onClick={handleClose}
+            className="close-icon"
+          />
+        </div>
+        <ul className="burger-main">
+          <li onClick={handleClose}>
+            <Link to="/home">
+              <span>Home</span>
+            </Link>
+          </li>
+          <li onClick={handleClose}>
+            <Link to="/profile">
+              <span>Profile</span>
+            </Link>
+          </li>
+          <li onClick={handleClose}>
+            <Link to="/browse">
+              <span>Browse</span>
+            </Link>
+          </li>
+          <li>
+            <a href={`${authURL}logout`}>Log out</a>
+          </li>
+        </ul>
+      </div>
+    </BurgerMenu>
+  );
+};
+
 const NavWrapper = styled.div`
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23);
@@ -192,152 +338,6 @@ const BurgerMenu = styled.div`
     display: none;
   }
 `;
-
-class Navbar extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      show: false
-    };
-  }
-
-  showBurgerMenu = () => {
-    this.setState({ show: true });
-  };
-
-  hideBurgerMenu = () => {
-    this.setState({ show: false });
-  };
-
-  render() {
-    const { modalState, modalLogin, modalSignUp, auth } = this.props;
-    if (auth) {
-      return (
-        <NavWrapper>
-          <MobileNav show={this.state.show} handleClose={this.hideBurgerMenu} />
-
-          <Burger>
-            <DummySearch />
-            <img
-              src={burgerIcon}
-              alt="burger"
-              className="burger-icon"
-              onClick={this.showBurgerMenu}
-            />
-          </Burger>
-
-          <Nav className="main-nav">
-            <ul>
-              <li>
-                <NavLink to="/home" activeClassName="active">
-                  <span>Home</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/profile" activeClassName="active">
-                  <span>Profile</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/browse" activeClassName="active">
-                  <span>Browse</span>
-                </NavLink>
-              </li>
-            </ul>
-            <DummySearch />
-            <NavRight>
-              <Toggle />
-              <a href={`${authURL}logout`}>
-                <img
-                  src={auth.profile_picture}
-                  className="auth-icon"
-                  alt="avatar"
-                />
-              </a>
-            </NavRight>
-          </Nav>
-        </NavWrapper>
-      );
-    } else {
-      return (
-        <Fragment>
-          <Auth />
-          <Wrapper>
-            <Nav style={{ marginTop: '20px' }}>
-              <h1>
-                <Link to="/home">Learned</Link>
-              </h1>
-              <ul>
-                <li>
-                  <span
-                    onClick={() => {
-                      modalState();
-                      modalLogin();
-                    }}
-                  >
-                    Log In
-                  </span>
-                </li>
-                <li>
-                  <span
-                    onClick={() => {
-                      modalState();
-                      modalSignUp();
-                    }}
-                  >
-                    Sign Up
-                  </span>
-                </li>
-              </ul>
-            </Nav>
-          </Wrapper>
-        </Fragment>
-      );
-    }
-  }
-}
-
-const MobileNav = ({ handleClose, show }) => {
-  const showHideClassName = show
-    ? 'burger display-block'
-    : 'burger display-none';
-
-  return (
-    <BurgerMenu>
-      <div className={showHideClassName}>
-        <div className="close-btn">
-          <img
-            src={closeIcon}
-            alt="close-icon"
-            onClick={handleClose}
-            className="close-icon"
-          />
-        </div>
-        <ul className="burger-main">
-          <li onClick={handleClose}>
-            <Link to="/home">
-              <span>Home</span>
-            </Link>
-          </li>
-          <li onClick={handleClose}>
-            <Link to="/profile">
-              <span>Profile</span>
-            </Link>
-          </li>
-          <li onClick={handleClose}>
-            <Link to="/browse">
-              <span>Browse</span>
-            </Link>
-          </li>
-          <li>
-            <a href={`${authURL}logout`}>Log out</a>
-          </li>
-        </ul>
-      </div>
-    </BurgerMenu>
-  );
-};
 
 const mapStateToProps = ({ modalState, auth }) => {
   return {
