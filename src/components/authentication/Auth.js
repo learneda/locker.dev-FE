@@ -5,6 +5,7 @@ import githubSvg from '../../assets/svg/github.svg';
 import { authURL } from '../../services/authURL';
 import { connect } from 'react-redux';
 import { modalState, modalLogin, modalSignUp } from '../../actions/index';
+
 class Auth extends Component {
   constructor() {
     super();

@@ -5,6 +5,40 @@ import styled from 'styled-components';
 import Moment from 'react-moment';
 import { customWrapper } from '../components/mixins';
 // This is the reccomended component now
+
+class Likes extends Component {
+  componentDidMount = () => this.props.getlikedPosts();
+
+  render() {
+    return (
+      <Wrapper>
+        {this.props.likedPosts
+          .map(post => (
+            <Post key={post.id}>
+              <a href={post.post_url} target="_blank" rel="noopener noreferrer">
+                <img src={post.thumbnail_url} alt="" />
+              </a>
+              <div>
+                <a
+                  href={post.post_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <h1>{post.title}</h1>
+                </a>
+                <p>{post.description}</p>
+                <span className="formatted-date">
+                  Added <Moment fromNow>{post.created_at}</Moment>
+                </span>
+              </div>
+            </Post>
+          ))
+          .reverse()}
+      </Wrapper>
+    );
+  }
+}
+
 const Wrapper = styled.div`
   // border: 1px solid blue;
   ${customWrapper('100%', '0 auto')}
@@ -66,39 +100,6 @@ const Post = styled.div`
     margin-right: 30px;
   }
 `;
-
-class Likes extends Component {
-  componentDidMount = () => this.props.getlikedPosts();
-
-  render() {
-    return (
-      <Wrapper>
-        {this.props.likedPosts
-          .map(post => (
-            <Post key={post.id}>
-              <a href={post.post_url} target="_blank" rel="noopener noreferrer">
-                <img src={post.thumbnail_url} alt="" />
-              </a>
-              <div>
-                <a
-                  href={post.post_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <h1>{post.title}</h1>
-                </a>
-                <p>{post.description}</p>
-                <span className="formatted-date">
-                  Added <Moment fromNow>{post.created_at}</Moment>
-                </span>
-              </div>
-            </Post>
-          ))
-          .reverse()}
-      </Wrapper>
-    );
-  }
-}
 
 const mapStateToProps = ({ likedPosts }) => ({ likedPosts });
 
