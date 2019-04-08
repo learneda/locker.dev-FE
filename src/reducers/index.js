@@ -5,6 +5,8 @@ import { modalReducer } from './modalReducer';
 import { postReducer } from './postReducer';
 import { likedPostReducer } from './likedPostReducer';
 import { searchReducer } from './searchReducer';
+
+
 export default combineReducers({
   auth: authReducer,
   browse: browseReducer,

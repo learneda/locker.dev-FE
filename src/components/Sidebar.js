@@ -5,6 +5,11 @@ import { editProfile } from '../actions';
 import styled from 'styled-components';
 import { customLayout, customWrapper } from './mixins';
 import EditableLabel from 'react-inline-edition';
+import Moment from 'react-moment';
+import locationSvg from '../assets/svg/location.svg';
+import linkSvg from '../assets/svg/link-symbol.svg';
+import calendarSvg from '../assets/svg/calendar.svg';
+import twitterSvg from '../assets/svg/twitter.svg';
 
 class Sidebar extends Component {
   constructor(props) {
@@ -13,12 +18,17 @@ class Sidebar extends Component {
     this.state = {
       bio: 'Add bio',
       location: 'Add location',
-      website_url: 'Add website URL'
+      website_url: 'Add website URL',
+      github_url: 'Add GitHub URL',
+      twitter_url: 'Add Twitter URL',
+      facebook_url: 'Add Facebook URL',
+      linkedin_url: 'Add LinkedIn URL'
     };
 
     this._bioFocusOut = this._bioFocusOut.bind(this);
     this._locationFocusOut = this._locationFocusOut.bind(this);
     this._websiteFocusOut = this._websiteFocusOut.bind(this);
+    this._twitterFocusOut = this._twitterFocusOut.bind(this);
   }
 
   _bioFocusOut(text) {
@@ -31,6 +41,9 @@ class Sidebar extends Component {
 
   _websiteFocusOut(text) {
     this.props.editProfile(this.props.auth.id, { website_url: text });
+  }
+  _twitterFocusOut(text) {
+    this.props.editProfile(this.props.auth.id, { twitter_url: text });
   }
 
   handleInputChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -58,8 +71,8 @@ class Sidebar extends Component {
                 onFocusOut={this._bioFocusOut}
               />
             </p>
-
             <p>
+              <img src={locationSvg} />
               <EditableLabel
                 text={
                   this.props.auth.location
@@ -74,8 +87,8 @@ class Sidebar extends Component {
                 onFocusOut={this._locationFocusOut}
               />
             </p>
-
             <p>
+              <img src={linkSvg} />
               <EditableLabel
                 text={
                   this.props.auth.website_url
@@ -90,6 +103,10 @@ class Sidebar extends Component {
                 onFocusOut={this._websiteFocusOut}
               />
             </p>
+            <p>
+              <img src={calendarSvg} />
+              Joined <Moment format="MMMM YYYY">{this.props.created_at}</Moment>
+            </p>
           </div>
         </Profile>
       </Wrapper>
@@ -100,7 +117,7 @@ class Sidebar extends Component {
 const Wrapper = styled.div`
   ${customWrapper('25%')}
 
-  @media (max-width: 960px) {
+  @media (max-width: 900px) {
     display: none;
   }
 `;
@@ -109,6 +126,8 @@ const Profile = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 3px;
   background: #fff;
+  position: sticky;
+  top: 100px;
 
   .user {
     border-top-right-radius: 3px;
@@ -146,6 +165,11 @@ const Profile = styled.div`
       line-height: 25px;
       margin-bottom: 10px;
       color: #6d767e;
+      img {
+        width: 18px;
+        height: 18px;
+        margin-right: 5px;
+      }
     }
 
     mark {

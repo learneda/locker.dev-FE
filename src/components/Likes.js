@@ -4,7 +4,7 @@ import { getlikedPosts } from '../actions';
 import styled from 'styled-components';
 import Moment from 'react-moment';
 import { customWrapper } from '../components/mixins';
-
+// This is the reccomended component now
 const Wrapper = styled.div`
   // border: 1px solid blue;
   ${customWrapper('100%', '0 auto')}
@@ -18,10 +18,11 @@ const Post = styled.div`
   border-radius: 6px;
   background-color: #fff;
   position: relative;
-  max-height: 204px;
-  @media (max-width: 960px) {
+  max-height: 220px;
+  @media (max-width: 1100px) {
     flex-direction: column;
-    align-items: center;
+    // align-items: center;
+    max-height: initial;
   }
   a {
     text-decoration: none;
@@ -34,30 +35,29 @@ const Post = styled.div`
 
   img {
     width: 100%;
-    border-radius: 6px;
+    border-radius: 6px 0 0px 6px;
     max-width: 320px;
-    max-height: 204px;
-    object-fit: fill;
+    max-height: 220px;
+    object-fit: cover;
     height: 100%;
-    @media (max-width: 960px) {
+    @media (max-width: 1100px) {
       max-width: 100%;
       max-height: 400px;
-      border-radius: 6px;
-      border-radius: 0 0 6px 6px;
+      border-radius: 6px 6px 0 0;
     }
   }
   p {
     max-width: 600px;
     margin: 10px auto;
     font-size: 1.6rem;
-    text-align: justify;
-    word-break: break-all;
+    word-break: break-word;
     line-height: 1.5;
   }
   h1 {
-    margin: 10px auto;
+    margin: 0px auto;
     font-size: 2.6rem;
     max-width: 600px;
+    line-height: 1.2;
   }
   .formatted-date {
     font-size: 1.2rem;
