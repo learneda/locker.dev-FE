@@ -9,7 +9,6 @@ import Moment from 'react-moment';
 import locationSvg from '../assets/svg/location.svg';
 import linkSvg from '../assets/svg/link-symbol.svg';
 import calendarSvg from '../assets/svg/calendar.svg';
-import twitterSvg from '../assets/svg/twitter.svg';
 
 class Sidebar extends Component {
   constructor(props) {
@@ -72,7 +71,7 @@ class Sidebar extends Component {
               />
             </p>
             <p>
-              <img src={locationSvg} />
+              <img src={locationSvg} alt="location-icon" />
               <EditableLabel
                 text={
                   this.props.auth.location
@@ -88,7 +87,7 @@ class Sidebar extends Component {
               />
             </p>
             <p>
-              <img src={linkSvg} />
+              <img src={linkSvg} alt="link-icon" />
               <EditableLabel
                 text={
                   this.props.auth.website_url
@@ -104,7 +103,7 @@ class Sidebar extends Component {
               />
             </p>
             <p>
-              <img src={calendarSvg} />
+              <img src={calendarSvg} alt="calendar-icon" />
               Joined <Moment format="MMMM YYYY">{this.props.created_at}</Moment>
             </p>
           </div>
