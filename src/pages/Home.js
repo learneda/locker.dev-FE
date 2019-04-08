@@ -3,28 +3,28 @@ import styled from 'styled-components';
 import openSocket from 'socket.io-client';
 import { customWrapper } from '../components/mixins';
 import { post as URL } from '../services/baseURL';
+import { connect } from 'react-redux';
 // import axios form 'axios'
-const socket = openSocket(URL);
 
-export default class Home extends Component {
-  constructor() {
-    super();
+
+class Home extends Component {
+  constructor (props) {
+    super(props)
     this.state = {
       comments: [],
       search: ''
-    };
+    }
+    console.log(props.auth.id)
+    this.username = props.auth.username;
+    this.user_id = props.auth.id;
+    this.socket = openSocket(URL);
   }
 
-  componentDidMount() {
-    socket.on('comments', msg => {
-      console.log('here', msg);
-      this.setState({
-        comments: [
-          { username: msg.username, content: msg.msg.content },
-          ...this.state.comments
-        ]
-      });
-    });
+  componentDidMount () {
+    this.socket.on('comments', (msg) => {
+      console.log('here',msg)
+      this.setState({ comments: [ {username: msg.username, content:msg.msg.content}, ...this.state.comments ] })
+    })
   }
 
   handleChange = ({ target }) => {
@@ -36,16 +36,12 @@ export default class Home extends Component {
   handleSubmit = event => {
     const body = event.target.value;
 
-    const comment = {
-      action: 'create',
-      content: body,
-      user_id: 33,
-      post_id: 10
-    };
+    const comment = { action: 'create', content: body, user_id: this.user_id,
+    post_id: 10, username: this.username }
 
     if (event.keyCode === 13 && body) {
-      socket.emit('comments', comment);
-      this.setState({ comments: [{ content: body }, ...this.state.comments] });
+      this.socket.emit('comments', comment)
+      this.setState({ comments: [ {username: this.username, content:body}, ...this.state.comments ] })
 
       event.target.value = '';
     }
@@ -83,3 +79,7 @@ const SPAN = styled.span`
   font-weight: bold;
   font-size: 2rem;
 `;
+
+const mapStateToProps = ({ auth }) => ({ auth });
+
+export default connect(mapStateToProps,{})(Home);

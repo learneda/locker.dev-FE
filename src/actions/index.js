@@ -10,11 +10,11 @@ import {
   FETCH_POSTS,
   DELETE_POST,
   LIKED_POSTS,
+  SEARCH_TERM,
   EDIT_MODAL_DISPLAY,
   EDIT_PROFILE,
   EDIT_POST_SUBMIT,
   EDIT_POST_GET_DEFAULT_DATA,
-  SEARCH_TERM
 } from './types';
 import { post as URL } from '../services/baseURL';
 axios.defaults.withCredentials = true;
