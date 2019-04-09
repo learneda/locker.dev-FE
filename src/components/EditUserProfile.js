@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter, Link } from 'react-router-dom';
 import { editProfile } from '../actions';
 
 import styled from 'styled-components';
@@ -16,8 +17,7 @@ class EditUserProfile extends Component {
     this.state = {
       bio: 'Add bio',
       location: 'Add location',
-      website_url: 'Add website URL',
-      show: false
+      website_url: 'Add website URL'
     };
   }
 
@@ -36,6 +36,36 @@ class EditUserProfile extends Component {
 
         <Profile>
           <h2>Yo</h2>
+          <FormGroup
+            onSubmit={e => this.editProfileHandler(e, this.props.auth.id)}
+          >
+            <input
+              type="text"
+              onChange={this.handleInputChange}
+              placeholder="Edit bio"
+              value={this.state.bio}
+              name="bio"
+              required
+            />
+            <input
+              type="text"
+              onChange={this.handleInputChange}
+              placeholder="Edit location"
+              value={this.state.location}
+              name="location"
+              required
+            />
+            <input
+              type="text"
+              onChange={this.handleInputChange}
+              placeholder="Edit website url"
+              value={this.state.website_url}
+              name="website_url"
+              required
+            />
+            <Link to="/profile">Cancel</Link>
+            <button type="submit">Save</button>
+          </FormGroup>
         </Profile>
       </Wrapper>
     );
@@ -51,6 +81,11 @@ const Wrapper = styled.div`
 `;
 
 const Profile = styled.div`
+  border-radius: 5px;
+  background-color: white;
+`;
+
+const FormGroup = styled.form`
   border: 1px solid red;
 `;
 

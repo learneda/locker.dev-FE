@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, withRouter, Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { editProfile } from '../actions';
 
 import styled from 'styled-components';
@@ -53,14 +53,14 @@ const Wrapper = styled.div`
 
 const Profile = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  border-radius: 3px;
+  border-radius: 5px;
   background: #fff;
   position: sticky;
   top: 100px;
 
   .user {
-    border-top-right-radius: 3px;
-    border-top-left-radius: 3px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
     padding: 20px 0;
     ${customLayout('center', 'center')}
     background-color: #4064f2;
