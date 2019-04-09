@@ -17,32 +17,8 @@ class Sidebar extends Component {
     this.state = {
       bio: 'Add bio',
       location: 'Add location',
-      website_url: 'Add website URL',
-      github_url: 'Add GitHub URL',
-      twitter_url: 'Add Twitter URL',
-      facebook_url: 'Add Facebook URL',
-      linkedin_url: 'Add LinkedIn URL'
+      website_url: 'Add website URL'
     };
-
-    this._bioFocusOut = this._bioFocusOut.bind(this);
-    this._locationFocusOut = this._locationFocusOut.bind(this);
-    this._websiteFocusOut = this._websiteFocusOut.bind(this);
-    this._twitterFocusOut = this._twitterFocusOut.bind(this);
-  }
-
-  _bioFocusOut(text) {
-    this.props.editProfile(this.props.auth.id, { bio: text });
-  }
-
-  _locationFocusOut(text) {
-    this.props.editProfile(this.props.auth.id, { location: text });
-  }
-
-  _websiteFocusOut(text) {
-    this.props.editProfile(this.props.auth.id, { website_url: text });
-  }
-  _twitterFocusOut(text) {
-    this.props.editProfile(this.props.auth.id, { twitter_url: text });
   }
 
   handleInputChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -56,56 +32,20 @@ class Sidebar extends Component {
           </div>
           <div className="user-bio">
             <h3>{this.props.auth.display_name}</h3>
-            <p>
-              <EditableLabel
-                text={
-                  this.props.auth.bio ? this.props.auth.bio : this.state.bio
-                }
-                labelClassName="myLabelClass"
-                labelPlaceHolder="ADD BIO"
-                inputClassName="myInputClass"
-                inputWidth="200px"
-                inputHeight="25px"
-                inputMaxLength={100}
-                onFocusOut={this._bioFocusOut}
-              />
-            </p>
+            <p>{this.props.auth.bio}</p>
             <p>
               <img src={locationSvg} alt="location-icon" />
-              <EditableLabel
-                text={
-                  this.props.auth.location
-                    ? this.props.auth.location
-                    : this.state.location
-                }
-                labelClassName="myLabelClass"
-                inputClassName="myInputClass"
-                inputWidth="200px"
-                inputHeight="25px"
-                inputMaxLength={50}
-                onFocusOut={this._locationFocusOut}
-              />
+              {this.props.auth.location}
             </p>
             <p>
               <img src={linkSvg} alt="link-icon" />
-              <EditableLabel
-                text={
-                  this.props.auth.website_url
-                    ? this.props.auth.website_url
-                    : this.state.website_url
-                }
-                labelClassName="myLabelClass"
-                inputClassName="myInputClass"
-                inputWidth="200px"
-                inputHeight="25px"
-                inputMaxLength={50}
-                onFocusOut={this._websiteFocusOut}
-              />
+              {this.props.auth.website_url}
             </p>
             <p>
               <img src={calendarSvg} alt="calendar-icon" />
               Joined <Moment format="MMMM YYYY">{this.props.created_at}</Moment>
             </p>
+            <button>Edit Profile</button>
           </div>
         </Profile>
       </Wrapper>
@@ -178,17 +118,18 @@ const Profile = styled.div`
 
     button {
       margin: 0;
+      margin-top: 20px;
       padding: 0;
       border: none;
       background: none;
       font-size: 1.4rem;
       font-weight: 700;
+      color: #6d767e;
       cursor: pointer;
-      opacity: 0.8;
       transition: 200ms ease-out;
 
       &:hover {
-        opacity: 1;
+        color: #3f65f2;
         transition: 200ms ease-in;
       }
     }
