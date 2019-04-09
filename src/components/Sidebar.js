@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { editProfile } from '../actions';
+import { editProfile, getFollowersAndFollowingCount } from '../actions';
 
 import styled from 'styled-components';
 import { customLayout, customWrapper } from './mixins';
@@ -11,6 +11,9 @@ import linkSvg from '../assets/svg/link-symbol.svg';
 import calendarSvg from '../assets/svg/calendar.svg';
 
 class Sidebar extends Component {
+  componentDidMount() {
+    this.props.getFollowersAndFollowingCount();
+  }
   render() {
     return (
       <Wrapper>
@@ -20,6 +23,20 @@ class Sidebar extends Component {
           </div>
           <div className="user-bio">
             <h3>{this.props.auth.display_name}</h3>
+            <div className="profile-stats">
+              <ul>
+                <li>Posts</li>
+                <li>43</li>
+              </ul>
+              <ul>
+                <li>Following</li>
+                <li>{this.props.followers.following}</li>
+              </ul>
+              <ul>
+                <li>Followers</li>
+                <li>{this.props.followers.followers}</li>
+              </ul>
+            </div>
             <p>{this.props.auth.bio}</p>
             <p>
               <img src={locationSvg} alt="location-icon" />
@@ -121,17 +138,37 @@ const Profile = styled.div`
       }
     }
   }
+  .profile-stats {
+    display: flex;
+    width: 90%;
+    margin: auto;
+    justify-content: space-between;
+    ul {
+      margin-bottom: 20px;
+      opacity: 0.8;
+      cursor: pointer;
+      transition: 200ms ease-out;
+      &:hover {
+        transition: 200ms ease-in;
+        opacity: 1;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+    }
+  }
 `;
 
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = ({ auth, followers }) => {
   return {
-    auth: auth
+    auth: auth,
+    followers: followers
   };
 };
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { editProfile }
+    { editProfile, getFollowersAndFollowingCount }
   )(Sidebar)
 );
