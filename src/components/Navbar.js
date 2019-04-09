@@ -195,6 +195,7 @@ const Nav = styled.nav`
       font-weight: 700;
       border: transparent;
       cursor: pointer;
+      transition: 200ms ease-out;
 
       &:hover {
         border: 1px solid ${hoverBg} transparent;
@@ -222,14 +223,18 @@ const NavRight = styled.div`
   align-items: center;
   span {
     padding: 10px;
-    margin-right: 10px;
+    margin-right: 20px;
     font-weight: 700;
     border: transparent;
+    border-radius: 5px;
+    background-color: #3f65f2;
+    color: white;
     cursor: pointer;
+    transition: 200ms ease-out;
     &:hover {
       border: 1px solid ${hoverBg} transparent;
       border-radius: 5px;
-      background-color: ${hoverBg};
+      background-color: #3059f3;
     }
   }
 `;

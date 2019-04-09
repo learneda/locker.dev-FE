@@ -89,7 +89,7 @@ class Toggle extends Component {
                       placeholder="www.example.com/article.html"
                       type="input"
                     />
-                    <button className="add-btn">add</button>
+                    <button className="add-btn">Add</button>
                   </form>
                 </div>
               </div>
