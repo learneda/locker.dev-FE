@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { editProfile } from '../actions';
+import { withAlert } from 'react-alert';
 
 import styled from 'styled-components';
 import { customLayout, customWrapper } from './mixins';
@@ -15,9 +16,9 @@ class EditUserProfile extends Component {
     super(props);
 
     this.state = {
-      bio: 'Add bio',
-      location: 'Add location',
-      website_url: 'Add website URL'
+      bio: '',
+      location: '',
+      website_url: ''
     };
   }
 
@@ -42,7 +43,9 @@ class EditUserProfile extends Component {
             <input
               type="text"
               onChange={this.handleInputChange}
-              placeholder="Edit bio"
+              placeholder={
+                this.props.auth.bio ? this.props.auth.bio : 'Add bio'
+              }
               value={this.state.bio}
               name="bio"
               required
@@ -50,7 +53,11 @@ class EditUserProfile extends Component {
             <input
               type="text"
               onChange={this.handleInputChange}
-              placeholder="Edit location"
+              placeholder={
+                this.props.auth.location
+                  ? this.props.auth.location
+                  : 'Add location'
+              }
               value={this.state.location}
               name="location"
               required
@@ -58,13 +65,24 @@ class EditUserProfile extends Component {
             <input
               type="text"
               onChange={this.handleInputChange}
-              placeholder="Edit website url"
+              placeholder={
+                this.props.auth.website_url
+                  ? this.props.auth.website_url
+                  : 'Add website URL'
+              }
               value={this.state.website_url}
               name="website_url"
               required
             />
             <Link to="/profile">Cancel</Link>
-            <button type="submit">Save</button>
+            <button
+              type="submit"
+              onClick={() => {
+                this.props.alert.success('User settings successfully updated.');
+              }}
+            >
+              Save
+            </button>
           </FormGroup>
         </Profile>
       </Wrapper>
@@ -95,7 +113,9 @@ const mapStateToProps = ({ auth }) => {
   };
 };
 
+const Alert = withAlert()(EditUserProfile);
+
 export default connect(
   mapStateToProps,
   { editProfile }
-)(EditUserProfile);
+)(Alert);
