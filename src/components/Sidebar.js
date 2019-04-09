@@ -1,28 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Route, withRouter, Link } from 'react-router-dom';
 import { editProfile } from '../actions';
 
 import styled from 'styled-components';
 import { customLayout, customWrapper } from './mixins';
-import EditableLabel from 'react-inline-edition';
 import Moment from 'react-moment';
 import locationSvg from '../assets/svg/location.svg';
 import linkSvg from '../assets/svg/link-symbol.svg';
 import calendarSvg from '../assets/svg/calendar.svg';
 
 class Sidebar extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      bio: 'Add bio',
-      location: 'Add location',
-      website_url: 'Add website URL'
-    };
-  }
-
-  handleInputChange = e => this.setState({ [e.target.name]: e.target.value });
-
   render() {
     return (
       <Wrapper>
@@ -45,7 +33,9 @@ class Sidebar extends Component {
               <img src={calendarSvg} alt="calendar-icon" />
               Joined <Moment format="MMMM YYYY">{this.props.created_at}</Moment>
             </p>
-            <button>Edit Profile</button>
+            <div className="edit-profile-link">
+              <Link to="/edit-profile">Edit Profile</Link>
+            </div>
           </div>
         </Profile>
       </Wrapper>
@@ -116,21 +106,18 @@ const Profile = styled.div`
       color: #333;
     }
 
-    button {
-      margin: 0;
+    .edit-profile-link {
       margin-top: 20px;
-      padding: 0;
-      border: none;
-      background: none;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #6d767e;
-      cursor: pointer;
-      transition: 200ms ease-out;
+      a {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #6d767e;
+        transition: 200ms ease-out;
 
-      &:hover {
-        color: #3f65f2;
-        transition: 200ms ease-in;
+        &:hover {
+          color: #3f65f2;
+          transition: 200ms ease-in;
+        }
       }
     }
   }
@@ -142,7 +129,9 @@ const mapStateToProps = ({ auth }) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { editProfile }
-)(Sidebar);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { editProfile }
+  )(Sidebar)
+);
