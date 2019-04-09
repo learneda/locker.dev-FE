@@ -16,6 +16,9 @@ class EditUserProfile extends Component {
     super(props);
 
     this.state = {
+      profile_picture: '',
+      display_name: '',
+      username: '',
       bio: '',
       location: '',
       website_url: ''
@@ -24,7 +27,14 @@ class EditUserProfile extends Component {
 
   editProfileHandler = (e, id) => {
     e.preventDefault();
-    const { bio, location, website_url } = this.state;
+    const {
+      profile_picture,
+      display_name,
+      username,
+      bio,
+      location,
+      website_url
+    } = this.state;
     this.props.editProfile(id, { bio, location, website_url });
   };
 
