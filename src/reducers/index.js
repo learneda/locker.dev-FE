@@ -5,7 +5,7 @@ import { modalReducer } from './modalReducer';
 import { postReducer } from './postReducer';
 import { likedPostReducer } from './likedPostReducer';
 import { searchReducer } from './searchReducer';
-
+import { followReducer } from './followReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -13,5 +13,6 @@ export default combineReducers({
   modalState: modalReducer,
   posts: postReducer,
   likedPosts: likedPostReducer,
-  search_term: searchReducer
+  search_term: searchReducer,
+  followers: followReducer
 });
