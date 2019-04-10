@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 function DummySearch(props) {
 
   return (
-    <div style={{ width: '500px' }}>
+    <div style={{ width: '30%' }}>
       <TextInput
         size="small"
         placeholder="search"
