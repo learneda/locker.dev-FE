@@ -100,7 +100,8 @@ const Profile = styled.div`
     flex-direction: column;
     flex-wrap: wrap;
     padding: 15px 6%;
-
+    width: 90%;
+    margin: auto;
     h3 {
       margin: 0 auto;
       font-size: 2.5rem;
@@ -111,10 +112,12 @@ const Profile = styled.div`
       line-height: 25px;
       margin-bottom: 10px;
       color: #6d767e;
+      // display: flex;
       img {
         width: 18px;
         height: 18px;
         margin-right: 5px;
+        margin-bottom: -3px;
       }
     }
 
@@ -140,20 +143,25 @@ const Profile = styled.div`
   }
   .profile-stats {
     display: flex;
-    width: 90%;
-    margin: auto;
+    width: 100%;
     justify-content: space-between;
     ul {
       margin-bottom: 20px;
-      opacity: 0.8;
       cursor: pointer;
       transition: 200ms ease-out;
       &:hover {
+        color: #3f65f2;
         transition: 200ms ease-in;
-        opacity: 1;
+        // li:nth-of-type(2) {
+        //   opacity: 1;
+        // }
       }
       li {
         margin-bottom: 5px;
+        // transition: 200ms ease-out;
+      }
+      li:nth-of-type(2) {
+        opacity: 0.7;
       }
     }
   }
