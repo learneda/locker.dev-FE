@@ -19,9 +19,9 @@ class EditUserProfile extends Component {
       profile_picture: '',
       display_name: '',
       username: '',
-      bio: '',
-      location: '',
-      website_url: ''
+      bio: this.props.auth.bio,
+      location: this.props.auth.location,
+      website_url: this.props.auth.website_url
     };
   }
 
@@ -53,9 +53,7 @@ class EditUserProfile extends Component {
             <input
               type="text"
               onChange={this.handleInputChange}
-              placeholder={
-                this.props.auth.bio ? this.props.auth.bio : 'Add bio'
-              }
+              placeholder="Add bio"
               value={this.state.bio}
               name="bio"
               required
@@ -63,11 +61,7 @@ class EditUserProfile extends Component {
             <input
               type="text"
               onChange={this.handleInputChange}
-              placeholder={
-                this.props.auth.location
-                  ? this.props.auth.location
-                  : 'Add location'
-              }
+              placeholder="Add location"
               value={this.state.location}
               name="location"
               required
@@ -75,11 +69,7 @@ class EditUserProfile extends Component {
             <input
               type="text"
               onChange={this.handleInputChange}
-              placeholder={
-                this.props.auth.website_url
-                  ? this.props.auth.website_url
-                  : 'Add website URL'
-              }
+              placeholder="Add website URL"
               value={this.state.website_url}
               name="website_url"
               required
