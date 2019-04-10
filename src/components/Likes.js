@@ -57,9 +57,11 @@ const Post = styled.div`
   background-color: #fff;
   position: relative;
   max-height: 180px;
+  @media (max-width: 1450px) {
+    max-height: initial;
+  }
   @media (max-width: 1100px) {
     flex-direction: column;
-    // align-items: center;
     max-height: initial;
   }
   a {
@@ -74,12 +76,14 @@ const Post = styled.div`
   img {
     width: 100%;
     border-radius: 6px 0 0px 6px;
-    max-width: 320px;
-    max-height: 220px;
+    width: 320px;
+    height: 180px;
     object-fit: cover;
     height: 100%;
     @media (max-width: 1100px) {
       max-width: 100%;
+      width: 100%;
+      height: 100%;
       max-height: 400px;
       border-radius: 6px 6px 0 0;
     }
