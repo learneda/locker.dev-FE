@@ -37,59 +37,88 @@ class EditUserProfile extends Component {
       <Wrapper>
         <h2>User Settings</h2>
 
-        <Profile>
-          <h2>Yo</h2>
-          <FormGroup
-            onSubmit={e => this.editProfileHandler(e, this.props.auth.id)}
-          >
-            <input
-              type="text"
-              onChange={this.handleInputChange}
-              placeholder="Add full name"
-              value={this.state.display_name}
-              name="display_name"
-              required
-            />
-            <input
-              type="text"
-              onChange={this.handleInputChange}
-              placeholder="Add username"
-              value={this.state.username}
-              name="username"
-              required
-            />
-            <input
-              type="text"
-              onChange={this.handleInputChange}
-              placeholder="Add bio"
-              value={this.state.bio}
-              name="bio"
-            />
-            <input
-              type="text"
-              onChange={this.handleInputChange}
-              placeholder="Add location"
-              value={this.state.location}
-              name="location"
-            />
-            <input
-              type="text"
-              onChange={this.handleInputChange}
-              placeholder="Add website URL"
-              value={this.state.website_url}
-              name="website_url"
-            />
-            <Link to="/profile">Cancel</Link>
-            <button
-              type="submit"
-              onClick={() => {
-                this.props.alert.success('User settings successfully updated.');
-              }}
-            >
-              Save
-            </button>
-          </FormGroup>
-        </Profile>
+        <FormGroup
+          onSubmit={e => this.editProfileHandler(e, this.props.auth.id)}
+        >
+          <div className="form-wrapper">
+            <div className="row">
+              <div className="col-2">
+                <label>
+                  Name
+                  <input
+                    type="text"
+                    onChange={this.handleInputChange}
+                    placeholder="Add full name"
+                    value={this.state.display_name}
+                    name="display_name"
+                    required
+                  />
+                </label>
+
+                <label>
+                  Username
+                  <input
+                    type="text"
+                    onChange={this.handleInputChange}
+                    placeholder="Add username"
+                    value={this.state.username}
+                    name="username"
+                    required
+                  />
+                </label>
+
+                <label>
+                  Bio
+                  <input
+                    type="text"
+                    onChange={this.handleInputChange}
+                    placeholder="Add bio"
+                    value={this.state.bio}
+                    name="bio"
+                  />
+                </label>
+              </div>
+
+              <div className="col-2">
+                <label>
+                  Location
+                  <input
+                    type="text"
+                    onChange={this.handleInputChange}
+                    placeholder="Add location"
+                    value={this.state.location}
+                    name="location"
+                  />
+                </label>
+
+                <label>
+                  Website URL
+                  <input
+                    type="text"
+                    onChange={this.handleInputChange}
+                    placeholder="Add website URL"
+                    value={this.state.website_url}
+                    name="website_url"
+                  />
+                </label>
+              </div>
+            </div>
+
+            <div className="btn-group">
+              <Link to="/profile">Cancel</Link>
+              <button
+                type="submit"
+                onClick={() => {
+                  this.props.alert.success(
+                    'User settings successfully updated.'
+                  );
+                }}
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </FormGroup>
       </Wrapper>
     );
   }
@@ -103,13 +132,55 @@ const Wrapper = styled.div`
   }
 `;
 
-const Profile = styled.div`
-  border-radius: 5px;
-  background-color: white;
-`;
-
 const FormGroup = styled.form`
-  border: 1px solid red;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 5px;
+  background: #fff;
+  ${customWrapper('80%', '0 auto')}
+  padding: 20px;
+
+  .form-wrapper {
+    border: 1px solid red;
+    padding: 10px;
+    ${customLayout()}
+    ${customWrapper('80%', '0 auto')}
+    flex-direction: column;
+
+    .row {
+      border: 2px solid green;
+      padding: 10px;
+      ${customLayout('space-between')}
+
+      .col-2 {
+        width: 50%;
+        padding: 10px;
+        ${customLayout()}
+        flex-wrap: wrap;
+        border: 1px solid blue;
+
+        label {
+          width: 100%;
+          padding: 20px 0;
+          color: gray;
+
+          input {
+            width: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.33);
+            margin-top: 10px;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 2rem;
+            color: #333;
+
+            &:focus {
+              outline: none;
+              border: 1.5px solid #3e66f2;
+            }
+          }
+        }
+      }
+    }
+  }
 `;
 
 const mapStateToProps = ({ auth }) => {
