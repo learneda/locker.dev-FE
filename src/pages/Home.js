@@ -82,10 +82,10 @@ const Container = styled.div`
   ${customWrapper('80%', '0 auto')}
 `;
 
-const SPAN = styled.span`
-  font-weight: bold;
-  font-size: 2rem;
-`;
+// const SPAN = styled.span`
+//   font-weight: bold;
+//   font-size: 2rem;
+// `;
 
 const mapStateToProps = ({ auth }) => ({ auth });
 
