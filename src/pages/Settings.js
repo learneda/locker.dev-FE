@@ -5,7 +5,7 @@ import { withAlert } from 'react-alert';
 import styled from 'styled-components';
 
 import { editProfile } from '../actions';
-import { customLayout, customWrapper } from './mixins';
+import { customLayout, customWrapper } from '../components/mixins';
 // import locationSvg from '../assets/svg/location.svg';
 // import linkSvg from '../assets/svg/link-symbol.svg';
 // import calendarSvg from '../assets/svg/calendar.svg';
@@ -211,7 +211,7 @@ const FormGroup = styled.form`
 
 const mapStateToProps = ({ auth }) => ({ auth });
 
-const Alert = withAlert()(EditUserProfile);
+const Alert = withAlert()(Settings);
 
 export default connect(
   mapStateToProps,
