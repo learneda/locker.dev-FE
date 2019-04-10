@@ -124,6 +124,7 @@ const Post = styled.div`
   border-radius: 6px;
   background-color: #fff;
   max-height: 180px;
+  height: 180px;
   position: relative;
   &:hover {
     .like {
@@ -145,10 +146,12 @@ const Post = styled.div`
       opacity: 0.8;
     }
   }
+  @media (max-width: 1450px) {
+    max-height: initial;
+    height: 100%;
+  }
   @media (max-width: 1100px) {
     flex-direction: column;
-    // align-items: center;
-    max-height: initial;
   }
   .delete-icon {
     cursor: pointer;
@@ -174,21 +177,14 @@ const Post = styled.div`
   }
 
   img {
-    width: 100%;
     border-radius: 6px 0 0px 6px;
     width: 320px;
-    height: 220px;
+    height: 100%
     object-fit: cover;
-    height: 100%;
-    @media (max-width: 1450px) {
-      width: 100%;
-      height: 100%;
-      max-width: 320px;
-      max-height: 220px;
-    }
     @media (max-width: 1100px) {
       max-width: 100%;
       max-height: 400px;
+      width: 100%
       border-radius: 6px;
       border-radius: 6px 6px 0 0;
     }
@@ -222,21 +218,17 @@ const Post = styled.div`
     position: relative;
     margin-right: 30px;
   }
-  .date-like-heart {
-    display: flex;
-  }
   .edit-modal {
     height: 100vh;
     width: 100vw;
   }
   .edit-icon {
     position: absolute;
-    right: 5px;
-    top: 5px;
+    right: 15px;
+    bottom: 15px;
     width: 25px;
     cursor: pointer;
     height: 25px;
-
     @media (max-width: 1100px) {
       bottom: 20px;
       top: initial;

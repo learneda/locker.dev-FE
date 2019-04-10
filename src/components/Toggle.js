@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import AddLinkPortal from './AddLinkPortal';
-import axios from 'axios';
 import { connect } from 'react-redux';
+import axios from 'axios';
+
+import AddLinkPortal from './AddLinkPortal';
 import { getPosts } from '../actions';
 import { post as URL } from '../services/baseURL';
 
