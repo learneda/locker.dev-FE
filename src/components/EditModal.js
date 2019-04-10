@@ -98,14 +98,15 @@ const StyledEditModal = styled.div`
   left: 0;
   right: 0;
   z-index: 20000;
+  overflow-y: scroll;
   .close-modal-x {
     position: absolute;
     top: 10px;
-    right: -70px;
+    right: 10px;
     color: red;
     font-size: 6rem;
     cursor: pointer;
-    opacity: 0.5;
+    opacity: 0.8;
     transition: 200ms ease-out;
     &:hover {
       opacity: 1;
@@ -125,6 +126,9 @@ const StyledEditModal = styled.div`
     padding-bottom: 10px;
     border-radius: 15px;
     position: relative;
+    @media (max-width: 650px) {
+      margin-top: 0;
+    }
   }
   .edit-form input,
   .edit-form label,

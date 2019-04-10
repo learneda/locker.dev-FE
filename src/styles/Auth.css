@@ -20,9 +20,9 @@
 @media (max-width: 768px) {
   .login {
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     position: fixed;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
   }
 }
 @keyframes fadeIn {
@@ -46,8 +46,7 @@
 }
 
 .login-content {
-  /* position: absolute;
-  top: 0px; */
+  position: relative;
   color: #fff;
   background: #fff;
   border-radius: 7px;
@@ -56,7 +55,8 @@
 @media (max-width: 768px) {
   .login-content {
     /* margin-top: 15%; */
-    width: 100%;
+    width: 90%;
+    /* border-radius: 5px; */
   }
 }
 .login-content span {
@@ -81,6 +81,7 @@
   transition: 200ms ease-out;
   background: rgb(226, 226, 226);
   border: 1px solid #999;
+  border-top-left-radius: 7px;
 }
 
 .login-content .not-current-view:hover {
@@ -91,10 +92,11 @@
 .login-content form {
   display: flex;
   flex-direction: column;
-  max-width: 290px;
+  /* max-width: 290px; */
   margin: auto;
   margin-top: 15px;
   -webkit-appearance: none;
+  padding: 20px 0;
 }
 @media (max-width: 768px) {
   .login-content form {
@@ -154,7 +156,7 @@
 }
 
 .form-oauth-providers {
-  width: 240px;
+  width: 100%;
   margin: auto;
   text-align: center;
   padding: 20px;
@@ -168,6 +170,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid lightgray;
+  padding: 10px;
+  border-radius: 5px;
+  background: rgb(226, 226, 226);
 }
 .form-oauth-providers:hover {
   opacity: 1;
@@ -177,18 +183,29 @@
   text-align: center;
   margin-left: 7px;
   color: #222;
+  font-size: 2rem;
 }
 .form-oauth-providers img {
-  max-width: 25px;
+  max-width: 55px;
 }
 
 .close-modal {
   position: absolute;
-  right: -70px;
-  color: #fff;
+  right: -50px;
+  color: red;
   top: -10px;
   font-size: 6rem;
   cursor: pointer;
+}
+@media (max-width: 768px) {
+  .close-modal {
+    right: 0px;
+    top: -60px;
+    /* top: 0;
+    right: 20px;
+    font-size: 4rem;
+    z-index: 100000; */
+  }
 }
 
 .no_match {
@@ -277,19 +294,11 @@
   width: 70%;
 }
 .add-btn {
-  background-color: #3f65f2;
+  text-transform: uppercase;
+  background: black;
   padding: 5px 30px;
-  border: 1px solid transparent;
-  border-radius: 5px;
+  border-radius: 3.7px;
   color: white;
-  font-size: 1.6rem;
-  font-weight: 700;
-  transition: 200ms ease-out;
-  cursor: pointer;
-}
-
-.add-btn:hover {
-  background-color: #3059f3;
 }
 
 .modal_close:hover {
@@ -298,4 +307,10 @@
 
 .root-modal-open {
   filter: blur(7px);
+}
+.lol {
+  border: 2px solid red;
+}
+.comments {
+  color: green;
 }
