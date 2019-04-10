@@ -8,7 +8,7 @@ import Navbar from './components/navigation/Navbar';
 import UserProfile from './pages/UserProfile';
 import Home from './pages/Home';
 import Browse from './pages/Browse';
-import EditUserProfile from './components/EditUserProfile';
+import EditUserProfile from './pages/Settings';
 import NoMatch from './pages/NoMatch';
 
 import { composedIndexRedirect as index } from './components/authentication/indexRedirect';
@@ -34,7 +34,7 @@ class App extends Component {
           <Route component={index(Home)} path="/home" />
           <Route component={index(Browse)} path="/browse" />
           <Route component={index(UserProfile)} path="/profile" />
-          <Route component={index(EditUserProfile)} path="/edit-profile" />
+          <Route component={index(EditUserProfile)} path="/settings" />
           <Route component={NoMatch} />
         </Switch>
       </Container>
