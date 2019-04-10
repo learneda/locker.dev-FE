@@ -28,7 +28,7 @@ class Home extends Component {
     })
     axios.get(`${URL}/api/users/newsfeed`).then((res) => {
       console.log('axios res', res.data);
-      this.setState({posts:res.data.newsFeedPromise});
+      this.setState({posts:res.data.newResponse});
     }).catch((err) => console.log(err));
   }
 
