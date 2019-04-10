@@ -55,7 +55,7 @@ class Sidebar extends Component {
               Joined <Moment format="MMMM YYYY">{this.props.created_at}</Moment>
             </p>
             <div className="edit-profile-link">
-              <Link to="/edit-profile">Edit Profile</Link>
+              <Link to="/settings">Edit Profile</Link>
             </div>
           </div>
         </Profile>
