@@ -1,25 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import { TextInput } from 'grommet';
-import {getSearchValue} from '../actions';
-import {connect} from 'react-redux';
+
+import { getSearchValue } from '../actions';
 
 function DummySearch(props) {
-
   return (
     <div style={{ width: '30%' }}>
       <TextInput
         size="small"
         placeholder="search"
         value={props.search_term}
-        onChange={(e) => props.getSearchValue(e)}
+        onChange={e => props.getSearchValue(e)}
       />
     </div>
   );
 }
-const mapStateToProps = (state) => {
-  return {
-    search_term: state.search_term
-  };
-};
+const mapStateToProps = ({ search_term }) => ({ search_term });
 
-export default connect(mapStateToProps, {getSearchValue})(DummySearch);
+export default connect(
+  mapStateToProps,
+  { getSearchValue }
+)(DummySearch);
