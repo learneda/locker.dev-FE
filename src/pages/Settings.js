@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withAlert } from 'react-alert';
 import styled from 'styled-components';
+import { Grommet, TextInput, TextArea } from 'grommet';
 
 import { editProfile } from '../actions';
 import { customLayout, customWrapper } from '../components/mixins';
@@ -22,7 +23,13 @@ class Settings extends Component {
   editProfileHandler = (e, id) => {
     e.preventDefault();
     const { display_name, username, bio, location, website_url } = this.state;
-    this.props.editProfile(id, { bio, location, website_url });
+    this.props.editProfile(id, {
+      display_name,
+      username,
+      bio,
+      location,
+      website_url
+    });
   };
 
   handleInputChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -36,68 +43,70 @@ class Settings extends Component {
           onSubmit={e => this.editProfileHandler(e, this.props.auth.id)}
         >
           <div className="form-wrapper">
-            <div className="row">
-              <div className="col-2">
-                <label>
-                  Name
-                  <input
-                    type="text"
-                    onChange={this.handleInputChange}
-                    placeholder="Add full name"
-                    value={this.state.display_name}
-                    name="display_name"
-                    required
-                  />
-                </label>
+            <Grommet theme={theme}>
+              <div className="row">
+                <div className="col-2">
+                  <label>
+                    Name
+                    <TextInput
+                      type="text"
+                      onChange={this.handleInputChange}
+                      placeholder="Add full name"
+                      value={this.state.display_name}
+                      name="display_name"
+                      required
+                    />
+                  </label>
 
-                <label>
-                  Username
-                  <input
-                    type="text"
-                    onChange={this.handleInputChange}
-                    placeholder="Add username"
-                    value={this.state.username}
-                    name="username"
-                    required
-                  />
-                </label>
+                  <label>
+                    Username
+                    <TextInput
+                      type="text"
+                      onChange={this.handleInputChange}
+                      placeholder="Add username"
+                      value={this.state.username}
+                      name="username"
+                      required
+                    />
+                  </label>
 
-                <label>
-                  Bio
-                  <input
-                    type="text"
-                    onChange={this.handleInputChange}
-                    placeholder="Add bio"
-                    value={this.state.bio}
-                    name="bio"
-                  />
-                </label>
+                  <label>
+                    Bio
+                    <TextArea
+                      type="text"
+                      onChange={this.handleInputChange}
+                      placeholder="Add bio"
+                      value={this.state.bio}
+                      name="bio"
+                    />
+                  </label>
+                </div>
+
+                <div className="col-2">
+                  <label>
+                    Location
+                    <TextInput
+                      type="text"
+                      onChange={this.handleInputChange}
+                      placeholder="Add location"
+                      value={this.state.location}
+                      name="location"
+                    />
+                  </label>
+
+                  <label>
+                    Website URL
+                    <TextInput
+                      type="text"
+                      onChange={this.handleInputChange}
+                      placeholder="Add website URL"
+                      value={this.state.website_url}
+                      name="website_url"
+                    />
+                  </label>
+                </div>
               </div>
-
-              <div className="col-2">
-                <label>
-                  Location
-                  <input
-                    type="text"
-                    onChange={this.handleInputChange}
-                    placeholder="Add location"
-                    value={this.state.location}
-                    name="location"
-                  />
-                </label>
-
-                <label>
-                  Website URL
-                  <input
-                    type="text"
-                    onChange={this.handleInputChange}
-                    placeholder="Add website URL"
-                    value={this.state.website_url}
-                    name="website_url"
-                  />
-                </label>
-              </div>
-            </div>
+            </Grommet>
 
             <div className="btn-group">
               <Link to="/profile">Cancel</Link>
@@ -118,6 +127,23 @@ class Settings extends Component {
     );
   }
 }
+
+const theme = {
+  global: {
+    focus: {
+      border: {
+        color: '#3f65f2'
+      }
+    }
+  },
+  text: {
+    xsmall: {
+      size: '12px',
+      height: '18px',
+      maxWidth: '288px'
+    }
+  }
+};
 
 const Wrapper = styled.div`
   ${customWrapper('80%', '0 auto')}
@@ -155,19 +181,22 @@ const FormGroup = styled.form`
           padding: 20px 0;
           color: gray;
 
-          input {
+          input, textarea {
             width: 100%;
             border: 1px solid rgba(0, 0, 0, 0.33);
             margin-top: 10px;
             border-radius: 5px;
             padding: 10px;
-            font-size: 2rem;
             color: #333;
 
             &:focus {
               outline: none;
               border: 1px solid #3e66f2;
             }
+          }
+
+          textarea {
+            height: 100px;
           }
         } // label
       } // col-2
