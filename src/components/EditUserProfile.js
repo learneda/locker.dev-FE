@@ -203,8 +203,8 @@ const FormGroup = styled.form`
 
       a {
         padding-top: 13px;
-        // border: 1px solid blue;
         transition: 150ms ease-in;
+        font-weight: 700;
 
         &:hover {
           color: #3e66f2;
