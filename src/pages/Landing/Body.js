@@ -9,6 +9,8 @@ import friendsSVG from '../../assets/svg/online_friends.svg';
 import booksSVG from '../../assets/svg/reading-list-drawing.svg';
 import videosSVG from '../../assets/svg/video-drawing.svg';
 import shareSVG from '../../assets/svg/wall_post-drawing.svg';
+import landingVideo from '../../assets/video/landing.mp4';
+import browser from '../../assets/img/browser.png';
 
 const Body = () => {
   return (
@@ -21,13 +23,21 @@ const Body = () => {
           <Button
             className="get-started"
             primary
-            label="Get Started for Free"
+            label="Find Out More"
             icon={<FormNextLink />}
             reverse
           />
         </div>
         <div className="landing-img">
-          <img className="landing-svg" src={landingSVG} alt="" />
+          {/* <img className="landing-svg" src={landingSVG} alt="" /> */}
+          <img src={browser} alt="" />
+          <video
+            className="landing-video"
+            src={landingVideo}
+            autoPlay
+            muted
+            loop
+          />
         </div>
       </CallToAction>
 
@@ -120,10 +130,11 @@ const StyledFeaturesContainer = styled.div`
 `;
 
 const CallToAction = styled.div`
+min-height: 100vh;
   padding: 0px 0;
   display: grid;
- grid-template-columns: repeat(12, 1fr);
- grid-template-rows: repeat(12, 1fr);
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
  @media(max-width: 992px) {
    display: flex;
    flex-direction: column;
@@ -139,7 +150,7 @@ const CallToAction = styled.div`
   }
   .landing-img {
     grid-column: 7 / span 12;
-    grid-row: 1 / span 12;
+    grid-row: 2 / span 12;
   }
   .landing-content {
     grid-column: 1 / span 8;
@@ -173,6 +184,21 @@ const CallToAction = styled.div`
     // max-width: 800px;
     // max-height: 500px;
     // border: 1px solid red;
+  }
+  .landing-video {
+    width: 100%;
+    border: 3px solid #fff;
+    margin-left: 50px;
+    position: relative;
+  }
+  .landing-img img {
+    margin-left: 50px;
+    width: 100%;
+    margin-bottom: -7px;
+    // position: absolute;
+    // top: 0;
+    // right: 0;
+    // left: 0;
   }
 }`;
 
