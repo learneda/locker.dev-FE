@@ -4,7 +4,7 @@ import openSocket from 'socket.io-client';
 import { customWrapper } from '../components/mixins';
 import { post as URL } from '../services/baseURL';
 import { connect } from 'react-redux';
-// import axios form 'axios'
+import axios from 'axios';
 
 
 class Home extends Component {
@@ -12,7 +12,8 @@ class Home extends Component {
     super(props)
     this.state = {
       comments: [],
-      search: ''
+      search: '',
+      posts: []
     }
     console.log(props.auth.id)
     this.username = props.auth.username;
@@ -25,6 +26,10 @@ class Home extends Component {
       console.log('here',msg)
       this.setState({ comments: [ {username: msg.username, content:msg.msg.content}, ...this.state.comments ] })
     })
+    axios.get(`${URL}/api/users/newsfeed`).then((res) => {
+      console.log('axios res', res.data);
+      this.setState({posts:res.data.newsFeedPromise});
+    }).catch((err) => console.log(err));
   }
 
   handleChange = ({ target }) => {
@@ -48,24 +53,30 @@ class Home extends Component {
   };
 
   render() {
-    console.log(this.state.comments);
-    const comments = this.state.comments.map((message, index) => {
-      console.log(message);
+    // console.log(this.state.comments);
+    // const comments = this.state.comments.map((message, index) => {
+    //   console.log(message);
+    //   return (
+    //     <li key={index}>
+    //       {message.username} <SPAN>{message.content}</SPAN>
+    //     </li>
+    //   );
+    // });
+    const posts = this.state.posts.map((post, index) => {
       return (
-        <li key={index}>
-          {message.username} <SPAN>{message.content}</SPAN>
-        </li>
+        <div key={index}>
+          <div>{post.username}</div>
+          <img src={`${post.profile_picture}`} alt='user_profile_pic' />
+          <img src={`${post.thumbnail_url}`} alt='post_thumbnail' />
+          <div>{post.title}</div>
+          <div>{post.description}</div>
+          {/* <div>{post.}</div> */}
+        </div>
       );
     });
     return (
       <Container>
-        <h1>hello computer people !</h1>
-        <input
-          placeholder="enter a message..."
-          type="text"
-          onKeyUp={this.handleSubmit}
-        />
-        {comments}
+        {posts}
       </Container>
     );
   }
