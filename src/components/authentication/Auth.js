@@ -31,7 +31,7 @@ class Auth extends Component {
       authForm = (
         // Sign up form
         <form id="signup-form" onSubmit={this.onSubmit}>
-          <label htmlFor="name">Name</label>
+          {/* <label htmlFor="name">Name</label>
           <input name="name" required />
           <label htmlFor="email">Email</label>
           <input name="email" required onChange={this.onChange} />
@@ -48,8 +48,8 @@ class Auth extends Component {
             type="password"
             required
             onChange={this.onChange}
-          />
-          <input type="submit" id="submit" value="SIGN UP" />
+          /> */}
+          {/* <input type="submit" id="submit" value="SIGN UP" /> */}
           <div className="form-oauth-providers">
             <a href={`${authURL}google`}>
               <img src={googleSvg} alt="" />
@@ -68,11 +68,11 @@ class Auth extends Component {
       authForm = (
         // Log in form
         <form id="login-form" onSubmit={this.onSubmit}>
-          <label htmlFor="email">Email</label>
+          {/* <label htmlFor="email">Email</label>
           <input name="email" required />
           <label htmlFor="email">Password</label>
           <input name="password" type="password" required />
-          <input type="submit" id="submit" value="LOG IN" />
+          <input type="submit" id="submit" value="LOG IN" /> */}
           <div className="form-oauth-providers">
             <a href={`${authURL}google`}>
               <img src={googleSvg} alt="" />
