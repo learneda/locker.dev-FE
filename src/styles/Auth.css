@@ -294,19 +294,11 @@
   width: 70%;
 }
 .add-btn {
-  background-color: #3f65f2;
+  text-transform: uppercase;
+  background: black;
   padding: 5px 30px;
-  border: 1px solid transparent;
-  border-radius: 5px;
+  border-radius: 3.7px;
   color: white;
-  font-size: 1.6rem;
-  font-weight: 700;
-  transition: 200ms ease-out;
-  cursor: pointer;
-}
-
-.add-btn:hover {
-  background-color: #3059f3;
 }
 
 .modal_close:hover {
@@ -315,4 +307,10 @@
 
 .root-modal-open {
   filter: blur(7px);
+}
+.lol {
+  border: 2px solid red;
+}
+.comments {
+  color: green;
 }
