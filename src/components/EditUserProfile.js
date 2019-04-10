@@ -140,14 +140,12 @@ const FormGroup = styled.form`
   padding: 20px;
 
   .form-wrapper {
-    border: 1px solid red;
     padding: 10px;
     ${customLayout()}
     ${customWrapper('80%', '0 auto')}
     flex-direction: column;
 
     .row {
-      border: 2px solid green;
       padding: 10px;
       ${customLayout('space-between')}
 
@@ -156,7 +154,6 @@ const FormGroup = styled.form`
         padding: 10px;
         ${customLayout()}
         flex-wrap: wrap;
-        border: 1px solid blue;
 
         label {
           width: 100%;
@@ -174,9 +171,43 @@ const FormGroup = styled.form`
 
             &:focus {
               outline: none;
-              border: 1.5px solid #3e66f2;
+              border: 1px solid #3e66f2;
             }
           }
+        } // label
+      } // col-2
+    } // row
+
+    .btn-group {
+      ${customLayout('flex-end')}
+      width: 100%;
+      padding: 20px;
+
+      button {
+        width: 15%;
+        margin-left: 30px;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        padding: 10px 0;
+        background-color: #3e66f2;
+        color: white;
+        font-weight: 700
+        font-size: 1.6rem;
+        transition: 200ms ease-in;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #3059f3;
+        }
+      }
+
+      a {
+        padding-top: 13px;
+        // border: 1px solid blue;
+        transition: 150ms ease-in;
+
+        &:hover {
+          color: #3e66f2;
         }
       }
     }
