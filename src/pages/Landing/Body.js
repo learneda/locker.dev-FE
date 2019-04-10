@@ -3,7 +3,6 @@ import { Button, Grommet } from 'grommet';
 import { FormNextLink } from 'grommet-icons';
 import styled from 'styled-components';
 import { buttonBg } from '../../components/mixins';
-import landingSVG from '../../assets/svg/landing.svg';
 import bookmarkSVG from '../../assets/svg/bookmarks-drawing.svg';
 import friendsSVG from '../../assets/svg/online_friends.svg';
 import booksSVG from '../../assets/svg/reading-list-drawing.svg';
