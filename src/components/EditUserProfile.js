@@ -16,9 +16,8 @@ class EditUserProfile extends Component {
     super(props);
 
     this.state = {
-      profile_picture: '',
-      display_name: '',
-      username: '',
+      display_name: this.props.auth.display_name,
+      username: this.props.auth.username,
       bio: this.props.auth.bio,
       location: this.props.auth.location,
       website_url: this.props.auth.website_url
@@ -27,14 +26,7 @@ class EditUserProfile extends Component {
 
   editProfileHandler = (e, id) => {
     e.preventDefault();
-    const {
-      profile_picture,
-      display_name,
-      username,
-      bio,
-      location,
-      website_url
-    } = this.state;
+    const { display_name, username, bio, location, website_url } = this.state;
     this.props.editProfile(id, { bio, location, website_url });
   };
 
@@ -53,10 +45,25 @@ class EditUserProfile extends Component {
             <input
               type="text"
               onChange={this.handleInputChange}
+              placeholder="Add full name"
+              value={this.state.display_name}
+              name="display_name"
+              required
+            />
+            <input
+              type="text"
+              onChange={this.handleInputChange}
+              placeholder="Add username"
+              value={this.state.username}
+              name="username"
+              required
+            />
+            <input
+              type="text"
+              onChange={this.handleInputChange}
               placeholder="Add bio"
               value={this.state.bio}
               name="bio"
-              required
             />
             <input
               type="text"
@@ -64,7 +71,6 @@ class EditUserProfile extends Component {
               placeholder="Add location"
               value={this.state.location}
               name="location"
-              required
             />
             <input
               type="text"
@@ -72,7 +78,6 @@ class EditUserProfile extends Component {
               placeholder="Add website URL"
               value={this.state.website_url}
               name="website_url"
-              required
             />
             <Link to="/profile">Cancel</Link>
             <button
