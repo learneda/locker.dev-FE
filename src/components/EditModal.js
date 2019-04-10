@@ -77,7 +77,6 @@ class EditModal extends Component {
             id="post-description"
             cols="30"
             rows="10"
-            name="description"
             value={this.state.description}
             onChange={this.onChange}
           />

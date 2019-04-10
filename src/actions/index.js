@@ -18,7 +18,6 @@ import {
   GET_FOLLOWERS_AND_FOLLOWING_COUNT
 } from './types';
 import { post as URL } from '../services/baseURL';
-import { Action } from 'grommet-icons';
 axios.defaults.withCredentials = true;
 
 export const fetchUser = () => async dispatch => {
