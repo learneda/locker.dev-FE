@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Grommet } from 'grommet';
-import { FormNextLink } from 'grommet-icons';
+import { LinkDown } from 'grommet-icons';
 import styled from 'styled-components';
 import { buttonBg } from '../../components/mixins';
 import landingSVG from '../../assets/svg/landing.svg';
@@ -11,6 +11,7 @@ import videosSVG from '../../assets/svg/video-drawing.svg';
 import shareSVG from '../../assets/svg/wall_post-drawing.svg';
 import landingVideo from '../../assets/video/landing.mp4';
 import browser from '../../assets/img/browser.png';
+import downIcon from '../../assets/svg/down-icon.svg';
 
 const Body = () => {
   return (
@@ -24,7 +25,7 @@ const Body = () => {
             className="get-started"
             primary
             label="Find Out More"
-            icon={<FormNextLink />}
+            // icon={<LinkDown />}
             reverse
           />
         </div>
@@ -39,6 +40,7 @@ const Body = () => {
             loop
           />
         </div>
+        <img src={downIcon} className="down-arrow" alt="" />
       </CallToAction>
 
       <StyledFeature textAlign="center">
@@ -172,7 +174,6 @@ min-height: 100vh;
       line-height: 5rem;
       padding-bottom: 20px;
     }
-
   }
   .landing-svg {
     // position: absolute;
@@ -199,6 +200,26 @@ min-height: 100vh;
     // top: 0;
     // right: 0;
     // left: 0;
+  }
+  .down-arrow {
+    position: absolute;
+    bottom: 20px;
+    width: 50px;
+    left: 50%;
+    transform: translateX(50%);
+    animation: bounce 2s infinite;
+    cursor: pointer;
+  }
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
   }
 }`;
 
