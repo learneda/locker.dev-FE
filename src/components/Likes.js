@@ -30,7 +30,7 @@ class Likes extends Component {
                 >
                   <h1>{this.handleTruncateText(post.title)}</h1>
                 </a>
-                <p>{this.handleTruncateText(post.description, 20)}</p>
+                <p>{this.handleTruncateText(post.description, 15)}</p>
                 <span className="formatted-date">
                   Added <Moment fromNow>{post.created_at}</Moment>
                 </span>

@@ -69,7 +69,7 @@ class Bookmarks extends Component {
                 >
                   <h1>{this.handleTruncateText(post.title)}</h1>
                 </a>
-                <p>{this.handleTruncateText(post.description, 20)}</p>
+                <p>{this.handleTruncateText(post.description, 15)}</p>
                 <div className="date-like-heart">
                   <span className="formatted-date">
                     Added <Moment fromNow>{post.created_at}</Moment>
@@ -176,8 +176,8 @@ const Post = styled.div`
   img {
     width: 100%;
     border-radius: 6px 0 0px 6px;
-    max-width: 320px;
-    max-height: 220px;
+    width: 320px;
+    height: 220px;
     object-fit: cover;
     height: 100%;
     @media (max-width: 1450px) {

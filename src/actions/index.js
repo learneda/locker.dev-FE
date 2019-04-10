@@ -15,8 +15,10 @@ import {
   EDIT_PROFILE,
   EDIT_POST_SUBMIT,
   EDIT_POST_GET_DEFAULT_DATA,
+  GET_FOLLOWERS_AND_FOLLOWING_COUNT
 } from './types';
 import { post as URL } from '../services/baseURL';
+import { Action } from 'grommet-icons';
 axios.defaults.withCredentials = true;
 
 export const fetchUser = () => async dispatch => {
@@ -70,7 +72,7 @@ export const getlikedPosts = () => async dispatch => {
 };
 
 export const editProfile = (id, profile) => async dispatch => {
-  await axios.put(`${URL}/auth/current_user/${id}`, profile);
+  await axios.put(`${URL}/api/users/edit`, { id, ...profile });
   const res = await axios.get(`${URL}/auth/current_user`);
   console.log('RES', res);
   dispatch({ type: EDIT_PROFILE, payload: res.data });
@@ -93,4 +95,10 @@ export const editPostSubmit = (editedPost, id) => async dispatch => {
 export const getSearchValue = e => dispatch => {
   console.log('hererere');
   dispatch({ type: SEARCH_TERM, payload: e.target.value });
+};
+
+export const getFollowersAndFollowingCount = () => async dispatch => {
+  const res = await axios.get(`${URL}/api/users/followStats`);
+  console.log('follow action', res);
+  dispatch({ type: GET_FOLLOWERS_AND_FOLLOWING_COUNT, payload: res.data });
 };

@@ -1,52 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { editProfile } from '../actions';
+import { withRouter, Link } from 'react-router-dom';
+import { editProfile, getFollowersAndFollowingCount } from '../actions';
 
 import styled from 'styled-components';
 import { customLayout, customWrapper } from './mixins';
-import EditableLabel from 'react-inline-edition';
 import Moment from 'react-moment';
 import locationSvg from '../assets/svg/location.svg';
 import linkSvg from '../assets/svg/link-symbol.svg';
 import calendarSvg from '../assets/svg/calendar.svg';
 
 class Sidebar extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      bio: 'Add bio',
-      location: 'Add location',
-      website_url: 'Add website URL',
-      github_url: 'Add GitHub URL',
-      twitter_url: 'Add Twitter URL',
-      facebook_url: 'Add Facebook URL',
-      linkedin_url: 'Add LinkedIn URL'
-    };
-
-    this._bioFocusOut = this._bioFocusOut.bind(this);
-    this._locationFocusOut = this._locationFocusOut.bind(this);
-    this._websiteFocusOut = this._websiteFocusOut.bind(this);
-    this._twitterFocusOut = this._twitterFocusOut.bind(this);
+  componentDidMount() {
+    this.props.getFollowersAndFollowingCount();
   }
-
-  _bioFocusOut(text) {
-    this.props.editProfile(this.props.auth.id, { bio: text });
-  }
-
-  _locationFocusOut(text) {
-    this.props.editProfile(this.props.auth.id, { location: text });
-  }
-
-  _websiteFocusOut(text) {
-    this.props.editProfile(this.props.auth.id, { website_url: text });
-  }
-  _twitterFocusOut(text) {
-    this.props.editProfile(this.props.auth.id, { twitter_url: text });
-  }
-
-  handleInputChange = e => this.setState({ [e.target.name]: e.target.value });
-
   render() {
     return (
       <Wrapper>
@@ -56,56 +23,36 @@ class Sidebar extends Component {
           </div>
           <div className="user-bio">
             <h3>{this.props.auth.display_name}</h3>
-            <p>
-              <EditableLabel
-                text={
-                  this.props.auth.bio ? this.props.auth.bio : this.state.bio
-                }
-                labelClassName="myLabelClass"
-                labelPlaceHolder="ADD BIO"
-                inputClassName="myInputClass"
-                inputWidth="200px"
-                inputHeight="25px"
-                inputMaxLength={100}
-                onFocusOut={this._bioFocusOut}
-              />
-            </p>
+            <div className="profile-stats">
+              <ul>
+                <li>Posts</li>
+                <li>43</li>
+              </ul>
+              <ul>
+                <li>Following</li>
+                <li>{this.props.followers.following}</li>
+              </ul>
+              <ul>
+                <li>Followers</li>
+                <li>{this.props.followers.followers}</li>
+              </ul>
+            </div>
+            <p>{this.props.auth.bio}</p>
             <p>
               <img src={locationSvg} alt="location-icon" />
-              <EditableLabel
-                text={
-                  this.props.auth.location
-                    ? this.props.auth.location
-                    : this.state.location
-                }
-                labelClassName="myLabelClass"
-                inputClassName="myInputClass"
-                inputWidth="200px"
-                inputHeight="25px"
-                inputMaxLength={50}
-                onFocusOut={this._locationFocusOut}
-              />
+              {this.props.auth.location}
             </p>
             <p>
               <img src={linkSvg} alt="link-icon" />
-              <EditableLabel
-                text={
-                  this.props.auth.website_url
-                    ? this.props.auth.website_url
-                    : this.state.website_url
-                }
-                labelClassName="myLabelClass"
-                inputClassName="myInputClass"
-                inputWidth="200px"
-                inputHeight="25px"
-                inputMaxLength={50}
-                onFocusOut={this._websiteFocusOut}
-              />
+              {this.props.auth.website_url}
             </p>
             <p>
               <img src={calendarSvg} alt="calendar-icon" />
               Joined <Moment format="MMMM YYYY">{this.props.created_at}</Moment>
             </p>
+            <div className="edit-profile-link">
+              <Link to="/edit-profile">Edit Profile</Link>
+            </div>
           </div>
         </Profile>
       </Wrapper>
@@ -123,14 +70,14 @@ const Wrapper = styled.div`
 
 const Profile = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  border-radius: 3px;
+  border-radius: 5px;
   background: #fff;
   position: sticky;
   top: 100px;
 
   .user {
-    border-top-right-radius: 3px;
-    border-top-left-radius: 3px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
     padding: 20px 0;
     ${customLayout('center', 'center')}
     background-color: #4064f2;
@@ -153,7 +100,8 @@ const Profile = styled.div`
     flex-direction: column;
     flex-wrap: wrap;
     padding: 15px 6%;
-
+    width: 90%;
+    margin: auto;
     h3 {
       margin: 0 auto;
       font-size: 2.5rem;
@@ -164,10 +112,12 @@ const Profile = styled.div`
       line-height: 25px;
       margin-bottom: 10px;
       color: #6d767e;
+      // display: flex;
       img {
         width: 18px;
         height: 18px;
         margin-right: 5px;
+        margin-bottom: -3px;
       }
     }
 
@@ -176,32 +126,57 @@ const Profile = styled.div`
       color: #333;
     }
 
-    button {
-      margin: 0;
-      padding: 0;
-      border: none;
-      background: none;
-      font-size: 1.4rem;
-      font-weight: 700;
-      cursor: pointer;
-      opacity: 0.8;
-      transition: 200ms ease-out;
+    .edit-profile-link {
+      margin-top: 20px;
+      a {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #6d767e;
+        transition: 200ms ease-out;
 
+        &:hover {
+          color: #3f65f2;
+          transition: 200ms ease-in;
+        }
+      }
+    }
+  }
+  .profile-stats {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    ul {
+      margin-bottom: 20px;
+      cursor: pointer;
+      transition: 200ms ease-out;
       &:hover {
-        opacity: 1;
+        color: #3f65f2;
         transition: 200ms ease-in;
+        // li:nth-of-type(2) {
+        //   opacity: 1;
+        // }
+      }
+      li {
+        margin-bottom: 5px;
+        // transition: 200ms ease-out;
+      }
+      li:nth-of-type(2) {
+        opacity: 0.7;
       }
     }
   }
 `;
 
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = ({ auth, followers }) => {
   return {
-    auth: auth
+    auth: auth,
+    followers: followers
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { editProfile }
-)(Sidebar);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { editProfile, getFollowersAndFollowingCount }
+  )(Sidebar)
+);
