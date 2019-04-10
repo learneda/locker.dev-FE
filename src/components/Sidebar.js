@@ -145,6 +145,9 @@ const Profile = styled.div`
     display: flex;
     width: 100%;
     justify-content: space-between;
+    @media (max-width: 1400px) {
+      flex-direction: column;
+    }
     ul {
       margin-bottom: 20px;
       cursor: pointer;
@@ -152,9 +155,10 @@ const Profile = styled.div`
       &:hover {
         color: #3f65f2;
         transition: 200ms ease-in;
-        // li:nth-of-type(2) {
-        //   opacity: 1;
-        // }
+        li:nth-of-type(2) {
+          opacity: 1;
+          // transition: 200ms ease-in;
+        }
       }
       li {
         margin-bottom: 5px;
@@ -162,6 +166,7 @@ const Profile = styled.div`
       }
       li:nth-of-type(2) {
         opacity: 0.7;
+        transition: 200ms ease-out;
       }
     }
   }
