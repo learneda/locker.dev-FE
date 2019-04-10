@@ -37,14 +37,18 @@ class Sidebar extends Component {
                 <li>{this.props.followers.followers}</li>
               </ul>
             </div>
-            <p>{this.props.auth.bio}</p>
+            <p>{this.props.auth.bio ? this.props.auth.bio : 'Add bio'}</p>
             <p>
               <img src={locationSvg} alt="location-icon" />
-              {this.props.auth.location}
+              {this.props.auth.location
+                ? this.props.auth.location
+                : 'Add location'}
             </p>
             <p>
               <img src={linkSvg} alt="link-icon" />
-              {this.props.auth.website_url}
+              {this.props.auth.website_url
+                ? this.props.auth.website_url
+                : 'Add website URL'}
             </p>
             <p>
               <img src={calendarSvg} alt="calendar-icon" />
@@ -128,6 +132,7 @@ const Profile = styled.div`
 
     .edit-profile-link {
       margin-top: 20px;
+      margin-bottom: 10px;
       a {
         font-size: 1.4rem;
         font-weight: 700;
