@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
+import Moment from 'react-moment';
+import axios from 'axios';
+import styled from 'styled-components';
+
+import { customWrapper, truncateText } from '../components/mixins';
+import Like from '../components/Like';
+import EditModal from './EditModal';
+import { post as URL } from '../services/baseURL';
 import {
   getPosts,
   deletePost,
@@ -8,24 +15,11 @@ import {
   editPostGetDefaultData,
   getSearchValue
 } from '../actions';
-
-import Toggle from '../components/Toggle';
-
-import Like from '../components/Like';
-import Moment from 'react-moment';
-import axios from 'axios';
-import { post as URL } from '../services/baseURL';
 import deleteIcon from '../assets/svg/delete-icon.svg';
-import EditModal from './EditModal';
 import editSvg from '../assets/svg/edit.svg';
 
-import { customWrapper, truncateText } from '../components/mixins';
-import { Edit } from 'grommet-icons';
-
 class Bookmarks extends Component {
-  state = {
-    modalOpen: false
-  };
+  state = { modalOpen: false };
 
   componentDidMount = () => this.props.getPosts();
 
@@ -34,9 +28,7 @@ class Bookmarks extends Component {
     this.props.getPosts();
   };
 
-  handleTruncateText = (content, limit = 10) => {
-    return truncateText(content, limit);
-  };
+  handleTruncateText = (content, limit = 10) => truncateText(content, limit);
 
   render() {
     const search = this.props.search_term;
@@ -51,10 +43,9 @@ class Bookmarks extends Component {
 
     return (
       <Wrapper>
-        {this.props.editFormData ? (
+        {this.props.editFormData && (
           <EditModal key={this.props.editFormData.post.id} />
-        ) : null}
-        {/* <Toggle /> */}
+        )}
         {filteredPosts
           .map(post => (
             <Post key={post.id}>
@@ -88,6 +79,7 @@ class Bookmarks extends Component {
                         .deletePost(post.id)
                         .then(res => this.props.getPosts())
                     }
+                    alt="delete icon"
                   />
                   <span className="del-span">delete</span>
                 </div>

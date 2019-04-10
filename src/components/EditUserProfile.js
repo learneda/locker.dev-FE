@@ -1,28 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
-import { editProfile } from '../actions';
+import { Link } from 'react-router-dom';
 import { withAlert } from 'react-alert';
-
 import styled from 'styled-components';
+
+import { editProfile } from '../actions';
 import { customLayout, customWrapper } from './mixins';
-import Moment from 'react-moment';
-import locationSvg from '../assets/svg/location.svg';
-import linkSvg from '../assets/svg/link-symbol.svg';
-import calendarSvg from '../assets/svg/calendar.svg';
+// import locationSvg from '../assets/svg/location.svg';
+// import linkSvg from '../assets/svg/link-symbol.svg';
+// import calendarSvg from '../assets/svg/calendar.svg';
 
 class EditUserProfile extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      display_name: this.props.auth.display_name,
-      username: this.props.auth.username,
-      bio: this.props.auth.bio,
-      location: this.props.auth.location,
-      website_url: this.props.auth.website_url
-    };
-  }
+  state = {
+    display_name: this.props.auth.display_name,
+    username: this.props.auth.username,
+    bio: this.props.auth.bio,
+    location: this.props.auth.location,
+    website_url: this.props.auth.website_url
+  };
 
   editProfileHandler = (e, id) => {
     e.preventDefault();
@@ -214,11 +209,7 @@ const FormGroup = styled.form`
   }
 `;
 
-const mapStateToProps = ({ auth }) => {
-  return {
-    auth: auth
-  };
-};
+const mapStateToProps = ({ auth }) => ({ auth });
 
 const Alert = withAlert()(EditUserProfile);
 
