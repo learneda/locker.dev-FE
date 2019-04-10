@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 
 import LandingPage from './pages/Landing';
-import Navbar from './components/Navbar';
-import UserProfile from './components/UserProfile';
+import Navbar from './components/navigation/Navbar';
+import UserProfile from './pages/UserProfile';
 import Home from './pages/Home';
-import Browse from './components/Browse';
+import Browse from './pages/Browse';
 import EditUserProfile from './components/EditUserProfile';
-import NoMatch from './components/NoMatch';
+import NoMatch from './pages/NoMatch';
 
 import { composedIndexRedirect as index } from './components/authentication/indexRedirect';
 import { composedHomeRedirect as home } from './components/authentication/homeRedirect';
 import { fetchUser } from './actions';
 
-import styled from 'styled-components';
 import { customContainer } from './components/mixins';
 
 class App extends Component {
