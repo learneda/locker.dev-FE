@@ -56,13 +56,12 @@ const Post = styled.div`
   border-radius: 6px;
   background-color: #fff;
   position: relative;
-  max-height: 180px;
+  height: 180px;
   @media (max-width: 1450px) {
-    max-height: initial;
+    height: 100%;
   }
   @media (max-width: 1100px) {
     flex-direction: column;
-    max-height: initial;
   }
   a {
     text-decoration: none;
@@ -74,12 +73,10 @@ const Post = styled.div`
   }
 
   img {
-    width: 100%;
     border-radius: 6px 0 0px 6px;
     width: 320px;
-    height: 180px;
-    object-fit: cover;
     height: 100%;
+    object-fit: cover;
     @media (max-width: 1100px) {
       max-width: 100%;
       width: 100%;

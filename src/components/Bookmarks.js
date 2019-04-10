@@ -124,6 +124,7 @@ const Post = styled.div`
   border-radius: 6px;
   background-color: #fff;
   max-height: 180px;
+  height: 180px;
   position: relative;
   &:hover {
     .like {
@@ -147,6 +148,7 @@ const Post = styled.div`
   }
   @media (max-width: 1450px) {
     max-height: initial;
+    height: 100%;
   }
   @media (max-width: 1100px) {
     flex-direction: column;
@@ -175,7 +177,6 @@ const Post = styled.div`
   }
 
   img {
-    width: 100%;
     border-radius: 6px 0 0px 6px;
     width: 320px;
     height: 100%
@@ -217,9 +218,6 @@ const Post = styled.div`
     position: relative;
     margin-right: 30px;
   }
-  .date-like-heart {
-    display: flex;
-  }
   .edit-modal {
     height: 100vh;
     width: 100vw;
@@ -231,7 +229,6 @@ const Post = styled.div`
     width: 25px;
     cursor: pointer;
     height: 25px;
-
     @media (max-width: 1100px) {
       bottom: 20px;
       top: initial;
