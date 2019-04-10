@@ -1,32 +1,23 @@
 import React, { Component, Fragment } from 'react';
-import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import DummySearch from './DummySearch';
-import Auth from './authentication/Auth';
-import { customLayout, hoverBg } from './mixins';
-import burgerIcon from '../assets/svg/burger.svg';
-import closeIcon from '../assets/svg/close.svg';
-import { modalState, modalLogin, modalSignUp } from '../actions/index';
-import { authURL } from '../services/authURL';
-import Toggle from './Toggle';
+
+import DummySearch from '../DummySearch';
+import Auth from '../authentication/Auth';
+import Toggle from '../Toggle';
+import ProfileDropDown from './ProfileDropDown';
+import { modalState, modalLogin, modalSignUp } from '../../actions/index';
+import { authURL } from '../../services/authURL';
+import { customLayout, hoverBg } from '../mixins';
+import burgerIcon from '../../assets/svg/burger.svg';
+import closeIcon from '../../assets/svg/close.svg';
 
 class Navbar extends Component {
-  constructor(props) {
-    super(props);
+  state = { show: false };
 
-    this.state = {
-      show: false
-    };
-  }
-
-  showBurgerMenu = () => {
-    this.setState({ show: true });
-  };
-
-  hideBurgerMenu = () => {
-    this.setState({ show: false });
-  };
+  showBurgerMenu = () => this.setState({ show: true });
+  hideBurgerMenu = () => this.setState({ show: false });
 
   render() {
     const { modalState, modalLogin, modalSignUp, auth } = this.props;
@@ -69,13 +60,7 @@ class Navbar extends Component {
 
             <NavRight>
               <Toggle />
-              <a href={`${authURL}logout`}>
-                <img
-                  src={auth.profile_picture}
-                  className="auth-icon"
-                  alt="avatar"
-                />
-              </a>
+              <ProfileDropDown auth={auth} />
             </NavRight>
           </Nav>
         </NavWrapper>
@@ -151,7 +136,7 @@ const MobileNav = ({ handleClose, show }) => {
             </Link>
           </li>
           <li>
-            <a href={`${authURL}logout`}>Log out</a>
+            <a href={`${authURL}logout`}>Log Out</a>
           </li>
         </ul>
       </div>
