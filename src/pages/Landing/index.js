@@ -17,4 +17,7 @@ const Wrapper = styled.div`
     ${customWrapper('90%', '0 auto')}
   }
   margin-top: 100px;
+  @media (max-width: 992px) {
+    margin-top: 0;
+  }
 `;

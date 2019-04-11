@@ -21,9 +21,7 @@ export default function Body() {
     <Grommet theme={theme}>
       <CallToAction>
         <div className="landing-content">
-          <h1>
-            The exciting new <br /> way to learn.
-          </h1>
+          <h1>The exciting new way to learn.</h1>
           <Button
             className="get-started"
             primary
@@ -148,79 +146,67 @@ const StyledFeaturesContainer = styled.div`
 `;
 
 const CallToAction = styled.div`
-// min-height: 100vh;
+  min-height: 100vh;
   padding: 0px 0;
   display: flex;
-  justify-content: space-between;
+  @media (max-width: 992px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px solid red; */
+  }
+
   .landing-img {
-    width: 35%;
-    margin-top: 30px;
+    width: 50%;
+    @media (max-width: 992px) {
+      width: 80%;
+    }
   }
+
   .landing-content {
-    width: 60%
-  }
-
- @media(max-width: 992px) {
-   display: flex;
-   flex-direction: column;
- }
-}
-
-  @media (max-width: 500px) {
-    padding: 0px 0;
-    .get-started {
-      margin: auto;
-      display: block;
-    }
-    .landing-img {
-      width: 100%;
-    }
-    .landing-content {
-      width: 100%;
+    width: 60%;
+    margin-top: 50px;
+    margin-right: 10px;
+    @media (max-width: 992px) {
+      margin: 20px 0 40px;
+      width: 80%;
+      .get-started {
+        vertical-align: bottom;
+        margin-left: 20px;
+      }
     }
   }
+
   h1 {
     padding-bottom: 45px;
     font-size: 8rem;
     line-height: 8.5rem;
     font-weight: 700;
-    // max-width: 70%;
-    @media(max-width: 1250px) {
+    @media (max-width: 1450px) {
       font-size: 7rem;
+    }
+    @media (max-width: 1250px) {
+      font-size: 6.5rem;
+    }
+    @media (max-width: 992px) {
+      display: inline;
     }
     @media (max-width: 500px) {
       font-size: 3.3rem;
       text-align: center;
-      // margin: auto;
       line-height: 5rem;
       padding-bottom: 20px;
     }
   }
-  .landing-svg {
-    // position: absolute;
-    // top: 0;
-    // right: 0;
 
-    // z-index: -1;
-    width: 100%;
-    // max-width: 800px;
-    // max-height: 500px;
-    // border: 1px solid red;
-  }
   .landing-video {
     width: 100%;
     border: 3px solid #fff;
-    // margin-left: 50px;
     position: relative;
   }
   .landing-img img {
-    // margin-left: 50px;
     width: 100%;
     margin-bottom: -7px;
-    // position: absolute;
-    // top: 0;
-    // right: 0;
-    // left: 0;
   }
   .down-arrow {
     position: absolute;
@@ -232,7 +218,11 @@ const CallToAction = styled.div`
     cursor: pointer;
   }
   @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
       transform: translateY(0);
     }
     40% {
@@ -242,4 +232,4 @@ const CallToAction = styled.div`
       transform: translateY(-5px);
     }
   }
-}`;
+`;
