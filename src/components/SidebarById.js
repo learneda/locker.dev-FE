@@ -72,7 +72,6 @@ class SidebarById extends Component {
             <p>
               <img src={calendarSvg} alt="calendar-icon" />
               Joined <Moment format="MMMM YYYY">{created_at}</Moment>
-              {/* CHANGE OUT HARDCODED DATE EVENTUALLY */}
             </p>
           </div>
         </Profile>
@@ -111,7 +110,8 @@ const Profile = styled.div`
       top: 30px;
       border: 3px solid #fff;
       border-radius: 50%;
-      height: auto;
+      height: 100px;
+      object-fit: cover;
       width: 100px;
     }
   }
