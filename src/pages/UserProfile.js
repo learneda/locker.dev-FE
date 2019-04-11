@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
 import Bookmarks from '../components/Bookmarks';
 import Likes from '../components/Likes';
-import Sidebar from '../components/Sidebar';
+import SidebarById from '../components/SidebarById';
 import styled from 'styled-components';
+import ProfileById from '../components/ProfileById';
+import { withRouter, Link } from 'react-router-dom';
 
 import { customWrapper } from '../components/mixins';
 import { Grommet, Tab, Tabs } from 'grommet';
+import { User } from 'grommet-icons';
 
-export default class UserProfile extends Component {
+class UserProfile extends Component {
   render() {
     return (
       <Container>
-        <Sidebar />
+        <SidebarById />
         <Wrapper>
           <Grommet theme={theme}>
             <Tabs justify="start" className="tabs">
               <Tab title="Bookmarks">
                 <TabWrapper>
-                  <Bookmarks />
+                  <ProfileById />
                 </TabWrapper>
               </Tab>
               <Tab title="Recommended">
@@ -81,3 +84,5 @@ const TabWrapper = styled.div`
   margin-top: -3px;
   margin-left: 12px;
 `;
+
+export default withRouter(UserProfile);
