@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import Browse from './pages/Browse';
 import Settings from './pages/Settings';
 import NoMatch from './pages/NoMatch';
+import ProfileById from './pages/ProfileById';
 
 import { composedIndexRedirect as index } from './components/authentication/indexRedirect';
 import { composedHomeRedirect as home } from './components/authentication/homeRedirect';
@@ -33,7 +34,9 @@ class App extends Component {
           <Route component={home(LandingPage)} exact path="/" />
           <Route component={index(Home)} path="/home" />
           <Route component={index(Browse)} path="/browse" />
+          <Route component={index(ProfileById)} path="/profile/:id" />
           <Route component={index(UserProfile)} path="/profile" />
+
           <Route component={index(Settings)} path="/settings" />
           <Route component={NoMatch} />
         </Switch>
