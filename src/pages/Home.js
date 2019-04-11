@@ -11,10 +11,10 @@ class Home extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      comments: [],
       search: '',
       posts: []
     }
-    // console.log(props.auth.id)
     this.username = props.auth.username;
     this.user_id = props.auth.id;
     this.socket = openSocket(URL);
@@ -22,7 +22,6 @@ class Home extends Component {
 
   componentDidMount () {
     this.socket.on('comments', (msg) => {
-      console.log('here',msg)
       if (msg.action === 'create') {
         const updated_state = this.state.posts.map((post, index) => {
           if (post.post_id === msg.post_id) {
@@ -56,8 +55,6 @@ class Home extends Component {
 
     if (event.keyCode === 13 && body) {
       this.socket.emit('comments', comment)
-      // this.setState({ comments: [ {username: this.username, content:body}, ...this.state.comments ] })
-
       event.target.value = '';
     }
   };
@@ -72,7 +69,7 @@ class Home extends Component {
           <div>{post.title}</div>
           <div>{post.description}</div>
           <div>{post.comments.map((comment, index) => {
-]            return (
+            return (
             <h1 key={index}className='comments'>{comment.username} {comment.content}</h1>
           )})}
           </div>
