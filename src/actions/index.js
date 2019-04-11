@@ -16,7 +16,9 @@ import {
   EDIT_POST_SUBMIT,
   EDIT_POST_GET_DEFAULT_DATA,
   GET_FOLLOWERS_AND_FOLLOWING_COUNT,
-  GET_USER_PROFILE_DETAILS_BY_ID
+  GET_USER_PROFILE_DETAILS_BY_ID,
+  FOLLOW_A_USER,
+  UNFOLLOW_A_USER
 } from './types';
 import { post as URL } from '../services/baseURL';
 axios.defaults.withCredentials = true;
@@ -106,5 +108,20 @@ export const getFollowersAndFollowingCount = () => async dispatch => {
 export const getUserProfileDetails = id => async dispatch => {
   const res = await axios.get(`${URL}/api/users/id/${id}`);
   console.log('ACCCT', res);
-  dispatch({type: GET_USER_PROFILE_DETAILS_BY_ID, payload: res.data[0]})
+  dispatch({ type: GET_USER_PROFILE_DETAILS_BY_ID, payload: res.data[0] });
+};
+
+export const followAUser = payload => async dispatch => {
+  const res = await axios.post(`${URL}/api/users/subscribe`, payload);
+  dispatch({ type: FOLLOW_A_USER, payload: res.data });
+};
+
+export const unfollowAUser = payload => async dispatch => {
+  const res = await axios.delete(`${URL}/api/users/unsubscribe`, {
+    data: {
+      user_id: payload.user_id,
+      friend_id: payload.friend_id
+    }
+  });
+  dispatch({ type: UNFOLLOW_A_USER, payload: res.data });
 };
