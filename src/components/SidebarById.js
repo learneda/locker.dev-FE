@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { editProfile, getFollowersAndFollowingCount } from '../actions';
+import axios from 'axios';
+import { post as URL } from '../services/baseURL';
 
 import styled from 'styled-components';
 import { customLayout, customWrapper } from './mixins';
@@ -11,8 +13,29 @@ import linkSvg from '../assets/svg/link-symbol.svg';
 import calendarSvg from '../assets/svg/calendar.svg';
 
 class SidebarById extends Component {
+  state = {
+    display_name: '',
+    profile_picture: '',
+    bio: '',
+    followers: '',
+    following: '',
+    location: '',
+    website_url: '',
+    username: ''
+  };
   componentDidMount() {
-    this.props.getFollowersAndFollowingCount();
+    const id = this.props.match.params.id;
+    axios.get(`${URL}/api/users/id/${id}`).then(res => {
+      const user = res.data[0];
+      this.setState({
+        display_name: user.display_name,
+        profile_picture: user.profile_picture,
+        username: user.username,
+        bio: user.bio,
+        location: user.location,
+        website_url: user.website_url
+      });
+    });
   }
   render() {
     return (
@@ -22,7 +45,11 @@ class SidebarById extends Component {
             <img src={this.props.auth.profile_picture} alt="avatar" />
           </div>
           <div className="user-bio">
-            <h3>{this.props.auth.display_name}</h3>
+            <h3>
+              {this.state.display_name
+                ? this.state.display_name
+                : this.state.username}
+            </h3>
             <div className="profile-stats">
               <ul>
                 <li>Posts</li>
@@ -37,26 +64,25 @@ class SidebarById extends Component {
                 <li>{this.props.followers.followers}</li>
               </ul>
             </div>
-            <p>{this.props.auth.bio ? this.props.auth.bio : 'Add bio'}</p>
+            <p>{this.bio ? this.state.bio : ''}</p>
             <p>
               <img src={locationSvg} alt="location-icon" />
-              {this.props.auth.location
-                ? this.props.auth.location
-                : 'Add location'}
+              {this.state.location ? this.state.location : 'Add location'}
             </p>
             <p>
-              <img src={linkSvg} alt="link-icon" />
-              {this.props.auth.website_url
-                ? this.props.auth.website_url
-                : 'Add website URL'}
+              {this.state.website_url ? (
+                <img src={linkSvg} alt="link-icon" />
+              ) : (
+                ''
+              )}
+
+              {this.state.website_url ? this.state.website_url : ''}
             </p>
             <p>
               <img src={calendarSvg} alt="calendar-icon" />
               Joined <Moment format="MMMM YYYY">{this.props.created_at}</Moment>
+              {/* CHANGE OUT HARDCODED DATE EVENTUALLY */}
             </p>
-            <div className="edit-profile-link">
-              <Link to="/settings">Edit Profile</Link>
-            </div>
           </div>
         </Profile>
       </Wrapper>
