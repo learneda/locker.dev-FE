@@ -181,7 +181,8 @@ const FormGroup = styled.form`
           padding: 20px 0;
           color: gray;
 
-          input, textarea {
+          input,
+          textarea {
             width: 100%;
             border: 1px solid rgba(0, 0, 0, 0.33);
             margin-top: 10px;
@@ -216,7 +217,7 @@ const FormGroup = styled.form`
         padding: 10px 0;
         background-color: #3e66f2;
         color: white;
-        font-weight: 700
+        font-weight: 700;
         font-size: 1.6rem;
         transition: 200ms ease-in;
         cursor: pointer;
