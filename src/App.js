@@ -27,6 +27,14 @@ class App extends Component {
   };
 
   render() {
+    const {
+      modalState: { modalOpen, editModalOpen }
+    } = this.props;
+    if (modalOpen || editModalOpen) {
+      document.getElementById('body').setAttribute('style', 'overflow: hidden');
+    } else {
+      document.getElementById('body').setAttribute('style', 'overflow: scroll');
+    }
     return (
       <Container>
         <Navbar />
@@ -46,12 +54,16 @@ class App extends Component {
 }
 
 const Container = styled.div`
-  ${customContainer()}
+  ${customContainer()};
 `;
+
+const mapStateToProps = ({ modalState }) => ({
+  modalState
+});
 
 export default withRouter(
   connect(
-    null,
+    mapStateToProps,
     { fetchUser }
   )(App)
 );

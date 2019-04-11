@@ -146,6 +146,9 @@ const Profile = styled.div`
     padding: 15px 6%;
     width: 90%;
     margin: auto;
+    @media (max-width: 1350px) {
+      width: 100%;
+    }
     h3 {
       margin: 0 auto;
       font-size: 2.5rem;
@@ -154,7 +157,7 @@ const Profile = styled.div`
 
     p {
       line-height: 25px;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       color: #6d767e;
       // display: flex;
       img {
@@ -192,11 +195,15 @@ const Profile = styled.div`
     justify-content: space-between;
     @media (max-width: 1400px) {
       flex-direction: column;
+      flex-wrap: wrap;
     }
     ul {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       cursor: pointer;
       transition: 200ms ease-out;
+      :not(:last-child) {
+        margin-right: 15px;
+      }
       &:hover {
         color: #3f65f2;
         transition: 200ms ease-in;

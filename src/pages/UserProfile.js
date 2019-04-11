@@ -68,6 +68,9 @@ const theme = {
 const Container = styled.div`
   ${customWrapper('80%', '0 auto')}
   display: flex;
+  @media (max-width: 1100px) {
+    width: 90%;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -75,6 +78,7 @@ const Wrapper = styled.div`
   padding-left: 2%;
   @media (max-width: 900px) {
     width: 100%;
+    padding: 0;
   }
 `;
 
