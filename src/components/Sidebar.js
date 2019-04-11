@@ -16,9 +16,7 @@ class Sidebar extends Component {
   }
   render() {
     if (!this.props.user_details) {
-      return (
-        <div>LOADING LOADING...</div>
-      )
+      return <div>LOADING LOADING...</div>;
     }
     return (
       <Wrapper>
@@ -99,7 +97,7 @@ const Profile = styled.div`
       top: 30px;
       border: 3px solid #fff;
       border-radius: 50%;
-      height: auto;
+      height: 100px;
       width: 100px;
     }
   }

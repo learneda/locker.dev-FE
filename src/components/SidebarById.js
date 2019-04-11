@@ -13,22 +13,30 @@ import linkSvg from '../assets/svg/link-symbol.svg';
 import calendarSvg from '../assets/svg/calendar.svg';
 
 class SidebarById extends Component {
-  constructor (props) {
-    super(props)
-    
-  };
-  
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
     const id = this.props.match.params.id;
-    this.props.getUserProfileDetails(id)
+    this.props.getUserProfileDetails(id);
   }
   render() {
     if (!this.props.user_details) {
-      return (
-        <div>LOADING LOADING...</div>
-      )
+      return <div>LOADING LOADING...</div>;
     }
-    const { profile_picture, display_name, username, post_count, following_count, followers_count, bio, location, website_url, created_at } = this.props.user_details;
+    const {
+      profile_picture,
+      display_name,
+      username,
+      post_count,
+      following_count,
+      followers_count,
+      bio,
+      location,
+      website_url,
+      created_at
+    } = this.props.user_details;
     return (
       <Wrapper>
         <Profile>
@@ -36,9 +44,7 @@ class SidebarById extends Component {
             <img src={profile_picture} alt="avatar" />
           </div>
           <div className="user-bio">
-            <h3>
-              {display_name}
-            </h3>
+            <h3>{display_name}</h3>
             <div className="profile-stats">
               <ul>
                 <li>Posts</li>
@@ -59,11 +65,7 @@ class SidebarById extends Component {
               {location ? location : 'Add location'}
             </p>
             <p>
-              {website_url ? (
-                <img src={linkSvg} alt="link-icon" />
-              ) : (
-                ''
-              )}
+              {website_url ? <img src={linkSvg} alt="link-icon" /> : ''}
 
               {website_url ? website_url : ''}
             </p>
@@ -109,7 +111,7 @@ const Profile = styled.div`
       top: 30px;
       border: 3px solid #fff;
       border-radius: 50%;
-      height: auto;
+      height: 100px;
       width: 100px;
     }
   }
