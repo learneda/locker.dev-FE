@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Moment from 'react-moment';
 import axios from 'axios';
 import styled from 'styled-components';
+import { withRouter, Link } from 'react-router-dom';
 
 import { customWrapper, truncateText } from './mixins';
 import Like from './Like';
@@ -18,9 +19,14 @@ import deleteIcon from '../assets/svg/delete-icon.svg';
 import editSvg from '../assets/svg/edit.svg';
 
 class ProfileById extends Component {
-  state = { modalOpen: false };
+  state = { modalOpen: false, posts: [] };
 
-  componentDidMount = () => this.props.getPosts();
+  componentDidMount = () => {
+    const id = this.props.match.params.id;
+    axios.get(`${URL}/api/users/id/${id}`).then(res => {
+      console.log(res.data[0]);
+    });
+  };
 
   handleLike = async (id, liked) => {
     await axios.put(`${URL}/api/posts/like/${id}`, { status: !liked });
@@ -246,13 +252,15 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    getPosts,
-    deletePost,
-    editModalDisplay,
-    editPostGetDefaultData,
-    getSearchValue
-  }
-)(ProfileById);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    {
+      getPosts,
+      deletePost,
+      editModalDisplay,
+      editPostGetDefaultData,
+      getSearchValue
+    }
+  )(ProfileById)
+);
