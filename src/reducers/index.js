@@ -6,6 +6,7 @@ import { postReducer } from './postReducer';
 import { likedPostReducer } from './likedPostReducer';
 import { searchReducer } from './searchReducer';
 import { followReducer } from './followReducer';
+import { userReducer } from './userReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   posts: postReducer,
   likedPosts: likedPostReducer,
   search_term: searchReducer,
-  followers: followReducer
+  followers: followReducer,
+  user_details: userReducer
 });

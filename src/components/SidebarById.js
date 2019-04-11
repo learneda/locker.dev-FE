@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { editProfile, getFollowersAndFollowingCount } from '../actions';
+import { getUserProfileDetails } from '../actions';
 import axios from 'axios';
 import { post as URL } from '../services/baseURL';
 
@@ -13,74 +13,63 @@ import linkSvg from '../assets/svg/link-symbol.svg';
 import calendarSvg from '../assets/svg/calendar.svg';
 
 class SidebarById extends Component {
-  state = {
-    display_name: '',
-    profile_picture: '',
-    bio: '',
-    followers: '',
-    following: '',
-    location: '',
-    website_url: '',
-    username: ''
+  constructor (props) {
+    super(props)
+    
   };
+  
   componentDidMount() {
     const id = this.props.match.params.id;
-    axios.get(`${URL}/api/users/id/${id}`).then(res => {
-      const user = res.data[0];
-      this.setState({
-        display_name: user.display_name,
-        profile_picture: user.profile_picture,
-        username: user.username,
-        bio: user.bio,
-        location: user.location,
-        website_url: user.website_url
-      });
-    });
+    this.props.getUserProfileDetails(id)
   }
   render() {
+    if (!this.props.user_details) {
+      return (
+        <div>LOADING LOADING...</div>
+      )
+    }
+    const { profile_picture, display_name, username, post_count, following_count, followers_count, bio, location, website_url, created_at } = this.props.user_details;
     return (
       <Wrapper>
         <Profile>
           <div className="user">
-            <img src={this.props.auth.profile_picture} alt="avatar" />
+            <img src={profile_picture} alt="avatar" />
           </div>
           <div className="user-bio">
             <h3>
-              {this.state.display_name
-                ? this.state.display_name
-                : this.state.username}
+              {display_name}
             </h3>
             <div className="profile-stats">
               <ul>
                 <li>Posts</li>
-                <li>43</li>
+                <li>{post_count}</li>
               </ul>
               <ul>
                 <li>Following</li>
-                <li>{this.props.followers.following}</li>
+                <li>{following_count}</li>
               </ul>
               <ul>
                 <li>Followers</li>
-                <li>{this.props.followers.followers}</li>
+                <li>{followers_count}</li>
               </ul>
             </div>
-            <p>{this.bio ? this.state.bio : ''}</p>
+            <p>{bio ? bio : ''}</p>
             <p>
               <img src={locationSvg} alt="location-icon" />
-              {this.state.location ? this.state.location : 'Add location'}
+              {location ? location : 'Add location'}
             </p>
             <p>
-              {this.state.website_url ? (
+              {website_url ? (
                 <img src={linkSvg} alt="link-icon" />
               ) : (
                 ''
               )}
 
-              {this.state.website_url ? this.state.website_url : ''}
+              {website_url ? website_url : ''}
             </p>
             <p>
               <img src={calendarSvg} alt="calendar-icon" />
-              Joined <Moment format="MMMM YYYY">{this.props.created_at}</Moment>
+              Joined <Moment format="MMMM YYYY">{created_at}</Moment>
               {/* CHANGE OUT HARDCODED DATE EVENTUALLY */}
             </p>
           </div>
@@ -203,16 +192,15 @@ const Profile = styled.div`
   }
 `;
 
-const mapStateToProps = ({ auth, followers }) => {
+const mapStateToProps = ({ user_details }) => {
   return {
-    auth: auth,
-    followers: followers
+    user_details
   };
 };
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { editProfile, getFollowersAndFollowingCount }
+    { getUserProfileDetails }
   )(SidebarById)
 );
