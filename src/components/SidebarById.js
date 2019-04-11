@@ -13,22 +13,30 @@ import linkSvg from '../assets/svg/link-symbol.svg';
 import calendarSvg from '../assets/svg/calendar.svg';
 
 class SidebarById extends Component {
-  constructor (props) {
-    super(props)
-    
-  };
-  
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
     const id = this.props.match.params.id;
-    this.props.getUserProfileDetails(id)
+    this.props.getUserProfileDetails(id);
   }
   render() {
     if (!this.props.user_details) {
-      return (
-        <div>LOADING LOADING...</div>
-      )
+      return <div>LOADING LOADING...</div>;
     }
-    const { profile_picture, display_name, username, post_count, following_count, followers_count, bio, location, website_url, created_at } = this.props.user_details;
+    const {
+      profile_picture,
+      display_name,
+      username,
+      post_count,
+      following_count,
+      followers_count,
+      bio,
+      location,
+      website_url,
+      created_at
+    } = this.props.user_details;
     return (
       <Wrapper>
         <Profile>
@@ -36,9 +44,7 @@ class SidebarById extends Component {
             <img src={profile_picture} alt="avatar" />
           </div>
           <div className="user-bio">
-            <h3>
-              {display_name}
-            </h3>
+            <h3>{display_name}</h3>
             <div className="profile-stats">
               <ul>
                 <li>Posts</li>
@@ -59,11 +65,7 @@ class SidebarById extends Component {
               {location ? location : 'Add location'}
             </p>
             <p>
-              {website_url ? (
-                <img src={linkSvg} alt="link-icon" />
-              ) : (
-                ''
-              )}
+              {website_url ? <img src={linkSvg} alt="link-icon" /> : ''}
 
               {website_url ? website_url : ''}
             </p>
@@ -121,6 +123,9 @@ const Profile = styled.div`
     padding: 15px 6%;
     width: 90%;
     margin: auto;
+    @media (max-width: 1350px) {
+      width: 100%;
+    }
     h3 {
       margin: 0 auto;
       font-size: 2.5rem;
@@ -129,7 +134,7 @@ const Profile = styled.div`
 
     p {
       line-height: 25px;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       color: #6d767e;
       // display: flex;
       img {
@@ -167,11 +172,15 @@ const Profile = styled.div`
     justify-content: space-between;
     @media (max-width: 1400px) {
       flex-direction: column;
+      flex-wrap: wrap;
     }
     ul {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       cursor: pointer;
       transition: 200ms ease-out;
+      :not(:last-child) {
+        margin-right: 15px;
+      }
       &:hover {
         color: #3f65f2;
         transition: 200ms ease-in;
