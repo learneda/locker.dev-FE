@@ -153,13 +153,15 @@ const CallToAction = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* border: 1px solid red; */
   }
 
   .landing-img {
     width: 50%;
     @media (max-width: 992px) {
       width: 80%;
+    }
+    @media (max-width: 900px) {
+      width: 95%;
     }
   }
 
@@ -171,8 +173,18 @@ const CallToAction = styled.div`
       margin: 20px 0 40px;
       width: 80%;
       .get-started {
-        vertical-align: bottom;
+        vertical-align: super;
         margin-left: 20px;
+        padding: 15px 18px;
+      }
+    }
+    @media (max-width: 900px) {
+      width: 95%;
+    }
+    .get-started {
+      @media (max-width: 650px) {
+        padding: 10px;
+        font-size: 1.6rem;
       }
     }
   }
@@ -191,9 +203,20 @@ const CallToAction = styled.div`
     @media (max-width: 992px) {
       display: inline;
     }
+    @media (max-width: 768px) {
+      font-size: 6rem;
+      line-height: 7rem;
+    }
+    @media (max-width: 650px) {
+      font-size: 5.5rem;
+    }
+    @media (max-width: 580px) {
+      font-size: 4.7rem;
+      line-height: 6rem;
+    }
     @media (max-width: 500px) {
-      font-size: 3.3rem;
-      text-align: center;
+      font-size: 3.8rem;
+      /* text-align: center; */
       line-height: 5rem;
       padding-bottom: 20px;
     }
@@ -203,10 +226,12 @@ const CallToAction = styled.div`
     width: 100%;
     border: 3px solid #fff;
     position: relative;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   }
   .landing-img img {
     width: 100%;
     margin-bottom: -7px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   }
   .down-arrow {
     position: absolute;
@@ -216,6 +241,9 @@ const CallToAction = styled.div`
     transform: translateX(50%);
     animation: bounce 2s infinite;
     cursor: pointer;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
   @keyframes bounce {
     0%,
