@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -30,6 +30,7 @@ export default function ProfileDropDown({ auth }) {
   const [toggle, set] = useState(false);
   const node = useRef();
 
+  const handleClick = useCallback(() => set(state => !state), []);
   const handleRefClick = e => {
     if (node.current.contains(e.target)) {
       return;
@@ -50,7 +51,7 @@ export default function ProfileDropDown({ auth }) {
         src={auth.profile_picture}
         className="auth-icon"
         alt="avatar"
-        onClick={e => set(!toggle)}
+        onClick={handleClick}
       />
       {toggle && (
         <DropDown>
