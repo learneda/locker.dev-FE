@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { getSearchValue } from '../actions';
 
-function DummySearch(props) {
+function Search(props) {
   return (
     <Container>
       <Grommet theme={theme}>
@@ -48,4 +48,4 @@ const mapStateToProps = ({ search_term }) => ({ search_term });
 export default connect(
   mapStateToProps,
   { getSearchValue }
-)(DummySearch);
+)(Search);
