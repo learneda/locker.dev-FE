@@ -188,6 +188,7 @@ const FormGroup = styled.form`
             border-radius: 5px;
             padding: 10px;
             color: #333;
+            resize: none;
 
             &:focus {
               outline: none;
