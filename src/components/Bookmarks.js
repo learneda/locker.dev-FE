@@ -171,12 +171,12 @@ const Post = styled.div`
   img {
     border-radius: 6px 0 0px 6px;
     width: 320px;
-    height: 100%
+    height: 100%;
     object-fit: cover;
     @media (max-width: 1100px) {
       max-width: 100%;
       max-height: 400px;
-      width: 100%
+      width: 100%;
       border-radius: 6px;
       border-radius: 6px 6px 0 0;
     }
