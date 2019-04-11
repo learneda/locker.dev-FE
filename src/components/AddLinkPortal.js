@@ -13,11 +13,13 @@ export default class AddLinkPortal extends Component {
     portalRoot.appendChild(this.el);
   };
 
-  // componentWillUnmount() {
-  //   portalRoot.remove(this.el)
-  // }
+  componentWillUnmount() {
+    // portalRoot.remove(this.el)
+    document.getElementById('body').setAttribute('style', 'overflow: scroll');
+  }
   
   render () {
+    document.getElementById('body').setAttribute('style', 'overflow: hidden');
     const {children} = this.props;
     return ReactDOM.createPortal(children, this.el);
   }
