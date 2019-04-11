@@ -21,11 +21,13 @@ class SidebarById extends Component {
     following: '',
     location: '',
     website_url: '',
-    username: ''
+    username: '',
+    post_count: null
   };
   componentDidMount() {
     const id = this.props.match.params.id;
     axios.get(`${URL}/api/users/id/${id}`).then(res => {
+      console.log('herehrehre',res)
       const user = res.data[0];
       this.setState({
         display_name: user.display_name,
