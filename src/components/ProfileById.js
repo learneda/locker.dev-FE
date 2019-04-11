@@ -15,16 +15,17 @@ import {
   editPostGetDefaultData,
   getSearchValue
 } from '../actions';
-import deleteIcon from '../assets/svg/delete-icon.svg';
-import editSvg from '../assets/svg/edit.svg';
 
 class ProfileById extends Component {
   state = { modalOpen: false, posts: [] };
 
   componentDidMount = () => {
     const id = this.props.match.params.id;
-    axios.get(`${URL}/api/users/id/${id}`).then(res => {
-      console.log(res.data[0]);
+    axios.get(`${URL}/api/posts/all/${id}`).then(res => {
+      console.log(res.data);
+      this.setState({
+        posts: res.data
+      });
     });
   };
 
@@ -38,12 +39,15 @@ class ProfileById extends Component {
   render() {
     const search = this.props.search_term;
 
-    const filteredPosts = this.props.posts.filter(post => {
-      return (
-        post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
-        post.thumbnail_url.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
-        post.description.toLowerCase().indexOf(search.toLowerCase()) !== -1
-      );
+    const filteredPosts = this.state.posts.filter(post => {
+      console.log(post);
+      return post.title
+        ? post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1
+        : null || post.thumbnail_url
+        ? post.thumbnail_url.toLowerCase().indexOf(search.toLowerCase()) !== -1
+        : null || post.description
+        ? post.description.toLowerCase().indexOf(search.toLowerCase()) !== -1
+        : null;
     });
 
     return (
@@ -72,8 +76,8 @@ class ProfileById extends Component {
                     handleLike={this.handleLike}
                     id={post.id}
                   />
-                  <span className="rec-span">recommend</span>
-                  <img
+                  <span className="rec-span">Save to Profile</span>
+                  {/* <img
                     src={deleteIcon}
                     className="delete-icon"
                     onClick={async () =>
@@ -83,7 +87,7 @@ class ProfileById extends Component {
                     }
                     alt="delete icon"
                   />
-                  <span className="del-span">delete</span>
+                  <span className="del-span">delete</span> */}
                 </div>
               </div>
               {/* <img
@@ -173,12 +177,12 @@ const Post = styled.div`
   img {
     border-radius: 6px 0 0px 6px;
     width: 320px;
-    height: 100%
+    height: 100%;
     object-fit: cover;
     @media (max-width: 1100px) {
       max-width: 100%;
       max-height: 400px;
-      width: 100%
+      width: 100%;
       border-radius: 6px;
       border-radius: 6px 6px 0 0;
     }
