@@ -35,7 +35,8 @@ class SidebarById extends Component {
         username: user.username,
         bio: user.bio,
         location: user.location,
-        website_url: user.website_url
+        website_url: user.website_url,
+        post_count: Number(user.post_count)
       });
     });
   }
@@ -55,7 +56,7 @@ class SidebarById extends Component {
             <div className="profile-stats">
               <ul>
                 <li>Posts</li>
-                <li>43</li>
+                <li>{this.state.post_count}</li>
               </ul>
               <ul>
                 <li>Following</li>
