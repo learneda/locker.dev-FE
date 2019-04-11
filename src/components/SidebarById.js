@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { getUserProfileDetails } from '../actions';
+import { getUserProfileDetails, followAUser, unfollowAUser } from '../actions';
 import axios from 'axios';
 import { post as URL } from '../services/baseURL';
 
@@ -21,6 +21,19 @@ class SidebarById extends Component {
     const id = this.props.match.params.id;
     this.props.getUserProfileDetails(id);
   }
+
+  followAUserHandler = e => {
+    e.preventDefault();
+    const friend_id = this.props.match.params.id;
+    this.props.followAUser({ user_id: this.props.auth.id, friend_id });
+  };
+
+  unfollowAUserHandler = e => {
+    e.preventDefault();
+    const friend_id = this.props.match.params.id;
+    this.props.unfollowAUser({ user_id: this.props.auth.id, friend_id });
+  };
+
   render() {
     if (!this.props.user_details) {
       return <div>LOADING LOADING...</div>;
@@ -45,6 +58,16 @@ class SidebarById extends Component {
           </div>
           <div className="user-bio">
             <h3>{display_name}</h3>
+
+            <div className="follow-btn-grp">
+              <button type="button" onClick={this.followAUserHandler}>
+                Follow
+              </button>
+              <button type="button" onClick={this.unfollowAUserHandler}>
+                Unfollow
+              </button>
+            </div>
+
             <div className="profile-stats">
               <ul>
                 <li>Posts</li>
@@ -59,7 +82,7 @@ class SidebarById extends Component {
                 <li>{followers_count}</li>
               </ul>
             </div>
-            <p>{bio ? bio : ''}</p>
+            <p>{bio ? bio : 'Add bio'}</p>
             <p>
               <img src={locationSvg} alt="location-icon" />
               {location ? location : 'Add location'}
@@ -201,15 +224,16 @@ const Profile = styled.div`
   }
 `;
 
-const mapStateToProps = ({ user_details }) => {
+const mapStateToProps = ({ user_details, auth }) => {
   return {
-    user_details
+    user_details,
+    auth
   };
 };
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { getUserProfileDetails }
+    { getUserProfileDetails, followAUser, unfollowAUser }
   )(SidebarById)
 );

@@ -3,19 +3,19 @@ import styled from 'styled-components';
 import { Button, Grommet } from 'grommet';
 
 import { buttonBg } from '../../components/mixins';
-import bookmarkSVG from '../../assets/svg/bookmarks-drawing.svg';
 import friendsSVG from '../../assets/svg/online_friends.svg';
 import booksSVG from '../../assets/svg/reading-list-drawing.svg';
 import videosSVG from '../../assets/svg/video-drawing.svg';
 import shareSVG from '../../assets/svg/wall_post-drawing.svg';
+import onlineSVG from '../../assets/svg/online-drawing.svg';
 import landingVideo from '../../assets/video/landing.mp4';
 import browser from '../../assets/img/browser.png';
 import downIcon from '../../assets/svg/down-icon.svg';
 
 export default function Body() {
-  const downArrow = useRef();
+  const scrollDown = useRef();
   const handleClick = () =>
-    downArrow.current.scrollIntoView({ behavior: 'smooth' });
+    scrollDown.current.scrollIntoView({ behavior: 'smooth' });
 
   return (
     <Grommet theme={theme}>
@@ -26,13 +26,12 @@ export default function Body() {
             className="get-started"
             primary
             label="Find Out More"
-            // icon={<LinkDown />}
+            onClick={handleClick}
             reverse
           />
         </div>
         <div className="landing-img">
-          {/* <img className="landing-svg" src={landingSVG} alt="" /> */}
-          <img src={browser} alt="" />
+          <img src={browser} alt="browser top section" />
           <video
             className="landing-video"
             src={landingVideo}
@@ -48,54 +47,55 @@ export default function Body() {
           onClick={handleClick}
         />
       </CallToAction>
-
-      <StyledFeature textAlign="center" ref={downArrow}>
-        <StyledFeatureTitle marginBottom="100px">
-          Keep Track of Your Learning
-        </StyledFeatureTitle>
-        <img src={bookmarkSVG} alt="" />
-      </StyledFeature>
-
-      <StyledFeature textAlign="center">
+      <StyledFeature textAlign="center" ref={scrollDown}>
         <StyledFeatureTitle marginBottom="60px">
           See What your Friends Are Learning
         </StyledFeatureTitle>
-        <img src={friendsSVG} alt="" />
+        <img src={friendsSVG} alt="friends" />
       </StyledFeature>
       <StyledFeaturesContainer>
         <div className="feature-card">
           <h4>Keep track of your favorite books</h4>
-          <img src={booksSVG} alt="" />
+          <img src={booksSVG} alt="books" />
         </div>
         <div className="feature-card">
           <h4>Keep track of your favorite videos</h4>
-          <img src={videosSVG} alt="" />
+          <img src={videosSVG} alt="videos" />
         </div>
         <div className="feature-card">
           <h4>Share the best resources with your friends</h4>
-          <img src={shareSVG} alt="" />
+          <img src={shareSVG} alt="share" />
         </div>
       </StyledFeaturesContainer>
+      <StyledFeature textAlign="center">
+        <img src={onlineSVG} alt="online" />
+      </StyledFeature>
     </Grommet>
   );
 }
+
 const StyledFeature = styled.div`
   text-align: ${props => props.textAlign};
-  padding: 100px 0;
-  h3 {
-    font-size: 5rem;
-    font-weight: 500;
-    margin-bottom: ${props => props.marginBottom}px;
-  }
+  padding: 70px 0;
   img {
     width: 100%;
   }
+  @media (max-width: 500px) {
+    padding: 35px 0;
+  }
 `;
+
 const StyledFeatureTitle = styled.h3`
   font-size: 5rem;
   font-weight: 500;
+  line-height: 3.5rem;
   margin-bottom: ${props => props.marginBottom};
+  @media (max-width: 500px) {
+    font-size: 3.5rem;
+    margin-bottom: 40px;
+  }
 `;
+
 const theme = {
   button: {
     padding: {
@@ -114,9 +114,7 @@ const theme = {
 const StyledFeaturesContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  padding-bottom: 100px;
   .feature-card {
-    // max-width: 0px;
     width: 32%;
     display: flex;
     flex-direction: column;
@@ -135,7 +133,6 @@ const StyledFeaturesContainer = styled.div`
     text-align: center;
     margin: 20px 0;
   }
-
   @media (max-width: 500px) {
     flex-direction: column;
     .feature-card {
@@ -146,7 +143,7 @@ const StyledFeaturesContainer = styled.div`
 `;
 
 const CallToAction = styled.div`
-  min-height: 100vh;
+  min-height: 82vh;
   padding: 0px 0;
   display: flex;
   @media (max-width: 992px) {
@@ -154,7 +151,6 @@ const CallToAction = styled.div`
     flex-direction: column;
     align-items: center;
   }
-
   .landing-img {
     width: 50%;
     @media (max-width: 992px) {
@@ -164,7 +160,6 @@ const CallToAction = styled.div`
       width: 95%;
     }
   }
-
   .landing-content {
     width: 60%;
     margin-top: 50px;
@@ -188,7 +183,6 @@ const CallToAction = styled.div`
       }
     }
   }
-
   h1 {
     padding-bottom: 45px;
     font-size: 8rem;
@@ -216,12 +210,10 @@ const CallToAction = styled.div`
     }
     @media (max-width: 500px) {
       font-size: 3.8rem;
-      /* text-align: center; */
       line-height: 5rem;
       padding-bottom: 20px;
     }
   }
-
   .landing-video {
     width: 100%;
     border: 3px solid #fff;
