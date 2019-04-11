@@ -4,8 +4,8 @@ import Moment from 'react-moment';
 import axios from 'axios';
 import styled from 'styled-components';
 
-import { customWrapper, truncateText } from '../components/mixins';
-import Like from '../components/Like';
+import { customWrapper, truncateText } from './mixins';
+import Like from './Like';
 import { post as URL } from '../services/baseURL';
 import {
   getPosts,

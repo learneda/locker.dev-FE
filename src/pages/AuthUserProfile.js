@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { customWrapper } from '../components/mixins';
 import { Grommet, Tab, Tabs } from 'grommet';
 
-export default class UserProfile extends Component {
+export default class Home extends Component {
   render() {
     return (
       <Container>
