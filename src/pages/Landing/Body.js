@@ -1,7 +1,7 @@
-import React from 'react';
-import { Button, Grommet } from 'grommet';
-import { LinkDown } from 'grommet-icons';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
+import { Button, Grommet } from 'grommet';
+
 import { buttonBg } from '../../components/mixins';
 import bookmarkSVG from '../../assets/svg/bookmarks-drawing.svg';
 import friendsSVG from '../../assets/svg/online_friends.svg';
@@ -12,7 +12,11 @@ import landingVideo from '../../assets/video/landing.mp4';
 import browser from '../../assets/img/browser.png';
 import downIcon from '../../assets/svg/down-icon.svg';
 
-const Body = () => {
+export default function Body() {
+  const downArrow = useRef();
+  const handleClick = () =>
+    downArrow.current.scrollIntoView({ behavior: 'smooth' });
+
   return (
     <Grommet theme={theme}>
       <CallToAction>
@@ -39,10 +43,15 @@ const Body = () => {
             loop
           />
         </div>
-        <img src={downIcon} className="down-arrow" alt="" />
+        <img
+          src={downIcon}
+          className="down-arrow"
+          alt="arrow facing downwards"
+          onClick={handleClick}
+        />
       </CallToAction>
 
-      <StyledFeature textAlign="center">
+      <StyledFeature textAlign="center" ref={downArrow}>
         <StyledFeatureTitle marginBottom="100px">
           Keep Track of Your Learning
         </StyledFeatureTitle>
@@ -71,7 +80,7 @@ const Body = () => {
       </StyledFeaturesContainer>
     </Grommet>
   );
-};
+}
 const StyledFeature = styled.div`
   text-align: ${props => props.textAlign};
   padding: 100px 0;
@@ -221,5 +230,3 @@ min-height: 100vh;
     }
   }
 }`;
-
-export default Body;
