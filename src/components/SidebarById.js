@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { getUserProfileDetails } from '../actions';
+import { getUserProfileDetails, followAUser } from '../actions';
 import axios from 'axios';
 import { post as URL } from '../services/baseURL';
 
@@ -13,22 +13,37 @@ import linkSvg from '../assets/svg/link-symbol.svg';
 import calendarSvg from '../assets/svg/calendar.svg';
 
 class SidebarById extends Component {
-  constructor (props) {
-    super(props)
-    
-  };
-  
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
     const id = this.props.match.params.id;
-    this.props.getUserProfileDetails(id)
+    this.props.getUserProfileDetails(id);
   }
+
+  followAUserHandler = e => {
+    e.preventDefault();
+    const friend_id = this.props.match.params.id;
+    this.props.followAUser({ user_id: this.props.auth.id, friend_id });
+  };
+
   render() {
     if (!this.props.user_details) {
-      return (
-        <div>LOADING LOADING...</div>
-      )
+      return <div>LOADING LOADING...</div>;
     }
-    const { profile_picture, display_name, username, post_count, following_count, followers_count, bio, location, website_url, created_at } = this.props.user_details;
+    const {
+      profile_picture,
+      display_name,
+      username,
+      post_count,
+      following_count,
+      followers_count,
+      bio,
+      location,
+      website_url,
+      created_at
+    } = this.props.user_details;
     return (
       <Wrapper>
         <Profile>
@@ -36,9 +51,12 @@ class SidebarById extends Component {
             <img src={profile_picture} alt="avatar" />
           </div>
           <div className="user-bio">
-            <h3>
-              {display_name}
-            </h3>
+            <h3>{display_name}</h3>
+            <div className="follow-btn-grp">
+              <button type="button" onClick={this.followAUserHandler}>
+                Follow
+              </button>
+            </div>
             <div className="profile-stats">
               <ul>
                 <li>Posts</li>
@@ -53,17 +71,13 @@ class SidebarById extends Component {
                 <li>{followers_count}</li>
               </ul>
             </div>
-            <p>{bio ? bio : ''}</p>
+            <p>{bio ? bio : 'Add bio'}</p>
             <p>
               <img src={locationSvg} alt="location-icon" />
               {location ? location : 'Add location'}
             </p>
             <p>
-              {website_url ? (
-                <img src={linkSvg} alt="link-icon" />
-              ) : (
-                ''
-              )}
+              {website_url ? <img src={linkSvg} alt="link-icon" /> : ''}
 
               {website_url ? website_url : ''}
             </p>
@@ -109,7 +123,7 @@ const Profile = styled.div`
       top: 30px;
       border: 3px solid #fff;
       border-radius: 50%;
-      height: auto;
+      height: 100px;
       width: 100px;
     }
   }
@@ -192,15 +206,16 @@ const Profile = styled.div`
   }
 `;
 
-const mapStateToProps = ({ user_details }) => {
+const mapStateToProps = ({ user_details, auth }) => {
   return {
-    user_details
+    user_details,
+    auth
   };
 };
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { getUserProfileDetails }
+    { getUserProfileDetails, followAUser }
   )(SidebarById)
 );
