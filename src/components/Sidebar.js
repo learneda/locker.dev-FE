@@ -16,7 +16,11 @@ class Sidebar extends Component {
     this.props.getUserProfileDetails(this.props.auth.id);
   }
   render() {
-    console.log(this.props.user_details);
+    if (!this.props.user_details) {
+      return (
+        <div>LOADING LOADING...</div>
+      )
+    }
     return (
       <Wrapper>
         <Profile>
