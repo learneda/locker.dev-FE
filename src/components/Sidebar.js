@@ -98,6 +98,7 @@ const Profile = styled.div`
       border: 3px solid #fff;
       border-radius: 50%;
       height: 100px;
+      object-fit: cover;
       width: 100px;
     }
   }
