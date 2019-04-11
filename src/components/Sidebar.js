@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { editProfile, getFollowersAndFollowingCount, getUserProfileDetails } from '../actions';
+import { editProfile, getUserProfileDetails } from '../actions';
 
 import styled from 'styled-components';
 import { customLayout, customWrapper } from './mixins';
@@ -12,7 +12,6 @@ import calendarSvg from '../assets/svg/calendar.svg';
 
 class Sidebar extends Component {
   componentDidMount() {
-    this.props.getFollowersAndFollowingCount();
     this.props.getUserProfileDetails(this.props.auth.id);
   }
   render() {
@@ -36,11 +35,11 @@ class Sidebar extends Component {
               </ul>
               <ul>
                 <li>Following</li>
-                <li>{this.props.followers.following}</li>
+                <li>{this.props.user_details.following_count}</li>
               </ul>
               <ul>
                 <li>Followers</li>
-                <li>{this.props.followers.followers}</li>
+                <li>{this.props.user_details.followers_count}</li>
               </ul>
             </div>
             <p>{this.props.auth.bio ? this.props.auth.bio : 'Add bio'}</p>
@@ -183,10 +182,9 @@ const Profile = styled.div`
   }
 `;
 
-const mapStateToProps = ({ auth, followers, user_details }) => {
+const mapStateToProps = ({ auth, user_details }) => {
   return {
     auth: auth,
-    followers: followers,
     user_details: user_details
   };
 };
@@ -194,6 +192,6 @@ const mapStateToProps = ({ auth, followers, user_details }) => {
 export default withRouter(
   connect(
     mapStateToProps,
-    { editProfile, getFollowersAndFollowingCount, getUserProfileDetails }
+    { editProfile, getUserProfileDetails }
   )(Sidebar)
 );
