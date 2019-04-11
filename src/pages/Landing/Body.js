@@ -137,14 +137,29 @@ const StyledFeaturesContainer = styled.div`
     text-align: center;
     margin: 20px 0;
   }
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    .feature-card {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+  }
 `;
 
 const CallToAction = styled.div`
-min-height: 100vh;
+// min-height: 100vh;
   padding: 0px 0;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(12, 1fr);
+  display: flex;
+  justify-content: space-between;
+  .landing-img {
+    width: 35%;
+    margin-top: 30px;
+  }
+  .landing-content {
+    width: 60%
+  }
+
  @media(max-width: 992px) {
    display: flex;
    flex-direction: column;
@@ -157,14 +172,12 @@ min-height: 100vh;
       margin: auto;
       display: block;
     }
-  }
-  .landing-img {
-    grid-column: 7 / span 12;
-    grid-row: 2 / span 12;
-  }
-  .landing-content {
-    grid-column: 1 / span 8;
-    grid-row: 3 / span 8;
+    .landing-img {
+      width: 100%;
+    }
+    .landing-content {
+      width: 100%;
+    }
   }
   h1 {
     padding-bottom: 45px;
@@ -197,11 +210,11 @@ min-height: 100vh;
   .landing-video {
     width: 100%;
     border: 3px solid #fff;
-    margin-left: 50px;
+    // margin-left: 50px;
     position: relative;
   }
   .landing-img img {
-    margin-left: 50px;
+    // margin-left: 50px;
     width: 100%;
     margin-bottom: -7px;
     // position: absolute;
