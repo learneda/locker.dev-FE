@@ -15,7 +15,8 @@ import {
   EDIT_PROFILE,
   EDIT_POST_SUBMIT,
   EDIT_POST_GET_DEFAULT_DATA,
-  GET_FOLLOWERS_AND_FOLLOWING_COUNT
+  GET_FOLLOWERS_AND_FOLLOWING_COUNT,
+  GET_USER_PROFILE_DETAILS_BY_ID
 } from './types';
 import { post as URL } from '../services/baseURL';
 axios.defaults.withCredentials = true;
@@ -100,4 +101,10 @@ export const getFollowersAndFollowingCount = () => async dispatch => {
   const res = await axios.get(`${URL}/api/users/followStats`);
   console.log('follow action', res);
   dispatch({ type: GET_FOLLOWERS_AND_FOLLOWING_COUNT, payload: res.data });
+};
+
+export const getUserProfileDetails = id => async dispatch => {
+  const res = await axios.get(`${URL}/api/users/id/${id}`);
+  console.log('ACCCT', res);
+  dispatch({type: GET_USER_PROFILE_DETAILS_BY_ID, payload: res.data[0]})
 };
