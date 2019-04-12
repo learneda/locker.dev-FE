@@ -129,6 +129,5 @@ export const unfollowAUser = payload => async dispatch => {
 
 export const getFollowing = friend_id => async dispatch => {
   const res = await axios.get(`${URL}/api/users/following/${friend_id}`);
-  console.log('RES GET FOLLOWING', res);
   dispatch({ type: GET_FOLLOWING, payload: res.data.following });
 };
