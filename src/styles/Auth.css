@@ -262,7 +262,7 @@
   background-color: white;
   z-index: 1;
   text-align: center;
-  max-width: 45%;
+  width: 500px;
   margin: 0 auto;
   min-width: 45%;
   margin-top: 10%;
@@ -271,18 +271,26 @@
 .top {
   display: flex;
   justify-content: space-between;
-  padding: 20px 30px;
+  padding: 13px 18px 13px 25px;
   border-bottom: 1px solid #ddd;
   font-size: 1.6rem;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
+  height: 64px;
+  align-items: center;
 }
+
+.modal_name {
+  font-weight: 500;
+  font-size: larger;
+}
+
 .modal_group {
   position: relative;
 }
 .add_link_form {
   display: flex;
-  justify-content: space-around;
-  padding-bottom: 20px;
+  justify-content: space-between;
+  padding: 0 13px 13px 13px;
 }
 #form-key {
   font-size: 16px;
@@ -291,7 +299,7 @@
   padding: 12px 8px;
   margin: 0;
   color: #000;
-  width: 70%;
+  width: 365px;
 }
 .add-btn {
   background-color: #3f65f2;
