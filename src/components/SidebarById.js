@@ -28,16 +28,20 @@ class SidebarById extends Component {
     this.props.getFollowing(id);
   }
 
-  followAUserHandler = e => {
+  followAUserHandler = async e => {
     e.preventDefault();
     const friend_id = this.props.match.params.id;
-    this.props.followAUser({ user_id: this.props.auth.id, friend_id });
+    await this.props
+      .followAUser({ user_id: this.props.auth.id, friend_id })
+      .then(() => this.props.getUserProfileDetails(friend_id));
   };
 
-  unfollowAUserHandler = e => {
+  unfollowAUserHandler = async e => {
     e.preventDefault();
     const friend_id = this.props.match.params.id;
-    this.props.unfollowAUser({ user_id: this.props.auth.id, friend_id });
+    await this.props
+      .unfollowAUser({ user_id: this.props.auth.id, friend_id })
+      .then(() => this.props.getUserProfileDetails(friend_id));
   };
 
   render() {
