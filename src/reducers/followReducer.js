@@ -12,9 +12,17 @@ export const followReducer = (state = initialState, action) => {
     case GET_FOLLOWERS_AND_FOLLOWING_COUNT:
       return action.payload;
     case FOLLOW_A_USER:
-      return action.payload;
+      if (action.payload.length === 0) {
+        return false;
+      } else {
+        return true;
+      }
     case UNFOLLOW_A_USER:
-      return action.payload;
+      if (action.payload.length === 0) {
+        return true;
+      } else {
+        return false;
+      }
     case GET_FOLLOWING:
       if (action.payload.length === 0) {
         return false;
