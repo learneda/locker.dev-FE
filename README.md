@@ -1,6 +1,6 @@
 # LearnLocker [![Netlify Status](https://api.netlify.com/api/v1/badges/7d863733-ed9f-4379-97a1-749fb22d6723/deploy-status)](https://app.netlify.com/sites/learnedadev/deploys)
 
-**LearnedLocker** is an application that reduces your time searching through scattered resources all over the internet by keeping all of it in one place.
+**LearnLocker** is an application that reduces your time searching through scattered resources all over the internet by keeping all of it in one place.
 
 [![LearnLocker](./src/assets/img/splash.png)](https://learnedadev.netlify.com/)
 
