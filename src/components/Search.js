@@ -27,6 +27,9 @@ function Search(props) {
 
 const theme = {
   global: {
+    colors: {
+      brand: '#3f65f2'
+    },
     focus: {
       border: {
         color: '#3f65f2'
