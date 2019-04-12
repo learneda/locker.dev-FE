@@ -117,16 +117,17 @@ const StyledEditModal = styled.div`
     flex-direction: column;
     justify-content: center;
     max-width: 700px;
+    width: 90%;
     margin: auto;
     margin-top: 10%;
     color: #444;
-    // border: 1px solid red;
+
     background: #fff;
     padding-bottom: 10px;
     border-radius: 15px;
     position: relative;
     @media (max-width: 650px) {
-      margin-top: 0;
+      margin: 10px auto;
     }
   }
   .edit-form input,
