@@ -18,7 +18,8 @@ import {
   GET_FOLLOWERS_AND_FOLLOWING_COUNT,
   GET_USER_PROFILE_DETAILS_BY_ID,
   FOLLOW_A_USER,
-  UNFOLLOW_A_USER
+  UNFOLLOW_A_USER,
+  GET_FOLLOWING
 } from './types';
 import { post as URL } from '../services/baseURL';
 axios.defaults.withCredentials = true;
@@ -124,4 +125,9 @@ export const unfollowAUser = payload => async dispatch => {
     }
   });
   dispatch({ type: UNFOLLOW_A_USER, payload: res.data });
+};
+
+export const getFollowing = friend_id => async dispatch => {
+  const res = await axios.get(`${URL}/api/users/following/${friend_id}`);
+  dispatch({ type: GET_FOLLOWING, payload: res.data.following });
 };

@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { getUserProfileDetails, followAUser, unfollowAUser } from '../actions';
+import {
+  getUserProfileDetails,
+  followAUser,
+  unfollowAUser,
+  getFollowing
+} from '../actions';
 import axios from 'axios';
 import { post as URL } from '../services/baseURL';
 
@@ -20,6 +25,7 @@ class SidebarById extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.getUserProfileDetails(id);
+    this.props.getFollowing(id);
   }
 
   followAUserHandler = e => {
@@ -57,16 +63,18 @@ class SidebarById extends Component {
             <img src={profile_picture} alt="avatar" />
           </div>
           <div className="user-bio">
-            <h3>{display_name}</h3>
-
             <div className="follow-btn-grp">
-              <button type="button" onClick={this.followAUserHandler}>
-                Follow
-              </button>
-              <button type="button" onClick={this.unfollowAUserHandler}>
-                Unfollow
-              </button>
+              {this.props.follow ? (
+                <button type="button" onClick={this.unfollowAUserHandler}>
+                  Unfollow
+                </button>
+              ) : (
+                <button type="button" onClick={this.followAUserHandler}>
+                  Follow
+                </button>
+              )}
             </div>
+            <h3>{display_name}</h3>
 
             <div className="profile-stats">
               <ul>
@@ -88,9 +96,8 @@ class SidebarById extends Component {
               {location ? location : 'Add location'}
             </p>
             <p>
-              {website_url ? <img src={linkSvg} alt="link-icon" /> : ''}
-
-              {website_url ? website_url : ''}
+              <img src={linkSvg} alt="link-icon" />
+              {website_url ? website_url : 'Add website URL'}
             </p>
             <p>
               <img src={calendarSvg} alt="calendar-icon" />
@@ -173,6 +180,23 @@ const Profile = styled.div`
       color: #333;
     }
 
+    .follow-btn-grp {
+      ${customLayout('center')}
+      width: 100%;
+      margin-bottom: 20px;
+      button {
+        padding: 5px 10px;
+        font-weight: 700;
+        border: transparent;
+        border-radius: 5px;
+        background-color: #3f65f2;
+        color: white;
+        cursor: pointer;
+        transition: 200ms ease-out;
+        font-size: 1.4rem;
+      }
+    }
+
     .edit-profile-link {
       margin-top: 20px;
       margin-bottom: 10px;
@@ -224,16 +248,17 @@ const Profile = styled.div`
   }
 `;
 
-const mapStateToProps = ({ user_details, auth }) => {
+const mapStateToProps = ({ user_details, auth, follow }) => {
   return {
     user_details,
-    auth
+    auth,
+    follow
   };
 };
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { getUserProfileDetails, followAUser, unfollowAUser }
+    { getUserProfileDetails, followAUser, unfollowAUser, getFollowing }
   )(SidebarById)
 );
