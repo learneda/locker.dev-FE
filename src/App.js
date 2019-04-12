@@ -33,7 +33,7 @@ class App extends Component {
     if (modalOpen || editModalOpen) {
       document.getElementById('body').setAttribute('style', 'overflow: hidden');
     } else {
-      document.getElementById('body').setAttribute('style', 'overflow: scroll');
+      document.getElementById('body').setAttribute('style', 'overflow: auto');
     }
     return (
       <Container>
