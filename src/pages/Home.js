@@ -6,6 +6,7 @@ import { post as URL } from '../services/baseURL';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import Moment from 'react-moment';
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
   constructor(props) {
@@ -71,7 +72,9 @@ class Home extends Component {
       return (
         <div key={index} className="post">
           <div className="post-user-info">
-            <img src={`${post.profile_picture}`} alt="user_profile_pic" />
+            <Link to={`/profile/${post.user_id}`}>
+              <img src={`${post.profile_picture}`} alt="user_profile_pic" />
+            </Link>
             <div>
               <h2>{post.username}</h2>
               <Moment className="post-date" fromNow>
@@ -117,13 +120,13 @@ class Home extends Component {
 }
 
 const Container = styled.div`
-  ${customWrapper('80%', '0 auto')}
+  ${customWrapper('100%', '0 auto')}
   .post {
     margin: auto;
     margin-bottom: 40px;
     border: 1px solid lightgray;
     border-radius: 8px;
-    max-width: 700px;
+    /* max-width: 700px; */
     background: #fff;
   }
   .post-user-info {
