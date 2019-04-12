@@ -5,6 +5,7 @@ import axios from 'axios';
 import AddLinkPortal from './AddLinkPortal';
 import { getPosts } from '../actions';
 import { post as URL } from '../services/baseURL';
+import { ReactComponent as X } from '../assets/svg/x.svg';
 
 class Toggle extends Component {
   constructor(props) {
@@ -78,7 +79,7 @@ class Toggle extends Component {
                 <div className="top">
                   <div className="modal_name">Add a link</div>
                   <div className="modal_close" onClick={() => this.toggle()}>
-                    x
+                    <X />
                   </div>
                 </div>
                 <div className="modal_group">
