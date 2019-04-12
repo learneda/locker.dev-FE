@@ -228,9 +228,10 @@ const Burger = styled.div`
   display: none;
 
   @media (max-width: 760px) {
+    height: 50px;
     margin: 0 auto;
     margin-bottom: 20px;
-    padding: 10px;
+    padding: 5px;
     ${customLayout('space-between', 'center')}
     width: 90%;
   }
