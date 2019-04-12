@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { getUserProfileDetails, followAUser, unfollowAUser } from '../actions';
+import {
+  getUserProfileDetails,
+  followAUser,
+  unfollowAUser,
+  getFollowing
+} from '../actions';
 import axios from 'axios';
 import { post as URL } from '../services/baseURL';
 
@@ -20,6 +25,7 @@ class SidebarById extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.getUserProfileDetails(id);
+    this.props.getFollowing(id);
   }
 
   followAUserHandler = e => {
@@ -60,12 +66,15 @@ class SidebarById extends Component {
             <h3>{display_name}</h3>
 
             <div className="follow-btn-grp">
-              <button type="button" onClick={this.followAUserHandler}>
-                Follow
-              </button>
-              <button type="button" onClick={this.unfollowAUserHandler}>
-                Unfollow
-              </button>
+              {this.props.follow ? (
+                <button type="button" onClick={this.unfollowAUserHandler}>
+                  Unfollow
+                </button>
+              ) : (
+                <button type="button" onClick={this.followAUserHandler}>
+                  Follow
+                </button>
+              )}
             </div>
 
             <div className="profile-stats">
@@ -224,16 +233,17 @@ const Profile = styled.div`
   }
 `;
 
-const mapStateToProps = ({ user_details, auth }) => {
+const mapStateToProps = ({ user_details, auth, follow }) => {
   return {
     user_details,
-    auth
+    auth,
+    follow
   };
 };
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { getUserProfileDetails, followAUser, unfollowAUser }
+    { getUserProfileDetails, followAUser, unfollowAUser, getFollowing }
   )(SidebarById)
 );
