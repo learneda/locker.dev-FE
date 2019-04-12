@@ -96,9 +96,8 @@ class SidebarById extends Component {
               {location ? location : 'Add location'}
             </p>
             <p>
-              {website_url ? <img src={linkSvg} alt="link-icon" /> : ''}
-
-              {website_url ? website_url : ''}
+              <img src={linkSvg} alt="link-icon" />
+              {website_url ? website_url : 'Add website URL'}
             </p>
             <p>
               <img src={calendarSvg} alt="calendar-icon" />
@@ -182,13 +181,10 @@ const Profile = styled.div`
     }
 
     .follow-btn-grp {
-      display: flex;
-      /* border: 1px solid blue; */
+      ${customLayout('center')}
       width: 100%;
-      justify-content: center;
       margin-bottom: 20px;
       button {
-        border: 1px solid red;
         padding: 5px 10px;
         font-weight: 700;
         border: transparent;
@@ -196,7 +192,6 @@ const Profile = styled.div`
         background-color: #3f65f2;
         color: white;
         cursor: pointer;
-        -webkit-transition: 200ms ease-out;
         transition: 200ms ease-out;
         font-size: 1.4rem;
       }
