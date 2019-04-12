@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { getUserProfileDetails } from '../actions';
+import {
+  getUserProfileDetails,
+  followAUser,
+  unfollowAUser,
+  getFollowing
+} from '../actions';
 import axios from 'axios';
 import { post as URL } from '../services/baseURL';
 
@@ -13,22 +18,44 @@ import linkSvg from '../assets/svg/link-symbol.svg';
 import calendarSvg from '../assets/svg/calendar.svg';
 
 class SidebarById extends Component {
-  constructor (props) {
-    super(props)
-    
-  };
-  
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
     const id = this.props.match.params.id;
-    this.props.getUserProfileDetails(id)
+    this.props.getUserProfileDetails(id);
+    this.props.getFollowing(id);
   }
+
+  followAUserHandler = e => {
+    e.preventDefault();
+    const friend_id = this.props.match.params.id;
+    this.props.followAUser({ user_id: this.props.auth.id, friend_id });
+  };
+
+  unfollowAUserHandler = e => {
+    e.preventDefault();
+    const friend_id = this.props.match.params.id;
+    this.props.unfollowAUser({ user_id: this.props.auth.id, friend_id });
+  };
+
   render() {
     if (!this.props.user_details) {
-      return (
-        <div>LOADING LOADING...</div>
-      )
+      return <div>LOADING LOADING...</div>;
     }
-    const { profile_picture, display_name, username, post_count, following_count, followers_count, bio, location, website_url, created_at } = this.props.user_details;
+    const {
+      profile_picture,
+      display_name,
+      username,
+      post_count,
+      following_count,
+      followers_count,
+      bio,
+      location,
+      website_url,
+      created_at
+    } = this.props.user_details;
     return (
       <Wrapper>
         <Profile>
@@ -36,9 +63,19 @@ class SidebarById extends Component {
             <img src={profile_picture} alt="avatar" />
           </div>
           <div className="user-bio">
-            <h3>
-              {display_name}
-            </h3>
+            <div className="follow-btn-grp">
+              {this.props.follow ? (
+                <button type="button" onClick={this.unfollowAUserHandler}>
+                  Unfollow
+                </button>
+              ) : (
+                <button type="button" onClick={this.followAUserHandler}>
+                  Follow
+                </button>
+              )}
+            </div>
+            <h3>{display_name}</h3>
+
             <div className="profile-stats">
               <ul>
                 <li>Posts</li>
@@ -53,24 +90,18 @@ class SidebarById extends Component {
                 <li>{followers_count}</li>
               </ul>
             </div>
-            <p>{bio ? bio : ''}</p>
+            <p>{bio ? bio : 'Add bio'}</p>
             <p>
               <img src={locationSvg} alt="location-icon" />
               {location ? location : 'Add location'}
             </p>
             <p>
-              {website_url ? (
-                <img src={linkSvg} alt="link-icon" />
-              ) : (
-                ''
-              )}
-
-              {website_url ? website_url : ''}
+              <img src={linkSvg} alt="link-icon" />
+              {website_url ? website_url : 'Add website URL'}
             </p>
             <p>
               <img src={calendarSvg} alt="calendar-icon" />
               Joined <Moment format="MMMM YYYY">{created_at}</Moment>
-              {/* CHANGE OUT HARDCODED DATE EVENTUALLY */}
             </p>
           </div>
         </Profile>
@@ -109,7 +140,8 @@ const Profile = styled.div`
       top: 30px;
       border: 3px solid #fff;
       border-radius: 50%;
-      height: auto;
+      height: 100px;
+      object-fit: cover;
       width: 100px;
     }
   }
@@ -121,6 +153,9 @@ const Profile = styled.div`
     padding: 15px 6%;
     width: 90%;
     margin: auto;
+    @media (max-width: 1350px) {
+      width: 100%;
+    }
     h3 {
       margin: 0 auto;
       font-size: 2.5rem;
@@ -129,7 +164,7 @@ const Profile = styled.div`
 
     p {
       line-height: 25px;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       color: #6d767e;
       // display: flex;
       img {
@@ -143,6 +178,23 @@ const Profile = styled.div`
     mark {
       background-color: transparent;
       color: #333;
+    }
+
+    .follow-btn-grp {
+      ${customLayout('center')}
+      width: 100%;
+      margin-bottom: 20px;
+      button {
+        padding: 5px 10px;
+        font-weight: 700;
+        border: transparent;
+        border-radius: 5px;
+        background-color: #3f65f2;
+        color: white;
+        cursor: pointer;
+        transition: 200ms ease-out;
+        font-size: 1.4rem;
+      }
     }
 
     .edit-profile-link {
@@ -167,11 +219,15 @@ const Profile = styled.div`
     justify-content: space-between;
     @media (max-width: 1400px) {
       flex-direction: column;
+      flex-wrap: wrap;
     }
     ul {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       cursor: pointer;
       transition: 200ms ease-out;
+      :not(:last-child) {
+        margin-right: 15px;
+      }
       &:hover {
         color: #3f65f2;
         transition: 200ms ease-in;
@@ -192,15 +248,17 @@ const Profile = styled.div`
   }
 `;
 
-const mapStateToProps = ({ user_details }) => {
+const mapStateToProps = ({ user_details, auth, follow }) => {
   return {
-    user_details
+    user_details,
+    auth,
+    follow
   };
 };
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { getUserProfileDetails }
+    { getUserProfileDetails, followAUser, unfollowAUser, getFollowing }
   )(SidebarById)
 );

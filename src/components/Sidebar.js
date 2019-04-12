@@ -16,9 +16,7 @@ class Sidebar extends Component {
   }
   render() {
     if (!this.props.user_details) {
-      return (
-        <div>LOADING LOADING...</div>
-      )
+      return <div>LOADING LOADING...</div>;
     }
     return (
       <Wrapper>
@@ -99,7 +97,8 @@ const Profile = styled.div`
       top: 30px;
       border: 3px solid #fff;
       border-radius: 50%;
-      height: auto;
+      height: 100px;
+      object-fit: cover;
       width: 100px;
     }
   }
@@ -111,6 +110,9 @@ const Profile = styled.div`
     padding: 15px 6%;
     width: 90%;
     margin: auto;
+    @media (max-width: 1350px) {
+      width: 100%;
+    }
     h3 {
       margin: 0 auto;
       font-size: 2.5rem;
@@ -119,9 +121,7 @@ const Profile = styled.div`
 
     p {
       line-height: 25px;
-      margin-bottom: 10px;
-      color: #6d767e;
-      // display: flex;
+      margin-bottom: 15px;
       img {
         width: 18px;
         height: 18px;
@@ -156,23 +156,25 @@ const Profile = styled.div`
     width: 100%;
     justify-content: space-between;
     @media (max-width: 1400px) {
-      flex-direction: column;
+      /* flex-direction: column; */
+      flex-wrap: wrap;
     }
     ul {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       cursor: pointer;
       transition: 200ms ease-out;
+      :not(:last-child) {
+        margin-right: 15px;
+      }
       &:hover {
         color: #3f65f2;
         transition: 200ms ease-in;
         li:nth-of-type(2) {
           opacity: 1;
-          // transition: 200ms ease-in;
         }
       }
       li {
         margin-bottom: 5px;
-        // transition: 200ms ease-out;
       }
       li:nth-of-type(2) {
         opacity: 0.7;

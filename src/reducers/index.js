@@ -15,6 +15,6 @@ export default combineReducers({
   posts: postReducer,
   likedPosts: likedPostReducer,
   search_term: searchReducer,
-  followers: followReducer,
+  follow: followReducer,
   user_details: userReducer
 });

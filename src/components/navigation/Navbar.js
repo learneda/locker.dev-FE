@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-import DummySearch from '../DummySearch';
+import Search from '../Search';
 import Auth from '../authentication/Auth';
 import Toggle from '../Toggle';
 import ProfileDropDown from './ProfileDropDown';
@@ -28,7 +28,7 @@ class Navbar extends Component {
           <MobileNav show={this.state.show} handleClose={this.hideBurgerMenu} />
 
           <Burger>
-            <DummySearch />
+            <Search />
             <img
               src={burgerIcon}
               alt="burger"
@@ -56,7 +56,7 @@ class Navbar extends Component {
               </li>
             </ul>
 
-            <DummySearch />
+            <Search />
 
             <NavRight>
               <Toggle />
@@ -228,9 +228,10 @@ const Burger = styled.div`
   display: none;
 
   @media (max-width: 760px) {
+    height: 50px;
     margin: 0 auto;
     margin-bottom: 20px;
-    padding: 10px;
+    padding: 5px;
     ${customLayout('space-between', 'center')}
     width: 90%;
   }
