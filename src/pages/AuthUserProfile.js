@@ -3,11 +3,12 @@ import Bookmarks from '../components/Bookmarks';
 import Likes from '../components/Likes';
 import Sidebar from '../components/Sidebar';
 import styled from 'styled-components';
+import Home from './Home';
 
 import { customWrapper } from '../components/mixins';
 import { Grommet, Tab, Tabs } from 'grommet';
 
-export default class Home extends Component {
+export default class AuthUserProfile extends Component {
   render() {
     return (
       <Container>
@@ -15,6 +16,11 @@ export default class Home extends Component {
         <Wrapper>
           <Grommet theme={theme}>
             <Tabs justify="start" className="tabs">
+              <Tab title="Home">
+                <TabWrapper>
+                  <Home />
+                </TabWrapper>
+              </Tab>
               <Tab title="Bookmarks">
                 <TabWrapper>
                   <Bookmarks />
