@@ -63,8 +63,6 @@ class SidebarById extends Component {
             <img src={profile_picture} alt="avatar" />
           </div>
           <div className="user-bio">
-            <h3>{display_name}</h3>
-
             <div className="follow-btn-grp">
               {this.props.follow ? (
                 <button type="button" onClick={this.unfollowAUserHandler}>
@@ -76,6 +74,7 @@ class SidebarById extends Component {
                 </button>
               )}
             </div>
+            <h3>{display_name}</h3>
 
             <div className="profile-stats">
               <ul>
@@ -180,6 +179,27 @@ const Profile = styled.div`
     mark {
       background-color: transparent;
       color: #333;
+    }
+
+    .follow-btn-grp {
+      display: flex;
+      /* border: 1px solid blue; */
+      width: 100%;
+      justify-content: center;
+      margin-bottom: 20px;
+      button {
+        border: 1px solid red;
+        padding: 5px 10px;
+        font-weight: 700;
+        border: transparent;
+        border-radius: 5px;
+        background-color: #3f65f2;
+        color: white;
+        cursor: pointer;
+        -webkit-transition: 200ms ease-out;
+        transition: 200ms ease-out;
+        font-size: 1.4rem;
+      }
     }
 
     .edit-profile-link {
