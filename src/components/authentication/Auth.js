@@ -5,6 +5,7 @@ import githubSvg from '../../assets/svg/github.svg';
 import { authURL } from '../../services/authURL';
 import { connect } from 'react-redux';
 import { modalState, modalLogin, modalSignUp } from '../../actions/index';
+import deleteIcon from '../../assets/svg/delete-icon.svg';
 
 class Auth extends Component {
   constructor() {
@@ -104,7 +105,8 @@ class Auth extends Component {
               this.props.modalState();
             }}
           >
-            &times;
+            {/* &times; */}
+            <img src={deleteIcon} alt="" />
           </div>
           <span
             className={this.props.signUp ? null : 'not-current-view'}

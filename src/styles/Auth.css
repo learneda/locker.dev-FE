@@ -10,10 +10,10 @@
   bottom: 0;
   right: 0;
   z-index: 200000;
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(0, 0, 0, 0.9);
   display: none;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   transition: 400ms;
   animation: 400ms fadeIn;
 }
@@ -51,11 +51,13 @@
   background: #fff;
   border-radius: 7px;
   transition: 400ms ease-in-out;
+  margin-top: 8%;
 }
 @media (max-width: 768px) {
   .login-content {
     /* margin-top: 15%; */
     width: 90%;
+    margin-top: 0%;
     /* border-radius: 5px; */
   }
 }
@@ -81,7 +83,13 @@
   transition: 200ms ease-out;
   background: rgb(226, 226, 226);
   border: 1px solid #999;
+  /* border-top-left-radius: 7px; */
+}
+#sign-up {
   border-top-left-radius: 7px;
+}
+#log-in {
+  border-top-right-radius: 7px;
 }
 
 .login-content .not-current-view:hover {
@@ -96,11 +104,12 @@
   margin: auto;
   margin-top: 15px;
   -webkit-appearance: none;
-  padding: 20px 0;
+  padding: 20px 5px;
 }
 @media (max-width: 768px) {
   .login-content form {
     max-width: 1000px;
+    padding: 20px 0px;
   }
 }
 .login-content form label {
@@ -191,11 +200,22 @@
 
 .close-modal {
   position: absolute;
-  right: -50px;
+  right: -60px;
   color: red;
   top: -10px;
   font-size: 6rem;
   cursor: pointer;
+}
+.close-modal img {
+  width: 35px;
+  height: 35px;
+  opacity: 0.9;
+  transition: 200ms ease-out;
+}
+.close-modal img:hover {
+  transition: 200ms ease-in;
+  opacity: 1;
+  transform: scale(1.1);
 }
 @media (max-width: 768px) {
   .close-modal {
