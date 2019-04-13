@@ -191,11 +191,22 @@
 
 .close-modal {
   position: absolute;
-  right: -50px;
+  right: -60px;
   color: red;
   top: -10px;
   font-size: 6rem;
   cursor: pointer;
+}
+.close-modal img {
+  width: 35px;
+  height: 35px;
+  opacity: 0.9;
+  transition: 200ms ease-out;
+}
+.close-modal img:hover {
+  transition: 200ms ease-in;
+  opacity: 1;
+  transform: scale(1.1);
 }
 @media (max-width: 768px) {
   .close-modal {
