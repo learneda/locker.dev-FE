@@ -81,7 +81,13 @@
   transition: 200ms ease-out;
   background: rgb(226, 226, 226);
   border: 1px solid #999;
+  /* border-top-left-radius: 7px; */
+}
+#sign-up {
   border-top-left-radius: 7px;
+}
+#log-in {
+  border-top-right-radius: 7px;
 }
 
 .login-content .not-current-view:hover {
