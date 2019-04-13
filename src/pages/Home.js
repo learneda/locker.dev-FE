@@ -81,9 +81,6 @@ class Home extends Component {
                 {post.created_at}
               </Moment>
             </div>
-            <div>
-              <hr />
-            </div>
           </div>
           <div className="post-content">
             {post.thumbnail_url ? (
@@ -105,7 +102,7 @@ class Home extends Component {
             </div>
             {post.comments.map((comment, index) => {
               return (
-                <div key={index} className="comments">
+                <div key={index} className="comment">
                   <h2>{comment.username}:</h2>
                   <span>{comment.content}</span>
                 </div>
@@ -122,18 +119,17 @@ class Home extends Component {
 const Container = styled.div`
   ${customWrapper('100%', '0 auto')}
   .post {
-    margin: auto;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    /* margin: auto; */
     margin-bottom: 40px;
-    border: 1px solid lightgray;
     border-radius: 8px;
-    /* max-width: 700px; */
+    max-width: 700px;
     background: #fff;
   }
   .post-user-info {
     display: flex;
     align-items: center;
     padding: 15px 25px;
-    /* border: 1px solid red; */
     border-bottom: 1px solid lightgray;
     img {
       width: 60px;
@@ -143,7 +139,7 @@ const Container = styled.div`
     }
     h2 {
       font-weight: 500;
-      margin-bottom: 3px;
+      margin-bottom: -5px;
     }
     .post-date {
       font-size: 1.3rem;
@@ -178,7 +174,6 @@ const Container = styled.div`
     .add-comment {
       display: flex;
       align-items: center;
-      margin-bottom: 20px;
       img {
         width: 40px;
         height: 40px;
@@ -190,6 +185,7 @@ const Container = styled.div`
         align-items: center;
         padding: 5px;
         width: 100%;
+        border-radius: 3px;
         ::placeholder {
           /* border-bottom: 1px solid lightgrey; */
         }
@@ -199,9 +195,12 @@ const Container = styled.div`
         }
       }
     }
-    .comments {
+    .comment {
       display: flex;
       margin-bottom: 10px;
+      :nth-child(2) {
+        margin-top: 10px;
+      }
       h2 {
         margin-right: 10px;
         color: #222;
@@ -210,7 +209,9 @@ const Container = styled.div`
       span {
         color: #222;
         opacity: 0.9;
-        word-break: break-all;
+        /* word-break: break-all; */
+        overflow: hidden;
+        width: 80%;
       }
     }
   }
