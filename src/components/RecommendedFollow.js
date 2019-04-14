@@ -52,13 +52,17 @@ const StyledCard = styled.div`
     .recommended-follow-info {
       display: flex;
       align-items: center;
+      justify-content: center;
       h2 {
-        margin-left: 10px;
+        /* margin-left: 10px; */
+        margin: 8px auto;
       }
       img {
         width: 50px;
         height: 50px;
         border-radius: 50%;
+        display: block;
+        margin: auto;
       }
     }
     .follow-button {
