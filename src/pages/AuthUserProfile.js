@@ -4,6 +4,7 @@ import Likes from '../components/Likes';
 import Sidebar from '../components/Sidebar';
 import styled from 'styled-components';
 import Home from './Home';
+import RecommenededFollow from '../components/RecommendedFollow';
 
 import { customWrapper } from '../components/mixins';
 import { Grommet, Tab, Tabs } from 'grommet';
@@ -34,6 +35,7 @@ export default class AuthUserProfile extends Component {
             </Tabs>
           </Grommet>
         </Wrapper>
+        <RecommenededFollow />
       </Container>
     );
   }

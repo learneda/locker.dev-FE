@@ -116,7 +116,7 @@ class SidebarById extends Component {
 
 const Wrapper = styled.div`
   ${customWrapper('25%')}
-
+  max-width: 300px;
   @media (max-width: 900px) {
     display: none;
   }
