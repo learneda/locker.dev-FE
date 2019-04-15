@@ -13,7 +13,7 @@ class RecommendedFollow extends Component {
   componentDidMount() {
     console.log(this.props.auth.id);
     axios
-      .get(`${URL}/api/users/recomendedFollow?id=${this.props.auth.id}`)
+      .get(`${URL}/api/users/recommendedFollow?id=${this.props.auth.id}`)
       .then(res => this.setState({ recommendedFollow: res.data }));
   }
   render() {
