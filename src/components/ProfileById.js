@@ -22,7 +22,6 @@ class ProfileById extends Component {
   componentDidMount = () => {
     const id = this.props.match.params.id;
     axios.get(`${URL}/api/posts/all/${id}`).then(res => {
-      console.log(res.data);
       this.setState({
         posts: res.data
       });
@@ -40,7 +39,6 @@ class ProfileById extends Component {
     const search = this.props.search_term;
 
     const filteredPosts = this.state.posts.filter(post => {
-      console.log(post);
       return post.title
         ? post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1
         : null || post.thumbnail_url
