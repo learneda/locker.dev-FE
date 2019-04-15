@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
-import { getUserProfileDetails, recommendedFollow } from '../actions';
-import { post as URL } from '../services/baseURL';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+import { getUserProfileDetails, recommendedFollow } from '../actions';
 
 class RecommendedFollow extends Component {
   componentDidMount() {
