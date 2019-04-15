@@ -42,12 +42,11 @@ class RecommendedFollow extends Component {
   }
 }
 const StyledCard = styled.div`
-  margin: 1px 0px 0px 30px;
-  /* border: 1px solid red; */
+  margin: 60px 0px 0px 30px;
   height: auto;
   .sticky-container {
     position: sticky;
-    top: 100px;
+    top: 160px;
   }
   .recommended-follow-container {
     margin-bottom: 20px;
