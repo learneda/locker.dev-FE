@@ -18,7 +18,7 @@ function Search(props) {
           </Toggle>
           <TextInput
             size="small"
-            placeholder="search"
+            placeholder={toggle ? 'Search Users' : 'Search Bookmarks'}
             value={props.search_term}
             onChange={e => props.getSearchValue(e)}
           />
