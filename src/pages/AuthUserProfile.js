@@ -74,7 +74,7 @@ const Container = styled.div`
   ${customWrapper('80%', '0 auto')}
   display: flex;
   justify-content: space-between;
-  @media (max-width: 1100px) {
+  @media (max-width: 1400px) {
     width: 90%;
   }
 `;

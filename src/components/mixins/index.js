@@ -14,8 +14,7 @@ export const customWrapper = (
   margin = 0
   // maxWidth = '1200px'
 ) =>
-  `
-  width: ${width};
+  `width: ${width};
   margin: ${margin};`;
 
 export const customContainer = (width = '100%', bg = bgColor) => `

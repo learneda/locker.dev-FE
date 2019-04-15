@@ -50,6 +50,7 @@ const StyledCard = styled.div`
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     padding: 10px;
     border-radius: 6px;
+    min-width: 180px;
     .recommended-follow-info {
       display: flex;
       align-items: center;
