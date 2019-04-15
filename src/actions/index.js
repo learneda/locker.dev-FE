@@ -57,14 +57,11 @@ export const saveLink = post => async dispatch => {
 };
 
 export const getPosts = () => async dispatch => {
-  console.log('in here');
   const res = await axios.get(`${URL}/api/posts`);
-  console.log('resss data', res.data);
   dispatch({ type: FETCH_POSTS, payload: res.data });
 };
 
 export const deletePost = id => async dispatch => {
-  console.log('delete post action');
   const res = await axios.delete(`${URL}/api/posts/${id}`);
   dispatch({ type: DELETE_POST, payload: res.data });
 };
@@ -77,7 +74,6 @@ export const getlikedPosts = () => async dispatch => {
 export const editProfile = (id, profile) => async dispatch => {
   await axios.put(`${URL}/api/users/edit`, { id, ...profile });
   const res = await axios.get(`${URL}/auth/current_user`);
-  console.log('RES', res);
   dispatch({ type: EDIT_PROFILE, payload: res.data });
 };
 
@@ -96,19 +92,16 @@ export const editPostSubmit = (editedPost, id) => async dispatch => {
 };
 
 export const getSearchValue = e => dispatch => {
-  console.log('hererere');
   dispatch({ type: SEARCH_TERM, payload: e.target.value });
 };
 
 export const getFollowersAndFollowingCount = () => async dispatch => {
   const res = await axios.get(`${URL}/api/users/followStats`);
-  console.log('follow action', res);
   dispatch({ type: GET_FOLLOWERS_AND_FOLLOWING_COUNT, payload: res.data });
 };
 
 export const getUserProfileDetails = id => async dispatch => {
   const res = await axios.get(`${URL}/api/users/id/${id}`);
-  console.log('ACCCT', res);
   dispatch({ type: GET_USER_PROFILE_DETAILS_BY_ID, payload: res.data[0] });
 };
 
