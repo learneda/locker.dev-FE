@@ -229,11 +229,6 @@ const Container = styled.div`
   }
 `;
 
-const SPAN = styled.span`
-  font-weight: bold;
-  font-size: 2rem;
-`;
-
 const mapStateToProps = ({ auth }) => ({ auth });
 
 export default connect(
