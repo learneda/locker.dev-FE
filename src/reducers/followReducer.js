@@ -2,10 +2,11 @@ import {
   GET_FOLLOWERS_AND_FOLLOWING_COUNT,
   FOLLOW_A_USER,
   UNFOLLOW_A_USER,
-  GET_FOLLOWING
+  GET_FOLLOWING,
+  RECOMMENDED_FOLLOW
 } from '../actions/types';
 
-const initialState = {};
+const initialState = [];
 
 export const followReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -29,6 +30,8 @@ export const followReducer = (state = initialState, action) => {
       } else {
         return true;
       }
+    case RECOMMENDED_FOLLOW:
+      return [...action.payload];
     default:
       return state;
   }
