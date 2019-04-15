@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
+import { ReactComponent as Loading } from '../assets/svg/circles.svg';
 
 class Home extends Component {
   constructor(props) {
@@ -110,9 +111,22 @@ class Home extends Component {
         </div>
       );
     });
-    return <Container>{posts}</Container>;
+    if (posts.length !== 0) {
+      return <Container>{posts}</Container>;
+    } else {
+      return (
+        <Loader>
+          <Loading />
+        </Loader>
+      );
+    }
   }
 }
+
+const Loader = styled.div`
+  margin: 75px auto;
+  text-align: center;
+`;
 
 const Container = styled.div`
   ${customWrapper('100%', '0 auto')}
