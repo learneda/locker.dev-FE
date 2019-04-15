@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Search from '../Search';
+import Search from '../utils/Search';
 import Auth from '../authentication/Auth';
-import Toggle from '../Toggle';
+import Toggle from '../utils/Toggle';
 import ProfileDropDown from './ProfileDropDown';
 import { modalState, modalLogin, modalSignUp } from '../../actions/index';
 import { authURL } from '../../services/authURL';
