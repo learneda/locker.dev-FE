@@ -34,15 +34,23 @@ class RecommendedFollow extends Component {
         </div>
       </React.Fragment>
     ));
-    return <StyledCard>{Follow}</StyledCard>;
+    return (
+      <StyledCard>
+        <div className="sticky-container">{Follow} </div>
+      </StyledCard>
+    );
   }
 }
 const StyledCard = styled.div`
-  margin-top: 60px;
+  margin: 1px 0px 0px 30px;
   /* border: 1px solid red; */
   height: auto;
+  .sticky-container {
+    position: sticky;
+    top: 100px;
+  }
   .recommended-follow-container {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     background: #fff;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     padding: 10px;
