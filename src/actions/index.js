@@ -19,7 +19,8 @@ import {
   GET_USER_PROFILE_DETAILS_BY_ID,
   FOLLOW_A_USER,
   UNFOLLOW_A_USER,
-  GET_FOLLOWING
+  GET_FOLLOWING,
+  RECOMMENDED_FOLLOW
 } from './types';
 import { post as URL } from '../services/baseURL';
 axios.defaults.withCredentials = true;
@@ -123,4 +124,10 @@ export const unfollowAUser = payload => async dispatch => {
 export const getFollowing = friend_id => async dispatch => {
   const res = await axios.get(`${URL}/api/users/following/${friend_id}`);
   dispatch({ type: GET_FOLLOWING, payload: res.data.following });
+};
+
+export const recommendedFollow = id => async dispatch => {
+  const res = await axios.get(`${URL}/api/users/recommendedFollow?id=${id}`);
+  console.log('RECOMMENDED FOLLOW RES', res);
+  dispatch({ type: RECOMMENDED_FOLLOW, payload: res.data });
 };
