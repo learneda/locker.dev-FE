@@ -13,6 +13,7 @@ import { ReactComponent as Add } from '../assets/svg/add-icon.svg';
 import axios from 'axios';
 import { post as URL } from '../services/baseURL';
 import { withAlert } from 'react-alert';
+import { ReactComponent as Loading } from '../assets/svg/circles.svg';
 axios.defaults.withCredentials = true;
 
 class Browse extends Component {
@@ -47,7 +48,9 @@ class Browse extends Component {
               <Tab title="Courses">
                 <Cards>
                   {courses.length === 0 ? (
-                    <h3>Loading courses...</h3>
+                    <Loader>
+                      <Loading />
+                    </Loader>
                   ) : (
                     courses.map(course => (
                       <Card key={course.id}>
@@ -85,7 +88,9 @@ class Browse extends Component {
               <Tab title="Articles">
                 <Cards>
                   {articles.length === 0 ? (
-                    <h3>Loading articles...</h3>
+                    <Loader>
+                      <Loading />
+                    </Loader>
                   ) : (
                     articles.map(article => (
                       <Card key={article.created}>
@@ -157,6 +162,11 @@ const theme = {
     }
   }
 };
+
+const Loader = styled.div`
+  margin: 75px auto;
+  text-align: center;
+`;
 
 const BrowseContainer = styled.div`
   h2 {

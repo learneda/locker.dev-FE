@@ -1,27 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import Moment from 'react-moment';
+import styled from 'styled-components';
+
 import {
   getUserProfileDetails,
   followAUser,
   unfollowAUser,
   getFollowing
 } from '../actions';
-import axios from 'axios';
-import { post as URL } from '../services/baseURL';
-
-import styled from 'styled-components';
 import { customLayout, customWrapper } from './mixins';
-import Moment from 'react-moment';
 import locationSvg from '../assets/svg/location.svg';
 import linkSvg from '../assets/svg/link-symbol.svg';
 import calendarSvg from '../assets/svg/calendar.svg';
 
 class SidebarById extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.getUserProfileDetails(id);
@@ -50,7 +44,6 @@ class SidebarById extends Component {
     }
     const {
       profile_picture,
-      display_name,
       username,
       post_count,
       following_count,
@@ -67,6 +60,7 @@ class SidebarById extends Component {
             <img src={profile_picture} alt="avatar" />
           </div>
           <div className="user-bio">
+            <h3>{username}</h3>
             <div className="follow-btn-grp">
               {this.props.follow ? (
                 <button type="button" onClick={this.unfollowAUserHandler}>
@@ -78,7 +72,6 @@ class SidebarById extends Component {
                 </button>
               )}
             </div>
-            <h3>{display_name}</h3>
 
             <div className="profile-stats">
               <ul>
