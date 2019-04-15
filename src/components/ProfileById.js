@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Moment from 'react-moment';
 import axios from 'axios';
 import styled from 'styled-components';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { customWrapper, truncateText } from './mixins';
 import Like from './Like';
