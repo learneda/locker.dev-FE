@@ -4,7 +4,7 @@ import Likes from '../components/Likes';
 import Sidebar from '../components/Sidebar';
 import styled from 'styled-components';
 import Home from './Home';
-import RecommenededFollow from '../components/RecommendedFollow';
+import RecommendedFollow from '../components/RecommendedFollow';
 
 import { customWrapper } from '../components/mixins';
 import { Grommet, Tab, Tabs } from 'grommet';
@@ -35,7 +35,7 @@ export default class AuthUserProfile extends Component {
             </Tabs>
           </Grommet>
         </Wrapper>
-        <RecommenededFollow />
+        <RecommendedFollow />
       </Container>
     );
   }
@@ -73,13 +73,15 @@ const theme = {
 const Container = styled.div`
   ${customWrapper('80%', '0 auto')}
   display: flex;
+  justify-content: space-between;
   @media (max-width: 1100px) {
     width: 90%;
   }
 `;
 
 const Wrapper = styled.div`
-  ${customWrapper('75%')}
+  /* ${customWrapper('60%')} */
+  max-width: 800px;
   padding-left: 2%;
   @media (max-width: 900px) {
     width: 100%;
