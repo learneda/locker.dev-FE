@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { Grommet, TextInput, CheckBox } from 'grommet';
 import styled from 'styled-components';
@@ -6,16 +6,19 @@ import styled from 'styled-components';
 import { getSearchValue } from '../actions';
 
 function Search(props) {
+  const [toggle, set] = useState(false);
+  const handleChange = useCallback(e => set(e.target.checked), []);
+
   return (
     <Wrapper>
       <Grommet theme={theme}>
         <Container>
           <Toggle>
-            <CheckBox toggle />
+            <CheckBox toggle checked={toggle} onChange={handleChange} />
           </Toggle>
           <TextInput
             size="small"
-            placeholder="search"
+            placeholder={toggle ? 'Search Users' : 'Search Bookmarks'}
             value={props.search_term}
             onChange={e => props.getSearchValue(e)}
           />
