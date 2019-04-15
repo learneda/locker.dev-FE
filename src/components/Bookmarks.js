@@ -34,11 +34,13 @@ class Bookmarks extends Component {
     const search = this.props.search_term;
 
     const filteredPosts = this.props.posts.filter(post => {
-      return (
-        post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
-        post.thumbnail_url.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
-        post.description.toLowerCase().indexOf(search.toLowerCase()) !== -1
-      );
+      return post.title
+        ? post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1
+        : null || post.thumbnail_url
+        ? post.thumbnail_url.toLowerCase().indexOf(search.toLowerCase()) !== -1
+        : null || post.description
+        ? post.description.toLowerCase().indexOf(search.toLowerCase()) !== -1
+        : null;
     });
 
     return (
