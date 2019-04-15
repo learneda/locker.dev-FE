@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import Bookmarks from '../components/Bookmarks';
-import Likes from '../components/Likes';
-import SidebarById from '../components/SidebarById';
-import styled from 'styled-components';
-import ProfileById from '../components/ProfileById';
-import { withRouter, Link } from 'react-router-dom';
-
-import { customWrapper } from '../components/mixins';
+import { withRouter } from 'react-router-dom';
 import { Grommet, Tab, Tabs } from 'grommet';
-import { User } from 'grommet-icons';
+import styled from 'styled-components';
+
+import Likes from '../components/Likes';
+import { customWrapper } from '../components/mixins';
+import SidebarById from '../components/SidebarById';
+import ProfileById from '../components/ProfileById';
 
 class UserProfile extends Component {
   render() {
