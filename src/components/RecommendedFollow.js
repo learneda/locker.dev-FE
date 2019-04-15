@@ -43,7 +43,6 @@ class RecommendedFollow extends Component {
 }
 const StyledCard = styled.div`
   margin: 60px 0px 0px 30px;
-  /* border: 1px solid red; */
   height: auto;
   .sticky-container {
     position: sticky;
