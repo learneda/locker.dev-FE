@@ -7,11 +7,9 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 class RecommendedFollow extends Component {
-  state = {
-    recommendedFollow: []
-  };
+  state = { recommendedFollow: [] };
+
   componentDidMount() {
-    console.log(this.props.auth.id);
     axios
       .get(`${URL}/api/users/recommendedFollow?id=${this.props.auth.id}`)
       .then(res => this.setState({ recommendedFollow: res.data }));

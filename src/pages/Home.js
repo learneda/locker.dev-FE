@@ -30,7 +30,6 @@ class Home extends Component {
           }
           return post;
         });
-        console.log('\n updated post', updated_state);
         this.setState({ posts: updated_state });
       }
     });
@@ -38,7 +37,6 @@ class Home extends Component {
     axios
       .get(`${URL}/api/users/newsfeed`)
       .then(res => {
-        console.log('axios res', res.data);
         this.setState({ posts: res.data.newResponse });
       })
       .catch(err => console.log(err));

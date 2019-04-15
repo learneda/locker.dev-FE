@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import { getCourses, getArticles, fetchUser } from '../actions';
 
 import { Grommet, Tab, Tabs } from 'grommet';
-import { customWrapper, customLayout, truncateText } from '../components/mixins';
+import {
+  customWrapper,
+  customLayout,
+  truncateText
+} from '../components/mixins';
 import styled from 'styled-components';
 import { ReactComponent as Add } from '../assets/svg/add-icon.svg';
 import axios from 'axios';
@@ -15,7 +19,6 @@ class Browse extends Component {
   componentDidMount() {
     this.props.getCourses();
     this.props.getArticles();
-    // this.props.alert.success('HELLO SUMAYAH WAKE UP');
   }
 
   handleSaveLink = url => {

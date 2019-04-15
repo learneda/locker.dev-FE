@@ -19,12 +19,7 @@ class Auth extends Component {
       // modalOpen: false
     };
   }
-  onSubmit = e => {
-    console.log(e);
-  };
-  componentDidMount() {
-    console.log(this.props);
-  }
+
   render() {
     let authForm = '';
 
@@ -105,7 +100,6 @@ class Auth extends Component {
               this.props.modalState();
             }}
           >
-            {/* &times; */}
             <img src={deleteIcon} alt="" />
           </div>
           <span
@@ -129,7 +123,6 @@ class Auth extends Component {
   }
 }
 const mapStateToProps = state => {
-  // console.log('auth component state', state.modalState.modalOpen);
   return {
     modalOpen: state.modalState.modalOpen,
     signUp: state.modalState.signUp

@@ -7,9 +7,6 @@ import { Grommet, TextInput, TextArea } from 'grommet';
 
 import { editProfile } from '../actions';
 import { customLayout, customWrapper } from '../components/mixins';
-// import locationSvg from '../assets/svg/location.svg';
-// import linkSvg from '../assets/svg/link-symbol.svg';
-// import calendarSvg from '../assets/svg/calendar.svg';
 
 class Settings extends Component {
   state = {

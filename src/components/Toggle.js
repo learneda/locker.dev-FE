@@ -34,16 +34,6 @@ class Toggle extends Component {
     document.querySelector('#root').classList.toggle('root-modal-open');
   };
   handleSubmit = e => {
-    // axios.post('http://localhost:8000/api/posts',
-    //     {
-    //       post_url: this.state.inputValue,
-    //       id: this.props.auth.id,
-    //     }
-    //   )
-    //   .then(res => {
-    //     console.log(res)
-    //   })
-    // }
     e.preventDefault();
 
     if (this.props.auth) {
