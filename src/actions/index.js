@@ -128,5 +128,6 @@ export const getFollowing = friend_id => async dispatch => {
 
 export const recommendedFollow = id => async dispatch => {
   const res = await axios.get(`${URL}/api/users/recommendedFollow?id=${id}`);
+  console.log('RECOMMENDED FOLLOW RES', res);
   dispatch({ type: RECOMMENDED_FOLLOW, payload: res.data });
 };

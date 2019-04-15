@@ -6,7 +6,7 @@ import {
   RECOMMENDED_FOLLOW
 } from '../actions/types';
 
-const initialState = {};
+const initialState = [];
 
 export const followReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -31,7 +31,7 @@ export const followReducer = (state = initialState, action) => {
         return true;
       }
     case RECOMMENDED_FOLLOW:
-      return action.payload;
+      return [...action.payload];
     default:
       return state;
   }
