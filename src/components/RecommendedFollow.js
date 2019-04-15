@@ -22,7 +22,7 @@ class RecommendedFollow extends Component {
       <React.Fragment>
         <div className="recommended-follow-container">
           <div className="recommended-follow-info">
-            <Link to={`/profile/${follow.recomended_follow_id}`}>
+            <Link to={`/profile/${follow.recommended_follow_id}`}>
               <img src={follow.image} alt="" />
               <h2>{follow.username}</h2>
             </Link>
