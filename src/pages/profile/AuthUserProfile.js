@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import Bookmarks from '../components/Bookmarks';
-import Likes from '../components/Likes';
-import Sidebar from '../components/Sidebar';
-import styled from 'styled-components';
-import Home from './Home';
-import RecommendedFollow from '../components/RecommendedFollow';
-
-import { customWrapper } from '../components/mixins';
 import { Grommet, Tab, Tabs } from 'grommet';
+import styled from 'styled-components';
+
+import Home from '../Home';
+import Bookmarks from './Bookmarks';
+import Likes from '../../components/recommended/Likes';
+import Sidebar from '../../components/sidebar/Sidebar';
+import RecommendedFollow from '../../components/sidebar/RecommendedFollow';
+import { customWrapper } from '../../components/mixins';
 
 export default class AuthUserProfile extends Component {
   render() {

@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Moment from 'react-moment';
 import axios from 'axios';
 import styled from 'styled-components';
-import { withRouter } from 'react-router-dom';
 
-import { customWrapper, truncateText } from './mixins';
-import Like from './Like';
-import { post as URL } from '../services/baseURL';
+import { customWrapper, truncateText } from '../../components/mixins';
+import Like from '../../components/recommended/Like';
+import { post as URL } from '../../services/baseURL';
 import {
   getPosts,
   deletePost,
   editModalDisplay,
   editPostGetDefaultData,
   getSearchValue
-} from '../actions';
+} from '../../actions';
 
 class ProfileById extends Component {
   state = { modalOpen: false, posts: [] };
