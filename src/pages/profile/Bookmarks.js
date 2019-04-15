@@ -4,19 +4,19 @@ import Moment from 'react-moment';
 import axios from 'axios';
 import styled from 'styled-components';
 
-import { customWrapper, truncateText } from '../components/mixins';
-import Like from '../components/Like';
-import EditModal from './EditModal';
-import { post as URL } from '../services/baseURL';
+import { customWrapper, truncateText } from '../../components/mixins';
+import Like from '../../components/recommended/Like';
+import EditModal from '../../components/utils/EditModal';
+import { post as URL } from '../../services/baseURL';
 import {
   getPosts,
   deletePost,
   editModalDisplay,
   editPostGetDefaultData,
   getSearchValue
-} from '../actions';
-import deleteIcon from '../assets/svg/delete-icon.svg';
-import editSvg from '../assets/svg/edit.svg';
+} from '../../actions';
+import deleteIcon from '../../assets/svg/delete-icon.svg';
+import editSvg from '../../assets/svg/edit.svg';
 
 class Bookmarks extends Component {
   state = { modalOpen: false };

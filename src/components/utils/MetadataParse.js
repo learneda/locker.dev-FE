@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { post } from '../services/postURL';
+
+import { post } from '../../services/postURL';
 
 export default class MetadataParse extends Component {
   state = {

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getlikedPosts } from '../actions';
-import styled from 'styled-components';
 import Moment from 'react-moment';
-import { customWrapper, truncateText } from '../components/mixins';
+import styled from 'styled-components';
+
+import { customWrapper, truncateText } from '../mixins';
+import { getlikedPosts } from '../../actions';
 // This is the reccomended component now
 
 class Likes extends Component {

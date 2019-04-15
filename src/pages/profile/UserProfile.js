@@ -3,10 +3,10 @@ import { withRouter } from 'react-router-dom';
 import { Grommet, Tab, Tabs } from 'grommet';
 import styled from 'styled-components';
 
-import Likes from '../components/Likes';
-import { customWrapper } from '../components/mixins';
-import SidebarById from '../components/SidebarById';
-import ProfileById from '../components/ProfileById';
+import Likes from '../../components/recommended/Likes';
+import { customWrapper } from '../../components/mixins';
+import SidebarById from '../../components/sidebar/SidebarById';
+import ProfileById from './ProfileById';
 
 class UserProfile extends Component {
   render() {
