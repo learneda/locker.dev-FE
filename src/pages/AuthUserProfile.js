@@ -73,13 +73,15 @@ const theme = {
 const Container = styled.div`
   ${customWrapper('80%', '0 auto')}
   display: flex;
+  justify-content: space-between;
   @media (max-width: 1100px) {
     width: 90%;
   }
 `;
 
 const Wrapper = styled.div`
-  ${customWrapper('75%')}
+  /* ${customWrapper('60%')} */
+  max-width: 800px;
   padding-left: 2%;
   @media (max-width: 900px) {
     width: 100%;
