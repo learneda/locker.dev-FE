@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { getUserProfileDetails, recommendedFollow } from '../../actions';
+import { getUserProfileDetails, recommendedFollow } from '../actions';
 
 class RecommendedFollow extends Component {
   componentDidMount() {
@@ -12,21 +12,23 @@ class RecommendedFollow extends Component {
   render() {
     let follow = '';
     if (this.props.follow) {
-      follow = this.props.follow.map(following => (
-        <div className="recommended-follow-container" key={following.username}>
-          <div className="recommended-follow-info">
-            <Link to={`/profile/${following.recommended_follow_id}`}>
-              <img src={following.image} alt="" />
-              <h2>{following.username}</h2>
-            </Link>
+      follow = this.props.follow.map((following, index) => (
+        <React.Fragment key={index}>
+          <div className="recommended-follow-container">
+            <div className="recommended-follow-info">
+              <Link to={`/profile/${following.recommended_follow_id}`}>
+                <img src={following.image} alt="" />
+                <h2>{following.username}</h2>
+              </Link>
+            </div>
+            <div className="follow-button">
+              <button type="button" onClick={this.followAUserHandler}>
+                Follow
+              </button>
+              <p>Followed by {following.followed_by_username}</p>
+            </div>
           </div>
-          <div className="follow-button">
-            <button type="button" onClick={this.followAUserHandler}>
-              Follow
-            </button>
-            <p>Followed by {following.followed_by_username}</p>
-          </div>
-        </div>
+        </React.Fragment>
       ));
     } else {
       follow = <h2>Loading...</h2>;
