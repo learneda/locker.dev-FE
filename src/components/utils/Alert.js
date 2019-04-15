@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as X } from '../assets/svg/x.svg';
+
+import { ReactComponent as X } from '../../assets/svg/x.svg';
 
 export default function Alert({ message, close }) {
   return (

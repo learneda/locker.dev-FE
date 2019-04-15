@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Grommet, TextInput, CheckBox } from 'grommet';
 import styled from 'styled-components';
 
-import { getSearchValue } from '../actions';
+import { getSearchValue } from '../../actions';
 
 function Search(props) {
   const [toggle, set] = useState(false);
