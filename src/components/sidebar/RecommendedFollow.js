@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { getUserProfileDetails, recommendedFollow } from '../actions';
+import { getUserProfileDetails, recommendedFollow } from '../../actions';
 
 class RecommendedFollow extends Component {
   componentDidMount() {

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { editProfile, getUserProfileDetails } from '../actions';
+import { editProfile, getUserProfileDetails } from '../../actions';
 
 import styled from 'styled-components';
-import { customLayout, customWrapper } from './mixins';
+import { customLayout, customWrapper } from '../mixins';
 import Moment from 'react-moment';
-import locationSvg from '../assets/svg/location.svg';
-import linkSvg from '../assets/svg/link-symbol.svg';
-import calendarSvg from '../assets/svg/calendar.svg';
+import locationSvg from '../../assets/svg/location.svg';
+import linkSvg from '../../assets/svg/link-symbol.svg';
+import calendarSvg from '../../assets/svg/calendar.svg';
 
 class Sidebar extends Component {
   componentDidMount() {
