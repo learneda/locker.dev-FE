@@ -12,8 +12,8 @@ class RecommendedFollow extends Component {
   render() {
     let follow = '';
     if (this.props.follow) {
-      follow = this.props.follow.map(following => (
-        <React.Fragment>
+      follow = this.props.follow.map((following, index) => (
+        <React.Fragment key={index}>
           <div className="recommended-follow-container">
             <div className="recommended-follow-info">
               <Link to={`/profile/${following.recommended_follow_id}`}>
