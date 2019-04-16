@@ -46,6 +46,10 @@ class Home extends Component {
 
   handleSubmit = (event, post_id) => {
     const body = event.target.value.trim();
+    console.log(body.length)
+    if (event.keyCode === 13 && body.length === 0) {
+      event.target.value = '';
+    }
     if (body) {
       const comment = {
         action: 'create',
