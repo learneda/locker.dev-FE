@@ -16,7 +16,8 @@ class Home extends Component {
     this.state = {
       comments: [],
       search: '',
-      posts: []
+      posts: [],
+      commentsToRender: 1
     };
     this.username = props.auth.username;
     this.user_id = props.auth.id;
@@ -66,6 +67,13 @@ class Home extends Component {
     }
   };
 
+  handleMoreComments = e => {
+    e.preventDefault();
+    this.setState({
+      commentsToRender: this.state.commentsToRender + 3
+    });
+  };
+
   render() {
     const posts = this.state.posts.map((post, index) => {
       return (
@@ -109,29 +117,38 @@ class Home extends Component {
                 </button>
               </form>
             </div>
-            {post.comments.map((comment, index) => {
-              if (comment.user_id === this.user_id) {
-                return (
-                  <div key={index} className="comment">
-                    <div className="comment-text">
-                      <h2>{comment.username}:</h2>
-                      <span>{comment.content}</span>
-                    </div>
-                    <MoreBtn
-                      getNewsFeed={this.getNewsFeed}
-                      comment_id={comment.id}
-                    />
-                  </div>
-                );
-              } else {
-                return (
-                  <div key={index} className="comment">
-                    <h2>{comment.username}:</h2>
-                    <span>{comment.content}</span>
-                  </div>
-                );
-              }
-            })}
+            <div className="comment-box">
+              {post.comments
+                .slice(0, this.state.commentsToRender)
+                .map((comment, index) => {
+                  if (comment.user_id === this.user_id) {
+                    return (
+                      <div key={index} className="comment">
+                        <div className="comment-text">
+                          <h2>{comment.username}:</h2>
+                          <span>{comment.content}</span>
+                        </div>
+                        <MoreBtn
+                          getNewsFeed={this.getNewsFeed}
+                          comment_id={comment.id}
+                        />
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div key={index} className="comment">
+                        <h2>{comment.username}:</h2>
+                        <span>{comment.content}</span>
+                      </div>
+                    );
+                  }
+                })}
+              {post.comments.length <= this.state.commentsToRender ? null : (
+                <button onClick={this.handleMoreComments}>
+                  show more comments
+                </button>
+              )}
+            </div>
           </div>
         </div>
       );
@@ -254,11 +271,14 @@ const Container = styled.div`
       display: none;
     }
 
+    .comment-box {
+      margin-top: 10px;
+    }
+
     .comment {
       ${customLayout('space-between')}
       margin-bottom: 10px;
-      padding: 5px;
-      padding-bottom: 10px;
+      padding: 10px;
       background-color: #f3f4f7;
       border-radius: 5px;
 
