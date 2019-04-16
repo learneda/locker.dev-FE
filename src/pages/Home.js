@@ -5,7 +5,7 @@ import Moment from 'react-moment';
 import openSocket from 'socket.io-client';
 import axios from 'axios';
 import styled from 'styled-components';
-
+import MoreBtn from '../components/utils/MoreBtn';
 import { customWrapper } from '../components/mixins';
 import { post as URL } from '../services/baseURL';
 import { ReactComponent as Loading } from '../assets/svg/circles.svg';
@@ -24,8 +24,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.socket.on('comments', msg => {
-      if (msg.action === 'create') {
+    this.socket.on('comments', msg => { 
         const updated_state = this.state.posts.map((post, index) => {
           if (post.post_id === msg.post_id) {
             post.comments.push(msg);
@@ -33,37 +32,37 @@ class Home extends Component {
           return post;
         });
         this.setState({ posts: updated_state });
-      }
     });
-
-    axios
-      .get(`${URL}/api/users/newsfeed`)
-      .then(res => {
-        this.setState({ posts: res.data.newResponse });
-      })
-      .catch(err => console.log(err));
+    this.getNewsFeed()
   }
 
-  handleChange = ({ target }) => {
-    const { name, value } = target;
-
-    this.setState({ [name]: value });
-  };
+  getNewsFeed = () => {
+    axios
+    .get(`${URL}/api/users/newsfeed`)
+    .then(res => {
+      this.setState({ posts: res.data.newResponse });
+    })
+    .catch(err => console.log(err));
+  }
 
   handleSubmit = (event, post_id) => {
-    const body = event.target.value;
-
-    const comment = {
-      action: 'create',
-      content: body,
-      user_id: this.user_id,
-      post_id: post_id,
-      username: this.username
-    };
-
-    if (event.keyCode === 13 && body) {
-      this.socket.emit('comments', comment);
+    const body = event.target.value.trim();
+    if (event.keyCode === 13 && body.length === 0) {
       event.target.value = '';
+    }
+    if (body) {
+      const comment = {
+        action: 'create',
+        content: body,
+        user_id: this.user_id,
+        post_id: post_id,
+        username: this.username
+      };
+  
+      if (event.keyCode === 13 && body) {
+        this.socket.emit('comments', comment);
+        event.target.value = '';
+      }
     }
   };
 
@@ -92,21 +91,37 @@ class Home extends Component {
             </div>
           </div>
           <div className="comments-container">
-            <div className="add-comment">
+            <div>
+              <form className="add-comment">
               <img src={this.props.auth.profile_picture} alt="" />
-              <textarea
-                placeholder="Enter a comment..."
+                <textarea
+                placeholder="Add a comment..."
                 type="text"
                 onKeyUp={e => this.handleSubmit(e, post.post_id)}
-              />
+                />
+                <button onClick={(e) => {
+                  e.preventDefault()
+                  this.handleSubmit(e, post.post_id)
+                  }}>Post</button>
+              </form>
             </div>
             {post.comments.map((comment, index) => {
-              return (
-                <div key={index} className="comment">
-                  <h2>{comment.username}:</h2>
-                  <span>{comment.content}</span>
-                </div>
-              );
+              if (comment.user_id === this.user_id) {
+                return (
+                  <div key={index} className="comment">
+                    <h2>{comment.username}:</h2>
+                    <span>{comment.content}</span>
+                     <MoreBtn getNewsFeed={this.getNewsFeed} comment_id={comment.id} />
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={index} className="comment">
+                    <h2>{comment.username}:</h2>
+                    <span>{comment.content}</span>
+                  </div>
+                );
+              }
             })}
           </div>
         </div>
@@ -208,11 +223,22 @@ const Container = styled.div`
         }
       }
     }
+    .more_btn {
+      display:none;
+    }
     .comment {
       display: flex;
       margin-bottom: 10px;
       :nth-child(2) {
         margin-top: 10px;
+      }
+      &:hover {
+        .more_btn {
+         display:flex;
+         font-size: 2.5rem;
+         font-weight: bold;
+         cursor: pointer;
+        }
       }
       h2 {
         margin-right: 10px;

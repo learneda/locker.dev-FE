@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-
 import LandingPage from './pages/Landing';
 import AuthUserProfile from './pages/profile/AuthUserProfile';
-import Home from './pages/Home';
 import Browse from './pages/Browse';
 import Settings from './pages/Settings';
 import NoMatch from './pages/NoMatch';
@@ -39,10 +37,9 @@ class App extends Component {
         <Navbar />
         <Switch>
           <Route component={home(LandingPage)} exact path="/" />
-          <Route component={index(Home)} path="/home" />
           <Route component={index(Browse)} path="/browse" />
           <Route component={index(UserProfile)} path="/profile/:id" />
-          <Route component={index(AuthUserProfile)} path="/profile" />
+          <Route component={index(AuthUserProfile)} path="/home" />
           <Route component={index(Settings)} path="/settings" />
           <Route component={NoMatch} />
         </Switch>

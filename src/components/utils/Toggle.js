@@ -80,6 +80,7 @@ class Toggle extends Component {
                       onChange={this.handleChange}
                       placeholder="www.example.com/article.html"
                       type="input"
+                      required
                     />
                     <button className="add-btn">Add</button>
                   </form>

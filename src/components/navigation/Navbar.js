@@ -45,11 +45,6 @@ class Navbar extends Component {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/profile" activeClassName="active">
-                  <span>Profile</span>
-                </NavLink>
-              </li>
-              <li>
                 <NavLink to="/browse" activeClassName="active">
                   <span>Browse</span>
                 </NavLink>
@@ -123,11 +118,6 @@ const MobileNav = ({ handleClose, show }) => {
           <li onClick={handleClose}>
             <Link to="/home">
               <span>Home</span>
-            </Link>
-          </li>
-          <li onClick={handleClose}>
-            <Link to="/profile">
-              <span>Profile</span>
             </Link>
           </li>
           <li onClick={handleClose}>
