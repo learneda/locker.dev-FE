@@ -110,6 +110,7 @@ class Home extends Component {
                 <div key={index} className="comment">
                   <h2>{comment.username}:</h2>
                   <span>{comment.content}</span>
+                  <div className='rec-span'>...</div>
                 </div>
               );
             })}
@@ -213,11 +214,22 @@ const Container = styled.div`
         }
       }
     }
+    .rec-span {
+      display:none;
+    }
     .comment {
       display: flex;
       margin-bottom: 10px;
       :nth-child(2) {
         margin-top: 10px;
+      }
+      &:hover {
+        .rec-span {
+         display:flex;
+         font-size: 2.5rem;
+         font-weight: bold;
+         cursor: pointer;
+        }
       }
       h2 {
         margin-right: 10px;
