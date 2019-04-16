@@ -165,6 +165,14 @@ const Nav = styled.nav`
   ul {
     ${customLayout('space-between')}
 
+    li {
+      margin-right: 1.5rem;
+    }
+
+    li:last-child {
+      margin-right: 0;
+    }
+
     span {
       padding: 10px;
       font-weight: 700;
