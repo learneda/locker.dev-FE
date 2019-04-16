@@ -90,7 +90,7 @@ class Home extends Component {
             <div className="add-comment">
               <img src={this.props.auth.profile_picture} alt="" />
               <textarea
-                placeholder="Enter a comment..."
+                placeholder="Add a comment..."
                 type="text"
                 onKeyUp={e => this.handleSubmit(e, post.post_id)}
               />
