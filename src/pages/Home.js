@@ -45,19 +45,20 @@ class Home extends Component {
   }
 
   handleSubmit = (event, post_id) => {
-    const body = event.target.value;
-
-    const comment = {
-      action: 'create',
-      content: body,
-      user_id: this.user_id,
-      post_id: post_id,
-      username: this.username
-    };
-
-    if (event.keyCode === 13 && body) {
-      this.socket.emit('comments', comment);
-      event.target.value = '';
+    const body = event.target.value.trim();
+    if (body) {
+      const comment = {
+        action: 'create',
+        content: body,
+        user_id: this.user_id,
+        post_id: post_id,
+        username: this.username
+      };
+  
+      if (event.keyCode === 13 && body) {
+        this.socket.emit('comments', comment);
+        event.target.value = '';
+      }
     }
   };
 
