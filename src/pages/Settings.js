@@ -106,7 +106,7 @@ class Settings extends Component {
             </Grommet>
 
             <div className="btn-group">
-              <Link to="/profile">Cancel</Link>
+              <Link to="/home">Cancel</Link>
               <button
                 type="submit"
                 onClick={() => {
