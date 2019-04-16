@@ -24,8 +24,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.socket.on('comments', msg => {
-      if (msg.action === 'create') {
+    this.socket.on('comments', msg => { 
         const updated_state = this.state.posts.map((post, index) => {
           if (post.post_id === msg.post_id) {
             post.comments.push(msg);
@@ -33,7 +32,6 @@ class Home extends Component {
           return post;
         });
         this.setState({ posts: updated_state });
-      }
     });
 
     axios
@@ -46,7 +44,6 @@ class Home extends Component {
 
   handleSubmit = (event, post_id) => {
     const body = event.target.value.trim();
-    console.log(body.length)
     if (event.keyCode === 13 && body.length === 0) {
       event.target.value = '';
     }
@@ -111,7 +108,7 @@ class Home extends Component {
                   <div key={index} className="comment">
                     <h2>{comment.username}:</h2>
                     <span>{comment.content}</span>
-                     <MoreBtn />
+                     <MoreBtn comment_id={comment.id} />
                   </div>
                 );
               } else {
