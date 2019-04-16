@@ -5,7 +5,7 @@ import Moment from 'react-moment';
 import openSocket from 'socket.io-client';
 import axios from 'axios';
 import styled from 'styled-components';
-
+import MoreBtn from '../components/utils/MoreBtn';
 import { customWrapper } from '../components/mixins';
 import { post as URL } from '../services/baseURL';
 import { ReactComponent as Loading } from '../assets/svg/circles.svg';
@@ -110,7 +110,7 @@ class Home extends Component {
                 <div key={index} className="comment">
                   <h2>{comment.username}:</h2>
                   <span>{comment.content}</span>
-                  <div className='more_btn'>...</div>
+                  <MoreBtn />
                 </div>
               );
             })}
