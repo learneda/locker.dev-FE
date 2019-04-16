@@ -197,10 +197,4 @@ const StyledEditModal = styled.div`
   }
 `;
 
-// const mapStateToProps = state => {
-//   return {
-//     modalOpen: state.modalState.editModalOpen,
-//     editFormData: state.modalState.editFormData
-//   };
-// };
 export default EditModal;

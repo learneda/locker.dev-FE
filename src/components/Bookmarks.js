@@ -23,11 +23,7 @@ class Bookmarks extends Component {
 
   componentDidMount = () => {
     this.props.getPosts();
-    // console.log('mounted');
   };
-  // componentWillUnmount() {
-  //   console.log('unmounted');
-  // }
 
   handleLike = async (id, liked) => {
     await axios.put(`${URL}/api/posts/like/${id}`, { status: !liked });
