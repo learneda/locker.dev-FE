@@ -17,7 +17,7 @@ export default class AuthUserProfile extends Component {
         <Wrapper>
           <Grommet theme={theme}>
             <Tabs justify="start" className="tabs">
-              <Tab title="Home">
+              <Tab title="Feed">
                 <TabWrapper>
                   <Home />
                 </TabWrapper>
@@ -35,7 +35,7 @@ export default class AuthUserProfile extends Component {
             </Tabs>
           </Grommet>
         </Wrapper>
-        {/* <RecommendedFollow /> */}
+        <RecommendedFollow />
       </Container>
     );
   }
@@ -83,6 +83,7 @@ const Wrapper = styled.div`
   /* ${customWrapper('60%')} */
   max-width: 800px;
   padding-left: 2%;
+  width: 70%;
   @media (max-width: 900px) {
     width: 100%;
     padding: 0;
