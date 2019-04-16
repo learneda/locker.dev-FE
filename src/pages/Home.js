@@ -221,6 +221,9 @@ const Container = styled.div`
         padding: 5px;
         width: 100%;
         border-radius: 3px;
+        border-color: lightgrey;
+        height: 40px;
+        font-size: 1.4rem;
         ::placeholder {
           /* border-bottom: 1px solid lightgrey; */
         }
@@ -228,6 +231,16 @@ const Container = styled.div`
           border: 1px solid #3f65f2;
           outline: none;
         }
+      }
+      button {
+        border: 1px solid transparent;
+        background-color: #3f65f2;
+        color: white;
+        border-radius: 5px;
+        font-weight: 700;
+        margin-left: 20px;
+        padding: 8px 25px;
+        font-size: 1.5rem;
       }
     }
     .more_btn {
