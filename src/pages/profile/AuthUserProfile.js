@@ -17,7 +17,7 @@ export default class AuthUserProfile extends Component {
         <Wrapper>
           <Grommet theme={theme}>
             <Tabs justify="start" className="tabs">
-              <Tab title="Home">
+              <Tab title="Feed">
                 <TabWrapper>
                   <Home />
                 </TabWrapper>

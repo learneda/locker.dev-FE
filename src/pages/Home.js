@@ -6,7 +6,7 @@ import openSocket from 'socket.io-client';
 import axios from 'axios';
 import styled from 'styled-components';
 import MoreBtn from '../components/utils/MoreBtn';
-import { customWrapper } from '../components/mixins';
+import { customWrapper, customLayout } from '../components/mixins';
 import { post as URL } from '../services/baseURL';
 import { ReactComponent as Loading } from '../assets/svg/circles.svg';
 import ContentLoader, { Facebook } from 'react-content-loader';
@@ -33,7 +33,8 @@ class Home extends Component {
     this.state = {
       comments: [],
       search: '',
-      posts: []
+      posts: [],
+      commentsToRender: 1
     };
     this.username = props.auth.username;
     this.user_id = props.auth.id;
@@ -83,6 +84,13 @@ class Home extends Component {
     }
   };
 
+  handleMoreComments = e => {
+    e.preventDefault();
+    this.setState({
+      commentsToRender: this.state.commentsToRender + 3
+    });
+  };
+
   render() {
     const posts = this.state.posts.map((post, index) => {
       return (
@@ -126,27 +134,38 @@ class Home extends Component {
                 </button>
               </form>
             </div>
-            {post.comments.map((comment, index) => {
-              if (comment.user_id === this.user_id) {
-                return (
-                  <div key={index} className="comment">
-                    <h2>{comment.username}:</h2>
-                    <span>{comment.content}</span>
-                    <MoreBtn
-                      getNewsFeed={this.getNewsFeed}
-                      comment_id={comment.id}
-                    />
-                  </div>
-                );
-              } else {
-                return (
-                  <div key={index} className="comment">
-                    <h2>{comment.username}:</h2>
-                    <span>{comment.content}</span>
-                  </div>
-                );
-              }
-            })}
+            <div className="comment-box">
+              {post.comments
+                .slice(0, this.state.commentsToRender)
+                .map((comment, index) => {
+                  if (comment.user_id === this.user_id) {
+                    return (
+                      <div key={index} className="comment">
+                        <div className="comment-text">
+                          <h2>{comment.username}:</h2>
+                          <span>{comment.content}</span>
+                        </div>
+                        <MoreBtn
+                          getNewsFeed={this.getNewsFeed}
+                          comment_id={comment.id}
+                        />
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div key={index} className="comment">
+                        <h2>{comment.username}:</h2>
+                        <span>{comment.content}</span>
+                      </div>
+                    );
+                  }
+                })}
+              {post.comments.length <= this.state.commentsToRender ? null : (
+                <button onClick={this.handleMoreComments}>
+                  show more comments
+                </button>
+              )}
+            </div>
           </div>
         </div>
       );
@@ -250,21 +269,27 @@ const Container = styled.div`
   }
   .comments-container {
     padding: 15px 25px;
+
     .add-comment {
       display: flex;
       align-items: center;
+
       img {
         width: 40px;
         height: 40px;
         border-radius: 50%;
         margin-right: 10px;
       }
+
       textarea {
         resize: none;
         align-items: center;
         padding: 5px;
         width: 100%;
         border-radius: 3px;
+        border-color: lightgrey;
+        height: 40px;
+        font-size: 1.4rem;
         ::placeholder {
           /* border-bottom: 1px solid lightgrey; */
         }
@@ -273,13 +298,34 @@ const Container = styled.div`
           outline: none;
         }
       }
+
+      button {
+        border: 1px solid transparent;
+        background-color: #3f65f2;
+        color: white;
+        border-radius: 5px;
+        font-weight: 700;
+        margin-left: 20px;
+        padding: 8px 25px;
+        font-size: 1.5rem;
+      }
     }
+
     .more_btn {
       display: none;
     }
+
+    .comment-box {
+      margin-top: 10px;
+    }
+
     .comment {
-      display: flex;
+      ${customLayout('space-between')}
       margin-bottom: 10px;
+      padding: 10px;
+      background-color: #f3f4f7;
+      border-radius: 5px;
+
       :nth-child(2) {
         margin-top: 10px;
       }
@@ -291,17 +337,22 @@ const Container = styled.div`
           cursor: pointer;
         }
       }
-      h2 {
-        margin-right: 10px;
-        color: #222;
-        font-weight: 400;
-      }
-      span {
-        color: #222;
-        opacity: 0.9;
-        /* word-break: break-all; */
-        overflow: hidden;
-        width: 80%;
+
+      .comment-text {
+        h2 {
+          margin-right: 10px;
+          color: #222;
+          font-weight: 700;
+          font-size: 1.4rem;
+        }
+        span {
+          color: #222;
+          opacity: 0.9;
+          /* word-break: break-all; */
+          overflow: hidden;
+          width: 80%;
+          font-size: 1.6rem;
+        }
       }
     }
   }
