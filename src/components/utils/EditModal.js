@@ -26,18 +26,15 @@ class EditModal extends Component {
 
   onSubmit = async e => {
     e.preventDefault();
+    const id = this.state.post_id;
     const editedPost = {
       post_url: this.state.post_url,
       description: this.state.description,
       title: this.state.title
     };
-
-    await this.props
-      .editPostSubmit(editedPost, this.state.post_id)
-      .then(res => {
-        this.props.handleModalOpen();
-        this.props.getPosts();
-      });
+    axios
+      .put(`${URL}/api/posts/${id}`, editedPost)
+      .then(res => this.props.getPosts(), this.props.handleModalOpen());
   };
 
   onChange = e => {
@@ -197,4 +194,7 @@ const StyledEditModal = styled.div`
   }
 `;
 
-export default EditModal;
+export default connect(
+  null,
+  { editModalDisplay, editPostSubmit, getPosts }
+)(EditModal);
