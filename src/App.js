@@ -39,7 +39,7 @@ class App extends Component {
           <Route component={home(LandingPage)} exact path="/" />
           <Route component={index(Browse)} path="/browse" />
           <Route component={index(UserProfile)} path="/profile/:id" />
-          <Route component={index(AuthUserProfile)} path="/profile" />
+          <Route component={index(AuthUserProfile)} path="/home" />
           <Route component={index(Settings)} path="/settings" />
           <Route component={NoMatch} />
         </Switch>
