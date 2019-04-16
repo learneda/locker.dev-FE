@@ -6,7 +6,7 @@ import openSocket from 'socket.io-client';
 import axios from 'axios';
 import styled from 'styled-components';
 import MoreBtn from '../components/utils/MoreBtn';
-import { customWrapper } from '../components/mixins';
+import { customWrapper, customLayout } from '../components/mixins';
 import { post as URL } from '../services/baseURL';
 import { ReactComponent as Loading } from '../assets/svg/circles.svg';
 
@@ -24,26 +24,26 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.socket.on('comments', msg => { 
-        const updated_state = this.state.posts.map((post, index) => {
-          if (post.post_id === msg.post_id) {
-            post.comments.push(msg);
-          }
-          return post;
-        });
-        this.setState({ posts: updated_state });
+    this.socket.on('comments', msg => {
+      const updated_state = this.state.posts.map((post, index) => {
+        if (post.post_id === msg.post_id) {
+          post.comments.push(msg);
+        }
+        return post;
+      });
+      this.setState({ posts: updated_state });
     });
-    this.getNewsFeed()
+    this.getNewsFeed();
   }
 
   getNewsFeed = () => {
     axios
-    .get(`${URL}/api/users/newsfeed`)
-    .then(res => {
-      this.setState({ posts: res.data.newResponse });
-    })
-    .catch(err => console.log(err));
-  }
+      .get(`${URL}/api/users/newsfeed`)
+      .then(res => {
+        this.setState({ posts: res.data.newResponse });
+      })
+      .catch(err => console.log(err));
+  };
 
   handleSubmit = (event, post_id) => {
     const body = event.target.value.trim();
@@ -58,7 +58,7 @@ class Home extends Component {
         post_id: post_id,
         username: this.username
       };
-  
+
       if (event.keyCode === 13 && body) {
         this.socket.emit('comments', comment);
         event.target.value = '';
@@ -93,16 +93,20 @@ class Home extends Component {
           <div className="comments-container">
             <div>
               <form className="add-comment">
-              <img src={this.props.auth.profile_picture} alt="" />
+                <img src={this.props.auth.profile_picture} alt="" />
                 <textarea
-                placeholder="Add a comment..."
-                type="text"
-                onKeyUp={e => this.handleSubmit(e, post.post_id)}
+                  placeholder="Add a comment..."
+                  type="text"
+                  onKeyUp={e => this.handleSubmit(e, post.post_id)}
                 />
-                <button onClick={(e) => {
-                  e.preventDefault()
-                  this.handleSubmit(e, post.post_id)
-                  }}>Post</button>
+                <button
+                  onClick={e => {
+                    e.preventDefault();
+                    this.handleSubmit(e, post.post_id);
+                  }}
+                >
+                  Post
+                </button>
               </form>
             </div>
             {post.comments.map((comment, index) => {
@@ -111,7 +115,10 @@ class Home extends Component {
                   <div key={index} className="comment">
                     <h2>{comment.username}:</h2>
                     <span>{comment.content}</span>
-                     <MoreBtn getNewsFeed={this.getNewsFeed} comment_id={comment.id} />
+                    <MoreBtn
+                      getNewsFeed={this.getNewsFeed}
+                      comment_id={comment.id}
+                    />
                   </div>
                 );
               } else {
@@ -151,7 +158,7 @@ const Container = styled.div`
     /* margin: auto; */
     margin-bottom: 40px;
     border-radius: 8px;
-    max-width: 700px;
+    /* max-width: 700px; */
     background: #fff;
   }
   .post-user-info {
@@ -224,7 +231,7 @@ const Container = styled.div`
       }
     }
     .more_btn {
-      display:none;
+      display: none;
     }
     .comment {
       display: flex;
@@ -234,10 +241,10 @@ const Container = styled.div`
       }
       &:hover {
         .more_btn {
-         display:flex;
-         font-size: 2.5rem;
-         font-weight: bold;
-         cursor: pointer;
+          display: flex;
+          font-size: 2.5rem;
+          font-weight: bold;
+          cursor: pointer;
         }
       }
       h2 {

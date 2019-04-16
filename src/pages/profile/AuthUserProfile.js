@@ -83,6 +83,8 @@ const Wrapper = styled.div`
   /* ${customWrapper('60%')} */
   max-width: 800px;
   padding-left: 2%;
+  width: 55%;
+
   @media (max-width: 900px) {
     width: 100%;
     padding: 0;
