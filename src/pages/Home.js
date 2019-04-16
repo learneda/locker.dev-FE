@@ -111,7 +111,7 @@ class Home extends Component {
                   <div key={index} className="comment">
                     <h2>{comment.username}:</h2>
                     <span>{comment.content}</span>
-                     <MoreBtn comment_id={comment.id} />
+                     <MoreBtn getNewsFeed={this.getNewsFeed} comment_id={comment.id} />
                   </div>
                 );
               } else {

@@ -27,6 +27,7 @@ class MoreBtn extends Component {
     console.log('exisit ?', this.props.comment_id)
     axios.delete(`${URL}/api/comments/${this.props.comment_id}`).then((res) => {
       console.log(res)
+      this.props.getNewsFeed()
       this.toggle()
     })
   }
