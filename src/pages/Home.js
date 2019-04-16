@@ -113,8 +113,10 @@ class Home extends Component {
               if (comment.user_id === this.user_id) {
                 return (
                   <div key={index} className="comment">
-                    <h2>{comment.username}:</h2>
-                    <span>{comment.content}</span>
+                    <div className="comment-text">
+                      <h2>{comment.username}:</h2>
+                      <span>{comment.content}</span>
+                    </div>
                     <MoreBtn
                       getNewsFeed={this.getNewsFeed}
                       comment_id={comment.id}
@@ -206,15 +208,18 @@ const Container = styled.div`
   }
   .comments-container {
     padding: 15px 25px;
+
     .add-comment {
       display: flex;
       align-items: center;
+
       img {
         width: 40px;
         height: 40px;
         border-radius: 50%;
         margin-right: 10px;
       }
+
       textarea {
         resize: none;
         align-items: center;
@@ -232,6 +237,7 @@ const Container = styled.div`
           outline: none;
         }
       }
+
       button {
         border: 1px solid transparent;
         background-color: #3f65f2;
@@ -243,12 +249,19 @@ const Container = styled.div`
         font-size: 1.5rem;
       }
     }
+
     .more_btn {
       display: none;
     }
+
     .comment {
-      display: flex;
+      ${customLayout('space-between')}
       margin-bottom: 10px;
+      padding: 5px;
+      padding-bottom: 10px;
+      background-color: #f3f4f7;
+      border-radius: 5px;
+
       :nth-child(2) {
         margin-top: 10px;
       }
@@ -260,17 +273,22 @@ const Container = styled.div`
           cursor: pointer;
         }
       }
-      h2 {
-        margin-right: 10px;
-        color: #222;
-        font-weight: 400;
-      }
-      span {
-        color: #222;
-        opacity: 0.9;
-        /* word-break: break-all; */
-        overflow: hidden;
-        width: 80%;
+
+      .comment-text {
+        h2 {
+          margin-right: 10px;
+          color: #222;
+          font-weight: 700;
+          font-size: 1.4rem;
+        }
+        span {
+          color: #222;
+          opacity: 0.9;
+          /* word-break: break-all; */
+          overflow: hidden;
+          width: 80%;
+          font-size: 1.6rem;
+        }
       }
     }
   }
