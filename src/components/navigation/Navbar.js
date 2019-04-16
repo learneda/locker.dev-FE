@@ -40,11 +40,6 @@ class Navbar extends Component {
           <Nav className="main-nav">
             <ul>
               <li>
-                <NavLink to="/home" activeClassName="active">
-                  <span>Home</span>
-                </NavLink>
-              </li>
-              <li>
                 <NavLink to="/profile" activeClassName="active">
                   <span>Profile</span>
                 </NavLink>

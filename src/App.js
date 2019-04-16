@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 import LandingPage from './pages/Landing';
 import AuthUserProfile from './pages/profile/AuthUserProfile';
-import Home from './pages/Home';
 import Browse from './pages/Browse';
 import Settings from './pages/Settings';
 import NoMatch from './pages/NoMatch';
@@ -39,7 +38,6 @@ class App extends Component {
         <Navbar />
         <Switch>
           <Route component={home(LandingPage)} exact path="/" />
-          <Route component={index(Home)} path="/home" />
           <Route component={index(Browse)} path="/browse" />
           <Route component={index(UserProfile)} path="/profile/:id" />
           <Route component={index(AuthUserProfile)} path="/profile" />
