@@ -81,7 +81,7 @@ class Bookmarks extends Component {
                     handleLike={this.handleLike}
                     id={post.id}
                   />
-                  <span className="rec-span">recommend</span>
+                  <span className="rec-span">like</span>
                   <img
                     src={deleteIcon}
                     className="delete-icon"
