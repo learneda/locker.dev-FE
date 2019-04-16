@@ -41,7 +41,7 @@ class Navbar extends Component {
             <ul>
               <li>
                 <NavLink to="/profile" activeClassName="active">
-                  <span>Profile</span>
+                  <span>Home</span>
                 </NavLink>
               </li>
               <li>

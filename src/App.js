@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-
 import LandingPage from './pages/Landing';
 import AuthUserProfile from './pages/profile/AuthUserProfile';
 import Browse from './pages/Browse';
