@@ -33,13 +33,16 @@ class Home extends Component {
         });
         this.setState({ posts: updated_state });
     });
+    this.getNewsFeed()
+  }
 
+  getNewsFeed = () => {
     axios
-      .get(`${URL}/api/users/newsfeed`)
-      .then(res => {
-        this.setState({ posts: res.data.newResponse });
-      })
-      .catch(err => console.log(err));
+    .get(`${URL}/api/users/newsfeed`)
+    .then(res => {
+      this.setState({ posts: res.data.newResponse });
+    })
+    .catch(err => console.log(err));
   }
 
   handleSubmit = (event, post_id) => {
