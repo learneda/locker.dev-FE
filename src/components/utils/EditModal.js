@@ -14,14 +14,16 @@ class EditModal extends Component {
 
   componentDidMount() {
     const id = localStorage.getItem('editPostId');
-    axios.get(`${URL}/api/posts/${id}`).then(res =>
-      this.setState({
-        description: res.data.post.description,
-        post_url: res.data.post.post_url,
-        title: res.data.post.title,
-        post_id: res.data.post.id
-      })
-    );
+    if (id) {
+      axios.get(`${URL}/api/posts/${id}`).then(res =>
+        this.setState({
+          description: res.data.post.description,
+          post_url: res.data.post.post_url,
+          title: res.data.post.title,
+          post_id: res.data.post.id
+        })
+      );
+    }
   }
 
   onSubmit = async e => {
@@ -89,7 +91,7 @@ class EditModal extends Component {
         </StyledEditModal>
       );
     } else {
-      editForm = 'not loaded yet';
+      editForm = null;
     }
     return <React.Fragment>{editForm}</React.Fragment>;
   }

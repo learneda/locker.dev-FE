@@ -9,6 +9,23 @@ import MoreBtn from '../components/utils/MoreBtn';
 import { customWrapper, customLayout } from '../components/mixins';
 import { post as URL } from '../services/baseURL';
 import { ReactComponent as Loading } from '../assets/svg/circles.svg';
+import ContentLoader, { Facebook } from 'react-content-loader';
+
+const MyLoader = () => (
+  <ContentLoader
+    height={475}
+    width={400}
+    speed={2}
+    primaryColor="#f3f3f3"
+    secondaryColor="#ecebeb"
+    style={{ minWidth: '100%', maxWidth: '700px', width: '100%' }}
+  >
+    <circle cx="30" cy="30" r="30" />
+    <rect x="75" y="13" rx="4" ry="4" width="100" height="13" />
+    <rect x="75" y="37" rx="4" ry="4" width="50" height="8" />
+    <rect x="3" y="68" rx="5" ry="5" width="400" height="400" />
+  </ContentLoader>
+);
 
 class Home extends Component {
   constructor(props) {
@@ -156,11 +173,38 @@ class Home extends Component {
     if (posts.length !== 0) {
       return <Container>{posts}</Container>;
     } else {
+      // let noPosts = '';
+      // setTimeout(() => {
+      //   if (this.state.posts.length === 0) {
+      //     noPosts = (
+      //       <h3>
+      //         No posts found. Create some posts or follow some users to see
+      //         their posts here.
+      //       </h3>
+      //     );
+      //   }
+      // }, 1500);
+
+      // noPosts = (
+      //   <Loader>
+      //     <Loading />
+      //   </Loader>
+      // );
       return (
-        <Loader>
-          <Loading />
-        </Loader>
+        <Container style={{ minWidth: '100%' }}>
+          <MyLoader />
+        </Container>
       );
+      // return (
+      //   <Container>
+      //     {console.log(MyLoader())}
+      //     <img src={MyLoader()} alt="" />
+      //   </Container>
+      // );
+      // <h3>
+      //   No posts found. Create some posts or follow some users to see their
+      //   posts here.
+      // </h3>
     }
   }
 }

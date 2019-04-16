@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
 import { getUserProfileDetails, recommendedFollow } from '../../actions';
 
 class RecommendedFollow extends Component {
@@ -25,7 +24,9 @@ class RecommendedFollow extends Component {
             <button type="button" onClick={this.followAUserHandler}>
               Follow
             </button>
-            <p>Followed by {following.followed_by_username}</p>
+            {following.followed_by_username ? (
+              <p>Followed by {following.followed_by_username}</p>
+            ) : null}
           </div>
         </div>
       ));
