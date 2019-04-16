@@ -21,7 +21,13 @@ import editSvg from '../assets/svg/edit.svg';
 class Bookmarks extends Component {
   state = { modalOpen: false };
 
-  componentDidMount = () => this.props.getPosts();
+  componentDidMount = () => {
+    this.props.getPosts();
+    // console.log('mounted');
+  };
+  // componentWillUnmount() {
+  //   console.log('unmounted');
+  // }
 
   handleLike = async (id, liked) => {
     await axios.put(`${URL}/api/posts/like/${id}`, { status: !liked });
@@ -30,9 +36,14 @@ class Bookmarks extends Component {
 
   handleTruncateText = (content, limit = 10) => truncateText(content, limit);
 
+  handleModalOpen = () => {
+    this.setState({
+      modalOpen: !this.state.modalOpen
+    });
+  };
+
   render() {
     const search = this.props.search_term;
-
     const filteredPosts = this.props.posts.filter(post => {
       return post.title
         ? post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1
@@ -45,9 +56,11 @@ class Bookmarks extends Component {
 
     return (
       <Wrapper>
-        {this.props.editFormData && (
-          <EditModal key={this.props.editFormData.post.id} />
-        )}
+        <EditModal
+          key={localStorage.getItem('editPostId')}
+          open={this.state.modalOpen}
+          handleModalOpen={this.handleModalOpen}
+        />
         {filteredPosts
           .map(post => (
             <Post key={post.id}>
@@ -89,10 +102,12 @@ class Bookmarks extends Component {
               <img
                 src={editSvg}
                 alt=""
-                onClick={async () => {
-                  await this.props
-                    .editPostGetDefaultData(post.id)
-                    .then(res => this.props.editModalDisplay());
+                onClick={() => {
+                  localStorage.setItem('editPostId', post.id);
+
+                  this.setState({
+                    modalOpen: !this.state.modalOpen
+                  });
                 }}
                 className="edit-icon"
               />
