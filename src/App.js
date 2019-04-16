@@ -4,19 +4,18 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import LandingPage from './pages/Landing';
-import Navbar from './components/navigation/Navbar';
-import AuthUserProfile from './pages/AuthUserProfile';
+import AuthUserProfile from './pages/profile/AuthUserProfile';
 import Home from './pages/Home';
 import Browse from './pages/Browse';
 import Settings from './pages/Settings';
 import NoMatch from './pages/NoMatch';
-import UserProfile from './pages/UserProfile';
+import UserProfile from './pages/profile/UserProfile';
+import Navbar from './components/navigation/Navbar';
+import { customContainer } from './components/mixins';
 
 import { composedIndexRedirect as index } from './components/authentication/indexRedirect';
 import { composedHomeRedirect as home } from './components/authentication/homeRedirect';
 import { fetchUser } from './actions';
-
-import { customContainer } from './components/mixins';
 
 class App extends Component {
   componentDidMount = () => this.props.fetchUser();
@@ -44,7 +43,6 @@ class App extends Component {
           <Route component={index(Browse)} path="/browse" />
           <Route component={index(UserProfile)} path="/profile/:id" />
           <Route component={index(AuthUserProfile)} path="/profile" />
-
           <Route component={index(Settings)} path="/settings" />
           <Route component={NoMatch} />
         </Switch>

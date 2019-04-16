@@ -9,11 +9,11 @@ import {
   followAUser,
   unfollowAUser,
   getFollowing
-} from '../actions';
-import { customLayout, customWrapper } from './mixins';
-import locationSvg from '../assets/svg/location.svg';
-import linkSvg from '../assets/svg/link-symbol.svg';
-import calendarSvg from '../assets/svg/calendar.svg';
+} from '../../actions';
+import { customLayout, customWrapper } from '../mixins';
+import locationSvg from '../../assets/svg/location.svg';
+import linkSvg from '../../assets/svg/link-symbol.svg';
+import calendarSvg from '../../assets/svg/calendar.svg';
 
 class SidebarById extends Component {
   componentDidMount() {

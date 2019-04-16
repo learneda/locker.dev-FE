@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { editModalDisplay, editPostSubmit, getPosts } from '../actions/index';
 import axios from 'axios';
-import { post as URL } from '../services/baseURL';
+import { post as URL } from '../../services/baseURL';
+import styled from 'styled-components';
+import { editModalDisplay, editPostSubmit, getPosts } from '../../actions';
 
 class EditModal extends Component {
   state = {

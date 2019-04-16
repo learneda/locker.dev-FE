@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 import AddLinkPortal from './AddLinkPortal';
-import { getPosts } from '../actions';
-import { post as URL } from '../services/baseURL';
-import { ReactComponent as X } from '../assets/svg/x.svg';
+import { getPosts } from '../../actions';
+import { post as URL } from '../../services/baseURL';
+import { ReactComponent as X } from '../../assets/svg/x.svg';
 
 class Toggle extends Component {
   constructor(props) {

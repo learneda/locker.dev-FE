@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import Moment from 'react-moment';
 import openSocket from 'socket.io-client';
+import axios from 'axios';
+import styled from 'styled-components';
+
 import { customWrapper } from '../components/mixins';
 import { post as URL } from '../services/baseURL';
-import { connect } from 'react-redux';
-import axios from 'axios';
-import Moment from 'react-moment';
-import { Link } from 'react-router-dom';
 import { ReactComponent as Loading } from '../assets/svg/circles.svg';
 
 class Home extends Component {

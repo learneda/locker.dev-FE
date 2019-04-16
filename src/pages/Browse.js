@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getCourses, getArticles, fetchUser } from '../actions';
-
+import { withAlert } from 'react-alert';
+import axios from 'axios';
 import { Grommet, Tab, Tabs } from 'grommet';
+import styled from 'styled-components';
+
+import { getCourses, getArticles, fetchUser } from '../actions';
 import {
   customWrapper,
   customLayout,
   truncateText
 } from '../components/mixins';
-import styled from 'styled-components';
-import { ReactComponent as Add } from '../assets/svg/add-icon.svg';
-import axios from 'axios';
 import { post as URL } from '../services/baseURL';
-import { withAlert } from 'react-alert';
+import { ReactComponent as Add } from '../assets/svg/add-icon.svg';
 import { ReactComponent as Loading } from '../assets/svg/circles.svg';
 axios.defaults.withCredentials = true;
 
