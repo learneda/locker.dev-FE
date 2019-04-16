@@ -91,13 +91,19 @@ class Home extends Component {
             </div>
           </div>
           <div className="comments-container">
-            <div className="add-comment">
+            <div>
+              <form className="add-comment">
               <img src={this.props.auth.profile_picture} alt="" />
-              <textarea
+                <textarea
                 placeholder="Add a comment..."
                 type="text"
                 onKeyUp={e => this.handleSubmit(e, post.post_id)}
-              />
+                />
+                <button onClick={(e) => {
+                  e.preventDefault()
+                  this.handleSubmit(e, post.post_id)
+                  }}>Post</button>
+              </form>
             </div>
             {post.comments.map((comment, index) => {
               return (
