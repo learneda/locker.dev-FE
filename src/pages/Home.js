@@ -106,13 +106,22 @@ class Home extends Component {
               </form>
             </div>
             {post.comments.map((comment, index) => {
-              return (
-                <div key={index} className="comment">
-                  <h2>{comment.username}:</h2>
-                  <span>{comment.content}</span>
-                  <MoreBtn />
-                </div>
-              );
+              if (comment.user_id === this.user_id) {
+                return (
+                  <div key={index} className="comment">
+                    <h2>{comment.username}:</h2>
+                    <span>{comment.content}</span>
+                     <MoreBtn />
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={index} className="comment">
+                    <h2>{comment.username}:</h2>
+                    <span>{comment.content}</span>
+                  </div>
+                );
+              }
             })}
           </div>
         </div>
