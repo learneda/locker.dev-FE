@@ -44,12 +44,6 @@ class Home extends Component {
       .catch(err => console.log(err));
   }
 
-  handleChange = ({ target }) => {
-    const { name, value } = target;
-
-    this.setState({ [name]: value });
-  };
-
   handleSubmit = (event, post_id) => {
     const body = event.target.value;
 
