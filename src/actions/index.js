@@ -27,16 +27,16 @@ axios.defaults.withCredentials = true;
 
 export const fetchUser = () => async dispatch => {
   const res = await axios.get(`${URL}/auth/current_user`);
-  console.log(res)
-  // if (res.data == "") {
-  //   dispatch({ type: FETCH_USER, payload: res.data });
-  // }
+if (res.data) {
   if (res.data.profile_picture.indexOf('/uploads/profile_pic-') >= 0) {
     res.data.profile_picture = `${URL}${res.data.profile_picture}`
     dispatch({ type: FETCH_USER, payload: res.data });
   } else {
     dispatch({ type: FETCH_USER, payload: res.data });
   }
+} else {
+  dispatch({ type: FETCH_USER, payload: res.data });
+}
 };
 
 export const getCourses = () => async dispatch => {
