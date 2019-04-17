@@ -9,6 +9,9 @@ import Moment from 'react-moment';
 import locationSvg from '../../assets/svg/location.svg';
 import linkSvg from '../../assets/svg/link-symbol.svg';
 import calendarSvg from '../../assets/svg/calendar.svg';
+import { ReactComponent as Settings } from '../../assets/svg/settings.svg';
+import { ReactComponent as Logout } from '../../assets/svg/logout.svg';
+import { authURL } from '../../services/authURL';
 
 class Sidebar extends Component {
   componentDidMount() {
@@ -57,9 +60,18 @@ class Sidebar extends Component {
               <img src={calendarSvg} alt="calendar-icon" />
               Joined <Moment format="MMMM YYYY">{this.props.created_at}</Moment>
             </p>
-            <div className="edit-profile-link">
-              <Link to="/settings">Edit Profile</Link>
-            </div>
+            <Link to="/settings">
+              <Settings
+                style={{ width: '24px', height: '24px', paddingRight: '9px' }}
+              />
+            </Link>
+            <Link to="/settings">Settings</Link>
+            <a href={`${authURL}logout`}>
+              <Logout
+                style={{ width: '24px', height: '24px', paddingRight: '9px' }}
+              />
+            </a>
+            <a href={`${authURL}logout`}>Logout</a>
           </div>
         </Profile>
       </Wrapper>
