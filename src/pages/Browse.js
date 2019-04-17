@@ -192,12 +192,15 @@ const Cards = styled.div`
 const Card = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 6px;
-  width: 30%;
+  width: 22%;
   height: 350px;
   margin-bottom: 30px;
   background-color: #fff;
   cursor: pointer;
   position: relative;
+  @media (max-width: 1500px) {
+    width: 30%;
+  }
   @media (max-width: 960px) {
     width: 45%;
   }
@@ -219,6 +222,7 @@ const Card = styled.div`
     border-top-left-radius: 5px;
     width: 100%;
     height: 180px;
+    object-fit: cover;
   }
 
   h3 {

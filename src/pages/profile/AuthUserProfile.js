@@ -28,7 +28,7 @@ class AuthUserProfile extends Component {
                   <Bookmarks />
                 </TabWrapper>
               </Tab>
-              <Tab title="Recommended">
+              <Tab title="Likes">
                 <TabWrapper>
                   <Likes />
                 </TabWrapper>
