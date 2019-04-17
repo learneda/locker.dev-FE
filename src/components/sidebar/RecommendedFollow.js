@@ -11,7 +11,7 @@ class RecommendedFollow extends Component {
 
   renderRecommended = () => {
     const { follow } = this.props;
-    if (follow.length > 0) {
+    if (follow.length > 0 && !follow.includes(null)) {
       return follow.map((following, index) => (
         <div className="recommended-follow-container" key={index}>
           <div className="recommended-follow-info">
