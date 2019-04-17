@@ -57,11 +57,11 @@ const Post = styled.div`
   border-radius: 6px;
   background-color: #fff;
   position: relative;
-  height: 180px;
+  height: 186px;
   @media (max-width: 1450px) {
     height: 100%;
   }
-  @media (max-width: 1100px) {
+  @media (max-width: 1250px) {
     flex-direction: column;
   }
   a {
@@ -78,7 +78,7 @@ const Post = styled.div`
     width: 320px;
     height: 100%;
     object-fit: cover;
-    @media (max-width: 1100px) {
+    @media (max-width: 1250px) {
       max-width: 100%;
       width: 100%;
       height: 100%;
