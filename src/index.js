@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { positions, Provider as AlertProvider } from 'react-alert';
-import * as serviceWorker from '.servicework'
+import * as serviceWorker from './serviceWorker';
 import Alert from './components/utils/Alert';
 
 import App from './App';
