@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Search from '../utils/Search';
+import Search from '../search/Search';
 import Auth from '../authentication/Auth';
 import Toggle from '../utils/Toggle';
 import ProfileDropDown from './ProfileDropDown';
