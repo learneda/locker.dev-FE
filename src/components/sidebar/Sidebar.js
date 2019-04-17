@@ -44,6 +44,7 @@ class Sidebar extends Component {
         this.state.followingDropDownHeight === '300px' ? '0px' : '300px',
       followersDropDownHeight: '0px'
     });
+    // document.querySelector('body').style.overflow = 'hidden';
   };
   handleFollowersDropdown = () => {
     this.setState({
@@ -273,18 +274,14 @@ const Profile = styled.div`
     left: 0;
     right: 0;
     background: #fff;
-    /* height: 300px; */
-    /* border: 1px solid red; */
     width: 100%;
     overflow: auto;
     transition: 200ms ease-in-out;
     display: flex;
-    /* justify-content: center; */
     align-items: flex-start;
     flex-direction: column;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     border-radius: 0 0 5px 5px;
-    /* opacity: 0; */
     .caret-up {
       width: 20px;
       height: 20px;
@@ -305,17 +302,16 @@ const Profile = styled.div`
     .follow {
       display: flex;
       align-items: center;
-      /* margin: 20px auto; */
       padding: 0 10px;
     }
     img {
-      width: 50px;
-      height: 50px;
+      width: 35px;
+      height: 35px;
       border-radius: 50%;
       margin-right: 10px;
     }
     h2 {
-      font-size: 2rem;
+      font-size: 1.8rem;
       opacity: 0.7;
       transition: 200ms ease-out;
     }
