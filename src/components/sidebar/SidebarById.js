@@ -55,11 +55,17 @@ class SidebarById extends Component {
       created_at
     } = this.props.user_details;
     console.log('🗿',this.props.user_details.profile_picture);
+    let imgURL;
+    if (this.props.user_details.profile_picture.indexOf('/uploads/profile_pic-') >= 0) {
+      imgURL = `${URL}${this.props.user_details.profile_picture}`
+    } else {
+      imgURL = this.props.user_details.profile_picture
+    }
     return (
       <Wrapper>
         <Profile>
           <div className="user">
-            <img src={`${URL}${this.props.user_details.profile_picture}`} alt="avatar" />
+            <img src={imgURL} alt="avatar" />
           </div>
           <div className="user-bio">
             <h3>{username}</h3>

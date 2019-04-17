@@ -42,7 +42,7 @@ class AuthUserProfile extends Component {
   }
 }
 
-export default connect()
+export default AuthUserProfile;
 
 const theme = {
   tab: {
