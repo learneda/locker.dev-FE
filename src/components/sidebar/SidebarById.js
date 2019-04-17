@@ -14,6 +14,7 @@ import { customLayout, customWrapper } from '../mixins';
 import locationSvg from '../../assets/svg/location.svg';
 import linkSvg from '../../assets/svg/link-symbol.svg';
 import calendarSvg from '../../assets/svg/calendar.svg';
+import {post as URL} from '../../services/baseURL.js'
 
 class SidebarById extends Component {
   componentDidMount() {
@@ -53,11 +54,12 @@ class SidebarById extends Component {
       website_url,
       created_at
     } = this.props.user_details;
+    console.log('🗿',this.props.user_details.profile_picture);
     return (
       <Wrapper>
         <Profile>
           <div className="user">
-            <img src={profile_picture} alt="avatar" />
+            <img src={`${URL}${this.props.user_details.profile_picture}`} alt="avatar" />
           </div>
           <div className="user-bio">
             <h3>{username}</h3>
