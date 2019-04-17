@@ -22,7 +22,8 @@ class Sidebar extends Component {
   state = {
     followers: [],
     following: [],
-    dropDownHeight: '0px'
+    followingDropDownHeight: '0px',
+    followersDropDownHeight: '0px'
   };
   componentDidMount() {
     this.props.getUserProfileDetails(this.props.auth.id);
@@ -37,9 +38,18 @@ class Sidebar extends Component {
         .then(res => this.setState({ following: res.data }));
     }
   }
-  handleFollowDropdown = () => {
+  handleFollowingDropdown = () => {
     this.setState({
-      dropDownHeight: this.state.dropDownHeight === '300px' ? '0px' : '300px'
+      followingDropDownHeight:
+        this.state.followingDropDownHeight === '300px' ? '0px' : '300px',
+      followersDropDownHeight: '0px'
+    });
+  };
+  handleFollowersDropdown = () => {
+    this.setState({
+      followersDropDownHeight:
+        this.state.followersDropDownHeight === '300px' ? '0px' : '300px',
+      followingDropDownHeight: '0px'
     });
   };
   render() {
@@ -48,17 +58,14 @@ class Sidebar extends Component {
     }
     let followers = '';
     if (this.state.followers.length > 0) {
-      this.state.followers.map(
-        follower =>
-          (followers = (
-            <Link to={`profile/${follower.id}`}>
-              <div className="follow">
-                <img src={follower.profile_picture} alt="" />
-                <h2>{follower.display_name}</h2>
-              </div>
-            </Link>
-          ))
-      );
+      followers = this.state.followers.map(follower => (
+        <Link to={`profile/${follower.id}`}>
+          <div className="follow">
+            <img src={follower.profile_picture} alt="" />
+            <h2>{follower.display_name}</h2>
+          </div>
+        </Link>
+      ));
     }
     let following = '';
     if (this.state.following.length > 0) {
@@ -84,26 +91,38 @@ class Sidebar extends Component {
                 <li>Posts</li>
                 <li>{this.props.user_details.post_count}</li>
               </ul>
-              <ul onClick={this.handleFollowDropdown}>
+              <ul onClick={this.handleFollowingDropdown}>
                 <li>Following</li>
                 <li>{this.props.user_details.following_count}</li>
               </ul>
-              <ul>
+              <ul onClick={this.handleFollowersDropdown}>
                 <li>Followers</li>
                 <li>{this.props.user_details.followers_count}</li>
               </ul>
             </div>
             <div
               className="follow-stats-dropdown"
-              style={{ height: this.state.dropDownHeight }}
+              style={{ height: this.state.followingDropDownHeight }}
             >
               <img
                 className="caret-up"
                 src={upArrow}
                 alt=""
-                onClick={this.handleFollowDropdown}
+                onClick={this.handleFollowingDropdown}
               />
               {following}
+            </div>
+            <div
+              className="follow-stats-dropdown"
+              style={{ height: this.state.followersDropDownHeight }}
+            >
+              <img
+                className="caret-up"
+                src={upArrow}
+                alt=""
+                onClick={this.handleFollowersDropdown}
+              />
+              {followers}
             </div>
             <p>{this.props.auth.bio ? this.props.auth.bio : 'Add bio'}</p>
             <p>
@@ -263,6 +282,9 @@ const Profile = styled.div`
     /* justify-content: center; */
     align-items: flex-start;
     flex-direction: column;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border-radius: 0 0 5px 5px;
+    /* opacity: 0; */
     .caret-up {
       width: 20px;
       height: 20px;
