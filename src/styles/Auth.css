@@ -282,10 +282,9 @@
   background-color: white;
   z-index: 1;
   text-align: center;
-  width: 500px;
   margin: 0 auto;
-  min-width: 45%;
   margin-top: 10%;
+  max-width: 500px;
   border-radius: 6px;
 }
 .top {
