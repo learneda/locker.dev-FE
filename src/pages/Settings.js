@@ -17,7 +17,7 @@ class Settings extends Component {
     location: this.props.auth.location,
     website_url: this.props.auth.website_url,
     selectedFile: null,
-    profile_pic: null
+    profile_pic: null,
   };
 
   editProfileHandler = (e, id) => {
@@ -141,8 +141,10 @@ class Settings extends Component {
                   <label>
                     Profile Picture
                     <img style={{width: '200px'}} src={this.state.profile_pic} />
-                      <input onChange={(e) => this.handleFileSelection(e)} type="file" name="profile_pic" />
-                      <button onClick={(e) => this.handleFileUpload(e)} type="submit">Submit</button>
+                    <input onChange={(e) => this.handleFileSelection(e)} type="file" name="profile_pic" />
+                    <button onClick={(e) => this.handleFileUpload(e)} type="submit">Submit</button>
+                    <div>OR</div>
+                    <input onChange={this.handleInputChange} value={this.state.profile_pic_url} />
                   </label>
                 </div>
               </div>
