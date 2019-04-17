@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Search from '../utils/Search';
 import Auth from '../authentication/Auth';
 import Toggle from '../utils/Toggle';
-import ProfileDropDown from './ProfileDropDown';
+import SlideInMenu from './SlideInMenu';
 import { modalState, modalLogin, modalSignUp } from '../../actions/index';
 import { authURL } from '../../services/authURL';
 import { customLayout, hoverBg } from '../mixins';
@@ -14,17 +14,32 @@ import burgerIcon from '../../assets/svg/burger.svg';
 import closeIcon from '../../assets/svg/close.svg';
 
 class Navbar extends Component {
-  state = { show: false };
+  state = { show: false, toggle: false };
 
   showBurgerMenu = () => this.setState({ show: true });
   hideBurgerMenu = () => this.setState({ show: false });
+
+  showSettings = event => event.preventDefault();
+
+  handleStateChange = state => this.setState({ toggle: state.isOpen });
+
+  closeMenu = () => this.setState({ toggle: false });
+
+  toggleMenu = () => this.setState({ toggle: !this.state.toggle });
 
   render() {
     const { modalState, modalLogin, modalSignUp, auth } = this.props;
     if (auth) {
       // When user logged in
       return (
-        <NavWrapper>
+        <NavWrapper onClick={this.closeMenu}>
+          <SlideInMenu
+            right
+            width={400}
+            noOverlay
+            handleStateChange={this.handleStateChange}
+            toggle={this.state.toggle}
+          />
           <MobileNav show={this.state.show} handleClose={this.hideBurgerMenu} />
 
           <Burger>
@@ -55,7 +70,14 @@ class Navbar extends Component {
 
             <NavRight>
               <Toggle />
-              <ProfileDropDown auth={auth} />
+              {/*<ProfileDropDown auth={auth} />*/}
+              {/*<SlideInMenu auth={auth} />*/}
+              <img
+                src={auth.profile_picture}
+                className="auth-icon"
+                alt="avatar"
+                toggleMenu={this.toggleMenu}
+              />
             </NavRight>
           </Nav>
         </NavWrapper>
