@@ -94,7 +94,7 @@ class Settings extends Component {
                       onChange={this.handleInputChange}
                       placeholder="Add full name"
                       value={this.props.auth.email}
-                      name="display_name"
+                      name="email"
                       required
                     />
                   </label>
