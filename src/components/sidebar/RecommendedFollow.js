@@ -11,7 +11,7 @@ class RecommendedFollow extends Component {
 
   render() {
     let follow = '';
-    if (this.props.follow) {
+    if (this.props.follow.length > 0) {
       follow = this.props.follow.map((following, index) => (
         <div className="recommended-follow-container" key={index}>
           <div className="recommended-follow-info">
@@ -43,6 +43,9 @@ class RecommendedFollow extends Component {
 const StyledCard = styled.div`
   margin: 60px 0px 0px 30px;
   height: auto;
+  @media (max-width: 1200px) {
+    display: none;
+  }
   .sticky-container {
     position: sticky;
     top: 160px;

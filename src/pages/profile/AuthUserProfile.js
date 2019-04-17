@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { Grommet, Tab, Tabs } from 'grommet';
 import styled from 'styled-components';
-
+import axios from 'axios';
 import Home from '../Home';
 import Bookmarks from './Bookmarks';
 import Likes from '../../components/recommended/Likes';
 import Sidebar from '../../components/sidebar/Sidebar';
 import RecommendedFollow from '../../components/sidebar/RecommendedFollow';
 import { customWrapper } from '../../components/mixins';
+import { connect } from 'react-redux';
 
-export default class AuthUserProfile extends Component {
+class AuthUserProfile extends Component {
   render() {
     return (
       <Container>
@@ -27,7 +28,7 @@ export default class AuthUserProfile extends Component {
                   <Bookmarks />
                 </TabWrapper>
               </Tab>
-              <Tab title="Recommended">
+              <Tab title="Likes">
                 <TabWrapper>
                   <Likes />
                 </TabWrapper>
@@ -40,6 +41,8 @@ export default class AuthUserProfile extends Component {
     );
   }
 }
+
+export default AuthUserProfile;
 
 const theme = {
   tab: {
