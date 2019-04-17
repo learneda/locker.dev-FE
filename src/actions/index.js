@@ -31,12 +31,16 @@ export const fetchUser = () => async dispatch => {
   // if (res.data == "") {
   //   dispatch({ type: FETCH_USER, payload: res.data });
   // }
+if (res.data) {
   if (res.data.profile_picture.indexOf('/uploads/profile_pic-') >= 0) {
     res.data.profile_picture = `${URL}${res.data.profile_picture}`
     dispatch({ type: FETCH_USER, payload: res.data });
   } else {
     dispatch({ type: FETCH_USER, payload: res.data });
   }
+} else {
+  dispatch({ type: FETCH_USER, payload: res.data });
+}
 };
 
 export const getCourses = () => async dispatch => {
