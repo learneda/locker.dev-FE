@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { editProfile, getUserProfileDetails } from '../../actions';
+import {
+  editProfile,
+  getUserProfileDetails,
+  getUserFollowers,
+  getUserFollowing
+} from '../../actions';
 
 import styled from 'styled-components';
 import { customLayout, customWrapper } from '../mixins';
@@ -9,14 +14,62 @@ import Moment from 'react-moment';
 import locationSvg from '../../assets/svg/location.svg';
 import linkSvg from '../../assets/svg/link-symbol.svg';
 import calendarSvg from '../../assets/svg/calendar.svg';
+import upArrow from '../../assets/svg/up-arrow.svg';
+import axios from 'axios';
+import { post as URL } from '../../services/baseURL';
 
 class Sidebar extends Component {
+  state = {
+    followers: [],
+    following: [],
+    dropDownHeight: '0px'
+  };
   componentDidMount() {
     this.props.getUserProfileDetails(this.props.auth.id);
+    if (this.props.auth.id) {
+      axios
+        .get(`${URL}/api/users/followers?id=${this.props.auth.id}`)
+        .then(res => this.setState({ followers: res.data }));
+    }
+    if (this.props.auth.id) {
+      axios
+        .get(`${URL}/api/users/following?id=${this.props.auth.id}`)
+        .then(res => this.setState({ following: res.data }));
+    }
   }
+  handleFollowDropdown = () => {
+    this.setState({
+      dropDownHeight: this.state.dropDownHeight === '300px' ? '0px' : '300px'
+    });
+  };
   render() {
     if (!this.props.user_details) {
       return <div>LOADING LOADING...</div>;
+    }
+    let followers = '';
+    if (this.state.followers.length > 0) {
+      this.state.followers.map(
+        follower =>
+          (followers = (
+            <Link to={`profile/${follower.id}`}>
+              <div className="follow">
+                <img src={follower.profile_picture} alt="" />
+                <h2>{follower.display_name}</h2>
+              </div>
+            </Link>
+          ))
+      );
+    }
+    let following = '';
+    if (this.state.following.length > 0) {
+      following = this.state.following.map(follow => (
+        <Link to={`profile/${follow.id}`}>
+          <div className="follow">
+            <img src={follow.profile_picture} alt="" />
+            <h2>{follow.username}</h2>
+          </div>
+        </Link>
+      ));
     }
     return (
       <Wrapper>
@@ -31,7 +84,7 @@ class Sidebar extends Component {
                 <li>Posts</li>
                 <li>{this.props.user_details.post_count}</li>
               </ul>
-              <ul>
+              <ul onClick={this.handleFollowDropdown}>
                 <li>Following</li>
                 <li>{this.props.user_details.following_count}</li>
               </ul>
@@ -39,6 +92,18 @@ class Sidebar extends Component {
                 <li>Followers</li>
                 <li>{this.props.user_details.followers_count}</li>
               </ul>
+            </div>
+            <div
+              className="follow-stats-dropdown"
+              style={{ height: this.state.dropDownHeight }}
+            >
+              <img
+                className="caret-up"
+                src={upArrow}
+                alt=""
+                onClick={this.handleFollowDropdown}
+              />
+              {following}
             </div>
             <p>{this.props.auth.bio ? this.props.auth.bio : 'Add bio'}</p>
             <p>
@@ -181,6 +246,56 @@ const Profile = styled.div`
         opacity: 0.7;
         transition: 200ms ease-out;
       }
+    }
+  }
+  .follow-stats-dropdown {
+    position: absolute;
+    top: 240px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    /* height: 300px; */
+    /* border: 1px solid red; */
+    width: 100%;
+    overflow: auto;
+    transition: 200ms ease-in-out;
+    display: flex;
+    /* justify-content: center; */
+    align-items: flex-start;
+    flex-direction: column;
+    .caret-up {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      right: 3px;
+      top: 10px;
+      cursor: pointer;
+    }
+    a {
+      margin: 15px 0;
+      &:hover {
+        h2 {
+          opacity: 1;
+          transition: 200ms ease-in;
+        }
+      }
+    }
+    .follow {
+      display: flex;
+      align-items: center;
+      /* margin: 20px auto; */
+      padding: 0 10px;
+    }
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    h2 {
+      font-size: 2rem;
+      opacity: 0.7;
+      transition: 200ms ease-out;
     }
   }
 `;
