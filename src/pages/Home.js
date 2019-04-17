@@ -120,7 +120,10 @@ class Home extends Component {
             <div className="comment-box">
               {post.comments.length - 1 <
               Math.abs(this.state.commentsToRender) ? null : (
-                <button class="show-more-btn" onClick={this.handleMoreComments}>
+                <button
+                  className="show-more-btn"
+                  onClick={this.handleMoreComments}
+                >
                   show more comments
                 </button>
               )}
