@@ -146,8 +146,10 @@ class Home extends Component {
                   } else {
                     return (
                       <div key={index} className="comment">
-                        <h2>{comment.username}:</h2>
-                        <span>{comment.content}</span>
+                        <div className="comment-text">
+                          <h2>{comment.username}:</h2>
+                          <span>{comment.content}</span>
+                        </div>
                       </div>
                     );
                   }
