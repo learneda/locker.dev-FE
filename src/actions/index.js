@@ -20,23 +20,25 @@ import {
   FOLLOW_A_USER,
   UNFOLLOW_A_USER,
   GET_FOLLOWING,
-  RECOMMENDED_FOLLOW
+  RECOMMENDED_FOLLOW,
+  GET_USER_FOLLOWERS,
+  GET_USER_FOLLOWING
 } from './types';
 import { post as URL } from '../services/baseURL';
 axios.defaults.withCredentials = true;
 
 export const fetchUser = () => async dispatch => {
   const res = await axios.get(`${URL}/auth/current_user`);
-if (res.data) {
-  if (res.data.profile_picture.indexOf('/uploads/profile_pic-') >= 0) {
-    res.data.profile_picture = `${URL}${res.data.profile_picture}`
-    dispatch({ type: FETCH_USER, payload: res.data });
+  if (res.data) {
+    if (res.data.profile_picture.indexOf('/uploads/profile_pic-') >= 0) {
+      res.data.profile_picture = `${URL}${res.data.profile_picture}`;
+      dispatch({ type: FETCH_USER, payload: res.data });
+    } else {
+      dispatch({ type: FETCH_USER, payload: res.data });
+    }
   } else {
     dispatch({ type: FETCH_USER, payload: res.data });
   }
-} else {
-  dispatch({ type: FETCH_USER, payload: res.data });
-}
 };
 
 export const getCourses = () => async dispatch => {
@@ -139,4 +141,16 @@ export const recommendedFollow = id => async dispatch => {
   const res = await axios.get(`${URL}/api/users/recommendedFollow?id=${id}`);
   console.log('RECOMMENDED FOLLOW RES', res);
   dispatch({ type: RECOMMENDED_FOLLOW, payload: res.data });
+};
+
+// get a users following list
+export const getUserFollowing = id => async dispatch => {
+  const following = await axios.get(`${URL}/api/users/following?id=${id}`);
+  dispatch({ type: GET_USER_FOLLOWING, payload: following.data });
+};
+
+// get a users followers list
+export const getUserFollowers = id => async dispatch => {
+  const followers = await axios.get(`${URL}/api/users/followers?id=${id}`);
+  dispatch({ type: GET_USER_FOLLOWERS, payload: followers.data });
 };
