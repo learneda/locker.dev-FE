@@ -49,7 +49,7 @@ class Settings extends Component {
       if (res.data.success) {
         axios.get(`${URL}/api/images`).then((res) => {
           if (res.data.length > 0) {
-            this.setState({profile_pic: `${URL}${res.data[0].profile_picture}`})
+            this.setState({profile_pic: `${res.data[0].profile_picture}`})
           };
         });
       }
@@ -59,14 +59,10 @@ class Settings extends Component {
 
   componentDidMount() {
     axios.get(`${URL}/api/images`).then((res) => {
-      if (res.data[0].profile_picture.indexOf('/uploads/profile_pic-') >= 0) {
         if (res.data.length > 0) {
-          this.setState({profile_pic: `${URL}${res.data[0].profile_picture}`})
-        } 
-      } else {
-        this.setState({profile_pic: `${res.data[0].profile_picture}`})
-      }
-    })
+          this.setState({profile_pic: `${res.data[0].profile_picture}`})
+        }
+    });
   }
   render() {
     return (
