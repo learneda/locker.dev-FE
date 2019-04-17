@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -20,7 +20,7 @@ export default function SearchUsersDropDown({ search }) {
   }, []);
 
   return (
-    <div>
+    <Fragment>
       {users.map(user => {
         return (
           user.username.toLowerCase().includes(search.toLowerCase()) && (
@@ -33,7 +33,7 @@ export default function SearchUsersDropDown({ search }) {
           )
         );
       })}
-    </div>
+    </Fragment>
   );
 }
 
