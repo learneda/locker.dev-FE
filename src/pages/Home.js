@@ -375,7 +375,7 @@ const Container = styled.div`
           /* word-break: break-all; */
           overflow: hidden;
           width: 80%;
-          font-size: 1.6rem;
+          font-size: 1.4rem;
         }
       }
     }
