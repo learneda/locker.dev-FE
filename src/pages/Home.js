@@ -5,11 +5,12 @@ import Moment from 'react-moment';
 import openSocket from 'socket.io-client';
 import axios from 'axios';
 import styled from 'styled-components';
-import MoreBtn from '../components/utils/MoreBtn';
+// import MoreBtn from '../components/utils/MoreBtn';
 import { customWrapper, customLayout } from '../components/mixins';
 import { post as URL } from '../services/baseURL';
 import { ReactComponent as Loading } from '../assets/svg/circles.svg';
 import ContentLoader, { Facebook } from 'react-content-loader';
+import CommentBox from '../components/comments/CommentBox';
 
 const MyLoader = () => (
   <ContentLoader
@@ -116,65 +117,12 @@ class Home extends Component {
               <p>{post.description}</p>
             </div>
           </div>
-          <div className="comments-container">
-            <div className="comment-box">
-              {post.comments.length - 1 <
-              Math.abs(this.state.commentsToRender) ? null : (
-                <button
-                  className="show-more-btn"
-                  onClick={this.handleMoreComments}
-                >
-                  show more comments
-                </button>
-              )}
-              {post.comments
-                .slice(this.state.commentsToRender)
-                .map((comment, index) => {
-                  if (comment.user_id === this.user_id) {
-                    return (
-                      <div key={index} className="comment">
-                        <div className="comment-text">
-                          <h2>{comment.username}:</h2>
-                          <span>{comment.content}</span>
-                        </div>
-                        <MoreBtn
-                          getNewsFeed={this.getNewsFeed}
-                          comment_id={comment.id}
-                        />
-                      </div>
-                    );
-                  } else {
-                    return (
-                      <div key={index} className="comment">
-                        <div className="comment-text">
-                          <h2>{comment.username}:</h2>
-                          <span>{comment.content}</span>
-                        </div>
-                      </div>
-                    );
-                  }
-                })}
-            </div>
-
-            <div>
-              <form className="add-comment">
-                <img src={this.props.auth.profile_picture} alt="" />
-                <textarea
-                  placeholder="Add a comment..."
-                  type="text"
-                  onKeyUp={e => this.handleSubmit(e, post.post_id)}
-                />
-                <button
-                  onClick={e => {
-                    e.preventDefault();
-                    this.handleSubmit(e, post.post_id);
-                  }}
-                >
-                  Post
-                </button>
-              </form>
-            </div>
-          </div>
+          <CommentBox
+            post={post}
+            handleSubmit={this.handleSubmit}
+            profile_picture={this.props.auth.profile_picture}
+            user_id={this.user_id}
+          />
         </div>
       );
     });
