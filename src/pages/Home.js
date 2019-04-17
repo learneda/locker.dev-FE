@@ -120,7 +120,7 @@ class Home extends Component {
             <div className="comment-box">
               {post.comments.length - 1 <
               Math.abs(this.state.commentsToRender) ? null : (
-                <button onClick={this.handleMoreComments}>
+                <button class="show-more-btn" onClick={this.handleMoreComments}>
                   show more comments
                 </button>
               )}
@@ -320,6 +320,22 @@ const Container = styled.div`
 
     .comment-box {
       margin-top: 10px;
+
+      .show-more-btn {
+        border: 1px solid transparent;
+        color: #3f65f2;
+        font-size: 1.4rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 200ms ease-out;
+        &:hover {
+          color: #3059f3;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
     }
 
     .comment {
