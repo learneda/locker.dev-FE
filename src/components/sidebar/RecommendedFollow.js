@@ -9,14 +9,14 @@ class RecommendedFollow extends Component {
     this.props.recommendedFollow(this.props.auth.id);
   }
 
-  render() {
-    let follow = '';
-    if (this.props.follow.length > 0) {
-      follow = this.props.follow.map((following, index) => (
+  renderRecommended = () => {
+    const { follow } = this.props;
+    if (follow.length > 0 && !follow.includes(null)) {
+      return follow.map((following, index) => (
         <div className="recommended-follow-container" key={index}>
           <div className="recommended-follow-info">
             <Link to={`/profile/${following.recommended_follow_id}`}>
-              <img src={following.image} alt="" />
+              <img src={following.image} alt="following" />
               <h2>{following.username}</h2>
             </Link>
           </div>
@@ -24,18 +24,21 @@ class RecommendedFollow extends Component {
             <button type="button" onClick={this.followAUserHandler}>
               Follow
             </button>
-            {following.followed_by_username ? (
+            {following.followed_by_username && (
               <p>Followed by {following.followed_by_username}</p>
-            ) : null}
+            )}
           </div>
         </div>
       ));
     } else {
-      follow = <h2>Loading...</h2>;
+      return <h2>Loading...</h2>;
     }
+  };
+
+  render() {
     return (
       <StyledCard>
-        <div className="sticky-container">{follow}</div>
+        <div className="sticky-container">{this.renderRecommended()}</div>
       </StyledCard>
     );
   }

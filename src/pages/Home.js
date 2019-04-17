@@ -16,7 +16,7 @@ const MyLoader = () => (
     height={475}
     width={400}
     speed={2}
-    primaryColor="#f3f3f3"
+    primaryColor="#c2c2c2"
     secondaryColor="#ecebeb"
     style={{ minWidth: '100%', maxWidth: '700px', width: '100%' }}
   >
@@ -34,7 +34,8 @@ class Home extends Component {
       comments: [],
       search: '',
       posts: [],
-      commentsToRender: -2
+      commentsToRender: -2,
+      loading: true
     };
     this.username = props.auth.username;
     this.user_id = props.auth.id;
@@ -58,7 +59,8 @@ class Home extends Component {
     axios
       .get(`${URL}/api/users/newsfeed`)
       .then(res => {
-        this.setState({ posts: res.data.newResponse });
+
+        this.setState({ posts: res.data.newResponse, loading: false });
       })
       .catch(err => console.log(err));
   };
@@ -117,41 +119,21 @@ class Home extends Component {
         </div>
       );
     });
-    if (posts.length !== 0) {
-      return <Container>{posts}</Container>;
-    } else {
-      // let noPosts = '';
-      // setTimeout(() => {
-      //   if (this.state.posts.length === 0) {
-      //     noPosts = (
-      //       <h3>
-      //         No posts found. Create some posts or follow some users to see
-      //         their posts here.
-      //       </h3>
-      //     );
-      //   }
-      // }, 1500);
-
-      // noPosts = (
-      //   <Loader>
-      //     <Loading />
-      //   </Loader>
-      // );
+    while (this.state.loading === true ) {
       return (
         <Container style={{ minWidth: '100%' }}>
           <MyLoader />
         </Container>
       );
-      // return (
-      //   <Container>
-      //     {console.log(MyLoader())}
-      //     <img src={MyLoader()} alt="" />
-      //   </Container>
-      // );
-      // <h3>
-      //   No posts found. Create some posts or follow some users to see their
-      //   posts here.
-      // </h3>
+    }
+    if (posts.length !== 0) {
+      return <Container>{posts}</Container>;
+    } else {
+      return (
+        <Container style={{ minWidth: '100%' }}>
+         <h1>YOU HAVE NO POST</h1>
+        </Container>
+      );
     }
   }
 }
