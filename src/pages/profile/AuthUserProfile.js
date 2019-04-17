@@ -35,7 +35,7 @@ export default class AuthUserProfile extends Component {
             </Tabs>
           </Grommet>
         </Wrapper>
-        <RecommendedFollow />
+        {/* <RecommendedFollow /> */}
       </Container>
     );
   }
