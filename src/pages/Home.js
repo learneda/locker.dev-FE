@@ -84,14 +84,6 @@ class Home extends Component {
     }
   };
 
-  handleMoreComments = e => {
-    e.preventDefault();
-    this.setState({
-      commentsToRender: this.state.commentsToRender - 3
-    });
-    console.log('COMMENT TO RENDER', this.state.commentsToRender);
-  };
-
   render() {
     const posts = this.state.posts.map((post, index) => {
       return (

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import MoreBtn from '../utils/MoreBtn';
 
 import styled from 'styled-components';
-import { customWrapper, customLayout } from '../mixins';
+import { customLayout } from '../mixins';
 
 class CommentBox extends Component {
   constructor(props) {
@@ -18,7 +18,6 @@ class CommentBox extends Component {
     this.setState({
       commentsToRender: this.state.commentsToRender - 3
     });
-    console.log('COMMENT TO RENDER', this.state.commentsToRender);
   };
 
   render() {
