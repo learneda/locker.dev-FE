@@ -34,7 +34,7 @@ class Home extends Component {
       comments: [],
       search: '',
       posts: [],
-      commentsToRender: 1
+      commentsToRender: -2
     };
     this.username = props.auth.username;
     this.user_id = props.auth.id;
@@ -87,8 +87,9 @@ class Home extends Component {
   handleMoreComments = e => {
     e.preventDefault();
     this.setState({
-      commentsToRender: this.state.commentsToRender + 3
+      commentsToRender: this.state.commentsToRender - 3
     });
+    console.log('COMMENT TO RENDER', this.state.commentsToRender);
   };
 
   render() {
@@ -116,27 +117,15 @@ class Home extends Component {
             </div>
           </div>
           <div className="comments-container">
-            <div>
-              <form className="add-comment">
-                <img src={this.props.auth.profile_picture} alt="" />
-                <textarea
-                  placeholder="Add a comment..."
-                  type="text"
-                  onKeyUp={e => this.handleSubmit(e, post.post_id)}
-                />
-                <button
-                  onClick={e => {
-                    e.preventDefault();
-                    this.handleSubmit(e, post.post_id);
-                  }}
-                >
-                  Post
-                </button>
-              </form>
-            </div>
             <div className="comment-box">
+              {post.comments.length - 1 <
+              Math.abs(this.state.commentsToRender) ? null : (
+                <button onClick={this.handleMoreComments}>
+                  show more comments
+                </button>
+              )}
               {post.comments
-                .slice(0, this.state.commentsToRender)
+                .slice(this.state.commentsToRender)
                 .map((comment, index) => {
                   if (comment.user_id === this.user_id) {
                     return (
@@ -160,11 +149,25 @@ class Home extends Component {
                     );
                   }
                 })}
-              {post.comments.length <= this.state.commentsToRender ? null : (
-                <button onClick={this.handleMoreComments}>
-                  show more comments
+            </div>
+
+            <div>
+              <form className="add-comment">
+                <img src={this.props.auth.profile_picture} alt="" />
+                <textarea
+                  placeholder="Add a comment..."
+                  type="text"
+                  onKeyUp={e => this.handleSubmit(e, post.post_id)}
+                />
+                <button
+                  onClick={e => {
+                    e.preventDefault();
+                    this.handleSubmit(e, post.post_id);
+                  }}
+                >
+                  Post
                 </button>
-              )}
+              </form>
             </div>
           </div>
         </div>
