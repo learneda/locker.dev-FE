@@ -8,7 +8,10 @@ import {
   GET_USER_FOLLOWING
 } from '../actions/types';
 
-const initialState = [];
+const initialState = {
+  following: [],
+  followers: []
+};
 
 export const followReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -35,11 +38,11 @@ export const followReducer = (state = initialState, action) => {
     case RECOMMENDED_FOLLOW:
       return [...action.payload];
 
-    case GET_USER_FOLLOWERS:
-      return [...action.payload];
+    // case GET_USER_FOLLOWERS:
+    //   return { ...state, followers: [action.payload] };
 
-    case GET_USER_FOLLOWING:
-      return [...action.payload];
+    // case GET_USER_FOLLOWING:
+    //   return { ...state, following: [action.payload] };
 
     default:
       return state;
