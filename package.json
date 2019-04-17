@@ -11,6 +11,7 @@
     "react": "^16.8.4",
     "react-alert": "^5.4.0",
     "react-alert-template-basic": "^1.0.0",
+    "react-burger-menu": "^2.6.8",
     "react-content-loader": "^4.2.1",
     "react-dom": "^16.8.4",
     "react-inline-edition": "^1.4.2",
