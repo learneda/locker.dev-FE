@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import { withAlert } from 'react-alert';
 import styled from 'styled-components';
 import { Grommet, TextInput, TextArea } from 'grommet';
-
+import {post as URL} from '../services/baseURL';
 import { editProfile } from '../actions';
 import { customLayout, customWrapper } from '../components/mixins';
+import axios from 'axios';
 
 class Settings extends Component {
   state = {
@@ -14,7 +15,9 @@ class Settings extends Component {
     username: this.props.auth.username,
     bio: this.props.auth.bio,
     location: this.props.auth.location,
-    website_url: this.props.auth.website_url
+    website_url: this.props.auth.website_url,
+    selectedFile: null,
+    profile_pic: null
   };
 
   editProfileHandler = (e, id) => {
@@ -31,6 +34,40 @@ class Settings extends Component {
 
   handleInputChange = e => this.setState({ [e.target.name]: e.target.value });
 
+  handleFileSelection = (e) => {
+    e.preventDefault();
+    console.log(e.target.files[0])
+    this.setState({selectedFile: e.target.files[0]});
+  }
+
+  handleFileUpload = (e) => {
+    e.preventDefault();
+    if (this.state.selectedFile) {
+      const fd = new FormData();
+      fd.append('profile_pic', this.state.selectedFile, this.state.selectedFile.name);
+      axios.post(`${URL}/api/images`, fd).then((res) => {
+      if (res.data.success) {
+        axios.get(`${URL}/api/images`).then((res) => {
+          if (res.data.length > 0) {
+            this.setState({profile_pic: `${URL}${res.data[0].profile_picture}`})
+          };
+        });
+      }
+      })
+    }
+  }
+
+  componentDidMount() {
+    axios.get(`${URL}/api/images`).then((res) => {
+      if (res.data[0].profile_picture.indexOf('/uploads/profile_pic-') >= 0) {
+        if (res.data.length > 0) {
+          this.setState({profile_pic: `${URL}${res.data[0].profile_picture}`})
+        } 
+      } else {
+        this.setState({profile_pic: `${res.data[0].profile_picture}`})
+      }
+    })
+  }
   render() {
     return (
       <Wrapper>
@@ -100,6 +137,12 @@ class Settings extends Component {
                       value={this.state.website_url}
                       name="website_url"
                     />
+                  </label>
+                  <label>
+                    Profile Picture
+                    <img style={{width: '200px'}} src={this.state.profile_pic} />
+                      <input onChange={(e) => this.handleFileSelection(e)} type="file" name="profile_pic" />
+                      <button onClick={(e) => this.handleFileUpload(e)} type="submit">Submit</button>
                   </label>
                 </div>
               </div>
