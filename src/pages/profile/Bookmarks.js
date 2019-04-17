@@ -128,8 +128,9 @@ const Post = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 6px;
   background-color: #fff;
-  max-height: 180px;
-  height: 180px;
+  max-height: 200px;
+  height: 200px;
+  height: auto;
   position: relative;
   &:hover {
     .like {
@@ -155,7 +156,7 @@ const Post = styled.div`
     max-height: initial;
     height: 100%;
   }
-  @media (max-width: 1100px) {
+  @media (max-width: 1250px) {
     flex-direction: column;
   }
   .delete-icon {
@@ -186,7 +187,7 @@ const Post = styled.div`
     width: 320px;
     height: 100%;
     object-fit: cover;
-    @media (max-width: 1100px) {
+    @media (max-width: 1250px) {
       max-width: 100%;
       max-height: 400px;
       width: 100%;
@@ -210,7 +211,7 @@ const Post = styled.div`
     max-width: 600px;
     line-height: 1.2;
     margin-right: 10px;
-    @media (max-width: 1100px) {
+    @media (max-width: 1250px) {
       margin: auto;
     }
     @media (max-width: 960px) {
@@ -234,7 +235,7 @@ const Post = styled.div`
     width: 25px;
     cursor: pointer;
     height: 25px;
-    @media (max-width: 1100px) {
+    @media (max-width: 1250px) {
       bottom: 20px;
       top: initial;
     }
