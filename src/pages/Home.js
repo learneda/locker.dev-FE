@@ -16,7 +16,7 @@ const MyLoader = () => (
     height={475}
     width={400}
     speed={2}
-    primaryColor="#f3f3f3"
+    primaryColor="#c2c2c2"
     secondaryColor="#ecebeb"
     style={{ minWidth: '100%', maxWidth: '700px', width: '100%' }}
   >
