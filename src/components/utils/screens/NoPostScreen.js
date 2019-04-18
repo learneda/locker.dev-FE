@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Toggle from '../Toggle';
 
-import { customWrapper } from '../../mixins';
 import { Container } from './HelpScreen';
 import EmptyBoxSVG from '../../../assets/svg/empty-box-drawing.svg';
 

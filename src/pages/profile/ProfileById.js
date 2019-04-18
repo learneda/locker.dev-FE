@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 import { customWrapper, truncateText } from '../../components/mixins';
 import Like from '../../components/recommended/Like';
+import NoPostScreen from '../../components/utils/screens/NoPostScreen';
 import { post as URL } from '../../services/baseURL';
 import {
   getPosts,
@@ -48,62 +49,59 @@ class ProfileById extends Component {
         : null;
     });
 
-    return (
-      <Wrapper>
-        {filteredPosts
-          .map(post => (
-            <Post key={post.id}>
-              <a href={post.post_url} target="_blank" rel="noopener noreferrer">
-                <img src={post.thumbnail_url} alt="" />
-              </a>
-              <div className="post-content">
-                <a
-                  href={post.post_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <h1>{this.handleTruncateText(post.title)}</h1>
-                </a>
-                <p>{this.handleTruncateText(post.description, 15)}</p>
-                <div className="date-like-heart">
-                  <span className="formatted-date">
-                    Added <Moment fromNow>{post.created_at}</Moment>
-                  </span>
-                  <Like
-                    liked={post.liked}
-                    handleLike={this.handleLike}
-                    id={post.id}
-                  />
-                  <span className="rec-span">Save to Profile</span>
-                  {/* <img
-                    src={deleteIcon}
-                    className="delete-icon"
-                    onClick={async () =>
-                      await this.props
-                        .deletePost(post.id)
-                        .then(res => this.props.getPosts())
-                    }
-                    alt="delete icon"
-                  />
-                  <span className="del-span">delete</span> */}
-                </div>
-              </div>
+    const posts = filteredPosts
+      .map(post => (
+        <Post key={post.id}>
+          <a href={post.post_url} target="_blank" rel="noopener noreferrer">
+            <img src={post.thumbnail_url} alt="" />
+          </a>
+          <div className="post-content">
+            <a href={post.post_url} target="_blank" rel="noopener noreferrer">
+              <h1>{this.handleTruncateText(post.title)}</h1>
+            </a>
+            <p>{this.handleTruncateText(post.description, 15)}</p>
+            <div className="date-like-heart">
+              <span className="formatted-date">
+                Added <Moment fromNow>{post.created_at}</Moment>
+              </span>
+              <Like
+                liked={post.liked}
+                handleLike={this.handleLike}
+                id={post.id}
+              />
+              <span className="rec-span">Save to Profile</span>
               {/* <img
-                src={editSvg}
-                alt=""
-                onClick={async () => {
-                  await this.props
-                    .editPostGetDefaultData(post.id)
-                    .then(res => this.props.editModalDisplay());
-                }}
-                className="edit-icon"
-              /> */}
-            </Post>
-          ))
+              src={deleteIcon}
+              className="delete-icon"
+              onClick={async () =>
+                await this.props
+                  .deletePost(post.id)
+                  .then(res => this.props.getPosts())
+              }
+              alt="delete icon"
+            />
+            <span className="del-span">delete</span> */}
+            </div>
+          </div>
+          {/* <img
+          src={editSvg}
+          alt=""
+          onClick={async () => {
+            await this.props
+              .editPostGetDefaultData(post.id)
+              .then(res => this.props.editModalDisplay());
+          }}
+          className="edit-icon"
+        /> */}
+        </Post>
+      ))
+      .reverse();
 
-          .reverse()}
-      </Wrapper>
-    );
+    if (posts.length === 0) {
+      return <NoPostScreen />;
+    } else {
+      return <Wrapper>{posts}</Wrapper>;
+    }
   }
 }
 
