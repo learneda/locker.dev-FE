@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === 'production') {
   );
 }
 const options = {
-  position: positions.TOP_CENTER,
+  position: positions.BOTTOM_CENTER,
   timeout: 3000
 };
 

@@ -87,7 +87,17 @@ class Settings extends Component {
                       required
                     />
                   </label>
-
+                  <label>
+                    Email Adresss
+                    <TextInput
+                      type="text"
+                      onChange={this.handleInputChange}
+                      placeholder="Add full name"
+                      value={this.props.auth.email}
+                      name="email"
+                      required
+                    />
+                  </label>
                   <label>
                     Username
                     <TextInput
