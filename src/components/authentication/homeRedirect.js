@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 
 const HomeRedirect = Component => ({ auth }) => {
+  console.log('from home redirect 🚥',auth);
   const renderContent = () => {
     switch (auth) {
       case null:

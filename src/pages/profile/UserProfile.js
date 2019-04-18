@@ -21,7 +21,7 @@ class UserProfile extends Component {
                   <ProfileById />
                 </TabWrapper>
               </Tab>
-              <Tab title="Recommended">
+              <Tab title="Likes">
                 <TabWrapper>
                   <Likes />
                 </TabWrapper>
