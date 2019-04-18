@@ -111,7 +111,7 @@ class SidebarById extends Component {
     let followers = '';
     if (this.state.followers.length > 0) {
       followers = this.state.followers.map((follower, index) => (
-        <Link key={index} to={`profile/${follower.id}`}>
+        <Link key={index} to={`/profile/${follower.id}`}>
           <div className="follow">
             <img src={follower.profile_picture} alt="" />
             <h2>{follower.username}</h2>
@@ -122,7 +122,7 @@ class SidebarById extends Component {
     let following = '';
     if (this.state.following.length > 0) {
       following = this.state.following.map((follow, index) => (
-        <Link key={index} to={`profile/${follow.id}`}>
+        <Link key={index} to={`/profile/${follow.id}`}>
           <div className="follow">
             <img src={follow.profile_picture} alt="" />
             <h2>{follow.username}</h2>
