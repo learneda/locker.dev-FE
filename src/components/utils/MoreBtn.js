@@ -1,57 +1,27 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import AddLinkPortal from './AddLinkPortal';
-import {post as URL} from '../../services/baseURL';
+import styled from 'styled-components';
 
+import { post as URL } from '../../services/baseURL';
+import { ReactComponent as Trash } from '../../assets/svg/trash-2.svg';
 
-class MoreBtn extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      on: false,
-      inputValue: ''
-    };
+const TrashContainer = styled.div`
+  svg {
+    cursor: pointer;
   }
+`;
 
-  handleChange = event => {
-    this.setState({ inputValue: event.target.value });
-  };
-
-  toggle = () => {
-    this.setState({on: !this.state.on});
-    document.querySelector('#root').classList.toggle('root-modal-open');
-  };
-
-  handleSubmit = (e) => {
+export default function MoreBtn(props) {
+  const handleSubmit = e => {
     e.preventDefault();
-    console.log('exisit ?', this.props.comment_id)
-    axios.delete(`${URL}/api/comments/${this.props.comment_id}`).then((res) => {
-      console.log(res)
-      this.props.getNewsFeed()
-      this.toggle()
-    })
-  }
+    axios.delete(`${URL}/api/comments/${props.comment_id}`).then(res => {
+      props.getNewsFeed();
+    });
+  };
 
-  render() {
-    console.log('comment_id in model',this.props.comment_id)
-    return (
-      <div onKeyDown={e => e.which === 27 && this.toggle()}>
-        <span className='more_btn' onClick={() => this.toggle()}>...</span>
-        {this.state.on && (
-          <AddLinkPortal>
-            <div
-              className="modal-wrapper"
-              onClick={e =>
-                e.target.className === 'modal-wrapper' && this.toggle()
-              }
-            >
-              <button onClick={(e) => this.handleSubmit(e)}>Delete</button>
-              <button onClick={this.toggle}>Cancel</button>
-            </div>
-          </AddLinkPortal>
-        )}
-      </div>
-    );
-  }
+  return (
+    <TrashContainer>
+      <Trash onClick={handleSubmit} />
+    </TrashContainer>
+  );
 }
-export default MoreBtn;
