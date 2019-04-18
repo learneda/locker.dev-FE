@@ -34,7 +34,6 @@ class Home extends Component {
       comments: [],
       search: '',
       posts: [],
-      commentsToRender: -2,
       loading: true
     };
     this.username = props.auth.username;
@@ -59,7 +58,6 @@ class Home extends Component {
     axios
       .get(`${URL}/api/users/newsfeed`)
       .then(res => {
-
         this.setState({ posts: res.data.newResponse, loading: false });
       })
       .catch(err => console.log(err));
@@ -120,19 +118,21 @@ class Home extends Component {
         </div>
       );
     });
-    while (this.state.loading === true ) {
+
+    while (this.state.loading === true) {
       return (
         <Container style={{ minWidth: '100%' }}>
           <MyLoader />
         </Container>
       );
     }
+
     if (posts.length !== 0) {
       return <Container>{posts}</Container>;
     } else {
       return (
         <Container style={{ minWidth: '100%' }}>
-         <h1>YOU HAVE NO POST</h1>
+          <h1>YOU HAVE NO POST</h1>
         </Container>
       );
     }
