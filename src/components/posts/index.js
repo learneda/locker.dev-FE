@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import CommentBox from '../comments/CommentBox.js';
+import axios from 'axios'
+import {post as URL} from '../../services/baseURL';
 
 
 
@@ -11,9 +13,26 @@ class PostContainar extends Component {
     this.state = {
       likes: props.post.likes
     }
+    this.heartIcon = React.createRef()
   }
 
-  handleLikes = (e, index) => {
+  componentDidMount() {
+    if ( this.props.post) {
+      axios.post(`${URL}/api/posts/like/users`, {post_id: this.props.post.post_id})
+      .then((res) => {
+        res.data.forEach((post) => {
+          if (post.user_id === this.props.user_id) {
+            this.heartIcon.current.setAttribute('class', 'far fa-heart fa-lg heart-red');
+          }
+        })
+      })
+      .catch((err) => console.log(err));
+    }
+  }
+
+
+
+  handleLikes = (e, post_id) => {
     let likes = this.state.likes
     let result = e.target.classList.contains('heart-red')
     if (result) {
@@ -21,9 +40,16 @@ class PostContainar extends Component {
         likes: likes - 1
       })
     } else {
+      const data = {
+        post_id,
+        user_id: this.props.user_id
+      };
+      this.props.handleClick(data)
+
       this.setState({
         likes: likes + 1
-      })
+      });
+
     }
   }
 
@@ -52,6 +78,7 @@ class PostContainar extends Component {
             </div>
             <i
                   className='far fa-heart fa-lg'
+                  ref={this.heartIcon}
                   onClick={(e) => {
                     this.handleLikes(e, post.post_id)
                     e.target.classList.toggle('heart-red')
