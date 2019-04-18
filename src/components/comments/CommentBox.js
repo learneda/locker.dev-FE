@@ -156,14 +156,10 @@ const Container = styled.div`
 
     .comment {
       ${customLayout('space-between')}
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       padding: 10px;
       background-color: #f3f4f7;
       border-radius: 5px;
-
-      :nth-child(2) {
-        margin-top: 10px;
-      }
       &:hover {
         .more_btn {
           display: flex;
