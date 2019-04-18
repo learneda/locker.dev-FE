@@ -4,6 +4,7 @@ import { withAlert } from 'react-alert';
 import axios from 'axios';
 import { Grommet, Tab, Tabs } from 'grommet';
 import styled from 'styled-components';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { getCourses, getArticles, fetchUser } from '../actions';
 import {
@@ -17,8 +18,11 @@ import { ReactComponent as Loading } from '../assets/svg/circles.svg';
 axios.defaults.withCredentials = true;
 
 class Browse extends Component {
+  state = {
+    page: 1
+  };
   componentDidMount() {
-    this.props.getCourses();
+    this.props.getCourses(this.state.page);
     this.props.getArticles();
   }
 
@@ -35,6 +39,13 @@ class Browse extends Component {
     return truncateText(content, limit);
   };
 
+  getMoreCourses = () => {
+    this.setState({
+      page: this.state.page + 1
+    });
+    this.props.getCourses(this.state.page);
+  };
+
   render() {
     const { articles, courses } = this.props;
 
@@ -43,7 +54,6 @@ class Browse extends Component {
         <Wrapper>
           <BrowseContainer>
             <h2>Browse</h2>
-
             <Tabs justify="start" alignSelf="center">
               <Tab title="Courses">
                 <Cards>
@@ -52,35 +62,49 @@ class Browse extends Component {
                       <Loading />
                     </Loader>
                   ) : (
-                    courses.map(course => (
-                      <Card key={course.id}>
-                        <a
-                          href={`https://www.udemy.com${course.url}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <img
-                            src={course.image_480x270}
-                            alt="course-thumbnail"
-                          />
-                          <h3>{this.handleTruncateText(course.title)}</h3>
-                          <p>{this.handleTruncateText(course.headline, 15)}</p>
-                        </a>
-                        <SaveIcon>
-                          <Add
-                            className="save-icon"
-                            onClick={() => {
-                              this.handleSaveLink(
-                                `https://www.udemy.com${course.url}`
-                              );
-                              this.props.alert.success(
-                                'Course added to Bookmarks'
-                              );
-                            }}
-                          />
-                        </SaveIcon>
-                      </Card>
-                    ))
+                    <InfiniteScroll
+                      dataLength={courses.length}
+                      next={this.getMoreCourses}
+                      hasMore={true}
+                      loader={<Loader />}
+                      style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        justifyContent: 'space-between'
+                      }}
+                    >
+                      {courses.map(course => (
+                        <Card key={course.id}>
+                          <a
+                            href={`https://www.udemy.com${course.url}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <img
+                              src={course.image_480x270}
+                              alt="course-thumbnail"
+                            />
+                            <h3>{this.handleTruncateText(course.title)}</h3>
+                            <p>
+                              {this.handleTruncateText(course.headline, 15)}
+                            </p>
+                          </a>
+                          <SaveIcon>
+                            <Add
+                              className="save-icon"
+                              onClick={() => {
+                                this.handleSaveLink(
+                                  `https://www.udemy.com${course.url}`
+                                );
+                                this.props.alert.success(
+                                  'Course added to Bookmarks'
+                                );
+                              }}
+                            />
+                          </SaveIcon>
+                        </Card>
+                      ))}
+                    </InfiniteScroll>
                   )}
                 </Cards>
               </Tab>

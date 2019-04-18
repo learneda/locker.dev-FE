@@ -110,7 +110,7 @@ const StyledEditModal = styled.div`
   overflow-y: scroll;
   .close-modal-x {
     position: absolute;
-    top: 10px;
+    top: 14px;
     right: 10px;
     color: red;
     font-size: 6rem;

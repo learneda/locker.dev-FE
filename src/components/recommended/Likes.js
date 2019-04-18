@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Moment from 'react-moment';
 import styled from 'styled-components';
-import HelpScreen from '../utils/HelpScreen';
+import NoPostScreen from '../utils/screens/NoPostScreen';
+import HelpScreen from '../utils/screens/HelpScreen';
 import LoveItSVG from '../../assets/svg/love-it-drawing.svg';
 
 import { customWrapper, truncateText } from '../mixins';
@@ -36,7 +38,12 @@ class Likes extends Component {
       ))
       .reverse();
 
-    if (likedPosts.length === 0) {
+    let path = this.props.location.pathname;
+    if (likedPosts.length === 0 && path.includes('profile')) {
+      return (
+        <NoPostScreen textDescription="No courses or articles have been recommended yet." />
+      );
+    } else if (likedPosts.length === 0) {
       return (
         <HelpScreen
           imgSource={LoveItSVG}
@@ -114,7 +121,9 @@ const Post = styled.div`
 
 const mapStateToProps = ({ likedPosts }) => ({ likedPosts });
 
-export default connect(
-  mapStateToProps,
-  { getlikedPosts }
-)(Likes);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getlikedPosts }
+  )(Likes)
+);

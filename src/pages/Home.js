@@ -7,7 +7,7 @@ import { customWrapper } from '../components/mixins';
 import { post as URL } from '../services/baseURL';
 import { ReactComponent as Loading } from '../assets/svg/circles.svg';
 import ContentLoader, { Facebook } from 'react-content-loader';
-import HelpScreen from '../components/utils/HelpScreen';
+import HelpScreen from '../components/utils/screens/HelpScreen';
 import OnlineFriendsSVG from '../assets/svg/online_friends.svg';
 import PostContainar from '../components/posts';
 
@@ -77,7 +77,6 @@ class Home extends Component {
       event.target.value = '';
     }
     if (body) {
-      console.log('here')
       const comment = {
         action: 'create',
         content: body,
@@ -87,7 +86,6 @@ class Home extends Component {
       };
 
       if (event.keyCode === 13 && body) {
-        console.log('emmiting comment:', comment)
         this.socket.emit('comments', comment);
         event.target.value = '';
       }
@@ -100,10 +98,7 @@ class Home extends Component {
       user_id: this.user_id
     };
     this.socket.emit('like', data);
-    // axios
-    //   .post(`${URL}/api/posts/like`, body).then((res) => {
-    //     console.log(res)
-    //   })
+
   };
 
 
@@ -133,39 +128,38 @@ class Home extends Component {
     } else {
       return (
         <Container style={{ minWidth: '100%' }}>
-          <HelpScreen headerText="Hello! Follow your friends and share your posts to them." imgSource={OnlineFriendsSVG} />
+          <HelpScreen
+            headerText="Hello! Follow your friends and share your posts to them."
+            imgSource={OnlineFriendsSVG}
+          />
         </Container>
       );
     }
   }
 }
 
-const Loader = styled.div`
-  margin: 75px auto;
-  text-align: center;
-`;
-
 const Container = styled.div`
   ${customWrapper('100%', '0 auto')}
   .post {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    /* margin: auto; */
     margin-bottom: 40px;
     border-radius: 8px;
-    /* max-width: 700px; */
     background: #fff;
-    border: 3px solid red;
   }
   .post-user-info {
     display: flex;
     align-items: center;
-    padding: 15px 25px;
+    padding: 15px;
     border-bottom: 1px solid lightgray;
+    a {
+      height: 60px;
+      width: 60px;
+      margin-right: 15px;
+    }
     img {
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      margin-right: 10px;
     }
     h2 {
       font-weight: 500;
