@@ -111,6 +111,7 @@ class Home extends Component {
             </div>
           </div>
           <CommentBox
+            getNewsFeed={this.getNewsFeed}
             post={post}
             handleSubmit={this.handleSubmit}
             profile_picture={this.props.auth.profile_picture}
