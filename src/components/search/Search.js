@@ -95,7 +95,6 @@ const DropDown = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   font-weight: 500;
   height: 500px;
-  padding: 10px;
   position: absolute;
   left: 34.5%;
   overflow: auto;
