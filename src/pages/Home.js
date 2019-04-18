@@ -33,7 +33,6 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      comments: [],
       search: '',
       posts: [],
       loading: true
