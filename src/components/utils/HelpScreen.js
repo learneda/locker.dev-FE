@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import Toggle from './Toggle';
 
 import { customWrapper } from '../mixins';
-import onlineFriendsSVG from '../../assets/svg/online_friends.svg';
+import NotFoundSVG from '../../assets/svg/not-found-drawing.svg';
 
 const HelpScreen = ({ headerText, imgSource }) => {
   return (
     <Container>
-      <img src={imgSource} alt="Drawing" />
+      <img src={imgSource ? imgSource : NotFoundSVG} alt="Drawing" />
       <div className="prompt-text">
         <h2>{headerText}</h2>
         <p>
@@ -41,7 +41,7 @@ const Container = styled.div`
 
   .prompt-text {
     border-top: 1px solid #efefef;
-    padding: 20px;
+    padding: 20px 25px;
 
     h2 {
       margin-bottom: 15px;
