@@ -50,6 +50,56 @@ class Bookmarks extends Component {
         : null;
     });
 
+    const posts = filteredPosts
+      .map(post => (
+        <Post key={post.id}>
+          <a href={post.post_url} target="_blank" rel="noopener noreferrer">
+            <img src={post.thumbnail_url} alt="" />
+          </a>
+          <div className="post-content">
+            <a href={post.post_url} target="_blank" rel="noopener noreferrer">
+              <h1>{this.handleTruncateText(post.title)}</h1>
+            </a>
+            <p>{this.handleTruncateText(post.description, 15)}</p>
+            <div className="date-like-heart">
+              <span className="formatted-date">
+                Added <Moment fromNow>{post.created_at}</Moment>
+              </span>
+              <Like
+                liked={post.liked}
+                handleLike={this.handleLike}
+                id={post.id}
+              />
+              <span className="rec-span">like</span>
+              <img
+                src={deleteIcon}
+                className="delete-icon"
+                onClick={async () =>
+                  await this.props
+                    .deletePost(post.id)
+                    .then(res => this.props.getPosts())
+                }
+                alt="delete icon"
+              />
+              <span className="del-span">delete</span>
+            </div>
+          </div>
+          <img
+            src={editSvg}
+            alt=""
+            onClick={() => {
+              localStorage.setItem('editPostId', post.id);
+
+              this.setState({
+                modalOpen: !this.state.modalOpen
+              });
+            }}
+            className="edit-icon"
+          />
+        </Post>
+      ))
+      .reverse();
+
     return (
       <Wrapper>
         <EditModal
@@ -57,60 +107,7 @@ class Bookmarks extends Component {
           open={this.state.modalOpen}
           handleModalOpen={this.handleModalOpen}
         />
-        {filteredPosts
-          .map(post => (
-            <Post key={post.id}>
-              <a href={post.post_url} target="_blank" rel="noopener noreferrer">
-                <img src={post.thumbnail_url} alt="" />
-              </a>
-              <div className="post-content">
-                <a
-                  href={post.post_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <h1>{this.handleTruncateText(post.title)}</h1>
-                </a>
-                <p>{this.handleTruncateText(post.description, 15)}</p>
-                <div className="date-like-heart">
-                  <span className="formatted-date">
-                    Added <Moment fromNow>{post.created_at}</Moment>
-                  </span>
-                  <Like
-                    liked={post.liked}
-                    handleLike={this.handleLike}
-                    id={post.id}
-                  />
-                  <span className="rec-span">like</span>
-                  <img
-                    src={deleteIcon}
-                    className="delete-icon"
-                    onClick={async () =>
-                      await this.props
-                        .deletePost(post.id)
-                        .then(res => this.props.getPosts())
-                    }
-                    alt="delete icon"
-                  />
-                  <span className="del-span">delete</span>
-                </div>
-              </div>
-              <img
-                src={editSvg}
-                alt=""
-                onClick={() => {
-                  localStorage.setItem('editPostId', post.id);
-
-                  this.setState({
-                    modalOpen: !this.state.modalOpen
-                  });
-                }}
-                className="edit-icon"
-              />
-            </Post>
-          ))
-
-          .reverse()}
+        {posts}
       </Wrapper>
     );
   }
