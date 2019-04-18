@@ -91,7 +91,7 @@ export default CommentBox;
 
 const Container = styled.div`
   .comments-container {
-    padding: 15px 25px;
+    padding: 13px 15px;
 
     .add-comment {
       display: flex;
@@ -101,13 +101,12 @@ const Container = styled.div`
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        margin-right: 10px;
+        margin-right: 13px;
       }
 
       textarea {
         resize: none;
-        align-items: center;
-        padding: 5px;
+        padding: 10px;
         width: 100%;
         border-radius: 3px;
         border-color: lightgrey;
@@ -139,8 +138,6 @@ const Container = styled.div`
     }
 
     .comment-box {
-      margin-top: 10px;
-
       .show-more-btn {
         border: 1px solid transparent;
         color: #3f65f2;
@@ -160,14 +157,10 @@ const Container = styled.div`
 
     .comment {
       ${customLayout('space-between')}
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       padding: 10px;
       background-color: #f3f4f7;
       border-radius: 5px;
-
-      :nth-child(2) {
-        margin-top: 10px;
-      }
       &:hover {
         .more_btn {
           display: flex;
