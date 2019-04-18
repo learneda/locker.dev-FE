@@ -9,7 +9,7 @@ import { ReactComponent as Loading } from '../assets/svg/circles.svg';
 import ContentLoader, { Facebook } from 'react-content-loader';
 import HelpScreen from '../components/utils/screens/HelpScreen';
 import OnlineFriendsSVG from '../assets/svg/online_friends.svg';
-import PostContainar from '../components/posts';
+import PostContainer from '../components/posts';
 
 const MyLoader = () => (
   <ContentLoader
@@ -51,6 +51,7 @@ class Home extends Component {
       this.setState({ posts: updated_state });
     });
     this.socket.on('like', data => {
+      console.log('in like socket connection')
       const updated_state = this.state.posts.map((post, index) => {
         if (post.post_id === data.post_id) {
           post.likes++;
@@ -92,20 +93,16 @@ class Home extends Component {
     }
   };
 
-  handleClick = (ev, post_id) => {
-    const data = {
-      post_id,
-      user_id: this.user_id
-    };
+  handleClick = (data) => {
+    console.log('IN HANDLE CLICK')
     this.socket.emit('like', data);
-
   };
 
 
   render() {
     const posts = this.state.posts.map((post, index) => {
       return (
-        <PostContainar 
+        <PostContainer 
         handleSubmit={this.handleSubmit} 
         handleClick={this.handleClick} 
         getNewsFeed={this.getNewsFeed} 
