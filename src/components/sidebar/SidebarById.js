@@ -114,7 +114,7 @@ class SidebarById extends Component {
         <Link key={index} to={`profile/${follower.id}`}>
           <div className="follow">
             <img src={follower.profile_picture} alt="" />
-            <h2>{follower.display_name}</h2>
+            <h2>{follower.username}</h2>
           </div>
         </Link>
       ));
