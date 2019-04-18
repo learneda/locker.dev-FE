@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-
 import MoreBtn from '../utils/MoreBtn';
-
+import { post as URL } from '../../services/baseURL';
 import styled from 'styled-components';
 import { customLayout } from '../mixins';
 
@@ -21,12 +20,11 @@ class CommentBox extends Component {
   };
 
   render() {
-    const { post, handleSubmit, profile_picture, user_id } = this.props;
     return (
       <Container>
         <div className="comments-container">
           <div className="comment-box">
-            {post.comments.length - 1 <
+            {this.props.post_comments.length - 1 <
             Math.abs(this.state.commentsToRender) ? null : (
               <button
                 className="show-more-btn"
@@ -35,10 +33,10 @@ class CommentBox extends Component {
                 show more comments
               </button>
             )}
-            {post.comments
+            {this.props.post_comments
               .slice(this.state.commentsToRender)
               .map((comment, index) => {
-                if (comment.user_id === user_id) {
+                if (comment.user_id === this.props.user_id) {
                   return (
                     <div key={index} className="comment">
                       <div className="comment-text">
@@ -66,16 +64,16 @@ class CommentBox extends Component {
 
           <div>
             <form className="add-comment">
-              <img src={profile_picture} alt="" />
+              <img src={this.props.profile_picture} alt="" />
               <textarea
                 placeholder="Add a comment..."
                 type="text"
-                onKeyUp={e => handleSubmit(e, post.post_id)}
+                onKeyUp={e => this.props.handleSubmit(e, this.props.post_id)}
               />
               <button
                 onClick={e => {
                   e.preventDefault();
-                  handleSubmit(e, post.post_id);
+                  this.props.handleSubmit(e, this.props.post_id);
                 }}
               >
                 Post
@@ -87,6 +85,9 @@ class CommentBox extends Component {
     );
   }
 }
+
+export default CommentBox;
+
 
 const Container = styled.div`
   .comments-container {
@@ -188,5 +189,3 @@ const Container = styled.div`
     }
   }
 `;
-
-export default CommentBox;
