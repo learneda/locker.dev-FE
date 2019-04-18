@@ -10,6 +10,8 @@ import { post as URL } from '../services/baseURL';
 import { ReactComponent as Loading } from '../assets/svg/circles.svg';
 import ContentLoader, { Facebook } from 'react-content-loader';
 import CommentBox from '../components/comments/CommentBox';
+import HelpScreen from '../components/utils/HelpScreen';
+import OnlineFriendsSVG from '../assets/svg/online_friends.svg';
 
 const MyLoader = () => (
   <ContentLoader
@@ -119,19 +121,21 @@ class Home extends Component {
         </div>
       );
     });
-    while (this.state.loading === true ) {
+
+    while (this.state.loading === true) {
       return (
         <Container style={{ minWidth: '100%' }}>
           <MyLoader />
         </Container>
       );
     }
+
     if (posts.length !== 0) {
       return <Container>{posts}</Container>;
     } else {
       return (
         <Container style={{ minWidth: '100%' }}>
-         <h1>YOU HAVE NO POST</h1>
+          <HelpScreen headerText="Hello! Follow your friends and share your posts to them." imgSource={OnlineFriendsSVG} />
         </Container>
       );
     }
