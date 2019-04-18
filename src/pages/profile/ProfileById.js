@@ -99,7 +99,7 @@ class ProfileById extends Component {
 
     if (posts.length === 0) {
       return (
-        <NoPostScreen descriptionText="No courses or articles have been bookmarked yet." />
+        <NoPostScreen textDescription="No courses or articles have been bookmarked yet." />
       );
     } else {
       return <Wrapper>{posts}</Wrapper>;
