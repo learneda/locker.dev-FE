@@ -137,7 +137,7 @@ class Sidebar extends Component {
 }
 
 const Wrapper = styled.div`
-  ${customWrapper('25%')}
+  ${customWrapper('40%')}
   max-width: 300px;
 
   @media (max-width: 900px) {
@@ -177,7 +177,7 @@ const Profile = styled.div`
     ${customLayout()}
     flex-direction: column;
     flex-wrap: wrap;
-    padding: 15px;
+    padding: 15px 8%;
     margin: 0 auto;
     @media (max-width: 1350px) {
       width: 100%;
@@ -205,6 +205,7 @@ const Profile = styled.div`
     }
 
     .edit-profile-link {
+      margin: 10px 0;
       a {
         font-size: 1.4rem;
         font-weight: 700;

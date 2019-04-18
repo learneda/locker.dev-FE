@@ -233,7 +233,7 @@ class SidebarById extends Component {
 }
 
 const Wrapper = styled.div`
-  ${customWrapper('25%')}
+  ${customWrapper('40%')}
   max-width: 300px;
   @media (max-width: 900px) {
     display: none;
@@ -273,9 +273,8 @@ const Profile = styled.div`
     ${customLayout()}
     flex-direction: column;
     flex-wrap: wrap;
-    padding: 15px 6%;
-    width: 90%;
-    margin: auto;
+    padding: 15px 8%;
+    margin: 0 auto;
     @media (max-width: 1350px) {
       width: 100%;
     }
@@ -289,7 +288,6 @@ const Profile = styled.div`
       line-height: 25px;
       margin-bottom: 15px;
       color: #6d767e;
-      // display: flex;
       img {
         width: 18px;
         height: 18px;
@@ -341,7 +339,6 @@ const Profile = styled.div`
     width: 100%;
     justify-content: space-between;
     @media (max-width: 1400px) {
-      flex-direction: column;
       flex-wrap: wrap;
     }
     ul {
