@@ -15,9 +15,10 @@ import Moment from 'react-moment';
 import locationSvg from '../../assets/svg/location.svg';
 import linkSvg from '../../assets/svg/link-symbol.svg';
 import calendarSvg from '../../assets/svg/calendar.svg';
-import upArrow from '../../assets/svg/up-arrow.svg';
 import axios from 'axios';
 import { post as URL } from '../../services/baseURL';
+import FollowingDropdown from '../utils/FollowingDropdown';
+import FollowersDropdown from '../utils/FollowersDropdown';
 
 const MyLoader = () => (
   <ContentLoader
@@ -64,7 +65,6 @@ class Sidebar extends Component {
         this.state.followingDropDownHeight === '300px' ? '0px' : '300px',
       followersDropDownHeight: '0px'
     });
-    // document.querySelector('body').style.overflow = 'hidden';
   };
   handleFollowersDropdown = () => {
     this.setState({
@@ -76,28 +76,6 @@ class Sidebar extends Component {
   render() {
     if (!this.props.user_details) {
       return <MyLoader />;
-    }
-    let followers = '';
-    if (this.state.followers.length > 0) {
-      followers = this.state.followers.map(follower => (
-        <Link key={follower.id} to={`/profile/${follower.id}`}>
-          <div className="follow">
-            <img src={follower.profile_picture} alt="" />
-            <h2>{follower.display_name}</h2>
-          </div>
-        </Link>
-      ));
-    }
-    let following = '';
-    if (this.state.following.length > 0) {
-      following = this.state.following.map(follow => (
-        <Link key={follow.id} to={`/profile/${follow.id}`}>
-          <div className="follow">
-            <img src={follow.profile_picture} alt="" />
-            <h2>{follow.username}</h2>
-          </div>
-        </Link>
-      ));
     }
     return (
       <Wrapper>
@@ -121,30 +99,16 @@ class Sidebar extends Component {
                 <li>{this.props.user_details.followers_count}</li>
               </ul>
             </div>
-            <div
-              className="follow-stats-dropdown"
-              style={{ height: this.state.followingDropDownHeight }}
-            >
-              <img
-                className="caret-up"
-                src={upArrow}
-                alt=""
-                onClick={this.handleFollowingDropdown}
-              />
-              {following}
-            </div>
-            <div
-              className="follow-stats-dropdown"
-              style={{ height: this.state.followersDropDownHeight }}
-            >
-              <img
-                className="caret-up"
-                src={upArrow}
-                alt=""
-                onClick={this.handleFollowersDropdown}
-              />
-              {followers}
-            </div>
+            <FollowingDropdown
+              following={this.state.following}
+              height={this.state.followingDropDownHeight}
+              handleFollowingDropdown={this.handleFollowingDropdown}
+            />
+            <FollowersDropdown
+              followers={this.state.followers}
+              height={this.state.followersDropDownHeight}
+              handleFollowingDropdown={this.handleFollowersDropdown}
+            />
             <p>{this.props.auth.bio ? this.props.auth.bio : 'Add bio'}</p>
             <p>
               <img src={locationSvg} alt="location-icon" />
