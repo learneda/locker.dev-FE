@@ -58,7 +58,6 @@ class Home extends Component {
     axios
       .get(`${URL}/api/users/newsfeed`)
       .then(res => {
-
         this.setState({ posts: res.data.newResponse, loading: false });
       })
       .catch(err => console.log(err));
@@ -108,6 +107,7 @@ class Home extends Component {
               <h2>{post.title}</h2>
               <p>{post.description}</p>
             </div>
+            <span>&#9829; {post.likes}</span>
           </div>
           <CommentBox
             getNewsFeed={this.getNewsFeed}
