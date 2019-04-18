@@ -18,7 +18,7 @@ import {
 import deleteIcon from '../../assets/svg/delete-icon.svg';
 import editSvg from '../../assets/svg/edit.svg';
 import HelpScreen from '../../components/utils/HelpScreen';
-import bookmarkSVG from '../../assets/svg/bookmark-drawing.svg';
+import BookmarkSVG from '../../assets/svg/bookmark-drawing.svg';
 
 class Bookmarks extends Component {
   state = { modalOpen: false };
@@ -105,7 +105,7 @@ class Bookmarks extends Component {
     if (posts.length === 0) {
       return (
         <HelpScreen
-          imgSource={bookmarkSVG}
+          imgSource={BookmarkSVG}
           headerText="Your saved courses and articles will be stored here."
         />
       );
