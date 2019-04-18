@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Moment from 'react-moment';
 import styled from 'styled-components';
-
+import { Link } from 'react-router-dom';
 import {
   getUserProfileDetails,
   followAUser,
@@ -16,6 +16,8 @@ import linkSvg from '../../assets/svg/link-symbol.svg';
 import calendarSvg from '../../assets/svg/calendar.svg';
 import { post as URL } from '../../services/baseURL.js';
 import ContentLoader, { Facebook } from 'react-content-loader';
+import upArrow from '../../assets/svg/up-arrow.svg';
+import axios from 'axios';
 
 const MyLoader = () => (
   <ContentLoader
@@ -46,12 +48,27 @@ const ImageLoading = () => (
 );
 class SidebarById extends Component {
   state = {
-    imageLoaded: false
+    imageLoaded: false,
+    followers: [],
+    following: [],
+    followingDropDownHeight: '0px',
+    followersDropDownHeight: '0px'
   };
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.getUserProfileDetails(id);
     this.props.getFollowing(id);
+
+    if (this.props.user_details) {
+      axios
+        .get(`${URL}/api/users/followers?id=${id}`)
+        .then(res => this.setState({ followers: res.data }));
+    }
+    if (this.props.user_details) {
+      axios
+        .get(`${URL}/api/users/following?id=${id}`)
+        .then(res => this.setState({ following: res.data }));
+    }
   }
 
   followAUserHandler = async e => {
@@ -74,8 +91,46 @@ class SidebarById extends Component {
       imageLoaded: true
     });
   };
+  handleFollowingDropdown = () => {
+    this.setState({
+      followingDropDownHeight:
+        this.state.followingDropDownHeight === '300px' ? '0px' : '300px',
+      followersDropDownHeight: '0px'
+    });
+  };
+
+  handleFollowersDropdown = () => {
+    this.setState({
+      followersDropDownHeight:
+        this.state.followersDropDownHeight === '300px' ? '0px' : '300px',
+      followingDropDownHeight: '0px'
+    });
+  };
 
   render() {
+    let followers = '';
+    if (this.state.followers.length > 0) {
+      followers = this.state.followers.map((follower, index) => (
+        <Link key={index} to={`profile/${follower.id}`}>
+          <div className="follow">
+            <img src={follower.profile_picture} alt="" />
+            <h2>{follower.display_name}</h2>
+          </div>
+        </Link>
+      ));
+    }
+    let following = '';
+    if (this.state.following.length > 0) {
+      following = this.state.following.map((follow, index) => (
+        <Link key={index} to={`profile/${follow.id}`}>
+          <div className="follow">
+            <img src={follow.profile_picture} alt="" />
+            <h2>{follow.username}</h2>
+          </div>
+        </Link>
+      ));
+    }
+
     if (!this.props.user_details) {
       return <MyLoader />;
     }
@@ -136,14 +191,38 @@ class SidebarById extends Component {
                 <li>Posts</li>
                 <li>{post_count}</li>
               </ul>
-              <ul>
+              <ul onClick={this.handleFollowingDropdown}>
                 <li>Following</li>
                 <li>{following_count}</li>
               </ul>
-              <ul>
+              <ul onClick={this.handleFollowersDropdown}>
                 <li>Followers</li>
                 <li>{followers_count}</li>
               </ul>
+            </div>
+            <div
+              className="follow-stats-dropdown"
+              style={{ height: this.state.followingDropDownHeight }}
+            >
+              <img
+                className="caret-up"
+                src={upArrow}
+                alt=""
+                onClick={this.handleFollowingDropdown}
+              />
+              {following}
+            </div>
+            <div
+              className="follow-stats-dropdown"
+              style={{ height: this.state.followersDropDownHeight }}
+            >
+              <img
+                className="caret-up"
+                src={upArrow}
+                alt=""
+                onClick={this.handleFollowersDropdown}
+              />
+              {followers}
             </div>
             <p>{bio ? bio : 'Add bio'}</p>
             <p>
@@ -300,6 +379,54 @@ const Profile = styled.div`
         opacity: 0.7;
         transition: 200ms ease-out;
       }
+    }
+  }
+  .follow-stats-dropdown {
+    position: absolute;
+    top: 240px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    width: 100%;
+    overflow: auto;
+    transition: 200ms height ease-in-out;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border-radius: 0 0 5px 5px;
+    .caret-up {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      right: 3px;
+      top: 10px;
+      cursor: pointer;
+    }
+    a {
+      margin: 15px 0;
+      &:hover {
+        h2 {
+          opacity: 1;
+          transition: 200ms ease-in;
+        }
+      }
+    }
+    .follow {
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+    }
+    img {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    h2 {
+      font-size: 1.8rem;
+      opacity: 0.7;
+      transition: 200ms ease-out;
     }
   }
 `;
