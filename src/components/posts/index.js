@@ -36,6 +36,13 @@ class PostContainer extends Component {
     let likes = this.state.likes
     let result = e.target.classList.contains('heart-red')
     if (result) {
+      const data = {
+        post_id,
+        user_id: this.props.user_id,
+        action: 'unlike'
+      }
+      this.props.handleClick(data)
+
       this.setState({
         likes: likes - 1
       })
