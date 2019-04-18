@@ -7,7 +7,7 @@ import {post as URL} from '../../services/baseURL';
 
 
 
-class PostContainar extends Component {
+class PostContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -99,4 +99,4 @@ class PostContainar extends Component {
   }
 }
 
-export default PostContainar
+export default PostContainer

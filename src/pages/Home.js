@@ -9,7 +9,7 @@ import { ReactComponent as Loading } from '../assets/svg/circles.svg';
 import ContentLoader, { Facebook } from 'react-content-loader';
 import HelpScreen from '../components/utils/screens/HelpScreen';
 import OnlineFriendsSVG from '../assets/svg/online_friends.svg';
-import PostContainar from '../components/posts';
+import PostContainer from '../components/posts';
 
 const MyLoader = () => (
   <ContentLoader
@@ -102,7 +102,7 @@ class Home extends Component {
   render() {
     const posts = this.state.posts.map((post, index) => {
       return (
-        <PostContainar 
+        <PostContainer 
         handleSubmit={this.handleSubmit} 
         handleClick={this.handleClick} 
         getNewsFeed={this.getNewsFeed} 
