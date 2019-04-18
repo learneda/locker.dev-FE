@@ -139,6 +139,10 @@ const Post = styled.div`
   height: 200px;
   height: auto;
   position: relative;
+  .date-like-heart {
+    display: flex;
+    align-items: center;
+  }
   &:hover {
     .like {
       opacity: 1;
@@ -174,7 +178,8 @@ const Post = styled.div`
     margin-right: 5px;
   }
   .like {
-    display: inline;
+    display: flex;
+    justify-content: center;
     cursor: pointer;
     transition: 200ms ease-out;
     margin-right: 5px;
