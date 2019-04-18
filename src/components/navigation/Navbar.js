@@ -154,6 +154,10 @@ const Nav = styled.nav`
   margin: 0 auto;
   margin-bottom: 40px;
   width: 80%;
+
+  @media (max-width: 1400px) {
+    width: 90%;
+  }
   @media (max-width: 960px) {
     margin-bottom: 20px;
   }
