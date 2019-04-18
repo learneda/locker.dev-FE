@@ -41,8 +41,8 @@ export const fetchUser = () => async dispatch => {
   }
 };
 
-export const getCourses = () => async dispatch => {
-  const res = await axios.get(`${URL}/api/courses`);
+export const getCourses = page => async dispatch => {
+  const res = await axios.get(`${URL}/api/courses?page=${page}`);
   dispatch({ type: FETCH_COURSES, payload: res.data.results });
 };
 

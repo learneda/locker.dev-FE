@@ -13,6 +13,7 @@
     "react-alert-template-basic": "^1.0.0",
     "react-content-loader": "^4.2.1",
     "react-dom": "^16.8.4",
+    "react-infinite-scroll-component": "^4.5.2",
     "react-inline-edition": "^1.4.2",
     "react-moment": "^0.8.4",
     "react-redux": "^6.0.1",
