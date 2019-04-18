@@ -8,7 +8,25 @@ import CommentBox from '../comments/CommentBox.js';
 class PostContainar extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      likes: props.post.likes
+    }
   }
+
+  handleLikes = (e, index) => {
+    let likes = this.state.likes
+    let result = e.target.classList.contains('heart-red')
+    if (result) {
+      this.setState({
+        likes: likes - 1
+      })
+    } else {
+      this.setState({
+        likes: likes + 1
+      })
+    }
+  }
+
   render () {
     const {post, handleSubmit, handleClick, getNewsFeed, profile_picture, user_id} = this.props
     return (
@@ -32,7 +50,13 @@ class PostContainar extends Component {
               <h2>{post.title}</h2>
               <p>{post.description}</p>
             </div>
-            <span onClick={(ev) => handleClick(ev, post.post_id)}>&#9829; {post.likes}</span>
+            <i
+                  className='far fa-heart fa-lg'
+                  onClick={(e) => {
+                    this.handleLikes(e, post.post_id)
+                    e.target.classList.toggle('heart-red')
+                  }}
+                >{this.state.likes}</i>
           </div>
           <CommentBox
             post_comments={post.comments}
