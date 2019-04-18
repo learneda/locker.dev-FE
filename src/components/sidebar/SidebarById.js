@@ -16,8 +16,9 @@ import linkSvg from '../../assets/svg/link-symbol.svg';
 import calendarSvg from '../../assets/svg/calendar.svg';
 import { post as URL } from '../../services/baseURL.js';
 import ContentLoader, { Facebook } from 'react-content-loader';
-import upArrow from '../../assets/svg/up-arrow.svg';
 import axios from 'axios';
+import FollowingDropdown from '../utils/FollowingDropdown';
+import FollowersDropdown from '../utils/FollowersDropdown';
 
 const MyLoader = () => (
   <ContentLoader
@@ -59,12 +60,12 @@ class SidebarById extends Component {
     this.props.getUserProfileDetails(id);
     this.props.getFollowing(id);
 
-    if (this.props.user_details) {
+    if (id) {
       axios
         .get(`${URL}/api/users/followers?id=${id}`)
         .then(res => this.setState({ followers: res.data }));
     }
-    if (this.props.user_details) {
+    if (id) {
       axios
         .get(`${URL}/api/users/following?id=${id}`)
         .then(res => this.setState({ following: res.data }));
@@ -108,29 +109,6 @@ class SidebarById extends Component {
   };
 
   render() {
-    let followers = '';
-    if (this.state.followers.length > 0) {
-      followers = this.state.followers.map((follower, index) => (
-        <Link key={index} to={`/profile/${follower.id}`}>
-          <div className="follow">
-            <img src={follower.profile_picture} alt="" />
-            <h2>{follower.username}</h2>
-          </div>
-        </Link>
-      ));
-    }
-    let following = '';
-    if (this.state.following.length > 0) {
-      following = this.state.following.map((follow, index) => (
-        <Link key={index} to={`/profile/${follow.id}`}>
-          <div className="follow">
-            <img src={follow.profile_picture} alt="" />
-            <h2>{follow.username}</h2>
-          </div>
-        </Link>
-      ));
-    }
-
     if (!this.props.user_details) {
       return <MyLoader />;
     }
@@ -200,7 +178,7 @@ class SidebarById extends Component {
                 <li>{followers_count}</li>
               </ul>
             </div>
-            <div
+            {/* <div
               className="follow-stats-dropdown"
               style={{ height: this.state.followingDropDownHeight }}
             >
@@ -223,7 +201,17 @@ class SidebarById extends Component {
                 onClick={this.handleFollowersDropdown}
               />
               {followers}
-            </div>
+            </div> */}
+            <FollowingDropdown
+              following={this.state.following}
+              height={this.state.followingDropDownHeight}
+              handleFollowingDropdown={this.handleFollowingDropdown}
+            />
+            <FollowersDropdown
+              followers={this.state.followers}
+              height={this.state.followersDropDownHeight}
+              handleFollowingDropdown={this.handleFollowersDropdown}
+            />
             <p>{bio ? bio : 'Add bio'}</p>
             <p>
               <img src={locationSvg} alt="location-icon" />
