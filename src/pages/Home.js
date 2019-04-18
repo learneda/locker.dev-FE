@@ -11,6 +11,7 @@ import { ReactComponent as Loading } from '../assets/svg/circles.svg';
 import ContentLoader, { Facebook } from 'react-content-loader';
 import CommentBox from '../components/comments/CommentBox';
 import HelpScreen from '../components/utils/HelpScreen';
+import onlineFriendsSVG from '../assets/svg/online_friends.svg';
 
 const MyLoader = () => (
   <ContentLoader
@@ -133,7 +134,7 @@ class Home extends Component {
     } else {
       return (
         <Container style={{ minWidth: '100%' }}>
-          <HelpScreen />
+          <HelpScreen headerText="Hello! Follow your friends and share your posts to them." imgSource={onlineFriendsSVG} />
         </Container>
       );
     }

@@ -6,12 +6,12 @@ import Toggle from './Toggle';
 import { customWrapper } from '../mixins';
 import onlineFriendsSVG from '../../assets/svg/online_friends.svg';
 
-const HelpScreen = props => {
+const HelpScreen = ({headerText, imgSource}) => {
   return (
     <Container>
-      <img src={onlineFriendsSVG} alt="Online friends" />
+      <img src={imgSource} alt="Drawing" />
       <div className="prompt-text">
-        <h2>Hello! Follow your friends and share your posts to them.</h2>
+        <h2>{headerText}</h2>
         <p>
           To get started, go to{' '}
           <Link to="/browse">
