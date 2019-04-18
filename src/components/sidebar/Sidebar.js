@@ -138,7 +138,7 @@ class Sidebar extends Component {
 
 const Wrapper = styled.div`
   ${customWrapper('40%')}
-  max-width: 300px;
+  max-width: 265px;
 
   @media (max-width: 900px) {
     display: none;
@@ -205,7 +205,7 @@ const Profile = styled.div`
     }
 
     .edit-profile-link {
-      margin: 10px 0;
+      margin-bottom: 3.5px;
       a {
         font-size: 1.4rem;
         font-weight: 700;
