@@ -33,7 +33,6 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      comments: [],
       search: '',
       posts: [],
       loading: true
@@ -53,6 +52,15 @@ class Home extends Component {
       });
       this.setState({ posts: updated_state });
     });
+    this.socket.on('like', data => {
+      const updated_state = this.state.posts.map((post, index) => {
+        if (post.post_id === data.post_id) {
+          post.likes++
+        }
+        return post;
+      });
+      this.setState({ posts: updated_state });
+    })
     this.getNewsFeed();
   }
 
@@ -86,6 +94,18 @@ class Home extends Component {
     }
   };
 
+  handleClick = (ev, post_id) => {
+    const data = {
+      post_id,
+      user_id: this.user_id
+    }
+    this.socket.emit('like', data);
+    // axios
+    //   .post(`${URL}/api/posts/like`, body).then((res) => {
+    //     console.log(res)
+    //   })
+  }
+
   render() {
     const posts = this.state.posts.map((post, index) => {
       return (
@@ -109,6 +129,7 @@ class Home extends Component {
               <h2>{post.title}</h2>
               <p>{post.description}</p>
             </div>
+            <span onClick={(ev) => this.handleClick(ev, post.post_id)}>&#9829; {post.likes}</span>
           </div>
           <CommentBox
             getNewsFeed={this.getNewsFeed}
