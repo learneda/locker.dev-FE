@@ -97,5 +97,4 @@ const TabWrapper = styled.div`
   border-top: 1px solid #bdbdbd;
   padding-top: 20px;
   margin-top: -3px;
-  margin-left: 12px;
 `;
