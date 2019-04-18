@@ -34,7 +34,6 @@ class Home extends Component {
       comments: [],
       search: '',
       posts: [],
-      commentsToRender: -2,
       loading: true
     };
     this.username = props.auth.username;
