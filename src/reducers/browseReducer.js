@@ -8,7 +8,7 @@ const initialState = {
 export const browseReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_COURSES:
-      return { ...state, courses: [...action.payload] };
+      return { ...state, courses: state.courses.concat(action.payload) };
     case FETCH_ARTICLES:
       return { ...state, articles: [...action.payload] };
     case ERROR:
