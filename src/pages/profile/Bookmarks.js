@@ -131,7 +131,7 @@ const Wrapper = styled.div`
 const Post = styled.div`
   ${customWrapper('100%', 'auto')}
   display: flex;
-  margin-bottom: 50px;
+  margin-bottom: 35px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 6px;
   background-color: #fff;
