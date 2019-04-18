@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Toggle from './Toggle';
+import Toggle from '../Toggle';
 
-import { customWrapper } from '../mixins';
-import NotFoundSVG from '../../assets/svg/not-found-drawing.svg';
+import { customWrapper } from '../../mixins';
+import NotFoundSVG from '../../../assets/svg/not-found-drawing.svg';
 
 const HelpScreen = ({ headerText, imgSource }) => {
   return (
@@ -15,7 +15,7 @@ const HelpScreen = ({ headerText, imgSource }) => {
         <p>
           To get started, go to{' '}
           <Link to="/browse">
-            <span class="browse-btn">Browse</span>
+            <span className="browse-btn">Browse</span>
           </Link>{' '}
           to look around and find the latest courses and blogs or save your
           favorite link <Toggle buttonName="here" />.
@@ -25,7 +25,7 @@ const HelpScreen = ({ headerText, imgSource }) => {
   );
 };
 
-const Container = styled.div`
+export const Container = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   ${customWrapper('80%', '0 auto')}
   border-radius: 5px;

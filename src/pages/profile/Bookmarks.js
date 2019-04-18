@@ -17,7 +17,7 @@ import {
 } from '../../actions';
 import deleteIcon from '../../assets/svg/delete-icon.svg';
 import editSvg from '../../assets/svg/edit.svg';
-import HelpScreen from '../../components/utils/HelpScreen';
+import HelpScreen from '../../components/utils/screens/HelpScreen';
 import BookmarkSVG from '../../assets/svg/bookmark-drawing.svg';
 
 class Bookmarks extends Component {
