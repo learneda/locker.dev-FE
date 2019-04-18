@@ -177,9 +177,8 @@ const Profile = styled.div`
     ${customLayout()}
     flex-direction: column;
     flex-wrap: wrap;
-    padding: 15px 6%;
-    width: 90%;
-    margin: auto;
+    padding: 15px;
+    margin: 0 auto;
     @media (max-width: 1350px) {
       width: 100%;
     }
@@ -206,8 +205,6 @@ const Profile = styled.div`
     }
 
     .edit-profile-link {
-      margin-top: 20px;
-      margin-bottom: 10px;
       a {
         font-size: 1.4rem;
         font-weight: 700;
