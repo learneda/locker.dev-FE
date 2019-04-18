@@ -100,16 +100,14 @@
 .login-content form {
   display: flex;
   flex-direction: column;
-  /* max-width: 290px; */
   margin: auto;
-  margin-top: 15px;
   -webkit-appearance: none;
-  padding: 20px 5px;
+  padding: 28px 5px 10px 5px;
 }
 @media (max-width: 768px) {
   .login-content form {
     max-width: 1000px;
-    padding: 20px 0px;
+    padding: 28px 0px;
   }
 }
 .login-content form label {
