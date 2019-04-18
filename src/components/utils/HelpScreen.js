@@ -44,10 +44,14 @@ const Container = styled.div`
     padding: 20px;
 
     h2 {
+      margin-bottom: 15px;
+      font-size: 1.8rem;
       font-weight: 700;
     }
 
     p {
+      font-size: 1.6rem;
+
       div {
         display: inline-block;
         color: #3f65f2;
