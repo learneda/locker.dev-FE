@@ -67,7 +67,7 @@ class Navbar extends Component {
           <Auth />
           <Nav style={{ marginTop: '20px' }}>
             <h1>
-              <Link to="/home">Learned</Link>
+              <Link to="/home">LearnLocker</Link>
             </h1>
             <ul>
               <li>
