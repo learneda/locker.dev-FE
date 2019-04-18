@@ -6,7 +6,7 @@ import Toggle from './Toggle';
 import { customWrapper } from '../mixins';
 import onlineFriendsSVG from '../../assets/svg/online_friends.svg';
 
-const HelpScreen = ({headerText, imgSource}) => {
+const HelpScreen = ({ headerText, imgSource }) => {
   return (
     <Container>
       <img src={imgSource} alt="Drawing" />
@@ -35,7 +35,7 @@ const Container = styled.div`
 
   img {
     width: 35%;
-    height: auto;
+    height: 100px;
     margin: 15px 0;
   }
 
