@@ -7,6 +7,7 @@ import {
   getUserFollowers,
   getUserFollowing
 } from '../../actions';
+import ContentLoader, { Facebook } from 'react-content-loader';
 
 import styled from 'styled-components';
 import { customLayout, customWrapper } from '../mixins';
@@ -18,6 +19,25 @@ import upArrow from '../../assets/svg/up-arrow.svg';
 import axios from 'axios';
 import { post as URL } from '../../services/baseURL';
 
+const MyLoader = () => (
+  <ContentLoader
+    height={475}
+    width={'100%'}
+    speed={2}
+    primaryColor="#f3f3f3"
+    secondaryColor="#ecebeb"
+    // style={{
+    //   minWidth: '100%',
+    //   width: '25%',
+    //   maxHeight: '300px',
+    //   height: '400px'
+    // }}
+  >
+    <circle cx="148" cy="73" r="56" />
+    <rect x="118" y="425" rx="0" ry="0" width="0" height="0" />
+    <rect x="17" y="144" rx="0" ry="0" width="364" height="300" />
+  </ContentLoader>
+);
 class Sidebar extends Component {
   state = {
     followers: [],
@@ -55,7 +75,7 @@ class Sidebar extends Component {
   };
   render() {
     if (!this.props.user_details) {
-      return <div>LOADING LOADING...</div>;
+      return <MyLoader />;
     }
     let followers = '';
     if (this.state.followers.length > 0) {
@@ -276,7 +296,7 @@ const Profile = styled.div`
     background: #fff;
     width: 100%;
     overflow: auto;
-    transition: 200ms ease-in-out;
+    transition: 200ms height ease-in-out;
     display: flex;
     align-items: flex-start;
     flex-direction: column;

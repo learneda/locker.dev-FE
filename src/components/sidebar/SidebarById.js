@@ -14,9 +14,40 @@ import { customLayout, customWrapper } from '../mixins';
 import locationSvg from '../../assets/svg/location.svg';
 import linkSvg from '../../assets/svg/link-symbol.svg';
 import calendarSvg from '../../assets/svg/calendar.svg';
-import {post as URL} from '../../services/baseURL.js'
+import { post as URL } from '../../services/baseURL.js';
+import ContentLoader, { Facebook } from 'react-content-loader';
 
+const MyLoader = () => (
+  <ContentLoader
+    height={475}
+    width={300}
+    speed={2}
+    primaryColor="#f3f3f3"
+    secondaryColor="#ecebeb"
+  >
+    <circle cx="148" cy="73" r="56" />
+    <rect x="118" y="425" rx="0" ry="0" width="0" height="0" />
+    <rect x="17" y="144" rx="0" ry="0" width="364" height="300" />
+  </ContentLoader>
+);
+
+const ImageLoading = () => (
+  <ContentLoader
+    height={50}
+    width={50}
+    speed={2}
+    primaryColor="#f3f3f3"
+    secondaryColor="#ecebeb"
+  >
+    <circle cx="148" cy="73" r="56" />
+    <rect x="118" y="425" rx="0" ry="0" width="0" height="0" />
+    <circle cx="25" cy="25" r="22" />
+  </ContentLoader>
+);
 class SidebarById extends Component {
+  state = {
+    imageLoaded: false
+  };
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.getUserProfileDetails(id);
@@ -38,10 +69,15 @@ class SidebarById extends Component {
       .unfollowAUser({ user_id: this.props.auth.id, friend_id })
       .then(() => this.props.getUserProfileDetails(friend_id));
   };
+  imageLoaded = async () => {
+    this.setState({
+      imageLoaded: true
+    });
+  };
 
   render() {
     if (!this.props.user_details) {
-      return <div>LOADING LOADING...</div>;
+      return <MyLoader />;
     }
     const {
       profile_picture,
@@ -54,18 +90,32 @@ class SidebarById extends Component {
       website_url,
       created_at
     } = this.props.user_details;
-    console.log('🗿',this.props.user_details.profile_picture);
+    console.log('🗿', this.props.user_details.profile_picture);
     let imgURL;
-    if (this.props.user_details.profile_picture.indexOf('/uploads/profile_pic-') >= 0) {
-      imgURL = `${URL}${this.props.user_details.profile_picture}`
+    if (
+      this.props.user_details.profile_picture.indexOf(
+        '/uploads/profile_pic-'
+      ) >= 0
+    ) {
+      imgURL = `${URL}${this.props.user_details.profile_picture}`;
     } else {
-      imgURL = this.props.user_details.profile_picture
+      imgURL = this.props.user_details.profile_picture;
     }
     return (
       <Wrapper>
         <Profile>
           <div className="user">
-            <img src={imgURL} alt="avatar" />
+            <img
+              src={imgURL}
+              style={
+                this.state.imageLoaded
+                  ? { opacity: '1', visibility: 'visible' }
+                  : { visibility: 'hidden', opacity: '0' }
+              }
+              onLoad={() => this.setState({ imageLoaded: true })}
+              alt="avatar"
+            />
+            {/* <ImageLoading /> */}
           </div>
           <div className="user-bio">
             <h3>{username}</h3>
@@ -148,6 +198,7 @@ const Profile = styled.div`
       height: 100px;
       object-fit: cover;
       width: 100px;
+      transition: 200ms ease-in;
     }
   }
 
