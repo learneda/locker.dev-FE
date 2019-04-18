@@ -55,7 +55,9 @@ class Toggle extends Component {
   render() {
     return (
       <div onKeyDown={e => e.which === 27 && this.toggle()}>
-        <span onClick={() => this.toggle()}>Add Link</span>
+        <span onClick={() => this.toggle()}>
+          {this.props.buttonName ? this.props.buttonName : 'Add Link'}
+        </span>
         {/* <img src={addSvg} alt="" onClick={() => this.toggle()} /> */}
         {this.state.on && (
           <AddLinkPortal>
