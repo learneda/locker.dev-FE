@@ -10,6 +10,7 @@ import { post as URL } from '../services/baseURL';
 import { ReactComponent as Loading } from '../assets/svg/circles.svg';
 import ContentLoader, { Facebook } from 'react-content-loader';
 import CommentBox from '../components/comments/CommentBox';
+import HelpScreen from '../components/utils/HelpScreen';
 
 const MyLoader = () => (
   <ContentLoader
@@ -132,7 +133,7 @@ class Home extends Component {
     } else {
       return (
         <Container style={{ minWidth: '100%' }}>
-          <h1>YOU HAVE NO POST</h1>
+          <HelpScreen />
         </Container>
       );
     }
