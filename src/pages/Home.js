@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import Moment from 'react-moment';
 import openSocket from 'socket.io-client';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -9,9 +7,9 @@ import { customWrapper } from '../components/mixins';
 import { post as URL } from '../services/baseURL';
 import { ReactComponent as Loading } from '../assets/svg/circles.svg';
 import ContentLoader, { Facebook } from 'react-content-loader';
-import CommentBox from '../components/comments/CommentBox';
 import HelpScreen from '../components/utils/HelpScreen';
 import OnlineFriendsSVG from '../assets/svg/online_friends.svg';
+import PostContainar from '../components/posts';
 
 const MyLoader = () => (
   <ContentLoader
@@ -55,12 +53,12 @@ class Home extends Component {
     this.socket.on('like', data => {
       const updated_state = this.state.posts.map((post, index) => {
         if (post.post_id === data.post_id) {
-          post.likes++
+          post.likes++;
         }
         return post;
       });
       this.setState({ posts: updated_state });
-    })
+    });
     this.getNewsFeed();
   }
 
@@ -79,6 +77,7 @@ class Home extends Component {
       event.target.value = '';
     }
     if (body) {
+      console.log('here')
       const comment = {
         action: 'create',
         content: body,
@@ -88,6 +87,7 @@ class Home extends Component {
       };
 
       if (event.keyCode === 13 && body) {
+        console.log('emmiting comment:', comment)
         this.socket.emit('comments', comment);
         event.target.value = '';
       }
@@ -98,47 +98,25 @@ class Home extends Component {
     const data = {
       post_id,
       user_id: this.user_id
-    }
+    };
     this.socket.emit('like', data);
     // axios
     //   .post(`${URL}/api/posts/like`, body).then((res) => {
     //     console.log(res)
     //   })
-  }
+  };
+
 
   render() {
     const posts = this.state.posts.map((post, index) => {
       return (
-        <div key={index} className="post">
-          <div className="post-user-info">
-            <Link to={`/profile/${post.user_id}`}>
-              <img src={`${post.profile_picture}`} alt="user_profile_pic" />
-            </Link>
-            <div>
-              <h2>{post.username}</h2>
-              <Moment className="post-date" fromNow>
-                {post.created_at}
-              </Moment>
-            </div>
-          </div>
-          <div className="post-content">
-            {post.thumbnail_url ? (
-              <img src={`${post.thumbnail_url}`} alt="post_thumbnail" />
-            ) : null}
-            <div className="title-and-description">
-              <h2>{post.title}</h2>
-              <p>{post.description}</p>
-            </div>
-            <span onClick={(ev) => this.handleClick(ev, post.post_id)}>&#9829; {post.likes}</span>
-          </div>
-          <CommentBox
-            getNewsFeed={this.getNewsFeed}
-            post={post}
-            handleSubmit={this.handleSubmit}
-            profile_picture={this.props.auth.profile_picture}
-            user_id={this.user_id}
-          />
-        </div>
+        <PostContainar 
+        handleSubmit={this.handleSubmit} 
+        handleClick={this.handleClick} 
+        getNewsFeed={this.getNewsFeed} 
+        post={post} 
+        user_id={this.user_id} 
+        profile_picture={this.props.auth.profile_picture} key={index} />
       );
     });
 
@@ -176,6 +154,7 @@ const Container = styled.div`
     border-radius: 8px;
     /* max-width: 700px; */
     background: #fff;
+    border: 3px solid red;
   }
   .post-user-info {
     display: flex;
