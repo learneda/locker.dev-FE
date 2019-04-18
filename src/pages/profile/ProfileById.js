@@ -98,7 +98,9 @@ class ProfileById extends Component {
       .reverse();
 
     if (posts.length === 0) {
-      return <NoPostScreen />;
+      return (
+        <NoPostScreen descriptionText="No courses or articles have been bookmarked yet." />
+      );
     } else {
       return <Wrapper>{posts}</Wrapper>;
     }

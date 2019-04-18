@@ -15,7 +15,7 @@ const HelpScreen = ({ headerText, imgSource }) => {
         <p>
           To get started, go to{' '}
           <Link to="/browse">
-            <span class="browse-btn">Browse</span>
+            <span className="browse-btn">Browse</span>
           </Link>{' '}
           to look around and find the latest courses and blogs or save your
           favorite link <Toggle buttonName="here" />.
