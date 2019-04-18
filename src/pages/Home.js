@@ -10,7 +10,7 @@ import { post as URL } from '../services/baseURL';
 import { ReactComponent as Loading } from '../assets/svg/circles.svg';
 import ContentLoader, { Facebook } from 'react-content-loader';
 import CommentBox from '../components/comments/CommentBox';
-import HelpScreen from '../components/utils/HelpScreen';
+import HelpScreen from '../components/utils/screens/HelpScreen';
 import OnlineFriendsSVG from '../assets/svg/online_friends.svg';
 
 const MyLoader = () => (
@@ -55,12 +55,12 @@ class Home extends Component {
     this.socket.on('like', data => {
       const updated_state = this.state.posts.map((post, index) => {
         if (post.post_id === data.post_id) {
-          post.likes++
+          post.likes++;
         }
         return post;
       });
       this.setState({ posts: updated_state });
-    })
+    });
     this.getNewsFeed();
   }
 
@@ -98,13 +98,13 @@ class Home extends Component {
     const data = {
       post_id,
       user_id: this.user_id
-    }
+    };
     this.socket.emit('like', data);
     // axios
     //   .post(`${URL}/api/posts/like`, body).then((res) => {
     //     console.log(res)
     //   })
-  }
+  };
 
   render() {
     const posts = this.state.posts.map((post, index) => {
@@ -129,7 +129,9 @@ class Home extends Component {
               <h2>{post.title}</h2>
               <p>{post.description}</p>
             </div>
-            <span onClick={(ev) => this.handleClick(ev, post.post_id)}>&#9829; {post.likes}</span>
+            <span onClick={ev => this.handleClick(ev, post.post_id)}>
+              &#9829; {post.likes}
+            </span>
           </div>
           <CommentBox
             getNewsFeed={this.getNewsFeed}
@@ -155,7 +157,10 @@ class Home extends Component {
     } else {
       return (
         <Container style={{ minWidth: '100%' }}>
-          <HelpScreen headerText="Hello! Follow your friends and share your posts to them." imgSource={OnlineFriendsSVG} />
+          <HelpScreen
+            headerText="Hello! Follow your friends and share your posts to them."
+            imgSource={OnlineFriendsSVG}
+          />
         </Container>
       );
     }

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Toggle from './Toggle';
+import Toggle from '../Toggle';
 
-import { customWrapper } from '../mixins';
-import NotFoundSVG from '../../assets/svg/not-found-drawing.svg';
+import { customWrapper } from '../../mixins';
+import NotFoundSVG from '../../../assets/svg/not-found-drawing.svg';
 
 const HelpScreen = ({ headerText, imgSource }) => {
   return (

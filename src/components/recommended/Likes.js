@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
 import styled from 'styled-components';
-import HelpScreen from '../utils/HelpScreen';
+import HelpScreen from '../utils/screens/HelpScreen';
 import LoveItSVG from '../../assets/svg/love-it-drawing.svg';
 
 import { customWrapper, truncateText } from '../mixins';
