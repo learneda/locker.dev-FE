@@ -84,11 +84,12 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   /* ${customWrapper('60%')} */
-  max-width: 800px;
+  max-width: 1600px;
   padding-left: 2%;
-  width: 70%;
+  width: 100%;
   @media (max-width: 900px) {
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
     padding: 0;
   }
 `;
