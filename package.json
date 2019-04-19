@@ -10,7 +10,6 @@
     "moment-timezone": "^0.5.23",
     "react": "^16.8.4",
     "react-alert": "^5.4.0",
-    "react-alert-template-basic": "^1.0.0",
     "react-content-loader": "^4.2.1",
     "react-dom": "^16.8.4",
     "react-infinite-scroll-component": "^4.5.2",
