@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Moment from 'react-moment';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import {
   getUserProfileDetails,
   followAUser,
@@ -15,7 +14,7 @@ import locationSvg from '../../assets/svg/location.svg';
 import linkSvg from '../../assets/svg/link-symbol.svg';
 import calendarSvg from '../../assets/svg/calendar.svg';
 import { post as URL } from '../../services/baseURL.js';
-import ContentLoader, { Facebook } from 'react-content-loader';
+import ContentLoader from 'react-content-loader';
 import axios from 'axios';
 import FollowingDropdown from '../utils/FollowingDropdown';
 import FollowersDropdown from '../utils/FollowersDropdown';
@@ -34,19 +33,6 @@ const MyLoader = () => (
   </ContentLoader>
 );
 
-const ImageLoading = () => (
-  <ContentLoader
-    height={50}
-    width={50}
-    speed={2}
-    primaryColor="#f3f3f3"
-    secondaryColor="#ecebeb"
-  >
-    <circle cx="148" cy="73" r="56" />
-    <rect x="118" y="425" rx="0" ry="0" width="0" height="0" />
-    <circle cx="25" cy="25" r="22" />
-  </ContentLoader>
-);
 class SidebarById extends Component {
   state = {
     imageLoaded: false,

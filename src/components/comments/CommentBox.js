@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import MoreBtn from '../utils/MoreBtn';
-import { post as URL } from '../../services/baseURL';
 import styled from 'styled-components';
 import { customLayout } from '../mixins';
 
