@@ -51,14 +51,14 @@ class Home extends Component {
       this.setState({ posts: updated_state });
     });
     this.socket.on('like', data => {
-      console.log('in like socket connection', data)
+      console.log('in like socket connection', data);
       if (data.action === 'unlike') {
         const updated_state = this.state.posts.map((post, index) => {
           console.log(post.post_id === data.post_id);
           if (post.post_id === data.post_id) {
             post.likes--;
           }
-          console.log(post)
+          console.log(post);
           return post;
         });
         this.setState({ posts: updated_state });
@@ -68,7 +68,7 @@ class Home extends Component {
           if (post.post_id === data.post_id) {
             post.likes++;
           }
-          console.log(post)
+          console.log(post);
           return post;
         });
         this.setState({ posts: updated_state });
@@ -107,22 +107,23 @@ class Home extends Component {
     }
   };
 
-  handleClick = (data) => {
-    console.log('IN HANDLE CLICK')
+  handleClick = data => {
+    console.log('IN HANDLE CLICK');
     this.socket.emit('like', data);
   };
-
 
   render() {
     const posts = this.state.posts.map((post, index) => {
       return (
-        <PostContainer 
-        handleSubmit={this.handleSubmit} 
-        handleClick={this.handleClick} 
-        getNewsFeed={this.getNewsFeed} 
-        post={post} 
-        user_id={this.user_id} 
-        profile_picture={this.props.auth.profile_picture} key={index} />
+        <PostContainer
+          handleSubmit={this.handleSubmit}
+          handleClick={this.handleClick}
+          getNewsFeed={this.getNewsFeed}
+          post={post}
+          user_id={this.user_id}
+          profile_picture={this.props.auth.profile_picture}
+          key={index}
+        />
       );
     });
 
@@ -202,6 +203,14 @@ const Container = styled.div`
     p {
       opacity: 0.8;
       line-height: 1.6;
+    }
+  }
+  i {
+    margin-left: 25px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    span {
+      margin-left: 5px;
     }
   }
 `;
