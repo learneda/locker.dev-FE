@@ -4,7 +4,7 @@ import Moment from 'react-moment';
 import CommentBox from '../comments/CommentBox.js';
 import axios from 'axios';
 import { post as URL } from '../../services/baseURL';
-
+import addIcon from '../../assets/svg/add-icon.svg';
 class PostContainer extends Component {
   constructor(props) {
     super(props);
@@ -91,16 +91,25 @@ class PostContainer extends Component {
             <h2>{post.title}</h2>
             <p>{post.description}</p>
           </div>
-          <i
-            className="far fa-heart fa-lg"
-            ref={this.heartIcon}
-            onClick={e => {
-              this.handleLikes(e, post.post_id);
-              e.target.classList.toggle('heart-red');
-            }}
-          >
-            <span>{this.state.likes}</span>
-          </i>
+          <div className="likes-and-save">
+            <i
+              className="far fa-heart fa-lg"
+              ref={this.heartIcon}
+              onClick={e => {
+                this.handleLikes(e, post.post_id);
+                e.target.classList.toggle('heart-red');
+              }}
+            >
+              <span>{this.state.likes}</span>
+            </i>
+            <div
+              className="save"
+              onClick={() => this.handleSaveToProfile(post.post_id)}
+            >
+              <img src={addIcon} alt="" />
+              <h3>Save to profile</h3>
+            </div>
+          </div>
         </div>
         <CommentBox
           post_comments={post.comments}
