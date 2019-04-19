@@ -68,8 +68,30 @@ export default function Body() {
         </div>
       </StyledFeaturesContainer>
       <StyledFeature textAlign="center">
-        <img src={onlineSVG} alt="online" />
+        <div className="try-learnlocker">
+          <h2>Try LearnLocker for Free</h2>
+          <Button
+            className="create-acct-btn"
+            primary
+            label="Create an Account"
+            reverse
+          />
+        </div>
       </StyledFeature>
+      <Footer>
+        <div className="footer-links">
+          <nav>
+            <a>Privacy</a>
+            <a>Terms of Use</a>
+            <a>Cookies</a>
+            <a>Help</a>
+          </nav>
+        </div>
+
+        <div className="copyright-text">
+          <p>&copy; 2019 LearnLocker, Inc.</p>
+        </div>
+      </Footer>
     </Grommet>
   );
 }
@@ -78,10 +100,24 @@ const StyledFeature = styled.div`
   text-align: ${props => props.textAlign};
   padding: 70px 0;
   img {
-    width: 100%;
+    width: 80%;
   }
   @media (max-width: 500px) {
     padding: 35px 0;
+  }
+
+  .try-learnlocker {
+    margin: 120px 0;
+    h2 {
+      margin-bottom: 40px;
+      font-size: 4rem;
+      font-weight: 700;
+      line-height: 50px;
+    }
+    .create-acct-btn {
+      font-size: 2.5rem;
+      cursor: pointer;
+    }
   }
 `;
 
@@ -115,11 +151,12 @@ const StyledFeaturesContainer = styled.div`
   display: flex;
   justify-content: space-between;
   .feature-card {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     width: 32%;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     background: #fff;
     border-radius: 15px;
     padding: 10px;
@@ -128,7 +165,7 @@ const StyledFeaturesContainer = styled.div`
     width: 200px;
   }
   h4 {
-    font-size: 2.6rem;
+    font-size: 2.4rem;
     max-width: 80%;
     text-align: center;
     margin: 20px 0;
@@ -164,6 +201,15 @@ const CallToAction = styled.div`
     width: 60%;
     margin-top: 50px;
     margin-right: 10px;
+
+    @media (max-width: 1450px) {
+      margin-top: 30px;
+    }
+
+    @media (max-width: 1280px) {
+      margin-top: 20px;
+    }
+
     @media (max-width: 992px) {
       margin: 20px 0 40px;
       width: 80%;
@@ -191,8 +237,8 @@ const CallToAction = styled.div`
     @media (max-width: 1450px) {
       font-size: 7rem;
     }
-    @media (max-width: 1250px) {
-      font-size: 6.5rem;
+    @media (max-width: 1280px) {
+      font-size: 6rem;
     }
     @media (max-width: 992px) {
       display: inline;
@@ -250,6 +296,55 @@ const CallToAction = styled.div`
     }
     60% {
       transform: translateY(-5px);
+    }
+  }
+`;
+
+const Footer = styled.footer`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 50px 0;
+
+  @media (max-width: 588px) {
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+
+  .footer-links {
+    width: 600px;
+
+    @media (max-width: 805px) {
+      width: 350px;
+    }
+    @media (max-width: 680px) {
+      width: 300px;
+    }
+
+    nav {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+
+      @media (max-width: 688px) {
+        justify-content: flex-start;
+        flex-direction: column;
+      }
+
+      a {
+        width: 40%;
+        cursor: pointer;
+
+        @media (max-width: 588px) {
+          margin-bottom: 2rem;
+        }
+      }
+    }
+  }
+
+  .copyright-text {
+    @media (max-width: 588px) {
+      margin-bottom: 1.5rem;
     }
   }
 `;
