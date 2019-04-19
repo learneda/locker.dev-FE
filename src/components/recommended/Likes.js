@@ -9,11 +9,14 @@ import LoveItSVG from '../../assets/svg/love-it-drawing.svg';
 
 import { truncateText } from '../mixins';
 import { Wrapper, Post } from '../../pages/profile/Bookmarks';
-import { getlikedPosts } from '../../actions';
+import { getlikedPosts, fetchUser } from '../../actions';
 // This is the reccomended component now
 
 class Likes extends Component {
-  componentDidMount = () => this.props.getlikedPosts();
+  componentDidMount = () => {
+    this.props.getlikedPosts();
+    this.props.fetchUser();
+  };
 
   handleTruncateText = (content, limit = 10) => {
     return truncateText(content, limit);
@@ -25,7 +28,7 @@ class Likes extends Component {
     let likedPosts = [];
 
     if (path.includes('profile')) {
-      // Filter liked posts by id
+      // Filter liked posts for other users
       likedPostsById = this.props.likedPosts.filter(
         post => post.user_id === Number(this.props.match.params.id)
       );
@@ -37,7 +40,7 @@ class Likes extends Component {
         );
       }
 
-      likedPosts = this.props.likedPostsById
+      likedPosts = likedPostsById
         .map(post => (
           <SinglePost
             key={post.id}
@@ -47,7 +50,22 @@ class Likes extends Component {
         ))
         .reverse();
     } else {
-      likedPosts = this.props.likedPosts
+      // Filter liked posts for the logged in user
+      likedPostsById = this.props.likedPosts.filter(
+        post => post.user_id === this.props.auth.id
+      );
+
+      // If user doesn't have liked posts
+      if (likedPostsById.length === 0) {
+        return (
+          <HelpScreen
+            imgSource={LoveItSVG}
+            headerText="Your recommended courses and articles will be stored here."
+          />
+        );
+      }
+
+      likedPosts = likedPostsById
         .map(post => (
           <SinglePost
             key={post.id}
@@ -58,20 +76,7 @@ class Likes extends Component {
         .reverse();
     }
 
-    if (likedPosts.length === 0 && path.includes('profile')) {
-      return (
-        <NoPostScreen textDescription="No courses or articles have been recommended yet." />
-      );
-    } else if (likedPosts.length === 0) {
-      return (
-        <HelpScreen
-          imgSource={LoveItSVG}
-          headerText="Your recommended courses and articles will be stored here."
-        />
-      );
-    } else {
-      return <Wrapper>{likedPosts}</Wrapper>;
-    }
+    return <Wrapper>{likedPosts}</Wrapper>;
   }
 }
 
@@ -97,11 +102,11 @@ const SinglePost = ({ post, handleTruncateText }) => {
   );
 };
 
-const mapStateToProps = ({ likedPosts }) => ({ likedPosts });
+const mapStateToProps = ({ likedPosts, auth }) => ({ likedPosts, auth });
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { getlikedPosts }
+    { getlikedPosts, fetchUser }
   )(Likes)
 );
