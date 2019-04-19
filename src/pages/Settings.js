@@ -88,11 +88,11 @@ class Settings extends Component {
                     />
                   </label>
                   <label>
-                    Email Adresss
+                    Email Address
                     <TextInput
                       type="text"
                       onChange={this.handleInputChange}
-                      placeholder="Add full name"
+                      placeholder="email address"
                       value={this.props.auth.email}
                       name="email"
                       required

@@ -51,14 +51,28 @@ class Home extends Component {
       this.setState({ posts: updated_state });
     });
     this.socket.on('like', data => {
-      console.log('in like socket connection')
-      const updated_state = this.state.posts.map((post, index) => {
-        if (post.post_id === data.post_id) {
-          post.likes++;
-        }
-        return post;
-      });
-      this.setState({ posts: updated_state });
+      console.log('in like socket connection', data);
+      if (data.action === 'unlike') {
+        const updated_state = this.state.posts.map((post, index) => {
+          console.log(post.post_id === data.post_id);
+          if (post.post_id === data.post_id) {
+            post.likes--;
+          }
+          console.log(post);
+          return post;
+        });
+        this.setState({ posts: updated_state });
+      } else {
+        const updated_state = this.state.posts.map((post, index) => {
+          console.log(post.post_id === data.post_id);
+          if (post.post_id === data.post_id) {
+            post.likes++;
+          }
+          console.log(post);
+          return post;
+        });
+        this.setState({ posts: updated_state });
+      }
     });
     this.getNewsFeed();
   }
@@ -93,22 +107,23 @@ class Home extends Component {
     }
   };
 
-  handleClick = (data) => {
-    console.log('IN HANDLE CLICK')
+  handleClick = data => {
+    console.log('IN HANDLE CLICK');
     this.socket.emit('like', data);
   };
-
 
   render() {
     const posts = this.state.posts.map((post, index) => {
       return (
-        <PostContainer 
-        handleSubmit={this.handleSubmit} 
-        handleClick={this.handleClick} 
-        getNewsFeed={this.getNewsFeed} 
-        post={post} 
-        user_id={this.user_id} 
-        profile_picture={this.props.auth.profile_picture} key={index} />
+        <PostContainer
+          handleSubmit={this.handleSubmit}
+          handleClick={this.handleClick}
+          getNewsFeed={this.getNewsFeed}
+          post={post}
+          user_id={this.user_id}
+          profile_picture={this.props.auth.profile_picture}
+          key={index}
+        />
       );
     });
 
@@ -188,6 +203,45 @@ const Container = styled.div`
     p {
       opacity: 0.8;
       line-height: 1.6;
+    }
+  }
+  i {
+    cursor: pointer;
+    min-width: 42px;
+    max-width: 42px;
+    span {
+      margin-left: 5px;
+      height: 20px;
+      font-family: Roboto, sans-serif;
+      font-size: 2rem;
+    }
+  }
+  .likes-and-save {
+    display: flex;
+    align-items: center;
+    margin-left: 25px;
+    margin-bottom: 10px;
+  }
+  .save {
+    display: flex;
+    margin-left: 30px;
+    cursor: pointer;
+    &:hover {
+      h3 {
+        opacity: 1;
+        transition: 200ms ease-in;
+      }
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+      margin-right: 5px;
+    }
+    h3 {
+      opacity: 0.8;
+      font-size: 1.7rem;
+      transition: 200ms ease-out;
     }
   }
 `;
