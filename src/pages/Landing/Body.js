@@ -126,6 +126,9 @@ const StyledFeatureTitle = styled.h3`
   font-weight: 500;
   line-height: 3.5rem;
   margin-bottom: ${props => props.marginBottom};
+  @media (max-width: 1015px) {
+    line-height: 1.3;
+  }
   @media (max-width: 500px) {
     font-size: 3.5rem;
     margin-bottom: 40px;
@@ -150,6 +153,10 @@ const theme = {
 const StyledFeaturesContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  @media (max-width: 1100px) {
+    justify-content: space-around;
+  }
   .feature-card {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     width: 32%;
@@ -160,6 +167,10 @@ const StyledFeaturesContainer = styled.div`
     background: #fff;
     border-radius: 15px;
     padding: 10px;
+    margin-bottom: 30px;
+    @media (max-width: 1100px) {
+      width: 45%;
+    }
   }
   img {
     width: 200px;
