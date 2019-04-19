@@ -150,6 +150,9 @@ const Container = styled.div`
         font-weight: 700;
         cursor: pointer;
         transition: 200ms ease-out;
+        padding: 5px;
+        border-radius: 5px;
+        margin-bottom: 10px;
         &:hover {
           color: #3059f3;
         }
