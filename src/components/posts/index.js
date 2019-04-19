@@ -60,6 +60,9 @@ class PostContainer extends Component {
       });
     }
   };
+  handleSaveToProfile = url => {
+    axios.post(`${URL}/api/posts`, { post_url: url, id: this.props.user_id });
+  };
 
   render() {
     const {
@@ -104,7 +107,7 @@ class PostContainer extends Component {
             </i>
             <div
               className="save"
-              onClick={() => this.handleSaveToProfile(post.post_id)}
+              onClick={() => this.handleSaveToProfile(post.post_url)}
             >
               <img src={addIcon} alt="" />
               <h3>Save to profile</h3>
