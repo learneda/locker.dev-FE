@@ -25,14 +25,16 @@ class Likes extends Component {
           <a href={post.post_url} target="_blank" rel="noopener noreferrer">
             <img src={post.thumbnail_url} alt="" />
           </a>
-          <div>
+          <div className="post-content">
             <a href={post.post_url} target="_blank" rel="noopener noreferrer">
               <h1>{this.handleTruncateText(post.title)}</h1>
             </a>
             <p>{this.handleTruncateText(post.description, 15)}</p>
-            <span className="formatted-date">
-              Added <Moment fromNow>{post.created_at}</Moment>
-            </span>
+            <div className="date-like-heart">
+              <span className="formatted-date">
+                Added <Moment fromNow>{post.created_at}</Moment>
+              </span>
+            </div>
           </div>
         </Post>
       ))
