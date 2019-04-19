@@ -69,41 +69,36 @@ class Home extends Component {
 
     this.socket.on('like', data => {
       console.log('in like socket connection', data)
-      let updated_state;
-      if (data.action === 'unlike') {
-        updated_state = this.state.posts.map((post, index) => {
-          console.log(post.post_id === data.post_id);
+      switch (data.action) {
+        case 'unlike':
+          const updated_state = this.state.posts.map((post, index) => {
+            if (post.post_id === data.post_id) {
+              const likes = post.likes
+              post.likes = likes - 1;
+            }
+            return post
+          })
+          this.setState({posts: updated_state});
+          break;
+        default:
+          const update_state = this.state.posts.map((post, index) => {
           if (post.post_id === data.post_id) {
-            post.likes = post.likes - 1
-          }
-          console.log(post)
-          return post;
-        });
-        // this.setState({ posts: updated_state });
-        // this.setState({ posts: updated_state });
-      } 
-      
-      else {
-         updated_state = this.state.posts.map((post, index) => {
-          console.log(post.post_id === data.post_id);
-          if (post.post_id === data.post_id) {
-            post.likes = post.likes + 1
+            const likes = post.likes
+            post.likes = likes + 1
           }
           return post;
-        });
-        // this.setState({ posts: updated_state });
+          });
+          this.setState({posts:update_state});
+          break;
       }
-      this.setState({ posts: updated_state });
     });
     this.getNewsFeed();
   }
 
   getNewsFeed = () => {
-    console.log('fetching newsFeed')
     axios
       .get(`${URL}/api/users/newsfeed`)
       .then(res => {
-        console.log('set newsFeed state')
         this.setState({ posts: res.data.newResponse, loading: false });
       })
       .catch(err => console.log(err));
@@ -131,12 +126,10 @@ class Home extends Component {
   };
 
   handleDeleteComment = (comment_id, post_id) => {
-    console.log('handleDeleteComment')
     this.socket.emit('comments', {action: 'destroy', comment_id: comment_id, post_id: post_id});
   }
 
   handleClick = (data) => {
-    console.log('IN HANDLE CLICK')
     this.socket.emit('like', data);
   };
 

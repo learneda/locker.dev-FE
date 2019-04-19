@@ -10,9 +10,6 @@ import {post as URL} from '../../services/baseURL';
 class PostContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      likes: props.post.likes
-    }
     this.heartIcon = React.createRef()
   }
 
@@ -32,7 +29,6 @@ class PostContainer extends Component {
 
 
   handleLikes = (e, post_id) => {
-    let likes = this.state.likes
     let result = e.target.classList.contains('heart-red')
     if (result) {
       const data = {
@@ -41,21 +37,13 @@ class PostContainer extends Component {
         action: 'unlike'
       }
       this.props.handleClick(data)
-
-      this.setState({
-        likes: likes - 1
-      })
     } else {
       const data = {
         post_id,
-        user_id: this.props.user_id
+        user_id: this.props.user_id,
+        action: 'like'
       };
       this.props.handleClick(data)
-      
-      this.setState({
-        likes: likes + 1
-      });
-
     }
   }
 
@@ -89,7 +77,7 @@ class PostContainer extends Component {
                     this.handleLikes(e, post.post_id)
                     e.target.classList.toggle('heart-red')
                   }}
-                >{this.state.likes}</i>
+                >{this.props.post.likes}</i>
           </div>
           <CommentBox
             post_comments={post.comments}
