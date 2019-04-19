@@ -3,6 +3,7 @@ import MoreBtn from '../utils/MoreBtn';
 import { post as URL } from '../../services/baseURL';
 import styled from 'styled-components';
 import { customLayout } from '../mixins';
+import Moment from 'react-moment';
 
 class CommentBox extends Component {
   constructor(props) {
@@ -40,7 +41,12 @@ class CommentBox extends Component {
                   return (
                     <div key={index} className="comment">
                       <div className="comment-text">
-                        <h2>{comment.username}:</h2>
+                        <h2>
+                          {comment.username}{' '}
+                          <span className="comment-date">
+                            <Moment fromNow>{comment.created_at}</Moment>:
+                          </span>
+                        </h2>
                         <span>{comment.content}</span>
                       </div>
                       <MoreBtn
@@ -53,7 +59,7 @@ class CommentBox extends Component {
                   return (
                     <div key={index} className="comment">
                       <div className="comment-text">
-                        <h2>{comment.username}:</h2>
+                        <h2>{comment.username}</h2>
                         <span>{comment.content}</span>
                       </div>
                     </div>
@@ -87,7 +93,6 @@ class CommentBox extends Component {
 }
 
 export default CommentBox;
-
 
 const Container = styled.div`
   .comments-container {
@@ -176,6 +181,11 @@ const Container = styled.div`
           color: #222;
           font-weight: 700;
           font-size: 1.4rem;
+        }
+        .comment-date {
+          opacity: 0.7;
+          font-weight: 500;
+          font-size: 1.2rem;
         }
         span {
           color: #222;
