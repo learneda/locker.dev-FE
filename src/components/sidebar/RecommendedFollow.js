@@ -2,12 +2,37 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { getUserProfileDetails, recommendedFollow } from '../../actions';
+import {
+  getUserProfileDetails,
+  recommendedFollow,
+  followAUser,
+  unfollowAUser
+} from '../../actions';
 
 class RecommendedFollow extends Component {
   componentDidMount() {
     this.props.recommendedFollow(this.props.auth.id);
+    // console.log(this.props.auth.id);
   }
+
+  followAUserHandler = async (e, friend_id) => {
+    e.preventDefault();
+    // const friend_id = this.props.match.params.id;
+    await this.props
+      .followAUser({ user_id: this.props.auth.id, friend_id })
+      .then(
+        () => this.props.getUserProfileDetails(this.props.auth.id),
+        this.props.recommendedFollow(this.props.auth.id)
+      );
+  };
+
+  unfollowAUserHandler = async (e, friend_id) => {
+    e.preventDefault();
+    // const friend_id = this.props.match.params.id;
+    await this.props
+      .unfollowAUser({ user_id: this.props.auth.id, friend_id })
+      .then(() => this.props.getUserProfileDetails(friend_id));
+  };
 
   renderRecommended = () => {
     const { follow } = this.props;
@@ -21,7 +46,12 @@ class RecommendedFollow extends Component {
             </Link>
           </div>
           <div className="follow-button">
-            <button type="button" onClick={this.followAUserHandler}>
+            <button
+              type="button"
+              onClick={e =>
+                this.followAUserHandler(e, following.recommended_follow_id)
+              }
+            >
               Follow
             </button>
             {following.followed_by_username && (
@@ -109,5 +139,5 @@ const mapStateToProps = ({ auth, user_details, follow }) => {
 
 export default connect(
   mapStateToProps,
-  { getUserProfileDetails, recommendedFollow }
+  { getUserProfileDetails, recommendedFollow, followAUser, unfollowAUser }
 )(RecommendedFollow);
