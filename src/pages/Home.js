@@ -42,23 +42,36 @@ class Home extends Component {
 
   componentDidMount() {
     this.socket.on('comments', msg => {
-      console.log(msg.action === 'destroy')
-      if (msg.action === 'destroy') {
-        this.getNewsFeed();
-      }
-      const updated_state = this.state.posts.map((post, index) => {
-        if (post.post_id === msg.post_id) {
-          post.comments.push(msg);
-        }
-        return post;
-      });
-      this.setState({ posts: updated_state });
+      console.log(msg)
+      switch (msg.action) {
+        case 'destroy':
+            const new_state = this.state.posts.map((post, index) => {
+                if (post.post_id === msg.post_id) {
+                  post.comments = post.comments.filter(comment => comment.id !== msg.id);
+                }
+                return post;
+                })
+            this.setState({posts: new_state});
+            break;
+        case 'create':
+          const updated_state = this.state.posts.map((post, index) => {
+          if (post.post_id === msg.post_id) {
+            post.comments.push(msg);
+          }
+          return post;
+          });
+          this.setState({ posts: updated_state });
+          break;
+        default:
+          break;
+      }  
     });
 
     this.socket.on('like', data => {
       console.log('in like socket connection', data)
+      let updated_state;
       if (data.action === 'unlike') {
-        const updated_state = this.state.posts.map((post, index) => {
+        updated_state = this.state.posts.map((post, index) => {
           console.log(post.post_id === data.post_id);
           if (post.post_id === data.post_id) {
             post.likes = post.likes - 1
@@ -66,20 +79,21 @@ class Home extends Component {
           console.log(post)
           return post;
         });
-        this.setState({ posts: updated_state });
+        // this.setState({ posts: updated_state });
+        // this.setState({ posts: updated_state });
       } 
       
       else {
-         const updated_state = this.state.posts.map((post, index) => {
+         updated_state = this.state.posts.map((post, index) => {
           console.log(post.post_id === data.post_id);
           if (post.post_id === data.post_id) {
             post.likes = post.likes + 1
           }
           return post;
         });
-        this.setState({ posts: updated_state });
+        // this.setState({ posts: updated_state });
       }
-      // this.setState({ posts: updated_state });
+      this.setState({ posts: updated_state });
     });
     this.getNewsFeed();
   }
@@ -89,6 +103,7 @@ class Home extends Component {
     axios
       .get(`${URL}/api/users/newsfeed`)
       .then(res => {
+        console.log('set newsFeed state')
         this.setState({ posts: res.data.newResponse, loading: false });
       })
       .catch(err => console.log(err));
@@ -115,9 +130,9 @@ class Home extends Component {
     }
   };
 
-  handleDeleteComment = () => {
+  handleDeleteComment = (comment_id, post_id) => {
     console.log('handleDeleteComment')
-    this.socket.emit('comments', {action: 'destroy'});
+    this.socket.emit('comments', {action: 'destroy', comment_id: comment_id, post_id: post_id});
   }
 
   handleClick = (data) => {

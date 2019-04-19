@@ -31,7 +31,6 @@ class PostContainer extends Component {
   }
 
 
-
   handleLikes = (e, post_id) => {
     let likes = this.state.likes
     let result = e.target.classList.contains('heart-red')
@@ -61,7 +60,7 @@ class PostContainer extends Component {
   }
 
   render () {
-    const {post, handleSubmit, handleClick, getNewsFeed, profile_picture, user_id} = this.props
+    const {post, handleSubmit, handleClick, getNewsFeed, profile_picture, user_id, handleDeleteComment} = this.props
     return (
       <div className="post">
           <div className="post-user-info">
@@ -99,7 +98,7 @@ class PostContainer extends Component {
             getNewsFeed={getNewsFeed}
             handleSubmit={handleSubmit}
             profile_picture={profile_picture}
-            handleDeleteComment={this.props.handleDeleteComment}
+            handleDeleteComment={handleDeleteComment}
             user_id={user_id}
           />
         </div>

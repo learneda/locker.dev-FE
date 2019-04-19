@@ -23,7 +23,7 @@ export default function MoreBtn(props) {
 
   return (
     <TrashContainer>
-      <Trash onClick={handleSubmit} />
+      <Trash onClick={() => props.handleDeleteComment(props.comment_id, props.post_id)} />
     </TrashContainer>
   );
 }
