@@ -2,7 +2,7 @@
 
 **LearnLocker** is an application that reduces your time searching through scattered resources all over the internet by keeping all of it in one place.
 
-[![LearnLocker](./src/assets/img/splash.png)](https://learnedadev.netlify.com/)
+[![LearnLocker](./src/assets/img/splash2.png)](https://learnedadev.netlify.com/)
 
 ## Table of Contents
 - [Team](#team)
