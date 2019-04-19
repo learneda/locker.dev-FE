@@ -9,7 +9,7 @@ import { ReactComponent as Loading } from '../assets/svg/circles.svg';
 import ContentLoader, { Facebook } from 'react-content-loader';
 import HelpScreen from '../components/utils/screens/HelpScreen';
 import OnlineFriendsSVG from '../assets/svg/online_friends.svg';
-import PostContainer from '../components/posts';
+import PostContainer from '../components/posts/index';
 
 const MyLoader = () => (
   <ContentLoader
@@ -42,6 +42,10 @@ class Home extends Component {
 
   componentDidMount() {
     this.socket.on('comments', msg => {
+      console.log(msg.action === 'destroy')
+      if (msg.action === 'destroy') {
+        this.getNewsFeed();
+      }
       const updated_state = this.state.posts.map((post, index) => {
         if (post.post_id === msg.post_id) {
           post.comments.push(msg);
@@ -50,34 +54,38 @@ class Home extends Component {
       });
       this.setState({ posts: updated_state });
     });
+
     this.socket.on('like', data => {
       console.log('in like socket connection', data)
       if (data.action === 'unlike') {
         const updated_state = this.state.posts.map((post, index) => {
           console.log(post.post_id === data.post_id);
           if (post.post_id === data.post_id) {
-            post.likes--;
+            post.likes = post.likes - 1
           }
           console.log(post)
           return post;
         });
         this.setState({ posts: updated_state });
-      } else {
-        const updated_state = this.state.posts.map((post, index) => {
+      } 
+      
+      else {
+         const updated_state = this.state.posts.map((post, index) => {
           console.log(post.post_id === data.post_id);
           if (post.post_id === data.post_id) {
-            post.likes++;
+            post.likes = post.likes + 1
           }
-          console.log(post)
           return post;
         });
         this.setState({ posts: updated_state });
       }
+      // this.setState({ posts: updated_state });
     });
     this.getNewsFeed();
   }
 
   getNewsFeed = () => {
+    console.log('fetching newsFeed')
     axios
       .get(`${URL}/api/users/newsfeed`)
       .then(res => {
@@ -107,6 +115,11 @@ class Home extends Component {
     }
   };
 
+  handleDeleteComment = () => {
+    console.log('handleDeleteComment')
+    this.socket.emit('comments', {action: 'destroy'});
+  }
+
   handleClick = (data) => {
     console.log('IN HANDLE CLICK')
     this.socket.emit('like', data);
@@ -117,12 +130,15 @@ class Home extends Component {
     const posts = this.state.posts.map((post, index) => {
       return (
         <PostContainer 
+        key={post.post_id}
         handleSubmit={this.handleSubmit} 
         handleClick={this.handleClick} 
         getNewsFeed={this.getNewsFeed} 
         post={post} 
         user_id={this.user_id} 
-        profile_picture={this.props.auth.profile_picture} key={index} />
+        profile_picture={this.props.auth.profile_picture} 
+        handleDeleteComment={this.handleDeleteComment}
+        />
       );
     });
 

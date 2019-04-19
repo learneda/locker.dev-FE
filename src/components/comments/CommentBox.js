@@ -44,6 +44,7 @@ class CommentBox extends Component {
                       </div>
                       <MoreBtn
                         getNewsFeed={this.props.getNewsFeed}
+                        handleDeleteComment={this.props.handleDeleteComment}
                         comment_id={comment.id}
                       />
                     </div>

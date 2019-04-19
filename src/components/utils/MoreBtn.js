@@ -14,8 +14,10 @@ const TrashContainer = styled.div`
 export default function MoreBtn(props) {
   const handleSubmit = e => {
     e.preventDefault();
+    console.log('in handleSubmit')
     axios.delete(`${URL}/api/comments/${props.comment_id}`).then(res => {
-      props.getNewsFeed();
+      console.log('inside of then after deleting comment', res)
+      props.handleDeleteComment();
     });
   };
 

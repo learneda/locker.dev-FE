@@ -52,7 +52,7 @@ class PostContainer extends Component {
         user_id: this.props.user_id
       };
       this.props.handleClick(data)
-
+      
       this.setState({
         likes: likes + 1
       });
@@ -99,6 +99,7 @@ class PostContainer extends Component {
             getNewsFeed={getNewsFeed}
             handleSubmit={handleSubmit}
             profile_picture={profile_picture}
+            handleDeleteComment={this.props.handleDeleteComment}
             user_id={user_id}
           />
         </div>
