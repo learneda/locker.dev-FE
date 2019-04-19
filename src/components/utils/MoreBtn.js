@@ -12,16 +12,9 @@ const TrashContainer = styled.div`
 `;
 
 export default function MoreBtn(props) {
-  const handleSubmit = e => {
-    e.preventDefault();
-    axios.delete(`${URL}/api/comments/${props.comment_id}`).then(res => {
-      props.getNewsFeed();
-    });
-  };
-
   return (
     <TrashContainer>
-      <Trash onClick={handleSubmit} />
+      <Trash onClick={() => props.handleDeleteComment(props.comment_id, props.post_id)} />
     </TrashContainer>
   );
 }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import MoreBtn from '../utils/MoreBtn';
-import { post as URL } from '../../services/baseURL';
 import styled from 'styled-components';
 import { customLayout } from '../mixins';
 import Moment from 'react-moment';
@@ -39,7 +38,7 @@ class CommentBox extends Component {
               .map((comment, index) => {
                 if (comment.user_id === this.props.user_id) {
                   return (
-                    <div key={index} className="comment">
+                    <div key={comment.id} className="comment">
                       <div className="comment-text">
                         <h2>
                           {comment.username}{' '}
@@ -51,13 +50,15 @@ class CommentBox extends Component {
                       </div>
                       <MoreBtn
                         getNewsFeed={this.props.getNewsFeed}
+                        handleDeleteComment={this.props.handleDeleteComment}
                         comment_id={comment.id}
+                        post_id={this.props.post_id}
                       />
                     </div>
                   );
                 } else {
                   return (
-                    <div key={index} className="comment">
+                    <div key={comment.id} className="comment">
                       <div className="comment-text">
                         <h2>{comment.username}</h2>
                         <span>{comment.content}</span>

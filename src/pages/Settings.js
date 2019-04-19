@@ -146,7 +146,7 @@ class Settings extends Component {
                   </label>
                   <label>
                     Profile Picture
-                    <img style={{width: '200px'}} src={this.state.profile_pic} />
+                    <img style={{width: '200px'}} src={this.state.profile_pic} alt="user_upload_picture" />
                     <input onChange={(e) => this.handleFileSelection(e)} type="file" name="profile_pic" />
                     <button onClick={(e) => this.handleFileUpload(e)} type="submit">Submit</button>
                   </label>
