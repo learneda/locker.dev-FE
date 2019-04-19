@@ -206,11 +206,42 @@ const Container = styled.div`
     }
   }
   i {
-    margin-left: 25px;
     cursor: pointer;
-    margin-bottom: 10px;
+    min-width: 42px;
+    max-width: 42px;
     span {
       margin-left: 5px;
+      height: 20px;
+      font-family: Roboto, sans-serif;
+      font-size: 2rem;
+    }
+  }
+  .likes-and-save {
+    display: flex;
+    align-items: center;
+    margin-left: 25px;
+    margin-bottom: 10px;
+  }
+  .save {
+    display: flex;
+    margin-left: 30px;
+    cursor: pointer;
+    &:hover {
+      h3 {
+        opacity: 1;
+        transition: 200ms ease-in;
+      }
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+      margin-right: 5px;
+    }
+    h3 {
+      opacity: 0.8;
+      font-size: 1.7rem;
+      transition: 200ms ease-out;
     }
   }
 `;
