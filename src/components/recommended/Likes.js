@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Moment from 'react-moment';
-import styled from 'styled-components';
 import NoPostScreen from '../utils/screens/NoPostScreen';
 import HelpScreen from '../utils/screens/HelpScreen';
 import LoveItSVG from '../../assets/svg/love-it-drawing.svg';
 
-import { customWrapper, truncateText } from '../mixins';
+import { truncateText } from '../mixins';
+import { Wrapper, Post } from '../../pages/profile/Bookmarks';
 import { getlikedPosts } from '../../actions';
 // This is the reccomended component now
 
@@ -55,69 +55,6 @@ class Likes extends Component {
     }
   }
 }
-
-const Wrapper = styled.div`
-  // border: 1px solid blue;
-  ${customWrapper('100%', '0 auto')}
-`;
-
-const Post = styled.div`
-  ${customWrapper('100%', 'auto')}
-  display: flex;
-  margin-bottom: 50px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  border-radius: 6px;
-  background-color: #fff;
-  position: relative;
-  height: 186px;
-  @media (max-width: 1450px) {
-    height: 100%;
-  }
-  @media (max-width: 1250px) {
-    flex-direction: column;
-  }
-  a {
-    text-decoration: none;
-    color: #444;
-  }
-  div {
-    padding: 15px;
-    margin: 0 5px;
-  }
-
-  img {
-    border-radius: 6px 0 0px 6px;
-    width: 320px;
-    height: 100%;
-    object-fit: cover;
-    @media (max-width: 1250px) {
-      max-width: 100%;
-      width: 100%;
-      height: 100%;
-      max-height: 400px;
-      border-radius: 6px 6px 0 0;
-    }
-  }
-  p {
-    max-width: 600px;
-    margin: 10px auto;
-    font-size: 1.6rem;
-    word-break: break-word;
-    line-height: 1.5;
-  }
-  h1 {
-    margin: 0px auto;
-    font-size: 2.6rem;
-    max-width: 600px;
-    line-height: 1.2;
-  }
-  .formatted-date {
-    font-size: 1.2rem;
-    opacity: 0.8;
-    position: relative;
-    margin-right: 30px;
-  }
-`;
 
 const mapStateToProps = ({ likedPosts }) => ({ likedPosts });
 
