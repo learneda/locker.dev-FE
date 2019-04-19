@@ -60,7 +60,7 @@ class Bookmarks extends Component {
           </a>
           <div className="post-content">
             <a href={post.post_url} target="_blank" rel="noopener noreferrer">
-              <h1>{this.handleTruncateText(post.title)}</h1>
+              <h1>{this.handleTruncateText(post.title, 9)}</h1>
             </a>
             <p>{this.handleTruncateText(post.description, 15)}</p>
             <div className="date-like-heart">
@@ -123,25 +123,26 @@ class Bookmarks extends Component {
   }
 }
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   // border: 1px solid blue;
   ${customWrapper('100%', '0 auto')}
 `;
 
-const Post = styled.div`
+export const Post = styled.div`
   ${customWrapper('100%', 'auto')}
   display: flex;
   margin-bottom: 35px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 6px;
   background-color: #fff;
-  max-height: 200px;
+  max-height: 250px;
   height: 200px;
-  height: auto;
   position: relative;
   .date-like-heart {
     display: flex;
     align-items: center;
+    position: absolute;
+    bottom: 12px;
   }
   &:hover {
     .like {
@@ -164,11 +165,13 @@ const Post = styled.div`
     }
   }
   @media (max-width: 1450px) {
-    max-height: initial;
-    height: 100%;
+    /* max-height: initial; */
+    height: 200px;
   }
   @media (max-width: 1250px) {
     flex-direction: column;
+    max-height: none;
+    height: 100%;
   }
   .delete-icon {
     cursor: pointer;
@@ -199,6 +202,10 @@ const Post = styled.div`
     width: 320px;
     height: 100%;
     object-fit: cover;
+
+    @media (max-width: 1500px) {
+      width: 270px;
+    }
     @media (max-width: 1250px) {
       max-width: 100%;
       max-height: 400px;
@@ -210,21 +217,32 @@ const Post = styled.div`
   p {
     max-width: 600px;
     margin: 10px auto;
-    font-size: 1.6rem;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
     word-break: break-word;
     line-height: 1.5;
+    /* border: 1px solid lightblue; */
+    height: 70px;
+    @media (max-width: 1250px) {
+      margin: 10px 0;
+      padding-bottom: 25px;
+    }
     @media (max-width: 960px) {
       max-width: initial;
     }
   }
   h1 {
     margin: 0px auto;
-    font-size: 2.6rem;
+    font-size: 2.3rem;
+    font-weight: 700;
     max-width: 600px;
     line-height: 1.2;
     margin-right: 10px;
+    /* border: 1px solid pink; */
+    max-height: 55px;
+    overflow: hidden;
     @media (max-width: 1250px) {
-      margin: auto;
+      margin: 0;
     }
     @media (max-width: 960px) {
       max-width: initial;
