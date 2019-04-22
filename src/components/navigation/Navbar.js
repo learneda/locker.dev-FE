@@ -164,6 +164,12 @@ const Nav = styled.nav`
   h1 {
     font-size: 3rem;
     font-weight: 700;
+    @media (max-width: 768px) {
+      font-size: 2.5rem;
+    }
+    @media (max-width: 500px) {
+      font-size: 2.1rem;
+    }
   }
 
   ul {
@@ -183,6 +189,13 @@ const Nav = styled.nav`
       border: transparent;
       cursor: pointer;
       transition: 200ms ease-out;
+      background: #fff;
+
+      border-radius: 7px;
+      @media (max-width: 400px) {
+        font-size: 1.4rem;
+        padding: 7px;
+      }
 
       &:hover {
         border: 1px solid ${hoverBg} transparent;

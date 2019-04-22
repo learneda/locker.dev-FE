@@ -38,6 +38,7 @@ export default function Body() {
             autoPlay
             muted
             loop
+            playsInline
           />
         </div>
         <img
@@ -233,10 +234,19 @@ const CallToAction = styled.div`
     @media (max-width: 900px) {
       width: 95%;
     }
+    @media (max-width: 650px) {
+      width: 85%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
     .get-started {
       @media (max-width: 650px) {
         padding: 10px;
         font-size: 1.6rem;
+        width: 100%;
+        margin-left: 0;
       }
     }
   }
@@ -260,6 +270,8 @@ const CallToAction = styled.div`
     }
     @media (max-width: 650px) {
       font-size: 5.5rem;
+      padding-bottom: 10px;
+      text-align: center;
     }
     @media (max-width: 580px) {
       font-size: 4.7rem;
@@ -268,7 +280,11 @@ const CallToAction = styled.div`
     @media (max-width: 500px) {
       font-size: 3.8rem;
       line-height: 5rem;
-      padding-bottom: 20px;
+      /* padding-bottom: 20px; */
+    }
+    @media (max-width: 370px) {
+      font-size: 3.2rem;
+      line-height: 4.5rem;
     }
   }
   .landing-video {
