@@ -164,6 +164,12 @@ const Nav = styled.nav`
   h1 {
     font-size: 3rem;
     font-weight: 700;
+    @media (max-width: 768px) {
+      font-size: 2.5rem;
+    }
+    @media (max-width: 500px) {
+      font-size: 2.1rem;
+    }
   }
 
   ul {
@@ -171,6 +177,9 @@ const Nav = styled.nav`
 
     li {
       margin-right: 1.5rem;
+      @media (max-width: 500px) {
+        margin-right: 0;
+      }
     }
 
     li:last-child {
