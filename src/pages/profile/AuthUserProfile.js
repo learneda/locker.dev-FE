@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import Home from '../Home';
 import Bookmarks from './Bookmarks';
-import Likes from '../../components/recommended/Likes';
+import Likes from '../../components/likes/Likes';
 import Sidebar from '../../components/sidebar/Sidebar';
 import RecommendedFollow from '../../components/sidebar/RecommendedFollow';
 import { customWrapper } from '../../components/mixins';

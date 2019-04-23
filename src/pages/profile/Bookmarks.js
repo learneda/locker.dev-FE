@@ -5,7 +5,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 import { customWrapper, truncateText } from '../../components/mixins';
-import Like from '../../components/recommended/Like';
+import Like from '../../components/likes/Like';
 import EditModal from '../../components/utils/EditModal/EditModal';
 import { post as URL } from '../../services/baseURL';
 import {

@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 import { customWrapper, truncateText } from '../../components/mixins';
 import { Wrapper, Post } from './Bookmarks';
-import Like from '../../components/recommended/Like';
+import Like from '../../components/likes/Like';
 import NoPostScreen from '../../components/utils/screens/NoPostScreen';
 import { post as URL } from '../../services/baseURL';
 import {
