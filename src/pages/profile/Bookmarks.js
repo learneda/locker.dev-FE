@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import { customWrapper, truncateText } from '../../components/mixins';
 import Like from '../../components/recommended/Like';
-import EditModal from '../../components/utils/EditModal';
+import EditModal from '../../components/utils/EditModal/EditModal';
 import { post as URL } from '../../services/baseURL';
 import {
   getPosts,
