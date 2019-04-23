@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Likes from '../../components/likes/Likes';
 import { customWrapper } from '../../components/mixins';
 import SidebarById from '../../components/sidebar/SidebarById';
-import ProfileById from './ProfileById';
+import ProfileById from '../../components/profile';
 
 class UserProfile extends Component {
   render() {
