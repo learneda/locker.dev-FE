@@ -2,7 +2,7 @@
   /* background: inherit; */
   /* width: 450px;
   height: 550px; */
-  position: absolute;
+  position: fixed;
   overflow: hidden;
   margin: auto;
   top: 0;
