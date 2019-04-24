@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import MoreBtn from '../utils/MoreBtn';
+import MoreBtn from '../../utils/MoreBtn';
 import styled from 'styled-components';
-import { customLayout } from '../mixins';
+import { customLayout } from '../../mixins';
 import Moment from 'react-moment';
 
 class CommentBox extends Component {

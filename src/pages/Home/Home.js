@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Grommet, Tab, Tabs } from 'grommet';
 import styled from 'styled-components';
-import axios from 'axios';
-import Home from '../Home';
-import Bookmarks from './Bookmarks';
-import Likes from '../../components/recommended/Likes';
+// import axios from 'axios';
+import Feed from '../../components/feed';
+import Bookmarks from '../../components/bookmarks';
+import Likes from '../../components/likes/Likes';
 import Sidebar from '../../components/sidebar/Sidebar';
 import RecommendedFollow from '../../components/sidebar/RecommendedFollow';
 import { customWrapper } from '../../components/mixins';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 
-class AuthUserProfile extends Component {
+class Home extends Component {
   render() {
     return (
       <Container>
@@ -20,7 +20,7 @@ class AuthUserProfile extends Component {
             <Tabs justify="start" className="tabs">
               <Tab title="Feed">
                 <TabWrapper>
-                  <Home />
+                  <Feed />
                 </TabWrapper>
               </Tab>
               <Tab title="Bookmarks">
@@ -42,7 +42,7 @@ class AuthUserProfile extends Component {
   }
 }
 
-export default AuthUserProfile;
+export default Home;
 
 const theme = {
   tab: {
@@ -83,7 +83,6 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  /* ${customWrapper('60%')} */
   max-width: 1600px;
   padding-left: 2%;
   width: 100%;

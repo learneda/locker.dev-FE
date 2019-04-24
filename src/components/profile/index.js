@@ -3,12 +3,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Moment from 'react-moment';
 import axios from 'axios';
-import styled from 'styled-components';
 
-import { customWrapper, truncateText } from '../../components/mixins';
-import { Wrapper, Post } from './Bookmarks';
-import Like from '../../components/recommended/Like';
-import NoPostScreen from '../../components/utils/screens/NoPostScreen';
+import { customWrapper, truncateText } from '../mixins';
+import { Wrapper, Post } from '../bookmarks';
+import Like from '../likes/Like';
+import NoPostScreen from '../utils/screens/NoPostScreen';
 import { post as URL } from '../../services/baseURL';
 import {
   getPosts,
@@ -71,29 +70,8 @@ class ProfileById extends Component {
                 id={post.id}
               />
               <span className="rec-span">Save to Profile</span>
-              {/* <img
-              src={deleteIcon}
-              className="delete-icon"
-              onClick={async () =>
-                await this.props
-                  .deletePost(post.id)
-                  .then(res => this.props.getPosts())
-              }
-              alt="delete icon"
-            />
-            <span className="del-span">delete</span> */}
             </div>
           </div>
-          {/* <img
-          src={editSvg}
-          alt=""
-          onClick={async () => {
-            await this.props
-              .editPostGetDefaultData(post.id)
-              .then(res => this.props.editModalDisplay());
-          }}
-          className="edit-icon"
-        /> */}
         </Post>
       ))
       .reverse();

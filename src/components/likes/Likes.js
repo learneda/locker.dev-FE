@@ -8,7 +8,7 @@ import HelpScreen from '../utils/screens/HelpScreen';
 import LoveItSVG from '../../assets/svg/love-it-drawing.svg';
 
 import { truncateText } from '../mixins';
-import { Wrapper, Post } from '../../pages/profile/Bookmarks';
+import { Wrapper, Post } from '../bookmarks';
 import { getlikedPosts, fetchUser } from '../../actions';
 // This is the reccomended component now
 

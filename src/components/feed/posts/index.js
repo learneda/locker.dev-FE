@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
-import CommentBox from '../comments/CommentBox.js';
+import CommentBox from '../comments';
 import axios from 'axios';
-import { post as URL } from '../../services/baseURL';
-import addIcon from '../../assets/svg/add-icon.svg';
+import { post as URL } from '../../../services/baseURL';
+import addIcon from '../../../assets/svg/add-icon.svg';
 
 class PostContainer extends Component {
   constructor(props) {

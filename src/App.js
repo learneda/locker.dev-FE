@@ -3,11 +3,11 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import LandingPage from './pages/Landing';
-import AuthUserProfile from './pages/profile/AuthUserProfile';
+import Home from './pages/Home/Home';
 import Browse from './pages/Browse';
 import Settings from './pages/Settings';
 import NoMatch from './pages/NoMatch';
-import UserProfile from './pages/profile/UserProfile';
+import Profile from './pages/profile/Profile';
 import Navbar from './components/navigation/Navbar';
 import { customContainer } from './components/mixins';
 
@@ -38,8 +38,8 @@ class App extends Component {
         <Switch>
           <Route component={home(LandingPage)} exact path="/" />
           <Route component={index(Browse)} path="/browse" />
-          <Route component={index(UserProfile)} path="/profile/:id" />
-          <Route component={index(AuthUserProfile)} path="/home" />
+          <Route component={index(Profile)} path="/profile/:id" />
+          <Route component={index(Home)} path="/home" />
           <Route component={index(Settings)} path="/settings" />
           <Route component={NoMatch} />
         </Switch>
