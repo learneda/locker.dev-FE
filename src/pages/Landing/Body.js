@@ -95,10 +95,10 @@ function Body(props) {
       <Footer>
         <div className="footer-links">
           <nav>
-            <Link to="/">Privacy</Link>
-            <Link to="/">Terms of Use</Link>
-            <Link to="/">Cookies</Link>
-            <Link to="/">Help</Link>
+            <Link to="#">Privacy</Link>
+            <Link to="#">Terms of Use</Link>
+            <Link to="#">Cookies</Link>
+            <Link to="#">Help</Link>
           </nav>
         </div>
 
