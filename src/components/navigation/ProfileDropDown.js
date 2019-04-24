@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { useState, useEffect, useCallback, useRef } from 'react'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
-import { ReactComponent as Settings } from '../../assets/svg/settings.svg';
-import { ReactComponent as Logout } from '../../assets/svg/logout.svg';
-import { authURL } from '../../services/authURL';
+import { ReactComponent as Settings } from '../../assets/svg/settings.svg'
+import { ReactComponent as Logout } from '../../assets/svg/logout.svg'
+import { authURL } from '../../services/authURL'
 
 const DropDown = styled.ul`
   display: flex;
@@ -24,26 +24,30 @@ const DropDown = styled.ul`
     align-items: center;
     margin-bottom: 10px;
   }
-`;
+`
 
 export default function ProfileDropDown({ auth }) {
-  const [toggle, set] = useState(false);
-  const node = useRef();
+  const [toggle, set] = useState(false)
+  const node = useRef()
 
-  const handleClick = useCallback(() => set(state => !state), []);
+  const handleClick = useCallback(() => set(state => !state), [])
+
   const handleRefClick = e => {
     if (node.current.contains(e.target)) {
-      return;
+      return
     }
-    set(false);
-  };
+    set(false)
+  }
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleRefClick);
+    console.log('addingEventListenerOnBookmarks!')
+    document.addEventListener('mousedown', handleRefClick)
     return () => {
-      document.removeEventListener('mousedown', handleRefClick);
-    };
-  }, []);
+      console.log('removingEventListener!')
+
+      document.removeEventListener('mousedown', handleRefClick)
+    }
+  }, [])
 
   return (
     <div ref={node}>
@@ -74,5 +78,5 @@ export default function ProfileDropDown({ auth }) {
         </DropDown>
       )}
     </div>
-  );
+  )
 }

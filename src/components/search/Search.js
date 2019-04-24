@@ -1,21 +1,55 @@
-import React, { Fragment, useState, useCallback } from 'react';
-import { connect } from 'react-redux';
-import { Grommet, TextInput, CheckBox } from 'grommet';
-import styled from 'styled-components';
+import React, {
+  Fragment,
+  useState,
+  useCallback,
+  useEffect,
+  useRef,
+} from 'react'
+import { connect } from 'react-redux'
+import { Grommet, TextInput, CheckBox } from 'grommet'
+import styled from 'styled-components'
 
-import SearchUsersDropDown from './SearchUsersDropDown';
-import { getSearchValue } from '../../actions';
+import SearchUsersDropDown from './SearchUsersDropDown'
+import { getSearchValue } from '../../actions'
 
 function Search(props) {
-  const [toggle, set] = useState(false);
-  const [search, setSearch] = useState('');
-
+  const [toggle, set] = useState(false)
+  const [search, setSearch] = useState('')
+  const [visible, setVisible] = useState(true)
+  const node = useRef()
   const handleChange = useCallback(e => {
-    set(e.target.checked);
-    setSearch('');
-  }, []);
-  const handleSearch = e =>
-    toggle ? setSearch(e.target.value) : props.getSearchValue(e);
+    set(e.target.checked)
+    setSearch('')
+  }, [])
+
+  const handleSearch = e => {
+    setVisible(true) //* need to show DropDown when typing on search
+    toggle ? setSearch(e.target.value) : props.getSearchValue(e)
+  }
+
+  const handleRefClick = e => {
+    const inputDOM = document.getElementsByTagName('input')[3]
+    const toggleDOM = document.getElementsByTagName('input')[2]
+    //* need to check that node.current exist to prevent crash (DropDown)
+    if (node.current) {
+      if (node.current.contains(e.target)) {
+        if (inputDOM.value && toggleDOM.value) {
+          setVisible(false)
+       }
+      } else {
+        setVisible(false)
+      } 
+    }
+  }
+  useEffect(() => {
+    console.log('addingEventListenerOnUsers!')
+    document.addEventListener('click', handleRefClick)
+    return () => {
+      console.log('removingEventListener!')
+
+      document.removeEventListener('click', handleRefClick)
+    }
+  }, [])
 
   return (
     <Fragment>
@@ -34,27 +68,34 @@ function Search(props) {
           </Container>
         </Grommet>
       </Wrapper>
-      {toggle && search.length > 0 && (
-        <DropDown>
+      {visible && toggle && search.length > 0 && (
+        <DropDown ref={node}>
           <SearchUsersDropDown search={search} />
         </DropDown>
       )}
     </Fragment>
-  );
+  )
 }
+
+const mapStateToProps = ({ search_term }) => ({ search_term })
+
+export default connect(
+  mapStateToProps,
+  { getSearchValue }
+)(Search)
 
 const theme = {
   global: {
     colors: {
-      brand: '#3f65f2'
+      brand: '#3f65f2',
     },
     focus: {
       border: {
-        color: '#3f65f2'
-      }
-    }
-  }
-};
+        color: '#3f65f2',
+      },
+    },
+  },
+}
 
 const Wrapper = styled.div`
   input {
@@ -70,12 +111,12 @@ const Wrapper = styled.div`
   @media (max-width: 500px) {
     width: 80%;
   }
-`;
+`
 
 const Container = styled.div`
   position: relative;
   display: flex;
-`;
+`
 
 const Toggle = styled.div`
   position: absolute;
@@ -85,7 +126,7 @@ const Toggle = styled.div`
   @media (max-width: 760px) {
     top: 6px;
   }
-`;
+`
 
 const DropDown = styled.div`
   display: flex;
@@ -94,7 +135,7 @@ const DropDown = styled.div`
   border-radius: 5px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   font-weight: 500;
-  height: 500px;
+  max-height: 500px;
   position: absolute;
   left: 34.5%;
   overflow: auto;
@@ -108,11 +149,4 @@ const DropDown = styled.div`
   @media (max-width: 500px) {
     width: 70%;
   }
-`;
-
-const mapStateToProps = ({ search_term }) => ({ search_term });
-
-export default connect(
-  mapStateToProps,
-  { getSearchValue }
-)(Search);
+`
