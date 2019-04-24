@@ -59,12 +59,13 @@ flex-wrap: wrap;
   width: 32%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: flex-start;
+  align-items: center;
   background: #fff;
   border-radius: 15px;
   padding: 10px;
   margin-bottom: 30px;
+  flex-direction: column;
   @media (max-width: 1100px) {
     width: 45%;
   }
