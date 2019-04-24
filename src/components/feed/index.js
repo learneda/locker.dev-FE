@@ -10,6 +10,8 @@ import HelpScreen from '../utils/screens/HelpScreen';
 import OnlineFriendsSVG from '../../assets/svg/online_friends.svg';
 import PostContainer from './posts/index';
 import { StyledFeed } from './StyledFeed';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
 
 const MyLoader = () => (
   <ContentLoader
@@ -33,7 +35,9 @@ class Feed extends Component {
     this.state = {
       search: '',
       posts: [],
-      loading: true
+      loading: true,
+      offset: 0,
+      hasMore: true
     };
     this.username = props.auth.username;
     this.user_id = props.auth.id;
@@ -97,9 +101,29 @@ class Feed extends Component {
     this.getNewsFeed();
   }
 
-  getNewsFeed = () => {
+  // handles infinite scroll functionality
+  handleOffset = async () => {
+    this.setState(prevState => ({
+      offset: prevState.offset + 5
+    }));
+
     axios
-      .get(`${URL}/api/users/newsfeed`)
+      .get(`${URL}/api/users/newsfeed?offset=${this.state.offset}`)
+      .then(res => {
+        if (res.data.newResponse.length > 0) {
+          this.setState({
+            posts: this.state.posts.concat(res.data.newResponse)
+          });
+        } else {
+          this.setState({ hasMore: false });
+        }
+      });
+  };
+
+  getNewsFeed = () => {
+    const offset = this.state.offset;
+    axios
+      .get(`${URL}/api/users/newsfeed?offset=${offset}`)
       .then(res => {
         this.setState({ posts: res.data.newResponse, loading: false });
       })
@@ -140,20 +164,18 @@ class Feed extends Component {
   };
 
   render() {
-    const posts = this.state.posts.map((post, index) => {
-      return (
-        <PostContainer
-          key={post.post_id}
-          handleSubmit={this.handleSubmit}
-          handleClick={this.handleClick}
-          getNewsFeed={this.getNewsFeed}
-          post={post}
-          user_id={this.user_id}
-          profile_picture={this.props.auth.profile_picture}
-          handleDeleteComment={this.handleDeleteComment}
-        />
-      );
-    });
+    const posts = this.state.posts.map((post, index) => (
+      <PostContainer
+        key={post.post_id}
+        handleSubmit={this.handleSubmit}
+        handleClick={this.handleClick}
+        getNewsFeed={this.getNewsFeed}
+        post={post}
+        user_id={this.user_id}
+        profile_picture={this.props.auth.profile_picture}
+        handleDeleteComment={this.handleDeleteComment}
+      />
+    ));
 
     while (this.state.loading === true) {
       return (
@@ -164,7 +186,18 @@ class Feed extends Component {
     }
 
     if (posts.length !== 0) {
-      return <Container>{posts}</Container>;
+      return (
+        <Container>
+          <InfiniteScroll
+            dataLength={this.state.posts.length}
+            next={this.handleOffset}
+            hasMore={this.state.hasMore}
+            loader={<Loading style={{ margin: 'auto', display: 'block' }} />}
+          >
+            {posts}
+          </InfiniteScroll>
+        </Container>
+      );
     } else {
       return (
         <Container style={{ minWidth: '100%' }}>
