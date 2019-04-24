@@ -34,20 +34,20 @@ function Search(props) {
     if (node.current) {
       if (node.current.contains(e.target)) {
         if (inputDOM.value && toggleDOM.value) {
-          setVisible(true)
-        }
+          setVisible(false)
+       }
       } else {
         setVisible(false)
-      }
+      } 
     }
   }
   useEffect(() => {
     console.log('addingEventListenerOnUsers!')
-    document.addEventListener('mousedown', handleRefClick)
+    document.addEventListener('click', handleRefClick)
     return () => {
       console.log('removingEventListener!')
 
-      document.removeEventListener('mousedown', handleRefClick)
+      document.removeEventListener('click', handleRefClick)
     }
   }, [])
 
@@ -135,7 +135,7 @@ const DropDown = styled.div`
   border-radius: 5px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   font-weight: 500;
-  height: 500px;
+  max-height: 500px;
   position: absolute;
   left: 34.5%;
   overflow: auto;
