@@ -37,7 +37,7 @@ class Navbar extends Component {
             />
           </Burger>
 
-          <Nav className="main-nav">
+          <Nav className="main-nav" auth={this.props.auth}>
             <ul>
               <li>
                 <NavLink to="/home" activeClassName="active">
@@ -189,9 +189,9 @@ const Nav = styled.nav`
       border: transparent;
       cursor: pointer;
       transition: 200ms ease-out;
-      background: #fff;
-
+      background: ${props => (props.auth ? null : '#fff')};
       border-radius: 7px;
+
       @media (max-width: 400px) {
         font-size: 1.4rem;
         padding: 7px;

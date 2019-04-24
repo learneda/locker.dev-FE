@@ -16,7 +16,6 @@ class Auth extends Component {
         password: '',
         password2: ''
       }
-      // modalOpen: false
     };
   }
 
@@ -27,25 +26,6 @@ class Auth extends Component {
       authForm = (
         // Sign up form
         <form id="signup-form" onSubmit={this.onSubmit}>
-          {/* <label htmlFor="name">Name</label>
-          <input name="name" required />
-          <label htmlFor="email">Email</label>
-          <input name="email" required onChange={this.onChange} />
-          <label htmlFor="email">Password</label>
-          <input
-            name="password"
-            type="password"
-            required
-            onChange={this.onChange}
-          />
-          <label htmlFor="password2">Confirm Password</label>
-          <input
-            name="password2"
-            type="password"
-            required
-            onChange={this.onChange}
-          /> */}
-          {/* <input type="submit" id="submit" value="SIGN UP" /> */}
           <div className="form-oauth-providers">
             <a href={`${authURL}google`}>
               <img src={googleSvg} alt="" />
@@ -64,11 +44,6 @@ class Auth extends Component {
       authForm = (
         // Log in form
         <form id="login-form" onSubmit={this.onSubmit}>
-          {/* <label htmlFor="email">Email</label>
-          <input name="email" required />
-          <label htmlFor="email">Password</label>
-          <input name="password" type="password" required />
-          <input type="submit" id="submit" value="LOG IN" /> */}
           <div className="form-oauth-providers">
             <a href={`${authURL}google`}>
               <img src={googleSvg} alt="" />
