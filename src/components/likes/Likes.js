@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Moment from 'react-moment';
-import styled from 'styled-components';
 import NoPostScreen from '../utils/screens/NoPostScreen';
 import HelpScreen from '../utils/screens/HelpScreen';
 import LoveItSVG from '../../assets/svg/love-it-drawing.svg';
@@ -10,7 +9,6 @@ import LoveItSVG from '../../assets/svg/love-it-drawing.svg';
 import { truncateText } from '../mixins';
 import { Wrapper, Post } from '../bookmarks';
 import { getlikedPosts, fetchUser } from '../../actions';
-// This is the reccomended component now
 
 class Likes extends Component {
   componentDidMount = () => {

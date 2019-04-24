@@ -7,12 +7,13 @@ import friendsSVG from '../../assets/svg/online_friends.svg';
 import booksSVG from '../../assets/svg/reading-list-drawing.svg';
 import videosSVG from '../../assets/svg/video-drawing.svg';
 import shareSVG from '../../assets/svg/wall_post-drawing.svg';
-import onlineSVG from '../../assets/svg/online-drawing.svg';
 import landingVideo from '../../assets/video/landing.mp4';
 import browser from '../../assets/img/browser.png';
 import downIcon from '../../assets/svg/down-icon.svg';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-export default function Body() {
+function Body() {
   const scrollDown = useRef();
   const handleClick = () =>
     scrollDown.current.scrollIntoView({ behavior: 'smooth' });
@@ -82,10 +83,10 @@ export default function Body() {
       <Footer>
         <div className="footer-links">
           <nav>
-            <a>Privacy</a>
-            <a>Terms of Use</a>
-            <a>Cookies</a>
-            <a>Help</a>
+            <Link to="/">Privacy</Link>
+            <Link to="/">Terms of Use</Link>
+            <Link to="/">Cookies</Link>
+            <Link to="/">Help</Link>
           </nav>
         </div>
 
@@ -96,6 +97,8 @@ export default function Body() {
     </Grommet>
   );
 }
+
+export default Body;
 
 const StyledFeature = styled.div`
   text-align: ${props => props.textAlign};

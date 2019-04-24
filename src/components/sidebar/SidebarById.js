@@ -164,30 +164,6 @@ class SidebarById extends Component {
                 <li>{followers_count}</li>
               </ul>
             </div>
-            {/* <div
-              className="follow-stats-dropdown"
-              style={{ height: this.state.followingDropDownHeight }}
-            >
-              <img
-                className="caret-up"
-                src={upArrow}
-                alt=""
-                onClick={this.handleFollowingDropdown}
-              />
-              {following}
-            </div>
-            <div
-              className="follow-stats-dropdown"
-              style={{ height: this.state.followersDropDownHeight }}
-            >
-              <img
-                className="caret-up"
-                src={upArrow}
-                alt=""
-                onClick={this.handleFollowersDropdown}
-              />
-              {followers}
-            </div> */}
             <FollowingDropdown
               following={this.state.following}
               height={this.state.followingDropDownHeight}

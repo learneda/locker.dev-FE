@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Moment from 'react-moment';
 import axios from 'axios';
 
-import { customWrapper, truncateText } from '../mixins';
+import { truncateText } from '../mixins';
 import { Wrapper, Post } from '../bookmarks';
 import Like from '../likes/Like';
 import NoPostScreen from '../utils/screens/NoPostScreen';

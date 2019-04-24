@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import {
-  editProfile,
-  getUserProfileDetails,
-  getUserFollowers,
-  getUserFollowing
-} from '../../actions';
-import ContentLoader, { Facebook } from 'react-content-loader';
+import { editProfile, getUserProfileDetails } from '../../actions';
+import ContentLoader from 'react-content-loader';
 
 import styled from 'styled-components';
 import { customLayout, customWrapper } from '../mixins';
@@ -27,12 +22,6 @@ const MyLoader = () => (
     speed={2}
     primaryColor="#f3f3f3"
     secondaryColor="#ecebeb"
-    // style={{
-    //   minWidth: '100%',
-    //   width: '25%',
-    //   maxHeight: '300px',
-    //   height: '400px'
-    // }}
   >
     <circle cx="148" cy="73" r="56" />
     <rect x="118" y="425" rx="0" ry="0" width="0" height="0" />
