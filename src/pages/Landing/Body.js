@@ -12,8 +12,10 @@ import browser from '../../assets/img/browser.png';
 import downIcon from '../../assets/svg/down-icon.svg';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { modalState, modalLogin, modalSignUp } from '../../actions/index';
+import { Feature } from './StyledBody';
 
-function Body() {
+function Body(props) {
   const scrollDown = useRef();
   const handleClick = () =>
     scrollDown.current.scrollIntoView({ behavior: 'smooth' });
@@ -77,6 +79,10 @@ function Body() {
             primary
             label="Create an Account"
             reverse
+            onClick={() => {
+              props.modalState();
+              props.modalSignUp();
+            }}
           />
         </div>
       </StyledFeature>
@@ -98,31 +104,21 @@ function Body() {
   );
 }
 
-export default Body;
+const mapStateToProps = state => {
+  return {
+    modalOpen: state.modalState.modalOpen,
+    signUp: state.modalState.signUp
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { modalState, modalSignUp, modalLogin }
+)(Body);
 
 const StyledFeature = styled.div`
   text-align: ${props => props.textAlign};
-  padding: 70px 0;
-  img {
-    width: 80%;
-  }
-  @media (max-width: 500px) {
-    padding: 35px 0;
-  }
-
-  .try-learnlocker {
-    margin: 120px 0;
-    h2 {
-      margin-bottom: 40px;
-      font-size: 4rem;
-      font-weight: 700;
-      line-height: 50px;
-    }
-    .create-acct-btn {
-      font-size: 2.5rem;
-      cursor: pointer;
-    }
-  }
+  ${Feature}
 `;
 
 const StyledFeatureTitle = styled.h3`
