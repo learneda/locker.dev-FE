@@ -81,8 +81,9 @@ h4 {
 @media (max-width: 500px) {
   flex-direction: column;
   .feature-card {
-    width: 100%;
-    margin-bottom: 15px;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 30px;
   }
 }
 `;
