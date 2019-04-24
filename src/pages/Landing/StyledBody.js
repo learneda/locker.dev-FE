@@ -9,6 +9,18 @@ img {
 
 .try-learnlocker {
   margin: 120px 0;
+  @media(max-width: 960px) {
+    margin: 80px 0;
+  }
+   @media(max-width: 960px) {
+    margin: 80px 0;
+  }
+  @media(max-width: 768px) {
+    margin: 50px 0;
+  }
+  @media(max-width: 500px) {
+    margin: 20px 0;
+  }
   h2 {
     margin-bottom: 40px;
     font-size: 4rem;
