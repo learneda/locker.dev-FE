@@ -11,13 +11,18 @@ export const StyledEditModal = () =>
     overflow-y: scroll;
     .close-modal-x {
       position: absolute;
-      top: 14px;
-      right: 10px;
+      top: 10px;
+      right: 15px;
       color: red;
       font-size: 6rem;
       cursor: pointer;
-      opacity: 0.8;
+      opacity: 0.9;
       transition: 200ms ease-out;
+     
+    img {
+      width: 35px;
+      height: 35px;
+    }
       &:hover {
         opacity: 1;
         transition: 200ms ease-in;

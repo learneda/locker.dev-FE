@@ -5,6 +5,7 @@ import { post as URL } from '../../../services/baseURL';
 import { StyledEditModal } from './StyledEditModal';
 import styled from 'styled-components';
 import { editModalDisplay, editPostSubmit, getPosts } from '../../../actions';
+import deleteIcon from '../../../assets/svg/delete-icon.svg';
 
 const Wrapper = styled.div`
   ${StyledEditModal}
@@ -50,7 +51,7 @@ const EditModal = props => {
     >
       <form className="edit-form" onSubmit={onSubmit}>
         <span onClick={props.handleModalOpen} className="close-modal-x">
-          &times;
+          <img src={deleteIcon} alt="" />
         </span>
         <div className="form-title">
           <h3>Edit Post</h3>
