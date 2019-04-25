@@ -1,4 +1,4 @@
-import { FETCH_POSTS, DELETE_POST } from '../actions/types';
+import { FETCH_POSTS, DELETE_POST, UPDATE_POSTS_STATE } from '../actions/types';
 
 export const postReducer = (state = [], action) => {
   switch (action.type) {
@@ -6,6 +6,9 @@ export const postReducer = (state = [], action) => {
       return action.payload;
     case DELETE_POST: {
       return [...state];
+    }
+    case UPDATE_POSTS_STATE: {
+      return state.concat(action.payload);
     }
     default:
       return state;

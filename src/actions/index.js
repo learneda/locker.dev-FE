@@ -22,7 +22,8 @@ import {
   GET_FOLLOWING,
   RECOMMENDED_FOLLOW,
   GET_USER_FOLLOWERS,
-  GET_USER_FOLLOWING
+  GET_USER_FOLLOWING,
+  UPDATE_POSTS_STATE,
 } from './types';
 import { post as URL } from '../services/baseURL';
 axios.defaults.withCredentials = true;
@@ -68,9 +69,15 @@ export const saveLink = post => async dispatch => {
   dispatch({ type: SAVE_LINK, payload: res.data });
 };
 
+// get all user posts
 export const getPosts = () => async dispatch => {
   const res = await axios.get(`${URL}/api/posts`);
   dispatch({ type: FETCH_POSTS, payload: res.data });
+};
+
+// add new user post to posts state
+export const updatePostsState = post => async dispatch => {
+  dispatch({ type: UPDATE_POSTS_STATE, payload: post });
 };
 
 export const deletePost = id => async dispatch => {
@@ -126,8 +133,8 @@ export const unfollowAUser = payload => async dispatch => {
   const res = await axios.delete(`${URL}/api/users/unsubscribe`, {
     data: {
       user_id: payload.user_id,
-      friend_id: payload.friend_id
-    }
+      friend_id: payload.friend_id,
+    },
   });
   dispatch({ type: UNFOLLOW_A_USER, payload: res.data });
 };

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 import AddLinkPortal from './AddLinkPortal';
-import { getPosts } from '../../actions';
+import { getPosts, updatePostsState } from '../../actions';
 import { post as URL } from '../../services/baseURL';
 import { ReactComponent as X } from '../../assets/svg/x.svg';
 
@@ -12,7 +12,7 @@ class Toggle extends Component {
     super(props);
     this.state = {
       on: false,
-      inputValue: ''
+      inputValue: '',
     };
   }
 
@@ -23,7 +23,7 @@ class Toggle extends Component {
   toggle = () => {
     this.setState(
       {
-        on: !this.state.on
+        on: !this.state.on,
       },
       () => {
         if (this.state.on) {
@@ -40,13 +40,15 @@ class Toggle extends Component {
       axios
         .post(`${URL}/api/posts`, {
           post_url: this.state.inputValue,
-          id: this.props.auth.id
+          id: this.props.auth.id,
         })
         .then(res => {
-          this.props.getPosts();
+          // this.props.getPosts();
+          this.props.updatePostsState(res.data);
+          console.log(res.data);
           this.setState({
             inputValue: '',
-            on: false
+            on: false,
           });
           document.querySelector('#root').classList.remove('root-modal-open');
         });
@@ -98,11 +100,11 @@ class Toggle extends Component {
 
 const mapStateToProps = ({ auth }) => {
   return {
-    auth: auth
+    auth: auth,
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getPosts }
+  { getPosts, updatePostsState }
 )(Toggle);
