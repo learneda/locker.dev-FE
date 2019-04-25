@@ -49,12 +49,12 @@ class Likes extends Component {
         .reverse();
     } else {
       // Filter liked posts for the logged in user
-      likedPostsById = this.props.likedPosts.filter(
-        post => post.user_id === this.props.auth.id
-      );
+      // likedPostsById = this.props.likedPosts.filter(
+      //   post => post.user_id === this.props.auth.id
+      // );
 
       // If user doesn't have liked posts
-      if (likedPostsById.length === 0) {
+      if (this.props.likedPosts.length === 0) {
         return (
           <HelpScreen
             imgSource={LoveItSVG}
@@ -63,7 +63,7 @@ class Likes extends Component {
         );
       }
 
-      likedPosts = likedPostsById
+      likedPosts = this.props.likedPosts
         .map(post => (
           <SinglePost
             key={post.id}
@@ -77,6 +77,14 @@ class Likes extends Component {
     return <Wrapper>{likedPosts}</Wrapper>;
   }
 }
+const mapStateToProps = ({ likedPosts, auth }) => ({ likedPosts, auth });
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getlikedPosts, fetchUser }
+  )(Likes)
+);
 
 // Extracted single post in a stateless component
 const SinglePost = ({ post, handleTruncateText }) => {
@@ -99,12 +107,3 @@ const SinglePost = ({ post, handleTruncateText }) => {
     </Post>
   );
 };
-
-const mapStateToProps = ({ likedPosts, auth }) => ({ likedPosts, auth });
-
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { getlikedPosts, fetchUser }
-  )(Likes)
-);
