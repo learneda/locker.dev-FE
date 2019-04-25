@@ -6,11 +6,16 @@ import { Grommet, Tab, Tabs } from 'grommet';
 import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { getCourses, getArticles, fetchUser } from '../actions';
+import {
+  getCourses,
+  getArticles,
+  setBrowseTabIndex,
+  fetchUser,
+} from '../actions';
 import {
   customWrapper,
   customLayout,
-  truncateText
+  truncateText,
 } from '../components/mixins';
 import { post as URL } from '../services/baseURL';
 import { ReactComponent as Add } from '../assets/svg/add-icon.svg';
@@ -19,7 +24,7 @@ axios.defaults.withCredentials = true;
 
 class Browse extends Component {
   state = {
-    page: 1
+    page: 1,
   };
   componentDidMount() {
     this.props.getCourses(this.state.page);
@@ -30,7 +35,7 @@ class Browse extends Component {
     if (this.props.auth) {
       axios.post(`${URL}/api/posts`, {
         post_url: url,
-        id: this.props.auth.id
+        id: this.props.auth.id,
       });
     }
   };
@@ -41,7 +46,7 @@ class Browse extends Component {
 
   getMoreCourses = () => {
     this.setState({
-      page: this.state.page + 1
+      page: this.state.page + 1,
     });
     this.props.getCourses(this.state.page);
   };
@@ -53,8 +58,12 @@ class Browse extends Component {
       <Grommet theme={theme}>
         <Wrapper>
           <BrowseContainer>
-            <h2>Browse</h2>
-            <Tabs justify="start" alignSelf="center">
+            <Tabs
+              activeIndex={this.props.index}
+              onActive={this.props.setBrowseTabIndex}
+              justify="start"
+              alignSelf="center"
+            >
               <Tab title="Courses">
                 <Cards>
                   {courses.length === 0 ? (
@@ -70,7 +79,7 @@ class Browse extends Component {
                       style={{
                         display: 'flex',
                         flexWrap: 'wrap',
-                        justifyContent: 'space-between'
+                        justifyContent: 'space-between',
                       }}
                     >
                       {courses.map((course, index) => (
@@ -157,34 +166,50 @@ class Browse extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    courses: state.browse.courses,
+    articles: state.browse.articles,
+    auth: state.auth,
+    index: state.browse.index,
+  };
+};
+
+const Alert = withAlert()(Browse);
+
+export default connect(
+  mapStateToProps,
+  { getCourses, getArticles, fetchUser, setBrowseTabIndex }
+)(Alert);
+
 const theme = {
   tab: {
     color: 'dark-1',
     active: {
-      weight: 'bold'
+      weight: 'bold',
     },
     border: {
       side: 'bottom',
       size: 'medium',
       color: {
-        light: null
+        light: null,
       },
       active: {
         color: {
-          light: 'dark-1'
-        }
+          light: 'dark-1',
+        },
       },
       hover: {
         color: {
-          light: null
-        }
-      }
+          light: null,
+        },
+      },
     },
     margin: {
       vertical: 'small',
-      horizontal: 'xsmall'
-    }
-  }
+      horizontal: 'xsmall',
+    },
+  },
 };
 
 const Loader = styled.div`
@@ -282,18 +307,3 @@ const SaveIcon = styled.div`
     transition: 200ms ease-in;
   }
 `;
-
-const mapStateToProps = state => {
-  return {
-    courses: state.browse.courses,
-    articles: state.browse.articles,
-    auth: state.auth
-  };
-};
-
-const Alert = withAlert()(Browse);
-
-export default connect(
-  mapStateToProps,
-  { getCourses, getArticles, fetchUser }
-)(Alert);

@@ -24,6 +24,8 @@ import {
   GET_USER_FOLLOWERS,
   GET_USER_FOLLOWING,
   UPDATE_POSTS_STATE,
+  SET_BROWSE_TAB_INDEX,
+  SET_HOME_TAB_INDEX,
 } from './types';
 import { post as URL } from '../services/baseURL';
 axios.defaults.withCredentials = true;
@@ -160,4 +162,14 @@ export const getUserFollowing = id => async dispatch => {
 export const getUserFollowers = id => async dispatch => {
   const followers = await axios.get(`${URL}/api/users/followers?id=${id}`);
   dispatch({ type: GET_USER_FOLLOWERS, payload: followers.data });
+};
+
+// controls Browse tabIndex
+export const setBrowseTabIndex = index => {
+  return { type: SET_BROWSE_TAB_INDEX, payload: index };
+};
+
+// controls Home tabIndex
+export const setHomeTabIndex = index => {
+  return { type: SET_HOME_TAB_INDEX, payload: index };
 };
