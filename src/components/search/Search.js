@@ -4,64 +4,84 @@ import React, {
   useCallback,
   useEffect,
   useRef,
-} from 'react'
-import { connect } from 'react-redux'
-import { Grommet, TextInput, CheckBox } from 'grommet'
-import styled from 'styled-components'
+} from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { Grommet, TextInput, CheckBox } from 'grommet';
+import styled from 'styled-components';
 
-import SearchUsersDropDown from './SearchUsersDropDown'
-import { getSearchValue } from '../../actions'
+import SearchUsersDropDown from './SearchUsersDropDown';
+import { getSearchValue } from '../../actions';
 
 function Search(props) {
-  const [toggle, set] = useState(false)
-  const [search, setSearch] = useState('')
-  const [visible, setVisible] = useState(true)
-  const node = useRef()
+  const [toggle, set] = useState(false);
+  const [search, setSearch] = useState('');
+  const [visible, setVisible] = useState(true);
+  const node = useRef();
   const handleChange = useCallback(e => {
-    set(e.target.checked)
-    setSearch('')
-  }, [])
+    set(e.target.checked);
+    setSearch('');
+  }, []);
 
   const handleSearch = e => {
-    setVisible(true) //* need to show DropDown when typing on search
-    toggle ? setSearch(e.target.value) : props.getSearchValue(e)
-  }
+    setVisible(true); //* need to show DropDown when typing on search
+    toggle ? setSearch(e.target.value) : props.getSearchValue(e);
+  };
 
   const handleRefClick = e => {
-    const inputDOM = document.getElementsByTagName('input')[3]
-    const toggleDOM = document.getElementsByTagName('input')[2]
+    const inputDOM = document.getElementsByTagName('input')[3];
+    const toggleDOM = document.getElementsByTagName('input')[2];
     //* need to check that node.current exist to prevent crash (DropDown)
     if (node.current) {
       if (node.current.contains(e.target)) {
         if (inputDOM.value && toggleDOM.value) {
-          setVisible(false)
-       }
+          setVisible(false);
+        }
       } else {
-        setVisible(false)
-      } 
+        setVisible(false);
+      }
     }
-  }
+  };
   useEffect(() => {
-    document.addEventListener('click', handleRefClick)
+    document.addEventListener('click', handleRefClick);
     return () => {
-      document.removeEventListener('click', handleRefClick)
-    }
-  }, [])
+      document.removeEventListener('click', handleRefClick);
+    };
+  }, []);
+
+  const displayHomeSearchComponent = () => {
+    const Tabs = ['Feed', 'Bookmarks', 'Likes', 'Friends'];
+    return (
+      <TextInput
+        size="small"
+        placeholder={
+          toggle ? 'Search Users' : `Search ${Tabs[props.homeIndex]}`
+        }
+        value={toggle ? search : props.search_term}
+        onChange={handleSearch}
+      />
+    );
+  };
+
+  const displayBrowseSearchComponent = () => {
+    const Tabs = ['Articles', 'Courses'];
+    const placeholder = Tabs[props.browseIndex];
+    return <TextInput size="small" placeholder={`Search ${placeholder}`} />;
+  };
 
   return (
     <Fragment>
       <Wrapper>
         <Grommet theme={theme}>
           <Container>
-            <Toggle>
-              <CheckBox toggle checked={toggle} onChange={handleChange} />
-            </Toggle>
-            <TextInput
-              size="small"
-              placeholder={toggle ? 'Search Users' : 'Search Bookmarks'}
-              value={toggle ? search : props.search_term}
-              onChange={handleSearch}
-            />
+            {props.location.pathname === '/home' && (
+              <Toggle>
+                <CheckBox toggle checked={toggle} onChange={handleChange} />
+              </Toggle>
+            )}
+            {props.location.pathname === '/home'
+              ? displayHomeSearchComponent()
+              : displayBrowseSearchComponent()}
           </Container>
         </Grommet>
       </Wrapper>
@@ -71,15 +91,21 @@ function Search(props) {
         </DropDown>
       )}
     </Fragment>
-  )
+  );
 }
 
-const mapStateToProps = ({ search_term }) => ({ search_term })
+const mapStateToProps = ({ search_term, browse, home }) => ({
+  search_term,
+  browseIndex: browse.index,
+  homeIndex: home.index,
+});
 
-export default connect(
-  mapStateToProps,
-  { getSearchValue }
-)(Search)
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getSearchValue }
+  )(Search)
+);
 
 const theme = {
   global: {
@@ -92,7 +118,7 @@ const theme = {
       },
     },
   },
-}
+};
 
 const Wrapper = styled.div`
   input {
@@ -108,12 +134,12 @@ const Wrapper = styled.div`
   @media (max-width: 500px) {
     width: 80%;
   }
-`
+`;
 
 const Container = styled.div`
   position: relative;
   display: flex;
-`
+`;
 
 const Toggle = styled.div`
   position: absolute;
@@ -123,7 +149,7 @@ const Toggle = styled.div`
   @media (max-width: 760px) {
     top: 6px;
   }
-`
+`;
 
 const DropDown = styled.div`
   display: flex;
@@ -146,4 +172,4 @@ const DropDown = styled.div`
   @media (max-width: 500px) {
     width: 70%;
   }
-`
+`;

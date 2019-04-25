@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Grommet, Tab, Tabs } from 'grommet';
 import styled from 'styled-components';
-// import axios from 'axios';
 import Feed from '../../components/feed';
 import Bookmarks from '../../components/bookmarks';
 import Likes from '../../components/likes/Likes';
 import Sidebar from '../../components/sidebar/Sidebar';
 import RecommendedFollow from '../../components/sidebar/RecommendedFollow';
 import { customWrapper } from '../../components/mixins';
-// import { connect } from 'react-redux';
+import { setHomeTabIndex } from '../../actions';
 
 class Home extends Component {
   render() {
@@ -17,7 +17,11 @@ class Home extends Component {
         <Sidebar />
         <Wrapper>
           <Grommet theme={theme}>
-            <Tabs justify="start" className="tabs">
+            <Tabs
+              activeIndex={this.props.index}
+              onActive={this.props.setHomeTabIndex}
+              justify="start"
+            >
               <Tab title="Feed">
                 <TabWrapper>
                   <Feed />
@@ -42,35 +46,40 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = ({ home }) => ({ index: home.index });
+
+export default connect(
+  mapStateToProps,
+  { setHomeTabIndex }
+)(Home);
 
 const theme = {
   tab: {
     color: 'dark-1',
     active: {
-      weight: 'bold'
+      weight: 'bold',
     },
     border: {
       side: 'bottom',
       size: 'medium',
       color: {
-        light: null
+        light: null,
       },
       active: {
         color: {
-          light: 'dark-1'
-        }
+          light: 'dark-1',
+        },
       },
       hover: {
         color: {
-          light: null
-        }
+          light: null,
+        },
       },
       margin: {
-        bottom: '30px'
-      }
-    }
-  }
+        bottom: '30px',
+      },
+    },
+  },
 };
 
 const Container = styled.div`
