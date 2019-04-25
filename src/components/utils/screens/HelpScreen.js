@@ -12,14 +12,15 @@ const HelpScreen = ({ headerText, imgSource }) => {
       <img src={imgSource ? imgSource : NotFoundSVG} alt="Drawing" />
       <div className="prompt-text">
         <h2>{headerText}</h2>
-        <p>
+        <div>
           To get started, go to{' '}
           <Link to="/browse">
             <span className="browse-btn">Browse</span>
           </Link>{' '}
           to look around and find the latest courses and blogs or save your
           favorite link <AddLink buttonName="here" />.
-        </p>
+
+        </div>
       </div>
     </Container>
   );
@@ -49,20 +50,19 @@ export const Container = styled.div`
       font-weight: 700;
     }
 
-    p {
+    div {
+      diplay: inline-block
       font-size: 1.6rem;
-
       div {
         display: inline-block;
         color: #3f65f2;
         transition: 150ms ease-in;
         cursor: pointer;
-
         &:hover {
           color: #2544c7;
         }
-      }
     }
+
 
     .browse-btn {
       color: #3f65f2;
