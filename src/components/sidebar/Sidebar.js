@@ -14,6 +14,7 @@ import axios from 'axios';
 import { post as URL } from '../../services/baseURL';
 import FollowingDropdown from '../utils/FollowingDropdown';
 import FollowersDropdown from '../utils/FollowersDropdown';
+import { StyledSidebar } from './StyledSidebar';
 
 const MyLoader = () => (
   <ContentLoader
@@ -33,7 +34,7 @@ class Sidebar extends Component {
     followers: [],
     following: [],
     followingDropDownHeight: '0px',
-    followersDropDownHeight: '0px'
+    followersDropDownHeight: '0px',
   };
   componentDidMount() {
     this.props.getUserProfileDetails(this.props.auth.id);
@@ -52,14 +53,14 @@ class Sidebar extends Component {
     this.setState({
       followingDropDownHeight:
         this.state.followingDropDownHeight === '300px' ? '0px' : '300px',
-      followersDropDownHeight: '0px'
+      followersDropDownHeight: '0px',
     });
   };
   handleFollowersDropdown = () => {
     this.setState({
       followersDropDownHeight:
         this.state.followersDropDownHeight === '300px' ? '0px' : '300px',
-      followingDropDownHeight: '0px'
+      followingDropDownHeight: '0px',
     });
   };
   render() {
@@ -98,7 +99,13 @@ class Sidebar extends Component {
               height={this.state.followersDropDownHeight}
               handleFollowingDropdown={this.handleFollowersDropdown}
             />
-            <p>{this.props.auth.bio ? this.props.auth.bio : 'Add bio'}</p>
+            <p>
+              {this.props.auth.bio ? (
+                this.props.auth.bio
+              ) : (
+                <Link to="/settings">Add Bio</Link>
+              )}
+            </p>
             <p>
               <img src={locationSvg} alt="location-icon" />
               {this.props.auth.location
@@ -135,164 +142,19 @@ const Wrapper = styled.div`
 `;
 
 const Profile = styled.div`
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  border-radius: 5px;
-  background: #fff;
-  position: sticky;
-  top: 100px;
-
+  ${StyledSidebar}
   .user {
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-    padding: 20px 0;
     ${customLayout('center', 'center')}
-    background-color: #4064f2;
-    position: relative;
-    height: 80px;
-    margin-bottom: 50px;
-
-    img {
-      position: absolute;
-      top: 30px;
-      border: 3px solid #fff;
-      border-radius: 50%;
-      height: 100px;
-      object-fit: cover;
-      width: 100px;
-    }
   }
-
   .user-bio {
     ${customLayout()}
-    flex-direction: column;
-    flex-wrap: wrap;
-    padding: 15px 8%;
-    margin: 0 auto;
-    @media (max-width: 1350px) {
-      width: 100%;
-    }
-    h3 {
-      margin: 0 auto;
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
-
-    p {
-      line-height: 25px;
-      margin-bottom: 15px;
-      img {
-        width: 18px;
-        height: 18px;
-        margin-right: 5px;
-        margin-bottom: -3px;
-      }
-    }
-
-    mark {
-      background-color: transparent;
-      color: #333;
-    }
-
-    .edit-profile-link {
-      margin-bottom: 3.5px;
-      a {
-        font-size: 1.4rem;
-        font-weight: 700;
-        color: #6d767e;
-        transition: 200ms ease-out;
-
-        &:hover {
-          color: #3f65f2;
-          transition: 200ms ease-in;
-        }
-      }
-    }
-  }
-  .profile-stats {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    @media (max-width: 1400px) {
-      /* flex-direction: column; */
-      flex-wrap: wrap;
-    }
-    ul {
-      margin-bottom: 15px;
-      cursor: pointer;
-      transition: 200ms ease-out;
-      :not(:last-child) {
-        margin-right: 15px;
-      }
-      &:hover {
-        color: #3f65f2;
-        transition: 200ms ease-in;
-        li:nth-of-type(2) {
-          opacity: 1;
-        }
-      }
-      li {
-        margin-bottom: 5px;
-      }
-      li:nth-of-type(2) {
-        opacity: 0.7;
-        transition: 200ms ease-out;
-      }
-    }
-  }
-  .follow-stats-dropdown {
-    position: absolute;
-    top: 240px;
-    left: 0;
-    right: 0;
-    background: #fff;
-    width: 100%;
-    overflow: auto;
-    transition: 200ms height ease-in-out;
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    border-radius: 0 0 5px 5px;
-    .caret-up {
-      width: 20px;
-      height: 20px;
-      position: absolute;
-      right: 3px;
-      top: 10px;
-      cursor: pointer;
-    }
-    a {
-      margin: 15px 0;
-      &:hover {
-        h2 {
-          opacity: 1;
-          transition: 200ms ease-in;
-        }
-      }
-    }
-    .follow {
-      display: flex;
-      align-items: center;
-      padding: 0 10px;
-    }
-    img {
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
-    h2 {
-      font-size: 1.8rem;
-      opacity: 0.7;
-      transition: 200ms ease-out;
-    }
   }
 `;
 
 const mapStateToProps = ({ auth, user_details }) => {
   return {
     auth: auth,
-    user_details: user_details
+    user_details: user_details,
   };
 };
 
