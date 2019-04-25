@@ -40,11 +40,8 @@ export default function ProfileDropDown({ auth }) {
   }
 
   useEffect(() => {
-    console.log('addingEventListenerOnBookmarks!')
     document.addEventListener('mousedown', handleRefClick)
     return () => {
-      console.log('removingEventListener!')
-
       document.removeEventListener('mousedown', handleRefClick)
     }
   }, [])

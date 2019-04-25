@@ -42,11 +42,8 @@ function Search(props) {
     }
   }
   useEffect(() => {
-    console.log('addingEventListenerOnUsers!')
     document.addEventListener('click', handleRefClick)
     return () => {
-      console.log('removingEventListener!')
-
       document.removeEventListener('click', handleRefClick)
     }
   }, [])

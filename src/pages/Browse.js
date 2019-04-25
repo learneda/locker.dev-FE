@@ -73,8 +73,8 @@ class Browse extends Component {
                         justifyContent: 'space-between'
                       }}
                     >
-                      {courses.map(course => (
-                        <Card key={course.id}>
+                      {courses.map((course, index) => (
+                        <Card key={course.id + index}>
                           <a
                             href={`https://www.udemy.com${course.url}`}
                             target="_blank"
