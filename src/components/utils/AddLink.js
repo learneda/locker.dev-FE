@@ -7,7 +7,7 @@ import { getPosts, updatePostsState } from '../../actions';
 import { post as URL } from '../../services/baseURL';
 import { ReactComponent as X } from '../../assets/svg/x.svg';
 
-class Toggle extends Component {
+class AddLink extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,6 +33,7 @@ class Toggle extends Component {
     );
     document.querySelector('#root').classList.toggle('root-modal-open');
   };
+
   handleSubmit = e => {
     e.preventDefault();
 
@@ -43,9 +44,7 @@ class Toggle extends Component {
           id: this.props.auth.id,
         })
         .then(res => {
-          // this.props.getPosts();
           this.props.updatePostsState(res.data);
-          console.log(res.data);
           this.setState({
             inputValue: '',
             on: false,
@@ -107,4 +106,4 @@ const mapStateToProps = ({ auth }) => {
 export default connect(
   mapStateToProps,
   { getPosts, updatePostsState }
-)(Toggle);
+)(AddLink);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Toggle from '../Toggle';
+import AddLink from '../AddLink';
 
 import { customWrapper } from '../../mixins';
 import NotFoundSVG from '../../../assets/svg/not-found-drawing.svg';
@@ -18,7 +18,7 @@ const HelpScreen = ({ headerText, imgSource }) => {
             <span className="browse-btn">Browse</span>
           </Link>{' '}
           to look around and find the latest courses and blogs or save your
-          favorite link <Toggle buttonName="here" />.
+          favorite link <AddLink buttonName="here" />.
         </p>
       </div>
     </Container>

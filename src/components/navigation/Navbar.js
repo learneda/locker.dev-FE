@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import Search from '../search/Search';
 import Auth from '../authentication/Auth';
-import Toggle from '../utils/Toggle';
+import AddLink from '../utils/AddLink';
 import ProfileDropDown from './ProfileDropDown';
 import { modalState, modalLogin, modalSignUp } from '../../actions/index';
 import { authURL } from '../../services/authURL';
@@ -54,7 +54,7 @@ class Navbar extends Component {
             <Search />
 
             <NavRight>
-              <Toggle />
+              <AddLink />
               <ProfileDropDown auth={auth} />
             </NavRight>
           </Nav>
