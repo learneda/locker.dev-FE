@@ -81,9 +81,6 @@ i {
   display: flex;
   margin-left: 30px;
   cursor: pointer;
-  // @media(max-width: 600px) {
-  //  margin-right: 15px;
-  //  }
   &:hover {
     h3 {
       opacity: 1;
