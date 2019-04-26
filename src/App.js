@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -13,14 +13,21 @@ import Navbar from './components/navigation/Navbar';
 import { customContainer } from './components/mixins';
 import { composedIndexRedirect as index } from './components/authentication/indexRedirect';
 import { composedHomeRedirect as home } from './components/authentication/homeRedirect';
+import useInterval from './components/hooks/useInterval';
 import { fetchUser } from './actions';
 
-const App = ({ fetchUser, location, modal }) => {
+const App = ({ fetchUser, modal }) => {
   const { isAuthOpen, isEditOpen } = modal;
 
   useEffect(() => {
+    // initial fetch user when you refresh browser
     fetchUser();
-  }, [location]);
+  }, []);
+
+  useInterval(() => {
+    // fetches user information every 5 minutes to reduce number of server requests
+    fetchUser();
+  }, 300000);
 
   if (isAuthOpen || isEditOpen) {
     document.getElementById('body').setAttribute('style', 'overflow: hidden');
@@ -45,12 +52,10 @@ const App = ({ fetchUser, location, modal }) => {
 
 const mapStateToProps = ({ modal }) => ({ modal });
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { fetchUser }
-  )(App)
-);
+export default connect(
+  mapStateToProps,
+  { fetchUser }
+)(App);
 
 const Container = styled.div`
   ${customContainer()};
