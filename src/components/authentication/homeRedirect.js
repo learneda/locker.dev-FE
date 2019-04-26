@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -7,15 +7,15 @@ const HomeRedirect = Component => ({ auth }) => {
   const renderContent = () => {
     switch (auth) {
       case null:
-        return;
+        return <Component />;
       case false:
         return <Component />;
       default:
-        return <Redirect to="/home" />;
+        return <Redirect to='/home' />;
     }
   };
 
-  return <Fragment>{renderContent()}</Fragment>;
+  return <>{renderContent()}</>;
 };
 
 const mapStateToProps = ({ auth }) => ({ auth });

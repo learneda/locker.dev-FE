@@ -32,11 +32,11 @@ const App = ({ fetchUser, location, modal }) => {
     <Container>
       <Navbar />
       <Switch>
-        <Route component={home(LandingPage)} exact path="/" />
-        <Route component={index(Home)} path="/home" />
-        <Route component={index(Browse)} path="/browse" />
-        <Route component={index(Profile)} path="/profile/:id" />
-        <Route component={index(Settings)} path="/settings" />
+        <Route component={home(LandingPage)} exact path='/' />
+        <Route component={index(Home)} path='/home' />
+        <Route component={index(Browse)} path='/browse' />
+        <Route component={index(Profile)} path='/profile/:id' />
+        <Route component={index(Settings)} path='/settings' />
         <Route component={NoMatch} />
       </Switch>
     </Container>
