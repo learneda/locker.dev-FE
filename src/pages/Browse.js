@@ -61,10 +61,10 @@ class Browse extends Component {
             <Tabs
               activeIndex={this.props.index}
               onActive={this.props.setBrowseTabIndex}
-              justify="start"
-              alignSelf="center"
+              justify='start'
+              alignSelf='center'
             >
-              <Tab title="Courses">
+              <Tab title='Courses'>
                 <Cards>
                   {courses.length === 0 ? (
                     <Loader>
@@ -86,12 +86,12 @@ class Browse extends Component {
                         <Card key={course.id + index}>
                           <a
                             href={`https://www.udemy.com${course.url}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            target='_blank'
+                            rel='noopener noreferrer'
                           >
                             <img
                               src={course.image_480x270}
-                              alt="course-thumbnail"
+                              alt='course-thumbnail'
                             />
                             <h3>{this.handleTruncateText(course.title)}</h3>
                             <p>
@@ -100,7 +100,7 @@ class Browse extends Component {
                           </a>
                           <SaveIcon>
                             <Add
-                              className="save-icon"
+                              className='save-icon'
                               onClick={() => {
                                 this.handleSaveLink(
                                   `https://www.udemy.com${course.url}`
@@ -118,7 +118,7 @@ class Browse extends Component {
                 </Cards>
               </Tab>
 
-              <Tab title="Articles">
+              <Tab title='Articles'>
                 <Cards>
                   {articles.length === 0 ? (
                     <Loader>
@@ -129,12 +129,12 @@ class Browse extends Component {
                       <Card key={article.created}>
                         <a
                           href={article.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          target='_blank'
+                          rel='noopener noreferrer'
                         >
                           <img
                             src={article.thumbnail}
-                            alt="article-thumbnail"
+                            alt='article-thumbnail'
                           />
 
                           <h3>{this.handleTruncateText(article.title)}</h3>
@@ -144,7 +144,7 @@ class Browse extends Component {
                         </a>
                         <SaveIcon>
                           <Add
-                            className="save-icon"
+                            className='save-icon'
                             onClick={() => {
                               this.handleSaveLink(article.url);
                               this.props.alert.success(
@@ -226,6 +226,9 @@ const BrowseContainer = styled.div`
 
 const Wrapper = styled.div`
   ${customWrapper('80%', '0 auto')}
+  @media(max-width: 768px) {
+    ${customWrapper('90%', '0 auto')}
+  }
 `;
 
 const Cards = styled.div`
@@ -236,6 +239,9 @@ const Cards = styled.div`
   margin: 0 6px;
   margin-top: -12px;
   padding: 40px 0;
+  @media (max-width: 768px) {
+    margin: -12px auto 0;
+  }
 `;
 
 const Card = styled.div`
