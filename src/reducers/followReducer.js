@@ -4,13 +4,13 @@ import {
   UNFOLLOW_A_USER,
   GET_FOLLOWING,
   RECOMMENDED_FOLLOW,
-  GET_USER_FOLLOWERS,
-  GET_USER_FOLLOWING
+  // GET_USER_FOLLOWERS,
+  // GET_USER_FOLLOWING
 } from '../actions/types';
 
 const initialState = {
   following: [],
-  followers: []
+  followers: [],
 };
 
 export const followReducer = (state = initialState, action) => {

@@ -7,7 +7,7 @@ import {
   getUserProfileDetails,
   followAUser,
   unfollowAUser,
-  getFollowing
+  getFollowing,
 } from '../../actions';
 import { customLayout, customWrapper } from '../mixins';
 import locationSvg from '../../assets/svg/location.svg';
@@ -39,7 +39,7 @@ class SidebarById extends Component {
     followers: [],
     following: [],
     followingDropDownHeight: '0px',
-    followersDropDownHeight: '0px'
+    followersDropDownHeight: '0px',
   };
   componentDidMount() {
     const id = this.props.match.params.id;
@@ -75,14 +75,14 @@ class SidebarById extends Component {
   };
   imageLoaded = async () => {
     this.setState({
-      imageLoaded: true
+      imageLoaded: true,
     });
   };
   handleFollowingDropdown = () => {
     this.setState({
       followingDropDownHeight:
         this.state.followingDropDownHeight === '300px' ? '0px' : '300px',
-      followersDropDownHeight: '0px'
+      followersDropDownHeight: '0px',
     });
   };
 
@@ -90,7 +90,7 @@ class SidebarById extends Component {
     this.setState({
       followersDropDownHeight:
         this.state.followersDropDownHeight === '300px' ? '0px' : '300px',
-      followingDropDownHeight: '0px'
+      followingDropDownHeight: '0px',
     });
   };
 
@@ -99,7 +99,7 @@ class SidebarById extends Component {
       return <MyLoader />;
     }
     const {
-      profile_picture,
+      // profile_picture,
       username,
       post_count,
       following_count,
@@ -107,7 +107,7 @@ class SidebarById extends Component {
       bio,
       location,
       website_url,
-      created_at
+      created_at,
     } = this.props.user_details;
     console.log('🗿', this.props.user_details.profile_picture);
     let imgURL;
@@ -382,7 +382,7 @@ const mapStateToProps = ({ user_details, auth, follow }) => {
   return {
     user_details,
     auth,
-    follow
+    follow,
   };
 };
 
