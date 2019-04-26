@@ -53,7 +53,7 @@ function Search(props) {
     const Tabs = ['Feed', 'Bookmarks', 'Likes', 'Friends'];
     return (
       <TextInput
-        size="small"
+        size='small'
         placeholder={
           toggle ? 'Search Users' : `Search ${Tabs[props.homeIndex]}`
         }
@@ -66,7 +66,14 @@ function Search(props) {
   const displayBrowseSearchComponent = () => {
     const Tabs = ['Courses', 'Articles'];
     const placeholder = Tabs[props.browseIndex];
-    return <TextInput size="small" placeholder={`Search ${placeholder}`} />;
+    return (
+      <TextInput
+        size='small'
+        placeholder={`Search ${placeholder}`}
+        value={search}
+        onChange={setSearch}
+      />
+    );
   };
 
   return (
