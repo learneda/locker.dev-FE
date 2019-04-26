@@ -20,7 +20,7 @@ const App = ({ fetchUser, location, modal }) => {
 
   useEffect(() => {
     fetchUser();
-  }, []);
+  }, [location]);
 
   if (isAuthOpen || isEditOpen) {
     document.getElementById('body').setAttribute('style', 'overflow: hidden');
@@ -43,9 +43,7 @@ const App = ({ fetchUser, location, modal }) => {
   );
 };
 
-const mapStateToProps = ({ modal }) => ({
-  modal,
-});
+const mapStateToProps = ({ modal }) => ({ modal });
 
 export default withRouter(
   connect(
