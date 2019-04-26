@@ -24,12 +24,12 @@ const MyLoader = () => (
     height={475}
     width={300}
     speed={2}
-    primaryColor="#f3f3f3"
-    secondaryColor="#ecebeb"
+    primaryColor='#f3f3f3'
+    secondaryColor='#ecebeb'
   >
-    <circle cx="148" cy="73" r="56" />
-    <rect x="118" y="425" rx="0" ry="0" width="0" height="0" />
-    <rect x="17" y="144" rx="0" ry="0" width="364" height="300" />
+    <circle cx='148' cy='73' r='56' />
+    <rect x='118' y='425' rx='0' ry='0' width='0' height='0' />
+    <rect x='17' y='144' rx='0' ry='0' width='364' height='300' />
   </ContentLoader>
 );
 
@@ -123,7 +123,7 @@ class SidebarById extends Component {
     return (
       <Wrapper>
         <Profile>
-          <div className="user">
+          <div className='user'>
             <img
               src={imgURL}
               style={
@@ -132,25 +132,25 @@ class SidebarById extends Component {
                   : { visibility: 'hidden', opacity: '0' }
               }
               onLoad={() => this.setState({ imageLoaded: true })}
-              alt="avatar"
+              alt='avatar'
             />
             {/* <ImageLoading /> */}
           </div>
-          <div className="user-bio">
+          <div className='user-bio'>
             <h3>{username}</h3>
-            <div className="follow-btn-grp">
+            <div className='follow-btn-grp'>
               {this.props.follow ? (
-                <button type="button" onClick={this.unfollowAUserHandler}>
+                <button type='button' onClick={this.unfollowAUserHandler}>
                   Unfollow
                 </button>
               ) : (
-                <button type="button" onClick={this.followAUserHandler}>
+                <button type='button' onClick={this.followAUserHandler}>
                   Follow
                 </button>
               )}
             </div>
 
-            <div className="profile-stats">
+            <div className='profile-stats'>
               <ul>
                 <li>Posts</li>
                 <li>{post_count}</li>
@@ -176,16 +176,16 @@ class SidebarById extends Component {
             />
             <p>{bio ? bio : 'Add bio'}</p>
             <p>
-              <img src={locationSvg} alt="location-icon" />
+              <img src={locationSvg} alt='location-icon' />
               {location ? location : 'Add location'}
             </p>
             <p>
-              <img src={linkSvg} alt="link-icon" />
+              <img src={linkSvg} alt='link-icon' />
               {website_url ? website_url : 'Add website URL'}
             </p>
             <p>
-              <img src={calendarSvg} alt="calendar-icon" />
-              Joined <Moment format="MMMM YYYY">{created_at}</Moment>
+              <img src={calendarSvg} alt='calendar-icon' />
+              Joined <Moment format='MMMM YYYY'>{created_at}</Moment>
             </p>
           </div>
         </Profile>
@@ -193,6 +193,21 @@ class SidebarById extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ user_details, auth, follow }) => {
+  return {
+    user_details,
+    auth,
+    follow,
+  };
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getUserProfileDetails, followAUser, unfollowAUser, getFollowing }
+  )(SidebarById)
+);
 
 const Wrapper = styled.div`
   ${customWrapper('40%')}
@@ -377,18 +392,3 @@ const Profile = styled.div`
     }
   }
 `;
-
-const mapStateToProps = ({ user_details, auth, follow }) => {
-  return {
-    user_details,
-    auth,
-    follow,
-  };
-};
-
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { getUserProfileDetails, followAUser, unfollowAUser, getFollowing }
-  )(SidebarById)
-);
