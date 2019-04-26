@@ -9,17 +9,16 @@ import NotFoundSVG from '../../../assets/svg/not-found-drawing.svg';
 const HelpScreen = ({ headerText, imgSource }) => {
   return (
     <Container>
-      <img src={imgSource ? imgSource : NotFoundSVG} alt="Drawing" />
-      <div className="prompt-text">
+      <img src={imgSource ? imgSource : NotFoundSVG} alt='Drawing' />
+      <div className='prompt-text'>
         <h2>{headerText}</h2>
         <div>
           To get started, go to{' '}
-          <Link to="/browse">
-            <span className="browse-btn">Browse</span>
+          <Link to='/browse'>
+            <span className='browse-btn'>Browse</span>
           </Link>{' '}
           to look around and find the latest courses and blogs or save your
-          favorite link <AddLink buttonName="here" />.
-
+          favorite link <AddLink buttonName='here' />.
         </div>
       </div>
     </Container>
@@ -33,7 +32,9 @@ export const Container = styled.div`
   padding: 20px 0;
   background-color: white;
   text-align: center;
-
+  @media (max-width: 600px) {
+    ${customWrapper('100%', '0 auto')}
+  }
   img {
     width: 35%;
     height: 100px;
@@ -51,7 +52,7 @@ export const Container = styled.div`
     }
 
     div {
-      diplay: inline-block
+      display: inline-block;
       font-size: 1.6rem;
       div {
         display: inline-block;
@@ -61,16 +62,16 @@ export const Container = styled.div`
         &:hover {
           color: #2544c7;
         }
-    }
+      }
 
+      .browse-btn {
+        color: #3f65f2;
+        transition: 150ms ease-in;
+        cursor: pointer;
 
-    .browse-btn {
-      color: #3f65f2;
-      transition: 150ms ease-in;
-      cursor: pointer;
-
-      &:hover {
-        color: #2544c7;
+        &:hover {
+          color: #2544c7;
+        }
       }
     }
   }

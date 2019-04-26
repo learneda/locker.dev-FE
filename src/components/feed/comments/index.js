@@ -8,26 +8,26 @@ class CommentBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      commentsToRender: -2
+      commentsToRender: -2,
     };
   }
 
   handleMoreComments = e => {
     e.preventDefault();
     this.setState({
-      commentsToRender: this.state.commentsToRender - 3
+      commentsToRender: this.state.commentsToRender - 3,
     });
   };
 
   render() {
     return (
       <Container>
-        <div className="comments-container">
-          <div className="comment-box">
+        <div className='comments-container'>
+          <div className='comment-box'>
             {this.props.post_comments.length - 1 <
             Math.abs(this.state.commentsToRender) ? null : (
               <button
-                className="show-more-btn"
+                className='show-more-btn'
                 onClick={this.handleMoreComments}
               >
                 show more comments
@@ -38,11 +38,11 @@ class CommentBox extends Component {
               .map((comment, index) => {
                 if (comment.user_id === this.props.user_id) {
                   return (
-                    <div key={comment.id} className="comment">
-                      <div className="comment-text">
+                    <div key={comment.id} className='comment'>
+                      <div className='comment-text'>
                         <h2>
                           {comment.username}{' '}
-                          <span className="comment-date">
+                          <span className='comment-date'>
                             <Moment fromNow>{comment.created_at}</Moment>:
                           </span>
                         </h2>
@@ -58,8 +58,8 @@ class CommentBox extends Component {
                   );
                 } else {
                   return (
-                    <div key={comment.id} className="comment">
-                      <div className="comment-text">
+                    <div key={comment.id} className='comment'>
+                      <div className='comment-text'>
                         <h2>{comment.username}</h2>
                         <span>{comment.content}</span>
                       </div>
@@ -70,13 +70,15 @@ class CommentBox extends Component {
           </div>
 
           <div>
-            <form className="add-comment">
-              <img src={this.props.profile_picture} alt="" />
-              <textarea
-                placeholder="Add a comment..."
-                type="text"
-                onKeyUp={e => this.props.handleSubmit(e, this.props.post_id)}
-              />
+            <form className='add-comment'>
+              <div className='pic-and-form'>
+                <img src={this.props.profile_picture} alt='' />
+                <textarea
+                  placeholder='Add a comment...'
+                  type='text'
+                  onKeyUp={e => this.props.handleSubmit(e, this.props.post_id)}
+                />
+              </div>
               <button
                 onClick={e => {
                   e.preventDefault();
@@ -103,6 +105,14 @@ const Container = styled.div`
       display: flex;
       align-items: center;
 
+      @media (max-width: 600px) {
+        flex-wrap: wrap;
+      }
+      .pic-and-form {
+        display: flex;
+        align-items: center;
+        width: 100%;
+      }
       img {
         width: 40px;
         height: 40px;
@@ -136,6 +146,14 @@ const Container = styled.div`
         margin-left: 20px;
         padding: 8px 25px;
         font-size: 1.5rem;
+        @media (max-width: 600px) {
+          width: 150px;
+          margin-top: 10px;
+          margin-left: auto;
+        }
+        @media (max-width: 400px) {
+          width: 120px;
+        }
       }
     }
 
