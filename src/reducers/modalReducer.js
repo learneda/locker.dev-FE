@@ -1,49 +1,53 @@
 import {
-  AUTH_MODAL_DISPLAY,
-  AUTH_MODAL_LOGIN,
+  AUTH_MODAL_TOGGLE,
   AUTH_MODAL_SIGNUP,
+  AUTH_MODAL_LOGIN,
   EDIT_MODAL_DISPLAY,
   EDIT_POST_SUBMIT,
-  EDIT_POST_GET_DEFAULT_DATA
+  EDIT_POST_GET_DEFAULT_DATA,
 } from '../actions/types';
 
-const initialState = { modalOpen: false, signUp: true, editModalOpen: false };
+const initialState = {
+  isAuthOpen: false,
+  isSignUp: true,
+  isEditOpen: false,
+};
 
 export const modalReducer = (state = initialState, action) => {
   switch (action.type) {
-    case EDIT_MODAL_DISPLAY: {
+    case AUTH_MODAL_TOGGLE: {
       return {
         ...state,
-        editModalOpen: !state.editModalOpen
-      };
-    }
-    case EDIT_POST_SUBMIT: {
-      return {
-        ...state
-      };
-    }
-    case EDIT_POST_GET_DEFAULT_DATA: {
-      return {
-        ...state,
-        editFormData: action.payload
-      };
-    }
-    case AUTH_MODAL_DISPLAY: {
-      return {
-        ...state,
-        modalOpen: !state.modalOpen
+        isAuthOpen: !state.isAuthOpen,
       };
     }
     case AUTH_MODAL_SIGNUP: {
       return {
         ...state,
-        signUp: true
+        isSignUp: true,
       };
     }
     case AUTH_MODAL_LOGIN: {
       return {
         ...state,
-        signUp: false
+        isSignUp: false,
+      };
+    }
+    case EDIT_MODAL_DISPLAY: {
+      return {
+        ...state,
+        isEditOpen: !state.isEditOpen,
+      };
+    }
+    case EDIT_POST_SUBMIT: {
+      return {
+        ...state,
+      };
+    }
+    case EDIT_POST_GET_DEFAULT_DATA: {
+      return {
+        ...state,
+        editFormData: action.payload,
       };
     }
     default:

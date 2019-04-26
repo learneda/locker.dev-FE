@@ -7,7 +7,7 @@ import Search from '../search/Search';
 import Auth from '../authentication/Auth';
 import AddLink from '../utils/AddLink';
 import ProfileDropDown from './ProfileDropDown';
-import { modalState, modalLogin, modalSignUp } from '../../actions/index';
+import { authModalToggle, modalSignUp, modalLogin } from '../../actions';
 import { authURL } from '../../services/authURL';
 import { customLayout, hoverBg } from '../mixins';
 import burgerIcon from '../../assets/svg/burger.svg';
@@ -20,7 +20,7 @@ class Navbar extends Component {
   hideBurgerMenu = () => this.setState({ show: false });
 
   render() {
-    const { modalState, modalLogin, modalSignUp, auth } = this.props;
+    const { auth, authModalToggle, modalSignUp, modalLogin } = this.props;
     if (auth) {
       // When user logged in
       return (
@@ -37,7 +37,7 @@ class Navbar extends Component {
             />
           </Burger>
 
-          <Nav className="main-nav" auth={this.props.auth}>
+          <Nav className="main-nav" auth={auth}>
             <ul>
               <li>
                 <NavLink to="/home" activeClassName="active">
@@ -73,7 +73,7 @@ class Navbar extends Component {
               <li>
                 <span
                   onClick={() => {
-                    modalState();
+                    authModalToggle();
                     modalLogin();
                   }}
                 >
@@ -83,7 +83,7 @@ class Navbar extends Component {
               <li>
                 <span
                   onClick={() => {
-                    modalState();
+                    authModalToggle();
                     modalSignUp();
                   }}
                 >
@@ -133,6 +133,15 @@ const MobileNav = ({ handleClose, show }) => {
     </BurgerMenu>
   );
 };
+
+const mapStateToProps = ({ auth }) => ({
+  auth,
+});
+
+export default connect(
+  mapStateToProps,
+  { authModalToggle, modalSignUp, modalLogin }
+)(Navbar);
 
 const NavWrapper = styled.div`
   background-color: white;
@@ -342,15 +351,3 @@ const BurgerMenu = styled.div`
     display: none;
   }
 `;
-
-const mapStateToProps = ({ modalState, auth }) => {
-  return {
-    modalOpen: modalState.modalOpen,
-    auth
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  { modalState, modalLogin, modalSignUp }
-)(Navbar);

@@ -12,16 +12,17 @@ import browser from '../../assets/img/browser.png';
 import downIcon from '../../assets/svg/down-icon.svg';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { modalState, modalLogin, modalSignUp } from '../../actions/index';
+import { authModalToggle, modalSignUp } from '../../actions/index';
 import {
   Feature,
   FeatureTitle,
   FeaturesContainer,
   StyledCallToAction,
-  StyledFooter
+  StyledFooter,
 } from './StyledBody';
 
 function Body(props) {
+  const { authModalToggle, modalSignUp } = props;
   const scrollDown = useRef();
   const handleClick = () =>
     scrollDown.current.scrollIntoView({ behavior: 'smooth' });
@@ -86,8 +87,8 @@ function Body(props) {
             label="Create an Account"
             reverse
             onClick={() => {
-              props.modalState();
-              props.modalSignUp();
+              authModalToggle();
+              modalSignUp();
             }}
           />
         </div>
@@ -110,16 +111,9 @@ function Body(props) {
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    modalOpen: state.modalState.modalOpen,
-    signUp: state.modalState.signUp
-  };
-};
-
 export default connect(
-  mapStateToProps,
-  { modalState, modalSignUp, modalLogin }
+  null,
+  { authModalToggle, modalSignUp }
 )(Body);
 
 const StyledFeature = styled.div`
@@ -135,16 +129,16 @@ const StyledFeatureTitle = styled.h3`
 const theme = {
   button: {
     padding: {
-      vertical: '20px'
+      vertical: '20px',
     },
     border: {
       radius: '5px',
-      color: buttonBg
+      color: buttonBg,
     },
     primary: {
-      color: buttonBg
-    }
-  }
+      color: buttonBg,
+    },
+  },
 };
 
 const StyledFeaturesContainer = styled.div`

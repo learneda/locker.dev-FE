@@ -14,7 +14,7 @@ import {
   deletePost,
   editModalDisplay,
   editPostGetDefaultData,
-  getSearchValue
+  getSearchValue,
 } from '../../actions';
 import deleteIcon from '../../assets/svg/delete-icon.svg';
 import editSvg from '../../assets/svg/edit.svg';
@@ -127,8 +127,8 @@ const mapStateToProps = state => {
     posts: state.posts,
     deletePost: state.deletePost,
     search_term: state.search_term,
-    modalOpen: state.modalState.editModalOpen,
-    editFormData: state.modalState.editFormData
+    modalOpen: state.modal.isEditOpen,
+    editFormData: state.modal.editFormData,
   };
 };
 
@@ -139,6 +139,6 @@ export default connect(
     deletePost,
     editModalDisplay,
     editPostGetDefaultData,
-    getSearchValue
+    getSearchValue,
   }
 )(Bookmarks);

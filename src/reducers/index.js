@@ -1,22 +1,22 @@
 import { combineReducers } from 'redux';
-import { authReducer } from './authReducer';
-import { homeReducer } from './homeReducer';
-import { browseReducer } from './browseReducer';
-import { modalReducer } from './modalReducer';
-import { postReducer } from './postReducer';
-import { likedPostReducer } from './likedPostReducer';
-import { searchReducer } from './searchReducer';
-import { followReducer } from './followReducer';
-import { userReducer } from './userReducer';
+import { authReducer as auth } from './authReducer';
+import { homeReducer as home } from './homeReducer';
+import { browseReducer as browse } from './browseReducer';
+import { modalReducer as modal } from './modalReducer';
+import { postReducer as posts } from './postReducer';
+import { likedPostReducer as likedPosts } from './likedPostReducer';
+import { searchReducer as search_term } from './searchReducer';
+import { followReducer as follow } from './followReducer';
+import { userReducer as user_details } from './userReducer';
 
 export default combineReducers({
-  auth: authReducer,
-  home: homeReducer,
-  browse: browseReducer,
-  modalState: modalReducer,
-  posts: postReducer,
-  likedPosts: likedPostReducer,
-  search_term: searchReducer,
-  follow: followReducer,
-  user_details: userReducer,
+  auth,
+  home,
+  browse,
+  modal,
+  posts,
+  likedPosts,
+  search_term,
+  follow,
+  user_details,
 });

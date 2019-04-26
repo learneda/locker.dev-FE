@@ -15,7 +15,7 @@ export const FETCH_POSTS = 'FETCH_POSTS';
 
 export const ERROR = 'ERROR';
 
-export const AUTH_MODAL_DISPLAY = 'AUTH_MODAL_DISPLAY';
+export const AUTH_MODAL_TOGGLE = 'AUTH_MODAL_TOGGLE';
 
 export const AUTH_MODAL_SIGNUP = 'AUTH_MODAL_SIGNUP';
 

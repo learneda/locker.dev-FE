@@ -3,7 +3,7 @@ import {
   FETCH_USER,
   FETCH_COURSES,
   FETCH_ARTICLES,
-  AUTH_MODAL_DISPLAY,
+  AUTH_MODAL_TOGGLE,
   AUTH_MODAL_LOGIN,
   AUTH_MODAL_SIGNUP,
   SAVE_LINK,
@@ -27,6 +27,7 @@ import {
   SET_BROWSE_TAB_INDEX,
   SET_HOME_TAB_INDEX,
 } from './types';
+
 import { post as URL } from '../services/baseURL';
 axios.defaults.withCredentials = true;
 
@@ -54,17 +55,11 @@ export const getArticles = () => async dispatch => {
   dispatch({ type: FETCH_ARTICLES, payload: res.data });
 };
 
-export const modalState = () => async dispatch => {
-  dispatch({ type: AUTH_MODAL_DISPLAY });
-};
+export const authModalToggle = () => ({ type: AUTH_MODAL_TOGGLE });
 
-export const modalSignUp = () => async dispatch => {
-  dispatch({ type: AUTH_MODAL_SIGNUP });
-};
+export const modalSignUp = () => ({ type: AUTH_MODAL_SIGNUP });
 
-export const modalLogin = () => async dispatch => {
-  dispatch({ type: AUTH_MODAL_LOGIN });
-};
+export const modalLogin = () => ({ type: AUTH_MODAL_LOGIN });
 
 export const saveLink = post => async dispatch => {
   const res = await axios.post(`${URL}/api/posts`, { post_url: post });
@@ -99,9 +94,7 @@ export const editProfile = (id, profile) => async dispatch => {
 };
 
 /* ===== EDIT POST ACTIONS ===== */
-export const editModalDisplay = () => async dispatch => {
-  dispatch({ type: EDIT_MODAL_DISPLAY });
-};
+export const editModalDisplay = () => ({ type: EDIT_MODAL_DISPLAY });
 
 export const editPostGetDefaultData = id => async dispatch => {
   const res = await axios.get(`${URL}/api/posts/${id}`);
@@ -112,9 +105,10 @@ export const editPostSubmit = (editedPost, id) => async dispatch => {
   dispatch({ type: EDIT_POST_SUBMIT, payload: res.data });
 };
 
-export const getSearchValue = e => dispatch => {
-  dispatch({ type: SEARCH_TERM, payload: e.target.value });
-};
+export const getSearchValue = e => ({
+  type: SEARCH_TERM,
+  payload: e.target.value,
+});
 
 export const getFollowersAndFollowingCount = () => async dispatch => {
   const res = await axios.get(`${URL}/api/users/followStats`);
@@ -148,7 +142,7 @@ export const getFollowing = friend_id => async dispatch => {
 
 export const recommendedFollow = id => async dispatch => {
   const res = await axios.get(`${URL}/api/users/recommendedFollow?id=${id}`);
-  console.log('RECOMMENDED FOLLOW RES', res);
+  // console.log('RECOMMENDED FOLLOW RES', res);
   dispatch({ type: RECOMMENDED_FOLLOW, payload: res.data });
 };
 
@@ -165,11 +159,13 @@ export const getUserFollowers = id => async dispatch => {
 };
 
 // controls Browse tabIndex
-export const setBrowseTabIndex = index => {
-  return { type: SET_BROWSE_TAB_INDEX, payload: index };
-};
+export const setBrowseTabIndex = index => ({
+  type: SET_BROWSE_TAB_INDEX,
+  payload: index,
+});
 
 // controls Home tabIndex
-export const setHomeTabIndex = index => {
-  return { type: SET_HOME_TAB_INDEX, payload: index };
-};
+export const setHomeTabIndex = index => ({
+  type: SET_HOME_TAB_INDEX,
+  payload: index,
+});
