@@ -14,7 +14,7 @@ import {
   deletePost,
   editModalDisplay,
   editPostGetDefaultData,
-  getSearchValue
+  getSearchValue,
 } from '../../actions';
 
 class ProfileById extends Component {
@@ -24,7 +24,7 @@ class ProfileById extends Component {
     const id = this.props.match.params.id;
     axios.get(`${URL}/api/posts/all/${id}`).then(res => {
       this.setState({
-        posts: res.data
+        posts: res.data,
       });
     });
   };
@@ -52,16 +52,16 @@ class ProfileById extends Component {
     const posts = filteredPosts
       .map(post => (
         <Post key={post.id}>
-          <a href={post.post_url} target="_blank" rel="noopener noreferrer">
-            <img src={post.thumbnail_url} alt="" />
+          <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
+            <img src={post.thumbnail_url} alt='' />
           </a>
-          <div className="post-content">
-            <a href={post.post_url} target="_blank" rel="noopener noreferrer">
+          <div className='post-content'>
+            <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
               <h1>{this.handleTruncateText(post.title)}</h1>
             </a>
             <p>{this.handleTruncateText(post.description, 15)}</p>
-            <div className="date-like-heart">
-              <span className="formatted-date">
+            <div className='date-like-heart'>
+              <span className='formatted-date'>
                 Added <Moment fromNow>{post.created_at}</Moment>
               </span>
               <Like
@@ -69,7 +69,7 @@ class ProfileById extends Component {
                 handleLike={this.handleLike}
                 id={post.id}
               />
-              <span className="rec-span">Save to Profile</span>
+              <span className='rec-span'>Save to Profile</span>
             </div>
           </div>
         </Post>
@@ -78,7 +78,7 @@ class ProfileById extends Component {
 
     if (posts.length === 0) {
       return (
-        <NoPostScreen textDescription="No courses or articles have been bookmarked yet." />
+        <NoPostScreen textDescription='No courses or articles have been bookmarked yet.' />
       );
     } else {
       return <Wrapper>{posts}</Wrapper>;
@@ -91,8 +91,8 @@ const mapStateToProps = state => {
     posts: state.posts,
     deletePost: state.deletePost,
     search_term: state.search_term,
-    modalOpen: state.modalState.editModalOpen,
-    editFormData: state.modalState.editFormData
+    modalOpen: state.modal.isEditOpen,
+    editFormData: state.modal.editFormData,
   };
 };
 
@@ -104,7 +104,7 @@ export default withRouter(
       deletePost,
       editModalDisplay,
       editPostGetDefaultData,
-      getSearchValue
+      getSearchValue,
     }
   )(ProfileById)
 );
