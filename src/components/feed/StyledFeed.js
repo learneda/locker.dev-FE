@@ -42,6 +42,9 @@ export const StyledFeed = () =>
 }
 .title-and-description {
   padding: 15px 25px;
+  @media(max-width: 600px) {
+    padding: 15px 10px;
+  }
   h2 {
     margin-bottom: 10px;
     font-size: 2.6rem;
@@ -69,11 +72,18 @@ i {
   align-items: center;
   margin-left: 25px;
   margin-bottom: 10px;
+  @media(max-width: 600px) {
+    justify-content: space-between;
+    margin: 0 10px 10px;
+   }
 }
 .save {
   display: flex;
   margin-left: 30px;
   cursor: pointer;
+  // @media(max-width: 600px) {
+  //  margin-right: 15px;
+  //  }
   &:hover {
     h3 {
       opacity: 1;
