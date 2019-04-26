@@ -20,19 +20,19 @@ class Home extends Component {
             <Tabs
               activeIndex={this.props.index}
               onActive={this.props.setHomeTabIndex}
-              justify="start"
+              justify='start'
             >
-              <Tab title="Feed">
+              <Tab title='Feed'>
                 <TabWrapper>
                   <Feed />
                 </TabWrapper>
               </Tab>
-              <Tab title="Bookmarks">
+              <Tab title='Bookmarks'>
                 <TabWrapper>
                   <Bookmarks />
                 </TabWrapper>
               </Tab>
-              <Tab title="Likes">
+              <Tab title='Likes'>
                 <TabWrapper>
                   <Likes />
                 </TabWrapper>
@@ -88,6 +88,9 @@ const Container = styled.div`
   justify-content: space-between;
   @media (max-width: 1400px) {
     width: 90%;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
   }
 `;
 
