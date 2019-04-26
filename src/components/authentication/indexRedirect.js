@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -7,15 +7,15 @@ const IndexRedirect = Component => ({ auth }) => {
   const renderContent = () => {
     switch (auth) {
       case null:
-        return;
+        return <Redirect to='/' />;
       case false:
-        return <Redirect to="/" />;
+        return <Redirect to='/' />;
       default:
         return <Component />;
     }
   };
 
-  return <Fragment>{renderContent()}</Fragment>;
+  return <>{renderContent()}</>;
 };
 
 const mapStateToProps = ({ auth }) => ({ auth });

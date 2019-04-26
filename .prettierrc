@@ -3,7 +3,7 @@
   "bracketSpacing": true,
   "printWidth": 80,
   "requirePragma": false,
-  "semi": false,
+  "semi": true,
   "singleQuote": true,
   "jsxSingleQuote": true,
   "trailingComma": "es5"
