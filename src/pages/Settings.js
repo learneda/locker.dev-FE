@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { withAlert } from 'react-alert';
 import styled from 'styled-components';
 import { Grommet, TextInput, TextArea } from 'grommet';
-import {post as URL} from '../services/baseURL';
+import { post as URL } from '../services/baseURL';
 import { editProfile } from '../actions';
 import { customLayout, customWrapper } from '../components/mixins';
 import axios from 'axios';
@@ -28,40 +28,44 @@ class Settings extends Component {
       username,
       bio,
       location,
-      website_url
+      website_url,
     });
   };
 
   handleInputChange = e => this.setState({ [e.target.name]: e.target.value });
 
-  handleFileSelection = (e) => {
+  handleFileSelection = e => {
     e.preventDefault();
-    console.log(e.target.files[0])
-    this.setState({selectedFile: e.target.files[0]});
-  }
+    console.log(e.target.files[0]);
+    this.setState({ selectedFile: e.target.files[0] });
+  };
 
-  handleFileUpload = (e) => {
+  handleFileUpload = e => {
     e.preventDefault();
     if (this.state.selectedFile) {
       const fd = new FormData();
-      fd.append('profile_pic', this.state.selectedFile, this.state.selectedFile.name);
-      axios.post(`${URL}/api/images`, fd).then((res) => {
-      if (res.data.success) {
-        axios.get(`${URL}/api/images`).then((res) => {
-          if (res.data.length > 0) {
-            this.setState({profile_pic: `${res.data[0].profile_picture}`})
-          };
-        });
-      }
-      })
+      fd.append(
+        'profile_pic',
+        this.state.selectedFile,
+        this.state.selectedFile.name
+      );
+      axios.post(`${URL}/api/images`, fd).then(res => {
+        if (res.data.success) {
+          axios.get(`${URL}/api/images`).then(res => {
+            if (res.data.length > 0) {
+              this.setState({ profile_pic: `${res.data[0].profile_picture}` });
+            }
+          });
+        }
+      });
     }
-  }
+  };
 
   componentDidMount() {
-    axios.get(`${URL}/api/images`).then((res) => {
-        if (res.data.length > 0) {
-          this.setState({profile_pic: `${res.data[0].profile_picture}`})
-        }
+    axios.get(`${URL}/api/images`).then(res => {
+      if (res.data.length > 0) {
+        this.setState({ profile_pic: `${res.data[0].profile_picture}` });
+      }
     });
   }
   render() {
@@ -72,40 +76,40 @@ class Settings extends Component {
         <FormGroup
           onSubmit={e => this.editProfileHandler(e, this.props.auth.id)}
         >
-          <div className="form-wrapper">
+          <div className='form-wrapper'>
             <Grommet theme={theme}>
-              <div className="row">
-                <div className="col-2">
+              <div className='row'>
+                <div className='col-2'>
                   <label>
                     Name
                     <TextInput
-                      type="text"
+                      type='text'
                       onChange={this.handleInputChange}
-                      placeholder="Add full name"
+                      placeholder='Add full name'
                       value={this.state.display_name}
-                      name="display_name"
+                      name='display_name'
                       required
                     />
                   </label>
                   <label>
                     Email Address
                     <TextInput
-                      type="text"
+                      type='text'
                       onChange={this.handleInputChange}
-                      placeholder="email address"
+                      placeholder='email address'
                       value={this.props.auth.email}
-                      name="email"
+                      name='email'
                       required
                     />
                   </label>
                   <label>
                     Username
                     <TextInput
-                      type="text"
+                      type='text'
                       onChange={this.handleInputChange}
-                      placeholder="Add username"
+                      placeholder='Add username'
                       value={this.state.username}
-                      name="username"
+                      name='username'
                       required
                     />
                   </label>
@@ -113,51 +117,68 @@ class Settings extends Component {
                   <label>
                     Bio
                     <TextArea
-                      type="text"
+                      type='text'
                       onChange={this.handleInputChange}
-                      placeholder="Add bio"
+                      placeholder='Add bio'
                       value={this.state.bio}
-                      name="bio"
+                      name='bio'
                     />
                   </label>
                 </div>
 
-                <div className="col-2">
+                <div className='col-2'>
                   <label>
                     Location
                     <TextInput
-                      type="text"
+                      type='text'
                       onChange={this.handleInputChange}
-                      placeholder="Add location"
+                      placeholder='Add location'
                       value={this.state.location}
-                      name="location"
+                      name='location'
                     />
                   </label>
 
                   <label>
                     Website URL
                     <TextInput
-                      type="text"
+                      type='text'
                       onChange={this.handleInputChange}
-                      placeholder="Add website URL"
+                      placeholder='Add website URL'
                       value={this.state.website_url}
-                      name="website_url"
+                      name='website_url'
                     />
                   </label>
                   <label>
                     Profile Picture
-                    <img style={{width: '200px'}} src={this.state.profile_pic} alt="user_upload_picture" />
-                    <input onChange={(e) => this.handleFileSelection(e)} type="file" name="profile_pic" />
-                    <button onClick={(e) => this.handleFileUpload(e)} type="submit">Submit</button>
+                    <img
+                      style={{
+                        width: '200px',
+                        display: 'block',
+                        margin: '10px auto',
+                      }}
+                      src={this.state.profile_pic}
+                      alt='user_upload_picture'
+                    />
+                    <input
+                      onChange={e => this.handleFileSelection(e)}
+                      type='file'
+                      name='profile_pic'
+                    />
+                    <button
+                      onClick={e => this.handleFileUpload(e)}
+                      type='submit'
+                    >
+                      Submit
+                    </button>
                   </label>
                 </div>
               </div>
             </Grommet>
 
-            <div className="btn-group">
-              <Link to="/home">Cancel</Link>
+            <div className='btn-group'>
+              <Link to='/home'>Cancel</Link>
               <button
-                type="submit"
+                type='submit'
                 onClick={() => {
                   this.props.alert.success(
                     'User settings successfully updated.'
@@ -178,17 +199,17 @@ const theme = {
   global: {
     focus: {
       border: {
-        color: '#3f65f2'
-      }
-    }
+        color: '#3f65f2',
+      },
+    },
   },
   text: {
     xsmall: {
       size: '12px',
       height: '18px',
-      maxWidth: '288px'
-    }
-  }
+      maxWidth: '288px',
+    },
+  },
 };
 
 const Wrapper = styled.div`
