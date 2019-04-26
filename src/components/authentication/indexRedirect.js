@@ -7,7 +7,7 @@ const IndexRedirect = Component => ({ auth }) => {
   const renderContent = () => {
     switch (auth) {
       case null:
-        return <Redirect to='/' />;
+        return;
       case false:
         return <Redirect to='/' />;
       default:
