@@ -64,7 +64,7 @@ function Search(props) {
   };
 
   const displayBrowseSearchComponent = () => {
-    const Tabs = ['Articles', 'Courses'];
+    const Tabs = ['Courses', 'Articles'];
     const placeholder = Tabs[props.browseIndex];
     return <TextInput size="small" placeholder={`Search ${placeholder}`} />;
   };
