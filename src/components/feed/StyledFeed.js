@@ -38,6 +38,7 @@ export const StyledFeed = () =>
     max-height: 500px;
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
 }
 .title-and-description {
