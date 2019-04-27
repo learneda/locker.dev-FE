@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-
+import GlobalStyle from './components/mixins';
 import LandingPage from './pages/Landing';
 import Home from './pages/Home';
 import Browse from './pages/Browse';
@@ -14,6 +14,7 @@ import { customContainer } from './components/mixins';
 import { composedIndexRedirect as index } from './components/authentication/indexRedirect';
 import { composedHomeRedirect as home } from './components/authentication/homeRedirect';
 import { fetchUser } from './actions';
+
 
 const App = ({ fetchUser, location, modal }) => {
   const { isAuthOpen, isEditOpen } = modal;
@@ -30,6 +31,7 @@ const App = ({ fetchUser, location, modal }) => {
 
   return (
     <Container>
+      <GlobalStyle />
       <Navbar />
       <Switch>
         <Route component={home(LandingPage)} exact path='/' />

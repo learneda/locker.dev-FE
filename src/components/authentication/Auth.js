@@ -3,14 +3,15 @@ import { connect } from 'react-redux';
 import AuthForm from './AuthForm';
 import { authModalToggle, modalSignUp, modalLogin } from '../../actions/index';
 import deleteIcon from '../../assets/svg/delete-icon.svg';
-
-import '../../styles/Auth.css';
+import styled from 'styled-components';
+import {StyledAuth} from './StyledAuth';
 
 const Auth = props => {
   const { authModalToggle, modalSignUp, modalLogin, modal } = props;
   const { isAuthOpen, isSignUp } = modal;
 
   return (
+    <LOGIN>
     <div
       className='login'
       id='login'
@@ -43,6 +44,7 @@ const Auth = props => {
         <AuthForm isSignUp={isSignUp} />
       </div>
     </div>
+    </LOGIN>
   );
 };
 const mapStateToProps = ({ modal }) => ({ modal });
@@ -51,3 +53,8 @@ export default connect(
   mapStateToProps,
   { authModalToggle, modalSignUp, modalLogin }
 )(Auth);
+
+
+const LOGIN = styled.div`
+${StyledAuth}
+`
