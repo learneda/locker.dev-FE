@@ -1,5 +1,5 @@
 export const StyledAuth = () =>
-`.login {
+`
     /* background: inherit; */
     /* width: 450px;
     height: 550px; */
@@ -17,14 +17,12 @@ export const StyledAuth = () =>
     align-items: flex-start;
     transition: 400ms;
     animation: 400ms fadeIn;
-  }
+
   @media (max-width: 768px) {
-    .login {
       justify-content: center;
       align-items: center;
       position: fixed;
       /* overflow-y: scroll; */
-    }
   }
   @keyframes fadeIn {
     from {

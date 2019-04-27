@@ -11,12 +11,11 @@ const Auth = props => {
   const { isAuthOpen, isSignUp } = modal;
 
   return (
-    <LOGIN>
-    <div
-      className='login'
-      id='login'
-      style={{ display: isAuthOpen ? 'flex' : 'none' }}
-      onClick={e => (e.target.className === 'login' ? authModalToggle() : null)}
+    <LOGIN
+    className='login'
+    id='login'
+    style={{ display: isAuthOpen ? 'flex' : 'none' }}
+    onClick={e => (e.target.className === 'login' ? authModalToggle() : null)}
     >
       <div className='login-content'>
         <div
@@ -43,7 +42,6 @@ const Auth = props => {
         </span>
         <AuthForm isSignUp={isSignUp} />
       </div>
-    </div>
     </LOGIN>
   );
 };
