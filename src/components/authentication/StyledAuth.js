@@ -342,15 +342,4 @@ export const StyledAuth = () =>
   .root-modal-open {
     filter: blur(7px);
   }
-  .lol {
-    border: 2px solid red;
-  }
-  .comments {
-    color: green;
-  }
-  .heart-red {
-    color: #e94856;
-    /* background: rgba(255, 0, 0, 0.4); */
-    width: 15.99px;
-    /* border-radius: 9px; */
   }`
