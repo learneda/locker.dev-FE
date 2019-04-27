@@ -15,13 +15,13 @@ class UserProfile extends Component {
         <SidebarById />
         <Wrapper>
           <Grommet theme={theme}>
-            <Tabs justify="start" className="tabs">
-              <Tab title="Bookmarks">
+            <Tabs justify='start' className='tabs'>
+              <Tab title='Bookmarks'>
                 <TabWrapper>
                   <ProfileById />
                 </TabWrapper>
               </Tab>
-              <Tab title="Likes">
+              <Tab title='Likes'>
                 <TabWrapper>
                   <Likes />
                 </TabWrapper>
@@ -38,29 +38,29 @@ const theme = {
   tab: {
     color: 'dark-1',
     active: {
-      weight: 'bold'
+      weight: 'bold',
     },
     border: {
       side: 'bottom',
       size: 'medium',
       color: {
-        light: null
+        light: null,
       },
       active: {
         color: {
-          light: 'dark-1'
-        }
+          light: 'dark-1',
+        },
       },
       hover: {
         color: {
-          light: null
-        }
+          light: null,
+        },
       },
       margin: {
-        bottom: '30px'
-      }
-    }
-  }
+        bottom: '30px',
+      },
+    },
+  },
 };
 
 const Container = styled.div`
@@ -85,6 +85,9 @@ const TabWrapper = styled.div`
   padding-top: 20px;
   margin-top: -3px;
   margin-left: 12px;
+  @media (max-width: 900px) {
+    margin-left: 0;
+  }
 `;
 
 export default withRouter(UserProfile);
