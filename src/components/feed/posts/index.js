@@ -68,11 +68,13 @@ class PostContainer extends Component {
     return (
       <div className='post'>
         <div className='post-user-info'>
-          <Link to={`/profile/${post.user_id}`}>
+          <Link to={`/profile/${post.user_id}`} className='post-user-pic'>
             <img src={`${post.profile_picture}`} alt='user_profile_pic' />
           </Link>
           <div>
-            <h2>{post.username}</h2>
+            <Link to={`/profile/${post.user_id}`}>
+              <h2>{post.username}</h2>
+            </Link>
             <Moment className='post-date' fromNow>
               {post.created_at}
             </Moment>
@@ -80,10 +82,14 @@ class PostContainer extends Component {
         </div>
         <div className='post-content'>
           {post.thumbnail_url ? (
-            <img src={`${post.thumbnail_url}`} alt='post_thumbnail' />
+            <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
+              <img src={`${post.thumbnail_url}`} alt='post_thumbnail' />
+            </a>
           ) : null}
           <div className='title-and-description'>
-            <h2>{post.title}</h2>
+            <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
+              <h2>{post.title}</h2>
+            </a>
             <p>{post.description}</p>
           </div>
           <div className='likes-and-save'>

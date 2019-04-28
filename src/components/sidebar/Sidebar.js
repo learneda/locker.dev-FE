@@ -121,8 +121,7 @@ class Sidebar extends Component {
                   <a
                     href={this.props.auth.website_url}
                     target='_blank'
-                    noopener
-                    noreferrer
+                    rel='noopener noreferrer'
                   >
                     {this.props.auth.website_url.replace(/^https?:\/\//, '')}
                   </a>
@@ -130,8 +129,7 @@ class Sidebar extends Component {
                   <a
                     href={`https://${this.props.auth.website_url}`}
                     target='_blank'
-                    noopener
-                    noreferrer
+                    rel='noopener noreferrer'
                   >
                     {this.props.auth.website_url}
                   </a>
