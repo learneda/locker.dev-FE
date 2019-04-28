@@ -11,6 +11,8 @@ import * as serviceWorker from './serviceWorker'
 
 import 'typeface-roboto'
 
+import './styles/index.css'
+
 const options = {
   position: positions.BOTTOM_CENTER,
   timeout: 3000,
