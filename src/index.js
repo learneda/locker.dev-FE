@@ -11,7 +11,7 @@ import * as serviceWorker from './serviceWorker'
 
 import 'typeface-roboto'
 
-import '/Users/StarTask/lambda/labs/labs11_learned_a-FE/src/styles/index.css'
+import './styles/index.css'
 
 const options = {
   position: positions.BOTTOM_CENTER,
