@@ -8,6 +8,7 @@ import {
   followAUser,
   unfollowAUser,
   getFollowing,
+  getUserFollowers,
 } from '../../actions';
 import { customLayout, customWrapper } from '../mixins';
 import locationSvg from '../../assets/svg/location.svg';
@@ -61,17 +62,28 @@ class SidebarById extends Component {
   followAUserHandler = async e => {
     e.preventDefault();
     const friend_id = this.props.match.params.id;
-    await this.props
-      .followAUser({ user_id: this.props.auth.id, friend_id })
-      .then(() => this.props.getUserProfileDetails(friend_id));
+    await this.props.followAUser({ user_id: this.props.auth.id, friend_id });
+    await this.props.getUserProfileDetails(friend_id);
+    await this.props.getFollowing(friend_id);
+    if (friend_id) {
+      axios.get(`${URL}/api/users/followers?id=${friend_id}`).then(res => {
+        this.setState({ followers: res.data });
+      });
+    }
   };
 
   unfollowAUserHandler = async e => {
     e.preventDefault();
     const friend_id = this.props.match.params.id;
-    await this.props
-      .unfollowAUser({ user_id: this.props.auth.id, friend_id })
-      .then(() => this.props.getUserProfileDetails(friend_id));
+    await this.props.unfollowAUser({ user_id: this.props.auth.id, friend_id });
+    await this.props.getUserProfileDetails(friend_id);
+    await this.props.getFollowing(friend_id);
+    if (friend_id) {
+      axios.get(`${URL}/api/users/followers?id=${friend_id}`).then(res => {
+        console.log('res.data', res.data);
+        this.setState({ followers: res.data });
+      });
+    }
   };
   imageLoaded = async () => {
     this.setState({
@@ -218,14 +230,20 @@ const mapStateToProps = ({ user_details, auth, follow }) => {
   return {
     user_details,
     auth,
-    follow,
+    follow: follow.following,
   };
 };
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { getUserProfileDetails, followAUser, unfollowAUser, getFollowing }
+    {
+      getUserProfileDetails,
+      followAUser,
+      unfollowAUser,
+      getFollowing,
+      getUserFollowers,
+    }
   )(SidebarById)
 );
 
