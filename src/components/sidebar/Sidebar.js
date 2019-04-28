@@ -21,12 +21,12 @@ const MyLoader = () => (
     height={475}
     width={'100%'}
     speed={2}
-    primaryColor="#f3f3f3"
-    secondaryColor="#ecebeb"
+    primaryColor='#f3f3f3'
+    secondaryColor='#ecebeb'
   >
-    <circle cx="148" cy="73" r="56" />
-    <rect x="118" y="425" rx="0" ry="0" width="0" height="0" />
-    <rect x="17" y="144" rx="0" ry="0" width="364" height="300" />
+    <circle cx='148' cy='73' r='56' />
+    <rect x='118' y='425' rx='0' ry='0' width='0' height='0' />
+    <rect x='17' y='144' rx='0' ry='0' width='364' height='300' />
   </ContentLoader>
 );
 class Sidebar extends Component {
@@ -70,12 +70,12 @@ class Sidebar extends Component {
     return (
       <Wrapper>
         <Profile>
-          <div className="user">
-            <img src={this.props.auth.profile_picture} alt="avatar" />
+          <div className='user'>
+            <img src={this.props.auth.profile_picture} alt='avatar' />
           </div>
-          <div className="user-bio">
+          <div className='user-bio'>
             <h3>{this.props.auth.display_name}</h3>
-            <div className="profile-stats">
+            <div className='profile-stats'>
               <ul>
                 <li>Posts</li>
                 <li>{this.props.user_details.post_count}</li>
@@ -103,27 +103,49 @@ class Sidebar extends Component {
               {this.props.auth.bio ? (
                 this.props.auth.bio
               ) : (
-                <Link to="/settings">Add Bio</Link>
+                <Link to='/settings'>Add Bio</Link>
               )}
             </p>
             <p>
-              <img src={locationSvg} alt="location-icon" />
-              {this.props.auth.location
-                ? this.props.auth.location
-                : 'Add location'}
+              <img src={locationSvg} alt='location-icon' />
+              {this.props.auth.location ? (
+                this.props.auth.location
+              ) : (
+                <Link to='/settings'>Add location</Link>
+              )}
             </p>
             <p>
-              <img src={linkSvg} alt="link-icon" />
-              {this.props.auth.website_url
-                ? this.props.auth.website_url
-                : 'Add website URL'}
+              <img src={linkSvg} alt='link-icon' />
+              {this.props.auth.website_url ? (
+                this.props.auth.website_url.includes('http') ? (
+                  <a
+                    href={this.props.auth.website_url}
+                    target='_blank'
+                    noopener
+                    noreferrer
+                  >
+                    {this.props.auth.website_url.replace(/^https?:\/\//, '')}
+                  </a>
+                ) : (
+                  <a
+                    href={`https://${this.props.auth.website_url}`}
+                    target='_blank'
+                    noopener
+                    noreferrer
+                  >
+                    {this.props.auth.website_url}
+                  </a>
+                )
+              ) : (
+                <Link to='/settings'>Add website URL</Link>
+              )}
             </p>
             <p>
-              <img src={calendarSvg} alt="calendar-icon" />
-              Joined <Moment format="MMMM YYYY">{this.props.created_at}</Moment>
+              <img src={calendarSvg} alt='calendar-icon' />
+              Joined <Moment format='MMMM YYYY'>{this.props.created_at}</Moment>
             </p>
-            <div className="edit-profile-link">
-              <Link to="/settings">Edit Profile</Link>
+            <div className='edit-profile-link'>
+              <Link to='/settings'>Edit Profile</Link>
             </div>
           </div>
         </Profile>

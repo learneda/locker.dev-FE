@@ -31,21 +31,21 @@ class Navbar extends Component {
             <Search />
             <img
               src={burgerIcon}
-              alt="burger"
-              className="burger-icon"
+              alt='burger'
+              className='burger-icon'
               onClick={this.showBurgerMenu}
             />
           </Burger>
 
-          <Nav className="main-nav" auth={auth}>
+          <Nav className='main-nav' auth={auth}>
             <ul>
               <li>
-                <NavLink to="/home" activeClassName="active">
+                <NavLink to='/home' activeClassName='active'>
                   <span>Home</span>
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/browse" activeClassName="active">
+                <NavLink to='/browse' activeClassName='active'>
                   <span>Browse</span>
                 </NavLink>
               </li>
@@ -67,7 +67,7 @@ class Navbar extends Component {
           <Auth />
           <Nav style={{ marginTop: '20px' }}>
             <h1>
-              <Link to="/home">LearnLocker</Link>
+              <Link to='/home'>LearnLocker</Link>
             </h1>
             <ul>
               <li>
@@ -106,23 +106,28 @@ const MobileNav = ({ handleClose, show }) => {
   return (
     <BurgerMenu>
       <div className={showHideClassName}>
-        <div className="close-btn">
+        <div className='close-btn'>
           <img
             src={closeIcon}
-            alt="close-icon"
+            alt='close-icon'
             onClick={handleClose}
-            className="close-icon"
+            className='close-icon'
           />
         </div>
-        <ul className="burger-main">
+        <ul className='burger-main'>
           <li onClick={handleClose}>
-            <Link to="/home">
+            <Link to='/home'>
               <span>Home</span>
             </Link>
           </li>
           <li onClick={handleClose}>
-            <Link to="/browse">
+            <Link to='/browse'>
               <span>Browse</span>
+            </Link>
+          </li>
+          <li onClick={handleClose}>
+            <Link to='/settings'>
+              <span>Settings</span>
             </Link>
           </li>
           <li>

@@ -174,14 +174,31 @@ class SidebarById extends Component {
               height={this.state.followersDropDownHeight}
               handleFollowingDropdown={this.handleFollowersDropdown}
             />
-            <p>{bio ? bio : 'Add bio'}</p>
+            <p>{bio ? bio : 'User has no bio.'}</p>
             <p>
               <img src={locationSvg} alt='location-icon' />
-              {location ? location : 'Add location'}
+              {location ? location : 'No location specified.'}
             </p>
             <p>
               <img src={linkSvg} alt='link-icon' />
-              {website_url ? website_url : 'Add website URL'}
+              {website_url ? (
+                website_url.includes('http') ? (
+                  <a href={website_url} target='_blank' noopener noreferrer>
+                    {website_url.replace(/^https?:\/\//, '')}
+                  </a>
+                ) : (
+                  <a
+                    href={`https://${website_url}`}
+                    target='_blank'
+                    noopener
+                    noreferrer
+                  >
+                    {this.props.auth.website_url}
+                  </a>
+                )
+              ) : (
+                'No URL provided'
+              )}
             </p>
             <p>
               <img src={calendarSvg} alt='calendar-icon' />
