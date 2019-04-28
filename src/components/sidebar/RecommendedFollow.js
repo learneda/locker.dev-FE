@@ -6,32 +6,40 @@ import {
   getUserProfileDetails,
   recommendedFollow,
   followAUser,
-  unfollowAUser,
+  getUserFollowing,
 } from '../../actions';
 
 const RecommendedFollow = props => {
+  const {
+    followAUser,
+    getUserProfileDetails,
+    getUserFollowing,
+    recommendedFollow,
+  } = props;
+
   useEffect(() => {
-    props.recommendedFollow(props.auth.id);
+    recommendedFollow(props.auth.id);
   }, []);
 
   const followAUserHandler = async (e, friend_id) => {
     e.preventDefault();
-    await props.followAUser({ user_id: props.auth.id, friend_id });
-    await props.getUserProfileDetails(props.auth.id);
-    await props.recommendedFollow(props.auth.id);
-  };
-
-  const unfollowAUserHandler = async (e, friend_id) => {
-    e.preventDefault();
-    // const friend_id = this.props.match.params.id;
-    await props
-      .unfollowAUser({ user_id: props.auth.id, friend_id })
-      .then(() => props.getUserProfileDetails(friend_id));
+    await followAUser({ user_id: props.auth.id, friend_id });
+    await Promise.all([
+      getUserProfileDetails(props.auth.id),
+      getUserFollowing(props.auth.id),
+      recommendedFollow(props.auth.id),
+    ]);
   };
 
   const renderRecommended = () => {
-    const { follow } = props;
-    if (follow.length > 0 && !follow.includes(null)) {
+    const { follow, loading } = props;
+    if (loading) {
+      return (
+        <div className='recommended-follow-container'>
+          <h2>Loading...</h2>
+        </div>
+      );
+    } else {
       return follow.map((following, index) => (
         <div className='recommended-follow-container' key={index}>
           <div className='recommended-follow-info'>
@@ -55,12 +63,6 @@ const RecommendedFollow = props => {
           </div>
         </div>
       ));
-    } else {
-      return (
-        <div className='recommended-follow-container'>
-          <h2>Loading...</h2>
-        </div>
-      );
     }
   };
 
@@ -75,13 +77,19 @@ const mapStateToProps = ({ auth, user_details, follow }) => {
   return {
     auth: auth,
     user_details: user_details,
-    follow: follow,
+    follow: follow.suggestedFriends,
+    loading: follow.loading,
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getUserProfileDetails, recommendedFollow, followAUser, unfollowAUser }
+  {
+    getUserProfileDetails,
+    recommendedFollow,
+    followAUser,
+    getUserFollowing,
+  }
 )(RecommendedFollow);
 
 const StyledCard = styled.div`

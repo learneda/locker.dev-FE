@@ -4,46 +4,34 @@ import {
   UNFOLLOW_A_USER,
   GET_FOLLOWING,
   RECOMMENDED_FOLLOW,
-  // GET_USER_FOLLOWERS,
-  // GET_USER_FOLLOWING
+  GET_USER_FOLLOWERS,
+  GET_USER_FOLLOWING,
 } from '../actions/types';
 
 const initialState = {
-  following: [],
-  followers: [],
+  suggestedFriends: [],
+  loading: true,
+  userFollowers: [],
+  userFollowing: [],
+  following: false,
 };
 
 export const followReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_FOLLOWERS_AND_FOLLOWING_COUNT:
-      return action.payload;
+      return { ...state, ...action.payload };
     case FOLLOW_A_USER:
-      if (action.payload.length === 0) {
-        return false;
-      } else {
-        return true;
-      }
+      return { ...state, loading: true };
     case UNFOLLOW_A_USER:
-      if (action.payload.length === 0) {
-        return true;
-      } else {
-        return false;
-      }
+      return state;
     case GET_FOLLOWING:
-      if (action.payload.length === 0) {
-        return false;
-      } else {
-        return true;
-      }
+      return { ...state, following: action.payload };
     case RECOMMENDED_FOLLOW:
-      return [...action.payload];
-
-    // case GET_USER_FOLLOWERS:
-    //   return { ...state, followers: [action.payload] };
-
-    // case GET_USER_FOLLOWING:
-    //   return { ...state, following: [action.payload] };
-
+      return { ...state, suggestedFriends: action.payload, loading: false };
+    case GET_USER_FOLLOWERS:
+      return { ...state, userFollowers: action.payload };
+    case GET_USER_FOLLOWING:
+      return { ...state, userFollowing: action.payload };
     default:
       return state;
   }

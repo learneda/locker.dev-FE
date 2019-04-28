@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { editProfile, getUserProfileDetails } from '../../actions';
+import {
+  editProfile,
+  getUserProfileDetails,
+  getUserFollowers,
+  getUserFollowing,
+} from '../../actions';
 import ContentLoader from 'react-content-loader';
 
 import styled from 'styled-components';
@@ -31,23 +36,13 @@ const MyLoader = () => (
 );
 class Sidebar extends Component {
   state = {
-    followers: [],
-    following: [],
     followingDropDownHeight: '0px',
     followersDropDownHeight: '0px',
   };
   componentDidMount() {
     this.props.getUserProfileDetails(this.props.auth.id);
-    if (this.props.auth.id) {
-      axios
-        .get(`${URL}/api/users/followers?id=${this.props.auth.id}`)
-        .then(res => this.setState({ followers: res.data }));
-    }
-    if (this.props.auth.id) {
-      axios
-        .get(`${URL}/api/users/following?id=${this.props.auth.id}`)
-        .then(res => this.setState({ following: res.data }));
-    }
+    this.props.getUserFollowers(this.props.auth.id);
+    this.props.getUserFollowing(this.props.auth.id);
   }
   handleFollowingDropdown = () => {
     this.setState({
@@ -90,12 +85,12 @@ class Sidebar extends Component {
               </ul>
             </div>
             <FollowingDropdown
-              following={this.state.following}
+              following={this.props.following}
               height={this.state.followingDropDownHeight}
               handleFollowingDropdown={this.handleFollowingDropdown}
             />
             <FollowersDropdown
-              followers={this.state.followers}
+              followers={this.props.followers}
               height={this.state.followersDropDownHeight}
               handleFollowingDropdown={this.handleFollowersDropdown}
             />
@@ -152,6 +147,22 @@ class Sidebar extends Component {
   }
 }
 
+const mapStateToProps = ({ auth, user_details, follow }) => {
+  return {
+    auth: auth,
+    user_details: user_details,
+    followers: follow.userFollowers,
+    following: follow.userFollowing,
+  };
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { editProfile, getUserProfileDetails, getUserFollowers, getUserFollowing }
+  )(Sidebar)
+);
+
 const Wrapper = styled.div`
   ${customWrapper('40%')}
   max-width: 265px;
@@ -170,17 +181,3 @@ const Profile = styled.div`
     ${customLayout()}
   }
 `;
-
-const mapStateToProps = ({ auth, user_details }) => {
-  return {
-    auth: auth,
-    user_details: user_details,
-  };
-};
-
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { editProfile, getUserProfileDetails }
-  )(Sidebar)
-);
