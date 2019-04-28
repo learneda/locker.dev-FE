@@ -99,4 +99,10 @@ i {
     transition: 200ms ease-out;
   }
 }
+.heart-red {
+  color: #e94856;
+  /* background: rgba(255, 0, 0, 0.4); */
+  width: 15.99px;
+  /* border-radius: 9px; */
+}
 `;

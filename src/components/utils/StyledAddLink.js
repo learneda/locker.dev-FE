@@ -1,51 +1,11 @@
-    .no_match {
-    background-image: url('../assets/img/bumble-bee-man-ay-yi-no-me-gusta.jpg');
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .no_match_content {
-    background-color: white;
-    width: 500px;
-    height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
-  .home_body {
-    /* border: 2px solid red; */
-    text-align: center;
-  }
-  .toggle {
-    /* border: 2px solid red; */
-    display: flex;
-    justify-content: flex-start;
-    /* max-width: 1000px; */
-    margin: auto;
-    margin-bottom: 15px;
-    /* width: 90%; */
-  }
-  
-  .toggle img {
-    width: 40px;
-    height: 40px;
-    background: #fff;
-    border-radius: 50%;
-    cursor: pointer;
-    position: relative;
-    z-index: 60;
-  }
-  .modal-wrapper {
+export const StyledAddLink = () => 
+`
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.6);
-  }
   
   .modal_ {
     /* border: 2px solid blue; */
@@ -113,3 +73,4 @@
   .root-modal-open {
     filter: blur(7px);
   }
+`
