@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-
+import styled from 'styled-components';
+import { StyledAddLink } from './StyledAddLink';
 import AddLinkPortal from './AddLinkPortal';
 import { getPosts, updatePostsState } from '../../actions';
 import { post as URL } from '../../services/baseURL';
@@ -62,7 +63,7 @@ class AddLink extends Component {
         {/* <img src={addSvg} alt="" onClick={() => this.toggle()} /> */}
         {this.state.on && (
           <AddLinkPortal>
-            <div
+            <MODAL_WRAPPER
               className="modal-wrapper"
               onClick={e =>
                 e.target.className === 'modal-wrapper' && this.toggle()
@@ -89,7 +90,7 @@ class AddLink extends Component {
                   </form>
                 </div>
               </div>
-            </div>
+            </MODAL_WRAPPER>
           </AddLinkPortal>
         )}
       </div>
@@ -107,3 +108,7 @@ export default connect(
   mapStateToProps,
   { getPosts, updatePostsState }
 )(AddLink);
+
+const MODAL_WRAPPER = styled.div`
+  ${StyledAddLink}
+`;
