@@ -10,7 +10,6 @@ import store from './store'
 import * as serviceWorker from './serviceWorker'
 
 import 'typeface-roboto'
-import './styles/index.css'
 
 const options = {
   position: positions.BOTTOM_CENTER,

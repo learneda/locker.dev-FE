@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-
+import GlobalStyle from './components/mixins';
 import LandingPage from './pages/Landing';
 import Home from './pages/Home';
 import Browse from './pages/Browse';
@@ -37,6 +37,7 @@ const App = ({ fetchUser, modal }) => {
 
   return (
     <Container>
+      <GlobalStyle />
       <Navbar />
       <Switch>
         <Route component={home(LandingPage)} exact path='/' />

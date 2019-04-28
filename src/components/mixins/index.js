@@ -1,3 +1,5 @@
+import GlobalStyle from './cssReset.js'
+export default GlobalStyle
 // variables
 export const bgColor = '#e6e9f3';
 export const hoverBg = '#d3d7e7';
