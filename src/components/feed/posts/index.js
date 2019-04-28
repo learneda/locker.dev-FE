@@ -111,7 +111,7 @@ class PostContainer extends Component {
               }}
             >
               <img src={addIcon} alt='' />
-              <h3>Save to profile</h3>
+              <h3>Save to Bookmarks</h3>
             </div>
           </div>
         </div>
