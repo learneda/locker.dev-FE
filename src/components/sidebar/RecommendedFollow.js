@@ -16,12 +16,9 @@ const RecommendedFollow = props => {
 
   const followAUserHandler = async (e, friend_id) => {
     e.preventDefault();
-    await props
-      .followAUser({ user_id: props.auth.id, friend_id })
-      .then(
-        () => props.getUserProfileDetails(props.auth.id),
-        props.recommendedFollow(props.auth.id)
-      );
+    await props.followAUser({ user_id: props.auth.id, friend_id });
+    await props.getUserProfileDetails(props.auth.id);
+    await props.recommendedFollow(props.auth.id);
   };
 
   const unfollowAUserHandler = async (e, friend_id) => {
