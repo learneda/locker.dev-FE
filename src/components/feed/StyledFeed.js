@@ -11,7 +11,7 @@ export const StyledFeed = () =>
   align-items: center;
   padding: 15px;
   border-bottom: 1px solid lightgray;
-  a {
+  .post-user-pic {
     height: 60px;
     width: 60px;
     margin-right: 15px;

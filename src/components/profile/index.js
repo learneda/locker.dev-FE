@@ -15,12 +15,17 @@ import {
   editModalDisplay,
   editPostGetDefaultData,
   getSearchValue,
+  saveLink,
 } from '../../actions';
 
 class ProfileById extends Component {
   state = { modalOpen: false, posts: [] };
 
   componentDidMount = () => {
+    this.getPosts();
+    console.log(this.props.auth.id);
+  };
+  getPosts = () => {
     const id = this.props.match.params.id;
     axios.get(`${URL}/api/posts/all/${id}`).then(res => {
       this.setState({
@@ -29,9 +34,20 @@ class ProfileById extends Component {
     });
   };
 
-  handleLike = async (id, liked) => {
+  handleLike = async (id, liked, url) => {
     await axios.put(`${URL}/api/posts/like/${id}`, { status: !liked });
-    this.props.getPosts();
+
+    const post = {
+      post_url: url,
+      id: this.props.auth.id,
+    };
+    if (!liked) {
+      axios.post(`${URL}/api/posts`, post).then(() => this.getPosts());
+    } else {
+      this.getPosts();
+    }
+
+    console.log(liked);
   };
 
   handleTruncateText = (content, limit = 10) => truncateText(content, limit);
@@ -68,6 +84,7 @@ class ProfileById extends Component {
                 liked={post.liked}
                 handleLike={this.handleLike}
                 id={post.id}
+                url={post.post_url}
               />
               <span className='rec-span'>Save to Profile</span>
             </div>
@@ -93,6 +110,7 @@ const mapStateToProps = state => {
     search_term: state.search_term,
     modalOpen: state.modal.isEditOpen,
     editFormData: state.modal.editFormData,
+    auth: state.auth,
   };
 };
 
@@ -105,6 +123,7 @@ export default withRouter(
       editModalDisplay,
       editPostGetDefaultData,
       getSearchValue,
+      saveLink,
     }
   )(ProfileById)
 );

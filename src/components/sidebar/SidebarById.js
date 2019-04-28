@@ -183,15 +183,18 @@ class SidebarById extends Component {
               <img src={linkSvg} alt='link-icon' />
               {website_url ? (
                 website_url.includes('http') ? (
-                  <a href={website_url} target='_blank' noopener noreferrer>
+                  <a
+                    href={website_url}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
                     {website_url.replace(/^https?:\/\//, '')}
                   </a>
                 ) : (
                   <a
                     href={`https://${website_url}`}
                     target='_blank'
-                    noopener
-                    noreferrer
+                    rel='noopener noreferrer'
                   >
                     {this.props.auth.website_url}
                   </a>
