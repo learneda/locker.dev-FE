@@ -5,6 +5,7 @@ import CommentBox from '../comments';
 import axios from 'axios';
 import { post as URL } from '../../../services/baseURL';
 import addIcon from '../../../assets/svg/add-icon.svg';
+import { withAlert } from 'react-alert';
 
 class PostContainer extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class PostContainer extends Component {
     if (this.props.post) {
       axios
         .post(`${URL}/api/posts/like/users`, {
-          post_id: this.props.post.post_id
+          post_id: this.props.post.post_id,
         })
         .then(res => {
           res.data.forEach(post => {
@@ -38,14 +39,14 @@ class PostContainer extends Component {
       const data = {
         post_id,
         user_id: this.props.user_id,
-        action: 'unlike'
+        action: 'unlike',
       };
       this.props.handleClick(data);
     } else {
       const data = {
         post_id,
         user_id: this.props.user_id,
-        action: 'like'
+        action: 'like',
       };
       this.props.handleClick(data);
     }
@@ -62,32 +63,32 @@ class PostContainer extends Component {
       getNewsFeed,
       profile_picture,
       user_id,
-      handleDeleteComment
+      handleDeleteComment,
     } = this.props;
     return (
-      <div className="post">
-        <div className="post-user-info">
+      <div className='post'>
+        <div className='post-user-info'>
           <Link to={`/profile/${post.user_id}`}>
-            <img src={`${post.profile_picture}`} alt="user_profile_pic" />
+            <img src={`${post.profile_picture}`} alt='user_profile_pic' />
           </Link>
           <div>
             <h2>{post.username}</h2>
-            <Moment className="post-date" fromNow>
+            <Moment className='post-date' fromNow>
               {post.created_at}
             </Moment>
           </div>
         </div>
-        <div className="post-content">
+        <div className='post-content'>
           {post.thumbnail_url ? (
-            <img src={`${post.thumbnail_url}`} alt="post_thumbnail" />
+            <img src={`${post.thumbnail_url}`} alt='post_thumbnail' />
           ) : null}
-          <div className="title-and-description">
+          <div className='title-and-description'>
             <h2>{post.title}</h2>
             <p>{post.description}</p>
           </div>
-          <div className="likes-and-save">
+          <div className='likes-and-save'>
             <i
-              className="far fa-heart fa-lg"
+              className='far fa-heart fa-lg'
               ref={this.heartIcon}
               onClick={e => {
                 this.handleLikes(e, post.post_id);
@@ -97,10 +98,13 @@ class PostContainer extends Component {
               <span>{this.props.post.likes}</span>
             </i>
             <div
-              className="save"
-              onClick={() => this.handleSaveToProfile(post.post_url)}
+              className='save'
+              onClick={() => {
+                this.handleSaveToProfile(post.post_url);
+                this.props.alert.success('Post added to Bookmarks');
+              }}
             >
-              <img src={addIcon} alt="" />
+              <img src={addIcon} alt='' />
               <h3>Save to profile</h3>
             </div>
           </div>
@@ -120,4 +124,6 @@ class PostContainer extends Component {
   }
 }
 
-export default PostContainer;
+const Alert = withAlert()(PostContainer);
+
+export default Alert;
