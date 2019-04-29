@@ -11,7 +11,7 @@ export default class SharedButton extends Component {
 		super(props);
 		const { post_url, description, title, thumbnail_url } = this.props.bookmark;
 		this.state = {
-			modalOn: false,
+			on: false,
 			description: description,
 			post_url,
 			title,
@@ -55,8 +55,9 @@ export default class SharedButton extends Component {
             id,
             user_id: this.props.user_id
           }).then((res) => {
-              console.log(res)
-          })
+			  console.log(res)
+			  this.setState({on: false})
+			})
       })
 
     }
