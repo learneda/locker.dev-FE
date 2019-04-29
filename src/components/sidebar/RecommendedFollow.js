@@ -1,13 +1,30 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import ContentLoader from 'react-content-loader';
 import styled from 'styled-components';
+
 import {
   getUserProfileDetails,
   recommendedFollow,
   followAUser,
   getUserFollowing,
 } from '../../actions';
+
+const MyLoader = () => (
+  <ContentLoader
+    height={150}
+    width={180}
+    speed={2}
+    primaryColor='#f3f3f3'
+    secondaryColor='#ecebeb'
+  >
+    <circle cx='90' cy='35' r='25' />
+    <rect x='45' y='70' rx='0' ry='0' width='90' height='15' />
+    <rect x='60' y='91' rx='0' ry='0' width='60' height='22' />
+    <rect x='10' y='120' rx='0' ry='0' width='1160' height='14' />
+  </ContentLoader>
+);
 
 const RecommendedFollow = props => {
   const {
@@ -24,20 +41,26 @@ const RecommendedFollow = props => {
   const followAUserHandler = async (e, friend_id) => {
     e.preventDefault();
     await followAUser({ user_id: props.auth.id, friend_id });
-    await Promise.all([
-      getUserProfileDetails(props.auth.id),
-      getUserFollowing(props.auth.id),
-      recommendedFollow(props.auth.id),
-    ]);
+    getUserProfileDetails(props.auth.id);
+    getUserFollowing(props.auth.id);
+    recommendedFollow(props.auth.id);
   };
 
   const renderRecommended = () => {
     const { follow, loading } = props;
     if (loading) {
       return (
-        <div className='recommended-follow-container'>
-          <h2>Loading...</h2>
-        </div>
+        <>
+          <div className='recommended-follow-container'>
+            <MyLoader />
+          </div>
+          <div className='recommended-follow-container'>
+            <MyLoader />
+          </div>
+          <div className='recommended-follow-container'>
+            <MyLoader />
+          </div>
+        </>
       );
     } else {
       return follow.map((following, index) => (
