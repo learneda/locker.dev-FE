@@ -5,8 +5,8 @@ const Following = props => {
   return (
     <ul>
       {following.map((followi, index) => (
-        <div>
-          <li key={index}>{followi.username}</li>
+        <div key={index}>
+          <li>{followi.username}</li>
           <img src={followi.profile_picture} />
           <button>unfollow</button>
         </div>

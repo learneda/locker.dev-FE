@@ -5,8 +5,8 @@ const Suggested = props => {
   return (
     <ul>
       {suggested.map((ele, index) => (
-        <div style={{ outline: '1px solid salmon' }}>
-          <li key={index}>{ele.username}</li>
+        <div style={{ outline: '1px solid salmon' }} key={index}>
+          <li>{ele.username}</li>
           <img src={ele.image} />
           <p>{ele.user}</p>
           <p>Followed by {ele.followed_by_username}</p>
