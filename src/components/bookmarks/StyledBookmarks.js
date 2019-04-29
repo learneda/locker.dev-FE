@@ -15,24 +15,24 @@ position: relative;
   bottom: 12px;
 }
 &:hover {
-  .like {
-    opacity: 1;
-    transition: 200ms ease-in;
-  }
-  .delete-icon {
-    opacity: 1;
-    transition: 200ms ease-in;
-  }
-  .rec-span {
-    transition: 200ms ease-in;
-    font-size: 1.2rem;
-    opacity: 0.8;
-  }
-  .del-span {
-    transition: 200ms ease-in;
-    font-size: 1.2rem;
-    opacity: 0.8;
-  }
+  // .like {
+  //   opacity: 1;
+  //   transition: 200ms ease-in;
+  // }
+  // .delete-icon {
+  //   opacity: 1;
+  //   transition: 200ms ease-in;
+  // }
+  // .rec-span {
+  //   transition: 200ms ease-in;
+  //   font-size: 1.2rem;
+  //   opacity: 0.8;
+  // }
+  // .del-span {
+  //   transition: 200ms ease-in;
+  //   font-size: 1.2rem;
+  //   opacity: 0.8;
+  // }
 }
 @media (max-width: 1450px) {
   /* max-height: initial; */
@@ -45,7 +45,7 @@ position: relative;
 }
 .delete-icon {
   cursor: pointer;
-  opacity: 0;
+  // opacity: 0.8;
   width: 17px;
   height: 17px;
   margin-right: 5px;
@@ -56,7 +56,7 @@ position: relative;
   cursor: pointer;
   transition: 200ms ease-out;
   margin-right: 5px;
-  opacity: 0;
+  // opacity: 0.8;
 }
 a {
   text-decoration: none;
@@ -143,13 +143,30 @@ h1 {
 
 .rec-span {
   margin-right: 15px;
-  opacity: 0;
+  // opacity: 0.8;
   font-size: 1.2rem;
 }
 
 .del-span {
   margin-right: 5px;
-  opacity: 0;
+  // opacity: .8;
   font-size: 1.2rem;
 }
+.save-to-profile {
+  display: flex;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: 200ms ease-out;
+  &:hover {
+    opacity: 1;
+    transition: 200ms ease-in;
+  }
+  .add-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-right: 5px;
+    }
+}
+
 `;
