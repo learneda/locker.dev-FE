@@ -17,6 +17,7 @@ import {
   getSearchValue,
   saveLink,
 } from '../../actions';
+import plusIcon from '../../assets/svg/add-icon.svg';
 
 class ProfileById extends Component {
   state = { modalOpen: false, posts: [] };
@@ -35,7 +36,7 @@ class ProfileById extends Component {
   };
 
   handleLike = async (id, liked, url) => {
-    await axios.put(`${URL}/api/posts/like/${id}`, { status: !liked });
+    // await axios.put(`${URL}/api/posts/like/${id}`, { status: !liked });
 
     const post = {
       post_url: url,
@@ -48,6 +49,14 @@ class ProfileById extends Component {
     }
 
     console.log(liked);
+  };
+  handleSave = async url => {
+    const post = {
+      post_url: url,
+      id: this.props.auth.id,
+    };
+    await axios.post(`${URL}/api/posts`, post);
+    await this.getPosts();
   };
 
   handleTruncateText = (content, limit = 10) => truncateText(content, limit);
@@ -80,13 +89,13 @@ class ProfileById extends Component {
               <span className='formatted-date'>
                 Added <Moment fromNow>{post.created_at}</Moment>
               </span>
-              <Like
-                liked={post.liked}
-                handleLike={this.handleLike}
-                id={post.id}
-                url={post.post_url}
-              />
-              <span className='rec-span'>Save to Profile</span>
+              <div
+                className='save-to-profile'
+                onClick={() => this.handleSave(post.post_url)}
+              >
+                <img src={plusIcon} className='add-icon' alt='' />
+                <span className='rec-span'>Save to Bookmarks</span>
+              </div>
             </div>
           </div>
         </Post>
