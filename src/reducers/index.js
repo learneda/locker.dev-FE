@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { authReducer as auth } from './authReducer';
 import { homeReducer as home } from './homeReducer';
 import { browseReducer as browse } from './browseReducer';
+import { profileReducer as profile } from './profileReducer';
 import { modalReducer as modal } from './modalReducer';
 import { postReducer as posts } from './postReducer';
 import { likedPostReducer as likedPosts } from './likedPostReducer';
@@ -13,6 +14,7 @@ export default combineReducers({
   auth,
   home,
   browse,
+  profile,
   modal,
   posts,
   likedPosts,
