@@ -51,6 +51,7 @@ const Social = props => {
 };
 
 const mapStateToProps = ({ social }) => ({ index: social.index });
+console.log('social:', social);
 
 export default connect(
   mapStateToProps,
