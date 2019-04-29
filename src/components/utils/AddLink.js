@@ -63,7 +63,7 @@ class AddLink extends Component {
         {/* <img src={addSvg} alt="" onClick={() => this.toggle()} /> */}
         {this.state.on && (
           <AddLinkPortal>
-            <MODAL_WRAPPER
+            <MODALWRAPPER
               className="modal-wrapper"
               onClick={e =>
                 e.target.className === 'modal-wrapper' && this.toggle()
@@ -90,7 +90,7 @@ class AddLink extends Component {
                   </form>
                 </div>
               </div>
-            </MODAL_WRAPPER>
+            </MODALWRAPPER>
           </AddLinkPortal>
         )}
       </div>
@@ -109,6 +109,6 @@ export default connect(
   { getPosts, updatePostsState }
 )(AddLink);
 
-const MODAL_WRAPPER = styled.div`
+const MODALWRAPPER = styled.div`
   ${StyledAddLink}
 `;

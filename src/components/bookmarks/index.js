@@ -20,6 +20,7 @@ import deleteIcon from '../../assets/svg/delete-icon.svg';
 import editSvg from '../../assets/svg/edit.svg';
 import HelpScreen from '../utils/screens/HelpScreen';
 import BookmarkSVG from '../../assets/svg/bookmark-drawing.svg';
+import SharedButton from '../shared';
 
 const Bookmarks = props => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -67,6 +68,8 @@ const Bookmarks = props => {
               Added <Moment fromNow>{post.created_at}</Moment>
             </span>
             <Like liked={post.liked} handleLike={handleLike} id={post.id} />
+            <SharedButton bookmark={post} />
+
             <span className="rec-span">like</span>
             <img
               src={deleteIcon}
