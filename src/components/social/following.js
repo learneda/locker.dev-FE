@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Following = () => {
+const Following = props => {
   return (
-    <div>
-      <div>Following</div>
-    </div>
+    <ul>
+      <a>Following</a>
+    </ul>
   );
 };
 

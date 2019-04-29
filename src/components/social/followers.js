@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Following = () => {
+const Followers = () => {
   return (
     <div>
-      <div>Following</div>
+      <div>Followers</div>
     </div>
   );
 };
 
-export default Following;
+export default Followers;

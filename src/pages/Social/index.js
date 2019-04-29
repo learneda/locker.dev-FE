@@ -12,6 +12,7 @@ import { customWrapper } from '../../components/mixins';
 import { setSocialTabIndex } from '../../actions';
 
 const Social = props => {
+  console.log('\n 👤 PROPS', props);
   return (
     <Container>
       <Sidebar />
@@ -50,7 +51,12 @@ const Social = props => {
   );
 };
 
-const mapStateToProps = ({ social }) => ({ index: social.index });
+const mapStateToProps = ({ social, follow }) => ({
+  index: social.index,
+  following: follow.userFollowing,
+  followers: follow.userFollowers,
+  suggested: follow.suggestedFriends,
+});
 
 export default connect(
   mapStateToProps,
