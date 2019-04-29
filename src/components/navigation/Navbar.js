@@ -49,6 +49,11 @@ class Navbar extends Component {
                   <span>Browse</span>
                 </NavLink>
               </li>
+              <li>
+                <NavLink to='/social' activeClassName='active'>
+                  <span>Social</span>
+                </NavLink>
+              </li>
             </ul>
 
             <Search />

@@ -11,15 +11,15 @@ import {
   getArticles,
   setBrowseTabIndex,
   fetchUser,
-} from '../actions';
+} from '../../actions';
 import {
   customWrapper,
   customLayout,
   truncateText,
-} from '../components/mixins';
-import { post as URL } from '../services/baseURL';
-import { ReactComponent as Add } from '../assets/svg/add-icon.svg';
-import { ReactComponent as Loading } from '../assets/svg/circles.svg';
+} from '../../components/mixins';
+import { post as URL } from '../../services/baseURL';
+import { ReactComponent as Add } from '../../assets/svg/add-icon.svg';
+import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
 axios.defaults.withCredentials = true;
 
 class Browse extends Component {
