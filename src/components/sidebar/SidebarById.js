@@ -121,7 +121,6 @@ class SidebarById extends Component {
       website_url,
       created_at,
     } = this.props.user_details;
-    console.log('🗿', this.props.user_details.profile_picture);
     let imgURL;
     if (
       this.props.user_details.profile_picture.indexOf(
