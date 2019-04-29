@@ -110,9 +110,9 @@ class Feed extends Component {
     axios
       .get(`${URL}/api/users/newsfeed?offset=${this.state.offset}`)
       .then(res => {
-        if (res.data.newResponse.length > 0) {
+        if (res.data.length > 0) {
           this.setState({
-            posts: this.state.posts.concat(res.data.newResponse)
+            posts: this.state.posts.concat(res.data)
           });
         } else {
           this.setState({ hasMore: false });
@@ -125,7 +125,7 @@ class Feed extends Component {
     axios
       .get(`${URL}/api/users/newsfeed?offset=${offset}`)
       .then(res => {
-        this.setState({ posts: res.data.newResponse, loading: false });
+        this.setState({ posts: res.data, loading: false });
       })
       .catch(err => console.log(err));
   };

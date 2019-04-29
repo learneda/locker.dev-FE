@@ -111,10 +111,11 @@ class PostContainer extends Component {
               }}
             >
               <img src={addIcon} alt='' />
-              <h3>Save to profile</h3>
+              <h3>Save to Bookmarks</h3>
             </div>
           </div>
         </div>
+        <div>{this.props.post.user_thoughts}</div>
         <CommentBox
           post_comments={post.comments}
           post_id={post.post_id}
