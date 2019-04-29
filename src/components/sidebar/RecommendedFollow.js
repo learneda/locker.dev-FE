@@ -1,37 +1,68 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import ContentLoader from 'react-content-loader';
 import styled from 'styled-components';
+
 import {
   getUserProfileDetails,
   recommendedFollow,
   followAUser,
-  unfollowAUser,
+  getUserFollowing,
 } from '../../actions';
 
+const MyLoader = () => (
+  <ContentLoader
+    height={150}
+    width={180}
+    speed={2}
+    primaryColor='#f3f3f3'
+    secondaryColor='#ecebeb'
+  >
+    <circle cx='90' cy='35' r='25' />
+    <rect x='45' y='70' rx='0' ry='0' width='90' height='15' />
+    <rect x='60' y='91' rx='0' ry='0' width='60' height='22' />
+    <rect x='10' y='120' rx='0' ry='0' width='1160' height='14' />
+  </ContentLoader>
+);
+
 const RecommendedFollow = props => {
+  const {
+    followAUser,
+    getUserProfileDetails,
+    getUserFollowing,
+    recommendedFollow,
+  } = props;
+
   useEffect(() => {
-    props.recommendedFollow(props.auth.id);
+    recommendedFollow(props.auth.id);
   }, []);
 
   const followAUserHandler = async (e, friend_id) => {
     e.preventDefault();
-    await props.followAUser({ user_id: props.auth.id, friend_id });
-    await props.getUserProfileDetails(props.auth.id);
-    await props.recommendedFollow(props.auth.id);
-  };
-
-  const unfollowAUserHandler = async (e, friend_id) => {
-    e.preventDefault();
-    // const friend_id = this.props.match.params.id;
-    await props
-      .unfollowAUser({ user_id: props.auth.id, friend_id })
-      .then(() => props.getUserProfileDetails(friend_id));
+    await followAUser({ user_id: props.auth.id, friend_id });
+    getUserProfileDetails(props.auth.id);
+    getUserFollowing(props.auth.id);
+    recommendedFollow(props.auth.id);
   };
 
   const renderRecommended = () => {
-    const { follow } = props;
-    if (follow.length > 0 && !follow.includes(null)) {
+    const { follow, loading } = props;
+    if (loading) {
+      return (
+        <>
+          <div className='recommended-follow-container'>
+            <MyLoader />
+          </div>
+          <div className='recommended-follow-container'>
+            <MyLoader />
+          </div>
+          <div className='recommended-follow-container'>
+            <MyLoader />
+          </div>
+        </>
+      );
+    } else {
       return follow.map((following, index) => (
         <div className='recommended-follow-container' key={index}>
           <div className='recommended-follow-info'>
@@ -55,12 +86,6 @@ const RecommendedFollow = props => {
           </div>
         </div>
       ));
-    } else {
-      return (
-        <div className='recommended-follow-container'>
-          <h2>Loading...</h2>
-        </div>
-      );
     }
   };
 
@@ -75,13 +100,19 @@ const mapStateToProps = ({ auth, user_details, follow }) => {
   return {
     auth: auth,
     user_details: user_details,
-    follow: follow,
+    follow: follow.suggestedFriends,
+    loading: follow.loading,
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getUserProfileDetails, recommendedFollow, followAUser, unfollowAUser }
+  {
+    getUserProfileDetails,
+    recommendedFollow,
+    followAUser,
+    getUserFollowing,
+  }
 )(RecommendedFollow);
 
 const StyledCard = styled.div`

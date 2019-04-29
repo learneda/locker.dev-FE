@@ -129,7 +129,7 @@ export const unfollowAUser = payload => async dispatch => {
   const res = await axios.delete(`${URL}/api/users/unsubscribe`, {
     data: {
       user_id: payload.user_id,
-      friend_id: payload.friend_id,
+      friend_id: Number(payload.friend_id),
     },
   });
   dispatch({ type: UNFOLLOW_A_USER, payload: res.data });
