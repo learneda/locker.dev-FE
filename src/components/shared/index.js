@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AddLinkPortal from '../utils/AddLinkPortal';
+import ReusableModalPortal from '../utils/ModalPortal';
 import { StyledAddLink } from '../utils/StyledAddLink.js';
 import styled from 'styled-components';
 import { ReactComponent as X } from '../../assets/svg/x.svg';
@@ -67,7 +67,7 @@ export default class SharedButton extends Component {
 			<div>
 				<span onClick={() => this.toggle()}>share?</span>
 				{this.state.on && (
-					<AddLinkPortal>
+					<ReusableModalPortal>
 						<MODALWRAPPER
 							className="modal-wrapper"
 							onClick={(e) => e.target.className === 'modal-wrapper' && this.toggle()}
@@ -127,7 +127,7 @@ export default class SharedButton extends Component {
 								</div>
 							</div>
 						</MODALWRAPPER>
-					</AddLinkPortal>
+					</ReusableModalPortal>
 				)}
 			</div>
 		);

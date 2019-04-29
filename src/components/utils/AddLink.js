@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
 import { StyledAddLink } from './StyledAddLink';
-import AddLinkPortal from './AddLinkPortal';
+import ReusableModalPortal from './ModalPortal';
 import { getPosts, updatePostsState } from '../../actions';
 import { post as URL } from '../../services/baseURL';
 import { ReactComponent as X } from '../../assets/svg/x.svg';
@@ -62,7 +62,7 @@ class AddLink extends Component {
         </span>
         {/* <img src={addSvg} alt="" onClick={() => this.toggle()} /> */}
         {this.state.on && (
-          <AddLinkPortal>
+          <ReusableModalPortal>
             <MODALWRAPPER
               className="modal-wrapper"
               onClick={e =>
@@ -91,7 +91,7 @@ class AddLink extends Component {
                 </div>
               </div>
             </MODALWRAPPER>
-          </AddLinkPortal>
+          </ReusableModalPortal>
         )}
       </div>
     );
