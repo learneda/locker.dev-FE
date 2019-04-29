@@ -1,9 +1,9 @@
 import {Component} from 'react';
 import ReactDOM from 'react-dom';
 
-const portalRoot = document.getElementById('add_link_modal')
+const portalRoot = document.getElementById('modalPortal')
 
-export default class AddLinkPortal extends Component {
+export default class ReusablePortal extends Component {
   constructor (props) {
     super(props)
     this.el = document.createElement('div');

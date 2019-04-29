@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AddLinkPortal from '../utils/AddLinkPortal';
+import ReusablePortal from '../utils/ModalPortal';
 import { StyledAddLink } from '../utils/StyledAddLink.js';
 import styled from 'styled-components';
 import { ReactComponent as X } from '../../assets/svg/x.svg';
@@ -11,7 +11,7 @@ export default class SharedButton extends Component {
 		super(props);
 		const { post_url, description, title, thumbnail_url } = this.props.bookmark;
 		this.state = {
-			modalOn: false,
+			on: false,
 			description: description,
 			post_url,
 			title,
@@ -43,24 +43,21 @@ export default class SharedButton extends Component {
         const id =  this.props.bookmark.id
 
         const editedPost = {
-            post_url: this.state.post_url,
-            description: this.state.description,
-            title: this.state.title,
-            userThoughts: this.state.userThoughts
+			post_url: this.state.post_url,
+			description: this.state.description,
+			title: this.state.title,
+			user_thoughts: this.state.userThoughts,
+			shared: true
         }
-        axios.put(`${URL}/api/posts/${id}`, {
-        post_url: this.state.post_url,
-        description: this.state.description,
-        title: this.state.title,
-        user_thoughts: this.state.userThoughts
-    })
+        axios.put(`${URL}/api/posts/${id}`, editedPost)
       .then(res => {
           axios.post(`${URL}/api/posts/share`, {
             id,
             user_id: this.props.user_id
           }).then((res) => {
-              console.log(res)
-          })
+			  console.log(res)
+			  this.setState({on: false})
+			})
       })
 
     }
@@ -71,7 +68,7 @@ export default class SharedButton extends Component {
 			<div>
 				<span onClick={() => this.toggle()}>share?</span>
 				{this.state.on && (
-					<AddLinkPortal>
+					<ReusablePortal>
 						<MODALWRAPPER
 							className="modal-wrapper"
 							onClick={(e) => e.target.className === 'modal-wrapper' && this.toggle()}
@@ -131,7 +128,7 @@ export default class SharedButton extends Component {
 								</div>
 							</div>
 						</MODALWRAPPER>
-					</AddLinkPortal>
+					</ReusablePortal>
 				)}
 			</div>
 		);
