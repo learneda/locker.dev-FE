@@ -43,17 +43,13 @@ export default class SharedButton extends Component {
         const id =  this.props.bookmark.id
 
         const editedPost = {
-            post_url: this.state.post_url,
-            description: this.state.description,
-            title: this.state.title,
-            userThoughts: this.state.userThoughts
+			post_url: this.state.post_url,
+			description: this.state.description,
+			title: this.state.title,
+			user_thoughts: this.state.userThoughts,
+			shared: true
         }
-        axios.put(`${URL}/api/posts/${id}`, {
-        post_url: this.state.post_url,
-        description: this.state.description,
-        title: this.state.title,
-        user_thoughts: this.state.userThoughts
-    })
+        axios.put(`${URL}/api/posts/${id}`, editedPost)
       .then(res => {
           axios.post(`${URL}/api/posts/share`, {
             id,
