@@ -11,7 +11,7 @@ export default function SearchUsersDropDown({ search }) {
 
   const fetchUsers = async () => {
     const res = await axios.get(`${URL}/api/users/all`, {
-      withCredentials: true
+      withCredentials: true,
     });
     setUsers(res.data);
   };
@@ -19,7 +19,6 @@ export default function SearchUsersDropDown({ search }) {
   useEffect(() => {
     fetchUsers();
   }, []);
-
   return (
     <Fragment>
       {users.map(user => {
@@ -27,10 +26,10 @@ export default function SearchUsersDropDown({ search }) {
           user.username.toLowerCase().includes(search.toLowerCase()) && (
             <Link to={`/profile/${user.id}`} key={user.id}>
               <Card>
-                <img src={user.profile_picture} alt="avatar" />
+                <img src={user.profile_picture} alt='avatar' />
                 <User>
-                  <div className="username">{user.username}</div>
-                  <div className="bottom">
+                  <div className='username'>{user.username}</div>
+                  <div className='bottom'>
                     <Location />
                     <span>{user.location}</span>
                   </div>

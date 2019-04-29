@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  useState,
-  useCallback,
-  useEffect,
-  useRef,
-} from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Grommet, TextInput, CheckBox } from 'grommet';
@@ -14,32 +8,24 @@ import SearchUsersDropDown from './SearchUsersDropDown';
 import { getSearchValue } from '../../actions';
 
 function Search(props) {
-  const [toggle, set] = useState(false);
-  const [search, setSearch] = useState('');
-  const [visible, setVisible] = useState(true);
   const node = useRef();
+  const [toggle, setToggle] = useState(false);
+  const [search, setSearch] = useState('');
+  const [visible, setVisible] = useState(false);
+
   const handleChange = useCallback(e => {
-    set(e.target.checked);
+    setToggle(e.target.checked);
     setSearch('');
   }, []);
 
   const handleSearch = e => {
-    setVisible(true); //* need to show DropDown when typing on search
+    toggle && setVisible(true);
     toggle ? setSearch(e.target.value) : props.getSearchValue(e);
   };
 
   const handleRefClick = e => {
-    const inputDOM = document.getElementsByTagName('input')[3];
-    const toggleDOM = document.getElementsByTagName('input')[2];
-    //* need to check that node.current exist to prevent crash (DropDown)
     if (node.current) {
-      if (node.current.contains(e.target)) {
-        if (inputDOM.value && toggleDOM.value) {
-          setVisible(false);
-        }
-      } else {
-        setVisible(false);
-      }
+      setVisible(false);
     }
   };
   useEffect(() => {
@@ -59,6 +45,7 @@ function Search(props) {
         }
         value={toggle ? search : props.search_term}
         onChange={handleSearch}
+        id='search-input'
       />
     );
   };
@@ -69,26 +56,42 @@ function Search(props) {
     return (
       <TextInput
         size='small'
-        placeholder={`Search ${placeholder}`}
-        value={search}
-        onChange={setSearch}
+        placeholder={toggle ? 'Search Users' : `Search ${placeholder}`}
+        value={toggle ? search : props.search_term}
+        onChange={handleSearch}
+        id='search-input'
       />
     );
   };
 
+  const displayProfileSearchComponent = () => {
+    const Tabs = ['Bookmarks', 'Likes'];
+    const placeholder = Tabs[props.profileIndex];
+    return (
+      <TextInput
+        size='small'
+        placeholder={toggle ? 'Search Users' : `Search ${placeholder}`}
+        value={toggle ? search : props.search_term}
+        onChange={handleSearch}
+        id='search-input'
+      />
+    );
+  };
+
+  //todo: DRY-UP and CLEAN-UP SEARCH COMPONENT SELECTION
   return (
-    <Fragment>
+    <>
       <Wrapper>
         <Grommet theme={theme}>
           <Container>
-            {props.location.pathname === '/home' && (
-              <Toggle>
-                <CheckBox toggle checked={toggle} onChange={handleChange} />
-              </Toggle>
-            )}
+            <Toggle>
+              <CheckBox toggle checked={toggle} onChange={handleChange} />
+            </Toggle>
             {props.location.pathname === '/home'
               ? displayHomeSearchComponent()
-              : displayBrowseSearchComponent()}
+              : props.location.pathname === '/browse'
+              ? displayBrowseSearchComponent()
+              : displayProfileSearchComponent()}
           </Container>
         </Grommet>
       </Wrapper>
@@ -97,14 +100,15 @@ function Search(props) {
           <SearchUsersDropDown search={search} />
         </DropDown>
       )}
-    </Fragment>
+    </>
   );
 }
 
-const mapStateToProps = ({ search_term, browse, home }) => ({
+const mapStateToProps = ({ search_term, browse, home, profile }) => ({
   search_term,
   browseIndex: browse.index,
   homeIndex: home.index,
+  profileIndex: profile.index,
 });
 
 export default withRouter(

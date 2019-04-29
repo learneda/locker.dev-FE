@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Grommet, Tab, Tabs } from 'grommet';
 import styled from 'styled-components';
-
+import { setProfileTabIndex } from '../../actions';
 import Likes from '../../components/likes/Likes';
 import { customWrapper } from '../../components/mixins';
 import SidebarById from '../../components/sidebar/SidebarById';
@@ -15,7 +16,12 @@ class UserProfile extends Component {
         <SidebarById />
         <Wrapper>
           <Grommet theme={theme}>
-            <Tabs justify='start' className='tabs'>
+            <Tabs
+              activeIndex={this.props.index}
+              onActive={this.props.setProfileTabIndex}
+              justify='start'
+              className='tabs'
+            >
               <Tab title='Bookmarks'>
                 <TabWrapper>
                   <ProfileById />
@@ -33,6 +39,15 @@ class UserProfile extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ profile }) => ({ index: profile.index });
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { setProfileTabIndex }
+  )(UserProfile)
+);
 
 const theme = {
   tab: {
@@ -89,5 +104,3 @@ const TabWrapper = styled.div`
     margin-left: 0;
   }
 `;
-
-export default withRouter(UserProfile);

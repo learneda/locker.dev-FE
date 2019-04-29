@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import GlobalStyle from './components/mixins';
@@ -53,10 +53,12 @@ const App = ({ fetchUser, modal }) => {
 
 const mapStateToProps = ({ modal }) => ({ modal });
 
-export default connect(
-  mapStateToProps,
-  { fetchUser }
-)(App);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { fetchUser }
+  )(App)
+);
 
 const Container = styled.div`
   ${customContainer()};
