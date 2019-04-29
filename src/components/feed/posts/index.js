@@ -115,6 +115,7 @@ class PostContainer extends Component {
             </div>
           </div>
         </div>
+        <div>{this.props.post.user_thoughts}</div>
         <CommentBox
           post_comments={post.comments}
           post_id={post.post_id}
