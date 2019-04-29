@@ -29,7 +29,7 @@ const MyLoader = () => (
     primaryColor='#f3f3f3'
     secondaryColor='#ecebeb'
   >
-    <circle cx='148' cy='73' r='56' />
+    <circle cx='120' cy='73' r='56' />
     <rect x='118' y='425' rx='0' ry='0' width='0' height='0' />
     <rect x='17' y='144' rx='0' ry='0' width='364' height='300' />
   </ContentLoader>
