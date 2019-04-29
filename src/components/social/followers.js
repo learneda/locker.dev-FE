@@ -1,10 +1,17 @@
 import React from 'react';
 
-const Followers = () => {
+const Followers = props => {
+  const { followers } = props;
   return (
-    <div>
-      <div>Followers</div>
-    </div>
+    <ul>
+      {followers.map((followee, index) => (
+        <div>
+          <li key={index}>{followee.username}</li>
+          <img src={followee.profile_picture} />
+          <button>block</button>
+        </div>
+      ))}
+    </ul>
   );
 };
 

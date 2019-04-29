@@ -4,7 +4,7 @@ import { Grommet, Tab, Tabs } from 'grommet';
 import styled from 'styled-components';
 import Following from '../../components/social/following';
 import Followers from '../../components/social/followers';
-import Recommended from '../../components/social/recommended';
+import Suggested from '../../components/social/suggested';
 import Meetups from '../../components/social/meetups';
 import Sidebar from '../../components/sidebar/Sidebar';
 import RecommendedFollow from '../../components/sidebar/RecommendedFollow';
@@ -12,7 +12,7 @@ import { customWrapper } from '../../components/mixins';
 import { setSocialTabIndex } from '../../actions';
 
 const Social = props => {
-  const { following } = props;
+  const { following, followers, suggested } = props;
   return (
     <Container>
       <Sidebar />
@@ -30,12 +30,12 @@ const Social = props => {
             </Tab>
             <Tab title='Followers'>
               <TabWrapper>
-                <Followers />
+                <Followers followers={followers} />
               </TabWrapper>
             </Tab>
-            <Tab title='Recommended'>
+            <Tab title='Suggested'>
               <TabWrapper>
-                <Recommended />
+                <Suggested suggested={suggested} />
               </TabWrapper>
             </Tab>
             <Tab title='Meetups'>

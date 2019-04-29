@@ -3,14 +3,15 @@ import React from 'react';
 const Following = props => {
   const { following } = props;
   return (
-    <>
-      <h2>Following</h2>
-      <ul>
-        {following.map((followi, index) => (
+    <ul>
+      {following.map((followi, index) => (
+        <div>
           <li key={index}>{followi.username}</li>
-        ))}
-      </ul>
-    </>
+          <img src={followi.profile_picture} />
+          <button>unfollow</button>
+        </div>
+      ))}
+    </ul>
   );
 };
 
