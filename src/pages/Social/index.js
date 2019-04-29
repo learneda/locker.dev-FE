@@ -12,7 +12,7 @@ import { customWrapper } from '../../components/mixins';
 import { setSocialTabIndex } from '../../actions';
 
 const Social = props => {
-  console.log('\n 👤 PROPS', props);
+  const { following } = props;
   return (
     <Container>
       <Sidebar />
@@ -25,7 +25,7 @@ const Social = props => {
           >
             <Tab title='Following'>
               <TabWrapper>
-                <Following />
+                <Following following={following} />
               </TabWrapper>
             </Tab>
             <Tab title='Followers'>
