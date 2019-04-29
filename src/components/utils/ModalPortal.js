@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 const portalRoot = document.getElementById('modalPortal')
 
-export default class ReusableModalPortal extends Component {
+export default class ReusablePortal extends Component {
   constructor (props) {
     super(props)
     this.el = document.createElement('div');
