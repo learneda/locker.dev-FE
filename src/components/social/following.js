@@ -9,7 +9,7 @@ const Following = props => {
   console.log(following);
 
   const handleUnfollow = friend_id => {
-    console.log('in event', userId, friend_id);
+    console.log('in evfdfdent', userId, friend_id);
     unfollowAUser({ user_id: userId, friend_id: friend_id }).then(() => {
       console.log('in here');
       getUserFollowing(userId);
