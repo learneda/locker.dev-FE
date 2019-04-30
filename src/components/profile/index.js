@@ -26,19 +26,19 @@ class ProfileById extends Component {
 
   componentDidMount = () => {
     this.getPosts();
-    console.log(this.props.auth.id);
-    // const saved = JSON.parse(localStorage.getItem('saved'));
-    // this.setState({
-    //   saved,
-    // });
     this.getSavedPostIds();
   };
-  getPosts = () => {
+  getPosts = async () => {
     const id = this.props.match.params.id;
-    axios.get(`${URL}/api/posts/all/${id}`).then(res => {
-      this.setState({
-        posts: res.data,
-      });
+    const profileId = this.props.match.params.id;
+    const userId = this.props.auth.id;
+    const posts = await axios.get(`${URL}/api/posts/all/${id}`);
+    const savedPosts = await axios.get(
+      `${URL}/api/users/saved-post-ids?user_id=${userId}&saved_from_id=${profileId}`
+    );
+
+    this.setState({
+      posts: posts.data,
     });
   };
 
@@ -61,7 +61,9 @@ class ProfileById extends Component {
     // saves user's post to your bookmarks
     const post = {
       post_url: url,
+      id: this.props.auth.id,
     };
+    this.props.alert.success('Post added to Bookmarks');
     axios.post(`${URL}/api/posts`, post);
 
     // saves post id to users account to keep track of saved posts toggle
@@ -74,56 +76,10 @@ class ProfileById extends Component {
     };
 
     await axios.post(`${URL}/api/users/saved-post-ids`, body);
-    await this.getSavedPostIds();
+    await this.getPosts();
   };
 
   handleTruncateText = (content, limit = 10) => truncateText(content, limit);
-
-  // toggles save icon and checkmark
-  // handleToggleSave = (id, url) =>
-  //   this.state.savedPostIds.map(post => {
-  //     if (post.post_id === id) {
-  //       return <p>yoooo</p>;
-  //     } else {
-  //       return 's;fons;';
-  //     }
-  //   });
-  // console.log(id);
-  // console.log(this.state.savedPostIds.length);
-  // if (this.state.savedPostIds.length > 0) {
-  //   this.state.savedPostIds.map(post => {
-  //     console.log(post, id);
-  //     console.log(post.post_id === id);
-  //     if (post.post_id == id) {
-  //       return (
-  //         <div className='save-to-profile'>
-  //           <img src={check} className='add-icon' alt='' />
-  //           <span className='rec-span'>Saved to Bookmarks</span>
-  //         </div>
-  //       );
-  //     } else {
-  //       return (
-  //         <div
-  //           className='save-to-profile'
-  //           onClick={() => this.handleSave(url, id)}
-  //         >
-  //           <img src={plusIcon} className='add-icon' alt='' />
-  //           <span className='rec-span'>Save to Bookmarks</span>
-  //         </div>
-  //       );
-  //     }
-  //   });
-  // } else {
-  //   return (
-  //     <div
-  //       className='save-to-profile'
-  //       onClick={() => this.handleSave(url, id)}
-  //     >
-  //       <img src={plusIcon} className='add-icon' alt='' />
-  //       <span className='rec-span'>Save to Bookmarks</span>
-  //     </div>
-  //   );
-  // }
 
   render() {
     const search = this.props.search_term;
@@ -153,23 +109,12 @@ class ProfileById extends Component {
               <span className='formatted-date'>
                 Added <Moment fromNow>{post.created_at}</Moment>
               </span>
-              {this.state.savedPostIds.map(savedPost =>
-                savedPost.post_id === post.id ? (
-                  <div className='save-to-profile'>
-                    <img src={check} className='add-icon' alt='' />
-                    <span className='rec-span'>Saved to Bookmarks</span>
-                  </div>
-                ) : (
-                  <div
-                    className='save-to-profile'
-                    onClick={() => this.handleSave(post.post_url, post.id)}
-                  >
-                    <img src={plusIcon} className='add-icon' alt='' />
-                    <span className='rec-span'>Save to Bookmarks</span>
-                  </div>
-                )
-              )}
-              {this.state.savedPostIds.length === 0 ? (
+              {post.saved_to_profile ? (
+                <div className='save-to-profile'>
+                  <img src={check} className='add-icon' alt='' />
+                  <span className='rec-span'>Saved to Bookmarks</span>
+                </div>
+              ) : (
                 <div
                   className='save-to-profile'
                   onClick={() => this.handleSave(post.post_url, post.id)}
@@ -177,7 +122,7 @@ class ProfileById extends Component {
                   <img src={plusIcon} className='add-icon' alt='' />
                   <span className='rec-span'>Save to Bookmarks</span>
                 </div>
-              ) : null}
+              )}
             </div>
           </div>
         </Post>
