@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { withAlert } from 'react-alert';
 import styled from 'styled-components';
 import { Grommet, TextInput, TextArea } from 'grommet';
-import { post as URL } from '../services/baseURL';
-import { editProfile } from '../actions';
-import { customLayout, customWrapper } from '../components/mixins';
+import { post as URL } from '../../services/baseURL';
+import { editProfile } from '../../actions';
+import { customLayout, customWrapper } from '../../components/mixins';
 import axios from 'axios';
 
 class Settings extends Component {

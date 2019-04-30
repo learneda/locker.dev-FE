@@ -61,7 +61,6 @@ class ProfileById extends Component {
     // saves user's post to your bookmarks
     const post = {
       post_url: url,
-      id: this.props.auth.id,
     };
     axios.post(`${URL}/api/posts`, post);
 
