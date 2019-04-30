@@ -35,20 +35,21 @@ class ProfileById extends Component {
     });
   };
 
+
   handleLike = async (id, liked, url) => {
     // await axios.put(`${URL}/api/posts/like/${id}`, { status: !liked });
 
+
+//   handleSaveToMyBookmarks = async (id, url) => {
+//     console.log('in handle save bookmarks', id, url)
+
     const post = {
       post_url: url,
-      id: this.props.auth.id,
     };
-    if (!liked) {
-      axios.post(`${URL}/api/posts`, post).then(() => this.getPosts());
-    } else {
-      this.getPosts();
-    }
 
-    console.log(liked);
+    axios.post(`${URL}/api/posts`, post).then(() => console.log('post was added'));
+
+  
   };
   handleSave = async url => {
     const post = {
@@ -96,6 +97,7 @@ class ProfileById extends Component {
                 <img src={plusIcon} className='add-icon' alt='' />
                 <span className='rec-span'>Save to Bookmarks</span>
               </div>
+
             </div>
           </div>
         </Post>

@@ -27,6 +27,7 @@ import {
   SET_BROWSE_TAB_INDEX,
   SET_HOME_TAB_INDEX,
   SET_PROFILE_TAB_INDEX,
+  SET_SOCIAL_TAB_INDEX,
 } from './types';
 
 import { post as URL } from '../services/baseURL';
@@ -174,5 +175,11 @@ export const setHomeTabIndex = index => ({
 // controls Profile tabIndex
 export const setProfileTabIndex = index => ({
   type: SET_PROFILE_TAB_INDEX,
+  payload: index,
+});
+
+// controls Profile tabIndex
+export const setSocialTabIndex = index => ({
+  type: SET_SOCIAL_TAB_INDEX,
   payload: index,
 });
