@@ -26,35 +26,13 @@ class ProfileById extends Component {
 
   componentDidMount = () => {
     this.getPosts();
-    this.getSavedPostIds();
   };
   getPosts = async () => {
     const id = this.props.match.params.id;
-    const profileId = this.props.match.params.id;
-    const userId = this.props.auth.id;
     const posts = await axios.get(`${URL}/api/posts/all/${id}`);
-    const savedPosts = await axios.get(
-      `${URL}/api/users/saved-post-ids?user_id=${userId}&saved_from_id=${profileId}`
-    );
-
     this.setState({
       posts: posts.data,
     });
-  };
-
-  getSavedPostIds = () => {
-    const profileId = this.props.match.params.id;
-    const userId = this.props.auth.id;
-
-    axios
-      .get(
-        `${URL}/api/users/saved-post-ids?user_id=${userId}&saved_from_id=${profileId}`
-      )
-      .then(res => {
-        this.setState({
-          savedPostIds: res.data,
-        });
-      });
   };
 
   handleSave = async (url, postId) => {
