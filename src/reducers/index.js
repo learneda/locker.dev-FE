@@ -10,6 +10,7 @@ import { likedPostReducer as likedPosts } from './likedPostReducer';
 import { searchReducer as search_term } from './searchReducer';
 import { followReducer as follow } from './followReducer';
 import { userReducer as user_details } from './userReducer';
+import { loadingReducer as loading } from './loadingReducer';
 
 export default combineReducers({
   auth,
@@ -23,4 +24,5 @@ export default combineReducers({
   search_term,
   follow,
   user_details,
+  loading,
 });

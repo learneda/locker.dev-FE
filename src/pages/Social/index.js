@@ -9,11 +9,7 @@ import Meetups from '../../components/social/meetups';
 import Sidebar from '../../components/sidebar/Sidebar';
 import RecommendedFollow from '../../components/sidebar/RecommendedFollow';
 import { customWrapper } from '../../components/mixins';
-import {
-  setSocialTabIndex,
-  unfollowAUser,
-  getUserFollowing,
-} from '../../actions';
+import { setSocialTabIndex } from '../../actions';
 
 const Social = props => {
   const {
@@ -21,7 +17,6 @@ const Social = props => {
     following,
     followers,
     suggested,
-    unfollowAUser,
     index,
     setSocialTabIndex,
   } = props;
@@ -37,17 +32,17 @@ const Social = props => {
           >
             <Tab title='Following'>
               <TabWrapper>
-                <Following />
+                <Following userId={userId} following={following} />
               </TabWrapper>
             </Tab>
             <Tab title='Followers'>
               <TabWrapper>
-                <Followers followers={followers} />
+                <Followers userId={userId} followers={followers} />
               </TabWrapper>
             </Tab>
             <Tab title='Suggested'>
               <TabWrapper>
-                <Suggested suggested={suggested} />
+                <Suggested userId={userId} suggested={suggested} />
               </TabWrapper>
             </Tab>
             <Tab title='Meetups'>
@@ -73,7 +68,7 @@ const mapStateToProps = ({ auth, social, follow }) => ({
 
 export default connect(
   mapStateToProps,
-  { setSocialTabIndex, unfollowAUser, getUserFollowing }
+  { setSocialTabIndex }
 )(Social);
 
 const theme = {

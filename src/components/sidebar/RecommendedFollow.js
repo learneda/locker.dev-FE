@@ -96,12 +96,12 @@ const RecommendedFollow = props => {
   );
 };
 
-const mapStateToProps = ({ auth, user_details, follow }) => {
+const mapStateToProps = ({ auth, user_details, follow, loading }) => {
   return {
     auth: auth,
     user_details: user_details,
     follow: follow.suggestedFriends,
-    loading: follow.loading,
+    loading: loading.suggested,
   };
 };
 
