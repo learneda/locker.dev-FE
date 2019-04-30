@@ -34,20 +34,15 @@ class ProfileById extends Component {
     });
   };
 
-  handleLike = async (id, liked, url) => {
-    await axios.put(`${URL}/api/posts/like/${id}`, { status: !liked });
-
+  handleSaveToMyBookmarks = async (id, url) => {
+    console.log('in handle save bookmarks', id, url)
     const post = {
       post_url: url,
-      id: this.props.auth.id,
     };
-    if (!liked) {
-      axios.post(`${URL}/api/posts`, post).then(() => this.getPosts());
-    } else {
-      this.getPosts();
-    }
 
-    console.log(liked);
+    axios.post(`${URL}/api/posts`, post).then(() => console.log('post was added'));
+
+  
   };
 
   handleTruncateText = (content, limit = 10) => truncateText(content, limit);
@@ -81,8 +76,7 @@ class ProfileById extends Component {
                 Added <Moment fromNow>{post.created_at}</Moment>
               </span>
               <Like
-                liked={post.liked}
-                handleLike={this.handleLike}
+                handleSaveToMyBookmarks={this.handleSaveToMyBookmarks}
                 id={post.id}
                 url={post.post_url}
               />
