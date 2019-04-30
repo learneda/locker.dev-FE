@@ -1,19 +1,16 @@
 import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { unfollowAUser, getUserFollowing } from '../../actions';
 
 const Following = props => {
   const { userId, following, unfollowAUser, getUserFollowing } = props;
-  useEffect(() => {
-    getUserFollowing(userId);
-  }, []);
 
   console.log(following);
 
-  const handleUnfollow = friend_id => {
-    console.log('in evfdfdent', userId, friend_id);
-    unfollowAUser({ user_id: userId, friend_id: friend_id }).then(() => {
-      console.log('in here');
-      getUserFollowing(userId);
-    });
+  const handleUnfollow = async friend_id => {
+    console.log('in Event', userId, friend_id);
+    await unfollowAUser({ user_id: userId, friend_id: friend_id });
+    await getUserFollowing(userId);
     console.log('done with event');
   };
 
@@ -30,4 +27,11 @@ const Following = props => {
   );
 };
 
-export default Following;
+const mapStateToProps = ({ follow, auth }) => ({
+  following: follow.userFollowing,
+  userId: auth.id,
+});
+export default connect(
+  mapStateToProps,
+  { unfollowAUser, getUserFollowing }
+)(Following);

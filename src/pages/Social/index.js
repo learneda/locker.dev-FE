@@ -37,12 +37,7 @@ const Social = props => {
           >
             <Tab title='Following'>
               <TabWrapper>
-                <Following
-                  userId={userId}
-                  following={following}
-                  unfollowAUser={unfollowAUser}
-                  getUserFollowing={getUserFollowing}
-                />
+                <Following />
               </TabWrapper>
             </Tab>
             <Tab title='Followers'>
