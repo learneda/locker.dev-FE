@@ -28,6 +28,8 @@ import {
   SET_HOME_TAB_INDEX,
   SET_PROFILE_TAB_INDEX,
   SET_SOCIAL_TAB_INDEX,
+  LOADING_SUGGESTED,
+  LOADED_SUGGESTED,
 } from './types';
 
 import { post as URL } from '../services/baseURL';
@@ -143,14 +145,14 @@ export const getFollowing = friend_id => async dispatch => {
 };
 
 export const recommendedFollow = id => async dispatch => {
+  dispatch({ type: LOADING_SUGGESTED });
   const res = await axios.get(`${URL}/api/users/recommendedFollow?id=${id}`);
-  // console.log('RECOMMENDED FOLLOW RES', res);
+  dispatch({ type: LOADED_SUGGESTED });
   dispatch({ type: RECOMMENDED_FOLLOW, payload: res.data });
 };
 
 // get a users following list
 export const getUserFollowing = id => async dispatch => {
-  console.log('LAUNCHED getUserFollowing');
   const following = await axios.get(`${URL}/api/users/following?id=${id}`);
   dispatch({ type: GET_USER_FOLLOWING, payload: following.data });
 };
