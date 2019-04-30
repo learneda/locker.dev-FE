@@ -67,9 +67,7 @@ const Bookmarks = props => {
             <span className="formatted-date">
               Added <Moment fromNow>{post.created_at}</Moment>
             </span>
-            <Like liked={post.liked} handleLike={handleLike} id={post.id} />
             <SharedButton bookmark={post} />
-
             <span className="rec-span">like</span>
             <img
               src={deleteIcon}
