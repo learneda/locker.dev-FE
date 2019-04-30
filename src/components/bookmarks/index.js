@@ -68,7 +68,6 @@ const Bookmarks = props => {
               Added <Moment fromNow>{post.created_at}</Moment>
             </span>
             <SharedButton bookmark={post} />
-            <span className="rec-span">like</span>
             <img
               src={deleteIcon}
               className="delete-icon"
