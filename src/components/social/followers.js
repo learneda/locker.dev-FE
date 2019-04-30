@@ -1,11 +1,18 @@
 import React from 'react';
 
-const Following = () => {
+const Followers = props => {
+  const { followers } = props;
   return (
-    <div>
-      <div>Following</div>
-    </div>
+    <ul>
+      {followers.map((followee, index) => (
+        <div key={index}>
+          <li>{followee.username}</li>
+          <img src={followee.profile_picture} />
+          <button>block</button>
+        </div>
+      ))}
+    </ul>
   );
 };
 
-export default Following;
+export default Followers;

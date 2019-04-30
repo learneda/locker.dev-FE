@@ -4,22 +4,35 @@ import { Grommet, Tab, Tabs } from 'grommet';
 import styled from 'styled-components';
 import Following from '../../components/social/following';
 import Followers from '../../components/social/followers';
-import Recommended from '../../components/social/recommended';
+import Suggested from '../../components/social/suggested';
 import Meetups from '../../components/social/meetups';
 import Sidebar from '../../components/sidebar/Sidebar';
 import RecommendedFollow from '../../components/sidebar/RecommendedFollow';
 import { customWrapper } from '../../components/mixins';
-import { setSocialTabIndex } from '../../actions';
+import {
+  setSocialTabIndex,
+  unfollowAUser,
+  getUserFollowing,
+} from '../../actions';
 
 const Social = props => {
+  const {
+    userId,
+    following,
+    followers,
+    suggested,
+    unfollowAUser,
+    index,
+    setSocialTabIndex,
+  } = props;
   return (
     <Container>
       <Sidebar />
       <Wrapper>
         <Grommet theme={theme}>
           <Tabs
-            activeIndex={props.index}
-            onActive={props.setSocialTabIndex}
+            activeIndex={index}
+            onActive={setSocialTabIndex}
             justify='start'
           >
             <Tab title='Following'>
@@ -29,12 +42,12 @@ const Social = props => {
             </Tab>
             <Tab title='Followers'>
               <TabWrapper>
-                <Followers />
+                <Followers followers={followers} />
               </TabWrapper>
             </Tab>
-            <Tab title='Recommended'>
+            <Tab title='Suggested'>
               <TabWrapper>
-                <Recommended />
+                <Suggested suggested={suggested} />
               </TabWrapper>
             </Tab>
             <Tab title='Meetups'>
@@ -50,11 +63,17 @@ const Social = props => {
   );
 };
 
-const mapStateToProps = ({ social }) => ({ index: social.index });
+const mapStateToProps = ({ auth, social, follow }) => ({
+  index: social.index,
+  userId: auth.id,
+  following: follow.userFollowing,
+  followers: follow.userFollowers,
+  suggested: follow.suggestedFriends,
+});
 
 export default connect(
   mapStateToProps,
-  { setSocialTabIndex }
+  { setSocialTabIndex, unfollowAUser, getUserFollowing }
 )(Social);
 
 const theme = {

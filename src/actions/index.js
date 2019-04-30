@@ -150,6 +150,7 @@ export const recommendedFollow = id => async dispatch => {
 
 // get a users following list
 export const getUserFollowing = id => async dispatch => {
+  console.log('LAUNCHED getUserFollowing');
   const following = await axios.get(`${URL}/api/users/following?id=${id}`);
   dispatch({ type: GET_USER_FOLLOWING, payload: following.data });
 };
