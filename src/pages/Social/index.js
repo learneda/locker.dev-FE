@@ -9,23 +9,40 @@ import Meetups from '../../components/social/Meetups';
 import Sidebar from '../../components/sidebar/Sidebar';
 import RecommendedFollow from '../../components/sidebar/RecommendedFollow';
 import { customWrapper } from '../../components/mixins';
-import { setSocialTabIndex } from '../../actions';
+import {
+  setSocialTabIndex,
+  unfollowAUser,
+  getUserFollowing,
+} from '../../actions';
 
 const Social = props => {
-  const { following, followers, suggested } = props;
+  const {
+    userId,
+    following,
+    followers,
+    suggested,
+    unfollowAUser,
+    index,
+    setSocialTabIndex,
+  } = props;
   return (
     <Container>
       <Sidebar />
       <Wrapper>
         <Grommet theme={theme}>
           <Tabs
-            activeIndex={props.index}
-            onActive={props.setSocialTabIndex}
+            activeIndex={index}
+            onActive={setSocialTabIndex}
             justify='start'
           >
             <Tab title='Following'>
               <TabWrapper>
-                <Following following={following} />
+                <Following
+                  userId={userId}
+                  following={following}
+                  unfollowAUser={unfollowAUser}
+                  getUserFollowing={getUserFollowing}
+                />
               </TabWrapper>
             </Tab>
             <Tab title='Followers'>
@@ -51,8 +68,9 @@ const Social = props => {
   );
 };
 
-const mapStateToProps = ({ social, follow }) => ({
+const mapStateToProps = ({ auth, social, follow }) => ({
   index: social.index,
+  userId: auth.id,
   following: follow.userFollowing,
   followers: follow.userFollowers,
   suggested: follow.suggestedFriends,
@@ -60,7 +78,7 @@ const mapStateToProps = ({ social, follow }) => ({
 
 export default connect(
   mapStateToProps,
-  { setSocialTabIndex }
+  { setSocialTabIndex, unfollowAUser, getUserFollowing }
 )(Social);
 
 const theme = {

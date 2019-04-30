@@ -1,5 +1,4 @@
 import React from 'react';
-
 const Followers = props => {
   const { followers } = props;
   return (
