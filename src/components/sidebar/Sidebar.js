@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import {
-  editProfile,
   getUserProfileDetails,
   getUserFollowers,
   getUserFollowing,
@@ -157,7 +156,7 @@ const mapStateToProps = ({ auth, user_details, follow }) => {
 export default withRouter(
   connect(
     mapStateToProps,
-    { editProfile, getUserProfileDetails, getUserFollowers, getUserFollowing }
+    { getUserProfileDetails, getUserFollowers, getUserFollowing }
   )(Sidebar)
 );
 

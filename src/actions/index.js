@@ -11,10 +11,10 @@ import {
   DELETE_POST,
   LIKED_POSTS,
   SEARCH_TERM,
-  EDIT_MODAL_DISPLAY,
+  // EDIT_MODAL_DISPLAY,
   EDIT_PROFILE,
-  EDIT_POST_SUBMIT,
-  EDIT_POST_GET_DEFAULT_DATA,
+  // EDIT_POST_SUBMIT,
+  // EDIT_POST_GET_DEFAULT_DATA,
   GET_FOLLOWERS_AND_FOLLOWING_COUNT,
   GET_USER_PROFILE_DETAILS_BY_ID,
   FOLLOW_A_USER,
@@ -98,16 +98,16 @@ export const editProfile = (id, profile) => async dispatch => {
 };
 
 /* ===== EDIT POST ACTIONS ===== */
-export const editModalDisplay = () => ({ type: EDIT_MODAL_DISPLAY });
+// export const editModalDisplay = () => ({ type: EDIT_MODAL_DISPLAY });
 
-export const editPostGetDefaultData = id => async dispatch => {
-  const res = await axios.get(`${URL}/api/posts/${id}`);
-  dispatch({ type: EDIT_POST_GET_DEFAULT_DATA, payload: res.data });
-};
-export const editPostSubmit = (editedPost, id) => async dispatch => {
-  const res = await axios.put(`${URL}/api/posts/${id}`, editedPost);
-  dispatch({ type: EDIT_POST_SUBMIT, payload: res.data });
-};
+// export const editPostGetDefaultData = id => async dispatch => {
+//   const res = await axios.get(`${URL}/api/posts/${id}`);
+//   dispatch({ type: EDIT_POST_GET_DEFAULT_DATA, payload: res.data });
+// };
+// export const editPostSubmit = (editedPost, id) => async dispatch => {
+//   const res = await axios.put(`${URL}/api/posts/${id}`, editedPost);
+//   dispatch({ type: EDIT_POST_SUBMIT, payload: res.data });
+// };
 
 export const getSearchValue = e => ({
   type: SEARCH_TERM,

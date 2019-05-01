@@ -8,14 +8,7 @@ import { truncateText } from '../mixins';
 import { Wrapper, Post } from '../bookmarks';
 import NoPostScreen from '../utils/screens/NoPostScreen';
 import { post as URL } from '../../services/baseURL';
-import {
-  getPosts,
-  deletePost,
-  editModalDisplay,
-  editPostGetDefaultData,
-  getSearchValue,
-  saveLink,
-} from '../../actions';
+import { getPosts, deletePost, getSearchValue, saveLink } from '../../actions';
 import plusIcon from '../../assets/svg/add-icon.svg';
 import check from '../../assets/svg/check.svg';
 import { withAlert } from 'react-alert';
@@ -135,8 +128,6 @@ export default withRouter(
     {
       getPosts,
       deletePost,
-      editModalDisplay,
-      editPostGetDefaultData,
       getSearchValue,
       saveLink,
     }
