@@ -15,8 +15,6 @@ import Moment from 'react-moment';
 import locationSvg from '../../assets/svg/location.svg';
 import linkSvg from '../../assets/svg/link-symbol.svg';
 import calendarSvg from '../../assets/svg/calendar.svg';
-import axios from 'axios';
-import { post as URL } from '../../services/baseURL';
 import FollowingDropdown from '../utils/FollowingDropdown';
 import FollowersDropdown from '../utils/FollowersDropdown';
 import { StyledSidebar } from './StyledSidebar';
@@ -24,7 +22,7 @@ import { StyledSidebar } from './StyledSidebar';
 const MyLoader = () => (
   <ContentLoader
     height={475}
-    width={'100%'}
+    width={300}
     speed={2}
     primaryColor='#f3f3f3'
     secondaryColor='#ecebeb'

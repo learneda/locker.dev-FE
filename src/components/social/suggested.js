@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   followAUser,
-  unfollowAUser,
   getUserFollowing,
   getUserProfileDetails,
   recommendedFollow,
@@ -13,7 +12,6 @@ const Suggested = props => {
     userId,
     suggested,
     followAUser,
-    unfollowAUser,
     getUserFollowing,
     getUserProfileDetails,
     recommendedFollow,
@@ -31,7 +29,7 @@ const Suggested = props => {
       {suggested.map((ele, index) => (
         <div style={{ outline: '1px solid salmon' }} key={index}>
           <li>{ele.username}</li>
-          <img src={ele.image} />
+          <img src={ele.image} alt='suggested' />
           <p>{ele.user}</p>
           <p>Followed by {ele.followed_by_username}</p>
           <p>From {ele.location}</p>
@@ -48,7 +46,6 @@ export default connect(
   null,
   {
     followAUser,
-    unfollowAUser,
     getUserFollowing,
     getUserProfileDetails,
     recommendedFollow,

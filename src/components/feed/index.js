@@ -18,14 +18,14 @@ const MyLoader = () => (
     height={475}
     width={400}
     speed={2}
-    primaryColor="#c2c2c2"
-    secondaryColor="#ecebeb"
+    primaryColor='#c2c2c2'
+    secondaryColor='#ecebeb'
     style={{ minWidth: '100%', maxWidth: '700px', width: '100%' }}
   >
-    <circle cx="30" cy="30" r="30" />
-    <rect x="75" y="13" rx="4" ry="4" width="100" height="13" />
-    <rect x="75" y="37" rx="4" ry="4" width="50" height="8" />
-    <rect x="3" y="68" rx="5" ry="5" width="400" height="400" />
+    <circle cx='30' cy='30' r='30' />
+    <rect x='75' y='13' rx='4' ry='4' width='100' height='13' />
+    <rect x='75' y='37' rx='4' ry='4' width='50' height='8' />
+    <rect x='3' y='68' rx='5' ry='5' width='400' height='400' />
   </ContentLoader>
 );
 
@@ -37,7 +37,7 @@ class Feed extends Component {
       posts: [],
       loading: true,
       offset: 0,
-      hasMore: true
+      hasMore: true,
     };
     this.username = props.auth.username;
     this.user_id = props.auth.id;
@@ -104,7 +104,7 @@ class Feed extends Component {
   // handles infinite scroll functionality
   handleOffset = async () => {
     this.setState(prevState => ({
-      offset: prevState.offset + 5
+      offset: prevState.offset + 5,
     }));
 
     axios
@@ -112,7 +112,7 @@ class Feed extends Component {
       .then(res => {
         if (res.data.length > 0) {
           this.setState({
-            posts: this.state.posts.concat(res.data)
+            posts: this.state.posts.concat(res.data),
           });
         } else {
           this.setState({ hasMore: false });
@@ -141,7 +141,7 @@ class Feed extends Component {
         content: body,
         user_id: this.user_id,
         post_id: post_id,
-        username: this.username
+        username: this.username,
       };
 
       if (event.keyCode === 13 && body) {
@@ -155,7 +155,7 @@ class Feed extends Component {
     this.socket.emit('comments', {
       action: 'destroy',
       comment_id: comment_id,
-      post_id: post_id
+      post_id: post_id,
     });
   };
 
@@ -202,7 +202,7 @@ class Feed extends Component {
       return (
         <Container style={{ minWidth: '100%' }}>
           <HelpScreen
-            headerText="Hello! Follow your friends and share your posts to them."
+            headerText='Hello! Follow your friends and share your posts to them.'
             imgSource={OnlineFriendsSVG}
           />
         </Container>

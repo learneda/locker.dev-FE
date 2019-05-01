@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import {
-  followAUser,
   unfollowAUser,
   getUserFollowing,
   getUserProfileDetails,
@@ -11,7 +10,6 @@ const Following = props => {
   const {
     userId,
     following,
-    followAUser,
     unfollowAUser,
     getUserFollowing,
     getUserProfileDetails,
@@ -27,7 +25,7 @@ const Following = props => {
       {following.map((ele, index) => (
         <div key={index}>
           <li>{ele.username}</li>
-          <img src={ele.profile_picture} />
+          <img src={ele.profile_picture} alt='friend' />
           <button onClick={() => handleUnfollow(ele.id)}>Unfollow</button>
         </div>
       ))}
@@ -37,5 +35,5 @@ const Following = props => {
 
 export default connect(
   null,
-  { followAUser, unfollowAUser, getUserFollowing, getUserProfileDetails }
+  { unfollowAUser, getUserFollowing, getUserProfileDetails }
 )(Following);
