@@ -29,10 +29,10 @@ const Bookmarks = props => {
     props.getPosts();
   }, []);
 
-  const handleLike = async (id, liked) => {
-    await axios.put(`${URL}/api/posts/like/${id}`, { status: !liked });
-    props.getPosts();
-  };
+  // const handleLike = async (id, liked) => {
+  //   await axios.put(`${URL}/api/posts/like/${id}`, { status: !liked });
+  //   props.getPosts();
+  // };
 
   const handleTruncateText = (content, limit = 10) =>
     truncateText(content, limit);
@@ -78,16 +78,17 @@ const Bookmarks = props => {
               <span className='del-span'>Delete</span>
             </div>
           </div>
+          <div className='edit-icon'>
+            <img
+              src={editSvg}
+              alt=''
+              onClick={() => {
+                localStorage.setItem('editPostId', post.id);
+                handleModalOpen();
+              }}
+            />
+          </div>
         </div>
-        <img
-          src={editSvg}
-          alt=''
-          onClick={() => {
-            localStorage.setItem('editPostId', post.id);
-            handleModalOpen();
-          }}
-          className='edit-icon'
-        />
       </Post>
     ))
     .reverse();
