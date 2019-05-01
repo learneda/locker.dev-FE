@@ -55,38 +55,38 @@ const Bookmarks = props => {
   const posts = filteredPosts
     .map(post => (
       <Post key={post.id}>
-        <a href={post.post_url} target="_blank" rel="noopener noreferrer">
-          <img src={post.thumbnail_url} alt="" />
+        <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
+          <img src={post.thumbnail_url} alt='' />
         </a>
-        <div className="post-content">
-          <a href={post.post_url} target="_blank" rel="noopener noreferrer">
+        <div className='post-content'>
+          <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
             <h1>{handleTruncateText(post.title, 9)}</h1>
           </a>
           <p>{handleTruncateText(post.description, 15)}</p>
-          <div className="date-like-heart">
-            <span className="formatted-date">
+          <div className='date-like-heart'>
+            <span className='formatted-date'>
               Added <Moment fromNow>{post.created_at}</Moment>
             </span>
             <SharedButton bookmark={post} />
-            <img
-              src={deleteIcon}
-              className="delete-icon"
+            <div
+              className='delete-bookmark'
               onClick={async () =>
                 await props.deletePost(post.id).then(res => props.getPosts())
               }
-              alt="delete icon"
-            />
-            <span className="del-span">delete</span>
+            >
+              <img src={deleteIcon} className='delete-icon' alt='delete icon' />
+              <span className='del-span'>Delete</span>
+            </div>
           </div>
         </div>
         <img
           src={editSvg}
-          alt=""
+          alt=''
           onClick={() => {
             localStorage.setItem('editPostId', post.id);
             handleModalOpen();
           }}
-          className="edit-icon"
+          className='edit-icon'
         />
       </Post>
     ))
@@ -96,7 +96,7 @@ const Bookmarks = props => {
     return (
       <HelpScreen
         imgSource={BookmarkSVG}
-        headerText="Your saved courses and articles will be stored here."
+        headerText='Your saved courses and articles will be stored here.'
       />
     );
   }
