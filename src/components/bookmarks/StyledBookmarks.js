@@ -168,5 +168,36 @@ h1 {
     margin-right: 5px;
     }
 }
+.share-to-feed {
+  display: flex;
+  margin-right: 20px;
+  opacity: 0.8;
+  transition: 200ms ease-out;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+    transition: 200ms ease-in;
+  }
+align-items: center;
+  img {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+  }
+  span {
+    font-size: 1.2rem;
+  }
+}
+.delete-bookmark {
+  display: flex;
+  align-items: center;
+  opacity: 0.8;
+  transition: 200ms ease-out;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+    transition: 200ms ease-in;
+  }
+}
 
 `;
