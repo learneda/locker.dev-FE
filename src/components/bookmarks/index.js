@@ -8,7 +8,7 @@ import EditModal from '../utils/EditModal/EditModal';
 import {
   getPosts,
   deletePost,
-  getSearchValue,
+  setSearchTerm,
   getUserProfileDetails,
 } from '../../actions';
 import deleteIcon from '../../assets/svg/delete-icon.svg';
@@ -39,7 +39,7 @@ const Bookmarks = props => {
     setModalOpen(!modalOpen);
   };
 
-  const search = props.search_term;
+  const search = props.searchTerm;
   const filteredPosts = props.posts.filter(post => {
     return post.title
       ? post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1
@@ -130,7 +130,7 @@ const mapStateToProps = state => {
     userId: state.auth.id,
     posts: state.posts,
     deletePost: state.deletePost,
-    search_term: state.search_term,
+    searchTerm: state.searchTerm,
   };
 };
 
@@ -139,7 +139,7 @@ export default connect(
   {
     getPosts,
     deletePost,
-    getSearchValue,
+    setSearchTerm,
     getUserProfileDetails,
   }
 )(Bookmarks);

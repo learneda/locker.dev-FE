@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { post as URL } from '../../../services/baseURL';
@@ -16,11 +16,10 @@ const EditModal = props => {
   const [description, setDescription] = useState(props.post.description);
   const [postUrl, setPostUrl] = useState(props.post.post_url);
   const [title, setTitle] = useState(props.post.title);
-  const [postId, setPostId] = useState(props.post.id);
 
   const onSubmit = async e => {
     e.preventDefault();
-    const id = postId;
+    const { id } = props.post;
     const editedPost = {
       post_url: postUrl,
       description,
