@@ -12,6 +12,7 @@ import {
   editModalDisplay,
   editPostGetDefaultData,
   getSearchValue,
+  getUserProfileDetails,
 } from '../../actions';
 import deleteIcon from '../../assets/svg/delete-icon.svg';
 import editSvg from '../../assets/svg/edit.svg';
@@ -50,6 +51,11 @@ const Bookmarks = props => {
       : null;
   });
 
+  const handleDelete = async postId => {
+    await props.deletePost(postId);
+    props.getPosts();
+    props.getUserProfileDetails(props.userId);
+  };
   const posts = filteredPosts
     .map(post => (
       <Post key={post.id}>
@@ -68,9 +74,7 @@ const Bookmarks = props => {
             <SharedButton bookmark={post} />
             <div
               className='delete-bookmark'
-              onClick={async () =>
-                await props.deletePost(post.id).then(res => props.getPosts())
-              }
+              onClick={() => handleDelete(post.id)}
             >
               <img src={deleteIcon} className='delete-icon' alt='delete icon' />
               <span className='del-span'>Delete</span>
@@ -123,6 +127,7 @@ export const Post = styled.div`
 
 const mapStateToProps = state => {
   return {
+    userId: state.auth.id,
     posts: state.posts,
     deletePost: state.deletePost,
     search_term: state.search_term,
@@ -139,5 +144,6 @@ export default connect(
     editModalDisplay,
     editPostGetDefaultData,
     getSearchValue,
+    getUserProfileDetails,
   }
 )(Bookmarks);
