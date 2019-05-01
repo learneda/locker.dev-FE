@@ -89,7 +89,7 @@ export default class SharedButton extends Component {
                 <div className='modal_group'>
                   <form onSubmit={this.handleSubmit} className='add_link_form'>
                     <label htmlFor='Post Url'>Post Url</label>
-                    <textarea
+                    <input
                       name='post_url'
                       id='post-description'
                       cols='30'
@@ -99,7 +99,7 @@ export default class SharedButton extends Component {
                     />
 
                     <label htmlFor='Post Url'>Post Title</label>
-                    <textarea
+                    <input
                       name='title'
                       id='post-description'
                       cols='30'
@@ -117,7 +117,9 @@ export default class SharedButton extends Component {
                       value={this.state.description}
                       onChange={this.handleChange}
                     />
-                    <label htmlFor='Post Description'>your thoughts..</label>
+                    <label htmlFor='Post Description'>
+                      Add your thoughts to this post
+                    </label>
                     <textarea
                       name='userThoughts'
                       id='post-description'
@@ -127,7 +129,11 @@ export default class SharedButton extends Component {
                       onChange={this.handleChange}
                     />
 
-                    <input type='submit' id='edit-submit' value='Update Post' />
+                    <input
+                      type='submit'
+                      id='edit-submit'
+                      value='Share Post to Feed'
+                    />
                   </form>
                 </div>
               </div>
@@ -141,4 +147,56 @@ export default class SharedButton extends Component {
 
 const MODALWRAPPER = styled.div`
   ${StyledAddLink};
+  overflow: auto;
+  text-align: left;
+  z-index: 20;
+
+  .modal_ {
+    margin-top: 2%;
+    border-radius: 15px;
+    max-width: 700px;
+    width: 100%;
+  }
+  .top {
+    background: #3f65f2;
+    color: #fff;
+    border-radius: 14px 14px 0 0;
+  }
+  .add_link_form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    input,
+    label,
+    textarea {
+      width: 95%;
+      margin: auto;
+      border-radius: 6px;
+    }
+    input,
+    textarea {
+      border: none;
+      padding: 10px;
+      margin-bottom: 20px;
+      font-size: 1.6rem;
+      border: 1px solid lightgrey;
+      resize: none;
+      font-family: Roboto, sans-serif;
+    }
+    label {
+      margin-bottom: 5px;
+      font-size: 1.4rem;
+      opacity: 0.8;
+    }
+    #edit-submit {
+      background: #3f65f2;
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+  .modal_name {
+    text-align: center;
+    width: 100%;
+    font-size: 2.3rem;
+  }
 `;
