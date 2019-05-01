@@ -2,15 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
 import styled from 'styled-components';
-
 import { customWrapper, truncateText } from '../mixins';
 import { StyledBookmarks } from './StyledBookmarks';
 import EditModal from '../utils/EditModal/EditModal';
 import {
   getPosts,
   deletePost,
-  editModalDisplay,
-  editPostGetDefaultData,
   getSearchValue,
   getUserProfileDetails,
 } from '../../actions';
@@ -23,6 +20,7 @@ import SharedButton from '../shared';
 const Bookmarks = props => {
   const { getPosts } = props;
   const [modalOpen, setModalOpen] = useState(false);
+  const [editPost, setEditPost] = useState(null);
 
   useEffect(() => {
     getPosts();
@@ -36,7 +34,8 @@ const Bookmarks = props => {
   const handleTruncateText = (content, limit = 10) =>
     truncateText(content, limit);
 
-  const handleModalOpen = () => {
+  const handleModalOpen = editPost => {
+    setEditPost(editPost);
     setModalOpen(!modalOpen);
   };
 
@@ -85,8 +84,7 @@ const Bookmarks = props => {
               src={editSvg}
               alt=''
               onClick={() => {
-                localStorage.setItem('editPostId', post.id);
-                handleModalOpen();
+                handleModalOpen(post);
               }}
             />
           </div>
@@ -105,11 +103,13 @@ const Bookmarks = props => {
   }
   return (
     <Wrapper>
-      <EditModal
-        key={localStorage.getItem('editPostId')}
-        open={modalOpen}
-        handleModalOpen={handleModalOpen}
-      />
+      {modalOpen && (
+        <EditModal
+          open={modalOpen}
+          handleModalOpen={handleModalOpen}
+          post={editPost}
+        />
+      )}
       {posts}
     </Wrapper>
   );
@@ -131,8 +131,6 @@ const mapStateToProps = state => {
     posts: state.posts,
     deletePost: state.deletePost,
     search_term: state.search_term,
-    modalOpen: state.modal.isEditOpen,
-    editFormData: state.modal.editFormData,
   };
 };
 
@@ -141,8 +139,6 @@ export default connect(
   {
     getPosts,
     deletePost,
-    editModalDisplay,
-    editPostGetDefaultData,
     getSearchValue,
     getUserProfileDetails,
   }
