@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
-import axios from 'axios';
 import styled from 'styled-components';
 
 import { customWrapper, truncateText } from '../mixins';
 import { StyledBookmarks } from './StyledBookmarks';
-import Like from '../likes/Like';
 import EditModal from '../utils/EditModal/EditModal';
-import { post as URL } from '../../services/baseURL';
 import {
   getPosts,
   deletePost,
@@ -23,11 +20,12 @@ import BookmarkSVG from '../../assets/svg/bookmark-drawing.svg';
 import SharedButton from '../shared';
 
 const Bookmarks = props => {
+  const { getPosts } = props;
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    props.getPosts();
-  }, []);
+    getPosts();
+  }, [getPosts]);
 
   // const handleLike = async (id, liked) => {
   //   await axios.put(`${URL}/api/posts/like/${id}`, { status: !liked });

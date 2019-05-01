@@ -32,11 +32,12 @@ const RecommendedFollow = props => {
     getUserProfileDetails,
     getUserFollowing,
     recommendedFollow,
+    auth,
   } = props;
 
   useEffect(() => {
-    recommendedFollow(props.auth.id);
-  }, []);
+    recommendedFollow(auth.id);
+  }, [recommendedFollow, auth.id]);
 
   const followAUserHandler = async (e, friend_id) => {
     e.preventDefault();

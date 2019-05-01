@@ -6,7 +6,6 @@ import axios from 'axios';
 
 import { truncateText } from '../mixins';
 import { Wrapper, Post } from '../bookmarks';
-import Like from '../likes/Like';
 import NoPostScreen from '../utils/screens/NoPostScreen';
 import { post as URL } from '../../services/baseURL';
 import {
