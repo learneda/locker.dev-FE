@@ -16,6 +16,7 @@ function Search(props) {
   const handleChange = useCallback(e => {
     setToggle(e.target.checked);
     setSearch('');
+    setSearchTerm('');
   }, []);
 
   const handleSearch = e => {
