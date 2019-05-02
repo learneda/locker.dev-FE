@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import youtube from '../apis/youtube';
 import styled from 'styled-components';
-import { customLayout } from '../components/mixins';
+import { customLayout, truncateText } from '../components/mixins';
 
 const Videos = ({ search }) => {
   const [videos, setVideos] = useState([]);
@@ -11,16 +11,24 @@ const Videos = ({ search }) => {
     youtube
       .get('/search', {
         params: {
-          q: search,
+          q: search || 'javascript',
         },
       })
       .then(res => setVideos(res.data.items));
   }, [search]);
   return (
     <Cards>
-      {videos.map(video => (
-        <Card key={video.id.videoId}>
-          <img src={video.snippet.thumbnails.medium.url} alt='youtube' />
+      {videos.map((video, index) => (
+        <Card key={index}>
+          <a
+            href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <img src={video.snippet.thumbnails.medium.url} alt='youtube' />
+            <h3>{truncateText(video.snippet.title)}</h3>
+            <p>{truncateText(video.snippet.description, 15)}</p>
+          </a>
         </Card>
       ))}
     </Cards>
@@ -103,18 +111,5 @@ const Card = styled.div`
     font-size: 1.2rem;
     line-height: 20px;
     color: #6d767e;
-  }
-`;
-
-const SaveIcon = styled.div`
-  // border: 1px solid red;
-  ${customLayout('flex-end')}
-  margin-top: 15px;
-  padding: 0 4%;
-  opacity: 0.8;
-  transition: 200ms ease-out;
-  &:hover {
-    opacity: 1;
-    transition: 200ms ease-in;
   }
 `;
