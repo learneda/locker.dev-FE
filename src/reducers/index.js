@@ -7,7 +7,7 @@ import { profileReducer as profile } from './profileReducer';
 import { modalReducer as modal } from './modalReducer';
 import { postReducer as posts } from './postReducer';
 import { likedPostReducer as likedPosts } from './likedPostReducer';
-import { searchReducer as search_term } from './searchReducer';
+import { searchReducer as searchTerm } from './searchReducer';
 import { followReducer as follow } from './followReducer';
 import { userReducer as user_details } from './userReducer';
 import { loadingReducer as loading } from './loadingReducer';
@@ -21,7 +21,7 @@ export default combineReducers({
   modal,
   posts,
   likedPosts,
-  search_term,
+  searchTerm,
   follow,
   user_details,
   loading,

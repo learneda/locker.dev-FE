@@ -33,7 +33,6 @@ class Feed extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: '',
       posts: [],
       loading: true,
       offset: 0,
@@ -131,6 +130,7 @@ class Feed extends Component {
   };
 
   handleSubmit = (event, post_id) => {
+    console.log('COMMENT submit clicked');
     const body = event.target.value.trim();
     if (event.keyCode === 13 && body.length === 0) {
       event.target.value = '';
@@ -164,7 +164,17 @@ class Feed extends Component {
   };
 
   render() {
-    const posts = this.state.posts.map((post, index) => (
+    const search = this.props.searchTerm;
+    const filteredPosts = this.state.posts.filter((post, index) => {
+      return (
+        post.title.toLowerCase().includes(search.toLowerCase()) ||
+        post.thumbnail_url.toLowerCase().includes(search.toLowerCase()) ||
+        post.description.toLowerCase().includes(search.toLowerCase()) ||
+        post.username.toLowerCase().includes(search.toLowerCase())
+      );
+    });
+
+    const feed = filteredPosts.map((post, index) => (
       <PostContainer
         key={post.post_id}
         handleSubmit={this.handleSubmit}
@@ -185,7 +195,7 @@ class Feed extends Component {
       );
     }
 
-    if (posts.length !== 0) {
+    if (feed.length !== 0) {
       return (
         <Container>
           <InfiniteScroll
@@ -194,7 +204,7 @@ class Feed extends Component {
             hasMore={this.state.hasMore}
             loader={<Loading style={{ margin: 'auto', display: 'block' }} />}
           >
-            {posts}
+            {feed}
           </InfiniteScroll>
         </Container>
       );
@@ -216,7 +226,7 @@ const Container = styled.div`
   ${StyledFeed}
 `;
 
-const mapStateToProps = ({ auth }) => ({ auth });
+const mapStateToProps = ({ auth, searchTerm }) => ({ auth, searchTerm });
 
 export default connect(
   mapStateToProps,
