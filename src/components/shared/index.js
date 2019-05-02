@@ -93,8 +93,6 @@ class SharedButton extends Component {
                     <input
                       name='post_url'
                       id='post-description'
-                      cols='30'
-                      rows='10'
                       value={this.state.post_url}
                       onChange={this.handleChange}
                     />
@@ -103,8 +101,6 @@ class SharedButton extends Component {
                     <input
                       name='title'
                       id='post-description'
-                      cols='30'
-                      rows='10'
                       value={this.state.title}
                       onChange={this.handleChange}
                     />
@@ -113,8 +109,7 @@ class SharedButton extends Component {
                     <textarea
                       name='description'
                       id='post-description'
-                      cols='30'
-                      rows='10'
+                      rows='7'
                       value={this.state.description}
                       onChange={this.handleChange}
                     />
@@ -124,8 +119,7 @@ class SharedButton extends Component {
                     <textarea
                       name='userThoughts'
                       id='post-description'
-                      cols='30'
-                      rows='10'
+                      rows='7'
                       value={this.state.userThoughts}
                       onChange={this.handleChange}
                     />
