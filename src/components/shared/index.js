@@ -6,8 +6,9 @@ import { ReactComponent as X } from '../../assets/svg/x.svg';
 import axios from 'axios';
 import { post as URL } from '../../services/baseURL';
 import shareSvg from '../../assets/svg/share.svg';
+import { withAlert } from 'react-alert';
 
-export default class SharedButton extends Component {
+class SharedButton extends Component {
   constructor(props) {
     super(props);
     const { post_url, description, title, thumbnail_url } = this.props.bookmark;
@@ -58,6 +59,7 @@ export default class SharedButton extends Component {
         })
         .then(res => {
           console.log(res);
+          this.props.alert.success('Post shared to Feed');
           this.setState({ on: false });
         });
     });
@@ -144,6 +146,10 @@ export default class SharedButton extends Component {
     );
   }
 }
+
+const Alert = withAlert()(SharedButton);
+
+export default Alert;
 
 const MODALWRAPPER = styled.div`
   ${StyledAddLink};
