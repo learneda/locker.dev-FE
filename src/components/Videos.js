@@ -3,19 +3,26 @@ import { connect } from 'react-redux';
 import youtube from '../apis/youtube';
 import styled from 'styled-components';
 import { customLayout, truncateText } from '../components/mixins';
+import useDebouncedCallback from 'use-debounce/lib/callback';
+
 
 const Videos = ({ search }) => {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
+    debouncedFunction(search)
+  }, [search]);
+
+  const [debouncedFunction] = useDebouncedCallback(value => {
     youtube
       .get('/search', {
         params: {
-          q: search || 'javascript',
+          q: value || 'javascript',
         },
       })
       .then(res => setVideos(res.data.items));
-  }, [search]);
+  }, 2000);
+
   return (
     <Cards>
       {videos.map((video, index) => (
