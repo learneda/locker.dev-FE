@@ -8,16 +8,20 @@ import SearchUsersDropDown from './SearchUsersDropDown';
 import { setSearchTerm, resetSearchTerm } from '../../actions';
 
 function Search(props) {
+  const { resetSearchTerm } = props;
   const node = useRef();
   const [toggle, setToggle] = useState(false);
   const [search, setSearch] = useState('');
   const [visible, setVisible] = useState(false);
 
-  const handleChange = useCallback(e => {
-    setToggle(e.target.checked);
-    setSearch('');
-    props.resetSearchTerm();
-  }, []);
+  const handleChange = useCallback(
+    e => {
+      setToggle(e.target.checked);
+      setSearch('');
+      resetSearchTerm();
+    },
+    [resetSearchTerm]
+  );
 
   const handleSearch = e => {
     toggle && setVisible(true);
@@ -52,7 +56,7 @@ function Search(props) {
   };
 
   const displayBrowseSearchComponent = () => {
-    const Tabs = ['Courses', 'Articles'];
+    const Tabs = ['Courses', 'Articles', 'Videos'];
     const placeholder = Tabs[props.browseIndex];
     return (
       <TextInput
