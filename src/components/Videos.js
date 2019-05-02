@@ -11,7 +11,7 @@ const Videos = ({ search }) => {
     youtube
       .get('/search', {
         params: {
-          q: search,
+          q: search || 'javascript',
         },
       })
       .then(res => setVideos(res.data.items));
