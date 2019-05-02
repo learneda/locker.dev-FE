@@ -60,7 +60,7 @@ class CommentBox extends Component {
                   return (
                     <div key={comment.id} className='comment'>
                       <div className='comment-text'>
-                      <h2>
+                        <h2>
                           {comment.username}{' '}
                           <span className='comment-date'>
                             <Moment fromNow>{comment.created_at}</Moment>:

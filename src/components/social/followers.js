@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   followAUser,
-  unfollowAUser,
   getUserFollowing,
   getUserProfileDetails,
 } from '../../actions';
@@ -12,7 +11,6 @@ const Followers = props => {
     userId,
     followers,
     followAUser,
-    unfollowAUser,
     getUserFollowing,
     getUserProfileDetails,
   } = props;
@@ -28,7 +26,7 @@ const Followers = props => {
       {followers.map((ele, index) => (
         <div key={index}>
           <li>{ele.username}</li>
-          <img src={ele.profile_picture} />
+          <img src={ele.profile_picture} alt='fan' />
           <button onClick={() => handleFollow(ele.id)}>Follow</button>
         </div>
       ))}

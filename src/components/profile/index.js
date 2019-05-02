@@ -6,17 +6,9 @@ import axios from 'axios';
 
 import { truncateText } from '../mixins';
 import { Wrapper, Post } from '../bookmarks';
-import Like from '../likes/Like';
 import NoPostScreen from '../utils/screens/NoPostScreen';
 import { post as URL } from '../../services/baseURL';
-import {
-  getPosts,
-  deletePost,
-  editModalDisplay,
-  editPostGetDefaultData,
-  getSearchValue,
-  saveLink,
-} from '../../actions';
+import { getPosts, deletePost, setSearchTerm, saveLink } from '../../actions';
 import plusIcon from '../../assets/svg/add-icon.svg';
 import check from '../../assets/svg/check.svg';
 import { withAlert } from 'react-alert';
@@ -60,7 +52,7 @@ class ProfileById extends Component {
   handleTruncateText = (content, limit = 10) => truncateText(content, limit);
 
   render() {
-    const search = this.props.search_term;
+    const search = this.props.searchTerm;
 
     const filteredPosts = this.state.posts.filter(post => {
       return post.title
@@ -121,7 +113,7 @@ const mapStateToProps = state => {
   return {
     posts: state.posts,
     deletePost: state.deletePost,
-    search_term: state.search_term,
+    searchTerm: state.searchTerm,
     modalOpen: state.modal.isEditOpen,
     editFormData: state.modal.editFormData,
     auth: state.auth,
@@ -136,9 +128,7 @@ export default withRouter(
     {
       getPosts,
       deletePost,
-      editModalDisplay,
-      editPostGetDefaultData,
-      getSearchValue,
+      setSearchTerm,
       saveLink,
     }
   )(Alert)

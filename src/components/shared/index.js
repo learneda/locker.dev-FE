@@ -41,7 +41,7 @@ class SharedButton extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log('submitting ...', this.props.bookmark.id);
+    // console.log('submitting ...', this.props.bookmark.id);
     const id = this.props.bookmark.id;
 
     const editedPost = {
@@ -58,7 +58,6 @@ class SharedButton extends Component {
           user_id: this.props.user_id,
         })
         .then(res => {
-          console.log(res);
           this.props.alert.success('Post shared to Feed');
           this.setState({ on: false });
         });
@@ -66,7 +65,7 @@ class SharedButton extends Component {
   };
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <div>
         <div className='share-to-feed' onClick={() => this.toggle()}>
