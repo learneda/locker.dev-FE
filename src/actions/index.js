@@ -11,6 +11,7 @@ import {
   DELETE_POST,
   LIKED_POSTS,
   SET_SEARCH_TERM,
+  RESET_SEARCH_TERM,
   EDIT_PROFILE,
   GET_FOLLOWERS_AND_FOLLOWING_COUNT,
   GET_USER_PROFILE_DETAILS_BY_ID,
@@ -97,6 +98,11 @@ export const editProfile = (id, profile) => async dispatch => {
 export const setSearchTerm = e => ({
   type: SET_SEARCH_TERM,
   payload: e.target.value,
+});
+
+export const resetSearchTerm = () => ({
+  type: RESET_SEARCH_TERM,
+  payload: '',
 });
 
 export const getFollowersAndFollowingCount = () => async dispatch => {

@@ -5,7 +5,7 @@ import { Grommet, TextInput, CheckBox } from 'grommet';
 import styled from 'styled-components';
 
 import SearchUsersDropDown from './SearchUsersDropDown';
-import { setSearchTerm } from '../../actions';
+import { setSearchTerm, resetSearchTerm } from '../../actions';
 
 function Search(props) {
   const node = useRef();
@@ -16,7 +16,7 @@ function Search(props) {
   const handleChange = useCallback(e => {
     setToggle(e.target.checked);
     setSearch('');
-    setSearchTerm('');
+    props.resetSearchTerm();
   }, []);
 
   const handleSearch = e => {
@@ -115,7 +115,7 @@ const mapStateToProps = ({ searchTerm, browse, home, profile }) => ({
 export default withRouter(
   connect(
     mapStateToProps,
-    { setSearchTerm }
+    { setSearchTerm, resetSearchTerm }
   )(Search)
 );
 
