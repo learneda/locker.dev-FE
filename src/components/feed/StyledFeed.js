@@ -51,6 +51,12 @@ export const StyledFeed = () =>
     font-size: 2.6rem;
     font-weight: 500;
     line-height: 1.3;
+    @media(max-width: 960px) {
+      font-size: 2.4rem;
+    }
+    @media(max-width: 650px) {
+      font-size: 2rem;
+    }
   }
   p {
     opacity: 0.8;
