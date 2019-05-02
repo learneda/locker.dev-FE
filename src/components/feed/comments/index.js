@@ -193,6 +193,7 @@ const Container = styled.div`
       padding: 10px;
       background-color: #f3f4f7;
       border-radius: 5px;
+      overflow: hidden;
       &:hover {
         .more_btn {
           display: flex;
@@ -221,6 +222,7 @@ const Container = styled.div`
           overflow: hidden;
           width: 80%;
           font-size: 1.4rem;
+          word-break: break-word;
         }
       }
     }
