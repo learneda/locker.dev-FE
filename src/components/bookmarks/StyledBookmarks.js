@@ -116,6 +116,10 @@ h1 {
   @media (max-width: 960px) {
     max-width: initial;
   }
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    max-height: 50px;
+  }
   @media (max-width: 450px) {
    margin-right: 20px;
   }
