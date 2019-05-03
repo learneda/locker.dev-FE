@@ -22,12 +22,20 @@ export const StyledFeed = () =>
     border-radius: 50%;
   }
   h2 {
-    font-weight: 500;
     margin-bottom: -5px;
+    font-size: 1.7rem;
+    font-weight: 500;
   }
   .post-date {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     opacity: 0.8;
+    font-weight: normal;
+    margin-left: 7px;
+  }
+  .post-thoughts {
+    margin-top: 3px;
+    // font-weight: normal;
+    font-size: 2rem;
   }
 }
 .post-content {
