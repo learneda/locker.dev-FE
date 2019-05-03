@@ -9,7 +9,7 @@ class CommentBox extends Component {
     super(props);
     this.state = {
       commentsToRender: -2,
-      commentInput: ''
+      commentInput: '',
     };
   }
 
@@ -20,9 +20,9 @@ class CommentBox extends Component {
     });
   };
 
-  handleChange = (e) => {
-    this.setState({ [e.target.name] : e.target.value });
-  } 
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   render() {
     return (
@@ -85,11 +85,18 @@ class CommentBox extends Component {
           </div>
 
           <div>
-            <form onSubmit={(e) => {
-              e.preventDefault()
-              this.props.handleSubmit(e, this.props.post_id, this.state.commentInput)
-              this.setState({ commentInput : '' });
-            }} className='add-comment'>
+            <form
+              onSubmit={e => {
+                e.preventDefault();
+                this.props.handleSubmit(
+                  e,
+                  this.props.post_id,
+                  this.state.commentInput
+                );
+                this.setState({ commentInput: '' });
+              }}
+              className='add-comment'
+            >
               <div className='pic-and-form'>
                 <img src={this.props.profile_picture} alt='' />
                 <input
@@ -100,9 +107,7 @@ class CommentBox extends Component {
                   onChange={this.handleChange}
                 />
               </div>
-              <button>
-                Post
-              </button>
+              <button>Post</button>
             </form>
           </div>
         </div>
@@ -141,7 +146,7 @@ const Container = styled.div`
         padding: 10px;
         width: 100%;
         border-radius: 3px;
-        border-color: lightgrey;
+        border: 1px solid lightgrey;
         height: 40px;
         font-size: 1.4rem;
         ::placeholder {
@@ -162,6 +167,7 @@ const Container = styled.div`
         margin-left: 20px;
         padding: 8px 25px;
         font-size: 1.5rem;
+        cursor: pointer;
         @media (max-width: 600px) {
           width: 150px;
           margin-top: 10px;
