@@ -3,7 +3,7 @@ import MoreBtn from '../../utils/MoreBtn';
 import styled from 'styled-components';
 import { customLayout } from '../../mixins';
 import Moment from 'react-moment';
-
+import { Link } from 'react-router-dom';
 class CommentBox extends Component {
   constructor(props) {
     super(props);
@@ -46,11 +46,14 @@ class CommentBox extends Component {
                     <div key={comment.id} className='comment'>
                       <div className='comment-text'>
                         <h2>
-                          {comment.username}{' '}
-                          <span className='comment-date'>
-                            <Moment fromNow>{comment.created_at}</Moment>:
-                          </span>
+                          <Link to={`/profile/${comment.user_id}`}>
+                            {comment.username} {console.log(comment)}
+                            <span className='comment-date'>
+                              <Moment fromNow>{comment.created_at}</Moment>:
+                            </span>
+                          </Link>
                         </h2>
+
                         <span>{comment.content}</span>
                       </div>
                       <MoreBtn
@@ -66,10 +69,12 @@ class CommentBox extends Component {
                     <div key={comment.id} className='comment'>
                       <div className='comment-text'>
                         <h2>
-                          {comment.username}{' '}
-                          <span className='comment-date'>
-                            <Moment fromNow>{comment.created_at}</Moment>:
-                          </span>
+                          <Link to={`/profile/${comment.user_id}`}>
+                            {comment.username}
+                            <span className='comment-date'>
+                              <Moment fromNow>{comment.created_at}</Moment>:
+                            </span>
+                          </Link>
                         </h2>
                         <span>{comment.content}</span>
                       </div>
@@ -175,16 +180,20 @@ const Container = styled.div`
     .comment-box {
       .show-more-btn {
         border: 1px solid transparent;
-        color: #3f65f2;
+        color: #4064f2;
         font-size: 1.4rem;
         font-weight: 700;
         cursor: pointer;
         transition: 200ms ease-out;
-        padding: 5px;
+        padding: 5px 10px;
         border-radius: 5px;
         margin-bottom: 10px;
+        opacity: 0.9;
+        background: #f1f2f5;
         &:hover {
           color: #3059f3;
+          opacity: 1;
+          transition: 200ms ease-in;
         }
 
         &:focus {
@@ -199,6 +208,7 @@ const Container = styled.div`
       padding: 10px;
       background-color: #f3f4f7;
       border-radius: 5px;
+      overflow: hidden;
       &:hover {
         .more_btn {
           display: flex;
@@ -227,6 +237,7 @@ const Container = styled.div`
           overflow: hidden;
           width: 80%;
           font-size: 1.4rem;
+          word-break: break-word;
         }
       }
     }
