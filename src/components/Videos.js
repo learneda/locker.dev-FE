@@ -21,7 +21,7 @@ const Videos = ({ search }) => {
         },
       })
       .then(res => setVideos(res.data.items));
-  }, 2000);
+  }, 1500);
 
   return (
     <Cards>
