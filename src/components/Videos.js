@@ -3,28 +3,65 @@ import { connect } from 'react-redux';
 import youtube from '../apis/youtube';
 import styled from 'styled-components';
 import { customLayout, truncateText } from '../components/mixins';
-import useDebouncedCallback from 'use-debounce/lib/callback';
-
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { ReactComponent as Loading } from '../assets/svg/circles.svg';
+import { useDebouncedCallback } from 'use-debounce';
 
 const Videos = ({ search }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [videos, setVideos] = useState([]);
+  const [pageToken, setPageToken] = useState(null);
 
-  useEffect(() => {
-    debouncedFunction(search)
-  }, [search]);
-
-  const [debouncedFunction] = useDebouncedCallback(value => {
+  const fetchMoreData = () => {
     youtube
       .get('/search', {
         params: {
-          q: value || 'javascript',
+          q: search || 'javascript',
+          pageToken,
         },
       })
-      .then(res => setVideos(res.data.items));
-  }, 2000);
+      .then(res => {
+        setVideos(prevVideos => [...prevVideos, ...res.data.items]);
+        setPageToken(res.data.nextPageToken);
+      });
+  };
 
-  return (
-    <Cards>
+  useEffect(() => {
+    setIsLoading(true);
+    debouncedFunction(search);
+  }, [search]);
+
+  const [debouncedFunction] = useDebouncedCallback(query => {
+    youtube
+      .get('/search', {
+        params: {
+          q: query || 'javascript',
+        },
+      })
+      .then(res => {
+        setVideos(res.data.items);
+        setPageToken(res.data.nextPageToken);
+        setIsLoading(false);
+      });
+  }, 1500);
+
+  const renderLoader = () => (
+    <Loader>
+      <Loading />
+    </Loader>
+  );
+
+  const renderVideos = () => (
+    <InfiniteScroll
+      dataLength={videos.length}
+      next={fetchMoreData}
+      hasMore={true}
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+      }}
+    >
       {videos.map((video, index) => (
         <Card key={index}>
           <a
@@ -38,8 +75,10 @@ const Videos = ({ search }) => {
           </a>
         </Card>
       ))}
-    </Cards>
+    </InfiniteScroll>
   );
+
+  return <Cards>{isLoading ? renderLoader() : renderVideos()}</Cards>;
 };
 
 const mapStateToProps = ({ searchTerm }) => ({
@@ -50,6 +89,11 @@ export default connect(
   mapStateToProps,
   null
 )(Videos);
+
+const Loader = styled.div`
+  margin: 75px auto;
+  text-align: center;
+`;
 
 const Cards = styled.div`
   border-top: 1px solid #bdbdbd;
