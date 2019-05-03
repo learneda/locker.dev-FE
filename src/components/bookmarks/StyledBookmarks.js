@@ -141,7 +141,7 @@ h1 {
   width: 25px;
   cursor: pointer;
   height: 25px;
-  z-index: 1; 
+  // z-index: 1; 
   background: #fff;
   img {
     height: 25px;
