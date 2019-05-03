@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { customLayout, truncateText } from '../components/mixins';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ReactComponent as Loading } from '../assets/svg/circles.svg';
-import useDebouncedCallback from 'use-debounce/lib/callback';
+import { useDebouncedCallback } from 'use-debounce';
 
 const Videos = ({ search }) => {
   const [isLoading, setIsLoading] = useState(false);
