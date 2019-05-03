@@ -169,16 +169,20 @@ const Container = styled.div`
     .comment-box {
       .show-more-btn {
         border: 1px solid transparent;
-        color: #3f65f2;
+        color: #4064f2;
         font-size: 1.4rem;
         font-weight: 700;
         cursor: pointer;
         transition: 200ms ease-out;
-        padding: 5px;
+        padding: 5px 10px;
         border-radius: 5px;
         margin-bottom: 10px;
+        opacity: 0.9;
+        background: #f1f2f5;
         &:hover {
           color: #3059f3;
+          opacity: 1;
+          transition: 200ms ease-in;
         }
 
         &:focus {
