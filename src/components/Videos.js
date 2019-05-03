@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { customLayout, truncateText } from '../components/mixins';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ReactComponent as Loading } from '../assets/svg/circles.svg';
+import useDebouncedCallback from 'use-debounce/lib/callback';
 
 const Videos = ({ search }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,10 +28,14 @@ const Videos = ({ search }) => {
 
   useEffect(() => {
     setIsLoading(true);
+    debouncedFunction(search);
+  }, [search]);
+
+  const [debouncedFunction] = useDebouncedCallback(query => {
     youtube
       .get('/search', {
         params: {
-          q: search || 'javascript',
+          q: query || 'javascript',
         },
       })
       .then(res => {
@@ -38,7 +43,7 @@ const Videos = ({ search }) => {
         setPageToken(res.data.nextPageToken);
         setIsLoading(false);
       });
-  }, [search]);
+  }, 1500);
 
   const renderLoader = () => (
     <Loader>

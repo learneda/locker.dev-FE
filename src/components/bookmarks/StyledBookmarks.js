@@ -14,6 +14,7 @@ position: relative;
   position: absolute;
   bottom: 12px;
   justify-content: space-between;
+  // min-width: 330px;
   width: 300px;
   @media (max-width: 450px) {
     width: 90%;
@@ -55,7 +56,10 @@ a {
 .post-content {
   margin: 0 5px;
   padding: 15px;
-  position: relative;
+  // position: relative;
+  @media (max-width: 450px) {
+     position: relative;
+    }
 }
 
 img {
@@ -112,6 +116,10 @@ h1 {
   @media (max-width: 960px) {
     max-width: initial;
   }
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    max-height: 50px;
+  }
   @media (max-width: 450px) {
    margin-right: 20px;
   }
@@ -128,14 +136,13 @@ h1 {
 }
 .edit-icon {
   position: absolute;
-  // float: right;
   right: 15px;
   bottom: 12px;
   width: 25px;
   cursor: pointer;
   height: 25px;
-  z-index: 10;
-  
+  // z-index: 1; 
+  background: #fff;
   img {
     height: 25px;
     width: 25px;

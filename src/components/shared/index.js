@@ -151,15 +151,23 @@ const MODALWRAPPER = styled.div`
   z-index: 20;
 
   .modal_ {
-    margin-top: 2%;
+    /* margin-top: 2%; */
+    margin: 80px auto;
     border-radius: 15px;
     max-width: 700px;
-    width: 100%;
+    width: 90%;
+    @media (max-width: 650px) {
+      border-radius: 8px;
+      margin: 60px auto;
+    }
   }
   .top {
     background: #3f65f2;
     color: #fff;
     border-radius: 14px 14px 0 0;
+    @media (max-width: 650px) {
+      border-radius: 7px 7px 0 0;
+    }
   }
   .add_link_form {
     display: flex;

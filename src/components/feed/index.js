@@ -37,6 +37,7 @@ class Feed extends Component {
       loading: true,
       offset: 0,
       hasMore: true,
+      commentValue: ''
     };
     this.username = props.auth.username;
     this.user_id = props.auth.id;
@@ -129,12 +130,8 @@ class Feed extends Component {
       .catch(err => console.log(err));
   };
 
-  handleSubmit = (event, post_id) => {
-    console.log('COMMENT submit clicked');
-    const body = event.target.value.trim();
-    if (event.keyCode === 13 && body.length === 0) {
-      event.target.value = '';
-    }
+  handleSubmit = (event, post_id, comment) => {
+    const body = comment.trim();
     if (body) {
       const comment = {
         action: 'create',
@@ -143,11 +140,7 @@ class Feed extends Component {
         post_id: post_id,
         username: this.username,
       };
-
-      if (event.keyCode === 13 && body) {
-        this.socket.emit('comments', comment);
-        event.target.value = '';
-      }
+      this.socket.emit('comments', comment);
     }
   };
 
