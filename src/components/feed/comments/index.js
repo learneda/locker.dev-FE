@@ -3,7 +3,7 @@ import MoreBtn from '../../utils/MoreBtn';
 import styled from 'styled-components';
 import { customLayout } from '../../mixins';
 import Moment from 'react-moment';
-
+import { Link } from 'react-router-dom';
 class CommentBox extends Component {
   constructor(props) {
     super(props);
@@ -41,11 +41,14 @@ class CommentBox extends Component {
                     <div key={comment.id} className='comment'>
                       <div className='comment-text'>
                         <h2>
-                          {comment.username}{' '}
-                          <span className='comment-date'>
-                            <Moment fromNow>{comment.created_at}</Moment>:
-                          </span>
+                          <Link to={`/profile/${comment.user_id}`}>
+                            {comment.username} {console.log(comment)}
+                            <span className='comment-date'>
+                              <Moment fromNow>{comment.created_at}</Moment>:
+                            </span>
+                          </Link>
                         </h2>
+
                         <span>{comment.content}</span>
                       </div>
                       <MoreBtn
@@ -61,10 +64,12 @@ class CommentBox extends Component {
                     <div key={comment.id} className='comment'>
                       <div className='comment-text'>
                         <h2>
-                          {comment.username}{' '}
-                          <span className='comment-date'>
-                            <Moment fromNow>{comment.created_at}</Moment>:
-                          </span>
+                          <Link to={`/profile/${comment.user_id}`}>
+                            {comment.username}
+                            <span className='comment-date'>
+                              <Moment fromNow>{comment.created_at}</Moment>:
+                            </span>
+                          </Link>
                         </h2>
                         <span>{comment.content}</span>
                       </div>
