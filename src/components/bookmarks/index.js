@@ -16,6 +16,7 @@ import editSvg from '../../assets/svg/edit.svg';
 import HelpScreen from '../utils/screens/HelpScreen';
 import BookmarkSVG from '../../assets/svg/bookmark-drawing.svg';
 import SharedButton from '../shared';
+import moment, { now } from 'moment';
 
 const Bookmarks = props => {
   const { getPosts } = props;
@@ -25,11 +26,6 @@ const Bookmarks = props => {
   useEffect(() => {
     getPosts();
   }, [getPosts]);
-
-  // const handleLike = async (id, liked) => {
-  //   await axios.put(`${URL}/api/posts/like/${id}`, { status: !liked });
-  //   props.getPosts();
-  // };
 
   const handleTruncateText = (content, limit = 10) =>
     truncateText(content, limit);
@@ -68,8 +64,13 @@ const Bookmarks = props => {
           <p>{handleTruncateText(post.description, 15)}</p>
           <div className='date-like-heart'>
             <span className='formatted-date'>
-              Added <Moment fromNow>{post.created_at}</Moment>
+              {moment(post.created_at).fromNow() === 'a few seconds ago' ? (
+                'just now'
+              ) : (
+                <Moment fromNow>{post.created_at}</Moment>
+              )}
             </span>
+
             <SharedButton bookmark={post} />
             <div
               className='delete-bookmark'
