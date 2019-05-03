@@ -9,6 +9,7 @@ class CommentBox extends Component {
     super(props);
     this.state = {
       commentsToRender: -2,
+      commentInput: ''
     };
   }
 
@@ -18,6 +19,10 @@ class CommentBox extends Component {
       commentsToRender: this.state.commentsToRender - 3,
     });
   };
+
+  handleChange = (e) => {
+    this.setState({ [e.target.name] : e.target.value });
+  } 
 
   render() {
     return (
@@ -75,21 +80,22 @@ class CommentBox extends Component {
           </div>
 
           <div>
-            <form className='add-comment'>
+            <form onSubmit={(e) => {
+              e.preventDefault()
+              this.props.handleSubmit(e, this.props.post_id, this.state.commentInput)
+              this.setState({ commentInput : '' });
+            }} className='add-comment'>
               <div className='pic-and-form'>
                 <img src={this.props.profile_picture} alt='' />
-                <textarea
+                <input
                   placeholder='Add a comment...'
                   type='text'
-                  onKeyUp={e => this.props.handleSubmit(e, this.props.post_id)}
+                  name='commentInput'
+                  value={this.state.commentInput}
+                  onChange={this.handleChange}
                 />
               </div>
-              <button
-                onClick={e => {
-                  e.preventDefault();
-                  this.props.handleSubmit(e, this.props.post_id);
-                }}
-              >
+              <button>
                 Post
               </button>
             </form>
@@ -125,7 +131,7 @@ const Container = styled.div`
         margin-right: 13px;
       }
 
-      textarea {
+      input {
         resize: none;
         padding: 10px;
         width: 100%;
