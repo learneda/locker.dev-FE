@@ -82,7 +82,9 @@ const RecommendedFollow = props => {
               Follow
             </button>
             {following.followed_by_username && (
-              <p>Followed by {following.followed_by_username}</p>
+              <Link to={`/profile/${following.followed_by_id}`}>
+                <p>Followed by {following.followed_by_username}</p>
+              </Link>
             )}
           </div>
         </div>
