@@ -3,22 +3,60 @@ import { connect } from 'react-redux';
 import youtube from '../apis/youtube';
 import styled from 'styled-components';
 import { customLayout, truncateText } from '../components/mixins';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { ReactComponent as Loading } from '../assets/svg/circles.svg';
 
 const Videos = ({ search }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [videos, setVideos] = useState([]);
+  const [pageToken, setPageToken] = useState(null);
+
+  const fetchMoreData = () => {
+    youtube
+      .get('/search', {
+        params: {
+          q: search || 'javascript',
+          pageToken,
+        },
+      })
+      .then(res => {
+        setVideos(prevVideos => [...prevVideos, ...res.data.items]);
+        setPageToken(res.data.nextPageToken);
+      });
+  };
 
   useEffect(() => {
+    setIsLoading(true);
     youtube
       .get('/search', {
         params: {
           q: search || 'javascript',
         },
       })
-      .then(res => setVideos(prevVideos => [...prevVideos, ...res.data.items]));
+      .then(res => {
+        setVideos(res.data.items);
+        setPageToken(res.data.nextPageToken);
+        setIsLoading(false);
+      });
   }, [search]);
 
-  return (
-    <Cards>
+  const renderLoader = () => (
+    <Loader>
+      <Loading />
+    </Loader>
+  );
+
+  const renderVideos = () => (
+    <InfiniteScroll
+      dataLength={videos.length}
+      next={fetchMoreData}
+      hasMore={true}
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+      }}
+    >
       {videos.map((video, index) => (
         <Card key={index}>
           <a
@@ -32,8 +70,10 @@ const Videos = ({ search }) => {
           </a>
         </Card>
       ))}
-    </Cards>
+    </InfiniteScroll>
   );
+
+  return <Cards>{isLoading ? renderLoader() : renderVideos()}</Cards>;
 };
 
 const mapStateToProps = ({ searchTerm }) => ({
@@ -44,6 +84,11 @@ export default connect(
   mapStateToProps,
   null
 )(Videos);
+
+const Loader = styled.div`
+  margin: 75px auto;
+  text-align: center;
+`;
 
 const Cards = styled.div`
   border-top: 1px solid #bdbdbd;
