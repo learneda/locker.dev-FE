@@ -14,8 +14,9 @@ const Videos = ({ search }) => {
           q: search || 'javascript',
         },
       })
-      .then(res => setVideos(res.data.items));
+      .then(res => setVideos(prevVideos => [...prevVideos, ...res.data.items]));
   }, [search]);
+
   return (
     <Cards>
       {videos.map((video, index) => (
