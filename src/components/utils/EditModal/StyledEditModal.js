@@ -8,7 +8,7 @@ export const StyledEditModal = () =>
     left: 0;
     right: 0;
     z-index: 20000;
-    overflow-y: scroll;
+    overflow: auto; 
     .close-modal-x {
       position: absolute;
       top: 10px;
