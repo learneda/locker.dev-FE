@@ -75,7 +75,7 @@ class Browse extends Component {
                       dataLength={courses.length}
                       next={this.getMoreCourses}
                       hasMore={true}
-                      loader={<Loader />}
+                      loader={null}
                       style={{
                         display: 'flex',
                         flexWrap: 'wrap',
