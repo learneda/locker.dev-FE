@@ -45,6 +45,10 @@ class Feed extends Component {
   }
 
   componentDidMount() {
+    this.socket.emit('join', {user_id: this.user_id})
+    this.socket.on('join', data => {
+      console.log(data)
+    })
     this.socket.on('comments', msg => {
       console.log(msg);
       switch (msg.action) {
@@ -99,6 +103,10 @@ class Feed extends Component {
       }
     });
     this.getNewsFeed();
+  }
+
+  componentWillUnmount() {
+    this.socket.disconnect();
   }
 
   // handles infinite scroll functionality
