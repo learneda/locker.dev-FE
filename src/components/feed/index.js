@@ -12,6 +12,7 @@ import PostContainer from './posts/index';
 import { StyledFeed } from './StyledFeed';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
+import { populateNotifications } from '../../actions'
 
 const MyLoader = () => (
   <ContentLoader
@@ -48,6 +49,7 @@ class Feed extends Component {
     this.socket.emit('join', {user_id: this.user_id})
     this.socket.on('join', data => {
       console.log(data, 'FROM JOIN CONNECTION')
+      this.props.populateNotifications(data)
     })
     this.socket.on('comments', msg => {
       console.log(msg);
@@ -237,5 +239,5 @@ const mapStateToProps = ({ auth, searchTerm }) => ({ auth, searchTerm });
 
 export default connect(
   mapStateToProps,
-  {}
+  {populateNotifications}
 )(Feed);

@@ -28,6 +28,7 @@ import {
   SET_SOCIAL_TAB_INDEX,
   LOADING_SUGGESTED,
   LOADED_SUGGESTED,
+  FETCH_NOTIFICATIONS,
 } from './types';
 
 import { post as URL } from '../services/baseURL';
@@ -177,3 +178,7 @@ export const setSocialTabIndex = index => ({
   type: SET_SOCIAL_TAB_INDEX,
   payload: index,
 });
+
+export const populateNotifications = (NotificationsArr) => dispatch => {
+  dispatch({type: FETCH_NOTIFICATIONS, payload: NotificationsArr})
+}

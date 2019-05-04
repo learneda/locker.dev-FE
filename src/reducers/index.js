@@ -11,6 +11,7 @@ import { searchReducer as searchTerm } from './searchReducer';
 import { followReducer as follow } from './followReducer';
 import { userReducer as user_details } from './userReducer';
 import { loadingReducer as loading } from './loadingReducer';
+import { notificationsReducer as notifications } from './notificationsReducer'
 
 export default combineReducers({
   auth,
@@ -25,4 +26,5 @@ export default combineReducers({
   follow,
   user_details,
   loading,
+  notifications,
 });
