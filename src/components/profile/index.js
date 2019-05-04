@@ -6,17 +6,9 @@ import axios from 'axios';
 
 import { truncateText } from '../mixins';
 import { Wrapper, Post } from '../bookmarks';
-import Like from '../likes/Like';
 import NoPostScreen from '../utils/screens/NoPostScreen';
 import { post as URL } from '../../services/baseURL';
-import {
-  getPosts,
-  deletePost,
-  editModalDisplay,
-  editPostGetDefaultData,
-  getSearchValue,
-  saveLink,
-} from '../../actions';
+import { getPosts, deletePost, setSearchTerm, saveLink } from '../../actions';
 import plusIcon from '../../assets/svg/add-icon.svg';
 import check from '../../assets/svg/check.svg';
 import { withAlert } from 'react-alert';
@@ -26,42 +18,22 @@ class ProfileById extends Component {
 
   componentDidMount = () => {
     this.getPosts();
-    console.log(this.props.auth.id);
-    // const saved = JSON.parse(localStorage.getItem('saved'));
-    // this.setState({
-    //   saved,
-    // });
-    this.getSavedPostIds();
   };
-  getPosts = () => {
+  getPosts = async () => {
     const id = this.props.match.params.id;
-    axios.get(`${URL}/api/posts/all/${id}`).then(res => {
-      this.setState({
-        posts: res.data,
-      });
+    const posts = await axios.get(`${URL}/api/posts/all/${id}`);
+    this.setState({
+      posts: posts.data,
     });
-  };
-
-  getSavedPostIds = () => {
-    const profileId = this.props.match.params.id;
-    const userId = this.props.auth.id;
-
-    axios
-      .get(
-        `${URL}/api/users/saved-post-ids?user_id=${userId}&saved_from_id=${profileId}`
-      )
-      .then(res => {
-        this.setState({
-          savedPostIds: res.data,
-        });
-      });
   };
 
   handleSave = async (url, postId) => {
     // saves user's post to your bookmarks
     const post = {
       post_url: url,
+      id: this.props.auth.id,
     };
+    this.props.alert.success('Post added to Bookmarks');
     axios.post(`${URL}/api/posts`, post);
 
     // saves post id to users account to keep track of saved posts toggle
@@ -74,59 +46,13 @@ class ProfileById extends Component {
     };
 
     await axios.post(`${URL}/api/users/saved-post-ids`, body);
-    await this.getSavedPostIds();
+    await this.getPosts();
   };
 
   handleTruncateText = (content, limit = 10) => truncateText(content, limit);
 
-  // toggles save icon and checkmark
-  // handleToggleSave = (id, url) =>
-  //   this.state.savedPostIds.map(post => {
-  //     if (post.post_id === id) {
-  //       return <p>yoooo</p>;
-  //     } else {
-  //       return 's;fons;';
-  //     }
-  //   });
-  // console.log(id);
-  // console.log(this.state.savedPostIds.length);
-  // if (this.state.savedPostIds.length > 0) {
-  //   this.state.savedPostIds.map(post => {
-  //     console.log(post, id);
-  //     console.log(post.post_id === id);
-  //     if (post.post_id == id) {
-  //       return (
-  //         <div className='save-to-profile'>
-  //           <img src={check} className='add-icon' alt='' />
-  //           <span className='rec-span'>Saved to Bookmarks</span>
-  //         </div>
-  //       );
-  //     } else {
-  //       return (
-  //         <div
-  //           className='save-to-profile'
-  //           onClick={() => this.handleSave(url, id)}
-  //         >
-  //           <img src={plusIcon} className='add-icon' alt='' />
-  //           <span className='rec-span'>Save to Bookmarks</span>
-  //         </div>
-  //       );
-  //     }
-  //   });
-  // } else {
-  //   return (
-  //     <div
-  //       className='save-to-profile'
-  //       onClick={() => this.handleSave(url, id)}
-  //     >
-  //       <img src={plusIcon} className='add-icon' alt='' />
-  //       <span className='rec-span'>Save to Bookmarks</span>
-  //     </div>
-  //   );
-  // }
-
   render() {
-    const search = this.props.search_term;
+    const search = this.props.searchTerm;
 
     const filteredPosts = this.state.posts.filter(post => {
       return post.title
@@ -153,23 +79,12 @@ class ProfileById extends Component {
               <span className='formatted-date'>
                 Added <Moment fromNow>{post.created_at}</Moment>
               </span>
-              {this.state.savedPostIds.map(savedPost =>
-                savedPost.post_id === post.id ? (
-                  <div className='save-to-profile'>
-                    <img src={check} className='add-icon' alt='' />
-                    <span className='rec-span'>Saved to Bookmarks</span>
-                  </div>
-                ) : (
-                  <div
-                    className='save-to-profile'
-                    onClick={() => this.handleSave(post.post_url, post.id)}
-                  >
-                    <img src={plusIcon} className='add-icon' alt='' />
-                    <span className='rec-span'>Save to Bookmarks</span>
-                  </div>
-                )
-              )}
-              {this.state.savedPostIds.length === 0 ? (
+              {post.saved_to_profile ? (
+                <div className='save-to-profile'>
+                  <img src={check} className='add-icon' alt='' />
+                  <span className='rec-span'>Saved to Bookmarks</span>
+                </div>
+              ) : (
                 <div
                   className='save-to-profile'
                   onClick={() => this.handleSave(post.post_url, post.id)}
@@ -177,7 +92,7 @@ class ProfileById extends Component {
                   <img src={plusIcon} className='add-icon' alt='' />
                   <span className='rec-span'>Save to Bookmarks</span>
                 </div>
-              ) : null}
+              )}
             </div>
           </div>
         </Post>
@@ -198,7 +113,7 @@ const mapStateToProps = state => {
   return {
     posts: state.posts,
     deletePost: state.deletePost,
-    search_term: state.search_term,
+    searchTerm: state.searchTerm,
     modalOpen: state.modal.isEditOpen,
     editFormData: state.modal.editFormData,
     auth: state.auth,
@@ -213,9 +128,7 @@ export default withRouter(
     {
       getPosts,
       deletePost,
-      editModalDisplay,
-      editPostGetDefaultData,
-      getSearchValue,
+      setSearchTerm,
       saveLink,
     }
   )(Alert)

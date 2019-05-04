@@ -65,6 +65,7 @@ class PostContainer extends Component {
       user_id,
       handleDeleteComment,
     } = this.props;
+    console.log(this.props.user_id !== post.user_id);
     return (
       <div className='post'>
         <div className='post-user-info'>
@@ -73,12 +74,16 @@ class PostContainer extends Component {
           </Link>
           <div>
             <Link to={`/profile/${post.user_id}`}>
-              <h2>{post.username}</h2>
+              <h2>
+                {post.username}
+                <Moment className='post-date' fromNow>
+                  {post.created_at}
+                </Moment>
+              </h2>
             </Link>
-            <Moment className='post-date' fromNow>
-              {post.created_at}
-            </Moment>
+            <p className='post-thoughts'>{this.props.post.user_thoughts}</p>
           </div>
+          {/* <div>{this.props.post.user_thoughts}</div> */}
         </div>
         <div className='post-content'>
           {post.thumbnail_url ? (
@@ -103,19 +108,20 @@ class PostContainer extends Component {
             >
               <span>{this.props.post.likes}</span>
             </i>
-            <div
-              className='save'
-              onClick={() => {
-                this.handleSaveToProfile(post.post_url);
-                this.props.alert.success('Post added to Bookmarks');
-              }}
-            >
-              <img src={addIcon} alt='' />
-              <h3>Save to Bookmarks</h3>
-            </div>
+            {this.props.user_id !== post.user_id && (
+              <div
+                className='save'
+                onClick={() => {
+                  this.handleSaveToProfile(post.post_url);
+                  this.props.alert.success('Post added to Bookmarks');
+                }}
+              >
+                <img src={addIcon} alt='' />
+                <h3>Save to Bookmarks</h3>
+              </div>
+            )}
           </div>
         </div>
-        <div>{this.props.post.user_thoughts}</div>
         <CommentBox
           post_comments={post.comments}
           post_id={post.post_id}

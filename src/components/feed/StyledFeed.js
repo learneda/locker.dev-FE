@@ -15,19 +15,47 @@ export const StyledFeed = () =>
     height: 60px;
     width: 60px;
     margin-right: 15px;
+    img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+  
+    @media(max-width: 500px) {
+      height: 40px;
+      width: 40px;
+      align-self: flex-start;
+      img {
+        height: 40px;
+        width: 40px;
+      }
+    }
   }
-  img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-  }
+
   h2 {
-    font-weight: 500;
     margin-bottom: -5px;
+    font-size: 1.7rem;
+    font-weight: 500;
+    @media(max-width: 500px) {
+      font-size: 1.5rem;
+    }
   }
   .post-date {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     opacity: 0.8;
+    font-weight: normal;
+    margin-left: 7px;
+    @media(max-width: 500px) {
+      font-size: 1.3rem;
+    }
+  }
+  .post-thoughts {
+    margin-top: 3px;
+    font-size: 2rem;
+    @media(max-width: 500px) {
+      font-size: 1.7rem;
+      line-height: 1.25;
+    }
   }
 }
 .post-content {
@@ -49,12 +77,31 @@ export const StyledFeed = () =>
   h2 {
     margin-bottom: 10px;
     font-size: 2.6rem;
-    font-weight: 500;
+    // font-weight: 500;
+    opacity: 0.8;
+    transition: 100ms ease-out;
     line-height: 1.3;
+    @media(max-width: 500px) {
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+    }
+    &:hover {
+      opacity: 1;
+      transition: 100ms ease-in;
+    }
+    @media(max-width: 960px) {
+      font-size: 2.4rem;
+    }
+    @media(max-width: 650px) {
+      font-size: 2rem;
+    }
   }
   p {
     opacity: 0.8;
     line-height: 1.6;
+    @media(max-width: 500px) {
+      font-size: 1.6rem;
+    }
   }
 }
 i {

@@ -13,27 +13,18 @@ position: relative;
   align-items: center;
   position: absolute;
   bottom: 12px;
+  justify-content: space-between;
+  // min-width: 330px;
+  width: 300px;
+  @media (max-width: 450px) {
+    width: 90%;
+   }
+  @media (max-width: 390px) {
+   width: 100%;
+   left: 4px;
+  }
 }
-&:hover {
-  // .like {
-  //   opacity: 1;
-  //   transition: 200ms ease-in;
-  // }
-  // .delete-icon {
-  //   opacity: 1;
-  //   transition: 200ms ease-in;
-  // }
-  // .rec-span {
-  //   transition: 200ms ease-in;
-  //   font-size: 1.2rem;
-  //   opacity: 0.8;
-  // }
-  // .del-span {
-  //   transition: 200ms ease-in;
-  //   font-size: 1.2rem;
-  //   opacity: 0.8;
-  // }
-}
+
 @media (max-width: 1450px) {
   /* max-height: initial; */
   height: 200px;
@@ -65,6 +56,10 @@ a {
 .post-content {
   margin: 0 5px;
   padding: 15px;
+  // position: relative;
+  @media (max-width: 450px) {
+     position: relative;
+    }
 }
 
 img {
@@ -100,6 +95,9 @@ p {
   @media (max-width: 960px) {
     max-width: initial;
   }
+  @media (max-width: 450px) {
+    margin-bottom: 25px;
+  }
 }
 h1 {
   margin: 0px auto;
@@ -111,18 +109,26 @@ h1 {
   /* border: 1px solid pink; */
   max-height: 55px;
   overflow: hidden;
+
   @media (max-width: 1250px) {
     margin: 0;
   }
   @media (max-width: 960px) {
     max-width: initial;
   }
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    max-height: 50px;
+  }
+  @media (max-width: 450px) {
+   margin-right: 20px;
+  }
 }
 .formatted-date {
   font-size: 1.2rem;
   opacity: 0.8;
   position: relative;
-  margin-right: 30px;
+  // margin-right: 30px;
 }
 .edit-modal {
   height: 100vh;
@@ -131,13 +137,19 @@ h1 {
 .edit-icon {
   position: absolute;
   right: 15px;
-  bottom: 15px;
+  bottom: 12px;
   width: 25px;
   cursor: pointer;
   height: 25px;
-  @media (max-width: 1250px) {
-    bottom: 20px;
-    top: initial;
+  // z-index: 1; 
+  background: #fff;
+  img {
+    height: 25px;
+    width: 25px;
+  }
+  @media (max-width: 450px) {
+  top: 10px;
+  right: 10px;
   }
 }
 
@@ -167,6 +179,37 @@ h1 {
     cursor: pointer;
     margin-right: 5px;
     }
+}
+.share-to-feed {
+  display: flex;
+  // margin-right: 20px;
+  opacity: 0.8;
+  transition: 200ms ease-out;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+    transition: 200ms ease-in;
+  }
+align-items: center;
+  img {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+  }
+  span {
+    font-size: 1.2rem;
+  }
+}
+.delete-bookmark {
+  display: flex;
+  align-items: center;
+  opacity: 0.8;
+  transition: 200ms ease-out;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+    transition: 200ms ease-in;
+  }
 }
 
 `;

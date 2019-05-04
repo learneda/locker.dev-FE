@@ -1,37 +1,39 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { unfollowAUser, getUserFollowing } from '../../actions';
+import {
+  unfollowAUser,
+  getUserFollowing,
+  getUserProfileDetails,
+} from '../../actions';
 
 const Following = props => {
-  const { userId, following, unfollowAUser, getUserFollowing } = props;
-
-  console.log(following);
-
+  const {
+    userId,
+    following,
+    unfollowAUser,
+    getUserFollowing,
+    getUserProfileDetails,
+  } = props;
   const handleUnfollow = async friend_id => {
-    console.log('in Event', userId, friend_id);
     await unfollowAUser({ user_id: userId, friend_id: friend_id });
-    await getUserFollowing(userId);
-    console.log('done with event');
+    getUserFollowing(userId);
+    getUserProfileDetails(userId);
   };
 
   return (
     <ul>
-      {following.map((followi, index) => (
+      {following.map((ele, index) => (
         <div key={index}>
-          <li>{followi.username}</li>
-          <img src={followi.profile_picture} />
-          <button onClick={() => handleUnfollow(followi.id)}>Unfollow</button>
+          <li>{ele.username}</li>
+          <img src={ele.profile_picture} alt='friend' />
+          <button onClick={() => handleUnfollow(ele.id)}>Unfollow</button>
         </div>
       ))}
     </ul>
   );
 };
 
-const mapStateToProps = ({ follow, auth }) => ({
-  following: follow.userFollowing,
-  userId: auth.id,
-});
 export default connect(
-  mapStateToProps,
-  { unfollowAUser, getUserFollowing }
+  null,
+  { unfollowAUser, getUserFollowing, getUserProfileDetails }
 )(Following);

@@ -34,16 +34,14 @@ export const StyledEditModal = () =>
       justify-content: center;
       max-width: 700px;
       width: 90%;
-      margin: auto;
-      margin-top: 10%;
+      margin: 80px auto;
       color: #444;
-
       background: #fff;
       padding-bottom: 10px;
       border-radius: 15px;
       position: relative;
       @media (max-width: 650px) {
-        margin: 10px auto;
+        margin: 60px auto;
       }
     }
     .edit-form input,

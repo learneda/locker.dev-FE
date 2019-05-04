@@ -23,7 +23,7 @@ const App = ({ fetchUser, modal }) => {
   useEffect(() => {
     // initial fetch user when you refresh browser
     fetchUser();
-  }, []);
+  }, [fetchUser]);
 
   useInterval(() => {
     // fetches user information every 5 minutes to reduce number of server requests

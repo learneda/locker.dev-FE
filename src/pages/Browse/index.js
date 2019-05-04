@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Grommet, Tab, Tabs } from 'grommet';
 import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroll-component';
-
+import Videos from '../../components/Videos';
 import {
   getCourses,
   getArticles,
@@ -75,7 +75,7 @@ class Browse extends Component {
                       dataLength={courses.length}
                       next={this.getMoreCourses}
                       hasMore={true}
-                      loader={<Loader />}
+                      loader={null}
                       style={{
                         display: 'flex',
                         flexWrap: 'wrap',
@@ -157,6 +157,9 @@ class Browse extends Component {
                     ))
                   )}
                 </Cards>
+              </Tab>
+              <Tab title='Videos'>
+                <Videos />
               </Tab>
             </Tabs>
           </BrowseContainer>

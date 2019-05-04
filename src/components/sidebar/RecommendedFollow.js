@@ -32,11 +32,12 @@ const RecommendedFollow = props => {
     getUserProfileDetails,
     getUserFollowing,
     recommendedFollow,
+    auth,
   } = props;
 
   useEffect(() => {
-    recommendedFollow(props.auth.id);
-  }, []);
+    recommendedFollow(auth.id);
+  }, [recommendedFollow, auth.id]);
 
   const followAUserHandler = async (e, friend_id) => {
     e.preventDefault();
@@ -81,7 +82,9 @@ const RecommendedFollow = props => {
               Follow
             </button>
             {following.followed_by_username && (
-              <p>Followed by {following.followed_by_username}</p>
+              <Link to={`/profile/${following.followed_by_id}`}>
+                <p>Followed by {following.followed_by_username}</p>
+              </Link>
             )}
           </div>
         </div>
@@ -96,12 +99,12 @@ const RecommendedFollow = props => {
   );
 };
 
-const mapStateToProps = ({ auth, user_details, follow }) => {
+const mapStateToProps = ({ auth, user_details, follow, loading }) => {
   return {
     auth: auth,
     user_details: user_details,
     follow: follow.suggestedFriends,
-    loading: follow.loading,
+    loading: loading.suggested,
   };
 };
 

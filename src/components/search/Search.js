@@ -5,22 +5,27 @@ import { Grommet, TextInput, CheckBox } from 'grommet';
 import styled from 'styled-components';
 
 import SearchUsersDropDown from './SearchUsersDropDown';
-import { getSearchValue } from '../../actions';
+import { setSearchTerm, resetSearchTerm } from '../../actions';
 
 function Search(props) {
+  const { resetSearchTerm } = props;
   const node = useRef();
   const [toggle, setToggle] = useState(false);
   const [search, setSearch] = useState('');
   const [visible, setVisible] = useState(false);
 
-  const handleChange = useCallback(e => {
-    setToggle(e.target.checked);
-    setSearch('');
-  }, []);
+  const handleChange = useCallback(
+    e => {
+      setToggle(e.target.checked);
+      setSearch('');
+      resetSearchTerm();
+    },
+    [resetSearchTerm]
+  );
 
   const handleSearch = e => {
     toggle && setVisible(true);
-    toggle ? setSearch(e.target.value) : props.getSearchValue(e);
+    toggle ? setSearch(e.target.value) : props.setSearchTerm(e);
   };
 
   const handleRefClick = e => {
@@ -43,7 +48,7 @@ function Search(props) {
         placeholder={
           toggle ? 'Search Users' : `Search ${Tabs[props.homeIndex]}`
         }
-        value={toggle ? search : props.search_term}
+        value={toggle ? search : props.searchTerm}
         onChange={handleSearch}
         id='search-input'
       />
@@ -51,13 +56,13 @@ function Search(props) {
   };
 
   const displayBrowseSearchComponent = () => {
-    const Tabs = ['Courses', 'Articles'];
+    const Tabs = ['Courses', 'Articles', 'Videos'];
     const placeholder = Tabs[props.browseIndex];
     return (
       <TextInput
         size='small'
         placeholder={toggle ? 'Search Users' : `Search ${placeholder}`}
-        value={toggle ? search : props.search_term}
+        value={toggle ? search : props.searchTerm}
         onChange={handleSearch}
         id='search-input'
       />
@@ -71,7 +76,7 @@ function Search(props) {
       <TextInput
         size='small'
         placeholder={toggle ? 'Search Users' : `Search ${placeholder}`}
-        value={toggle ? search : props.search_term}
+        value={toggle ? search : props.searchTerm}
         onChange={handleSearch}
         id='search-input'
       />
@@ -104,8 +109,8 @@ function Search(props) {
   );
 }
 
-const mapStateToProps = ({ search_term, browse, home, profile }) => ({
-  search_term,
+const mapStateToProps = ({ searchTerm, browse, home, profile }) => ({
+  searchTerm,
   browseIndex: browse.index,
   homeIndex: home.index,
   profileIndex: profile.index,
@@ -114,7 +119,7 @@ const mapStateToProps = ({ search_term, browse, home, profile }) => ({
 export default withRouter(
   connect(
     mapStateToProps,
-    { getSearchValue }
+    { setSearchTerm, resetSearchTerm }
   )(Search)
 );
 

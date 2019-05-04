@@ -10,7 +10,6 @@ import {
 
 const initialState = {
   suggestedFriends: [],
-  loading: true,
   userFollowers: [],
   userFollowing: [],
   following: false,
@@ -21,13 +20,13 @@ export const followReducer = (state = initialState, action) => {
     case GET_FOLLOWERS_AND_FOLLOWING_COUNT:
       return { ...state, ...action.payload };
     case FOLLOW_A_USER:
-      return { ...state, loading: true };
+      return { ...state };
     case UNFOLLOW_A_USER:
       return state;
     case GET_FOLLOWING:
       return { ...state, following: action.payload };
     case RECOMMENDED_FOLLOW:
-      return { ...state, suggestedFriends: action.payload, loading: false };
+      return { ...state, suggestedFriends: action.payload };
     case GET_USER_FOLLOWERS:
       return { ...state, userFollowers: action.payload };
     case GET_USER_FOLLOWING:

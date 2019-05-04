@@ -10,11 +10,9 @@ import {
   FETCH_POSTS,
   DELETE_POST,
   LIKED_POSTS,
-  SEARCH_TERM,
-  EDIT_MODAL_DISPLAY,
+  SET_SEARCH_TERM,
+  RESET_SEARCH_TERM,
   EDIT_PROFILE,
-  EDIT_POST_SUBMIT,
-  EDIT_POST_GET_DEFAULT_DATA,
   GET_FOLLOWERS_AND_FOLLOWING_COUNT,
   GET_USER_PROFILE_DETAILS_BY_ID,
   FOLLOW_A_USER,
@@ -28,6 +26,8 @@ import {
   SET_HOME_TAB_INDEX,
   SET_PROFILE_TAB_INDEX,
   SET_SOCIAL_TAB_INDEX,
+  LOADING_SUGGESTED,
+  LOADED_SUGGESTED,
 } from './types';
 
 import { post as URL } from '../services/baseURL';
@@ -95,21 +95,14 @@ export const editProfile = (id, profile) => async dispatch => {
   dispatch({ type: EDIT_PROFILE, payload: res.data });
 };
 
-/* ===== EDIT POST ACTIONS ===== */
-export const editModalDisplay = () => ({ type: EDIT_MODAL_DISPLAY });
-
-export const editPostGetDefaultData = id => async dispatch => {
-  const res = await axios.get(`${URL}/api/posts/${id}`);
-  dispatch({ type: EDIT_POST_GET_DEFAULT_DATA, payload: res.data });
-};
-export const editPostSubmit = (editedPost, id) => async dispatch => {
-  const res = await axios.put(`${URL}/api/posts/${id}`, editedPost);
-  dispatch({ type: EDIT_POST_SUBMIT, payload: res.data });
-};
-
-export const getSearchValue = e => ({
-  type: SEARCH_TERM,
+export const setSearchTerm = e => ({
+  type: SET_SEARCH_TERM,
   payload: e.target.value,
+});
+
+export const resetSearchTerm = () => ({
+  type: RESET_SEARCH_TERM,
+  payload: '',
 });
 
 export const getFollowersAndFollowingCount = () => async dispatch => {
@@ -143,14 +136,14 @@ export const getFollowing = friend_id => async dispatch => {
 };
 
 export const recommendedFollow = id => async dispatch => {
+  dispatch({ type: LOADING_SUGGESTED });
   const res = await axios.get(`${URL}/api/users/recommendedFollow?id=${id}`);
-  // console.log('RECOMMENDED FOLLOW RES', res);
+  dispatch({ type: LOADED_SUGGESTED });
   dispatch({ type: RECOMMENDED_FOLLOW, payload: res.data });
 };
 
 // get a users following list
 export const getUserFollowing = id => async dispatch => {
-  console.log('LAUNCHED getUserFollowing');
   const following = await axios.get(`${URL}/api/users/following?id=${id}`);
   dispatch({ type: GET_USER_FOLLOWING, payload: following.data });
 };
