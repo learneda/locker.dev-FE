@@ -44,23 +44,23 @@ const EditModal = props => {
           <img src={deleteIcon} alt='' />
         </span>
         <div className='form-title'>
-          <h3>Edit Post</h3>
+          <h3>Edit Bookmark</h3>
         </div>
-        <label htmlFor='Post Url'>Post Title</label>
+        <label htmlFor='Post Url'>Title</label>
         <input
           type='text'
           value={title}
           name='title'
           onChange={e => setTitle(e.target.value)}
         />
-        <label htmlFor='Post Url'>Post Url</label>
+        <label htmlFor='Post Url'>Url</label>
         <input
           type='text'
           value={postUrl}
           name='post_url'
           onChange={e => setPostUrl(e.target.value)}
         />
-        <label htmlFor='Post Description'>Post Description</label>
+        <label htmlFor='Post Description'>Description</label>
         <textarea
           name='description'
           id='post-description'
@@ -69,7 +69,7 @@ const EditModal = props => {
           value={description}
           onChange={e => setDescription(e.target.value)}
         />
-        <input type='submit' id='edit-submit' value='Update Post' />
+        <input type='submit' id='edit-submit' value='Update Bookmark' />
       </form>
     </Wrapper>
   );
