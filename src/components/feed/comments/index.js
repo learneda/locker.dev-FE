@@ -107,7 +107,7 @@ class CommentBox extends Component {
                   onChange={this.handleChange}
                 />
               </div>
-              <button>Post</button>
+              <button>Post!</button>
             </form>
           </div>
         </div>
