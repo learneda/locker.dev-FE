@@ -56,6 +56,7 @@ class SharedButton extends Component {
         .post(`${URL}/api/posts/share`, {
           id,
           user_id: this.props.user_id,
+          // updated_at: Date.now(),
         })
         .then(res => {
           this.props.alert.success('Post shared to Feed');
@@ -65,47 +66,39 @@ class SharedButton extends Component {
   };
 
   render() {
-    // console.log(this.props);
     return (
       <div>
-        <div className='share-to-feed' onClick={() => this.toggle()}>
+        <div className='share-to-feed' onClick={this.toggle}>
           <img src={shareSvg} alt='Share to feed' />
           <span>Share to Feed</span>
         </div>
         {this.state.on && (
           <ReusablePortal>
-            <MODALWRAPPER
-              className='modal-wrapper'
-              onClick={e =>
-                e.target.className === 'modal-wrapper' && this.toggle()
-              }
-            >
-              <div className='modal_'>
+            <MODALWRAPPER className='modal-wrapper' onClick={this.toggle}>
+              <div className='modal_' onClick={e => e.stopPropagation()}>
                 <div className='top'>
                   <div className='modal_name'>Share Bookmark</div>
-                  <div className='modal_close' onClick={() => this.toggle()}>
+                  <div className='modal_close' onClick={this.toggle}>
                     <X />
                   </div>
                 </div>
                 <div className='modal_group'>
                   <form onSubmit={this.handleSubmit} className='add_link_form'>
-                    <label htmlFor='Post Url'>Post Url</label>
-                    <input
-                      name='post_url'
-                      id='post-description'
-                      value={this.state.post_url}
-                      onChange={this.handleChange}
-                    />
-
-                    <label htmlFor='Post Url'>Post Title</label>
+                    <label htmlFor='Post Url'>Title</label>
                     <input
                       name='title'
                       id='post-description'
                       value={this.state.title}
                       onChange={this.handleChange}
                     />
-
-                    <label htmlFor='Post Description'>Post Description</label>
+                    <label htmlFor='Post Url'>Url</label>
+                    <input
+                      name='post_url'
+                      id='post-description'
+                      value={this.state.post_url}
+                      onChange={this.handleChange}
+                    />
+                    <label htmlFor='Post Description'>Description</label>
                     <textarea
                       name='description'
                       id='post-description'
@@ -123,11 +116,10 @@ class SharedButton extends Component {
                       value={this.state.userThoughts}
                       onChange={this.handleChange}
                     />
-
                     <input
                       type='submit'
                       id='edit-submit'
-                      value='Share Post to Feed'
+                      value='Share Bookmark to Feed'
                     />
                   </form>
                 </div>

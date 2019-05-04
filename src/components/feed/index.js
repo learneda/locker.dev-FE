@@ -37,7 +37,7 @@ class Feed extends Component {
       loading: true,
       offset: 0,
       hasMore: true,
-      commentValue: ''
+      commentValue: '',
     };
     this.username = props.auth.username;
     this.user_id = props.auth.id;
@@ -109,7 +109,11 @@ class Feed extends Component {
     this.socket.disconnect();
   }
 
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return this.state.posts != nextState.posts;
+  // }
   // handles infinite scroll functionality
+
   handleOffset = async () => {
     this.setState(prevState => ({
       offset: prevState.offset + 5,
@@ -178,7 +182,7 @@ class Feed extends Component {
 
     const feed = filteredPosts.map((post, index) => (
       <PostContainer
-        key={post.post_id}
+        key={index}
         handleSubmit={this.handleSubmit}
         handleClick={this.handleClick}
         getNewsFeed={this.getNewsFeed}

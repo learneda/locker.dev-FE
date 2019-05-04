@@ -6,6 +6,8 @@ import { StyledEditModal } from './StyledEditModal';
 import styled from 'styled-components';
 import { getPosts } from '../../../actions';
 import deleteIcon from '../../../assets/svg/delete-icon.svg';
+import useLockBodyScroll from '../../hooks/useLockBodyScroll';
+import { withAlert } from 'react-alert';
 axios.defaults.withCredentials = true;
 
 const Wrapper = styled.div`
@@ -17,6 +19,8 @@ const EditModal = props => {
   const [postUrl, setPostUrl] = useState(props.post.post_url);
   const [title, setTitle] = useState(props.post.title);
 
+  useLockBodyScroll();
+
   const onSubmit = async e => {
     e.preventDefault();
     const { id } = props.post;
@@ -27,7 +31,11 @@ const EditModal = props => {
     };
     axios
       .put(`${URL}/api/posts/${id}`, editedPost)
-      .then(res => props.getPosts(), props.handleModalOpen());
+      .then(
+        res => props.getPosts(),
+        props.handleModalOpen(),
+        props.alert.success('Bookmark Updated')
+      );
   };
 
   return (
@@ -35,29 +43,34 @@ const EditModal = props => {
       style={{
         display: props.open ? 'block' : 'none',
       }}
+      onClick={props.handleModalOpen}
     >
-      <form className='edit-form' onSubmit={onSubmit}>
+      <form
+        className='edit-form'
+        onSubmit={onSubmit}
+        onClick={e => e.stopPropagation()}
+      >
         <span onClick={props.handleModalOpen} className='close-modal-x'>
           <img src={deleteIcon} alt='' />
         </span>
         <div className='form-title'>
-          <h3>Edit Post</h3>
+          <h3>Edit Bookmark</h3>
         </div>
-        <label htmlFor='Post Url'>Post Title</label>
+        <label htmlFor='Post Url'>Title</label>
         <input
           type='text'
           value={title}
           name='title'
           onChange={e => setTitle(e.target.value)}
         />
-        <label htmlFor='Post Url'>Post Url</label>
+        <label htmlFor='Post Url'>Url</label>
         <input
           type='text'
           value={postUrl}
           name='post_url'
           onChange={e => setPostUrl(e.target.value)}
         />
-        <label htmlFor='Post Description'>Post Description</label>
+        <label htmlFor='Post Description'>Description</label>
         <textarea
           name='description'
           id='post-description'
@@ -66,13 +79,15 @@ const EditModal = props => {
           value={description}
           onChange={e => setDescription(e.target.value)}
         />
-        <input type='submit' id='edit-submit' value='Update Post' />
+        <input type='submit' id='edit-submit' value='Update Bookmark' />
       </form>
     </Wrapper>
   );
 };
 
+const Alert = withAlert()(EditModal);
+
 export default connect(
   null,
   { getPosts }
-)(EditModal);
+)(Alert);
