@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { getPosts } from '../../../actions';
 import deleteIcon from '../../../assets/svg/delete-icon.svg';
 import useLockBodyScroll from '../../hooks/useLockBodyScroll';
+import { withAlert } from 'react-alert';
 axios.defaults.withCredentials = true;
 
 const Wrapper = styled.div`
@@ -30,7 +31,11 @@ const EditModal = props => {
     };
     axios
       .put(`${URL}/api/posts/${id}`, editedPost)
-      .then(res => props.getPosts(), props.handleModalOpen());
+      .then(
+        res => props.getPosts(),
+        props.handleModalOpen(),
+        props.alert.success('Bookmark Updated')
+      );
   };
 
   return (
@@ -38,8 +43,13 @@ const EditModal = props => {
       style={{
         display: props.open ? 'block' : 'none',
       }}
+      onClick={props.handleModalOpen}
     >
-      <form className='edit-form' onSubmit={onSubmit}>
+      <form
+        className='edit-form'
+        onSubmit={onSubmit}
+        onClick={e => e.stopPropagation()}
+      >
         <span onClick={props.handleModalOpen} className='close-modal-x'>
           <img src={deleteIcon} alt='' />
         </span>
@@ -75,7 +85,9 @@ const EditModal = props => {
   );
 };
 
+const Alert = withAlert()(EditModal);
+
 export default connect(
   null,
   { getPosts }
-)(EditModal);
+)(Alert);
