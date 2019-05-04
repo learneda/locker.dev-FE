@@ -56,6 +56,7 @@ class SharedButton extends Component {
         .post(`${URL}/api/posts/share`, {
           id,
           user_id: this.props.user_id,
+          // updated_at: Date.now(),
         })
         .then(res => {
           this.props.alert.success('Post shared to Feed');
@@ -89,23 +90,21 @@ class SharedButton extends Component {
                 </div>
                 <div className='modal_group'>
                   <form onSubmit={this.handleSubmit} className='add_link_form'>
-                    <label htmlFor='Post Url'>Post Url</label>
-                    <input
-                      name='post_url'
-                      id='post-description'
-                      value={this.state.post_url}
-                      onChange={this.handleChange}
-                    />
-
-                    <label htmlFor='Post Url'>Post Title</label>
+                    <label htmlFor='Post Url'>Title</label>
                     <input
                       name='title'
                       id='post-description'
                       value={this.state.title}
                       onChange={this.handleChange}
                     />
-
-                    <label htmlFor='Post Description'>Post Description</label>
+                    <label htmlFor='Post Url'>Url</label>
+                    <input
+                      name='post_url'
+                      id='post-description'
+                      value={this.state.post_url}
+                      onChange={this.handleChange}
+                    />
+                    <label htmlFor='Post Description'>Description</label>
                     <textarea
                       name='description'
                       id='post-description'
@@ -127,7 +126,7 @@ class SharedButton extends Component {
                     <input
                       type='submit'
                       id='edit-submit'
-                      value='Share Post to Feed'
+                      value='Share Bookmark to Feed'
                     />
                   </form>
                 </div>
