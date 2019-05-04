@@ -6,6 +6,7 @@ import { StyledEditModal } from './StyledEditModal';
 import styled from 'styled-components';
 import { getPosts } from '../../../actions';
 import deleteIcon from '../../../assets/svg/delete-icon.svg';
+import useLockBodyScroll from '../../hooks/useLockBodyScroll';
 axios.defaults.withCredentials = true;
 
 const Wrapper = styled.div`
@@ -16,6 +17,8 @@ const EditModal = props => {
   const [description, setDescription] = useState(props.post.description);
   const [postUrl, setPostUrl] = useState(props.post.post_url);
   const [title, setTitle] = useState(props.post.title);
+
+  useLockBodyScroll();
 
   const onSubmit = async e => {
     e.preventDefault();
