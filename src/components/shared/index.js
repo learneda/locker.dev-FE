@@ -66,25 +66,19 @@ class SharedButton extends Component {
   };
 
   render() {
-    // console.log(this.props);
     return (
       <div>
-        <div className='share-to-feed' onClick={() => this.toggle()}>
+        <div className='share-to-feed' onClick={this.toggle}>
           <img src={shareSvg} alt='Share to feed' />
           <span>Share to Feed</span>
         </div>
         {this.state.on && (
           <ReusablePortal>
-            <MODALWRAPPER
-              className='modal-wrapper'
-              onClick={e =>
-                e.target.className === 'modal-wrapper' && this.toggle()
-              }
-            >
-              <div className='modal_'>
+            <MODALWRAPPER className='modal-wrapper' onClick={this.toggle}>
+              <div className='modal_' onClick={e => e.stopPropagation()}>
                 <div className='top'>
                   <div className='modal_name'>Share Bookmark</div>
-                  <div className='modal_close' onClick={() => this.toggle()}>
+                  <div className='modal_close' onClick={this.toggle}>
                     <X />
                   </div>
                 </div>
@@ -122,7 +116,6 @@ class SharedButton extends Component {
                       value={this.state.userThoughts}
                       onChange={this.handleChange}
                     />
-
                     <input
                       type='submit'
                       id='edit-submit'
