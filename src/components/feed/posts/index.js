@@ -77,7 +77,7 @@ class PostContainer extends Component {
               <h2>
                 {post.username}
                 <Moment className='post-date' fromNow>
-                  {post.created_at}
+                  {post.posted_at_date}
                 </Moment>
               </h2>
             </Link>
