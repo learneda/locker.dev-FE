@@ -53,7 +53,7 @@ const Social = props => {
           </Tabs>
         </Grommet>
       </Wrapper>
-      <RecommendedFollow />
+      {index === 3 ? <RecommendedFollow /> : null}
     </Container>
   );
 };
