@@ -10,6 +10,13 @@ export const StyledFollow = styled.div`
     flex: 0 0 29%;
   }
 
+  a:hover {
+    h2 {
+      opacity: 1;
+      transition: 200ms ease-in;
+    }
+  }
+
   div {
     display: flex;
     flex-direction: column;
@@ -30,6 +37,7 @@ export const StyledFollow = styled.div`
     }
     h2 {
       opacity: 0.8;
+      transition: 200ms ease-out;
     }
     button {
       padding: 0;
