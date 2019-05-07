@@ -8,6 +8,12 @@ export const StyledFollow = styled.div`
   &::after {
     content: '';
     flex: 0 0 29%;
+    @media (max-width: 1100px) {
+      flex: 0 0 45%;
+    }
+    @media (max-width: 500px) {
+      flex: 0 0 100%;
+    }
   }
 
   a:hover {
@@ -28,12 +34,23 @@ export const StyledFollow = styled.div`
     border-radius: 8px;
     margin-bottom: 30px;
     justify-content: center;
+    @media (max-width: 1100px) {
+      flex: 0 0 45%;
+    }
+    @media (max-width: 500px) {
+      flex: 0 0 80%;
+      margin: 0 auto 30px;
+    }
 
     img {
       width: 100px;
       height: 100px;
       border-radius: 50%;
       margin: 5px auto;
+      @media (max-width: 650px) {
+        width: 70px;
+        height: 70px;
+      }
     }
     h2 {
       opacity: 0.8;
