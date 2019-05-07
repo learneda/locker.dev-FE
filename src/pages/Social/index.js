@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Grommet, Tab, Tabs } from 'grommet';
 import styled from 'styled-components';
-import following from '../../components/social/following';
-import followers from '../../components/social/followers';
-import suggested from '../../components/social/suggested';
-import meetups from '../../components/social/meetups';
+import Following from '../../components/social/Following';
+import Followers from '../../components/social/Followers';
+import Suggested from '../../components/social/Suggested';
+import Meetups from '../../components/social/Meetups';
 import Sidebar from '../../components/sidebar/Sidebar';
 import RecommendedFollow from '../../components/sidebar/RecommendedFollow';
 import { customWrapper } from '../../components/mixins';
@@ -32,22 +32,22 @@ const Social = props => {
           >
             <Tab title='Following'>
               <TabWrapper>
-                <following userId={userId} following={following} />
+                <Following userId={userId} following={following} />
               </TabWrapper>
             </Tab>
             <Tab title='Followers'>
               <TabWrapper>
-                <followers userId={userId} followers={followers} />
+                <Followers userId={userId} followers={followers} />
               </TabWrapper>
             </Tab>
             <Tab title='Suggested'>
               <TabWrapper>
-                <suggested userId={userId} suggested={suggested} />
+                <Suggested userId={userId} suggested={suggested} />
               </TabWrapper>
             </Tab>
             <Tab title='Meetups'>
               <TabWrapper>
-                <meetups />
+                <Meetups />
               </TabWrapper>
             </Tab>
           </Tabs>
