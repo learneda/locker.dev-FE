@@ -91,7 +91,8 @@ class CommentBox extends Component {
                 this.props.handleSubmit(
                   e,
                   this.props.post_id,
-                  this.state.commentInput
+                  this.state.commentInput,
+                  this.props.postOwnerId
                 );
                 this.setState({ commentInput: '' });
               }}

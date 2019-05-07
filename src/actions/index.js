@@ -28,6 +28,8 @@ import {
   SET_SOCIAL_TAB_INDEX,
   LOADING_SUGGESTED,
   LOADED_SUGGESTED,
+  FETCH_NOTIFICATIONS,
+  CLEAR_NOTIFICATIONS
 } from './types';
 
 import { post as URL } from '../services/baseURL';
@@ -177,3 +179,20 @@ export const setSocialTabIndex = index => ({
   type: SET_SOCIAL_TAB_INDEX,
   payload: index,
 });
+
+export const populateNotifications = (NotificationsArr) => dispatch => {
+  dispatch({type: FETCH_NOTIFICATIONS, payload: NotificationsArr})
+}
+
+export const readNotifications = () => async dispatch => {
+  const res = await axios.post(`${URL}/api/notifications/read`)
+}
+
+export const deleteNotifications = () => async dispatch => {
+  const res = await axios.delete(`${URL}/api/notifications/clear`)
+  console.log(res)
+  // if (res.data) {
+
+  // }
+  dispatch({type: CLEAR_NOTIFICATIONS})
+}

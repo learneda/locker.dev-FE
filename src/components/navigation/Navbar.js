@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-
+import Notifications from './Notifications';
 import Search from '../search/Search';
 import Auth from '../authentication/Auth';
 import AddLink from '../utils/AddLink';
@@ -59,6 +59,7 @@ class Navbar extends Component {
             <Search />
 
             <NavRight>
+              <Notifications />
               <AddLink />
               <ProfileDropDown auth={auth} />
             </NavRight>

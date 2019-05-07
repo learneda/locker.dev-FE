@@ -33,7 +33,10 @@ class PostContainer extends Component {
     }
   }
 
-  handleLikes = (e, post_id) => {
+  handleLikes = (e, post_id, post) => {
+    console.log(post.user_id)
+    const postOwnerId = post.user_id;
+
     let result = e.target.classList.contains('heart-red');
     if (result) {
       const data = {
@@ -47,6 +50,8 @@ class PostContainer extends Component {
         post_id,
         user_id: this.props.user_id,
         action: 'like',
+        postOwnerId,
+        username: this.props.username
       };
       this.props.handleClick(data);
     }
@@ -65,7 +70,6 @@ class PostContainer extends Component {
       user_id,
       handleDeleteComment,
     } = this.props;
-    console.log(this.props.user_id !== post.user_id);
     return (
       <div className='post'>
         <div className='post-user-info'>
@@ -102,7 +106,7 @@ class PostContainer extends Component {
               className='far fa-heart fa-lg'
               ref={this.heartIcon}
               onClick={e => {
-                this.handleLikes(e, post.post_id);
+                this.handleLikes(e, post.post_id, post);
                 e.target.classList.toggle('heart-red');
               }}
             >
@@ -131,6 +135,7 @@ class PostContainer extends Component {
           profile_picture={profile_picture}
           handleDeleteComment={handleDeleteComment}
           user_id={user_id}
+          postOwnerId={post.user_id}
         />
       </div>
     );

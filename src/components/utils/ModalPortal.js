@@ -15,11 +15,11 @@ export default class ReusablePortal extends Component {
 
   componentWillUnmount() {
     // portalRoot.remove(this.el)
-    document.getElementById('body').setAttribute('style', 'overflow: auto');
+    // document.getElementById('body').setAttribute('style', 'overflow: auto');
   }
 
   render() {
-    document.getElementById('body').setAttribute('style', 'overflow: hidden');
+    // document.getElementById('body').setAttribute('style', 'overflow: hidden');
     const { children } = this.props;
     return ReactDOM.createPortal(children, this.el);
   }

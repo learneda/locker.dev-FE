@@ -12,6 +12,7 @@ import PostContainer from './posts/index';
 import { StyledFeed } from './StyledFeed';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
+import { populateNotifications } from '../../actions'
 
 const MyLoader = () => (
   <ContentLoader
@@ -45,6 +46,11 @@ class Feed extends Component {
   }
 
   componentDidMount() {
+    this.socket.emit('join', {user_id: this.user_id})
+    this.socket.on('join', data => {
+      console.log(data, 'FROM JOIN CONNECTION')
+      this.props.populateNotifications(data)
+    })
     this.socket.on('comments', msg => {
       console.log(msg);
       switch (msg.action) {
@@ -101,6 +107,10 @@ class Feed extends Component {
     this.getNewsFeed();
   }
 
+  componentWillUnmount() {
+    this.socket.disconnect();
+  }
+
   // shouldComponentUpdate(nextProps, nextState) {
   //   return this.state.posts != nextState.posts;
   // }
@@ -134,7 +144,7 @@ class Feed extends Component {
       .catch(err => console.log(err));
   };
 
-  handleSubmit = (event, post_id, comment) => {
+  handleSubmit = (event, post_id, comment, postOwnerId) => {
     const body = comment.trim();
     if (body) {
       const comment = {
@@ -143,6 +153,7 @@ class Feed extends Component {
         user_id: this.user_id,
         post_id: post_id,
         username: this.username,
+        postOwnerId
       };
       this.socket.emit('comments', comment);
     }
@@ -179,8 +190,10 @@ class Feed extends Component {
         getNewsFeed={this.getNewsFeed}
         post={post}
         user_id={this.user_id}
+        username={this.username}
         profile_picture={this.props.auth.profile_picture}
         handleDeleteComment={this.handleDeleteComment}
+        socketId={this.socket.id}
       />
     ));
 
@@ -227,5 +240,5 @@ const mapStateToProps = ({ auth, searchTerm }) => ({ auth, searchTerm });
 
 export default connect(
   mapStateToProps,
-  {}
+  {populateNotifications}
 )(Feed);
