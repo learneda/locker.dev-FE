@@ -5,6 +5,8 @@ import {
   getUserFollowing,
   getUserProfileDetails,
 } from '../../actions';
+import { StyledFollow } from './StyledFollow';
+import { Link } from 'react-router-dom';
 
 const Followers = props => {
   const {
@@ -22,15 +24,17 @@ const Followers = props => {
   };
 
   return (
-    <ul>
+    <StyledFollow>
       {followers.map((ele, index) => (
         <div key={index}>
-          <li>{ele.username}</li>
-          <img src={ele.profile_picture} alt='fan' />
+          <Link to={`/profile/${ele.id}`}>
+            <h2>{ele.username}</h2>
+            <img src={ele.profile_picture} alt='fan' />
+          </Link>
           <button onClick={() => handleFollow(ele.id)}>Follow</button>
         </div>
       ))}
-    </ul>
+    </StyledFollow>
   );
 };
 
