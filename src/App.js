@@ -10,6 +10,7 @@ import Social from './pages/Social';
 import Settings from './pages/Settings';
 import NoMatch from './pages/NoMatch';
 import Profile from './pages/Profile';
+import SinglePost from './pages/SinglePost/SinglePost'
 import Navbar from './components/navigation/Navbar';
 import { customContainer } from './components/mixins';
 import { composedIndexRedirect as index } from './components/authentication/indexRedirect';
@@ -46,6 +47,7 @@ const App = ({ fetchUser, modal }) => {
         <Route component={index(Browse)} path='/browse' />
         <Route component={index(Social)} path='/social' />
         <Route component={index(Profile)} path='/profile/:id' />
+        <Route component={index(SinglePost)} path='/status/:id' />
         <Route component={index(Settings)} path='/settings' />
         <Route component={NoMatch} />
       </Switch>

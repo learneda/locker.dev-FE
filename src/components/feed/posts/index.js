@@ -51,6 +51,7 @@ class PostContainer extends Component {
         user_id: this.props.user_id,
         action: 'like',
         postOwnerId,
+        username: this.props.username
       };
       this.props.handleClick(data);
     }

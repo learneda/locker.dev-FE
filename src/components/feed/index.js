@@ -190,6 +190,7 @@ class Feed extends Component {
         getNewsFeed={this.getNewsFeed}
         post={post}
         user_id={this.user_id}
+        username={this.username}
         profile_picture={this.props.auth.profile_picture}
         handleDeleteComment={this.handleDeleteComment}
         socketId={this.socket.id}
