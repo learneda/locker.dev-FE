@@ -32,6 +32,7 @@ const Followers = props => {
             <img src={ele.profile_picture} alt='fan' />
           </Link>
           <button onClick={() => handleFollow(ele.id)}>Follow</button>
+          {ele.bio ? <p>{ele.bio}</p> : <p>User has no bio.</p>}
         </div>
       ))}
     </StyledFollow>
