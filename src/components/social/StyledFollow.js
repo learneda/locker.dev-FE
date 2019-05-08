@@ -33,7 +33,7 @@ export const StyledFollow = styled.div`
     padding: 10px 15px;
     border-radius: 8px;
     margin-bottom: 30px;
-    justify-content: center;
+    justify-content: flex-start;
     @media (max-width: 1100px) {
       flex: 0 0 45%;
     }
@@ -55,6 +55,7 @@ export const StyledFollow = styled.div`
     h2 {
       opacity: 0.8;
       transition: 200ms ease-out;
+      font-weight: 500;
     }
     button {
       padding: 0;
@@ -66,6 +67,10 @@ export const StyledFollow = styled.div`
       border-radius: 4px;
       cursor: pointer;
       font-size: 1.4rem;
+    }
+    p {
+      margin: 10px auto;
+      font-size: 1.6rem;
     }
   }
 `;
