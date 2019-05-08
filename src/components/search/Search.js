@@ -41,7 +41,7 @@ function Search(props) {
   }, []);
 
   const displayHomeSearchComponent = () => {
-    const Tabs = ['Feed', 'Bookmarks', 'Likes', 'Friends'];
+    const Tabs = ['Feed', 'Bookmarks', 'Likes'];
     return (
       <TextInput
         size='small'
@@ -83,6 +83,61 @@ function Search(props) {
     );
   };
 
+  //TODO: Make this DRY
+  const displaySearch = () => {
+    let placeholder;
+    const path = props.location.pathname;
+    console.log('path', path);
+    switch (path) {
+      case '/home':
+        placeholder = 'Feed';
+        break;
+      case '/home/feed':
+        placeholder = 'Feed';
+        break;
+      case '/home/bookmarks':
+        placeholder = 'Bookmarks';
+        break;
+      case '/home/likes':
+        placeholder = 'Likes';
+        break;
+      case '/browse':
+        placeholder = 'Courses';
+        break;
+      case '/browse/courses':
+        placeholder = 'Courses';
+        break;
+      case '/browse/articles':
+        placeholder = 'Articles';
+        break;
+      case '/browse/videos':
+        placeholder = 'Videos';
+        break;
+      case '/social':
+        placeholder = 'Following';
+        break;
+      case '/social/following':
+        placeholder = 'Following';
+        break;
+      case '/social/followers':
+        placeholder = 'Followers';
+        break;
+      case '/social/suggested':
+        placeholder = 'Suggested';
+        break;
+      case '/social/meetups':
+        placeholder = 'Meetups';
+    }
+    return (
+      <TextInput
+        size='small'
+        placeholder={toggle ? 'Search Users' : `Search ${placeholder}`}
+        value={toggle ? search : props.searchTerm}
+        onChange={handleSearch}
+        id='search-input'
+      />
+    );
+  };
   //todo: DRY-UP and CLEAN-UP SEARCH COMPONENT SELECTION
   return (
     <>
@@ -92,11 +147,7 @@ function Search(props) {
             <Toggle>
               <CheckBox toggle checked={toggle} onChange={handleChange} />
             </Toggle>
-            {props.location.pathname === '/home'
-              ? displayHomeSearchComponent()
-              : props.location.pathname === '/browse'
-              ? displayBrowseSearchComponent()
-              : displayProfileSearchComponent()}
+            {displaySearch()}
           </Container>
         </Grommet>
       </Wrapper>

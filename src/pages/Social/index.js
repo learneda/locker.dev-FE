@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Grommet, Tab, Tabs } from 'grommet';
+import { NavLink, Route, Switch } from 'react-router-dom';
+import { Grommet } from 'grommet';
 import styled from 'styled-components';
 import Following from '../../components/social/Following';
 import Followers from '../../components/social/Followers';
@@ -25,32 +26,48 @@ const Social = props => {
       <Sidebar />
       <Wrapper>
         <Grommet theme={theme}>
-          <Tabs
-            activeIndex={index}
-            onActive={setSocialTabIndex}
-            justify='start'
-          >
-            <Tab title='Following'>
-              <TabWrapper>
-                <Following userId={userId} following={following} />
-              </TabWrapper>
+          <Tabs>
+            <Tab>
+              <NavLink to='/social/following'>Following</NavLink>
             </Tab>
-            <Tab title='Followers'>
-              <TabWrapper>
-                <Followers userId={userId} followers={followers} />
-              </TabWrapper>
+            <Tab>
+              <NavLink to='/social/followers'>Followers</NavLink>
             </Tab>
-            <Tab title='Suggested'>
-              <TabWrapper>
-                <Suggested userId={userId} suggested={suggested} />
-              </TabWrapper>
+            <Tab>
+              <NavLink to='/social/suggested'>Suggested</NavLink>
             </Tab>
-            <Tab title='Meetups'>
-              <TabWrapper>
-                <Meetups />
-              </TabWrapper>
+            <Tab>
+              <NavLink to='/social/meetups'>Meetups</NavLink>
             </Tab>
           </Tabs>
+
+          <TabWrapper>
+            <Switch>
+              <Route
+                exact
+                path={['/social/', '/social/following']}
+                render={props => (
+                  <Following userId={userId} following={following} {...props} />
+                )}
+              />
+              <Route
+                path='/social/followers'
+                render={props => (
+                  <Followers userId={userId} followers={followers} {...props} />
+                )}
+              />
+              <Route
+                path='/social/suggested'
+                render={props => (
+                  <Suggested userId={userId} suggested={suggested} {...props} />
+                )}
+              />
+              <Route
+                path='/social/meetups'
+                render={props => <Meetups {...props} />}
+              />
+            </Switch>
+          </TabWrapper>
         </Grommet>
       </Wrapper>
       {index === 3 ? <RecommendedFollow /> : null}
@@ -127,4 +144,12 @@ const TabWrapper = styled.div`
   border-top: 1px solid #bdbdbd;
   padding-top: 20px;
   margin-top: -3px;
+`;
+
+const Tabs = styled.ul`
+  display: flex;
+`;
+
+const Tab = styled.li`
+  margin-right: 2rem;
 `;

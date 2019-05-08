@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { NavLink, Route, Switch } from 'react-router-dom';
 import { withAlert } from 'react-alert';
 import axios from 'axios';
-import { Grommet, Tab, Tabs } from 'grommet';
+import { Grommet } from 'grommet';
 import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import Videos from '../../components/Videos';
+import Courses from '../../components/browse/Courses';
+import Videos from '../../components/browse/Videos';
+import Articles from '../../components/browse/Articles';
+
 import {
   getCourses,
   getArticles,
@@ -58,110 +62,53 @@ class Browse extends Component {
       <Grommet theme={theme}>
         <Wrapper>
           <BrowseContainer>
-            <Tabs
-              activeIndex={this.props.index}
-              onActive={this.props.setBrowseTabIndex}
-              justify='start'
-              alignSelf='center'
-            >
-              <Tab title='Courses'>
-                <Cards>
-                  {courses.length === 0 ? (
-                    <Loader>
-                      <Loading />
-                    </Loader>
-                  ) : (
-                    <InfiniteScroll
-                      dataLength={courses.length}
-                      next={this.getMoreCourses}
-                      hasMore={true}
-                      loader={null}
-                      style={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        justifyContent: 'space-between',
-                      }}
-                    >
-                      {courses.map((course, index) => (
-                        <Card key={course.id + index}>
-                          <a
-                            href={`https://www.udemy.com${course.url}`}
-                            target='_blank'
-                            rel='noopener noreferrer'
-                          >
-                            <img
-                              src={course.image_480x270}
-                              alt='course-thumbnail'
-                            />
-                            <h3>{this.handleTruncateText(course.title)}</h3>
-                            <p>
-                              {this.handleTruncateText(course.headline, 15)}
-                            </p>
-                          </a>
-                          <SaveIcon>
-                            <Add
-                              className='save-icon'
-                              onClick={() => {
-                                this.handleSaveLink(
-                                  `https://www.udemy.com${course.url}`
-                                );
-                                this.props.alert.success(
-                                  'Course added to Bookmarks'
-                                );
-                              }}
-                            />
-                          </SaveIcon>
-                        </Card>
-                      ))}
-                    </InfiniteScroll>
-                  )}
-                </Cards>
+            <Tabs>
+              <Tab>
+                <NavLink exact to='/browse/courses'>
+                  Courses
+                </NavLink>
               </Tab>
-
-              <Tab title='Articles'>
-                <Cards>
-                  {articles.length === 0 ? (
-                    <Loader>
-                      <Loading />
-                    </Loader>
-                  ) : (
-                    articles.map(article => (
-                      <Card key={article.created}>
-                        <a
-                          href={article.url}
-                          target='_blank'
-                          rel='noopener noreferrer'
-                        >
-                          <img
-                            src={article.thumbnail}
-                            alt='article-thumbnail'
-                          />
-
-                          <h3>{this.handleTruncateText(article.title)}</h3>
-                          <p>
-                            {this.handleTruncateText(article.description, 15)}
-                          </p>
-                        </a>
-                        <SaveIcon>
-                          <Add
-                            className='save-icon'
-                            onClick={() => {
-                              this.handleSaveLink(article.url);
-                              this.props.alert.success(
-                                'Article added to Bookmarks'
-                              );
-                            }}
-                          />
-                        </SaveIcon>
-                      </Card>
-                    ))
-                  )}
-                </Cards>
+              <Tab>
+                <NavLink to='/browse/articles'>Articles</NavLink>
               </Tab>
-              <Tab title='Videos'>
-                <Videos />
+              <Tab>
+                <NavLink to='/browse/videos'>Videos</NavLink>
               </Tab>
             </Tabs>
+            <TabWrapper>
+              <Switch>
+                <Route
+                  exact
+                  path={['/browse', '/browse/courses']}
+                  render={props => (
+                    <Courses
+                      courses={courses}
+                      getMoreCourses={this.getMoreCourses}
+                      handleSaveLink={this.handleSaveLink}
+                      handleTruncateText={this.handleTruncateText}
+                      alert={this.props.alert}
+                      {...props}
+                    />
+                  )}
+                />
+                <Route
+                  path='/browse/articles'
+                  render={props => (
+                    <Articles
+                      articles={articles}
+                      handleTruncateText={this.handleTruncateText}
+                      handleSaveLink={this.handleSaveLink}
+                      alert={this.props.alert}
+                      {...props}
+                    />
+                  )}
+                />
+                <Route
+                  path='/browse/videos'
+                  render={props => <Videos {...props} />}
+                />
+              </Switch>
+            </TabWrapper>
           </BrowseContainer>
         </Wrapper>
       </Grommet>
@@ -315,4 +262,16 @@ const SaveIcon = styled.div`
     opacity: 1;
     transition: 200ms ease-in;
   }
+`;
+const TabWrapper = styled.div`
+  padding-top: 20px;
+  margin-top: -3px;
+`;
+
+const Tabs = styled.ul`
+  display: flex;
+`;
+
+const Tab = styled.li`
+  margin-right: 2rem;
 `;

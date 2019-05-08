@@ -10,7 +10,7 @@ import Social from './pages/Social';
 import Settings from './pages/Settings';
 import NoMatch from './pages/NoMatch';
 import Profile from './pages/Profile';
-import SinglePost from './pages/SinglePost/SinglePost'
+import SinglePost from './pages/SinglePost/SinglePost';
 import Navbar from './components/navigation/Navbar';
 import { customContainer } from './components/mixins';
 import { composedIndexRedirect as index } from './components/authentication/indexRedirect';
