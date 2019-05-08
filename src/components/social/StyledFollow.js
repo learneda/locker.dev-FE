@@ -46,7 +46,7 @@ export const StyledFollow = styled.div`
       width: 100px;
       height: 100px;
       border-radius: 50%;
-      margin: 5px auto;
+      margin: 5px auto 0;
       @media (max-width: 650px) {
         width: 70px;
         height: 70px;
@@ -67,10 +67,12 @@ export const StyledFollow = styled.div`
       border-radius: 4px;
       cursor: pointer;
       font-size: 1.4rem;
+      margin: 10px auto;
     }
     p {
       margin: 10px auto;
       font-size: 1.6rem;
+      text-align: left;
     }
   }
 `;
