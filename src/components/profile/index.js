@@ -75,6 +75,14 @@ class ProfileById extends Component {
               <h1>{this.handleTruncateText(post.title)}</h1>
             </a>
             <p>{this.handleTruncateText(post.description, 15)}</p>
+            <a
+              className='post-root-url'
+              href={post.post_url}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              {post.root_url}
+            </a>
             <div className='date-like-heart'>
               <span className='formatted-date'>
                 Added <Moment fromNow>{post.created_at}</Moment>
