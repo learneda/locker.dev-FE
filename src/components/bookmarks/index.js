@@ -23,9 +23,9 @@ const Bookmarks = props => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editPost, setEditPost] = useState(null);
 
-  useEffect(() => {
-    getPosts();
-  }, [getPosts]);
+  // useEffect(() => {
+  //   getPosts();
+  // }, [getPosts]);
 
   const handleTruncateText = (content, limit = 10) =>
     truncateText(content, limit);
