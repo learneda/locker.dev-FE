@@ -6,7 +6,7 @@ box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 border-radius: 6px;
 background-color: #fff;
 max-height: 250px;
-height: 200px;
+height: 220px;
 position: relative;
 .date-like-heart {
   display: flex;
@@ -27,7 +27,7 @@ position: relative;
 
 @media (max-width: 1450px) {
   /* max-height: initial; */
-  height: 200px;
+  height: 220px;
 }
 @media (max-width: 1250px) {
   flex-direction: column;
@@ -81,22 +81,29 @@ img {
 }
 p {
   max-width: 600px;
-  margin: 10px auto;
-  margin-bottom: 20px;
+  margin: 10px 0 0;
   font-size: 1.5rem;
   word-break: break-word;
   line-height: 1.5;
   /* border: 1px solid lightblue; */
-  height: 70px;
+  // height: 70px;
   @media (max-width: 1250px) {
-    margin: 10px 0;
-    padding-bottom: 25px;
+    margin: 10px 0 0;
   }
   @media (max-width: 960px) {
     max-width: initial;
   }
   @media (max-width: 450px) {
-    margin-bottom: 25px;
+    // margin-bottom: 25px;
+  }
+}
+.post-root-url {
+  display: inline-block;
+  opacity: 0.8;
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+  &:hover {
+    opacity: 1;
   }
 }
 h1 {
