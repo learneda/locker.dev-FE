@@ -89,7 +89,6 @@ const Podcasts = ({ search, handleSaveMedia, alert }) => {
       ))}
     </InfiniteScroll>
   );
-  console.log('podcasts', podcasts);
   return <Cards>{isLoading ? renderLoader() : renderPodcasts()}</Cards>;
 };
 
