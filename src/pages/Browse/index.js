@@ -12,6 +12,7 @@ import Articles from '../../components/browse/Articles';
 import Podcasts from '../../components/browse/Podcasts';
 
 import {
+  getPosts,
   getCourses,
   getArticles,
   setBrowseTabIndex,
@@ -42,6 +43,16 @@ class Browse extends Component {
         post_url: url,
         id: this.props.auth.id,
       });
+    }
+  };
+
+  handleSaveMedia = async media => {
+    if (this.props.auth) {
+      await axios.post(`${URL}/api/posts`, {
+        ...media,
+        user_id: this.props.auth.id,
+      });
+      this.props.getPosts();
     }
   };
 
@@ -109,11 +120,23 @@ class Browse extends Component {
                 />
                 <Route
                   path='/browse/videos'
-                  render={props => <Videos {...props} />}
+                  render={props => (
+                    <Videos
+                      handleSaveMedia={this.handleSaveMedia}
+                      alert={this.props.alert}
+                      {...props}
+                    />
+                  )}
                 />
                 <Route
                   path='/browse/podcasts'
-                  render={props => <Podcasts {...props} />}
+                  render={props => (
+                    <Podcasts
+                      handleSaveMedia={this.handleSaveMedia}
+                      alert={this.props.alert}
+                      {...props}
+                    />
+                  )}
                 />
               </Switch>
             </TabWrapper>
@@ -137,7 +160,7 @@ const Alert = withAlert()(Browse);
 
 export default connect(
   mapStateToProps,
-  { getCourses, getArticles, fetchUser, setBrowseTabIndex }
+  { getPosts, getCourses, getArticles, fetchUser, setBrowseTabIndex }
 )(Alert);
 
 const theme = {

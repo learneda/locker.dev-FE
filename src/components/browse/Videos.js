@@ -6,8 +6,9 @@ import { customLayout, truncateText } from '../mixins';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
 import { useDebouncedCallback } from 'use-debounce';
+import { ReactComponent as Add } from '../../assets/svg/add-icon.svg';
 
-const Videos = ({ search }) => {
+const Videos = ({ search, handleSaveMedia, alert }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [videos, setVideos] = useState([]);
   const [pageToken, setPageToken] = useState(null);
@@ -73,6 +74,23 @@ const Videos = ({ search }) => {
             <h3>{truncateText(video.snippet.title)}</h3>
             <p>{truncateText(video.snippet.description, 15)}</p>
           </a>
+          <SaveIcon>
+            <Add
+              className='save-icon'
+              onClick={() => {
+                handleSaveMedia({
+                  type: 'video',
+                  post_url: `https://www.youtube.com/watch?v=${
+                    video.id.videoId
+                  }`,
+                  title: video.snippet.title,
+                  description: video.snippet.description,
+                  thumbnail_url: video.snippet.thumbnails.medium.url,
+                });
+                alert.success('Article added to Bookmarks');
+              }}
+            />
+          </SaveIcon>
         </Card>
       ))}
     </InfiniteScroll>
@@ -162,5 +180,18 @@ const Card = styled.div`
     font-size: 1.2rem;
     line-height: 20px;
     color: #6d767e;
+  }
+`;
+
+const SaveIcon = styled.div`
+  // border: 1px solid red;
+  ${customLayout('flex-end')}
+  margin-top: 15px;
+  padding: 0 4%;
+  opacity: 0.8;
+  transition: 200ms ease-out;
+  &:hover {
+    opacity: 1;
+    transition: 200ms ease-in;
   }
 `;
