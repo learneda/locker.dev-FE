@@ -16,7 +16,8 @@ const Podcasts = ({ search }) => {
     listenAPI
       .get('/search', {
         params: {
-          q: search || 'student of the gun',
+          q: search || 'javascript',
+          offset,
         },
       })
       .then(res => {
@@ -33,9 +34,8 @@ const Podcasts = ({ search }) => {
   const [debouncedFunction] = useDebouncedCallback(query => {
     listenAPI
       .get('/search', {
-        headers: { 'X-ListenAPI-KEY': '608e70293265412eba4de5b5f1a88d57' },
         params: {
-          q: query || 'student of the gun',
+          q: query || 'javascript',
         },
       })
       .then(res => {
@@ -62,17 +62,13 @@ const Podcasts = ({ search }) => {
         justifyContent: 'space-between',
       }}
     >
-      {podcasts.map((podcast, index) => (
-        <Card key={index}>
-          {/* <a
-            href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <img src={video.snippet.thumbnails.medium.url} alt='youtube' />
-            <h3>{truncateText(video.snippet.title)}</h3>
-            <p>{truncateText(video.snippet.description, 15)}</p>
-          </a> */}
+      {podcasts.map(podcast => (
+        <Card key={podcast.id}>
+          <a href={podcast.audio} target='_blank' rel='noopener noreferrer'>
+            <img src={podcast.image} alt='youtube' />
+            <h3>{truncateText(podcast.title_original)}</h3>
+            <p>{truncateText(podcast.description_original, 15)}</p>
+          </a>
         </Card>
       ))}
     </InfiniteScroll>
@@ -141,7 +137,7 @@ const Card = styled.div`
     border-top-left-radius: 5px;
     width: 100%;
     height: 180px;
-    object-fit: cover;
+    object-fit: contain;
   }
 
   h3 {
