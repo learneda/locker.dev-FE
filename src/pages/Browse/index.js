@@ -9,6 +9,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import Courses from '../../components/browse/Courses';
 import Videos from '../../components/browse/Videos';
 import Articles from '../../components/browse/Articles';
+import Podcasts from '../../components/browse/Podcasts';
 
 import {
   getCourses,
@@ -74,6 +75,9 @@ class Browse extends Component {
               <Tab>
                 <NavLink to='/browse/videos'>Videos</NavLink>
               </Tab>
+              <Tab>
+                <NavLink to='/browse/podcasts'>Podcasts</NavLink>
+              </Tab>
             </Tabs>
             <TabWrapper>
               <Switch>
@@ -106,6 +110,10 @@ class Browse extends Component {
                 <Route
                   path='/browse/videos'
                   render={props => <Videos {...props} />}
+                />
+                <Route
+                  path='/browse/podcasts'
+                  render={props => <Podcasts {...props} />}
                 />
               </Switch>
             </TabWrapper>
