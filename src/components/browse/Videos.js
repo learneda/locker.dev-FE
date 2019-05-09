@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import youtube from '../apis/youtube';
+import youtube from '../../apis/youtube';
 import styled from 'styled-components';
-import { customLayout, truncateText } from '../components/mixins';
+import { customLayout, truncateText } from '../mixins';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { ReactComponent as Loading } from '../assets/svg/circles.svg';
+import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
 import { useDebouncedCallback } from 'use-debounce';
 
 const Videos = ({ search }) => {

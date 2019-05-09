@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Grommet, Tab, Tabs } from 'grommet';
+import { NavLink, Route, Switch } from 'react-router-dom';
+import { Grommet } from 'grommet';
 import styled from 'styled-components';
 import Feed from '../../components/feed';
 import Bookmarks from '../../components/bookmarks';
@@ -17,27 +18,36 @@ class Home extends Component {
         <Sidebar />
         <Wrapper>
           <Grommet theme={theme}>
-            <Tabs
-              activeIndex={this.props.index}
-              onActive={this.props.setHomeTabIndex}
-              justify='start'
-            >
-              <Tab title='Feed'>
-                <TabWrapper>
-                  <Feed />
-                </TabWrapper>
+            <Tabs>
+              <Tab>
+                <NavLink exact to='/home/feed'>
+                  Feed
+                </NavLink>
               </Tab>
-              <Tab title='Bookmarks'>
-                <TabWrapper>
-                  <Bookmarks />
-                </TabWrapper>
+              <Tab>
+                <NavLink to='/home/bookmarks'>Bookmarks</NavLink>
               </Tab>
-              <Tab title='Likes'>
-                <TabWrapper>
-                  <Likes />
-                </TabWrapper>
+              <Tab>
+                <NavLink to='/home/likes'>Likes</NavLink>
               </Tab>
             </Tabs>
+            <TabWrapper>
+              <Switch>
+                <Route
+                  exact
+                  path={['/home', '/home/feed']}
+                  render={props => <Feed {...props} />}
+                />
+                <Route
+                  path='/home/bookmarks'
+                  render={props => <Bookmarks {...props} />}
+                />
+                <Route
+                  path='/home/likes'
+                  render={props => <Likes {...props} />}
+                />
+              </Switch>
+            </TabWrapper>
           </Grommet>
         </Wrapper>
         <RecommendedFollow />
@@ -109,4 +119,12 @@ const TabWrapper = styled.div`
   border-top: 1px solid #bdbdbd;
   padding-top: 20px;
   margin-top: -3px;
+`;
+
+const Tabs = styled.ul`
+  display: flex;
+`;
+
+const Tab = styled.li`
+  margin-right: 2rem;
 `;
