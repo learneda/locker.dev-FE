@@ -60,6 +60,25 @@ class PostContainer extends Component {
     axios.post(`${URL}/api/posts`, { post_url: url, id: this.props.user_id });
   };
 
+  displayMedia = post => {
+    const { post_url, thumbnail_url } = post;
+    if (post_url.includes('youtube.com/watch')) {
+      const videoId = post_url.split('=')[1];
+      return (
+        <iframe
+          width='100%'
+          height='400px'
+          src={`https://www.youtube.com/embed/${videoId}`}
+          frameborder='0'
+          allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+          allowfullscreen
+        />
+      );
+    } else {
+      return <img src={`${thumbnail_url}`} alt='post_thumbnail' />;
+    }
+  };
+
   render() {
     const {
       post,
@@ -92,7 +111,7 @@ class PostContainer extends Component {
         <div className='post-content'>
           {post.thumbnail_url ? (
             <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
-              <img src={`${post.thumbnail_url}`} alt='post_thumbnail' />
+              {this.displayMedia(post)}
             </a>
           ) : null}
           <div className='title-and-description'>

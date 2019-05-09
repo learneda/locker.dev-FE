@@ -12,7 +12,7 @@ import PostContainer from './posts/index';
 import { StyledFeed } from './StyledFeed';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
-import { populateNotifications } from '../../actions'
+import { populateNotifications } from '../../actions';
 
 const MyLoader = () => (
   <ContentLoader
@@ -46,11 +46,11 @@ class Feed extends Component {
   }
 
   componentDidMount() {
-    this.socket.emit('join', {user_id: this.user_id})
+    this.socket.emit('join', { user_id: this.user_id });
     this.socket.on('join', data => {
-      console.log(data, 'FROM JOIN CONNECTION')
-      this.props.populateNotifications(data)
-    })
+      console.log(data, 'FROM JOIN CONNECTION');
+      this.props.populateNotifications(data);
+    });
     this.socket.on('comments', msg => {
       console.log(msg);
       switch (msg.action) {
@@ -139,6 +139,7 @@ class Feed extends Component {
     axios
       .get(`${URL}/api/users/newsfeed?offset=${offset}`)
       .then(res => {
+        console.log(' 🦄 posts', res);
         this.setState({ posts: res.data, loading: false });
       })
       .catch(err => console.log(err));
@@ -153,7 +154,7 @@ class Feed extends Component {
         user_id: this.user_id,
         post_id: post_id,
         username: this.username,
-        postOwnerId
+        postOwnerId,
       };
       this.socket.emit('comments', comment);
     }
@@ -240,5 +241,5 @@ const mapStateToProps = ({ auth, searchTerm }) => ({ auth, searchTerm });
 
 export default connect(
   mapStateToProps,
-  {populateNotifications}
+  { populateNotifications }
 )(Feed);
