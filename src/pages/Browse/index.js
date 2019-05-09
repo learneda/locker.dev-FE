@@ -9,8 +9,10 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import Courses from '../../components/browse/Courses';
 import Videos from '../../components/browse/Videos';
 import Articles from '../../components/browse/Articles';
+import Podcasts from '../../components/browse/Podcasts';
 
 import {
+  getPosts,
   getCourses,
   getArticles,
   setBrowseTabIndex,
@@ -44,6 +46,16 @@ class Browse extends Component {
     }
   };
 
+  handleSaveMedia = async media => {
+    if (this.props.auth) {
+      await axios.post(`${URL}/api/posts`, {
+        ...media,
+        user_id: this.props.auth.id,
+      });
+      this.props.getPosts();
+    }
+  };
+
   handleTruncateText = (content, limit = 10) => {
     return truncateText(content, limit);
   };
@@ -73,6 +85,9 @@ class Browse extends Component {
               </Tab>
               <Tab>
                 <NavLink to='/browse/videos'>Videos</NavLink>
+              </Tab>
+              <Tab>
+                <NavLink to='/browse/podcasts'>Podcasts</NavLink>
               </Tab>
             </Tabs>
             <TabWrapper>
@@ -105,7 +120,23 @@ class Browse extends Component {
                 />
                 <Route
                   path='/browse/videos'
-                  render={props => <Videos {...props} />}
+                  render={props => (
+                    <Videos
+                      handleSaveMedia={this.handleSaveMedia}
+                      alert={this.props.alert}
+                      {...props}
+                    />
+                  )}
+                />
+                <Route
+                  path='/browse/podcasts'
+                  render={props => (
+                    <Podcasts
+                      handleSaveMedia={this.handleSaveMedia}
+                      alert={this.props.alert}
+                      {...props}
+                    />
+                  )}
                 />
               </Switch>
             </TabWrapper>
@@ -129,7 +160,7 @@ const Alert = withAlert()(Browse);
 
 export default connect(
   mapStateToProps,
-  { getCourses, getArticles, fetchUser, setBrowseTabIndex }
+  { getPosts, getCourses, getArticles, fetchUser, setBrowseTabIndex }
 )(Alert);
 
 const theme = {

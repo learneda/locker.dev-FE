@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import youtube from '../../apis/youtube';
+import listenAPI from '../../apis/listen';
 import styled from 'styled-components';
 import { customLayout, truncateText } from '../mixins';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -8,22 +8,22 @@ import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
 import { useDebouncedCallback } from 'use-debounce';
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg';
 
-const Videos = ({ search, handleSaveMedia, alert }) => {
+const Podcasts = ({ search, handleSaveMedia, alert }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [videos, setVideos] = useState([]);
-  const [pageToken, setPageToken] = useState(null);
+  const [podcasts, setPodcasts] = useState([]);
+  const [offset, setOffset] = useState(null);
 
   const fetchMoreData = () => {
-    youtube
+    listenAPI
       .get('/search', {
         params: {
           q: search || 'javascript',
-          pageToken,
+          offset,
         },
       })
       .then(res => {
-        setVideos(prevVideos => [...prevVideos, ...res.data.items]);
-        setPageToken(res.data.nextPageToken);
+        setPodcasts(prevPodcasts => [...prevPodcasts, ...res.data.results]);
+        setOffset(res.data.next_offset);
       });
   };
 
@@ -33,15 +33,15 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
   }, [search]);
 
   const [debouncedFunction] = useDebouncedCallback(query => {
-    youtube
+    listenAPI
       .get('/search', {
         params: {
           q: query || 'javascript',
         },
       })
       .then(res => {
-        setVideos(res.data.items);
-        setPageToken(res.data.nextPageToken);
+        setPodcasts(res.data.results);
+        setOffset(res.data.next_offset);
         setIsLoading(false);
       });
   }, 1500);
@@ -52,9 +52,9 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
     </Loader>
   );
 
-  const renderVideos = () => (
+  const renderPodcasts = () => (
     <InfiniteScroll
-      dataLength={videos.length}
+      dataLength={podcasts.length}
       next={fetchMoreData}
       hasMore={true}
       style={{
@@ -63,29 +63,23 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
         justifyContent: 'space-between',
       }}
     >
-      {videos.map((video, index) => (
-        <Card key={index}>
-          <a
-            href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <img src={video.snippet.thumbnails.medium.url} alt='youtube' />
-            <h3>{truncateText(video.snippet.title)}</h3>
-            <p>{truncateText(video.snippet.description, 15)}</p>
+      {podcasts.map(podcast => (
+        <Card key={podcast.id}>
+          <a href={podcast.audio} target='_blank' rel='noopener noreferrer'>
+            <img src={podcast.image} alt='youtube' />
+            <h3>{truncateText(podcast.title_original)}</h3>
+            <p>{truncateText(podcast.description_original, 15)}</p>
           </a>
           <SaveIcon>
             <Add
               className='save-icon'
               onClick={() => {
                 handleSaveMedia({
-                  type: 'video',
-                  post_url: `https://www.youtube.com/watch?v=${
-                    video.id.videoId
-                  }`,
-                  title: video.snippet.title,
-                  description: video.snippet.description,
-                  thumbnail_url: video.snippet.thumbnails.medium.url,
+                  type: 'podcast',
+                  post_url: podcast.audio,
+                  title: podcast.title_original,
+                  description: podcast.description_original,
+                  thumbnail_url: podcast.image,
                 });
                 alert.success('Article added to Bookmarks');
               }}
@@ -95,8 +89,8 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
       ))}
     </InfiniteScroll>
   );
-
-  return <Cards>{isLoading ? renderLoader() : renderVideos()}</Cards>;
+  console.log('podcasts', podcasts);
+  return <Cards>{isLoading ? renderLoader() : renderPodcasts()}</Cards>;
 };
 
 const mapStateToProps = ({ searchTerm }) => ({
@@ -106,7 +100,7 @@ const mapStateToProps = ({ searchTerm }) => ({
 export default connect(
   mapStateToProps,
   null
-)(Videos);
+)(Podcasts);
 
 const Loader = styled.div`
   margin: 75px auto;
@@ -159,7 +153,7 @@ const Card = styled.div`
     border-top-left-radius: 5px;
     width: 100%;
     height: 180px;
-    object-fit: cover;
+    object-fit: contain;
   }
 
   h3 {
