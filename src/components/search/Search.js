@@ -87,7 +87,6 @@ function Search(props) {
   const displaySearch = () => {
     let placeholder;
     const path = props.location.pathname;
-    console.log('path', path);
     switch (path) {
       case '/home':
         placeholder = 'Feed';
