@@ -113,6 +113,9 @@ function Search(props) {
       case '/browse/videos':
         placeholder = 'Videos';
         break;
+      case '/browse/podcasts':
+        placeholder = 'Podcasts';
+        break;
       case '/social':
         placeholder = 'Following';
         break;
