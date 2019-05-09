@@ -70,7 +70,14 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
             target='_blank'
             rel='noopener noreferrer'
           >
-            <img src={video.snippet.thumbnails.medium.url} alt='youtube' />
+            <iframe
+              width='100%'
+              height='55%'
+              src={`https://www.youtube.com/embed/${video.id.videoId}`}
+              frameborder='0'
+              allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+              allowfullscreen
+            />
             <h3>{truncateText(video.snippet.title)}</h3>
             <p>{truncateText(video.snippet.description, 15)}</p>
           </a>
