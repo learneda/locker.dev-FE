@@ -103,6 +103,18 @@ export const StyledFeed = () =>
       font-size: 1.6rem;
     }
   }
+  .post-root-url {
+    display: inline-block;
+    opacity: 0.8;
+    margin-bottom: 10px;
+    font-size: 1.7rem;
+    &:hover {
+      opacity: 1;
+    }
+    @media(max-width: 500px) {
+      font-size: 1.6rem;
+    }
+  }
 }
 i {
   cursor: pointer;

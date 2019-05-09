@@ -16,15 +16,18 @@ import { customContainer } from './components/mixins';
 import { composedIndexRedirect as index } from './components/authentication/indexRedirect';
 import { composedHomeRedirect as home } from './components/authentication/homeRedirect';
 import useInterval from './components/hooks/useInterval';
-import { fetchUser } from './actions';
+import { fetchUser, getPosts } from './actions';
 
-const App = ({ fetchUser, modal }) => {
+const App = ({ fetchUser, modal, getPosts }) => {
   const { isAuthOpen, isEditOpen } = modal;
 
   useEffect(() => {
     // initial fetch user when you refresh browser
     fetchUser();
-  }, [fetchUser]);
+
+    // gets bookmarks only on first site load
+    getPosts();
+  }, [fetchUser, getPosts]);
 
   useInterval(() => {
     // fetches user information every 5 minutes to reduce number of server requests
@@ -60,7 +63,7 @@ const mapStateToProps = ({ modal }) => ({ modal });
 export default withRouter(
   connect(
     mapStateToProps,
-    { fetchUser }
+    { fetchUser, getPosts }
   )(App)
 );
 

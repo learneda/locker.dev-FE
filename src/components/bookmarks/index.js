@@ -23,9 +23,9 @@ const Bookmarks = props => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editPost, setEditPost] = useState(null);
 
-  useEffect(() => {
-    getPosts();
-  }, [getPosts]);
+  // useEffect(() => {
+  //   getPosts();
+  // }, [getPosts]);
 
   const handleTruncateText = (content, limit = 10) =>
     truncateText(content, limit);
@@ -62,6 +62,14 @@ const Bookmarks = props => {
             <h1>{handleTruncateText(post.title, 9)}</h1>
           </a>
           <p>{handleTruncateText(post.description, 15)}</p>
+          <a
+            className='post-root-url'
+            href={post.post_url}
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            {post.root_url}
+          </a>
           <div className='date-like-heart'>
             <span className='formatted-date'>
               {moment(post.created_at).fromNow() === 'a few seconds ago' ? (
