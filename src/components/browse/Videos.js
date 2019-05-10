@@ -70,14 +70,30 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
             target='_blank'
             rel='noopener noreferrer'
           >
-            <iframe
-              width='100%'
-              height='50%'
-              src={`https://www.youtube.com/embed/${video.id.videoId}`}
-              frameborder='0'
-              allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-              allowfullscreen
-            />
+            <div
+              style={{
+                overflow: 'hidden',
+                paddingTop: '56.25%',
+                position: 'relative',
+              }}
+            >
+              <iframe
+                style={{
+                  border: '0px',
+                  height: '100%',
+                  left: '0px',
+                  position: 'absolute',
+                  top: '0px',
+                  width: '100%',
+                }}
+                frameborder='0'
+                width='560'
+                height='315'
+                src={`https://www.youtube.com/embed/${video.id.videoId}`}
+                allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+                allowfullscreen
+              />
+            </div>
             <h3>{truncateText(video.snippet.title)}</h3>
             <p>{truncateText(video.snippet.description, 15)}</p>
           </a>
