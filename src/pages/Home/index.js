@@ -124,15 +124,21 @@ const TabWrapper = styled.div`
 const Tabs = styled.ul`
   display: flex;
   position: fixed;
-  height: 140px;
+  height: 135px;
   background: rgb(230, 233, 243);
-  z-index: 2;
+  z-index: 1;
   top: 0;
   align-items: flex-end;
   width: 100%;
+  margin-left: -5px;
 `;
 
 const Tab = styled.li`
   margin-right: 2rem;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  margin-left: 5px;
+  .active {
+    border-bottom: 3px solid #222;
+    font-weight: 900;
+  }
 `;
