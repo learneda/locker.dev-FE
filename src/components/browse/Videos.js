@@ -86,12 +86,13 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
                   top: '0px',
                   width: '100%',
                 }}
-                frameborder='0'
+                frameBorder='0'
                 width='560'
                 height='315'
+                title={video.title}
                 src={`https://www.youtube.com/embed/${video.id.videoId}`}
                 allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-                allowfullscreen
+                allowFullScreen
               />
             </div>
             <h3>{truncateText(video.snippet.title)}</h3>
