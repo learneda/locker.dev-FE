@@ -76,7 +76,7 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
               src={`https://www.youtube.com/embed/${video.id.videoId}`}
               frameborder='0'
               allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-              allowfullscreen
+              allowfullscreen='allowFullScreen'
             />
             <h3>{truncateText(video.snippet.title)}</h3>
             <p>{truncateText(video.snippet.description, 15)}</p>
