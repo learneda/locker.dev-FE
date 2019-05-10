@@ -5,6 +5,7 @@ export const StyledFeed = () =>
   margin-bottom: 40px;
   border-radius: 8px;
   background: #fff;
+  margin-top: 25px;
 }
 .post-user-info {
   display: flex;

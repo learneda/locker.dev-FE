@@ -68,10 +68,20 @@ class Sidebar extends Component {
           <div className='user-bio'>
             <h3>{this.props.auth.display_name}</h3>
             <div className='profile-stats'>
-              <ul>
-                <li>Posts</li>
-                <li>{this.props.user_details.post_count}</li>
-              </ul>
+              {this.props.location.pathname !== '/home/bookmarks' ? (
+                <Link to='/home/bookmarks'>
+                  <ul>
+                    <li>Posts</li>
+                    <li>{this.props.user_details.post_count}</li>
+                  </ul>
+                </Link>
+              ) : (
+                <ul>
+                  <li>Posts</li>
+                  <li>{this.props.user_details.post_count}</li>
+                </ul>
+              )}
+
               <ul onClick={this.handleFollowingDropdown}>
                 <li>Following</li>
                 <li>{this.props.user_details.following_count}</li>

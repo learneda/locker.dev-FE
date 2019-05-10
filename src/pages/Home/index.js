@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink, Route, Switch } from 'react-router-dom';
+import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
 import { Grommet } from 'grommet';
 import styled from 'styled-components';
 import Feed from '../../components/feed';
@@ -13,13 +13,18 @@ import { setHomeTabIndex } from '../../actions';
 
 class Home extends Component {
   render() {
+    console.log(this.props.location.pathname);
     return (
       <Container>
         <Sidebar />
         <Wrapper>
           <Grommet theme={theme}>
             <Tabs>
-              <Tab>
+              <Tab
+                className={
+                  this.props.location.pathname === '/home' ? 'active' : null
+                }
+              >
                 <NavLink exact to='/home/feed'>
                   Feed
                 </NavLink>
@@ -58,10 +63,12 @@ class Home extends Component {
 
 const mapStateToProps = ({ home }) => ({ index: home.index });
 
-export default connect(
-  mapStateToProps,
-  { setHomeTabIndex }
-)(Home);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { setHomeTabIndex }
+  )(Home)
+);
 
 const theme = {
   tab: {
@@ -123,8 +130,22 @@ const TabWrapper = styled.div`
 
 const Tabs = styled.ul`
   display: flex;
+  position: fixed;
+  height: 135px;
+  background: rgb(230, 233, 243);
+  z-index: 2;
+  top: 0;
+  align-items: flex-end;
+  width: 100%;
+  margin-left: -5px;
+  .active {
+    border-bottom: 3px solid #222;
+    font-weight: 900;
+  }
 `;
 
 const Tab = styled.li`
   margin-right: 2rem;
+  margin-bottom: 9px;
+  margin-left: 5px;
 `;
