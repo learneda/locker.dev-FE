@@ -70,16 +70,34 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
             target='_blank'
             rel='noopener noreferrer'
           >
-            <iframe
-              width='100%'
-              height='50%'
-              src={`https://www.youtube.com/embed/${video.id.videoId}`}
-              frameborder='0'
-              allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-              allowfullscreen='allowFullScreen'
-            />
-            <h3>{truncateText(video.snippet.title)}</h3>
-            <p>{truncateText(video.snippet.description, 15)}</p>
+            <div
+              style={{
+                overflow: 'hidden',
+                paddingTop: '56.25%',
+                position: 'relative',
+              }}
+            >
+              <iframe
+                style={{
+                  border: '0px',
+                  height: '100%',
+                  left: '0px',
+                  position: 'absolute',
+                  top: '0px',
+                  width: '100%',
+                }}
+                frameBorder='0'
+                width='560'
+                height='315'
+                title={video.title}
+                src={`https://www.youtube.com/embed/${video.id.videoId}`}
+                allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+                allowFullScreen
+              />
+            </div>
+            <h3 style={{ marginTop: '20px' }}>
+              {truncateText(video.snippet.title)}
+            </h3>
           </a>
           <SaveIcon>
             <Add
@@ -134,6 +152,7 @@ const Cards = styled.div`
 `;
 
 const Card = styled.div`
+  position: relative;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 6px;
   width: 22%;
@@ -193,8 +212,9 @@ const Card = styled.div`
 const SaveIcon = styled.div`
   // border: 1px solid red;
   ${customLayout('flex-end')}
-  margin-top: 15px;
-  padding: 0 4%;
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
   opacity: 0.8;
   transition: 200ms ease-out;
   &:hover {
