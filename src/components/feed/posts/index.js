@@ -65,14 +65,31 @@ class PostContainer extends Component {
     if (post_url.includes('youtube.com/watch')) {
       const videoId = post_url.split('=')[1];
       return (
-        <iframe
-          width='100%'
-          height='400px'
-          src={`https://www.youtube.com/embed/${videoId}`}
-          frameborder='0'
-          allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-          allowfullscreen='allowFullScreen'
-        />
+        <div
+          style={{
+            overflow: 'hidden',
+            paddingTop: '56.25%',
+            position: 'relative',
+          }}
+        >
+          <iframe
+            style={{
+              border: '0px',
+              height: '100%',
+              left: '0px',
+              position: 'absolute',
+              top: '0px',
+              width: '100%',
+            }}
+            frameBorder='0'
+            width='560'
+            height='315'
+            title={videoId}
+            src={`https://www.youtube.com/embed/${videoId}`}
+            allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+            allowFullScreen
+          />
+        </div>
       );
     } else {
       return <img src={`${thumbnail_url}`} alt='post_thumbnail' />;

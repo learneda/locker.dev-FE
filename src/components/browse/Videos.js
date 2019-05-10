@@ -95,8 +95,9 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
                 allowFullScreen
               />
             </div>
-            <h3>{truncateText(video.snippet.title)}</h3>
-            <p>{truncateText(video.snippet.description, 15)}</p>
+            <h3 style={{ marginTop: '20px' }}>
+              {truncateText(video.snippet.title)}
+            </h3>
           </a>
           <SaveIcon>
             <Add
@@ -151,6 +152,7 @@ const Cards = styled.div`
 `;
 
 const Card = styled.div`
+  position: relative;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 6px;
   width: 22%;
@@ -210,8 +212,9 @@ const Card = styled.div`
 const SaveIcon = styled.div`
   // border: 1px solid red;
   ${customLayout('flex-end')}
-  margin-top: 15px;
-  padding: 0 4%;
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
   opacity: 0.8;
   transition: 200ms ease-out;
   &:hover {
