@@ -1,11 +1,12 @@
-export const StyledAddLink = () => 
-`
+export const StyledAddLink = () =>
+  `
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.6);
+    z-index: 2;
   
   .modal_ {
     /* border: 2px solid blue; */
@@ -73,4 +74,4 @@ export const StyledAddLink = () =>
   .root-modal-open {
     filter: blur(7px);
   }
-`
+`;
