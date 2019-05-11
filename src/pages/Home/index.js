@@ -141,8 +141,9 @@ const Tabs = styled.ul`
   width: 100%;
   margin-left: -5px;
   .active {
-    border-bottom: 3px solid #222;
+    border-bottom: 3px solid #4064f2;
     font-weight: 900;
+    color: #4064f2;
   }
 `;
 
