@@ -20,12 +20,14 @@ class Home extends Component {
         <Wrapper>
           <Grommet theme={theme}>
             <Tabs>
-              <Tab
-                className={
-                  this.props.location.pathname === '/home' ? 'active' : null
-                }
-              >
-                <NavLink exact to='/home/feed'>
+              <Tab>
+                <NavLink
+                  exact
+                  to='/home/feed'
+                  className={
+                    this.props.location.pathname === '/home' ? 'active' : null
+                  }
+                >
                   Feed
                 </NavLink>
               </Tab>
