@@ -128,6 +128,9 @@ const TabWrapper = styled.div`
   border-top: 1px solid #bdbdbd;
   padding-top: 20px;
   margin-top: -3px;
+  @media (max-width: 900px) {
+    margin-top: 20px;
+  }
 `;
 
 const Tabs = styled.ul`
@@ -140,10 +143,19 @@ const Tabs = styled.ul`
   align-items: flex-end;
   width: 100%;
   margin-left: -5px;
+  padding-bottom: 5px;
+  /* border-bottom: 3px solid transparent; */
   .active {
     border-bottom: 3px solid #4064f2;
     font-weight: 900;
     color: #4064f2;
+  }
+  @media (max-width: 900px) {
+    height: 120px;
+  }
+  @media (max-width: 760px) {
+    height: 100px;
+    padding-bottom: 0px;
   }
 `;
 
