@@ -40,49 +40,6 @@ function Search(props) {
     };
   }, []);
 
-  const displayHomeSearchComponent = () => {
-    const Tabs = ['Feed', 'Bookmarks', 'Likes'];
-    return (
-      <TextInput
-        size='small'
-        placeholder={
-          toggle ? 'Search Users' : `Search ${Tabs[props.homeIndex]}`
-        }
-        value={toggle ? search : props.searchTerm}
-        onChange={handleSearch}
-        id='search-input'
-      />
-    );
-  };
-
-  const displayBrowseSearchComponent = () => {
-    const Tabs = ['Courses', 'Articles', 'Videos'];
-    const placeholder = Tabs[props.browseIndex];
-    return (
-      <TextInput
-        size='small'
-        placeholder={toggle ? 'Search Users' : `Search ${placeholder}`}
-        value={toggle ? search : props.searchTerm}
-        onChange={handleSearch}
-        id='search-input'
-      />
-    );
-  };
-
-  const displayProfileSearchComponent = () => {
-    const Tabs = ['Bookmarks', 'Likes'];
-    const placeholder = Tabs[props.profileIndex];
-    return (
-      <TextInput
-        size='small'
-        placeholder={toggle ? 'Search Users' : `Search ${placeholder}`}
-        value={toggle ? search : props.searchTerm}
-        onChange={handleSearch}
-        id='search-input'
-      />
-    );
-  };
-
   //TODO: Make this DRY
   const displaySearch = () => {
     let placeholder;
@@ -112,6 +69,9 @@ function Search(props) {
       case '/browse/videos':
         placeholder = 'Videos';
         break;
+      case '/browse/books':
+        placeholder = 'Books';
+        break;
       case '/browse/podcasts':
         placeholder = 'Podcasts';
         break;
@@ -129,6 +89,9 @@ function Search(props) {
         break;
       case '/social/meetups':
         placeholder = 'Meetups';
+        break;
+      default:
+        return;
     }
     return (
       <TextInput

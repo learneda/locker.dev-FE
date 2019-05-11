@@ -10,17 +10,9 @@ import Meetups from '../../components/social/Meetups';
 import Sidebar from '../../components/sidebar/Sidebar';
 import RecommendedFollow from '../../components/sidebar/RecommendedFollow';
 import { customWrapper } from '../../components/mixins';
-import { setSocialTabIndex } from '../../actions';
 
 const Social = props => {
-  const {
-    userId,
-    following,
-    followers,
-    suggested,
-    index,
-    setSocialTabIndex,
-  } = props;
+  const { userId, following, followers, suggested, index } = props;
   return (
     <Container>
       <Sidebar />
@@ -85,7 +77,7 @@ const mapStateToProps = ({ auth, social, follow }) => ({
 
 export default connect(
   mapStateToProps,
-  { setSocialTabIndex }
+  null
 )(Social);
 
 const theme = {

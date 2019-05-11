@@ -1,31 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import youtube from '../../apis/youtube';
+import axios from 'axios';
 import styled from 'styled-components';
 import { customLayout, truncateText } from '../mixins';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
 import { useDebouncedCallback } from 'use-debounce';
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg';
+import { post as URL } from '../../services/baseURL';
+axios.defaults.withCredentials = true;
 
-const Videos = ({ search, handleSaveMedia, alert }) => {
+const Books = ({ search, handleSaveMedia, alert }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [videos, setVideos] = useState([]);
-  const [pageToken, setPageToken] = useState(null);
-
-  const fetchMoreData = () => {
-    youtube
-      .get('/search', {
-        params: {
-          q: search || 'javascript',
-          pageToken,
-        },
-      })
-      .then(res => {
-        setVideos(prevVideos => [...prevVideos, ...res.data.items]);
-        setPageToken(res.data.nextPageToken);
-      });
-  };
+  const [books, setBooks] = useState([]);
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
     setIsLoading(true);
@@ -33,18 +21,35 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
   }, [search]);
 
   const [debouncedFunction] = useDebouncedCallback(query => {
-    youtube
-      .get('/search', {
+    axios
+      .get(`${URL}/api/google/search`, {
         params: {
           q: query || 'javascript',
         },
       })
       .then(res => {
-        setVideos(res.data.items);
-        setPageToken(res.data.nextPageToken);
+        console.log(res.data);
+        setBooks(res.data);
+        setOffset(0);
         setIsLoading(false);
+      })
+      .catch(err => console.log(err));
+  }, 1000);
+
+  const fetchMoreData = () => {
+    const limit = 12;
+    axios
+      .get(`${URL}/api/google/search`, {
+        params: {
+          q: search || 'javascript',
+          offset,
+        },
+      })
+      .then(res => {
+        setBooks(prevBooks => [...prevBooks, ...res.data]);
+        setOffset(offset + limit);
       });
-  }, 1500);
+  };
 
   const renderLoader = () => (
     <Loader>
@@ -52,9 +57,9 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
     </Loader>
   );
 
-  const renderVideos = () => (
+  const renderBooks = () => (
     <InfiniteScroll
-      dataLength={videos.length}
+      dataLength={books.length}
       next={fetchMoreData}
       hasMore={true}
       style={{
@@ -63,13 +68,9 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
         justifyContent: 'space-between',
       }}
     >
-      {videos.map((video, index) => (
+      {books.map((book, index) => (
         <Card key={index}>
-          <a
-            href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
+          <a href={book.link} target='_blank' rel='noopener noreferrer'>
             <div
               style={{
                 overflow: 'hidden',
@@ -77,7 +78,7 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
                 position: 'relative',
               }}
             >
-              <iframe
+              <img
                 style={{
                   border: '0px',
                   height: '100%',
@@ -86,34 +87,27 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
                   top: '0px',
                   width: '100%',
                 }}
-                frameBorder='0'
                 width='560'
                 height='315'
-                title={video.title}
-                src={`https://www.youtube.com/embed/${video.id.videoId}`}
-                allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-                allowFullScreen
+                alt={book.title}
+                src={book.thumbnail}
               />
             </div>
-            <h3 style={{ marginTop: '20px' }}>
-              {truncateText(video.snippet.title)}
-            </h3>
-            <p>{truncateText(video.snippet.description, 15)}</p>
+            <h3 style={{ marginTop: '20px' }}>{truncateText(book.title)}</h3>
+            <p>{book.description}</p>
           </a>
           <SaveIcon>
             <Add
               className='save-icon'
               onClick={() => {
                 handleSaveMedia({
-                  type: 'video',
-                  post_url: `https://www.youtube.com/watch?v=${
-                    video.id.videoId
-                  }`,
-                  title: video.snippet.title,
-                  description: video.snippet.description,
-                  thumbnail_url: video.snippet.thumbnails.medium.url,
+                  type: 'book',
+                  post_url: book.link,
+                  title: book.title,
+                  description: book.description,
+                  thumbnail_url: book.thumbnail,
                 });
-                alert.success('Article added to Bookmarks');
+                alert.success('Book added to Bookmarks');
               }}
             />
           </SaveIcon>
@@ -121,8 +115,8 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
       ))}
     </InfiniteScroll>
   );
-
-  return <Cards>{isLoading ? renderLoader() : renderVideos()}</Cards>;
+  console.log('BOOKS', books);
+  return <Cards>{isLoading ? renderLoader() : renderBooks()}</Cards>;
 };
 
 const mapStateToProps = ({ searchTerm }) => ({
@@ -132,7 +126,7 @@ const mapStateToProps = ({ searchTerm }) => ({
 export default connect(
   mapStateToProps,
   null
-)(Videos);
+)(Books);
 
 const Loader = styled.div`
   margin: 75px auto;
@@ -153,6 +147,7 @@ const Cards = styled.div`
 `;
 
 const Card = styled.div`
+  overflow-y: hidden;
   position: relative;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 6px;
@@ -185,13 +180,12 @@ const Card = styled.div`
     border-top-left-radius: 5px;
     width: 100%;
     height: 180px;
-    object-fit: cover;
+    object-fit: contain;
+    padding: 10px;
   }
 
   h3 {
-    // border: 1px solid red;
-    height: 50px;
-    margin: 10px 0;
+    margin: 0px 0 10px;
     padding: 0 3%;
     font-size: 1.8rem;
     font-weight: 700;
@@ -201,11 +195,12 @@ const Card = styled.div`
   }
 
   p {
-    padding: 0 3%;
-    height: 45px;
-    font-size: 1.2rem;
+    padding: 0 4%;
+    font-size: 1.5rem;
     line-height: 20px;
     color: #6d767e;
+    height: 60px;
+    overflow-y: hidden;
   }
 `;
 
