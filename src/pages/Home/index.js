@@ -20,12 +20,14 @@ class Home extends Component {
         <Wrapper>
           <Grommet theme={theme}>
             <Tabs>
-              <Tab
-                className={
-                  this.props.location.pathname === '/home' ? 'active' : null
-                }
-              >
-                <NavLink exact to='/home/feed'>
+              <Tab>
+                <NavLink
+                  exact
+                  to='/home/feed'
+                  className={
+                    this.props.location.pathname === '/home' ? 'active' : null
+                  }
+                >
                   Feed
                 </NavLink>
               </Tab>
@@ -139,8 +141,9 @@ const Tabs = styled.ul`
   width: 100%;
   margin-left: -5px;
   .active {
-    border-bottom: 3px solid #222;
+    border-bottom: 3px solid #4064f2;
     font-weight: 900;
+    color: #4064f2;
   }
 `;
 
