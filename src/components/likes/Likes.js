@@ -33,7 +33,7 @@ class Likes extends Component {
       // If user doesn't have liked posts
       if (likedPostsById.length === 0) {
         return (
-          <NoPostScreen textDescription="No courses or articles have been recommended yet." />
+          <NoPostScreen textDescription='No courses or articles have been recommended yet.' />
         );
       }
 
@@ -57,7 +57,7 @@ class Likes extends Component {
         return (
           <HelpScreen
             imgSource={LoveItSVG}
-            headerText="Your recommended courses and articles will be stored here."
+            headerText='Your recommended courses and articles will be stored here.'
           />
         );
       }
@@ -81,7 +81,7 @@ const mapStateToProps = ({ likedPosts, auth }) => ({ likedPosts, auth });
 export default withRouter(
   connect(
     mapStateToProps,
-    { getlikedPosts, fetchUser }
+    { fetchUser }
   )(Likes)
 );
 
@@ -89,16 +89,16 @@ export default withRouter(
 const SinglePost = ({ post, handleTruncateText }) => {
   return (
     <Post key={post.id}>
-      <a href={post.post_url} target="_blank" rel="noopener noreferrer">
-        <img src={post.thumbnail_url} alt="" />
+      <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
+        <img src={post.thumbnail_url} alt='' />
       </a>
-      <div className="post-content">
-        <a href={post.post_url} target="_blank" rel="noopener noreferrer">
+      <div className='post-content'>
+        <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
           <h1>{handleTruncateText(post.title)}</h1>
         </a>
         <p>{handleTruncateText(post.description, 15)}</p>
-        <div className="date-like-heart">
-          <span className="formatted-date">
+        <div className='date-like-heart'>
+          <span className='formatted-date'>
             Added <Moment fromNow>{post.created_at}</Moment>
           </span>
         </div>
