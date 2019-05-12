@@ -14,10 +14,10 @@ import { customWrapper } from '../../components/mixins';
 const Social = props => {
   const { userId, following, followers, suggested, index } = props;
   return (
-    <Container>
-      <Sidebar />
-      <Wrapper>
-        <Grommet theme={theme}>
+    <Grommet>
+      <Container>
+        <Sidebar />
+        <Wrapper>
           <Tabs>
             <Tab>
               <NavLink to='/social/following'>Following</NavLink>
@@ -39,19 +39,19 @@ const Social = props => {
                 exact
                 path={['/social/', '/social/following']}
                 render={props => (
-                  <Following userId={userId} following={following} {...props} />
+                  <Following {...props} userId={userId} following={following} />
                 )}
               />
               <Route
                 path='/social/followers'
                 render={props => (
-                  <Followers userId={userId} followers={followers} {...props} />
+                  <Followers {...props} userId={userId} followers={followers} />
                 )}
               />
               <Route
                 path='/social/suggested'
                 render={props => (
-                  <Suggested userId={userId} suggested={suggested} {...props} />
+                  <Suggested {...props} userId={userId} suggested={suggested} />
                 )}
               />
               <Route
@@ -60,10 +60,9 @@ const Social = props => {
               />
             </Switch>
           </TabWrapper>
-        </Grommet>
-      </Wrapper>
-      {index === 3 ? <RecommendedFollow /> : null}
-    </Container>
+        </Wrapper>
+      </Container>
+    </Grommet>
   );
 };
 
@@ -79,35 +78,6 @@ export default connect(
   mapStateToProps,
   null
 )(Social);
-
-const theme = {
-  tab: {
-    color: 'dark-1',
-    active: {
-      weight: 'bold',
-    },
-    border: {
-      side: 'bottom',
-      size: 'medium',
-      color: {
-        light: null,
-      },
-      active: {
-        color: {
-          light: 'dark-1',
-        },
-      },
-      hover: {
-        color: {
-          light: null,
-        },
-      },
-      margin: {
-        bottom: '30px',
-      },
-    },
-  },
-};
 
 const Container = styled.div`
   ${customWrapper('80%', '0 auto')}

@@ -1,5 +1,5 @@
-import GlobalStyle from './cssReset.js'
-export default GlobalStyle
+import GlobalStyle from './cssReset.js';
+export default GlobalStyle;
 // variables
 export const bgColor = '#e6e9f3';
 export const hoverBg = '#d3d7e7';
@@ -11,11 +11,7 @@ export const customLayout = (justify = 'flex-start', align = 'flex-start') =>
   justify-content: ${justify};
   align-items: ${align};`;
 
-export const customWrapper = (
-  width = '100%',
-  margin = 0
-  // maxWidth = '1200px'
-) =>
+export const customWrapper = (width = '100%', margin = 0) =>
   `width: ${width};
   margin: ${margin};`;
 

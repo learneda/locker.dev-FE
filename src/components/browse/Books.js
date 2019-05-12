@@ -22,13 +22,12 @@ const Books = ({ search, handleSaveMedia, alert }) => {
 
   const [debouncedFunction] = useDebouncedCallback(query => {
     axios
-      .get(`${URL}/api/google/search`, {
+      .get(`${URL}/api/books/search`, {
         params: {
           q: query || 'javascript',
         },
       })
       .then(res => {
-        console.log(res.data);
         setBooks(res.data);
         setOffset(0);
         setIsLoading(false);
@@ -39,7 +38,7 @@ const Books = ({ search, handleSaveMedia, alert }) => {
   const fetchMoreData = () => {
     const limit = 12;
     axios
-      .get(`${URL}/api/google/search`, {
+      .get(`${URL}/api/books/search`, {
         params: {
           q: search || 'javascript',
           offset,
@@ -68,54 +67,56 @@ const Books = ({ search, handleSaveMedia, alert }) => {
         justifyContent: 'space-between',
       }}
     >
-      {books.map((book, index) => (
-        <Card key={index}>
-          <a href={book.link} target='_blank' rel='noopener noreferrer'>
-            <div
-              style={{
-                overflow: 'hidden',
-                paddingTop: '56.25%',
-                position: 'relative',
-              }}
-            >
-              <img
+      {books.map((book, index) => {
+        return (
+          <Card key={index}>
+            <a href={book.link} target='_blank' rel='noopener noreferrer'>
+              <div
                 style={{
-                  border: '0px',
-                  height: '100%',
-                  left: '0px',
-                  position: 'absolute',
-                  top: '0px',
-                  width: '100%',
+                  overflow: 'hidden',
+                  paddingTop: '56.25%',
+                  position: 'relative',
                 }}
-                width='560'
-                height='315'
-                alt={book.title}
-                src={book.thumbnail}
+              >
+                <img
+                  style={{
+                    border: '0px',
+                    height: '100%',
+                    left: '0px',
+                    position: 'absolute',
+                    top: '0px',
+                    width: '100%',
+                  }}
+                  width='560'
+                  height='315'
+                  alt={book.title}
+                  src={book.thumbnail}
+                />
+              </div>
+              <h3 style={{ marginTop: '20px' }}>{truncateText(book.title)}</h3>
+              <p>{book.description}</p>
+            </a>
+            <SaveIcon>
+              <Add
+                className='save-icon'
+                onClick={() => {
+                  handleSaveMedia({
+                    type: 'book',
+                    post_url: book.link,
+                    title: book.title,
+                    description: book.description,
+                    thumbnail_url: book.thumbnail,
+                  });
+                  alert.success('Book added to Bookmarks');
+                }}
               />
-            </div>
-            <h3 style={{ marginTop: '20px' }}>{truncateText(book.title)}</h3>
-            <p>{book.description}</p>
-          </a>
-          <SaveIcon>
-            <Add
-              className='save-icon'
-              onClick={() => {
-                handleSaveMedia({
-                  type: 'book',
-                  post_url: book.link,
-                  title: book.title,
-                  description: book.description,
-                  thumbnail_url: book.thumbnail,
-                });
-                alert.success('Book added to Bookmarks');
-              }}
-            />
-          </SaveIcon>
-        </Card>
-      ))}
+            </SaveIcon>
+          </Card>
+        );
+      })}
     </InfiniteScroll>
   );
-  console.log('BOOKS', books);
+
   return <Cards>{isLoading ? renderLoader() : renderBooks()}</Cards>;
 };
 

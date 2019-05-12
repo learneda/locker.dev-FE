@@ -180,19 +180,17 @@ export const setSocialTabIndex = index => ({
   payload: index,
 });
 
-export const populateNotifications = NotificationsArr => dispatch => {
-  dispatch({ type: FETCH_NOTIFICATIONS, payload: NotificationsArr });
-};
+export const populateNotifications = NotificationsArr => ({
+  type: FETCH_NOTIFICATIONS,
+  payload: NotificationsArr,
+});
 
 export const readNotifications = () => async dispatch => {
   await axios.post(`${URL}/api/notifications/read`);
 };
 
 export const deleteNotifications = () => async dispatch => {
-  const res = await axios.delete(`${URL}/api/notifications/clear`);
-  console.log(res);
-  // if (res.data) {
+  await axios.delete(`${URL}/api/notifications/clear`);
 
-  // }
   dispatch({ type: CLEAR_NOTIFICATIONS });
 };

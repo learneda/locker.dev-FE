@@ -45,7 +45,7 @@ const App = ({ fetchUser, modal, getPosts }) => {
       <GlobalStyle />
       <Navbar />
       <Switch>
-        <Route component={home(LandingPage)} exact path='/' />
+        <Route component={home(LandingPage)} path='/' exact />
         <Route component={index(Home)} path='/home' />
         <Route component={index(Browse)} path='/browse' />
         <Route component={index(Social)} path='/social' />
