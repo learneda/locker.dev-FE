@@ -8,11 +8,10 @@ import LoveItSVG from '../../assets/svg/love-it-drawing.svg';
 
 import { truncateText } from '../mixins';
 import { Wrapper, Post } from '../bookmarks';
-import { getlikedPosts, fetchUser } from '../../actions';
+import { fetchUser } from '../../actions';
 
 class Likes extends Component {
   componentDidMount = () => {
-    this.props.getlikedPosts();
     this.props.fetchUser();
   };
 
