@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import { positions } from 'react-alert';
 import { ReactComponent as X } from '../../assets/svg/x.svg';
 
 export default function Alert({ message, close }) {
@@ -15,11 +15,16 @@ export default function Alert({ message, close }) {
   );
 }
 
+export const options = {
+  position: positions.BOTTOM_CENTER,
+  timeout: 3000,
+};
+
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: rgb(3, 177, 45, 0.85);
+  background-color: rgba(3, 177, 45, 0.85);
   color: white;
   cursor: pointer;
   font-weight: 500;

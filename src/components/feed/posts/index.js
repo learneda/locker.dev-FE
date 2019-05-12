@@ -6,7 +6,7 @@ import axios from 'axios';
 import { post as URL } from '../../../services/baseURL';
 import addIcon from '../../../assets/svg/add-icon.svg';
 import { withAlert } from 'react-alert';
-
+import { truncateText } from '../../mixins/';
 class PostContainer extends Component {
   constructor(props) {
     super(props);
@@ -92,7 +92,7 @@ class PostContainer extends Component {
         </div>
       );
     } else {
-      return <img src={`${thumbnail_url}`} alt='post_thumbnail' />;
+      return <img src={thumbnail_url} alt='post_thumbnail' />;
     }
   };
 
@@ -135,7 +135,7 @@ class PostContainer extends Component {
             <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
               <h2>{post.title}</h2>
             </a>
-            <p>{post.description}</p>
+            <p>{truncateText(post.description, 40)}</p>
             <a
               className='post-root-url'
               href={post.post_url}

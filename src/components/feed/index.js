@@ -139,7 +139,6 @@ class Feed extends Component {
     axios
       .get(`${URL}/api/users/newsfeed?offset=${offset}`)
       .then(res => {
-        console.log(' 🦄 posts', res);
         this.setState({ posts: res.data, loading: false });
       })
       .catch(err => console.log(err));

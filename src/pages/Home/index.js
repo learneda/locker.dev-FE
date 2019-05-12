@@ -13,12 +13,11 @@ import { setHomeTabIndex } from '../../actions';
 
 class Home extends Component {
   render() {
-    console.log(this.props.location.pathname);
     return (
-      <Container>
-        <Sidebar />
-        <Wrapper>
-          <Grommet theme={theme}>
+      <Grommet theme={theme}>
+        <Container>
+          <Sidebar />
+          <Wrapper>
             <Tabs>
               <Tab>
                 <NavLink
@@ -55,10 +54,10 @@ class Home extends Component {
                 />
               </Switch>
             </TabWrapper>
-          </Grommet>
-        </Wrapper>
-        <RecommendedFollow />
-      </Container>
+          </Wrapper>
+          <RecommendedFollow />
+        </Container>
+      </Grommet>
     );
   }
 }

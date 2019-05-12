@@ -8,11 +8,10 @@ import Followers from '../../components/social/Followers';
 import Suggested from '../../components/social/Suggested';
 import Meetups from '../../components/social/Meetups';
 import Sidebar from '../../components/sidebar/Sidebar';
-import RecommendedFollow from '../../components/sidebar/RecommendedFollow';
 import { customWrapper } from '../../components/mixins';
 
 const Social = props => {
-  const { userId, following, followers, suggested, index } = props;
+  const { userId, following, followers, suggested } = props;
   return (
     <Grommet>
       <Container>
@@ -32,7 +31,6 @@ const Social = props => {
               <NavLink to='/social/meetups'>Meetups</NavLink>
             </Tab>
           </Tabs>
-
           <TabWrapper>
             <Switch>
               <Route
@@ -54,10 +52,7 @@ const Social = props => {
                   <Suggested {...props} userId={userId} suggested={suggested} />
                 )}
               />
-              <Route
-                path='/social/meetups'
-                render={props => <Meetups {...props} />}
-              />
+              <Route path='/social/meetups' component={Meetups} />
             </Switch>
           </TabWrapper>
         </Wrapper>
@@ -66,8 +61,7 @@ const Social = props => {
   );
 };
 
-const mapStateToProps = ({ auth, social, follow }) => ({
-  index: social.index,
+const mapStateToProps = ({ auth, follow }) => ({
   userId: auth.id,
   following: follow.userFollowing,
   followers: follow.userFollowers,
