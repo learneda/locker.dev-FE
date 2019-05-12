@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Grommet, Tab, Tabs } from 'grommet';
+import { NavLink, Route, Switch } from 'react-router-dom';
+import { Grommet } from 'grommet';
 import styled from 'styled-components';
 import Following from '../../components/social/Following';
 import Followers from '../../components/social/Followers';
@@ -9,52 +10,59 @@ import Meetups from '../../components/social/Meetups';
 import Sidebar from '../../components/sidebar/Sidebar';
 import RecommendedFollow from '../../components/sidebar/RecommendedFollow';
 import { customWrapper } from '../../components/mixins';
-import { setSocialTabIndex } from '../../actions';
 
 const Social = props => {
-  const {
-    userId,
-    following,
-    followers,
-    suggested,
-    index,
-    setSocialTabIndex,
-  } = props;
+  const { userId, following, followers, suggested, index } = props;
   return (
-    <Container>
-      <Sidebar />
-      <Wrapper>
-        <Grommet theme={theme}>
-          <Tabs
-            activeIndex={index}
-            onActive={setSocialTabIndex}
-            justify='start'
-          >
-            <Tab title='Following'>
-              <TabWrapper>
-                <Following userId={userId} following={following} />
-              </TabWrapper>
+    <Grommet>
+      <Container>
+        <Sidebar />
+        <Wrapper>
+          <Tabs>
+            <Tab>
+              <NavLink to='/social/following'>Following</NavLink>
             </Tab>
-            <Tab title='Followers'>
-              <TabWrapper>
-                <Followers userId={userId} followers={followers} />
-              </TabWrapper>
+            <Tab>
+              <NavLink to='/social/followers'>Followers</NavLink>
             </Tab>
-            <Tab title='Suggested'>
-              <TabWrapper>
-                <Suggested userId={userId} suggested={suggested} />
-              </TabWrapper>
+            <Tab>
+              <NavLink to='/social/suggested'>Suggested</NavLink>
             </Tab>
-            <Tab title='Meetups'>
-              <TabWrapper>
-                <Meetups />
-              </TabWrapper>
+            <Tab>
+              <NavLink to='/social/meetups'>Meetups</NavLink>
             </Tab>
           </Tabs>
-        </Grommet>
-      </Wrapper>
-      {index === 3 ? <RecommendedFollow /> : null}
-    </Container>
+
+          <TabWrapper>
+            <Switch>
+              <Route
+                exact
+                path={['/social/', '/social/following']}
+                render={props => (
+                  <Following {...props} userId={userId} following={following} />
+                )}
+              />
+              <Route
+                path='/social/followers'
+                render={props => (
+                  <Followers {...props} userId={userId} followers={followers} />
+                )}
+              />
+              <Route
+                path='/social/suggested'
+                render={props => (
+                  <Suggested {...props} userId={userId} suggested={suggested} />
+                )}
+              />
+              <Route
+                path='/social/meetups'
+                render={props => <Meetups {...props} />}
+              />
+            </Switch>
+          </TabWrapper>
+        </Wrapper>
+      </Container>
+    </Grommet>
   );
 };
 
@@ -68,37 +76,8 @@ const mapStateToProps = ({ auth, social, follow }) => ({
 
 export default connect(
   mapStateToProps,
-  { setSocialTabIndex }
+  null
 )(Social);
-
-const theme = {
-  tab: {
-    color: 'dark-1',
-    active: {
-      weight: 'bold',
-    },
-    border: {
-      side: 'bottom',
-      size: 'medium',
-      color: {
-        light: null,
-      },
-      active: {
-        color: {
-          light: 'dark-1',
-        },
-      },
-      hover: {
-        color: {
-          light: null,
-        },
-      },
-      margin: {
-        bottom: '30px',
-      },
-    },
-  },
-};
 
 const Container = styled.div`
   ${customWrapper('80%', '0 auto')}
@@ -127,4 +106,12 @@ const TabWrapper = styled.div`
   border-top: 1px solid #bdbdbd;
   padding-top: 20px;
   margin-top: -3px;
+`;
+
+const Tabs = styled.ul`
+  display: flex;
+`;
+
+const Tab = styled.li`
+  margin-right: 2rem;
 `;

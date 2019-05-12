@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Grommet, Tab, Tabs } from 'grommet';
+import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
+import { Grommet } from 'grommet';
 import styled from 'styled-components';
 import Feed from '../../components/feed';
 import Bookmarks from '../../components/bookmarks';
@@ -12,32 +13,48 @@ import { setHomeTabIndex } from '../../actions';
 
 class Home extends Component {
   render() {
+    console.log(this.props.location.pathname);
     return (
       <Container>
         <Sidebar />
         <Wrapper>
           <Grommet theme={theme}>
-            <Tabs
-              activeIndex={this.props.index}
-              onActive={this.props.setHomeTabIndex}
-              justify='start'
-            >
-              <Tab title='Feed'>
-                <TabWrapper>
-                  <Feed />
-                </TabWrapper>
+            <Tabs>
+              <Tab>
+                <NavLink
+                  exact
+                  to='/home/feed'
+                  className={
+                    this.props.location.pathname === '/home' ? 'active' : null
+                  }
+                >
+                  Feed
+                </NavLink>
               </Tab>
-              <Tab title='Bookmarks'>
-                <TabWrapper>
-                  <Bookmarks />
-                </TabWrapper>
+              <Tab>
+                <NavLink to='/home/bookmarks'>Bookmarks</NavLink>
               </Tab>
-              <Tab title='Likes'>
-                <TabWrapper>
-                  <Likes />
-                </TabWrapper>
+              <Tab>
+                <NavLink to='/home/likes'>Likes</NavLink>
               </Tab>
             </Tabs>
+            <TabWrapper>
+              <Switch>
+                <Route
+                  exact
+                  path={['/home', '/home/feed']}
+                  render={props => <Feed {...props} />}
+                />
+                <Route
+                  path='/home/bookmarks'
+                  render={props => <Bookmarks {...props} />}
+                />
+                <Route
+                  path='/home/likes'
+                  render={props => <Likes {...props} />}
+                />
+              </Switch>
+            </TabWrapper>
           </Grommet>
         </Wrapper>
         <RecommendedFollow />
@@ -48,10 +65,12 @@ class Home extends Component {
 
 const mapStateToProps = ({ home }) => ({ index: home.index });
 
-export default connect(
-  mapStateToProps,
-  { setHomeTabIndex }
-)(Home);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { setHomeTabIndex }
+  )(Home)
+);
 
 const theme = {
   tab: {
@@ -109,4 +128,39 @@ const TabWrapper = styled.div`
   border-top: 1px solid #bdbdbd;
   padding-top: 20px;
   margin-top: -3px;
+  @media (max-width: 900px) {
+    margin-top: 20px;
+  }
+`;
+
+const Tabs = styled.ul`
+  display: flex;
+  position: fixed;
+  height: 135px;
+  background: rgb(230, 233, 243);
+  z-index: 2;
+  top: 0;
+  align-items: flex-end;
+  width: 100%;
+  margin-left: -5px;
+  padding-bottom: 5px;
+  /* border-bottom: 3px solid transparent; */
+  .active {
+    border-bottom: 3px solid #4064f2;
+    font-weight: 900;
+    color: #4064f2;
+  }
+  @media (max-width: 900px) {
+    height: 120px;
+  }
+  @media (max-width: 760px) {
+    height: 100px;
+    padding-bottom: 0px;
+  }
+`;
+
+const Tab = styled.li`
+  margin-right: 2rem;
+  margin-bottom: 9px;
+  margin-left: 5px;
 `;

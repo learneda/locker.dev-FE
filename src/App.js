@@ -10,21 +10,24 @@ import Social from './pages/Social';
 import Settings from './pages/Settings';
 import NoMatch from './pages/NoMatch';
 import Profile from './pages/Profile';
-import SinglePost from './pages/SinglePost/SinglePost'
+import SinglePost from './pages/SinglePost/SinglePost';
 import Navbar from './components/navigation/Navbar';
 import { customContainer } from './components/mixins';
 import { composedIndexRedirect as index } from './components/authentication/indexRedirect';
 import { composedHomeRedirect as home } from './components/authentication/homeRedirect';
 import useInterval from './components/hooks/useInterval';
-import { fetchUser } from './actions';
+import { fetchUser, getPosts } from './actions';
 
-const App = ({ fetchUser, modal }) => {
+const App = ({ fetchUser, modal, getPosts }) => {
   const { isAuthOpen, isEditOpen } = modal;
 
   useEffect(() => {
     // initial fetch user when you refresh browser
     fetchUser();
-  }, [fetchUser]);
+
+    // gets bookmarks only on first site load
+    getPosts();
+  }, [fetchUser, getPosts]);
 
   useInterval(() => {
     // fetches user information every 5 minutes to reduce number of server requests
@@ -42,7 +45,7 @@ const App = ({ fetchUser, modal }) => {
       <GlobalStyle />
       <Navbar />
       <Switch>
-        <Route component={home(LandingPage)} exact path='/' />
+        <Route component={home(LandingPage)} path='/' exact />
         <Route component={index(Home)} path='/home' />
         <Route component={index(Browse)} path='/browse' />
         <Route component={index(Social)} path='/social' />
@@ -60,7 +63,7 @@ const mapStateToProps = ({ modal }) => ({ modal });
 export default withRouter(
   connect(
     mapStateToProps,
-    { fetchUser }
+    { fetchUser, getPosts }
   )(App)
 );
 

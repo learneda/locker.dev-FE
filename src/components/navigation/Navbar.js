@@ -49,11 +49,6 @@ class Navbar extends Component {
                   <span>Browse</span>
                 </NavLink>
               </li>
-              <li>
-                <NavLink to='/social' activeClassName='active'>
-                  <span>Social</span>
-                </NavLink>
-              </li>
             </ul>
 
             <Search />
@@ -243,7 +238,7 @@ const NavRight = styled.div`
   align-items: center;
   span {
     padding: 10px;
-    margin-right: 20px;
+    margin: 0 20px;
     font-weight: 700;
     border: transparent;
     border-radius: 5px;
@@ -256,6 +251,9 @@ const NavRight = styled.div`
       border-radius: 5px;
       background-color: #3059f3;
     }
+  }
+  .bell-icon {
+    cursor: pointer;
   }
 `;
 

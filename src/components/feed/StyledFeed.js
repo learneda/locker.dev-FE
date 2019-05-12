@@ -5,6 +5,7 @@ export const StyledFeed = () =>
   margin-bottom: 40px;
   border-radius: 8px;
   background: #fff;
+  margin-top: 25px;
 }
 .post-user-info {
   display: flex;
@@ -99,6 +100,18 @@ export const StyledFeed = () =>
   p {
     opacity: 0.8;
     line-height: 1.6;
+    @media(max-width: 500px) {
+      font-size: 1.6rem;
+    }
+  }
+  .post-root-url {
+    display: inline-block;
+    opacity: 0.8;
+    margin-bottom: 10px;
+    font-size: 1.7rem;
+    &:hover {
+      opacity: 1;
+    }
     @media(max-width: 500px) {
       font-size: 1.6rem;
     }

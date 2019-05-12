@@ -40,24 +40,59 @@ function Search(props) {
     };
   }, []);
 
-  const displayHomeSearchComponent = () => {
-    const Tabs = ['Feed', 'Bookmarks', 'Likes', 'Friends'];
-    return (
-      <TextInput
-        size='small'
-        placeholder={
-          toggle ? 'Search Users' : `Search ${Tabs[props.homeIndex]}`
-        }
-        value={toggle ? search : props.searchTerm}
-        onChange={handleSearch}
-        id='search-input'
-      />
-    );
-  };
-
-  const displayBrowseSearchComponent = () => {
-    const Tabs = ['Courses', 'Articles', 'Videos'];
-    const placeholder = Tabs[props.browseIndex];
+  //TODO: Make this DRY
+  const displaySearch = () => {
+    let placeholder;
+    const path = props.location.pathname;
+    switch (path) {
+      case '/home':
+        placeholder = 'Feed';
+        break;
+      case '/home/feed':
+        placeholder = 'Feed';
+        break;
+      case '/home/bookmarks':
+        placeholder = 'Bookmarks';
+        break;
+      case '/home/likes':
+        placeholder = 'Likes';
+        break;
+      case '/browse':
+        placeholder = 'Courses';
+        break;
+      case '/browse/courses':
+        placeholder = 'Courses';
+        break;
+      case '/browse/articles':
+        placeholder = 'Articles';
+        break;
+      case '/browse/videos':
+        placeholder = 'Videos';
+        break;
+      case '/browse/books':
+        placeholder = 'Books';
+        break;
+      case '/browse/podcasts':
+        placeholder = 'Podcasts';
+        break;
+      case '/social':
+        placeholder = 'Following';
+        break;
+      case '/social/following':
+        placeholder = 'Following';
+        break;
+      case '/social/followers':
+        placeholder = 'Followers';
+        break;
+      case '/social/suggested':
+        placeholder = 'Suggested';
+        break;
+      case '/social/meetups':
+        placeholder = 'Meetups';
+        break;
+      default:
+        return;
+    }
     return (
       <TextInput
         size='small'
@@ -68,21 +103,6 @@ function Search(props) {
       />
     );
   };
-
-  const displayProfileSearchComponent = () => {
-    const Tabs = ['Bookmarks', 'Likes'];
-    const placeholder = Tabs[props.profileIndex];
-    return (
-      <TextInput
-        size='small'
-        placeholder={toggle ? 'Search Users' : `Search ${placeholder}`}
-        value={toggle ? search : props.searchTerm}
-        onChange={handleSearch}
-        id='search-input'
-      />
-    );
-  };
-
   //todo: DRY-UP and CLEAN-UP SEARCH COMPONENT SELECTION
   return (
     <>
@@ -92,11 +112,7 @@ function Search(props) {
             <Toggle>
               <CheckBox toggle checked={toggle} onChange={handleChange} />
             </Toggle>
-            {props.location.pathname === '/home'
-              ? displayHomeSearchComponent()
-              : props.location.pathname === '/browse'
-              ? displayBrowseSearchComponent()
-              : displayProfileSearchComponent()}
+            {displaySearch()}
           </Container>
         </Grommet>
       </Wrapper>

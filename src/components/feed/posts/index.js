@@ -34,7 +34,7 @@ class PostContainer extends Component {
   }
 
   handleLikes = (e, post_id, post) => {
-    console.log(post.user_id)
+    console.log(post.user_id);
     const postOwnerId = post.user_id;
 
     let result = e.target.classList.contains('heart-red');
@@ -51,13 +51,49 @@ class PostContainer extends Component {
         user_id: this.props.user_id,
         action: 'like',
         postOwnerId,
-        username: this.props.username
+        username: this.props.username,
       };
       this.props.handleClick(data);
     }
   };
   handleSaveToProfile = url => {
     axios.post(`${URL}/api/posts`, { post_url: url, id: this.props.user_id });
+  };
+
+  displayMedia = post => {
+    const { post_url, thumbnail_url } = post;
+    if (post_url.includes('youtube.com/watch')) {
+      const videoId = post_url.split('=')[1];
+      return (
+        <div
+          style={{
+            overflow: 'hidden',
+            paddingTop: '56.25%',
+            position: 'relative',
+          }}
+        >
+          <iframe
+            style={{
+              border: '0px',
+              height: '100%',
+              left: '0px',
+              position: 'absolute',
+              top: '0px',
+              width: '100%',
+            }}
+            frameBorder='0'
+            width='560'
+            height='315'
+            title={videoId}
+            src={`https://www.youtube.com/embed/${videoId}`}
+            allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+            allowFullScreen
+          />
+        </div>
+      );
+    } else {
+      return <img src={`${thumbnail_url}`} alt='post_thumbnail' />;
+    }
   };
 
   render() {
@@ -92,7 +128,7 @@ class PostContainer extends Component {
         <div className='post-content'>
           {post.thumbnail_url ? (
             <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
-              <img src={`${post.thumbnail_url}`} alt='post_thumbnail' />
+              {this.displayMedia(post)}
             </a>
           ) : null}
           <div className='title-and-description'>
@@ -100,6 +136,14 @@ class PostContainer extends Component {
               <h2>{post.title}</h2>
             </a>
             <p>{post.description}</p>
+            <a
+              className='post-root-url'
+              href={post.post_url}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              {post.root_url}
+            </a>
           </div>
           <div className='likes-and-save'>
             <i

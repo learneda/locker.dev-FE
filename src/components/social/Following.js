@@ -31,6 +31,7 @@ const Following = props => {
             <img src={ele.profile_picture} alt='friend' />
           </Link>
           <button onClick={() => handleUnfollow(ele.id)}>Unfollow</button>
+          {ele.bio ? <p>{ele.bio}</p> : <p>User has no bio.</p>}
         </div>
       ))}
     </StyledFollow>

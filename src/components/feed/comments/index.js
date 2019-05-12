@@ -47,7 +47,7 @@ class CommentBox extends Component {
                       <div className='comment-text'>
                         <h2>
                           <Link to={`/profile/${comment.user_id}`}>
-                            {comment.username} {console.log(comment)}
+                            {comment.username}
                             <span className='comment-date'>
                               <Moment fromNow>{comment.created_at}</Moment>:
                             </span>

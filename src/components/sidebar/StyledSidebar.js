@@ -78,6 +78,9 @@ top: 100px;
     /* flex-direction: column; */
     flex-wrap: wrap;
   }
+  a {
+    margin-right: 15px;
+  }
   ul {
     margin-bottom: 15px;
     cursor: pointer;
