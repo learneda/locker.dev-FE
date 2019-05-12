@@ -26,6 +26,6 @@ export const truncateText = (content, limit = 10) => {
   } else {
     content = content.split(' ').slice(0, limit);
     content = content.join(' ');
-    return content + '...';
+    return content + ' ...';
   }
 };
