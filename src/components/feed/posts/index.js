@@ -34,7 +34,6 @@ class PostContainer extends Component {
   }
 
   handleLikes = (e, post_id, post) => {
-    console.log(post.user_id);
     const postOwnerId = post.user_id;
 
     let result = e.target.classList.contains('heart-red');

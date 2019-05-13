@@ -13,7 +13,7 @@ import UserFollowers from '../../components/profile/UserFollowers';
 class UserProfile extends Component {
   render() {
     const id = this.props.match.params.id;
-    console.log(this.props.match.params.id);
+    // console.log(this.props.match.params.id);
     return (
       <Grommet theme={theme}>
         <Container>
