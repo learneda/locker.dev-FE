@@ -29,3 +29,14 @@ export const truncateText = (content, limit = 10) => {
     return content + ' ...';
   }
 };
+
+export const smartTruncate = (content, limit = 4, delimeter = '...') => {
+  return content.length <= limit
+    ? content
+    : content
+        .substr(0, limit)
+        .split(' ')
+        .slice(0, -1)
+        .concat(delimeter)
+        .join(' ');
+};
