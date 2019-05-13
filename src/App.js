@@ -1,4 +1,4 @@
-import React, { useEffect, lazy, Suspense } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -17,7 +17,8 @@ import { composedIndexRedirect as index } from './components/authentication/inde
 import { composedHomeRedirect as home } from './components/authentication/homeRedirect';
 import useInterval from './components/hooks/useInterval';
 import { fetchUser, getPosts } from './actions';
-import { ReactComponent as Loading } from './assets/svg/circles.svg';
+// import { ReactComponent as Loading } from './assets/svg/circles.svg';
+//? Should we implement route-based code-splitting?
 // const LandingPage = lazy(() => import('./pages/Landing'));
 // const Home = lazy(() => import('./pages/Home'));
 // const Browse = lazy(() => import('./pages/Browse'));

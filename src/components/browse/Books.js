@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
-import { customLayout, truncateText } from '../mixins';
+import { customLayout, smartTruncate } from '../mixins';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
 import { useDebouncedCallback } from 'use-debounce';
@@ -93,8 +93,10 @@ const Books = ({ search, handleSaveMedia, alert }) => {
                   src={book.thumbnail}
                 />
               </div>
-              <h3 style={{ marginTop: '20px' }}>{truncateText(book.title)}</h3>
-              <p>{book.description}</p>
+              <h3 style={{ marginTop: '20px' }}>
+                {smartTruncate(book.title, 75)}
+              </h3>
+              <p>{smartTruncate(book.description, 120)}</p>
             </a>
             <SaveIcon>
               <Add
@@ -186,6 +188,7 @@ const Card = styled.div`
   }
 
   h3 {
+    max-height: 50px;
     margin: 0px 0 10px;
     padding: 0 3%;
     font-size: 1.8rem;
@@ -197,20 +200,20 @@ const Card = styled.div`
 
   p {
     padding: 0 4%;
+    height: 60px;
     font-size: 1.5rem;
     line-height: 20px;
     color: #6d767e;
-    height: 60px;
-    overflow-y: hidden;
+    overflow: hidden;
   }
 `;
 
 const SaveIcon = styled.div`
   // border: 1px solid red;
-  ${customLayout('flex-end')}
+  /* ${customLayout('flex-end')} */
   position: absolute;
   right: 15px;
-  bottom: 15px;
+  bottom: 10px;
   opacity: 0.8;
   transition: 200ms ease-out;
   &:hover {

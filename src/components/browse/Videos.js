@@ -1,8 +1,8 @@
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import youtube from '../../apis/youtube';
 import styled from 'styled-components';
-import { customLayout, truncateText } from '../mixins';
+import { customLayout, smartTruncate } from '../mixins';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
 import { useDebouncedCallback } from 'use-debounce';
@@ -100,6 +100,7 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
               <img
                 onClick={() => showIframe(video.id.videoId)}
                 src={video.snippet.thumbnails.medium.url}
+                alt={video.title}
               />
             ) : (
               <iframe
@@ -146,9 +147,9 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
             rel='noopener noreferrer'
           >
             <h3 style={{ marginTop: '20px' }}>
-              {truncateText(video.snippet.title)}
+              {smartTruncate(video.snippet.title, 75)}
             </h3>
-            <p>{truncateText(video.snippet.description, 15)}</p>
+            <p>{smartTruncate(video.snippet.description, 80)}</p>
           </a>
           <SaveIcon>
             <Add
@@ -241,7 +242,7 @@ const Card = styled.div`
 
   h3 {
     // border: 1px solid red;
-    height: 50px;
+    max-height: 50px;
     margin: 10px 0;
     padding: 0 3%;
     font-size: 1.8rem;
@@ -252,20 +253,21 @@ const Card = styled.div`
   }
 
   p {
-    padding: 0 3%;
-    height: 45px;
-    font-size: 1.2rem;
+    padding: 0 4%;
+    height: 60px;
+    font-size: 1.5rem;
     line-height: 20px;
     color: #6d767e;
+    overflow: hidden;
   }
 `;
 
 const SaveIcon = styled.div`
   // border: 1px solid red;
-  ${customLayout('flex-end')}
+  /* ${customLayout('flex-end')} */
   position: absolute;
   right: 15px;
-  bottom: 15px;
+  bottom: 10px;
   opacity: 0.8;
   transition: 200ms ease-out;
   &:hover {

@@ -12,8 +12,8 @@ const Articles = props => {
           <Loading />
         </Loader>
       ) : (
-        articles.map(article => (
-          <Card key={article.created}>
+        articles.map((article, index) => (
+          <Card key={index}>
             <a href={article.url} target='_blank' rel='noopener noreferrer'>
               <img src={article.thumbnail} alt='article-thumbnail' />
 

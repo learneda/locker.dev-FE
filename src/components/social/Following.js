@@ -4,34 +4,28 @@ import { Link } from 'react-router-dom';
 import {
   followAUser,
   unfollowAUser,
-  getUserFollowing,
-  getUserFollowers,
   getUserProfileDetails,
 } from '../../actions';
 import { StyledFollow } from './StyledFollow';
-import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
 const Following = props => {
   const {
     userId,
     following,
-    followers,
     followAUser,
     unfollowAUser,
-    getUserFollowing,
-    getUserFollowers,
     getUserProfileDetails,
   } = props;
 
   const [toggles, setToggles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingIndex, setLoadingIndex] = useState(null);
   useEffect(() => {
     setToggles(Array(following.length).fill(true));
   }, [following]);
 
-  console.log(toggles, 'toggles', following);
-
   const handleFollow = async (friend_id, index) => {
     setIsLoading(true);
+    setLoadingIndex(index);
     await followAUser({ user_id: userId, friend_id: friend_id });
     setIsLoading(false);
 
@@ -43,6 +37,7 @@ const Following = props => {
 
   const handleUnfollow = async (friend_id, index) => {
     setIsLoading(true);
+    setLoadingIndex(index);
     await unfollowAUser({ user_id: userId, friend_id: friend_id });
     setIsLoading(false);
     setToggles(
@@ -56,7 +51,7 @@ const Following = props => {
   };
 
   const renderSuggestion = (id, index) => {
-    if (isLoading) {
+    if (isLoading && loadingIndex === index) {
       return <button style={{ width: '8.5rem' }}>...</button>;
     }
     const text = toggles[index] ? 'Unfollow' : 'Follow';
@@ -91,8 +86,6 @@ export default connect(
   {
     followAUser,
     unfollowAUser,
-    getUserFollowing,
-    getUserFollowers,
     getUserProfileDetails,
   }
 )(Following);

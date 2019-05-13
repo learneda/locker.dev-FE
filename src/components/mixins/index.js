@@ -34,6 +34,9 @@ export const truncateText = (content, limit = 10) => {
 //* Regex: multiple whitespace replace with single space
 //* (multiple whitespace screws with limit check)
 export const smartTruncate = (content, limit = 100, delimiter = '...') => {
+  if (!content) {
+    return content;
+  }
   return content.length <= limit
     ? content
     : content

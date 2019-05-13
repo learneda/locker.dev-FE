@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import listenAPI from '../../apis/listen';
 import styled from 'styled-components';
-import { customLayout, truncateText } from '../mixins';
+import { customLayout, smartTruncate } from '../mixins';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
 import { useDebouncedCallback } from 'use-debounce';
@@ -67,8 +67,8 @@ const Podcasts = ({ search, handleSaveMedia, alert }) => {
         <Card key={podcast.id}>
           <a href={podcast.audio} target='_blank' rel='noopener noreferrer'>
             <img src={podcast.image} alt='youtube' />
-            <h3>{truncateText(podcast.title_original)}</h3>
-            <p>{truncateText(podcast.description_original, 15)}</p>
+            <h3>{smartTruncate(podcast.title_original, 75)}</h3>
+            <p>{smartTruncate(podcast.description_original, 120)}</p>
           </a>
           <SaveIcon>
             <Add
@@ -157,7 +157,7 @@ const Card = styled.div`
 
   h3 {
     // border: 1px solid red;
-    height: 50px;
+    max-height:50px;
     margin: 10px 0;
     padding: 0 3%;
     font-size: 1.8rem;
@@ -168,19 +168,21 @@ const Card = styled.div`
   }
 
   p {
-    padding: 0 3%;
-    height: 45px;
-    font-size: 1.2rem;
+    padding: 0 4%;
+    height: 60px;
+    font-size: 1.5rem;
     line-height: 20px;
     color: #6d767e;
+    overflow: hidden;
   }
 `;
 
 const SaveIcon = styled.div`
   // border: 1px solid red;
-  ${customLayout('flex-end')}
-  margin-top: 15px;
-  padding: 0 4%;
+  /* ${customLayout('flex-end')} */
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
   opacity: 0.8;
   transition: 200ms ease-out;
   &:hover {

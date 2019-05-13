@@ -21,35 +21,41 @@ const Followers = props => {
   } = props;
 
   const [isLoading, setIsLoading] = useState(false);
-  const handleFollow = async friend_id => {
+  const [loadingIndex, setLoadingIndex] = useState(null);
+  const handleFollow = async (friend_id, index) => {
     setIsLoading(true);
+    setLoadingIndex(index);
     await followAUser({ user_id: userId, friend_id: friend_id });
-    await getUserFollowing(userId);
-    setIsLoading(false);
+    getUserFollowing(userId).then(response => setIsLoading(false));
     getUserProfileDetails(userId);
   };
 
-  const handleUnfollow = async friend_id => {
+  const handleUnfollow = async (friend_id, index) => {
     setIsLoading(true);
+    setLoadingIndex(index);
     await unfollowAUser({ user_id: userId, friend_id: friend_id });
-    getUserFollowing(userId);
-    setIsLoading(false);
+    getUserFollowing(userId).then(response => setIsLoading(false));
     getUserProfileDetails(userId);
   };
 
-  const handleClick = id => {
+  const handleClick = (id, index) => {
     const followingIds = following.map(ele => ele.id);
-    return followingIds.includes(id) ? handleUnfollow(id) : handleFollow(id);
+    return followingIds.includes(id)
+      ? handleUnfollow(id, index)
+      : handleFollow(id, index);
   };
 
-  const renderSuggestion = id => {
-    if (isLoading) {
+  const renderSuggestion = (id, index) => {
+    if (isLoading && loadingIndex === index) {
       return <button style={{ width: '8.5rem' }}>...</button>;
     }
     const followingIds = following.map(ele => ele.id);
     const text = followingIds.includes(id) ? 'Unfollow' : 'Follow';
     return (
-      <button style={{ width: '8.5rem' }} onClick={() => handleClick(id)}>
+      <button
+        style={{ width: '8.5rem' }}
+        onClick={() => handleClick(id, index)}
+      >
         {text}
       </button>
     );
@@ -63,7 +69,7 @@ const Followers = props => {
             <h2>{ele.username}</h2>
             <img src={ele.profile_picture} alt='fan' />
           </Link>
-          {renderSuggestion(ele.id)}
+          {renderSuggestion(ele.id, index)}
           {ele.bio ? <p>{ele.bio}</p> : <p>User has no bio.</p>}
         </div>
       ))}

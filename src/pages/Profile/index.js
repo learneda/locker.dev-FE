@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink, Route, Switch } from 'react-router-dom';
-import { Grommet, Tab, Tabs } from 'grommet';
+import { Grommet } from 'grommet';
 import styled from 'styled-components';
 import { setProfileTabIndex } from '../../actions';
-import Likes from '../../components/likes/Likes';
 import { customWrapper } from '../../components/mixins';
 import SidebarById from '../../components/sidebar/SidebarById';
 import ProfileById from '../../components/profile';
