@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import { Grommet, TextInput, TextArea } from 'grommet';
 import styled from 'styled-components';
-import axios from 'axios';
 import { customLayout, customWrapper } from '../../components/mixins';
-axios.defaults.withCredentials = true;
+import {post as URL}  from '../../services/baseURL'
 
 export default class Integrations extends Component {
-	// handleClick = (e) => {
-	//     e.preventDefault()
-	//     axios.get('http://localhost:8000/auth/goodreads')
-	// }
 	render() {
 		return (
 			<Wrapper>
@@ -19,7 +14,7 @@ export default class Integrations extends Component {
 							<div className="col-2">
 								<label>
 									GoodReads Api
-									<a href="http://localhost:8000/api/goodreads">
+									<a href={`${URL}/api/goodreads`}>
 										<button type="button">connect</button>
 									</a>
 								</label>
