@@ -91,7 +91,6 @@ const UserFollowing = props => {
           {ele.bio ? <p>{ele.bio}</p> : <p>User has no bio.</p>}
         </div>
       ))}
-      <h1>herro</h1>
     </StyledFollow>
   );
 };
