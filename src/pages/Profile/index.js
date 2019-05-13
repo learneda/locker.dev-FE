@@ -38,6 +38,7 @@ class UserProfile extends Component {
               <NavLink to={`/profile/${id}/following`}>Following</NavLink>
               <NavLink to={`/profile/${id}/followers`}>Followers</NavLink>
             </div>
+
             <TabWrapper>
               <Switch>
                 <Route
@@ -109,8 +110,26 @@ const Container = styled.div`
     width: 90%;
   }
   .tabs {
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    align-items: flex-end;
+    height: 135px;
+    display: flex;
+    background: rgb(230, 233, 243);
+    width: 100%;
+    padding-bottom: 5px;
+
     a {
       margin-right: 10px;
+      margin-right: 2rem;
+      margin-bottom: 9px;
+      margin-left: 12px;
+    }
+    .active {
+      border-bottom: 3px solid #4064f2;
+      font-weight: 900;
+      color: #4064f2;
     }
   }
 `;
@@ -125,7 +144,6 @@ const Wrapper = styled.div`
 `;
 
 const TabWrapper = styled.div`
-  border-top: 1px solid #bdbdbd;
   padding-top: 20px;
   margin-top: -3px;
   margin-left: 12px;
