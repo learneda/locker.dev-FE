@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import {
   followAUser,
@@ -20,15 +20,20 @@ const Followers = props => {
     getUserProfileDetails,
   } = props;
 
+  const [isLoading, setIsLoading] = useState(false);
   const handleFollow = async friend_id => {
+    setIsLoading(true);
     await followAUser({ user_id: userId, friend_id: friend_id });
-    getUserFollowing(userId);
+    await getUserFollowing(userId);
+    setIsLoading(false);
     getUserProfileDetails(userId);
   };
 
   const handleUnfollow = async friend_id => {
+    setIsLoading(true);
     await unfollowAUser({ user_id: userId, friend_id: friend_id });
     getUserFollowing(userId);
+    setIsLoading(false);
     getUserProfileDetails(userId);
   };
 
@@ -38,8 +43,16 @@ const Followers = props => {
   };
 
   const renderSuggestion = id => {
+    if (isLoading) {
+      return <button style={{ width: '8.5rem' }}>...</button>;
+    }
     const followingIds = following.map(ele => ele.id);
-    return followingIds.includes(id) ? 'Unfollow' : 'Follow';
+    const text = followingIds.includes(id) ? 'Unfollow' : 'Follow';
+    return (
+      <button style={{ width: '8.5rem' }} onClick={() => handleClick(id)}>
+        {text}
+      </button>
+    );
   };
 
   return (
@@ -50,9 +63,7 @@ const Followers = props => {
             <h2>{ele.username}</h2>
             <img src={ele.profile_picture} alt='fan' />
           </Link>
-          <button onClick={() => handleClick(ele.id)}>
-            {renderSuggestion(ele.id)}
-          </button>
+          {renderSuggestion(ele.id)}
           {ele.bio ? <p>{ele.bio}</p> : <p>User has no bio.</p>}
         </div>
       ))}
