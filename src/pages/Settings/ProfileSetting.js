@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink, Route, Switch, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { withAlert } from 'react-alert';
 import styled from 'styled-components';
 import { Grommet, TextInput, TextArea } from 'grommet';
@@ -8,9 +8,8 @@ import { post as URL } from '../../services/baseURL';
 import { editProfile } from '../../actions';
 import { customLayout, customWrapper } from '../../components/mixins';
 import axios from 'axios';
-import ProfileSettings from './ProfileSetting';
 
-class Settings extends Component {
+class ProfileSettings extends Component {
 	state = {
 		display_name: this.props.auth.display_name,
 		username: this.props.auth.username,
@@ -74,117 +73,151 @@ class Settings extends Component {
 	}
 	render() {
 		return (
-			<Grommet theme={theme}>
 			<Wrapper>
-			  <BrowseContainer>
-				<Tabs>
-				  <Tab>
-					<NavLink to='/settings'>Settings</NavLink>
-				  </Tab>
-				  <Tab>
-					<NavLink to='/settings/integrations'>Integrations</NavLink>
-				  </Tab>
-				</Tabs>
-				<TabWrapper>
-				  <Switch>
-					<Route
-					  exact
-					  path={['/settings']}
-					  render={props => (
-						<ProfileSettings
-						/>
-					  )}
-					/>
+				<h2>User Settings</h2>
 
-					{/* <Route
-					  path='/browse/articles'
-					  render={props => (
-						<Articles
-						  {...props}
-						  articles={articles}
-						  handleTruncateText={this.handleTruncateText}
-						  handleSaveLink={this.handleSaveLink}
-						  alert={this.props.alert}
-						/>
-					  )}
-					/>	 */}
-				  </Switch>
-				</TabWrapper>
-			  </BrowseContainer>
+				<FormGroup onSubmit={(e) => this.editProfileHandler(e, this.props.auth.id)}>
+					<div className="form-wrapper">
+						<Grommet theme={theme}>
+							<div className="row">
+								<div className="col-2">
+									<label>
+										Name
+										<TextInput
+											type="text"
+											onChange={this.handleInputChange}
+											placeholder="Add full name"
+											value={this.state.display_name}
+											name="display_name"
+											required
+										/>
+									</label>
+									<label>
+										Email Address
+										<TextInput
+											type="text"
+											onChange={this.handleInputChange}
+											placeholder="email address"
+											value={this.props.auth.email}
+											name="email"
+											required
+										/>
+									</label>
+									<label>
+										Username
+										<TextInput
+											type="text"
+											onChange={this.handleInputChange}
+											placeholder="Add username"
+											value={this.state.username}
+											name="username"
+											required
+										/>
+									</label>
+
+									<label>
+										Bio
+										<TextArea
+											type="text"
+											onChange={this.handleInputChange}
+											placeholder="Add bio"
+											value={this.state.bio}
+											name="bio"
+										/>
+									</label>
+								</div>
+
+								<div className="col-2">
+									<label>
+										Location
+										<TextInput
+											type="text"
+											onChange={this.handleInputChange}
+											placeholder="Add location"
+											value={this.state.location}
+											name="location"
+										/>
+									</label>
+
+									<label>
+										Website URL
+										<TextInput
+											type="text"
+											onChange={this.handleInputChange}
+											placeholder="Add website URL"
+											value={this.state.website_url}
+											name="website_url"
+										/>
+									</label>
+									<label>
+										Profile Picture
+										<img
+											style={{
+												width: '200px',
+												display: 'block',
+												margin: '10px auto',
+											}}
+											src={this.state.profile_pic}
+											alt="user_upload_picture"
+										/>
+										<input
+											onChange={(e) => this.handleFileSelection(e)}
+											type="file"
+											name="profile_pic"
+										/>
+										<button onClick={(e) => this.handleFileUpload(e)} type="submit">
+											Submit
+										</button>
+									</label>
+								</div>
+							</div>
+						</Grommet>
+
+						<div className="btn-group">
+							<Link to="/home">Cancel</Link>
+							<button
+								type="submit"
+								onClick={() => {
+									this.props.alert.success('User settings successfully updated.');
+								}}
+							>
+								Save
+							</button>
+						</div>
+					</div>
+				</FormGroup>
 			</Wrapper>
-		  </Grommet>
 		);
 	}
 }
 
 const theme = {
-	tab: {
-	  color: 'dark-1',
-	  active: {
-		weight: 'bold',
-	  },
-	  border: {
-		side: 'bottom',
-		size: 'medium',
-		color: {
-		  light: null,
+	global: {
+		focus: {
+			border: {
+				color: '#3f65f2',
+			},
 		},
-		active: {
-		  color: {
-			light: 'dark-1',
-		  },
-		},
-		hover: {
-		  color: {
-			light: null,
-		  },
-		},
-	  },
-	  margin: {
-		vertical: 'small',
-		horizontal: 'xsmall',
-	  },
 	},
-  };
-  
-  const BrowseContainer = styled.div`
-	h2 {
-	  font-size: 3.5rem;
-	  margin: 35px 0;
-	}
-  `;
-  
-  const Wrapper = styled.div`
-	${customWrapper('80%', '0 auto')}
-	@media(max-width: 768px) {
-	  ${customWrapper('90%', '0 auto')}
-	}
-  `;
-  
-  const TabWrapper = styled.div`
-	padding-top: 20px;
-	margin-top: -3px;
-  `;
-  
-  const Tabs = styled.ul`
-	display: flex;
-  `;
-  
-  const Tab = styled.li`
-	margin-right: 2rem;
-  `;
-  
+	text: {
+		xsmall: {
+			size: '12px',
+			height: '18px',
+			maxWidth: '288px',
+		},
+	},
+};
 
-// const Wrapper = styled.div`
-// 	${customWrapper('80%', '0 auto')} 
-// 	@media (max-width: 768px) {
-// 		${customWrapper('90%', '0 auto')};
-// 	}
-// 	h2 {
-// 		font-size: 3.5rem;
-// 		margin: 35px 0;
-// 	}
-// `;
+const Wrapper = styled.div`
+	${customWrapper('80%', '0 auto')} 
+	@media (max-width: 768px) {
+		${customWrapper('90%', '0 auto')};
+	}
+	h2 {
+		font-size: 3.5rem;
+		margin: 35px 0;
+	}
+`;
 
 const FormGroup = styled.form`
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -194,7 +227,6 @@ const FormGroup = styled.form`
 	@media (max-width: 768px) {
 		padding: 0px;
 	}
-
 	.form-wrapper {
 		padding: 10px;
 		${customLayout()} ${customWrapper('80%', '0 auto')} flex-direction: column;
@@ -213,12 +245,10 @@ const FormGroup = styled.form`
 				@media (max-width: 650px) {
 					width: 100%;
 				}
-
 				label {
 					width: 100%;
 					padding: 20px 0;
 					color: gray;
-
 					input,
 					textarea {
 						width: 100%;
@@ -228,24 +258,20 @@ const FormGroup = styled.form`
 						padding: 10px;
 						color: #333;
 						resize: none;
-
 						&:focus {
 							outline: none;
 							border: 1px solid #3e66f2;
 						}
 					}
-
 					textarea {
 						height: 100px;
 					}
 				} // label
 			} // col-2
 		} // row
-
 		.btn-group {
 			${customLayout('flex-end')} width: 100%;
 			padding: 20px;
-
 			button {
 				width: 15%;
 				min-width: 100px;
@@ -259,17 +285,14 @@ const FormGroup = styled.form`
 				font-size: 1.6rem;
 				transition: 200ms ease-in;
 				cursor: pointer;
-
 				&:hover {
 					background-color: #3059f3;
 				}
 			}
-
 			a {
 				padding-top: 13px;
 				transition: 150ms ease-in;
 				font-weight: 700;
-
 				&:hover {
 					color: #3e66f2;
 				}
@@ -280,6 +303,6 @@ const FormGroup = styled.form`
 
 const mapStateToProps = ({ auth }) => ({ auth });
 
-const Alert = withAlert()(Settings);
+const Alert = withAlert()(ProfileSettings);
 
 export default connect(mapStateToProps, { editProfile })(Alert);
