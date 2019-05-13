@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import youtube from '../../apis/youtube';
 import styled from 'styled-components';
@@ -100,6 +100,7 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
               <img
                 onClick={() => showIframe(video.id.videoId)}
                 src={video.snippet.thumbnails.medium.url}
+                alt={video.title}
               />
             ) : (
               <iframe

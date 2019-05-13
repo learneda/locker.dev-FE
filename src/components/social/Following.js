@@ -4,21 +4,15 @@ import { Link } from 'react-router-dom';
 import {
   followAUser,
   unfollowAUser,
-  getUserFollowing,
-  getUserFollowers,
   getUserProfileDetails,
 } from '../../actions';
 import { StyledFollow } from './StyledFollow';
-import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
 const Following = props => {
   const {
     userId,
     following,
-    followers,
     followAUser,
     unfollowAUser,
-    getUserFollowing,
-    getUserFollowers,
     getUserProfileDetails,
   } = props;
 
@@ -28,8 +22,6 @@ const Following = props => {
   useEffect(() => {
     setToggles(Array(following.length).fill(true));
   }, [following]);
-
-  console.log(toggles, 'toggles', following);
 
   const handleFollow = async (friend_id, index) => {
     setIsLoading(true);
@@ -94,8 +86,6 @@ export default connect(
   {
     followAUser,
     unfollowAUser,
-    getUserFollowing,
-    getUserFollowers,
     getUserProfileDetails,
   }
 )(Following);
