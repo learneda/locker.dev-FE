@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import {
   followAUser,
@@ -24,8 +24,6 @@ const Following = props => {
 
   const handleFollow = async friend_id => {
     await followAUser({ user_id: userId, friend_id: friend_id });
-    getUserFollowers(userId);
-
     getUserProfileDetails(userId);
   };
 
@@ -35,13 +33,13 @@ const Following = props => {
   };
 
   const handleClick = id => {
-    const followersIds = followers.map(ele => ele.id);
-    return followersIds.includes(id) ? handleUnfollow(id) : handleFollow(id);
+    const followingIds = following.map(ele => ele.id);
+    return followingIds.includes(id) ? handleUnfollow(id) : handleFollow(id);
   };
 
   const renderSuggestion = id => {
-    const followersIds = followers.map(ele => ele.id);
-    return followersIds.includes(id) ? 'Following ...' : 'Follow';
+    const followingIds = following.map(ele => ele.id);
+    return followingIds.includes(id) ? 'Unfollow' : 'Follow';
   };
 
   return (
