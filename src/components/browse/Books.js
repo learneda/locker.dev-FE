@@ -188,8 +188,7 @@ const Card = styled.div`
   }
 
   h3 {
-    height: 50px;
-
+    max-height: 50px;
     margin: 0px 0 10px;
     padding: 0 3%;
     font-size: 1.8rem;

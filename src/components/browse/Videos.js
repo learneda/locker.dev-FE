@@ -242,7 +242,7 @@ const Card = styled.div`
 
   h3 {
     // border: 1px solid red;
-    height: 50px;
+    max-height: 50px;
     margin: 10px 0;
     padding: 0 3%;
     font-size: 1.8rem;
