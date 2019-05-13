@@ -135,7 +135,7 @@ class PostContainer extends Component {
             <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
               <h2>{post.title}</h2>
             </a>
-            <p>{smartTruncate(post.description, 135)}</p>
+            <p>{smartTruncate(post.description, 130)}</p>
             <a
               className='post-root-url'
               href={post.post_url}

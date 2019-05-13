@@ -90,12 +90,16 @@ function Search(props) {
       case '/social/meetups':
         placeholder = 'Meetups';
         break;
+      case '/settings':
+        placeholder = 'Settings';
+        break;
       default:
         return;
     }
     return (
       <TextInput
         size='small'
+        height='45px'
         placeholder={toggle ? 'Search Users' : `Search ${placeholder}`}
         value={toggle ? search : props.searchTerm}
         onChange={handleSearch}

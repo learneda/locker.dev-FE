@@ -30,18 +30,17 @@ export const truncateText = (content, limit = 10) => {
   }
 };
 
+//* Character-based truncate
+//* Regex: multiple whitespace replace with single space
+//* (multiple whitespace screws with limit check)
 export const smartTruncate = (content, limit = 100, delimiter = '...') => {
-  return content.length < limit
+  return content.length <= limit
     ? content
     : content
         .replace(/\s\s+/g, ' ')
-        .substr(0, limit)
+        .substr(0, limit - delimiter.length)
         .split(' ')
-        .slice(0, -1)
+        .slice(0, -1) //* chops off last word since it might not be a whole word
         .concat(delimiter)
         .join(' ');
-  // .split(' ')
-  // .slice(0, -1)
-  // .concat(delimeter)
-  // .join(' ');
 };

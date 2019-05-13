@@ -209,7 +209,8 @@ const theme = {
 };
 
 const Wrapper = styled.div`
-	${customWrapper('80%', '0 auto')} @media (max-width: 768px) {
+	${customWrapper('80%', '0 auto')} 
+	@media (max-width: 768px) {
 		${customWrapper('90%', '0 auto')};
 	}
 	h2 {

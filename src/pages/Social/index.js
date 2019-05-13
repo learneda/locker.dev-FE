@@ -37,13 +37,23 @@ const Social = props => {
                 exact
                 path={['/social/', '/social/following']}
                 render={props => (
-                  <Following {...props} userId={userId} following={following} />
+                  <Following
+                    {...props}
+                    userId={userId}
+                    following={following}
+                    followers={followers}
+                  />
                 )}
               />
               <Route
                 path='/social/followers'
                 render={props => (
-                  <Followers {...props} userId={userId} followers={followers} />
+                  <Followers
+                    {...props}
+                    userId={userId}
+                    following={following}
+                    followers={followers}
+                  />
                 )}
               />
               <Route
