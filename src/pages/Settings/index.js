@@ -9,6 +9,7 @@ import { editProfile } from '../../actions';
 import { customLayout, customWrapper } from '../../components/mixins';
 import axios from 'axios';
 import ProfileSettings from './ProfileSetting';
+import Integrations from './Integrations'
 
 class Settings extends Component {
 	state = {
@@ -91,23 +92,17 @@ class Settings extends Component {
 					  exact
 					  path={['/settings']}
 					  render={props => (
-						<ProfileSettings
-						/>
+						<ProfileSettings />
 					  )}
 					/>
 
-					{/* <Route
-					  path='/browse/articles'
+					<Route
+					  path='/settings/integrations'
 					  render={props => (
-						<Articles
-						  {...props}
-						  articles={articles}
-						  handleTruncateText={this.handleTruncateText}
-						  handleSaveLink={this.handleSaveLink}
-						  alert={this.props.alert}
-						/>
+						<Integrations />
 					  )}
-					/>	 */}
+					/>	
+					
 				  </Switch>
 				</TabWrapper>
 			  </BrowseContainer>
