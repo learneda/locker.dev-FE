@@ -80,7 +80,7 @@ class SidebarById extends Component {
     await this.props.getFollowing(friend_id);
     if (friend_id) {
       axios.get(`${URL}/api/users/followers?id=${friend_id}`).then(res => {
-        console.log('res.data', res.data);
+        // console.log('res.data', res.data);
         this.setState({ followers: res.data });
       });
     }

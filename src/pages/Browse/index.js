@@ -22,7 +22,6 @@ class Browse extends Component {
     page: 1,
   };
   componentDidMount() {
-    console.log('CDM');
     this.props.getCourses(this.state.page);
     this.props.getArticles();
   }

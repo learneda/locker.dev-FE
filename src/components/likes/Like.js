@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function Like({ id, handleSaveToMyBookmarks, url }) {
-  console.log(url, id)
   return (
     <div className='like' onClick={() => handleSaveToMyBookmarks(id, url)}>
       <svg
