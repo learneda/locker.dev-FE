@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
   followAUser,
@@ -22,24 +22,37 @@ const Following = props => {
     getUserProfileDetails,
   } = props;
 
-  const handleFollow = async friend_id => {
+  const [toggles, setToggles] = useState([]);
+  useEffect(() => {
+    setToggles(Array(following.length).fill(true));
+  }, [following]);
+
+  console.log(toggles, 'toggles', following);
+
+  const handleFollow = async (friend_id, index) => {
     await followAUser({ user_id: userId, friend_id: friend_id });
+    setToggles(
+      toggles.map((toggle, idx) => (idx === index ? !toggle : toggle))
+    );
     getUserProfileDetails(userId);
   };
 
-  const handleUnfollow = async friend_id => {
+  const handleUnfollow = async (friend_id, index) => {
     await unfollowAUser({ user_id: userId, friend_id: friend_id });
+    setToggles(
+      toggles.map((toggle, idx) => (idx === index ? !toggle : toggle))
+    );
     getUserProfileDetails(userId);
   };
 
-  const handleClick = id => {
+  const handleClick = (id, index) => {
     const followingIds = following.map(ele => ele.id);
-    return followingIds.includes(id) ? handleUnfollow(id) : handleFollow(id);
+    return toggles[index] ? handleUnfollow(id, index) : handleFollow(id, index);
   };
 
-  const renderSuggestion = id => {
+  const renderSuggestion = (id, index) => {
     const followingIds = following.map(ele => ele.id);
-    return followingIds.includes(id) ? 'Unfollow' : 'Follow';
+    return toggles[index] ? 'Unfollow' : 'Follow';
   };
 
   return (
@@ -50,8 +63,8 @@ const Following = props => {
             <h2>{ele.username}</h2>
             <img src={ele.profile_picture} alt='friend' />
           </Link>
-          <button onClick={() => handleClick(ele.id)}>
-            {renderSuggestion(ele.id)}
+          <button onClick={() => handleClick(ele.id, index)}>
+            {renderSuggestion(ele.id, index)}
           </button>
           {ele.bio ? <p>{ele.bio}</p> : <p>User has no bio.</p>}
         </div>
