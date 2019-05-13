@@ -30,13 +30,18 @@ export const truncateText = (content, limit = 10) => {
   }
 };
 
-export const smartTruncate = (content, limit = 4, delimeter = '...') => {
-  return content.length <= limit
+export const smartTruncate = (content, limit = 100, delimiter = '...') => {
+  return content.length < limit
     ? content
     : content
+        .replace(/\s\s+/g, ' ')
         .substr(0, limit)
         .split(' ')
         .slice(0, -1)
-        .concat(delimeter)
+        .concat(delimiter)
         .join(' ');
+  // .split(' ')
+  // .slice(0, -1)
+  // .concat(delimeter)
+  // .join(' ');
 };

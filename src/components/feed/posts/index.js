@@ -6,7 +6,7 @@ import axios from 'axios';
 import { post as URL } from '../../../services/baseURL';
 import addIcon from '../../../assets/svg/add-icon.svg';
 import { withAlert } from 'react-alert';
-import { truncateText, smartTruncate } from '../../mixins/';
+import { smartTruncate } from '../../mixins/';
 class PostContainer extends Component {
   constructor(props) {
     super(props);
@@ -135,7 +135,7 @@ class PostContainer extends Component {
             <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
               <h2>{post.title}</h2>
             </a>
-            <p>{smartTruncate(post.description, 210)}</p>
+            <p>{smartTruncate(post.description, 135)}</p>
             <a
               className='post-root-url'
               href={post.post_url}
