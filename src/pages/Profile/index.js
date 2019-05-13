@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink, Route, Switch } from 'react-router-dom';
 import { Grommet, Tab, Tabs } from 'grommet';
 import styled from 'styled-components';
 import { setProfileTabIndex } from '../../actions';
@@ -8,34 +8,59 @@ import Likes from '../../components/likes/Likes';
 import { customWrapper } from '../../components/mixins';
 import SidebarById from '../../components/sidebar/SidebarById';
 import ProfileById from '../../components/profile';
+import UserFollowing from '../../components/profile/UserFollowing';
+import UserFollowers from '../../components/profile/UserFollowers';
 
 class UserProfile extends Component {
   render() {
+    const id = this.props.match.params.id;
+    console.log(this.props.match.params.id);
     return (
-      <Container>
-        <SidebarById />
-        <Wrapper>
-          <Grommet theme={theme}>
-            <Tabs
-              activeIndex={this.props.index}
-              onActive={this.props.setProfileTabIndex}
-              justify='start'
+      <Grommet theme={theme}>
+        <Container>
+          <SidebarById />
+          <Wrapper>
+            {/* <Tabs
+              // activeIndex={this.props.index}
+              // onActive={this.props.setProfileTabIndex}
+              // justify='start'
               className='tabs'
             >
-              <Tab title='Bookmarks'>
-                <TabWrapper>
-                  <ProfileById />
-                </TabWrapper>
+              <Tab>
+                <NavLink to={`/profile/${id}/following`}>Bookmarks</NavLink>
               </Tab>
-              <Tab title='Likes'>
-                <TabWrapper>
-                  <Likes />
-                </TabWrapper>
+              <Tab>
+                <NavLink to={`/profile/${id}/likes`}>Likes</NavLink>
               </Tab>
-            </Tabs>
-          </Grommet>
-        </Wrapper>
-      </Container>
+            </Tabs> */}
+            <div className='tabs'>
+              <NavLink to={`/profile/${id}`}>Bookmarks</NavLink>
+              <NavLink to={`/profile/${id}/likes`}>Likes</NavLink>
+              <NavLink to={`/profile/${id}/following`}>Following</NavLink>
+              <NavLink to={`/profile/${id}/followers`}>Followers</NavLink>
+            </div>
+            <TabWrapper>
+              <Switch>
+                <Route
+                  exact
+                  path={`/profile/:id`}
+                  render={props => <ProfileById {...props} />}
+                />
+                <Route
+                  exact
+                  path={'/profile/:id/following'}
+                  render={props => <UserFollowing {...props} />}
+                />
+                <Route
+                  exact
+                  path={'/profile/:id/followers'}
+                  render={props => <UserFollowers {...props} />}
+                />
+              </Switch>
+            </TabWrapper>
+          </Wrapper>
+        </Container>
+      </Grommet>
     );
   }
 }
@@ -83,6 +108,11 @@ const Container = styled.div`
   display: flex;
   @media (max-width: 1100px) {
     width: 90%;
+  }
+  .tabs {
+    a {
+      margin-right: 10px;
+    }
   }
 `;
 
