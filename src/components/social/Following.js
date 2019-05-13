@@ -24,6 +24,7 @@ const Following = props => {
 
   const [toggles, setToggles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingIndex, setLoadingIndex] = useState(null);
   useEffect(() => {
     setToggles(Array(following.length).fill(true));
   }, [following]);
@@ -32,6 +33,7 @@ const Following = props => {
 
   const handleFollow = async (friend_id, index) => {
     setIsLoading(true);
+    setLoadingIndex(index);
     await followAUser({ user_id: userId, friend_id: friend_id });
     setIsLoading(false);
 
@@ -43,6 +45,7 @@ const Following = props => {
 
   const handleUnfollow = async (friend_id, index) => {
     setIsLoading(true);
+    setLoadingIndex(index);
     await unfollowAUser({ user_id: userId, friend_id: friend_id });
     setIsLoading(false);
     setToggles(
@@ -56,7 +59,7 @@ const Following = props => {
   };
 
   const renderSuggestion = (id, index) => {
-    if (isLoading) {
+    if (isLoading && loadingIndex === index) {
       return <button style={{ width: '8.5rem' }}>...</button>;
     }
     const text = toggles[index] ? 'Unfollow' : 'Follow';
