@@ -40,16 +40,28 @@ function Search(props) {
     };
   }, []);
 
+  useEffect(() => {
+    resetSearchTerm();
+  }, [props.location.pathname]);
+
   //TODO: Make this DRY
   const displaySearch = () => {
     let placeholder;
-    const path = props.location.pathname;
+    let path = props.location.pathname;
+    if (path.split('/')[1] === 'profile') {
+      if (path.split('/').length === 3) {
+        path = '/profile';
+      } else {
+        path = path.split('/')[3];
+      }
+    }
     switch (path) {
       case '/home':
         placeholder = 'Feed';
         break;
       case '/home/feed':
         placeholder = 'Feed';
+
         break;
       case '/home/bookmarks':
         placeholder = 'Bookmarks';
@@ -93,8 +105,23 @@ function Search(props) {
       case '/settings':
         placeholder = 'Settings';
         break;
+      case '/settings/integrations':
+        placeholder = 'Integrations';
+        break;
+      case '/profile':
+        placeholder = 'Profile';
+        break;
+      case 'following':
+        placeholder = 'Following';
+        break;
+      case 'likes':
+        placeholder = 'Likes';
+        break;
+      case 'followers':
+        placeholder = 'Followers';
+        break;
       default:
-        return;
+        placeholder = 'Profile';
     }
     return (
       <TextInput

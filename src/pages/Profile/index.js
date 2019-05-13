@@ -33,7 +33,9 @@ class UserProfile extends Component {
               </Tab>
             </Tabs> */}
             <div className='tabs'>
-              <NavLink to={`/profile/${id}`}>Bookmarks</NavLink>
+              <NavLink exact to={`/profile/${id}`}>
+                Bookmarks
+              </NavLink>
               <NavLink to={`/profile/${id}/likes`}>Likes</NavLink>
               <NavLink to={`/profile/${id}/following`}>Following</NavLink>
               <NavLink to={`/profile/${id}/followers`}>Followers</NavLink>
