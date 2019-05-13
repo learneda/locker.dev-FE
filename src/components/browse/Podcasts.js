@@ -7,6 +7,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
 import { useDebouncedCallback } from 'use-debounce';
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg';
+import he from 'he';
 
 const Podcasts = ({ search, handleSaveMedia, alert }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -68,7 +69,7 @@ const Podcasts = ({ search, handleSaveMedia, alert }) => {
           <a href={podcast.audio} target='_blank' rel='noopener noreferrer'>
             <img src={podcast.image} alt='youtube' />
             <h3>{smartTruncate(podcast.title_original, 75)}</h3>
-            <p>{smartTruncate(podcast.description_original, 120)}</p>
+            <p>{smartTruncate(he.decode(podcast.description_original), 120)}</p>
           </a>
           <SaveIcon>
             <Add
@@ -78,7 +79,7 @@ const Podcasts = ({ search, handleSaveMedia, alert }) => {
                   type: 'podcast',
                   post_url: podcast.audio,
                   title: podcast.title_original,
-                  description: podcast.description_original,
+                  description: he.decode(podcast.description_original),
                   thumbnail_url: podcast.image,
                 });
                 alert.success('Article added to Bookmarks');
@@ -157,7 +158,7 @@ const Card = styled.div`
 
   h3 {
     // border: 1px solid red;
-    max-height:50px;
+    max-height: 50px;
     margin: 10px 0;
     padding: 0 3%;
     font-size: 1.8rem;
