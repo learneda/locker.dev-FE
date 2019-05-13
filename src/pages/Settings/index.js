@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { NavLink, Route, Switch, Link } from 'react-router-dom';
 import { withAlert } from 'react-alert';
 import styled from 'styled-components';
-import { Grommet, TextInput, TextArea } from 'grommet';
+import { Grommet } from 'grommet';
 import { post as URL } from '../../services/baseURL';
 import { editProfile } from '../../actions';
 import { customLayout, customWrapper } from '../../components/mixins';
@@ -12,60 +12,6 @@ import ProfileSettings from './ProfileSetting';
 import Integrations from './Integrations'
 
 class Settings extends Component {
-	state = {
-		display_name: this.props.auth.display_name,
-		username: this.props.auth.username,
-		bio: this.props.auth.bio,
-		location: this.props.auth.location,
-		website_url: this.props.auth.website_url,
-		selectedFile: null,
-		profile_pic: null,
-	};
-
-	editProfileHandler = (e, id) => {
-		e.preventDefault();
-		const { display_name, username, bio, location, website_url } = this.state;
-		this.props.editProfile(id, {
-			display_name,
-			username,
-			bio,
-			location,
-			website_url,
-		});
-	};
-
-	handleInputChange = (e) => this.setState({ [e.target.name]: e.target.value });
-
-	handleFileSelection = (e) => {
-		e.preventDefault();
-		if (e.target.files[0]) {
-			const file = e.target.files[0].type;
-			console.log(file === 'image/jpeg' || file === 'image/png' || file === 'image/gif');
-			if (file === 'image/jpeg' || file === 'image/png' || file === 'image/gif') {
-				this.setState({ selectedFile: e.target.files[0] });
-			} else {
-				alert("Only JPEG, PNG, or GIF's type files are allowed");
-			}
-		}
-	};
-
-	handleFileUpload = (e) => {
-		e.preventDefault();
-		if (this.state.selectedFile) {
-			const fd = new FormData();
-			fd.append('profile_pic', this.state.selectedFile, this.state.selectedFile.name);
-			axios.post(`${URL}/api/images`, fd).then((res) => {
-				if (res.data.success) {
-					axios.get(`${URL}/api/images`).then((res) => {
-						if (res.data.length > 0) {
-							this.setState({ profile_pic: `${res.data[0].profile_picture}` });
-						}
-					});
-				}
-			});
-		}
-	};
-
 	componentDidMount() {
 		axios.get(`${URL}/api/images`).then((res) => {
 			if (res.data.length > 0) {

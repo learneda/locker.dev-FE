@@ -18,17 +18,19 @@ class ProfileSettings extends Component {
 		website_url: this.props.auth.website_url,
 		selectedFile: null,
 		profile_pic: null,
+		email: null
 	};
 
 	editProfileHandler = (e, id) => {
 		e.preventDefault();
-		const { display_name, username, bio, location, website_url } = this.state;
+		const { display_name, username, bio, location, website_url, email } = this.state;
 		this.props.editProfile(id, {
 			display_name,
 			username,
 			bio,
 			location,
 			website_url,
+			email
 		});
 	};
 
