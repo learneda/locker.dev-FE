@@ -81,26 +81,19 @@ class Sidebar extends Component {
                   <li>{this.props.user_details.post_count}</li>
                 </ul>
               )}
-
-              <ul onClick={this.handleFollowingDropdown}>
-                <li>Following</li>
-                <li>{this.props.user_details.following_count}</li>
-              </ul>
-              <ul onClick={this.handleFollowersDropdown}>
-                <li>Followers</li>
-                <li>{this.props.user_details.followers_count}</li>
-              </ul>
+              <Link to='/social/following'>
+                <ul>
+                  <li>Following</li>
+                  <li>{this.props.user_details.following_count}</li>
+                </ul>
+              </Link>
+              <Link to='followers'>
+                <ul>
+                  <li>Followers</li>
+                  <li>{this.props.user_details.followers_count}</li>
+                </ul>
+              </Link>
             </div>
-            <FollowingDropdown
-              following={this.props.following}
-              height={this.state.followingDropDownHeight}
-              handleFollowingDropdown={this.handleFollowingDropdown}
-            />
-            <FollowersDropdown
-              followers={this.props.followers}
-              height={this.state.followersDropDownHeight}
-              handleFollowingDropdown={this.handleFollowersDropdown}
-            />
             <p>
               {this.props.auth.bio ? (
                 this.props.auth.bio
