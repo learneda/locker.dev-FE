@@ -164,9 +164,6 @@ const NavWrapper = styled.div`
 `;
 
 const Nav = styled.nav`
-  * {
-    outline: 1px solid red;
-  }
   ${customLayout('space-between', 'center')}
   padding: 7.5px 0;
   margin: 0 auto;
