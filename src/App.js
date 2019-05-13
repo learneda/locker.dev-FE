@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -17,6 +17,15 @@ import { composedIndexRedirect as index } from './components/authentication/inde
 import { composedHomeRedirect as home } from './components/authentication/homeRedirect';
 import useInterval from './components/hooks/useInterval';
 import { fetchUser, getPosts } from './actions';
+import { ReactComponent as Loading } from './assets/svg/circles.svg';
+// const LandingPage = lazy(() => import('./pages/Landing'));
+// const Home = lazy(() => import('./pages/Home'));
+// const Browse = lazy(() => import('./pages/Browse'));
+// const Social = lazy(() => import('./pages/Social'));
+// const Settings = lazy(() => import('./pages/Settings'));
+// const NoMatch = lazy(() => import('./pages/NoMatch'));
+// const Profile = lazy(() => import('./pages/Profile'));
+// const SinglePost = lazy(() => import('./pages/SinglePost/SinglePost'));
 
 const App = ({ fetchUser, modal, getPosts }) => {
   const { isAuthOpen, isEditOpen } = modal;
@@ -44,6 +53,19 @@ const App = ({ fetchUser, modal, getPosts }) => {
     <Container>
       <GlobalStyle />
       <Navbar />
+      {/* <Suspense
+        fallback={
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Loading />
+          </div>
+        }
+      > */}
       <Switch>
         <Route component={home(LandingPage)} path='/' exact />
         <Route component={index(Home)} path='/home' />
@@ -54,6 +76,7 @@ const App = ({ fetchUser, modal, getPosts }) => {
         <Route component={index(Settings)} path='/settings' />
         <Route component={NoMatch} />
       </Switch>
+      {/* </Suspense> */}
     </Container>
   );
 };

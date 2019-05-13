@@ -39,7 +39,7 @@ const Followers = props => {
 
   const renderSuggestion = id => {
     const followingIds = following.map(ele => ele.id);
-    return followingIds.includes(id) ? 'Following ...' : 'Follow';
+    return followingIds.includes(id) ? 'Unfollow' : 'Follow';
   };
 
   return (

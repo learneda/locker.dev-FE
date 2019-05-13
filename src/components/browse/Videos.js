@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { connect } from 'react-redux';
 import youtube from '../../apis/youtube';
 import styled from 'styled-components';
@@ -12,7 +12,6 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [videos, setVideos] = useState([]);
   const [pageToken, setPageToken] = useState(null);
-
   const fetchMoreData = () => {
     youtube
       .get('/search', {
@@ -22,7 +21,13 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
         },
       })
       .then(res => {
-        setVideos(prevVideos => [...prevVideos, ...res.data.items]);
+        setVideos(prevVideos => {
+          const videosWithState = res.data.items.map(video => {
+            video.isThumbnail = true;
+            return video;
+          });
+          return [...prevVideos, ...videosWithState];
+        });
         setPageToken(res.data.nextPageToken);
       });
   };
@@ -40,7 +45,11 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
         },
       })
       .then(res => {
-        setVideos(res.data.items);
+        const videosWithState = res.data.items.map(video => {
+          video.isThumbnail = true;
+          return video;
+        });
+        setVideos(videosWithState);
         setPageToken(res.data.nextPageToken);
         setIsLoading(false);
       });
@@ -51,6 +60,17 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
       <Loading />
     </Loader>
   );
+
+  const showIframe = id => {
+    setVideos(prevVideos =>
+      prevVideos.map(video => {
+        if (video.id.videoId === id) {
+          video.isThumbnail = false;
+        }
+        return video;
+      })
+    );
+  };
 
   const renderVideos = () => (
     <InfiniteScroll
@@ -65,19 +85,44 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
     >
       {videos.map((video, index) => (
         <Card key={index}>
-          <a
-            href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
-            target='_blank'
-            rel='noopener noreferrer'
+          <div
+            style={{
+              overflow: 'hidden',
+              paddingTop: '56.25%',
+              position: 'relative',
+              backgroundImage: `url(${video.snippet.thumbnails.medium.url})`,
+              backgroundRepeat: 'norepeat',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
           >
-            <div
-              style={{
-                overflow: 'hidden',
-                paddingTop: '56.25%',
-                position: 'relative',
-              }}
-            >
+            {video.isThumbnail ? (
+              <img
+                onClick={() => showIframe(video.id.videoId)}
+                src={video.snippet.thumbnails.medium.url}
+              />
+            ) : (
               <iframe
+                style={{
+                  border: '0px',
+                  height: '100%',
+                  left: '0px',
+                  position: 'absolute',
+                  top: '0px',
+                  width: '100%',
+                }}
+                frameBorder='0'
+                width='560'
+                height='315'
+                title={video.title}
+                src={`https://www.youtube.com/embed/${
+                  video.id.videoId
+                }?autoplay=1`}
+                allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+                allowFullScreen
+              />
+            )}
+            {/* <iframe
                 style={{
                   border: '0px',
                   height: '100%',
@@ -93,8 +138,13 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
                 src={`https://www.youtube.com/embed/${video.id.videoId}`}
                 allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
                 allowFullScreen
-              />
-            </div>
+              /> */}
+          </div>
+          <a
+            href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
+            target='_blank'
+            rel='noopener noreferrer'
+          >
             <h3 style={{ marginTop: '20px' }}>
               {truncateText(video.snippet.title)}
             </h3>
@@ -181,11 +231,12 @@ const Card = styled.div`
   }
 
   img {
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
+    border: 0px;
+    height: 100%;
+    left: 0px;
+    position: absolute;
+    top: 0px;
     width: 100%;
-    height: 180px;
-    object-fit: cover;
   }
 
   h3 {
