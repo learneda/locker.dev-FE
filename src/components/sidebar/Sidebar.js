@@ -87,7 +87,7 @@ class Sidebar extends Component {
                   <li>{this.props.user_details.following_count}</li>
                 </ul>
               </Link>
-              <Link to='followers'>
+              <Link to='/social/followers'>
                 <ul>
                   <li>Followers</li>
                   <li>{this.props.user_details.followers_count}</li>
