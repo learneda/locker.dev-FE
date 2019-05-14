@@ -34,7 +34,6 @@ class PostContainer extends Component {
   }
 
   handleLikes = (e, post_id, post) => {
-    console.log(post.user_id);
     const postOwnerId = post.user_id;
 
     let result = e.target.classList.contains('heart-red');
@@ -147,7 +146,7 @@ class PostContainer extends Component {
             <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
               <h2>{post.title}</h2>
             </a>
-            <p>{smartTruncate(post.description, 130)}</p>
+            <p>{smartTruncate(post.description, 210)}</p>
             <a
               className='post-root-url'
               href={post.post_url}

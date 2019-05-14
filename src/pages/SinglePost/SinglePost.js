@@ -5,11 +5,11 @@ import { withRouter } from 'react-router-dom';
 
 class SinglePost extends Component {
   componentDidMount() {
-    console.log(this.props);
+    // console.log(this.props);
     axios
       .get(`${URL}/api/posts/shared/${this.props.match.params.id}`)
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
       });
   }
 
