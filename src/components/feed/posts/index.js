@@ -136,13 +136,15 @@ class PostContainer extends Component {
       );
     } else {
       return (
-        <img
-          src={thumbnail_url}
-          alt={post.title}
+        <div
           style={{
-            width: '100%',
-            position: 'absolute',
-            height: '100%',
+            overflow: 'hidden',
+            paddingTop: '56.25%',
+            position: 'relative',
+            backgroundImage: `url(${thumbnail_url})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
           }}
         />
       );
