@@ -91,7 +91,10 @@ class PostContainer extends Component {
           />
         </div>
       );
-    } else {
+    } else if (
+      thumbnail_url.includes('google') ||
+      thumbnail_url.includes('cloudfront')
+    ) {
       return (
         <div
           style={{
@@ -129,17 +132,19 @@ class PostContainer extends Component {
               transform: `scale(1.3)`,
             }}
           />
-          {/* <img
-            src={thumbnail_url}
-            alt={post.title}
-            style={{
-              width: '100%',
-              position: 'absolute',
-
-              height: '100%',
-            }}
-          /> */}
         </div>
+      );
+    } else {
+      return (
+        <img
+          src={thumbnail_url}
+          alt={post.title}
+          style={{
+            width: '100%',
+            position: 'absolute',
+            height: '100%',
+          }}
+        />
       );
     }
   };
