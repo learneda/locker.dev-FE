@@ -73,8 +73,8 @@ const Books = ({ search, handleSaveMedia, alert }) => {
             <a href={book.link} target='_blank' rel='noopener noreferrer'>
               <div
                 style={{
+                  height: '190px',
                   overflow: 'hidden',
-                  paddingTop: '56.25%',
                   position: 'relative',
                   backgroundImage: `url(${book.thumbnail}`,
                   backgroundRepeat: 'no-repeat',
@@ -82,23 +82,22 @@ const Books = ({ search, handleSaveMedia, alert }) => {
                   backgroundPosition: 'center',
                   filter: `blur(1.5rem)`,
                 }}
-              >
-                <img
-                  style={{
-                    border: '0px',
-                    height: '100%',
-                    position: 'absolute',
-                    width: '100%',
-                    filter: `blur(0)`,
-                    transform: `scale(0.58)`,
-                    bottom: '70px',
-                  }}
-                  width='560'
-                  height='315'
-                  alt={book.title}
-                  src={book.thumbnail}
-                />
-              </div>
+              />
+              <img
+                style={{
+                  border: '0px',
+                  height: '100%',
+                  position: 'absolute',
+                  width: '100%',
+                  filter: `blur(0)`,
+                  transform: `scale(0.50)`,
+                  top: '-8.0rem',
+                }}
+                width='560'
+                height='315'
+                alt={book.title}
+                src={book.thumbnail}
+              />
               <h3 style={{ marginTop: '20px' }}>
                 {smartTruncate(book.title, 75)}
               </h3>
