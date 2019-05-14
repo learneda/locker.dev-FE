@@ -87,6 +87,7 @@ class PostContainer extends Component {
             src={`https://www.youtube.com/embed/${videoId}`}
             allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
             allowFullScreen
+            allowfullscreen
           />
         </div>
       );
@@ -94,15 +95,51 @@ class PostContainer extends Component {
       return (
         <div
           style={{
-            overflow: 'hidden',
-            paddingTop: '56.25%',
+            display: 'flex',
+            flexDirection: 'column',
             position: 'relative',
-            backgroundImage: `url(${thumbnail_url})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'contain',
-            backgroundPosition: 'center',
+            overflow: 'hidden',
           }}
-        />
+        >
+          <div
+            className='post-hero'
+            style={{
+              overflow: 'hidden',
+              height: '350px',
+              position: 'relative',
+              backgroundImage: `url(${thumbnail_url})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              filter: `blur(10px)`,
+            }}
+          />
+          <div
+            style={{
+              overflow: 'hidden',
+              height: '170px',
+              width: '100%',
+              position: 'absolute',
+              top: '90px',
+              justifySelf: 'center',
+              backgroundImage: `url(${thumbnail_url})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'contain',
+              backgroundPosition: 'center',
+              transform: `scale(1.3)`,
+            }}
+          />
+          {/* <img
+            src={thumbnail_url}
+            alt={post.title}
+            style={{
+              width: '100%',
+              position: 'absolute',
+
+              height: '100%',
+            }}
+          /> */}
+        </div>
       );
     }
   };
