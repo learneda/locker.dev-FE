@@ -34,7 +34,7 @@ class Home extends Component {
                 <NavLink to='/home/bookmarks'>Bookmarks</NavLink>
               </Tab>
               <Tab>
-                <NavLink to='/home/likes'>Likes</NavLink>
+                <NavLink to='/home/locker'>Locker</NavLink>
               </Tab>
             </Tabs>
             <TabWrapper>
@@ -49,7 +49,7 @@ class Home extends Component {
                   render={props => <Bookmarks {...props} />}
                 />
                 <Route
-                  path='/home/likes'
+                  path='/home/locker'
                   render={props => <Likes {...props} />}
                 />
               </Switch>

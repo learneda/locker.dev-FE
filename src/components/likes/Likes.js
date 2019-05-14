@@ -10,9 +10,15 @@ import { truncateText } from '../mixins';
 import { Wrapper, Post } from '../bookmarks';
 import { fetchUser } from '../../actions';
 
+import axios from 'axios'
+axios.defaults.withCredentials = true; 
+
 class Likes extends Component {
   componentDidMount = () => {
     this.props.fetchUser();
+    axios.get('http://localhost:8000/api/goodreads/shelfs').then((res) => {
+      console.log(res)
+    })
   };
 
   handleTruncateText = (content, limit = 10) => {
