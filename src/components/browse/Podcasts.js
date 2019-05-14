@@ -69,7 +69,6 @@ const Podcasts = ({ search, handleSaveMedia, alert }) => {
           <a href={podcast.audio} target='_blank' rel='noopener noreferrer'>
             <div
               style={{
-                outline: '1px solid red',
                 overflow: 'hidden',
                 height: '150px',
                 position: 'relative',
