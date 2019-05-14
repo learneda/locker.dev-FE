@@ -13,7 +13,7 @@ import UserFollowers from '../../components/profile/UserFollowers';
 class UserProfile extends Component {
   render() {
     const id = this.props.match.params.id;
-    console.log(this.props.match.params.id);
+    // console.log(this.props.match.params.id);
     return (
       <Grommet theme={theme}>
         <Container>
@@ -33,7 +33,9 @@ class UserProfile extends Component {
               </Tab>
             </Tabs> */}
             <div className='tabs'>
-              <NavLink to={`/profile/${id}`}>Bookmarks</NavLink>
+              <NavLink exact to={`/profile/${id}`}>
+                Bookmarks
+              </NavLink>
               <NavLink to={`/profile/${id}/likes`}>Likes</NavLink>
               <NavLink to={`/profile/${id}/following`}>Following</NavLink>
               <NavLink to={`/profile/${id}/followers`}>Followers</NavLink>
