@@ -40,14 +40,16 @@ const UserFollowing = props => {
   // console.log(toggles, 'toggles', following);
 
   const handleFollow = async (friend_id, index) => {
+    const userId = props.auth.id;
     setIsLoading(true);
+
     await followAUser({ user_id: userId, friend_id: friend_id });
     setIsLoading(false);
 
     setToggles(
       toggles.map((toggle, idx) => (idx === index ? !toggle : toggle))
     );
-    getUserProfileDetails(userId);
+    // getUserProfileDetails(userId);
   };
 
   const handleUnfollow = async (friend_id, index) => {
@@ -95,8 +97,10 @@ const UserFollowing = props => {
   );
 };
 
+const mapStateToProps = ({ auth }) => ({ auth });
+
 export default connect(
-  null,
+  mapStateToProps,
   {
     followAUser,
     unfollowAUser,
