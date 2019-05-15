@@ -76,8 +76,6 @@ class ProfileSettings extends Component {
 	render() {
 		return (
 			<Wrapper>
-				<h2>User Settings</h2>
-
 				<FormGroup onSubmit={(e) => this.editProfileHandler(e, this.props.auth.id)}>
 					<div className="form-wrapper">
 						<Grommet theme={theme}>
@@ -157,7 +155,7 @@ class ProfileSettings extends Component {
 											style={{
 												width: '200px',
 												display: 'block',
-												margin: '10px auto',
+												margin: '10px auto'
 											}}
 											src={this.state.profile_pic}
 											alt="user_upload_picture"
@@ -197,22 +195,21 @@ const theme = {
 	global: {
 		focus: {
 			border: {
-				color: '#3f65f2',
-			},
-		},
+				color: '#3f65f2'
+			}
+		}
 	},
 	text: {
 		xsmall: {
 			size: '12px',
 			height: '18px',
-			maxWidth: '288px',
-		},
-	},
+			maxWidth: '288px'
+		}
+	}
 };
 
 const Wrapper = styled.div`
-	${customWrapper('80%', '0 auto')} 
-	@media (max-width: 768px) {
+	${customWrapper('80%', '0 auto')} @media (max-width: 768px) {
 		${customWrapper('90%', '0 auto')};
 	}
 	h2 {

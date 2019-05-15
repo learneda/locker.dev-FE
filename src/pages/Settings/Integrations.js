@@ -19,6 +19,14 @@ export default class Integrations extends Component {
 									</a>
 								</label>
 							</div>
+							<div className="col-2">
+								<label>
+									Pocket Api
+									<a href={`${URL}/api/pocket`}>
+										<button type="button">connect</button>
+									</a>
+								</label>
+							</div>
 						</div>
 					</Grommet>
 				</FormGroup>

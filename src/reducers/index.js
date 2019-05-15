@@ -1,30 +1,32 @@
-import { combineReducers } from 'redux';
-import { authReducer as auth } from './authReducer';
-import { homeReducer as home } from './homeReducer';
-import { browseReducer as browse } from './browseReducer';
-import { socialReducer as social } from './socialReducer';
-import { profileReducer as profile } from './profileReducer';
-import { modalReducer as modal } from './modalReducer';
-import { postReducer as posts } from './postReducer';
-import { likedPostReducer as likedPosts } from './likedPostReducer';
-import { searchReducer as searchTerm } from './searchReducer';
-import { followReducer as follow } from './followReducer';
-import { userReducer as user_details } from './userReducer';
-import { loadingReducer as loading } from './loadingReducer';
+import { combineReducers } from 'redux'
+import { authReducer as auth } from './authReducer'
+import { homeReducer as home } from './homeReducer'
+import { browseReducer as browse } from './browseReducer'
+import { socialReducer as social } from './socialReducer'
+import { profileReducer as profile } from './profileReducer'
+import { modalReducer as modal } from './modalReducer'
+import { postReducer as posts } from './postReducer'
+import { likedPostReducer as likedPosts } from './likedPostReducer'
+import { searchReducer as searchTerm } from './searchReducer'
+import { followReducer as follow } from './followReducer'
+import { userReducer as user_details } from './userReducer'
+import { loadingReducer as loading } from './loadingReducer'
 import { notificationsReducer as notifications } from './notificationsReducer'
+import { lockerReducer as locker } from './lockerReducer'
 
 export default combineReducers({
-  auth,
-  home,
-  browse,
-  social,
-  profile,
-  modal,
-  posts,
-  likedPosts,
-  searchTerm,
-  follow,
-  user_details,
-  loading,
-  notifications,
-});
+	auth,
+	home,
+	browse,
+	social,
+	profile,
+	modal,
+	posts,
+	likedPosts,
+	searchTerm,
+	follow,
+	user_details,
+	loading,
+	notifications,
+	locker
+})
