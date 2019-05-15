@@ -73,31 +73,37 @@ const Books = ({ search, handleSaveMedia, alert }) => {
             <a href={book.link} target='_blank' rel='noopener noreferrer'>
               <div
                 style={{
-                  height: '190px',
+                  display: 'flex',
+                  flexDirection: 'column',
                   overflow: 'hidden',
                   position: 'relative',
-                  backgroundImage: `url(${book.thumbnail}`,
-                  backgroundRepeat: 'no-repeat',
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  filter: `blur(1.5rem)`,
+                  alignItems: 'center',
                 }}
-              />
-              <img
-                style={{
-                  border: '0px',
-                  height: '100%',
-                  position: 'absolute',
-                  width: '100%',
-                  filter: `blur(0)`,
-                  transform: `scale(0.50)`,
-                  top: '-8.0rem',
-                }}
-                width='560'
-                height='315'
-                alt={book.title}
-                src={book.thumbnail}
-              />
+              >
+                <div
+                  style={{
+                    height: '200px',
+                    width: '100%',
+                    overflow: 'hidden',
+                    position: 'relative',
+                    backgroundImage: `url(${book.thumbnail}`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    filter: `blur(1.5rem)`,
+                  }}
+                />
+                <img
+                  style={{
+                    position: 'absolute',
+                    position: 'absolute',
+                    padding: '0px',
+                    top: '10px',
+                  }}
+                  alt={book.title}
+                  src={book.thumbnail}
+                />
+              </div>
               <h3 style={{ marginTop: '20px' }}>
                 {smartTruncate(book.title, 75)}
               </h3>

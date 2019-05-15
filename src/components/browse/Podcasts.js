@@ -69,29 +69,36 @@ const Podcasts = ({ search, handleSaveMedia, alert }) => {
           <a href={podcast.audio} target='_blank' rel='noopener noreferrer'>
             <div
               style={{
+                display: 'flex',
+                flexDirection: 'column',
                 overflow: 'hidden',
-                height: '150px',
-                position: 'relative',
-                backgroundImage: `url(${podcast.image})`,
-                backgroundRepeat: 'no-repeat',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                filter: `blur(.4rem)`,
               }}
-            />
-            <img
-              style={{
-                border: '0px',
-                height: '100%',
-                position: 'absolute',
-                width: '100%',
-                filter: `blur(0)`,
-                transform: `scale(0.4)`,
-                bottom: '100px',
-              }}
-              src={podcast.image}
-              alt='youtube'
-            />
+            >
+              <div
+                style={{
+                  height: '190px',
+                  position: 'relative',
+                  backgroundImage: `url(${podcast.image})`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  filter: `blur(1.5rem)`,
+                }}
+              />
+              <img
+                style={{
+                  display: 'inline-block',
+                  width: '150px',
+                  height: '150px',
+                  alignSelf: 'center',
+                  justifySelf: 'center',
+                  position: 'absolute',
+                  top: '20px',
+                }}
+                src={podcast.image}
+                alt='youtube'
+              />
+            </div>
             <h3>{smartTruncate(podcast.title_original, 75)}</h3>
             <p>{smartTruncate(he.decode(podcast.description_original), 120)}</p>
           </a>

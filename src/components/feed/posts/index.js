@@ -114,7 +114,7 @@ class PostContainer extends Component {
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              filter: `blur(10px)`,
+              filter: `blur(1.5rem)`,
             }}
           />
           <div
