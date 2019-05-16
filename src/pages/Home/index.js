@@ -32,7 +32,7 @@ class Home extends Component {
 								<NavLink to="/home/bookmarks">Bookmarks</NavLink>
 							</Tab>
 							<Tab>
-								<NavLink to="/home/locker">Locker</NavLink>
+								<NavLink to="/home/locker">Locker(Alpha)</NavLink>
 							</Tab>
 						</Tabs>
 						<TabWrapper>
