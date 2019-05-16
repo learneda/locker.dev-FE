@@ -7,7 +7,6 @@ import HelpScreen from '../utils/screens/HelpScreen'
 import LoveItSVG from '../../assets/svg/love-it-drawing.svg'
 
 import { truncateText, customLayout } from '../mixins'
-import { Wrapper, Post } from '../bookmarks'
 import { fetchUser, fetchLocker } from '../../actions'
 
 import axios from 'axios'

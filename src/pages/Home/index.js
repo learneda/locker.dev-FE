@@ -4,7 +4,7 @@ import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
 import { Grommet } from 'grommet'
 import styled from 'styled-components'
 import Feed from '../../components/feed'
-import Bookmarks from '../../components/bookmarks'
+import Collections from '../../components/collections'
 import Likes from '../../components/likes/Likes'
 import Sidebar from '../../components/sidebar/Sidebar'
 import RecommendedFollow from '../../components/sidebar/RecommendedFollow'
@@ -29,7 +29,7 @@ class Home extends Component {
 								</NavLink>
 							</Tab>
 							<Tab>
-								<NavLink to="/home/bookmarks">Bookmarks</NavLink>
+								<NavLink to="/home/collections">Collections</NavLink>
 							</Tab>
 							<Tab>
 								<NavLink to="/home/locker">Locker(Alpha)</NavLink>
@@ -38,7 +38,7 @@ class Home extends Component {
 						<TabWrapper>
 							<Switch>
 								<Route exact path={[ '/home', '/home/feed' ]} render={(props) => <Feed {...props} />} />
-								<Route path="/home/bookmarks" render={(props) => <Bookmarks {...props} />} />
+								<Route path="/home/collections" render={(props) => <Collections {...props} />} />
 								<Route path="/home/locker" render={(props) => <Likes {...props} />} />
 							</Switch>
 						</TabWrapper>
