@@ -6,32 +6,32 @@ import {
   RECOMMENDED_FOLLOW,
   GET_USER_FOLLOWERS,
   GET_USER_FOLLOWING,
-} from '../actions/types';
+} from '../actions/types'
 
 const initialState = {
   suggestedFriends: [],
   userFollowers: [],
   userFollowing: [],
   following: false,
-};
+}
 
 export const followReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_FOLLOWERS_AND_FOLLOWING_COUNT:
-      return { ...state, ...action.payload };
+      return { ...state, ...action.payload }
     case FOLLOW_A_USER:
-      return { ...state };
+      return { ...state }
     case UNFOLLOW_A_USER:
-      return state;
+      return state
     case GET_FOLLOWING:
-      return { ...state, following: action.payload };
+      return { ...state, following: action.payload }
     case RECOMMENDED_FOLLOW:
-      return { ...state, suggestedFriends: action.payload };
+      return { ...state, suggestedFriends: action.payload }
     case GET_USER_FOLLOWERS:
-      return { ...state, userFollowers: action.payload };
+      return { ...state, userFollowers: action.payload }
     case GET_USER_FOLLOWING:
-      return { ...state, userFollowing: action.payload };
+      return { ...state, userFollowing: action.payload }
     default:
-      return state;
+      return state
   }
-};
+}

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const StyledFollow = styled.div`
   display: flex;
@@ -75,4 +75,4 @@ export const StyledFollow = styled.div`
       text-align: left;
     }
   }
-`;
+`

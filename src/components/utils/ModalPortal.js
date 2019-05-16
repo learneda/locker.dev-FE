@@ -1,16 +1,16 @@
-import { Component } from 'react';
-import ReactDOM from 'react-dom';
+import { Component } from 'react'
+import ReactDOM from 'react-dom'
 
-const portalRoot = document.getElementById('modalPortal');
+const portalRoot = document.getElementById('modalPortal')
 
 export default class ReusablePortal extends Component {
   constructor(props) {
-    super(props);
-    this.el = document.createElement('div');
+    super(props)
+    this.el = document.createElement('div')
   }
 
   componentDidMount() {
-    portalRoot.appendChild(this.el);
+    portalRoot.appendChild(this.el)
   }
 
   componentWillUnmount() {
@@ -20,7 +20,7 @@ export default class ReusablePortal extends Component {
 
   render() {
     // document.getElementById('body').setAttribute('style', 'overflow: hidden');
-    const { children } = this.props;
-    return ReactDOM.createPortal(children, this.el);
+    const { children } = this.props
+    return ReactDOM.createPortal(children, this.el)
   }
 }

@@ -1,127 +1,127 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { Grommet, TextInput, CheckBox } from 'grommet';
-import styled from 'styled-components';
+import React, { useState, useCallback, useEffect, useRef } from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import { Grommet, TextInput, CheckBox } from 'grommet'
+import styled from 'styled-components'
 
-import SearchUsersDropDown from './SearchUsersDropDown';
-import { setSearchTerm, resetSearchTerm } from '../../actions';
+import SearchUsersDropDown from './SearchUsersDropDown'
+import { setSearchTerm, resetSearchTerm } from '../../actions'
 
 function Search(props) {
-  const { resetSearchTerm } = props;
-  const node = useRef();
-  const [toggle, setToggle] = useState(false);
-  const [search, setSearch] = useState('');
-  const [visible, setVisible] = useState(false);
+  const { resetSearchTerm } = props
+  const node = useRef()
+  const [toggle, setToggle] = useState(false)
+  const [search, setSearch] = useState('')
+  const [visible, setVisible] = useState(false)
 
   const handleChange = useCallback(
     e => {
-      setToggle(e.target.checked);
-      setSearch('');
-      resetSearchTerm();
+      setToggle(e.target.checked)
+      setSearch('')
+      resetSearchTerm()
     },
     [resetSearchTerm]
-  );
+  )
 
   const handleSearch = e => {
-    toggle && setVisible(true);
-    toggle ? setSearch(e.target.value) : props.setSearchTerm(e);
-  };
+    toggle && setVisible(true)
+    toggle ? setSearch(e.target.value) : props.setSearchTerm(e)
+  }
 
   const handleRefClick = e => {
     if (node.current) {
-      setVisible(false);
+      setVisible(false)
     }
-  };
+  }
   useEffect(() => {
-    document.addEventListener('click', handleRefClick);
+    document.addEventListener('click', handleRefClick)
     return () => {
-      document.removeEventListener('click', handleRefClick);
-    };
-  }, []);
+      document.removeEventListener('click', handleRefClick)
+    }
+  }, [])
 
   useEffect(() => {
-    resetSearchTerm();
-  }, [props.location.pathname]);
+    resetSearchTerm()
+  }, [props.location.pathname])
 
   //TODO: Make this DRY
   const displaySearch = () => {
-    let placeholder;
-    let path = props.location.pathname;
+    let placeholder
+    let path = props.location.pathname
     if (path.split('/')[1] === 'profile') {
       if (path.split('/').length === 3) {
-        path = '/profile';
+        path = '/profile'
       } else {
-        path = path.split('/')[3];
+        path = path.split('/')[3]
       }
     }
     switch (path) {
       case '/home':
-        placeholder = 'Feed';
-        break;
+        placeholder = 'Feed'
+        break
       case '/home/feed':
-        placeholder = 'Feed';
+        placeholder = 'Feed'
 
-        break;
+        break
       case '/home/bookmarks':
-        placeholder = 'Bookmarks';
-        break;
+        placeholder = 'Bookmarks'
+        break
       case '/home/likes':
-        placeholder = 'Likes';
-        break;
+        placeholder = 'Likes'
+        break
       case '/browse':
-        placeholder = 'Courses';
-        break;
+        placeholder = 'Courses'
+        break
       case '/browse/courses':
-        placeholder = 'Courses';
-        break;
+        placeholder = 'Courses'
+        break
       case '/browse/articles':
-        placeholder = 'Articles';
-        break;
+        placeholder = 'Articles'
+        break
       case '/browse/videos':
-        placeholder = 'Videos';
-        break;
+        placeholder = 'Videos'
+        break
       case '/browse/books':
-        placeholder = 'Books';
-        break;
+        placeholder = 'Books'
+        break
       case '/browse/podcasts':
-        placeholder = 'Podcasts';
-        break;
+        placeholder = 'Podcasts'
+        break
       case '/social':
-        placeholder = 'Following';
-        break;
+        placeholder = 'Following'
+        break
       case '/social/following':
-        placeholder = 'Following';
-        break;
+        placeholder = 'Following'
+        break
       case '/social/followers':
-        placeholder = 'Followers';
-        break;
+        placeholder = 'Followers'
+        break
       case '/social/suggested':
-        placeholder = 'Suggested';
-        break;
+        placeholder = 'Suggested'
+        break
       case '/social/meetups':
-        placeholder = 'Meetups';
-        break;
+        placeholder = 'Meetups'
+        break
       case '/settings':
-        placeholder = 'Settings';
-        break;
+        placeholder = 'Settings'
+        break
       case '/settings/integrations':
-        placeholder = 'Integrations';
-        break;
+        placeholder = 'Integrations'
+        break
       case '/profile':
-        placeholder = 'Profile';
-        break;
+        placeholder = 'Profile'
+        break
       case 'following':
-        placeholder = 'Following';
-        break;
+        placeholder = 'Following'
+        break
       case 'likes':
-        placeholder = 'Likes';
-        break;
+        placeholder = 'Likes'
+        break
       case 'followers':
-        placeholder = 'Followers';
-        break;
+        placeholder = 'Followers'
+        break
       default:
-        placeholder = 'Profile';
+        placeholder = 'Profile'
     }
     return (
       <TextInput
@@ -132,8 +132,8 @@ function Search(props) {
         onChange={handleSearch}
         id='search-input'
       />
-    );
-  };
+    )
+  }
   //todo: DRY-UP and CLEAN-UP SEARCH COMPONENT SELECTION
   return (
     <>
@@ -153,7 +153,7 @@ function Search(props) {
         </DropDown>
       )}
     </>
-  );
+  )
 }
 
 const mapStateToProps = ({ searchTerm, browse, home, profile }) => ({
@@ -161,14 +161,14 @@ const mapStateToProps = ({ searchTerm, browse, home, profile }) => ({
   browseIndex: browse.index,
   homeIndex: home.index,
   profileIndex: profile.index,
-});
+})
 
 export default withRouter(
   connect(
     mapStateToProps,
     { setSearchTerm, resetSearchTerm }
   )(Search)
-);
+)
 
 const theme = {
   global: {
@@ -181,7 +181,7 @@ const theme = {
       },
     },
   },
-};
+}
 
 const Wrapper = styled.div`
   input {
@@ -197,12 +197,12 @@ const Wrapper = styled.div`
   @media (max-width: 500px) {
     width: 80%;
   }
-`;
+`
 
 const Container = styled.div`
   position: relative;
   display: flex;
-`;
+`
 
 const Toggle = styled.div`
   position: absolute;
@@ -212,7 +212,7 @@ const Toggle = styled.div`
   @media (max-width: 760px) {
     top: 6px;
   }
-`;
+`
 
 const DropDown = styled.div`
   display: flex;
@@ -235,4 +235,4 @@ const DropDown = styled.div`
   @media (max-width: 500px) {
     width: 70%;
   }
-`;
+`

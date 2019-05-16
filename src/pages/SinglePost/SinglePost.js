@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { post as URL } from '../../services/baseURL';
-import { withRouter } from 'react-router-dom';
+import React, { Component } from 'react'
+import axios from 'axios'
+import { post as URL } from '../../services/baseURL'
+import { withRouter } from 'react-router-dom'
 
 class SinglePost extends Component {
   componentDidMount() {
@@ -10,11 +10,11 @@ class SinglePost extends Component {
       .get(`${URL}/api/posts/shared/${this.props.match.params.id}`)
       .then(res => {
         // console.log(res.data);
-      });
+      })
   }
 
   render() {
-    return <div>{/* <PostContainer /> */}</div>;
+    return <div>{/* <PostContainer /> */}</div>
   }
 }
-export default withRouter(SinglePost);
+export default withRouter(SinglePost)

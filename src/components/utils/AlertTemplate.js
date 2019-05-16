@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import { positions } from 'react-alert';
-import { ReactComponent as X } from '../../assets/svg/x.svg';
+import React from 'react'
+import styled from 'styled-components'
+import { positions } from 'react-alert'
+import { ReactComponent as X } from '../../assets/svg/x.svg'
 
 export default function Alert({ message, close }) {
   return (
@@ -12,13 +12,13 @@ export default function Alert({ message, close }) {
         <X onClick={close} />
       </XX>
     </Container>
-  );
+  )
 }
 
 export const options = {
   position: positions.BOTTOM_CENTER,
   timeout: 3000,
-};
+}
 
 const Container = styled.div`
   display: flex;
@@ -33,12 +33,12 @@ const Container = styled.div`
   @media (max-width: 500px) {
     padding: 13px 13px;
   }
-`;
+`
 
 const Message = styled.span`
   text-align: center;
-`;
+`
 
 const XX = styled.div`
   cursor: pointer;
-`;
+`

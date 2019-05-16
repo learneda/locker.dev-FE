@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import youtube from '../../apis/youtube';
-import { setSearchTerm } from '../../actions';
-import styled from 'styled-components';
-import { customLayout, smartTruncate } from '../mixins';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
-import { ReactComponent as Add } from '../../assets/svg/add-icon.svg';
-import { useThrottle } from 'use-throttle';
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import youtube from '../../apis/youtube'
+import { setSearchTerm } from '../../actions'
+import styled from 'styled-components'
+import { customLayout, smartTruncate } from '../mixins'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
+import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
+import { useThrottle } from 'use-throttle'
 
 const Videos = ({ search, handleSaveMedia, alert }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [videos, setVideos] = useState([]);
-  const [pageToken, setPageToken] = useState(null);
-  const throttledSearch = useThrottle(search, 0.6);
+  const [isLoading, setIsLoading] = useState(false)
+  const [videos, setVideos] = useState([])
+  const [pageToken, setPageToken] = useState(null)
+  const throttledSearch = useThrottle(search, 0.6)
 
   const fetchMoreVideos = () => {
     youtube
@@ -26,14 +26,14 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
       .then(res => {
         setVideos(prevVideos => {
           const videosWithState = res.data.items.map(video => {
-            video.isThumbnail = true;
-            return video;
-          });
-          return [...prevVideos, ...videosWithState];
-        });
-        setPageToken(res.data.nextPageToken);
-      });
-  };
+            video.isThumbnail = true
+            return video
+          })
+          return [...prevVideos, ...videosWithState]
+        })
+        setPageToken(res.data.nextPageToken)
+      })
+  }
 
   const fetchVideos = query => {
     youtube
@@ -44,36 +44,36 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
       })
       .then(res => {
         const videosWithState = res.data.items.map(video => {
-          video.isThumbnail = true;
-          return video;
-        });
-        setVideos(videosWithState);
-        setPageToken(res.data.nextPageToken);
-        setIsLoading(false);
-      });
-  };
+          video.isThumbnail = true
+          return video
+        })
+        setVideos(videosWithState)
+        setPageToken(res.data.nextPageToken)
+        setIsLoading(false)
+      })
+  }
 
   useEffect(() => {
-    setIsLoading(true);
-    fetchVideos(search);
-  }, [throttledSearch]);
+    setIsLoading(true)
+    fetchVideos(search)
+  }, [throttledSearch])
 
   const renderLoader = () => (
     <Loader>
       <Loading />
     </Loader>
-  );
+  )
 
   const showIframe = id => {
     setVideos(prevVideos =>
       prevVideos.map(video => {
         if (video.id.videoId === id) {
-          video.isThumbnail = false;
+          video.isThumbnail = false
         }
-        return video;
+        return video
       })
-    );
-  };
+    )
+  }
 
   const renderVideos = () => (
     <InfiniteScroll
@@ -149,32 +149,32 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
                   title: video.snippet.title,
                   description: video.snippet.description,
                   thumbnail_url: video.snippet.thumbnails.medium.url,
-                });
-                alert.success('Article added to Bookmarks');
+                })
+                alert.success('Article added to Bookmarks')
               }}
             />
           </SaveIcon>
         </Card>
       ))}
     </InfiniteScroll>
-  );
+  )
 
-  return <Cards>{isLoading ? renderLoader() : renderVideos()}</Cards>;
-};
+  return <Cards>{isLoading ? renderLoader() : renderVideos()}</Cards>
+}
 
 const mapStateToProps = ({ searchTerm }) => ({
   search: searchTerm,
-});
+})
 
 export default connect(
   mapStateToProps,
   null
-)(Videos);
+)(Videos)
 
 const Loader = styled.div`
   margin: 75px auto;
   text-align: center;
-`;
+`
 
 const Cards = styled.div`
   border-top: 1px solid #bdbdbd;
@@ -187,7 +187,7 @@ const Cards = styled.div`
   @media (max-width: 768px) {
     margin: -12px auto 0;
   }
-`;
+`
 
 const Card = styled.div`
   position: relative;
@@ -246,7 +246,7 @@ const Card = styled.div`
     color: #6d767e;
     overflow: hidden;
   }
-`;
+`
 
 const SaveIcon = styled.div`
   // border: 1px solid red;
@@ -260,4 +260,4 @@ const SaveIcon = styled.div`
     opacity: 1;
     transition: 200ms ease-in;
   }
-`;
+`

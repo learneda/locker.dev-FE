@@ -1,24 +1,24 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import Moment from 'react-moment';
-import styled from 'styled-components';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import Moment from 'react-moment'
+import styled from 'styled-components'
 import {
   getUserProfileDetails,
   followAUser,
   unfollowAUser,
   getFollowing,
   getUserFollowers,
-} from '../../actions';
-import { customLayout, customWrapper } from '../mixins';
-import locationSvg from '../../assets/svg/location.svg';
-import linkSvg from '../../assets/svg/link-symbol.svg';
-import calendarSvg from '../../assets/svg/calendar.svg';
-import { post as URL } from '../../services/baseURL.js';
-import ContentLoader from 'react-content-loader';
-import axios from 'axios';
-import FollowingDropdown from '../utils/FollowingDropdown';
-import FollowersDropdown from '../utils/FollowersDropdown';
+} from '../../actions'
+import { customLayout, customWrapper } from '../mixins'
+import locationSvg from '../../assets/svg/location.svg'
+import linkSvg from '../../assets/svg/link-symbol.svg'
+import calendarSvg from '../../assets/svg/calendar.svg'
+import { post as URL } from '../../services/baseURL.js'
+import ContentLoader from 'react-content-loader'
+import axios from 'axios'
+import FollowingDropdown from '../utils/FollowingDropdown'
+import FollowersDropdown from '../utils/FollowersDropdown'
 
 const MyLoader = () => (
   <ContentLoader
@@ -32,7 +32,7 @@ const MyLoader = () => (
     <rect x='118' y='425' rx='0' ry='0' width='0' height='0' />
     <rect x='17' y='144' rx='0' ry='0' width='364' height='300' />
   </ContentLoader>
-);
+)
 
 class SidebarById extends Component {
   state = {
@@ -41,74 +41,74 @@ class SidebarById extends Component {
     following: [],
     followingDropDownHeight: '0px',
     followersDropDownHeight: '0px',
-  };
+  }
   componentDidMount() {
-    const id = this.props.match.params.id;
-    this.props.getUserProfileDetails(id);
-    this.props.getFollowing(id);
+    const id = this.props.match.params.id
+    this.props.getUserProfileDetails(id)
+    this.props.getFollowing(id)
 
     if (id) {
       axios
         .get(`${URL}/api/users/followers?id=${id}`)
-        .then(res => this.setState({ followers: res.data }));
+        .then(res => this.setState({ followers: res.data }))
     }
     if (id) {
       axios
         .get(`${URL}/api/users/following?id=${id}`)
-        .then(res => this.setState({ following: res.data }));
+        .then(res => this.setState({ following: res.data }))
     }
   }
 
   followAUserHandler = async e => {
-    e.preventDefault();
-    const friend_id = this.props.match.params.id;
-    await this.props.followAUser({ user_id: this.props.auth.id, friend_id });
-    await this.props.getUserProfileDetails(friend_id);
-    await this.props.getFollowing(friend_id);
+    e.preventDefault()
+    const friend_id = this.props.match.params.id
+    await this.props.followAUser({ user_id: this.props.auth.id, friend_id })
+    await this.props.getUserProfileDetails(friend_id)
+    await this.props.getFollowing(friend_id)
     if (friend_id) {
       axios.get(`${URL}/api/users/followers?id=${friend_id}`).then(res => {
-        this.setState({ followers: res.data });
-      });
+        this.setState({ followers: res.data })
+      })
     }
-  };
+  }
 
   unfollowAUserHandler = async e => {
-    e.preventDefault();
-    const friend_id = this.props.match.params.id;
-    await this.props.unfollowAUser({ user_id: this.props.auth.id, friend_id });
-    await this.props.getUserProfileDetails(friend_id);
-    await this.props.getFollowing(friend_id);
+    e.preventDefault()
+    const friend_id = this.props.match.params.id
+    await this.props.unfollowAUser({ user_id: this.props.auth.id, friend_id })
+    await this.props.getUserProfileDetails(friend_id)
+    await this.props.getFollowing(friend_id)
     if (friend_id) {
       axios.get(`${URL}/api/users/followers?id=${friend_id}`).then(res => {
         // console.log('res.data', res.data);
-        this.setState({ followers: res.data });
-      });
+        this.setState({ followers: res.data })
+      })
     }
-  };
+  }
   imageLoaded = async () => {
     this.setState({
       imageLoaded: true,
-    });
-  };
+    })
+  }
   handleFollowingDropdown = () => {
     this.setState({
       followingDropDownHeight:
         this.state.followingDropDownHeight === '300px' ? '0px' : '300px',
       followersDropDownHeight: '0px',
-    });
-  };
+    })
+  }
 
   handleFollowersDropdown = () => {
     this.setState({
       followersDropDownHeight:
         this.state.followersDropDownHeight === '300px' ? '0px' : '300px',
       followingDropDownHeight: '0px',
-    });
-  };
+    })
+  }
 
   render() {
     if (!this.props.user_details) {
-      return <MyLoader />;
+      return <MyLoader />
     }
     const {
       // profile_picture,
@@ -120,16 +120,16 @@ class SidebarById extends Component {
       location,
       website_url,
       created_at,
-    } = this.props.user_details;
-    let imgURL;
+    } = this.props.user_details
+    let imgURL
     if (
       this.props.user_details.profile_picture.indexOf(
         '/uploads/profile_pic-'
       ) >= 0
     ) {
-      imgURL = `${URL}${this.props.user_details.profile_picture}`;
+      imgURL = `${URL}${this.props.user_details.profile_picture}`
     } else {
-      imgURL = this.props.user_details.profile_picture;
+      imgURL = this.props.user_details.profile_picture
     }
     return (
       <Wrapper>
@@ -221,7 +221,7 @@ class SidebarById extends Component {
           </div>
         </Profile>
       </Wrapper>
-    );
+    )
   }
 }
 
@@ -230,8 +230,8 @@ const mapStateToProps = ({ user_details, auth, follow }) => {
     user_details,
     auth,
     follow: follow.following,
-  };
-};
+  }
+}
 
 export default withRouter(
   connect(
@@ -244,7 +244,7 @@ export default withRouter(
       getUserFollowers,
     }
   )(SidebarById)
-);
+)
 
 const Wrapper = styled.div`
   ${customWrapper('40%')}
@@ -252,7 +252,7 @@ const Wrapper = styled.div`
   @media (max-width: 900px) {
     display: none;
   }
-`;
+`
 
 const Profile = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -428,4 +428,4 @@ const Profile = styled.div`
       transition: 200ms ease-out;
     }
   }
-`;
+`

@@ -1,5 +1,5 @@
 export const StyledAuth = () =>
-`
+  `
     /* background: inherit; */
     /* width: 450px;
     height: 550px; */

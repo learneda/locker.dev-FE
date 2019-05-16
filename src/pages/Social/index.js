@@ -1,17 +1,17 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { NavLink, Route, Switch } from 'react-router-dom';
-import { Grommet } from 'grommet';
-import styled from 'styled-components';
-import Following from '../../components/social/Following';
-import Followers from '../../components/social/Followers';
-import Suggested from '../../components/social/Suggested';
-import Meetups from '../../components/social/Meetups';
-import Sidebar from '../../components/sidebar/Sidebar';
-import { customWrapper } from '../../components/mixins';
+import React from 'react'
+import { connect } from 'react-redux'
+import { NavLink, Route, Switch } from 'react-router-dom'
+import { Grommet } from 'grommet'
+import styled from 'styled-components'
+import Following from '../../components/social/Following'
+import Followers from '../../components/social/Followers'
+import Suggested from '../../components/social/Suggested'
+import Meetups from '../../components/social/Meetups'
+import Sidebar from '../../components/sidebar/Sidebar'
+import { customWrapper } from '../../components/mixins'
 
 const Social = props => {
-  const { userId, following, followers, suggested } = props;
+  const { userId, following, followers, suggested } = props
   return (
     <Grommet>
       <Container>
@@ -68,20 +68,20 @@ const Social = props => {
         </Wrapper>
       </Container>
     </Grommet>
-  );
-};
+  )
+}
 
 const mapStateToProps = ({ auth, follow }) => ({
   userId: auth.id,
   following: follow.userFollowing,
   followers: follow.userFollowers,
   suggested: follow.suggestedFriends,
-});
+})
 
 export default connect(
   mapStateToProps,
   null
-)(Social);
+)(Social)
 
 const Container = styled.div`
   ${customWrapper('80%', '0 auto')}
@@ -93,7 +93,7 @@ const Container = styled.div`
   @media (max-width: 768px) {
     width: 100%;
   }
-`;
+`
 
 const Wrapper = styled.div`
   max-width: 1600px;
@@ -104,18 +104,18 @@ const Wrapper = styled.div`
     margin: 0 auto;
     padding: 0;
   }
-`;
+`
 
 const TabWrapper = styled.div`
   border-top: 1px solid #bdbdbd;
   padding-top: 20px;
   margin-top: -3px;
-`;
+`
 
 const Tabs = styled.ul`
   display: flex;
-`;
+`
 
 const Tab = styled.li`
   margin-right: 2rem;
-`;
+`

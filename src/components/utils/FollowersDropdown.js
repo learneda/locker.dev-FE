@@ -1,34 +1,34 @@
-import React from 'react';
-import styled from 'styled-components';
-import upArrow from '../../assets/svg/up-arrow.svg';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import styled from 'styled-components'
+import upArrow from '../../assets/svg/up-arrow.svg'
+import { Link } from 'react-router-dom'
 
 export default function FollowersDropdown(props) {
-  let followers = '';
+  let followers = ''
   if (props.followers.length > 0) {
     followers = props.followers.map((follow, index) => (
       <Link key={index} to={`/profile/${follow.id}`}>
-        <div className="follow">
-          <img src={follow.profile_picture} alt="" />
+        <div className='follow'>
+          <img src={follow.profile_picture} alt='' />
           <h2>{follow.username}</h2>
         </div>
       </Link>
-    ));
+    ))
   }
   return (
     <StyledDropdown
-      className="follow-stats-dropdown"
+      className='follow-stats-dropdown'
       style={{ height: props.height }}
     >
       <img
-        className="caret-up"
+        className='caret-up'
         src={upArrow}
-        alt=""
+        alt=''
         onClick={props.handleFollowingDropdown}
       />
       {followers}
     </StyledDropdown>
-  );
+  )
 }
 
 const StyledDropdown = styled.div`
@@ -78,4 +78,4 @@ const StyledDropdown = styled.div`
     opacity: 0.7;
     transition: 200ms ease-out;
   }
-`;
+`

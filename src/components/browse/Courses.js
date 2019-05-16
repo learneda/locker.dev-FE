@@ -1,9 +1,9 @@
-import React from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import styled from 'styled-components';
-import { customLayout } from '../../components/mixins';
-import { ReactComponent as Add } from '../../assets/svg/add-icon.svg';
-import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
+import React from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import styled from 'styled-components'
+import { customLayout } from '../../components/mixins'
+import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
+import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
 const Courses = props => {
   const {
     courses,
@@ -11,7 +11,7 @@ const Courses = props => {
     handleSaveLink,
     handleTruncateText,
     alert,
-  } = props;
+  } = props
   return (
     <Cards>
       {courses.length === 0 ? (
@@ -45,8 +45,8 @@ const Courses = props => {
                 <Add
                   className='save-icon'
                   onClick={() => {
-                    handleSaveLink(`https://www.udemy.com${course.url}`);
-                    alert.success('Course added to Bookmarks');
+                    handleSaveLink(`https://www.udemy.com${course.url}`)
+                    alert.success('Course added to Bookmarks')
                   }}
                 />
               </SaveIcon>
@@ -55,15 +55,15 @@ const Courses = props => {
         </InfiniteScroll>
       )}
     </Cards>
-  );
-};
+  )
+}
 
-export default Courses;
+export default Courses
 
 const Loader = styled.div`
   margin: 75px auto;
   text-align: center;
-`;
+`
 
 const Cards = styled.div`
   border-top: 1px solid #bdbdbd;
@@ -76,7 +76,7 @@ const Cards = styled.div`
   @media (max-width: 768px) {
     margin: -12px auto 0;
   }
-`;
+`
 
 const Card = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -133,7 +133,7 @@ const Card = styled.div`
     line-height: 20px;
     color: #6d767e;
   }
-`;
+`
 
 const SaveIcon = styled.div`
   // border: 1px solid red;
@@ -146,4 +146,4 @@ const SaveIcon = styled.div`
     opacity: 1;
     transition: 200ms ease-in;
   }
-`;
+`

@@ -32,7 +32,7 @@ img {
     cursor: pointer;
   }
 }
-`;
+`
 
 export const FeatureTitle = () => `
 font-size: 5rem;
@@ -45,7 +45,7 @@ font-size: 5rem;
     font-size: 3.5rem;
     margin-bottom: 40px;
   }
-`;
+`
 
 export const FeaturesContainer = () => `
 display: flex;
@@ -87,7 +87,7 @@ h4 {
     margin-bottom: 30px;
   }
 }
-`;
+`
 
 export const StyledCallToAction = () => `
 min-height: 82vh;
@@ -223,7 +223,7 @@ min-height: 82vh;
       transform: translateY(-5px);
     }
   }
-`;
+`
 
 export const StyledFooter = () => `
 width: 100%;
@@ -272,4 +272,4 @@ padding: 50px 0;
     margin-bottom: 1.5rem;
   }
 }
-`;
+`

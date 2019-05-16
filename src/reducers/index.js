@@ -15,18 +15,18 @@ import { notificationsReducer as notifications } from './notificationsReducer'
 import { lockerReducer as locker } from './lockerReducer'
 
 export default combineReducers({
-	auth,
-	home,
-	browse,
-	social,
-	profile,
-	modal,
-	posts,
-	likedPosts,
-	searchTerm,
-	follow,
-	user_details,
-	loading,
-	notifications,
-	locker
+  auth,
+  home,
+  browse,
+  social,
+  profile,
+  modal,
+  posts,
+  likedPosts,
+  searchTerm,
+  follow,
+  user_details,
+  loading,
+  notifications,
+  locker,
 })

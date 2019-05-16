@@ -11,62 +11,76 @@ import { customWrapper } from '../mixins'
 import { StyledBookmarks } from './StyledBookmarks'
 
 export default function(props) {
-	const posts = props.posts
-		.map((post) => (
-			<Post key={post.id}>
-				<a href={post.post_url} target="_blank" rel="noopener noreferrer">
-					<img src={post.thumbnail_url} alt="" />
-				</a>
-				<div className="post-content">
-					<a href={post.post_url} target="_blank" rel="noopener noreferrer">
-						<h1>{props.handleTruncateText(post.title, 9)}</h1>
-					</a>
-					<p>{props.handleTruncateText(post.description, 15)}</p>
-					<a className="post-root-url" href={post.post_url} target="_blank" rel="noopener noreferrer">
-						{post.root_url}
-					</a>
-					<div className="date-like-heart">
-						<span className="formatted-date">
-							{moment(post.created_at).fromNow() === 'a few seconds ago' ? (
-								'just now'
-							) : (
-								<Moment fromNow>{post.created_at}</Moment>
-							)}
-						</span>
+  const posts = props.posts
+    .map(post => (
+      <Post key={post.id}>
+        <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
+          <img src={post.thumbnail_url} alt='' />
+        </a>
+        <div className='post-content'>
+          <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
+            <h1>{props.handleTruncateText(post.title, 9)}</h1>
+          </a>
+          <p>{props.handleTruncateText(post.description, 15)}</p>
+          <a
+            className='post-root-url'
+            href={post.post_url}
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            {post.root_url}
+          </a>
+          <div className='date-like-heart'>
+            <span className='formatted-date'>
+              {moment(post.created_at).fromNow() === 'a few seconds ago' ? (
+                'just now'
+              ) : (
+                <Moment fromNow>{post.created_at}</Moment>
+              )}
+            </span>
 
-						<SharedButton bookmark={post} />
-						<div className="delete-bookmark" onClick={() => props.handleDelete(post.id)}>
-							<img src={deleteIcon} className="delete-icon" alt="delete icon" />
-							<span className="del-span">Delete</span>
-						</div>
-					</div>
-					<div className="edit-icon">
-						<img
-							src={editSvg}
-							alt=""
-							onClick={() => {
-								props.handleModalOpen(post)
-							}}
-						/>
-					</div>
-				</div>
-			</Post>
-		))
-		.reverse()
+            <SharedButton bookmark={post} />
+            <div
+              className='delete-bookmark'
+              onClick={() => props.handleDelete(post.id)}
+            >
+              <img src={deleteIcon} className='delete-icon' alt='delete icon' />
+              <span className='del-span'>Delete</span>
+            </div>
+          </div>
+          <div className='edit-icon'>
+            <img
+              src={editSvg}
+              alt=''
+              onClick={() => {
+                props.handleModalOpen(post)
+              }}
+            />
+          </div>
+        </div>
+      </Post>
+    ))
+    .reverse()
 
-	return (
-		<Wrapper>
-			{props.modalOpen && (
-				<EditModal open={props.modalOpen} handleModalOpen={props.handleModalOpen} post={props.editPost} />
-			)}
-			{posts}
-		</Wrapper>
-	)
+  return (
+    <Wrapper>
+      {props.modalOpen && (
+        <EditModal
+          open={props.modalOpen}
+          handleModalOpen={props.handleModalOpen}
+          post={props.editPost}
+        />
+      )}
+      {posts}
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.div`
-	// border: 1px solid blue;
-	${customWrapper('100%', '0 auto')};
+  // border: 1px solid blue;
+  ${customWrapper('100%', '0 auto')};
 `
 
-const Post = styled.div`${customWrapper('100%', 'auto')} ${StyledBookmarks};`
+const Post = styled.div`
+  ${customWrapper('100%', 'auto')} ${StyledBookmarks};
+`

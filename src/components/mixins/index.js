@@ -1,41 +1,41 @@
-import GlobalStyle from './cssReset.js';
-export default GlobalStyle;
+import GlobalStyle from './cssReset.js'
+export default GlobalStyle
 // variables
-export const bgColor = '#e6e9f3';
-export const hoverBg = '#d3d7e7';
-export const buttonBg = '#4163f2';
+export const bgColor = '#e6e9f3'
+export const hoverBg = '#d3d7e7'
+export const buttonBg = '#4163f2'
 
 // Flexbox custom layout
 export const customLayout = (justify = 'flex-start', align = 'flex-start') =>
   `display: flex;
   justify-content: ${justify};
-  align-items: ${align};`;
+  align-items: ${align};`
 
 export const customWrapper = (width = '100%', margin = 0) =>
   `width: ${width};
-  margin: ${margin};`;
+  margin: ${margin};`
 
 export const customContainer = (width = '100%', bg = bgColor) => `
   width: ${width};
   background-color: ${bg};
-`;
+`
 
 export const truncateText = (content, limit = 10) => {
   if (content.split(' ').length < limit) {
-    return content;
+    return content
   } else {
-    content = content.split(' ').slice(0, limit);
-    content = content.join(' ');
-    return content + ' ...';
+    content = content.split(' ').slice(0, limit)
+    content = content.join(' ')
+    return content + ' ...'
   }
-};
+}
 
 //* Character-based truncate
 //* Regex: multiple whitespace replace with single space
 //* (multiple whitespace screws with limit check)
 export const smartTruncate = (content, limit = 100, delimiter = '...') => {
   if (!content) {
-    return content;
+    return content
   }
   return content.length <= limit
     ? content
@@ -45,5 +45,5 @@ export const smartTruncate = (content, limit = 100, delimiter = '...') => {
         .split(' ')
         .slice(0, -1) //* chops off last word since it might not be a whole word
         .concat(delimiter)
-        .join(' ');
-};
+        .join(' ')
+}

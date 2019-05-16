@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import ContentLoader from 'react-content-loader';
-import styled from 'styled-components';
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import ContentLoader from 'react-content-loader'
+import styled from 'styled-components'
 
 import {
   getUserProfileDetails,
   recommendedFollow,
   followAUser,
   getUserFollowing,
-} from '../../actions';
+} from '../../actions'
 
 const MyLoader = () => (
   <ContentLoader
@@ -24,7 +24,7 @@ const MyLoader = () => (
     <rect x='60' y='91' rx='0' ry='0' width='60' height='22' />
     <rect x='10' y='120' rx='0' ry='0' width='1160' height='14' />
   </ContentLoader>
-);
+)
 
 const RecommendedFollow = props => {
   const {
@@ -33,22 +33,22 @@ const RecommendedFollow = props => {
     getUserFollowing,
     recommendedFollow,
     auth,
-  } = props;
+  } = props
 
   useEffect(() => {
-    recommendedFollow(auth.id);
-  }, [recommendedFollow, auth.id]);
+    recommendedFollow(auth.id)
+  }, [recommendedFollow, auth.id])
 
   const followAUserHandler = async (e, friend_id) => {
-    e.preventDefault();
-    await followAUser({ user_id: props.auth.id, friend_id });
-    getUserProfileDetails(props.auth.id);
-    getUserFollowing(props.auth.id);
-    recommendedFollow(props.auth.id);
-  };
+    e.preventDefault()
+    await followAUser({ user_id: props.auth.id, friend_id })
+    getUserProfileDetails(props.auth.id)
+    getUserFollowing(props.auth.id)
+    recommendedFollow(props.auth.id)
+  }
 
   const renderRecommended = () => {
-    const { follow, loading } = props;
+    const { follow, loading } = props
     if (loading) {
       return (
         <>
@@ -62,7 +62,7 @@ const RecommendedFollow = props => {
             <MyLoader />
           </div>
         </>
-      );
+      )
     } else {
       return follow.map((following, index) => (
         <div className='recommended-follow-container' key={index}>
@@ -88,16 +88,16 @@ const RecommendedFollow = props => {
             )}
           </div>
         </div>
-      ));
+      ))
     }
-  };
+  }
 
   return (
     <StyledCard>
       <div className='sticky-container'>{renderRecommended()}</div>
     </StyledCard>
-  );
-};
+  )
+}
 
 const mapStateToProps = ({ auth, user_details, follow, loading }) => {
   return {
@@ -105,8 +105,8 @@ const mapStateToProps = ({ auth, user_details, follow, loading }) => {
     user_details: user_details,
     follow: follow.suggestedFriends,
     loading: loading.suggested,
-  };
-};
+  }
+}
 
 export default connect(
   mapStateToProps,
@@ -116,7 +116,7 @@ export default connect(
     followAUser,
     getUserFollowing,
   }
-)(RecommendedFollow);
+)(RecommendedFollow)
 
 const StyledCard = styled.div`
   margin: 60px 0px 0px 30px;
@@ -172,4 +172,4 @@ const StyledCard = styled.div`
       }
     }
   }
-`;
+`

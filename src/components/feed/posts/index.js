@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Moment from 'react-moment';
-import CommentBox from '../comments';
-import axios from 'axios';
-import { post as URL } from '../../../services/baseURL';
-import addIcon from '../../../assets/svg/add-icon.svg';
-import { withAlert } from 'react-alert';
-import { smartTruncate } from '../../mixins/';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import Moment from 'react-moment'
+import CommentBox from '../comments'
+import axios from 'axios'
+import { post as URL } from '../../../services/baseURL'
+import addIcon from '../../../assets/svg/add-icon.svg'
+import { withAlert } from 'react-alert'
+import { smartTruncate } from '../../mixins/'
 class PostContainer extends Component {
   constructor(props) {
-    super(props);
-    this.heartIcon = React.createRef();
+    super(props)
+    this.heartIcon = React.createRef()
   }
 
   componentDidMount() {
@@ -25,25 +25,25 @@ class PostContainer extends Component {
               this.heartIcon.current.setAttribute(
                 'class',
                 'far fa-heart fa-lg heart-red'
-              );
+              )
             }
-          });
+          })
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err))
     }
   }
 
   handleLikes = (e, post_id, post) => {
-    const postOwnerId = post.user_id;
+    const postOwnerId = post.user_id
 
-    let result = e.target.classList.contains('heart-red');
+    let result = e.target.classList.contains('heart-red')
     if (result) {
       const data = {
         post_id,
         user_id: this.props.user_id,
         action: 'unlike',
-      };
-      this.props.handleClick(data);
+      }
+      this.props.handleClick(data)
     } else {
       const data = {
         post_id,
@@ -51,18 +51,18 @@ class PostContainer extends Component {
         action: 'like',
         postOwnerId,
         username: this.props.username,
-      };
-      this.props.handleClick(data);
+      }
+      this.props.handleClick(data)
     }
-  };
+  }
   handleSaveToProfile = url => {
-    axios.post(`${URL}/api/posts`, { post_url: url, id: this.props.user_id });
-  };
+    axios.post(`${URL}/api/posts`, { post_url: url, id: this.props.user_id })
+  }
 
   displayMedia = post => {
-    const { post_url, thumbnail_url } = post;
+    const { post_url, thumbnail_url } = post
     if (post_url.includes('youtube.com/watch')) {
-      const videoId = post_url.split('=')[1];
+      const videoId = post_url.split('=')[1]
       return (
         <div
           style={{
@@ -89,7 +89,7 @@ class PostContainer extends Component {
             allowFullScreen
           />
         </div>
-      );
+      )
     } else if (
       thumbnail_url.includes('google') ||
       thumbnail_url.includes('cloudfront')
@@ -132,7 +132,7 @@ class PostContainer extends Component {
             }}
           />
         </div>
-      );
+      )
     } else {
       return (
         <div
@@ -146,9 +146,9 @@ class PostContainer extends Component {
             backgroundPosition: 'center',
           }}
         />
-      );
+      )
     }
-  };
+  }
 
   render() {
     const {
@@ -159,7 +159,7 @@ class PostContainer extends Component {
       profile_picture,
       user_id,
       handleDeleteComment,
-    } = this.props;
+    } = this.props
     return (
       <div className='post'>
         <div className='post-user-info'>
@@ -204,8 +204,8 @@ class PostContainer extends Component {
               className='far fa-heart fa-lg'
               ref={this.heartIcon}
               onClick={e => {
-                this.handleLikes(e, post.post_id, post);
-                e.target.classList.toggle('heart-red');
+                this.handleLikes(e, post.post_id, post)
+                e.target.classList.toggle('heart-red')
               }}
             >
               <span>{this.props.post.likes}</span>
@@ -214,8 +214,8 @@ class PostContainer extends Component {
               <div
                 className='save'
                 onClick={() => {
-                  this.handleSaveToProfile(post.post_url);
-                  this.props.alert.success('Post added to Bookmarks');
+                  this.handleSaveToProfile(post.post_url)
+                  this.props.alert.success('Post added to Bookmarks')
                 }}
               >
                 <img src={addIcon} alt='' />
@@ -236,10 +236,10 @@ class PostContainer extends Component {
           postOwnerId={post.user_id}
         />
       </div>
-    );
+    )
   }
 }
 
-const Alert = withAlert()(PostContainer);
+const Alert = withAlert()(PostContainer)
 
-export default Alert;
+export default Alert

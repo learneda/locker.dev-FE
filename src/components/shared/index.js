@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import ReusablePortal from '../utils/ModalPortal';
-import { StyledAddLink } from '../utils/StyledAddLink.js';
-import styled from 'styled-components';
-import { ReactComponent as X } from '../../assets/svg/x.svg';
-import axios from 'axios';
-import { post as URL } from '../../services/baseURL';
-import shareSvg from '../../assets/svg/share.svg';
-import { withAlert } from 'react-alert';
+import React, { Component } from 'react'
+import ReusablePortal from '../utils/ModalPortal'
+import { StyledAddLink } from '../utils/StyledAddLink.js'
+import styled from 'styled-components'
+import { ReactComponent as X } from '../../assets/svg/x.svg'
+import axios from 'axios'
+import { post as URL } from '../../services/baseURL'
+import shareSvg from '../../assets/svg/share.svg'
+import { withAlert } from 'react-alert'
 
 class SharedButton extends Component {
   constructor(props) {
-    super(props);
-    const { post_url, description, title, thumbnail_url } = this.props.bookmark;
+    super(props)
+    const { post_url, description, title, thumbnail_url } = this.props.bookmark
     this.state = {
       on: false,
       description: description,
@@ -19,7 +19,7 @@ class SharedButton extends Component {
       title,
       thumbnail_url,
       userThoughts: '',
-    };
+    }
   }
 
   toggle = () => {
@@ -32,17 +32,17 @@ class SharedButton extends Component {
       //       document.getElementById('form-key').focus();
       //     }
       //   }
-    );
-  };
+    )
+  }
 
   handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
+    this.setState({ [event.target.name]: event.target.value })
+  }
 
   handleSubmit = event => {
-    event.preventDefault();
+    event.preventDefault()
     // console.log('submitting ...', this.props.bookmark.id);
-    const id = this.props.bookmark.id;
+    const id = this.props.bookmark.id
 
     const editedPost = {
       post_url: this.state.post_url,
@@ -50,7 +50,7 @@ class SharedButton extends Component {
       title: this.state.title,
       user_thoughts: this.state.userThoughts,
       shared: true,
-    };
+    }
     axios.put(`${URL}/api/posts/${id}`, editedPost).then(res => {
       axios
         .post(`${URL}/api/posts/share`, {
@@ -59,11 +59,11 @@ class SharedButton extends Component {
           // updated_at: Date.now(),
         })
         .then(res => {
-          this.props.alert.success('Post shared to Feed');
-          this.setState({ on: false });
-        });
-    });
-  };
+          this.props.alert.success('Post shared to Feed')
+          this.setState({ on: false })
+        })
+    })
+  }
 
   render() {
     return (
@@ -128,13 +128,13 @@ class SharedButton extends Component {
           </ReusablePortal>
         )}
       </div>
-    );
+    )
   }
 }
 
-const Alert = withAlert()(SharedButton);
+const Alert = withAlert()(SharedButton)
 
-export default Alert;
+export default Alert
 
 const MODALWRAPPER = styled.div`
   ${StyledAddLink};
@@ -198,4 +198,4 @@ const MODALWRAPPER = styled.div`
     width: 100%;
     font-size: 2.3rem;
   }
-`;
+`

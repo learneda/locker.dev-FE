@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import axios from 'axios';
-import styled from 'styled-components';
-import { customLayout, smartTruncate } from '../mixins';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
-import { ReactComponent as Add } from '../../assets/svg/add-icon.svg';
-import { post as URL } from '../../services/baseURL';
-import { useThrottle } from 'use-throttle';
-axios.defaults.withCredentials = true;
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import axios from 'axios'
+import styled from 'styled-components'
+import { customLayout, smartTruncate } from '../mixins'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
+import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
+import { post as URL } from '../../services/baseURL'
+import { useThrottle } from 'use-throttle'
+axios.defaults.withCredentials = true
 
 const Books = ({ search, handleSaveMedia, alert }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [books, setBooks] = useState([]);
-  const [offset, setOffset] = useState(0);
-  const throttledSearch = useThrottle(search, 0.6);
+  const [isLoading, setIsLoading] = useState(false)
+  const [books, setBooks] = useState([])
+  const [offset, setOffset] = useState(0)
+  const throttledSearch = useThrottle(search, 0.6)
 
   useEffect(() => {
-    setIsLoading(true);
-    fetchBooks(search);
-  }, [throttledSearch]);
+    setIsLoading(true)
+    fetchBooks(search)
+  }, [throttledSearch])
 
   const fetchBooks = query => {
     axios
@@ -29,15 +29,15 @@ const Books = ({ search, handleSaveMedia, alert }) => {
         },
       })
       .then(res => {
-        setBooks(res.data);
-        setOffset(0);
-        setIsLoading(false);
+        setBooks(res.data)
+        setOffset(0)
+        setIsLoading(false)
       })
-      .catch(err => console.log(err));
-  };
+      .catch(err => console.log(err))
+  }
 
   const fetchMoreBooks = () => {
-    const limit = 12;
+    const limit = 12
     axios
       .get(`${URL}/api/books/search`, {
         params: {
@@ -46,16 +46,16 @@ const Books = ({ search, handleSaveMedia, alert }) => {
         },
       })
       .then(res => {
-        setBooks(prevBooks => [...prevBooks, ...res.data]);
-        setOffset(offset + limit);
-      });
-  };
+        setBooks(prevBooks => [...prevBooks, ...res.data])
+        setOffset(offset + limit)
+      })
+  }
 
   const renderLoader = () => (
     <Loader>
       <Loading />
     </Loader>
-  );
+  )
 
   const renderBooks = () => (
     <InfiniteScroll
@@ -119,33 +119,33 @@ const Books = ({ search, handleSaveMedia, alert }) => {
                     title: book.title,
                     description: book.description,
                     thumbnail_url: book.thumbnail,
-                  });
-                  alert.success('Book added to Bookmarks');
+                  })
+                  alert.success('Book added to Bookmarks')
                 }}
               />
             </SaveIcon>
           </Card>
-        );
+        )
       })}
     </InfiniteScroll>
-  );
+  )
 
-  return <Cards>{isLoading ? renderLoader() : renderBooks()}</Cards>;
-};
+  return <Cards>{isLoading ? renderLoader() : renderBooks()}</Cards>
+}
 
 const mapStateToProps = ({ searchTerm }) => ({
   search: searchTerm,
-});
+})
 
 export default connect(
   mapStateToProps,
   null
-)(Books);
+)(Books)
 
 const Loader = styled.div`
   margin: 75px auto;
   text-align: center;
-`;
+`
 
 const Cards = styled.div`
   border-top: 1px solid #bdbdbd;
@@ -158,7 +158,7 @@ const Cards = styled.div`
   @media (max-width: 768px) {
     margin: -12px auto 0;
   }
-`;
+`
 
 const Card = styled.div`
   overflow-y: hidden;
@@ -217,7 +217,7 @@ const Card = styled.div`
     color: #6d767e;
     overflow: hidden;
   }
-`;
+`
 
 const SaveIcon = styled.div`
   // border: 1px solid red;
@@ -231,4 +231,4 @@ const SaveIcon = styled.div`
     opacity: 1;
     transition: 200ms ease-in;
   }
-`;
+`

@@ -1,24 +1,24 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import styled from 'styled-components';
+import React, { Fragment, useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
+import styled from 'styled-components'
 
-import { ReactComponent as Location } from '../../assets/svg/location.svg';
-import { post as URL } from '../../services/baseURL';
+import { ReactComponent as Location } from '../../assets/svg/location.svg'
+import { post as URL } from '../../services/baseURL'
 
 export default function SearchUsersDropDown({ search }) {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([])
 
   const fetchUsers = async () => {
     const res = await axios.get(`${URL}/api/users/all`, {
       withCredentials: true,
-    });
-    setUsers(res.data);
-  };
+    })
+    setUsers(res.data)
+  }
 
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    fetchUsers()
+  }, [])
   return (
     <Fragment>
       {users.map(user => {
@@ -37,10 +37,10 @@ export default function SearchUsersDropDown({ search }) {
               </Card>
             </Link>
           )
-        );
+        )
       })}
     </Fragment>
-  );
+  )
 }
 
 const Card = styled.div`
@@ -58,7 +58,7 @@ const Card = styled.div`
   &:hover {
     background-color: #f2f5f7;
   }
-`;
+`
 
 const User = styled.div`
   display: flex;
@@ -79,4 +79,4 @@ const User = styled.div`
     color: #a9a9a9;
     font-weight: 400;
   }
-`;
+`

@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from 'react'
+import { connect } from 'react-redux'
 import {
   followAUser,
   getUserFollowing,
   getUserProfileDetails,
   recommendedFollow,
-} from '../../actions';
+} from '../../actions'
 
 const Suggested = props => {
   const {
@@ -15,14 +15,14 @@ const Suggested = props => {
     getUserFollowing,
     getUserProfileDetails,
     recommendedFollow,
-  } = props;
+  } = props
 
   const handleFollow = async friend_id => {
-    await followAUser({ user_id: userId, friend_id: friend_id });
-    recommendedFollow(userId);
-    getUserFollowing(userId);
-    getUserProfileDetails(userId);
-  };
+    await followAUser({ user_id: userId, friend_id: friend_id })
+    recommendedFollow(userId)
+    getUserFollowing(userId)
+    getUserProfileDetails(userId)
+  }
 
   return (
     <ul>
@@ -39,8 +39,8 @@ const Suggested = props => {
         </div>
       ))}
     </ul>
-  );
-};
+  )
+}
 
 export default connect(
   null,
@@ -50,4 +50,4 @@ export default connect(
     getUserProfileDetails,
     recommendedFollow,
   }
-)(Suggested);
+)(Suggested)

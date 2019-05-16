@@ -1,10 +1,10 @@
-import React from 'react';
-import { authURL } from '../../services/authURL';
-import googleSvg from '../../assets/svg/google.svg';
-import githubSvg from '../../assets/svg/github.svg';
+import React from 'react'
+import { authURL } from '../../services/authURL'
+import googleSvg from '../../assets/svg/google.svg'
+import githubSvg from '../../assets/svg/github.svg'
 
 const AuthForm = props => {
-  const { isSignUp } = props;
+  const { isSignUp } = props
 
   return isSignUp ? (
     <form id='signup-form'>
@@ -36,7 +36,7 @@ const AuthForm = props => {
         </a>
       </div>
     </form>
-  );
-};
+  )
+}
 
-export default AuthForm;
+export default AuthForm

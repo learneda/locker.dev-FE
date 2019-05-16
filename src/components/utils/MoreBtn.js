@@ -1,12 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
-import { ReactComponent as Trash } from '../../assets/svg/trash-2.svg';
+import React from 'react'
+import styled from 'styled-components'
+import { ReactComponent as Trash } from '../../assets/svg/trash-2.svg'
 
 const TrashContainer = styled.div`
   svg {
     cursor: pointer;
   }
-`;
+`
 
 export default function MoreBtn(props) {
   return (
@@ -17,5 +17,5 @@ export default function MoreBtn(props) {
         }
       />
     </TrashContainer>
-  );
+  )
 }

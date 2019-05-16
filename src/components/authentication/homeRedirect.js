@@ -1,26 +1,26 @@
-import React from 'react';
-import { Redirect } from 'react-router-dom';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
+import React from 'react'
+import { Redirect } from 'react-router-dom'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 
 const HomeRedirect = Component => ({ auth }) => {
   const renderContent = () => {
     switch (auth) {
       case null:
-        return <Component />;
+        return <Component />
       case false:
-        return <Component />;
+        return <Component />
       default:
-        return <Redirect to='/home' />;
+        return <Redirect to='/home' />
     }
-  };
+  }
 
-  return <>{renderContent()}</>;
-};
+  return <>{renderContent()}</>
+}
 
-const mapStateToProps = ({ auth }) => ({ auth });
+const mapStateToProps = ({ auth }) => ({ auth })
 
 export const composedHomeRedirect = compose(
   connect(mapStateToProps),
   HomeRedirect
-);
+)

@@ -50,19 +50,19 @@ export default function ProfileDropDown({ auth }) {
     <div ref={node}>
       <img
         src={auth.profile_picture}
-        className="auth-icon"
-        alt="avatar"
+        className='auth-icon'
+        alt='avatar'
         onClick={handleClick}
       />
       {toggle && (
         <DropDown>
           <li>
-            <Link to="/settings">
+            <Link to='/settings'>
               <Settings
                 style={{ width: '24px', height: '24px', paddingRight: '9px' }}
               />
             </Link>
-            <Link to="/settings">Settings</Link>
+            <Link to='/settings'>Settings</Link>
           </li>
           <li>
             <a href={`${authURL}logout`}>

@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { withRouter, Link } from 'react-router-dom'
 import {
   getUserProfileDetails,
   getUserFollowers,
   getUserFollowing,
-} from '../../actions';
-import ContentLoader from 'react-content-loader';
+} from '../../actions'
+import ContentLoader from 'react-content-loader'
 
-import styled from 'styled-components';
-import { customLayout, customWrapper } from '../mixins';
-import Moment from 'react-moment';
-import locationSvg from '../../assets/svg/location.svg';
-import linkSvg from '../../assets/svg/link-symbol.svg';
-import calendarSvg from '../../assets/svg/calendar.svg';
-import { StyledSidebar } from './StyledSidebar';
+import styled from 'styled-components'
+import { customLayout, customWrapper } from '../mixins'
+import Moment from 'react-moment'
+import locationSvg from '../../assets/svg/location.svg'
+import linkSvg from '../../assets/svg/link-symbol.svg'
+import calendarSvg from '../../assets/svg/calendar.svg'
+import { StyledSidebar } from './StyledSidebar'
 
 const MyLoader = () => (
   <ContentLoader
@@ -28,34 +28,34 @@ const MyLoader = () => (
     <rect x='118' y='425' rx='0' ry='0' width='0' height='0' />
     <rect x='17' y='144' rx='0' ry='0' width='364' height='300' />
   </ContentLoader>
-);
+)
 class Sidebar extends Component {
   state = {
     followingDropDownHeight: '0px',
     followersDropDownHeight: '0px',
-  };
+  }
   componentDidMount() {
-    this.props.getUserProfileDetails(this.props.auth.id);
-    this.props.getUserFollowers(this.props.auth.id);
-    this.props.getUserFollowing(this.props.auth.id);
+    this.props.getUserProfileDetails(this.props.auth.id)
+    this.props.getUserFollowers(this.props.auth.id)
+    this.props.getUserFollowing(this.props.auth.id)
   }
   handleFollowingDropdown = () => {
     this.setState({
       followingDropDownHeight:
         this.state.followingDropDownHeight === '300px' ? '0px' : '300px',
       followersDropDownHeight: '0px',
-    });
-  };
+    })
+  }
   handleFollowersDropdown = () => {
     this.setState({
       followersDropDownHeight:
         this.state.followersDropDownHeight === '300px' ? '0px' : '300px',
       followingDropDownHeight: '0px',
-    });
-  };
+    })
+  }
   render() {
     if (!this.props.user_details) {
-      return <MyLoader />;
+      return <MyLoader />
     }
     return (
       <Wrapper>
@@ -135,7 +135,7 @@ class Sidebar extends Component {
           </div>
         </Profile>
       </Wrapper>
-    );
+    )
   }
 }
 
@@ -145,15 +145,15 @@ const mapStateToProps = ({ auth, user_details, follow }) => {
     user_details: user_details,
     followers: follow.userFollowers,
     following: follow.userFollowing,
-  };
-};
+  }
+}
 
 export default withRouter(
   connect(
     mapStateToProps,
     { getUserProfileDetails, getUserFollowers, getUserFollowing }
   )(Sidebar)
-);
+)
 
 const Wrapper = styled.div`
   ${customWrapper('45%')}
@@ -162,7 +162,7 @@ const Wrapper = styled.div`
   @media (max-width: 900px) {
     display: none;
   }
-`;
+`
 
 const Profile = styled.div`
   ${StyledSidebar}
@@ -172,4 +172,4 @@ const Profile = styled.div`
   .user-bio {
     ${customLayout()}
   }
-`;
+`

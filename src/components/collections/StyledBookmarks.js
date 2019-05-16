@@ -220,4 +220,4 @@ align-items: center;
   }
 }
 
-`;
+`

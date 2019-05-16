@@ -1,29 +1,29 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { NavLink, Route, Switch } from 'react-router-dom';
-import { withAlert } from 'react-alert';
-import axios from 'axios';
-import { Grommet } from 'grommet';
-import styled from 'styled-components';
-import Courses from '../../components/browse/Courses';
-import Videos from '../../components/browse/Videos';
-import Articles from '../../components/browse/Articles';
-import Podcasts from '../../components/browse/Podcasts';
-import Books from '../../components/browse/Books';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { NavLink, Route, Switch } from 'react-router-dom'
+import { withAlert } from 'react-alert'
+import axios from 'axios'
+import { Grommet } from 'grommet'
+import styled from 'styled-components'
+import Courses from '../../components/browse/Courses'
+import Videos from '../../components/browse/Videos'
+import Articles from '../../components/browse/Articles'
+import Podcasts from '../../components/browse/Podcasts'
+import Books from '../../components/browse/Books'
 
-import { getPosts, getCourses, getArticles, fetchUser } from '../../actions';
-import { customWrapper, truncateText } from '../../components/mixins';
-import { post as URL } from '../../services/baseURL';
+import { getPosts, getCourses, getArticles, fetchUser } from '../../actions'
+import { customWrapper, truncateText } from '../../components/mixins'
+import { post as URL } from '../../services/baseURL'
 
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true
 
 class Browse extends Component {
   state = {
     page: 1,
-  };
+  }
   componentDidMount() {
-    this.props.getCourses(this.state.page);
-    this.props.getArticles();
+    this.props.getCourses(this.state.page)
+    this.props.getArticles()
   }
 
   handleSaveLink = url => {
@@ -31,33 +31,33 @@ class Browse extends Component {
       axios.post(`${URL}/api/posts`, {
         post_url: url,
         id: this.props.auth.id,
-      });
+      })
     }
-  };
+  }
 
   handleSaveMedia = async media => {
     if (this.props.auth) {
       await axios.post(`${URL}/api/posts`, {
         ...media,
         user_id: this.props.auth.id,
-      });
-      this.props.getPosts();
+      })
+      this.props.getPosts()
     }
-  };
+  }
 
   handleTruncateText = (content, limit = 10) => {
-    return truncateText(content, limit);
-  };
+    return truncateText(content, limit)
+  }
 
   getMoreCourses = () => {
     this.setState({
       page: this.state.page + 1,
-    });
-    this.props.getCourses(this.state.page);
-  };
+    })
+    this.props.getCourses(this.state.page)
+  }
 
   render() {
-    const { articles, courses } = this.props;
+    const { articles, courses } = this.props
 
     return (
       <Grommet theme={theme}>
@@ -146,7 +146,7 @@ class Browse extends Component {
           </BrowseContainer>
         </Wrapper>
       </Grommet>
-    );
+    )
   }
 }
 
@@ -156,15 +156,15 @@ const mapStateToProps = state => {
     articles: state.browse.articles,
     auth: state.auth,
     index: state.browse.index,
-  };
-};
+  }
+}
 
-const Alert = withAlert()(Browse);
+const Alert = withAlert()(Browse)
 
 export default connect(
   mapStateToProps,
   { getPosts, getCourses, getArticles, fetchUser }
-)(Alert);
+)(Alert)
 
 const theme = {
   tab: {
@@ -194,26 +194,26 @@ const theme = {
       horizontal: 'xsmall',
     },
   },
-};
+}
 
 const BrowseContainer = styled.div`
   h2 {
     font-size: 3.5rem;
     margin: 35px 0;
   }
-`;
+`
 
 const Wrapper = styled.div`
   ${customWrapper('80%', '0 auto')}
   @media(max-width: 768px) {
     ${customWrapper('90%', '0 auto')}
   }
-`;
+`
 
 const TabWrapper = styled.div`
   padding-top: 20px;
   margin-top: -3px;
-`;
+`
 
 const Tabs = styled.ul`
   display: flex;
@@ -221,8 +221,8 @@ const Tabs = styled.ul`
   @media (max-width: 400px) {
     font-size: 1.5rem;
   }
-`;
+`
 
 const Tab = styled.li`
   margin-right: 2rem;
-`;
+`

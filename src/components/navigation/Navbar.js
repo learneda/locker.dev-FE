@@ -1,26 +1,26 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
-import styled from 'styled-components';
-import Notifications from './Notifications';
-import Search from '../search/Search';
-import Auth from '../authentication/Auth';
-import AddLink from '../utils/AddLink';
-import ProfileDropDown from './ProfileDropDown';
-import { authModalToggle, modalSignUp, modalLogin } from '../../actions';
-import { authURL } from '../../services/authURL';
-import { customLayout, hoverBg } from '../mixins';
-import burgerIcon from '../../assets/svg/burger.svg';
-import closeIcon from '../../assets/svg/close.svg';
+import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import { Link, NavLink } from 'react-router-dom'
+import styled from 'styled-components'
+import Notifications from './Notifications'
+import Search from '../search/Search'
+import Auth from '../authentication/Auth'
+import AddLink from '../utils/AddLink'
+import ProfileDropDown from './ProfileDropDown'
+import { authModalToggle, modalSignUp, modalLogin } from '../../actions'
+import { authURL } from '../../services/authURL'
+import { customLayout, hoverBg } from '../mixins'
+import burgerIcon from '../../assets/svg/burger.svg'
+import closeIcon from '../../assets/svg/close.svg'
 
 class Navbar extends Component {
-  state = { show: false };
+  state = { show: false }
 
-  showBurgerMenu = () => this.setState({ show: true });
-  hideBurgerMenu = () => this.setState({ show: false });
+  showBurgerMenu = () => this.setState({ show: true })
+  hideBurgerMenu = () => this.setState({ show: false })
 
   render() {
-    const { auth, authModalToggle, modalSignUp, modalLogin } = this.props;
+    const { auth, authModalToggle, modalSignUp, modalLogin } = this.props
     if (auth) {
       // When user logged in
       return (
@@ -60,7 +60,7 @@ class Navbar extends Component {
             </NavRight>
           </Nav>
         </NavWrapper>
-      );
+      )
     } else {
       // When user NOT logged in
       return (
@@ -74,8 +74,8 @@ class Navbar extends Component {
               <li>
                 <span
                   onClick={() => {
-                    authModalToggle();
-                    modalLogin();
+                    authModalToggle()
+                    modalLogin()
                   }}
                 >
                   Log In
@@ -84,8 +84,8 @@ class Navbar extends Component {
               <li>
                 <span
                   onClick={() => {
-                    authModalToggle();
-                    modalSignUp();
+                    authModalToggle()
+                    modalSignUp()
                   }}
                 >
                   Sign Up
@@ -94,7 +94,7 @@ class Navbar extends Component {
             </ul>
           </Nav>
         </Fragment>
-      );
+      )
     }
   }
 }
@@ -102,7 +102,7 @@ class Navbar extends Component {
 const MobileNav = ({ handleClose, show }) => {
   const showHideClassName = show
     ? 'burger display-block'
-    : 'burger display-none';
+    : 'burger display-none'
 
   return (
     <BurgerMenu>
@@ -137,17 +137,17 @@ const MobileNav = ({ handleClose, show }) => {
         </ul>
       </div>
     </BurgerMenu>
-  );
-};
+  )
+}
 
 const mapStateToProps = ({ auth }) => ({
   auth,
-});
+})
 
 export default connect(
   mapStateToProps,
   { authModalToggle, modalSignUp, modalLogin }
-)(Navbar);
+)(Navbar)
 
 const NavWrapper = styled.div`
   background-color: white;
@@ -161,7 +161,7 @@ const NavWrapper = styled.div`
       display: none;
     }
   }
-`;
+`
 
 const Nav = styled.nav`
   ${customLayout('space-between', 'center')}
@@ -231,7 +231,7 @@ const Nav = styled.nav`
     border-radius: 50%;
     cursor: pointer;
   }
-`;
+`
 
 const NavRight = styled.div`
   display: flex;
@@ -255,7 +255,7 @@ const NavRight = styled.div`
   .bell-icon {
     cursor: pointer;
   }
-`;
+`
 
 const Burger = styled.div`
   display: none;
@@ -286,7 +286,7 @@ const Burger = styled.div`
       transition: 200ms ease-in;
     }
   }
-`;
+`
 
 const BurgerMenu = styled.div`
   // min-height: 100vh;
@@ -359,4 +359,4 @@ const BurgerMenu = styled.div`
   .display-none {
     display: none;
   }
-`;
+`

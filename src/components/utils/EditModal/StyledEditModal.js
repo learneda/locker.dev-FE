@@ -98,4 +98,4 @@ export const StyledEditModal = () =>
         outline: none;
       }
     }
-  `;
+  `

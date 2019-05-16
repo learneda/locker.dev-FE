@@ -74,4 +74,4 @@ export const StyledAddLink = () =>
   .root-modal-open {
     filter: blur(7px);
   }
-`;
+`

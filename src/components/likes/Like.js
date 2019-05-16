@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export default function Like({ id, handleSaveToMyBookmarks, url }) {
   return (
@@ -20,5 +20,5 @@ export default function Like({ id, handleSaveToMyBookmarks, url }) {
         />
       </svg>
     </div>
-  );
+  )
 }

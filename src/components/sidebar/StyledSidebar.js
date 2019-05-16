@@ -160,4 +160,4 @@ top: 100px;
     transition: 200ms ease-out;
   }
 }
-`;
+`

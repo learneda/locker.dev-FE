@@ -1,27 +1,27 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import AuthForm from './AuthForm';
-import { authModalToggle, modalSignUp, modalLogin } from '../../actions/index';
-import deleteIcon from '../../assets/svg/delete-icon.svg';
-import styled from 'styled-components';
-import {StyledAuth} from './StyledAuth';
+import React from 'react'
+import { connect } from 'react-redux'
+import AuthForm from './AuthForm'
+import { authModalToggle, modalSignUp, modalLogin } from '../../actions/index'
+import deleteIcon from '../../assets/svg/delete-icon.svg'
+import styled from 'styled-components'
+import { StyledAuth } from './StyledAuth'
 
 const Auth = props => {
-  const { authModalToggle, modalSignUp, modalLogin, modal } = props;
-  const { isAuthOpen, isSignUp } = modal;
+  const { authModalToggle, modalSignUp, modalLogin, modal } = props
+  const { isAuthOpen, isSignUp } = modal
 
   return (
     <LOGIN
-    className='login'
-    id='login'
-    style={{ display: isAuthOpen ? 'flex' : 'none' }}
-    onClick={e => (e.target.className === 'login' ? authModalToggle() : null)}
+      className='login'
+      id='login'
+      style={{ display: isAuthOpen ? 'flex' : 'none' }}
+      onClick={e => (e.target.className === 'login' ? authModalToggle() : null)}
     >
       <div className='login-content'>
         <div
           className='close-modal'
           onClick={() => {
-            authModalToggle();
+            authModalToggle()
           }}
         >
           <img src={deleteIcon} alt='' />
@@ -43,16 +43,15 @@ const Auth = props => {
         <AuthForm isSignUp={isSignUp} />
       </div>
     </LOGIN>
-  );
-};
-const mapStateToProps = ({ modal }) => ({ modal });
+  )
+}
+const mapStateToProps = ({ modal }) => ({ modal })
 
 export default connect(
   mapStateToProps,
   { authModalToggle, modalSignUp, modalLogin }
-)(Auth);
-
+)(Auth)
 
 const LOGIN = styled.div`
-${StyledAuth}
+  ${StyledAuth}
 `

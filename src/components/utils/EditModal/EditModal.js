@@ -1,42 +1,42 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import axios from 'axios';
-import { post as URL } from '../../../services/baseURL';
-import { StyledEditModal } from './StyledEditModal';
-import styled from 'styled-components';
-import { getPosts } from '../../../actions';
-import deleteIcon from '../../../assets/svg/delete-icon.svg';
-import useLockBodyScroll from '../../hooks/useLockBodyScroll';
-import { withAlert } from 'react-alert';
-axios.defaults.withCredentials = true;
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import axios from 'axios'
+import { post as URL } from '../../../services/baseURL'
+import { StyledEditModal } from './StyledEditModal'
+import styled from 'styled-components'
+import { getPosts } from '../../../actions'
+import deleteIcon from '../../../assets/svg/delete-icon.svg'
+import useLockBodyScroll from '../../hooks/useLockBodyScroll'
+import { withAlert } from 'react-alert'
+axios.defaults.withCredentials = true
 
 const Wrapper = styled.div`
   ${StyledEditModal}
-`;
+`
 
 const EditModal = props => {
-  const [description, setDescription] = useState(props.post.description);
-  const [postUrl, setPostUrl] = useState(props.post.post_url);
-  const [title, setTitle] = useState(props.post.title);
+  const [description, setDescription] = useState(props.post.description)
+  const [postUrl, setPostUrl] = useState(props.post.post_url)
+  const [title, setTitle] = useState(props.post.title)
 
-  useLockBodyScroll();
+  useLockBodyScroll()
 
   const onSubmit = async e => {
-    e.preventDefault();
-    const { id } = props.post;
+    e.preventDefault()
+    const { id } = props.post
     const editedPost = {
       post_url: postUrl,
       description,
       title,
-    };
+    }
     axios
       .put(`${URL}/api/posts/${id}`, editedPost)
       .then(
         res => props.getPosts(),
         props.handleModalOpen(),
         props.alert.success('Bookmark Updated')
-      );
-  };
+      )
+  }
 
   return (
     <Wrapper
@@ -82,12 +82,12 @@ const EditModal = props => {
         <input type='submit' id='edit-submit' value='Update Bookmark' />
       </form>
     </Wrapper>
-  );
-};
+  )
+}
 
-const Alert = withAlert()(EditModal);
+const Alert = withAlert()(EditModal)
 
 export default connect(
   null,
   { getPosts }
-)(Alert);
+)(Alert)

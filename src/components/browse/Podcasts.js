@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import listenAPI from '../../apis/listen';
-import styled from 'styled-components';
-import { customLayout, smartTruncate } from '../mixins';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
-import { ReactComponent as Add } from '../../assets/svg/add-icon.svg';
-import { useThrottle } from 'use-throttle';
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import listenAPI from '../../apis/listen'
+import styled from 'styled-components'
+import { customLayout, smartTruncate } from '../mixins'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
+import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
+import { useThrottle } from 'use-throttle'
 
-import he from 'he';
+import he from 'he'
 
 const Podcasts = ({ search, handleSaveMedia, alert }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [podcasts, setPodcasts] = useState([]);
-  const [offset, setOffset] = useState(null);
-  const throttledSearch = useThrottle(search, 0.6);
+  const [isLoading, setIsLoading] = useState(false)
+  const [podcasts, setPodcasts] = useState([])
+  const [offset, setOffset] = useState(null)
+  const throttledSearch = useThrottle(search, 0.6)
 
   const fetchMorePodcasts = () => {
     listenAPI
@@ -25,15 +25,15 @@ const Podcasts = ({ search, handleSaveMedia, alert }) => {
         },
       })
       .then(res => {
-        setPodcasts(prevPodcasts => [...prevPodcasts, ...res.data.results]);
-        setOffset(res.data.next_offset);
-      });
-  };
+        setPodcasts(prevPodcasts => [...prevPodcasts, ...res.data.results])
+        setOffset(res.data.next_offset)
+      })
+  }
 
   useEffect(() => {
-    setIsLoading(true);
-    fetchPodcasts(search);
-  }, [throttledSearch]);
+    setIsLoading(true)
+    fetchPodcasts(search)
+  }, [throttledSearch])
 
   const fetchPodcasts = query => {
     listenAPI
@@ -43,17 +43,17 @@ const Podcasts = ({ search, handleSaveMedia, alert }) => {
         },
       })
       .then(res => {
-        setPodcasts(res.data.results);
-        setOffset(res.data.next_offset);
-        setIsLoading(false);
-      });
-  };
+        setPodcasts(res.data.results)
+        setOffset(res.data.next_offset)
+        setIsLoading(false)
+      })
+  }
 
   const renderLoader = () => (
     <Loader>
       <Loading />
     </Loader>
-  );
+  )
 
   const renderPodcasts = () => (
     <InfiniteScroll
@@ -114,31 +114,31 @@ const Podcasts = ({ search, handleSaveMedia, alert }) => {
                   title: podcast.title_original,
                   description: he.decode(podcast.description_original),
                   thumbnail_url: podcast.image,
-                });
-                alert.success('Article added to Bookmarks');
+                })
+                alert.success('Article added to Bookmarks')
               }}
             />
           </SaveIcon>
         </Card>
       ))}
     </InfiniteScroll>
-  );
-  return <Cards>{isLoading ? renderLoader() : renderPodcasts()}</Cards>;
-};
+  )
+  return <Cards>{isLoading ? renderLoader() : renderPodcasts()}</Cards>
+}
 
 const mapStateToProps = ({ searchTerm }) => ({
   search: searchTerm,
-});
+})
 
 export default connect(
   mapStateToProps,
   null
-)(Podcasts);
+)(Podcasts)
 
 const Loader = styled.div`
   margin: 75px auto;
   text-align: center;
-`;
+`
 
 const Cards = styled.div`
   border-top: 1px solid #bdbdbd;
@@ -151,7 +151,7 @@ const Cards = styled.div`
   @media (max-width: 768px) {
     margin: -12px auto 0;
   }
-`;
+`
 
 const Card = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -209,7 +209,7 @@ const Card = styled.div`
     color: #6d767e;
     overflow: hidden;
   }
-`;
+`
 
 const SaveIcon = styled.div`
   // border: 1px solid red;
@@ -223,4 +223,4 @@ const SaveIcon = styled.div`
     opacity: 1;
     transition: 200ms ease-in;
   }
-`;
+`

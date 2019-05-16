@@ -1,26 +1,26 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import axios from 'axios';
-import styled from 'styled-components';
-import { StyledAddLink } from './StyledAddLink';
-import ReusablePortal from './ModalPortal';
-import { getPosts, updatePostsState } from '../../actions';
-import { post as URL } from '../../services/baseURL';
-import { ReactComponent as X } from '../../assets/svg/x.svg';
-import { withAlert } from 'react-alert';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import axios from 'axios'
+import styled from 'styled-components'
+import { StyledAddLink } from './StyledAddLink'
+import ReusablePortal from './ModalPortal'
+import { getPosts, updatePostsState } from '../../actions'
+import { post as URL } from '../../services/baseURL'
+import { ReactComponent as X } from '../../assets/svg/x.svg'
+import { withAlert } from 'react-alert'
 
 class AddLink extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       on: false,
       inputValue: '',
-    };
+    }
   }
 
   handleChange = event => {
-    this.setState({ inputValue: event.target.value });
-  };
+    this.setState({ inputValue: event.target.value })
+  }
 
   toggle = () => {
     this.setState(
@@ -29,15 +29,15 @@ class AddLink extends Component {
       },
       () => {
         if (this.state.on) {
-          document.getElementById('form-key').focus();
+          document.getElementById('form-key').focus()
         }
       }
-    );
-    document.querySelector('#root').classList.toggle('root-modal-open');
-  };
+    )
+    document.querySelector('#root').classList.toggle('root-modal-open')
+  }
 
   handleSubmit = e => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (this.props.auth) {
       axios
@@ -46,17 +46,17 @@ class AddLink extends Component {
           id: this.props.auth.id,
         })
         .then(res => {
-          this.props.updatePostsState(res.data);
+          this.props.updatePostsState(res.data)
           this.setState({
             inputValue: '',
             on: false,
-          });
-          document.querySelector('#root').classList.remove('root-modal-open');
+          })
+          document.querySelector('#root').classList.remove('root-modal-open')
 
-          this.props.alert.success('Link added to Bookmarks');
-        });
+          this.props.alert.success('Link added to Bookmarks')
+        })
     }
-  };
+  }
   render() {
     return (
       <div onKeyDown={e => e.which === 27 && this.toggle()}>
@@ -97,23 +97,23 @@ class AddLink extends Component {
           </ReusablePortal>
         )}
       </div>
-    );
+    )
   }
 }
 
 const mapStateToProps = ({ auth }) => {
   return {
     auth: auth,
-  };
-};
+  }
+}
 
-const Alert = withAlert()(AddLink);
+const Alert = withAlert()(AddLink)
 
 export default connect(
   mapStateToProps,
   { getPosts, updatePostsState }
-)(Alert);
+)(Alert)
 
 const MODALWRAPPER = styled.div`
   ${StyledAddLink}
-`;
+`

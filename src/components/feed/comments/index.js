@@ -1,28 +1,28 @@
-import React, { Component } from 'react';
-import MoreBtn from '../../utils/MoreBtn';
-import styled from 'styled-components';
-import { customLayout } from '../../mixins';
-import Moment from 'react-moment';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react'
+import MoreBtn from '../../utils/MoreBtn'
+import styled from 'styled-components'
+import { customLayout } from '../../mixins'
+import Moment from 'react-moment'
+import { Link } from 'react-router-dom'
 class CommentBox extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       commentsToRender: -2,
       commentInput: '',
-    };
+    }
   }
 
   handleMoreComments = e => {
-    e.preventDefault();
+    e.preventDefault()
     this.setState({
       commentsToRender: this.state.commentsToRender - 3,
-    });
-  };
+    })
+  }
 
   handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
+    this.setState({ [e.target.name]: e.target.value })
+  }
 
   render() {
     return (
@@ -63,7 +63,7 @@ class CommentBox extends Component {
                         post_id={this.props.post_id}
                       />
                     </div>
-                  );
+                  )
                 } else {
                   return (
                     <div key={comment.id} className='comment'>
@@ -79,7 +79,7 @@ class CommentBox extends Component {
                         <span>{comment.content}</span>
                       </div>
                     </div>
-                  );
+                  )
                 }
               })}
           </div>
@@ -87,14 +87,14 @@ class CommentBox extends Component {
           <div>
             <form
               onSubmit={e => {
-                e.preventDefault();
+                e.preventDefault()
                 this.props.handleSubmit(
                   e,
                   this.props.post_id,
                   this.state.commentInput,
                   this.props.postOwnerId
-                );
-                this.setState({ commentInput: '' });
+                )
+                this.setState({ commentInput: '' })
               }}
               className='add-comment'
             >
@@ -113,11 +113,11 @@ class CommentBox extends Component {
           </div>
         </div>
       </Container>
-    );
+    )
   }
 }
 
-export default CommentBox;
+export default CommentBox
 
 const Container = styled.div`
   .comments-container {
@@ -249,4 +249,4 @@ const Container = styled.div`
       }
     }
   }
-`;
+`

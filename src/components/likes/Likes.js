@@ -13,62 +13,81 @@ import axios from 'axios'
 axios.defaults.withCredentials = true
 
 class Likes extends Component {
-	componentDidMount = () => {
-		this.props.fetchUser()
-		this.props.fetchLocker()
-	}
+  componentDidMount = () => {
+    this.props.fetchUser()
+    this.props.fetchLocker()
+  }
 
-	handleTruncateText = (content, limit = 10) => {
-		return truncateText(content, limit)
-	}
+  handleTruncateText = (content, limit = 10) => {
+    return truncateText(content, limit)
+  }
 
-	render() {
-		console.log(this.props.locker)
-		if (this.props.locker.length === 0) {
-			return <h1 style={{ border: '5px solid pink' }}>LOADING</h1>
-		}
-		return (
-			<div style={{ border: '5px solid pink' }}>
-				{this.props.locker.map((obj) => {
-					if (obj.pocket_id) {
-						return (
-							<a key={obj.item_id} href={obj.resolved_url} target="_blank" rel="noopener">
-								<h2>{obj.resolved_title}</h2>
-								<img src={obj.top_image_url} />
-								<p>{obj.excerpt}</p>
-							</a>
-						)
-					} else {
-						console.log('this is a goodreads obj')
-						return (
-							<a key={obj.book_id} href={obj.link} target="_blank" rel="noopener">
-								<h2>
-									<strong>Title:</strong> {obj.title}
-								</h2>
-								<h3>
-									<strong>Author:</strong> {obj.author}
-								</h3>
-								<img src={obj.image} />
-								<p>
-									<strong>Description:</strong> {obj.description}
-								</p>
-								<p>
-									<strong>Shelf:</strong> {obj.shelf}
-								</p>
-								<p>
-									<strong>Rating:</strong> {obj.rating}
-								</p>
-							</a>
-						)
-					}
-				})}
-			</div>
-		)
-	}
+  render() {
+    console.log(this.props.locker)
+    if (this.props.locker.length === 0) {
+      return <h1 style={{ border: '5px solid pink' }}>LOADING</h1>
+    }
+    return (
+      <div style={{ border: '5px solid pink' }}>
+        {this.props.locker.map(obj => {
+          if (obj.pocket_id) {
+            return (
+              <a
+                key={obj.item_id}
+                href={obj.resolved_url}
+                target='_blank'
+                rel='noopener'
+              >
+                <h2>{obj.resolved_title}</h2>
+                <img src={obj.top_image_url} />
+                <p>{obj.excerpt}</p>
+              </a>
+            )
+          } else {
+            console.log('this is a goodreads obj')
+            return (
+              <a
+                key={obj.book_id}
+                href={obj.link}
+                target='_blank'
+                rel='noopener'
+              >
+                <h2>
+                  <strong>Title:</strong> {obj.title}
+                </h2>
+                <h3>
+                  <strong>Author:</strong> {obj.author}
+                </h3>
+                <img src={obj.image} />
+                <p>
+                  <strong>Description:</strong> {obj.description}
+                </p>
+                <p>
+                  <strong>Shelf:</strong> {obj.shelf}
+                </p>
+                <p>
+                  <strong>Rating:</strong> {obj.rating}
+                </p>
+              </a>
+            )
+          }
+        })}
+      </div>
+    )
+  }
 }
-const mapStateToProps = ({ likedPosts, auth, locker }) => ({ likedPosts, auth, locker })
+const mapStateToProps = ({ likedPosts, auth, locker }) => ({
+  likedPosts,
+  auth,
+  locker,
+})
 
-export default withRouter(connect(mapStateToProps, { fetchUser, fetchLocker })(Likes))
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { fetchUser, fetchLocker }
+  )(Likes)
+)
 
 // Extracted single post in a stateless component
 // const SinglePost = ({ post, handleTruncateText }) => {

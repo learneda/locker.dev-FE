@@ -1,10 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import AddLink from '../AddLink';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import AddLink from '../AddLink'
 
-import { customWrapper } from '../../mixins';
-import NotFoundSVG from '../../../assets/svg/not-found-drawing.svg';
+import { customWrapper } from '../../mixins'
+import NotFoundSVG from '../../../assets/svg/not-found-drawing.svg'
 
 const HelpScreen = ({ headerText, imgSource }) => {
   return (
@@ -22,8 +22,8 @@ const HelpScreen = ({ headerText, imgSource }) => {
         </div>
       </div>
     </Container>
-  );
-};
+  )
+}
 
 export const Container = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -75,6 +75,6 @@ export const Container = styled.div`
       }
     }
   }
-`;
+`
 
-export default HelpScreen;
+export default HelpScreen

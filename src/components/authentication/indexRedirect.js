@@ -1,27 +1,27 @@
-import React from 'react';
-import { Redirect } from 'react-router-dom';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
+import React from 'react'
+import { Redirect } from 'react-router-dom'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 
 const IndexRedirect = Component => ({ auth }) => {
-  console.log(auth);
+  console.log(auth)
   const renderContent = () => {
     switch (auth) {
       case null:
-        return;
+        return
       case false:
-        return <Redirect to='/' />;
+        return <Redirect to='/' />
       default:
-        return <Component />;
+        return <Component />
     }
-  };
+  }
 
-  return <>{renderContent()}</>;
-};
+  return <>{renderContent()}</>
+}
 
-const mapStateToProps = ({ auth }) => ({ auth });
+const mapStateToProps = ({ auth }) => ({ auth })
 
 export const composedIndexRedirect = compose(
   connect(mapStateToProps),
   IndexRedirect
-);
+)

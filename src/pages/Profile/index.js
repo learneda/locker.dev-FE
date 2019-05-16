@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, NavLink, Route, Switch } from 'react-router-dom';
-import { Grommet } from 'grommet';
-import styled from 'styled-components';
-import { setProfileTabIndex } from '../../actions';
-import { customWrapper } from '../../components/mixins';
-import SidebarById from '../../components/sidebar/SidebarById';
-import ProfileById from '../../components/profile';
-import UserFollowing from '../../components/profile/UserFollowing';
-import UserFollowers from '../../components/profile/UserFollowers';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { withRouter, NavLink, Route, Switch } from 'react-router-dom'
+import { Grommet } from 'grommet'
+import styled from 'styled-components'
+import { setProfileTabIndex } from '../../actions'
+import { customWrapper } from '../../components/mixins'
+import SidebarById from '../../components/sidebar/SidebarById'
+import ProfileById from '../../components/profile'
+import UserFollowing from '../../components/profile/UserFollowing'
+import UserFollowers from '../../components/profile/UserFollowers'
 
 class UserProfile extends Component {
   render() {
-    const id = this.props.match.params.id;
+    const id = this.props.match.params.id
     // console.log(this.props.match.params.id);
     return (
       <Grommet theme={theme}>
@@ -63,18 +63,18 @@ class UserProfile extends Component {
           </Wrapper>
         </Container>
       </Grommet>
-    );
+    )
   }
 }
 
-const mapStateToProps = ({ profile }) => ({ index: profile.index });
+const mapStateToProps = ({ profile }) => ({ index: profile.index })
 
 export default withRouter(
   connect(
     mapStateToProps,
     { setProfileTabIndex }
   )(UserProfile)
-);
+)
 
 const theme = {
   tab: {
@@ -103,7 +103,7 @@ const theme = {
       },
     },
   },
-};
+}
 
 const Container = styled.div`
   ${customWrapper('80%', '0 auto')}
@@ -134,7 +134,7 @@ const Container = styled.div`
       color: #4064f2;
     }
   }
-`;
+`
 
 const Wrapper = styled.div`
   ${customWrapper('75%')}
@@ -143,7 +143,7 @@ const Wrapper = styled.div`
     width: 100%;
     padding: 0;
   }
-`;
+`
 
 const TabWrapper = styled.div`
   padding-top: 20px;
@@ -152,4 +152,4 @@ const TabWrapper = styled.div`
   @media (max-width: 900px) {
     margin-left: 0;
   }
-`;
+`

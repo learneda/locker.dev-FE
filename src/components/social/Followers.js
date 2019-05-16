@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import {
   followAUser,
   unfollowAUser,
   getUserFollowing,
   getUserProfileDetails,
-} from '../../actions';
-import { StyledFollow } from './StyledFollow';
-import { Link } from 'react-router-dom';
+} from '../../actions'
+import { StyledFollow } from './StyledFollow'
+import { Link } from 'react-router-dom'
 
 const Followers = props => {
   const {
@@ -18,39 +18,39 @@ const Followers = props => {
     unfollowAUser,
     getUserFollowing,
     getUserProfileDetails,
-  } = props;
+  } = props
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [loadingIndex, setLoadingIndex] = useState(null);
+  const [isLoading, setIsLoading] = useState(false)
+  const [loadingIndex, setLoadingIndex] = useState(null)
   const handleFollow = async (friend_id, index) => {
-    setIsLoading(true);
-    setLoadingIndex(index);
-    await followAUser({ user_id: userId, friend_id: friend_id });
-    getUserFollowing(userId).then(response => setIsLoading(false));
-    getUserProfileDetails(userId);
-  };
+    setIsLoading(true)
+    setLoadingIndex(index)
+    await followAUser({ user_id: userId, friend_id: friend_id })
+    getUserFollowing(userId).then(response => setIsLoading(false))
+    getUserProfileDetails(userId)
+  }
 
   const handleUnfollow = async (friend_id, index) => {
-    setIsLoading(true);
-    setLoadingIndex(index);
-    await unfollowAUser({ user_id: userId, friend_id: friend_id });
-    getUserFollowing(userId).then(response => setIsLoading(false));
-    getUserProfileDetails(userId);
-  };
+    setIsLoading(true)
+    setLoadingIndex(index)
+    await unfollowAUser({ user_id: userId, friend_id: friend_id })
+    getUserFollowing(userId).then(response => setIsLoading(false))
+    getUserProfileDetails(userId)
+  }
 
   const handleClick = (id, index) => {
-    const followingIds = following.map(ele => ele.id);
+    const followingIds = following.map(ele => ele.id)
     return followingIds.includes(id)
       ? handleUnfollow(id, index)
-      : handleFollow(id, index);
-  };
+      : handleFollow(id, index)
+  }
 
   const renderSuggestion = (id, index) => {
     if (isLoading && loadingIndex === index) {
-      return <button style={{ width: '8.5rem' }}>...</button>;
+      return <button style={{ width: '8.5rem' }}>...</button>
     }
-    const followingIds = following.map(ele => ele.id);
-    const text = followingIds.includes(id) ? 'Unfollow' : 'Follow';
+    const followingIds = following.map(ele => ele.id)
+    const text = followingIds.includes(id) ? 'Unfollow' : 'Follow'
     return (
       <button
         style={{ width: '8.5rem' }}
@@ -58,8 +58,8 @@ const Followers = props => {
       >
         {text}
       </button>
-    );
-  };
+    )
+  }
 
   return (
     <StyledFollow>
@@ -74,10 +74,10 @@ const Followers = props => {
         </div>
       ))}
     </StyledFollow>
-  );
-};
+  )
+}
 
 export default connect(
   null,
   { followAUser, unfollowAUser, getUserFollowing, getUserProfileDetails }
-)(Followers);
+)(Followers)

@@ -165,4 +165,4 @@ i {
   width: 15.99px;
   /* border-radius: 9px; */
 }
-`;
+`
