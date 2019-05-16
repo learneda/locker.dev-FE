@@ -3,14 +3,6 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import GlobalStyle from './components/mixins'
-// import LandingPage from './pages/Landing'
-// import Home from './pages/Home'
-// import Browse from './pages/Browse'
-// import Social from './pages/Social'
-// import Settings from './pages/Settings'
-// import NoMatch from './pages/NoMatch'
-// import Profile from './pages/Profile'
-// import SinglePost from './pages/SinglePost/SinglePost'
 import Navbar from './components/navigation/Navbar'
 import { customContainer } from './components/mixins'
 import { composedIndexRedirect as index } from './components/authentication/indexRedirect'
@@ -19,14 +11,22 @@ import useInterval from './components/hooks/useInterval'
 import { fetchUser, getPosts } from './actions'
 import { ReactComponent as Loading } from './assets/svg/circles.svg'
 //? Should we implement route-based code-splitting?
-const LandingPage = lazy(() => import('./pages/Landing'))
-const Home = lazy(() => import('./pages/Home'))
-const Browse = lazy(() => import('./pages/Browse'))
-const Social = lazy(() => import('./pages/Social'))
-const Settings = lazy(() => import('./pages/Settings'))
-const NoMatch = lazy(() => import('./pages/NoMatch'))
-const Profile = lazy(() => import('./pages/Profile'))
-const SinglePost = lazy(() => import('./pages/SinglePost/SinglePost'))
+const LandingPagePromise = import('./pages/Landing')
+const HomePromise = import('./pages/Home')
+const BrowsePromise = import('./pages/Browse')
+const SocialPromise = import('./pages/Social')
+const SettingsPromise = import('./pages/Settings')
+const NoMatchPromise = import('./pages/NoMatch')
+const ProfilePromise = import('./pages/Profile')
+const SinglePostPromise = import('./pages/SinglePost')
+const LandingPage = lazy(() => LandingPagePromise)
+const Home = lazy(() => HomePromise)
+const Browse = lazy(() => BrowsePromise)
+const Social = lazy(() => SocialPromise)
+const Settings = lazy(() => SettingsPromise)
+const NoMatch = lazy(() => NoMatchPromise)
+const Profile = lazy(() => ProfilePromise)
+const SinglePost = lazy(() => SinglePostPromise)
 
 const App = ({ fetchUser, modal, getPosts }) => {
   const { isAuthOpen, isEditOpen } = modal
