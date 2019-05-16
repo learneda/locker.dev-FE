@@ -66,20 +66,20 @@ class Browse extends Component {
             <Tabs>
               <Tab>
                 <NavLink exact to='/browse/courses'>
-                  Courses
+                  Course
                 </NavLink>
               </Tab>
               <Tab>
-                <NavLink to='/browse/articles'>Articles</NavLink>
+                <NavLink to='/browse/articles'>Article</NavLink>
               </Tab>
               <Tab>
-                <NavLink to='/browse/videos'>Videos</NavLink>
+                <NavLink to='/browse/videos'>Video</NavLink>
               </Tab>
               <Tab>
-                <NavLink to='/browse/books'>Books</NavLink>
+                <NavLink to='/browse/books'>Book</NavLink>
               </Tab>
               <Tab>
-                <NavLink to='/browse/podcasts'>Podcasts</NavLink>
+                <NavLink to='/browse/podcasts'>Podcast</NavLink>
               </Tab>
             </Tabs>
             <TabWrapper>
@@ -217,9 +217,9 @@ const TabWrapper = styled.div`
 
 const Tabs = styled.ul`
   display: flex;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   @media (max-width: 400px) {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 `
 
