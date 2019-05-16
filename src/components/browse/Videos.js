@@ -1,22 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import youtube from '../../apis/youtube';
+import { setSearchTerm } from '../../actions';
 import styled from 'styled-components';
 import { customLayout, smartTruncate } from '../mixins';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
-import { useDebouncedCallback } from 'use-debounce';
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg';
+import { useThrottle } from 'use-throttle';
 
 const Videos = ({ search, handleSaveMedia, alert }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [videos, setVideos] = useState([]);
   const [pageToken, setPageToken] = useState(null);
-  const fetchMoreData = () => {
+  const throttledSearch = useThrottle(search, 0.6);
+
+  const fetchMoreVideos = () => {
     youtube
       .get('/search', {
         params: {
-          q: search || 'javascript',
+          q: throttledSearch || 'javascript',
           pageToken,
         },
       })
@@ -32,12 +35,7 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
       });
   };
 
-  useEffect(() => {
-    setIsLoading(true);
-    debouncedFunction(search);
-  }, [search]);
-
-  const [debouncedFunction] = useDebouncedCallback(query => {
+  const fetchVideos = query => {
     youtube
       .get('/search', {
         params: {
@@ -53,7 +51,12 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
         setPageToken(res.data.nextPageToken);
         setIsLoading(false);
       });
-  }, 1500);
+  };
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchVideos(search);
+  }, [throttledSearch]);
 
   const renderLoader = () => (
     <Loader>
@@ -75,7 +78,7 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
   const renderVideos = () => (
     <InfiniteScroll
       dataLength={videos.length}
-      next={fetchMoreData}
+      next={fetchMoreVideos}
       hasMore={true}
       style={{
         display: 'flex',
@@ -123,23 +126,6 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
                 allowFullScreen
               />
             )}
-            {/* <iframe
-                style={{
-                  border: '0px',
-                  height: '100%',
-                  left: '0px',
-                  position: 'absolute',
-                  top: '0px',
-                  width: '100%',
-                }}
-                frameBorder='0'
-                width='560'
-                height='315'
-                title={video.title}
-                src={`https://www.youtube.com/embed/${video.id.videoId}`}
-                allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-                allowFullScreen
-              /> */}
           </div>
           <a
             href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
