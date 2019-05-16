@@ -5,16 +5,18 @@ import styled from 'styled-components';
 import { customLayout, smartTruncate } from '../mixins';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
-import { useDebouncedCallback } from 'use-debounce';
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg';
+import { useThrottle } from 'use-throttle';
+
 import he from 'he';
 
 const Podcasts = ({ search, handleSaveMedia, alert }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [podcasts, setPodcasts] = useState([]);
   const [offset, setOffset] = useState(null);
+  const throttledSearch = useThrottle(search, 0.6);
 
-  const fetchMoreData = () => {
+  const fetchMorePodcasts = () => {
     listenAPI
       .get('/search', {
         params: {
@@ -30,10 +32,10 @@ const Podcasts = ({ search, handleSaveMedia, alert }) => {
 
   useEffect(() => {
     setIsLoading(true);
-    debouncedFunction(search);
-  }, [search]);
+    fetchPodcasts(search);
+  }, [throttledSearch]);
 
-  const [debouncedFunction] = useDebouncedCallback(query => {
+  const fetchPodcasts = query => {
     listenAPI
       .get('/search', {
         params: {
@@ -45,7 +47,7 @@ const Podcasts = ({ search, handleSaveMedia, alert }) => {
         setOffset(res.data.next_offset);
         setIsLoading(false);
       });
-  }, 1500);
+  };
 
   const renderLoader = () => (
     <Loader>
@@ -56,7 +58,7 @@ const Podcasts = ({ search, handleSaveMedia, alert }) => {
   const renderPodcasts = () => (
     <InfiniteScroll
       dataLength={podcasts.length}
-      next={fetchMoreData}
+      next={fetchMorePodcasts}
       hasMore={true}
       style={{
         display: 'flex',

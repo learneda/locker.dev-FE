@@ -5,22 +5,23 @@ import styled from 'styled-components';
 import { customLayout, smartTruncate } from '../mixins';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg';
-import { useDebouncedCallback } from 'use-debounce';
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg';
 import { post as URL } from '../../services/baseURL';
+import { useThrottle } from 'use-throttle';
 axios.defaults.withCredentials = true;
 
 const Books = ({ search, handleSaveMedia, alert }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [books, setBooks] = useState([]);
   const [offset, setOffset] = useState(0);
+  const throttledSearch = useThrottle(search, 0.6);
 
   useEffect(() => {
     setIsLoading(true);
-    debouncedFunction(search);
-  }, [search]);
+    fetchBooks(search);
+  }, [throttledSearch]);
 
-  const [debouncedFunction] = useDebouncedCallback(query => {
+  const fetchBooks = query => {
     axios
       .get(`${URL}/api/books/search`, {
         params: {
@@ -33,9 +34,9 @@ const Books = ({ search, handleSaveMedia, alert }) => {
         setIsLoading(false);
       })
       .catch(err => console.log(err));
-  }, 1000);
+  };
 
-  const fetchMoreData = () => {
+  const fetchMoreBooks = () => {
     const limit = 12;
     axios
       .get(`${URL}/api/books/search`, {
@@ -59,7 +60,7 @@ const Books = ({ search, handleSaveMedia, alert }) => {
   const renderBooks = () => (
     <InfiniteScroll
       dataLength={books.length}
-      next={fetchMoreData}
+      next={fetchMoreBooks}
       hasMore={true}
       style={{
         display: 'flex',
@@ -95,7 +96,6 @@ const Books = ({ search, handleSaveMedia, alert }) => {
                 />
                 <img
                   style={{
-                    position: 'absolute',
                     position: 'absolute',
                     padding: '0px',
                     top: '10px',
