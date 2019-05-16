@@ -87,6 +87,50 @@ class PostContainer extends Component {
             src={`https://www.youtube.com/embed/${videoId}`}
             allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
             allowFullScreen
+            allowfullscreen
+          />
+        </div>
+      );
+    } else if (
+      thumbnail_url.includes('google') ||
+      thumbnail_url.includes('cloudfront')
+    ) {
+      return (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            position: 'relative',
+            overflow: 'hidden',
+          }}
+        >
+          <div
+            className='post-hero'
+            style={{
+              overflow: 'hidden',
+              height: '350px',
+              position: 'relative',
+              backgroundImage: `url(${thumbnail_url})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              filter: `blur(1.5rem)`,
+            }}
+          />
+          <div
+            style={{
+              overflow: 'hidden',
+              height: '170px',
+              width: '100%',
+              position: 'absolute',
+              top: '90px',
+              justifySelf: 'center',
+              backgroundImage: `url(${thumbnail_url})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'contain',
+              backgroundPosition: 'center',
+              transform: `scale(1.3)`,
+            }}
           />
         </div>
       );

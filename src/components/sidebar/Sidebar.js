@@ -79,7 +79,7 @@ class Sidebar extends Component {
                   <li>{this.props.user_details.following_count}</li>
                 </ul>
               </Link>
-              <Link to='/social/followers'>
+              <Link to='/social/followers' className='sidebar-followers'>
                 <ul>
                   <li>Followers</li>
                   <li>{this.props.user_details.followers_count}</li>
@@ -156,8 +156,8 @@ export default withRouter(
 );
 
 const Wrapper = styled.div`
-  ${customWrapper('40%')}
-  max-width: 265px;
+  ${customWrapper('45%')}
+  max-width: 270px;
 
   @media (max-width: 900px) {
     display: none;

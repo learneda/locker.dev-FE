@@ -217,6 +217,10 @@ const TabWrapper = styled.div`
 
 const Tabs = styled.ul`
   display: flex;
+  font-size: 1.6rem;
+  @media (max-width: 400px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const Tab = styled.li`

@@ -8,7 +8,7 @@ top: 100px;
 .user {
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
-  padding: 20px 0;
+  padding: 18px 0;
   background-color: #4064f2;
   position: relative;
   height: 80px;
@@ -36,7 +36,7 @@ top: 100px;
   h3 {
     margin: 0 auto;
     font-size: 2.5rem;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
 
   p {
@@ -79,15 +79,19 @@ top: 100px;
     flex-wrap: wrap;
   }
   a {
-    margin-right: 15px;
+    margin-right: 12px;
+    cursor: pointer;
   }
   ul {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 15px;
     cursor: pointer;
     transition: 200ms ease-out;
     :not(:last-child) {
-      margin-right: 15px;
+      margin-right: 12px;
     }
+    
     &:hover {
       color: #3f65f2;
       transition: 200ms ease-in;
@@ -96,13 +100,17 @@ top: 100px;
       }
     }
     li {
-      margin-bottom: 5px;
+      font-size: 1.6rem;
     }
     li:nth-of-type(2) {
       opacity: 0.7;
+      text-align:center
       transition: 200ms ease-out;
     }
   }
+.sidebar-followers {
+  margin-right: 0px
+}
 }
 .follow-stats-dropdown {
   position: absolute;
