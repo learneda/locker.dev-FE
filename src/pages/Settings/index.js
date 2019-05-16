@@ -1,69 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { NavLink, Route, Switch, Link } from 'react-router-dom';
 import { withAlert } from 'react-alert';
 import styled from 'styled-components';
-import { Grommet, TextInput, TextArea } from 'grommet';
+import { Grommet } from 'grommet';
 import { post as URL } from '../../services/baseURL';
 import { editProfile } from '../../actions';
 import { customLayout, customWrapper } from '../../components/mixins';
 import axios from 'axios';
+import ProfileSettings from './ProfileSetting';
+import Integrations from './Integrations'
 
 class Settings extends Component {
-	state = {
-		display_name: this.props.auth.display_name,
-		username: this.props.auth.username,
-		bio: this.props.auth.bio,
-		location: this.props.auth.location,
-		website_url: this.props.auth.website_url,
-		selectedFile: null,
-		profile_pic: null,
-	};
-
-	editProfileHandler = (e, id) => {
-		e.preventDefault();
-		const { display_name, username, bio, location, website_url } = this.state;
-		this.props.editProfile(id, {
-			display_name,
-			username,
-			bio,
-			location,
-			website_url,
-		});
-	};
-
-	handleInputChange = (e) => this.setState({ [e.target.name]: e.target.value });
-
-	handleFileSelection = (e) => {
-		e.preventDefault();
-		if (e.target.files[0]) {
-			const file = e.target.files[0].type;
-			// console.log(file === 'image/jpeg' || file === 'image/png' || file === 'image/gif');
-			if (file === 'image/jpeg' || file === 'image/png' || file === 'image/gif') {
-				this.setState({ selectedFile: e.target.files[0] });
-			} else {
-				alert("Only JPEG, PNG, or GIF's type files are allowed");
-			}
-		}
-	};
-
-	handleFileUpload = (e) => {
-		e.preventDefault();
-		if (this.state.selectedFile) {
-			const fd = new FormData();
-			fd.append('profile_pic', this.state.selectedFile, this.state.selectedFile.name);
-			axios.post(`${URL}/api/images`, fd).then((res) => {
-				if (res.data.success) {
-					axios.get(`${URL}/api/images`).then((res) => {
-						if (res.data.length > 0) {
-							this.setState({ profile_pic: `${res.data[0].profile_picture}` });
-						}
-					});
-				}
-			});
-		}
-	};
-
 	componentDidMount() {
 		axios.get(`${URL}/api/images`).then((res) => {
 			if (res.data.length > 0) {
@@ -73,151 +21,111 @@ class Settings extends Component {
 	}
 	render() {
 		return (
+			<Grommet theme={theme}>
 			<Wrapper>
-				<h2>User Settings</h2>
+			  <BrowseContainer>
+				<Tabs>
+				  <Tab>
+					<NavLink to='/settings'>Settings</NavLink>
+				  </Tab>
+				  <Tab>
+					<NavLink to='/settings/integrations'>Integrations</NavLink>
+				  </Tab>
+				</Tabs>
+				<TabWrapper>
+				  <Switch>
+					<Route
+					  exact
+					  path={['/settings']}
+					  render={props => (
+						<ProfileSettings />
+					  )}
+					/>
 
-				<FormGroup onSubmit={(e) => this.editProfileHandler(e, this.props.auth.id)}>
-					<div className="form-wrapper">
-						<Grommet theme={theme}>
-							<div className="row">
-								<div className="col-2">
-									<label>
-										Name
-										<TextInput
-											type="text"
-											onChange={this.handleInputChange}
-											placeholder="Add full name"
-											value={this.state.display_name}
-											name="display_name"
-											required
-										/>
-									</label>
-									<label>
-										Email Address
-										<TextInput
-											type="text"
-											onChange={this.handleInputChange}
-											placeholder="email address"
-											value={this.props.auth.email}
-											name="email"
-											required
-										/>
-									</label>
-									<label>
-										Username
-										<TextInput
-											type="text"
-											onChange={this.handleInputChange}
-											placeholder="Add username"
-											value={this.state.username}
-											name="username"
-											required
-										/>
-									</label>
-
-									<label>
-										Bio
-										<TextArea
-											type="text"
-											onChange={this.handleInputChange}
-											placeholder="Add bio"
-											value={this.state.bio}
-											name="bio"
-										/>
-									</label>
-								</div>
-
-								<div className="col-2">
-									<label>
-										Location
-										<TextInput
-											type="text"
-											onChange={this.handleInputChange}
-											placeholder="Add location"
-											value={this.state.location}
-											name="location"
-										/>
-									</label>
-
-									<label>
-										Website URL
-										<TextInput
-											type="text"
-											onChange={this.handleInputChange}
-											placeholder="Add website URL"
-											value={this.state.website_url}
-											name="website_url"
-										/>
-									</label>
-									<label>
-										Profile Picture
-										<img
-											style={{
-												width: '200px',
-												display: 'block',
-												margin: '10px auto',
-											}}
-											src={this.state.profile_pic}
-											alt="user_upload_picture"
-										/>
-										<input
-											onChange={(e) => this.handleFileSelection(e)}
-											type="file"
-											name="profile_pic"
-										/>
-										<button onClick={(e) => this.handleFileUpload(e)} type="submit">
-											Submit
-										</button>
-									</label>
-								</div>
-							</div>
-						</Grommet>
-
-						<div className="btn-group">
-							<Link to="/home">Cancel</Link>
-							<button
-								type="submit"
-								onClick={() => {
-									this.props.alert.success('User settings successfully updated.');
-								}}
-							>
-								Save
-							</button>
-						</div>
-					</div>
-				</FormGroup>
+					<Route
+					  path='/settings/integrations'
+					  render={props => (
+						<Integrations />
+					  )}
+					/>	
+					
+				  </Switch>
+				</TabWrapper>
+			  </BrowseContainer>
 			</Wrapper>
+		  </Grommet>
 		);
 	}
 }
 
 const theme = {
-	global: {
-		focus: {
-			border: {
-				color: '#3f65f2',
-			},
+	tab: {
+	  color: 'dark-1',
+	  active: {
+		weight: 'bold',
+	  },
+	  border: {
+		side: 'bottom',
+		size: 'medium',
+		color: {
+		  light: null,
 		},
-	},
-	text: {
-		xsmall: {
-			size: '12px',
-			height: '18px',
-			maxWidth: '288px',
+		active: {
+		  color: {
+			light: 'dark-1',
+		  },
 		},
+		hover: {
+		  color: {
+			light: null,
+		  },
+		},
+	  },
+	  margin: {
+		vertical: 'small',
+		horizontal: 'xsmall',
+	  },
 	},
-};
-
-const Wrapper = styled.div`
-	${customWrapper('80%', '0 auto')} 
-	@media (max-width: 768px) {
-		${customWrapper('90%', '0 auto')};
-	}
+  };
+  
+  const BrowseContainer = styled.div`
 	h2 {
-		font-size: 3.5rem;
-		margin: 35px 0;
+	  font-size: 3.5rem;
+	  margin: 35px 0;
 	}
-`;
+  `;
+  
+  const Wrapper = styled.div`
+	${customWrapper('80%', '0 auto')}
+	@media(max-width: 768px) {
+	  ${customWrapper('90%', '0 auto')}
+	}
+  `;
+  
+  const TabWrapper = styled.div`
+	padding-top: 20px;
+	margin-top: -3px;
+  `;
+  
+  const Tabs = styled.ul`
+	display: flex;
+  `;
+  
+  const Tab = styled.li`
+	margin-right: 2rem;
+  `;
+  
+
+// const Wrapper = styled.div`
+// 	${customWrapper('80%', '0 auto')} 
+// 	@media (max-width: 768px) {
+// 		${customWrapper('90%', '0 auto')};
+// 	}
+// 	h2 {
+// 		font-size: 3.5rem;
+// 		margin: 35px 0;
+// 	}
+// `;
 
 const FormGroup = styled.form`
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
