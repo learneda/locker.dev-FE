@@ -36,8 +36,7 @@ const App = ({ fetchUser, modal, getPosts }) => {
     fetchUser();
 
     // gets bookmarks only on first site load
-    getPosts();
-  }, [fetchUser, getPosts]);
+  }, [fetchUser]);
 
   useInterval(() => {
     // fetches user information every 5 minutes to reduce number of server requests
@@ -87,7 +86,7 @@ const mapStateToProps = ({ modal }) => ({ modal });
 export default withRouter(
   connect(
     mapStateToProps,
-    { fetchUser, getPosts }
+    { fetchUser }
   )(App)
 );
 

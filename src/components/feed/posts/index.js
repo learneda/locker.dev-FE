@@ -87,7 +87,6 @@ class PostContainer extends Component {
             src={`https://www.youtube.com/embed/${videoId}`}
             allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
             allowFullScreen
-            allowfullscreen
           />
         </div>
       );

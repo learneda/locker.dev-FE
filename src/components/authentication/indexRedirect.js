@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 
 const IndexRedirect = Component => ({ auth }) => {
+  console.log(auth);
   const renderContent = () => {
     switch (auth) {
       case null:

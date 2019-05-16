@@ -7,7 +7,7 @@ const HomeRedirect = Component => ({ auth }) => {
   const renderContent = () => {
     switch (auth) {
       case null:
-        return;
+        return <Component />;
       case false:
         return <Component />;
       default:
