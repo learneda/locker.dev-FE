@@ -194,7 +194,6 @@ export const fetchLocker = () => async (dispatch) => {
 	const lockerData = await axios.get(`${URL}/api/locker`)
 	dispatch({ type: LOADED_SUGGESTED })
 	if (lockerData.data.length) {
-		console.log(lockerData.data)
 		dispatch({ type: GET_LOCKER, payload: lockerData.data })
 	}
 }
