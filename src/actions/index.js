@@ -22,10 +22,6 @@ import {
   GET_USER_FOLLOWERS,
   GET_USER_FOLLOWING,
   UPDATE_POSTS_STATE,
-  SET_BROWSE_TAB_INDEX,
-  SET_HOME_TAB_INDEX,
-  SET_PROFILE_TAB_INDEX,
-  SET_SOCIAL_TAB_INDEX,
   LOADING_SUGGESTED,
   LOADED_SUGGESTED,
   FETCH_NOTIFICATIONS,
@@ -149,30 +145,6 @@ export const getUserFollowers = id => async dispatch => {
   const followers = await axios.get(`${URL}/api/users/followers?id=${id}`)
   dispatch({ type: GET_USER_FOLLOWERS, payload: followers.data })
 }
-
-// controls Browse tabIndex
-export const setBrowseTabIndex = index => ({
-  type: SET_BROWSE_TAB_INDEX,
-  payload: index,
-})
-
-// controls Home tabIndex
-export const setHomeTabIndex = index => ({
-  type: SET_HOME_TAB_INDEX,
-  payload: index,
-})
-
-// controls Profile tabIndex
-export const setProfileTabIndex = index => ({
-  type: SET_PROFILE_TAB_INDEX,
-  payload: index,
-})
-
-// controls Profile tabIndex
-export const setSocialTabIndex = index => ({
-  type: SET_SOCIAL_TAB_INDEX,
-  payload: index,
-})
 
 export const populateNotifications = NotificationsArr => ({
   type: FETCH_NOTIFICATIONS,

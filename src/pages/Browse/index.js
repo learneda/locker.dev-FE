@@ -155,7 +155,6 @@ const mapStateToProps = state => {
     courses: state.browse.courses,
     articles: state.browse.articles,
     auth: state.auth,
-    index: state.browse.index,
   }
 }
 

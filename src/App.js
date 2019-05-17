@@ -11,6 +11,7 @@ import useInterval from './components/hooks/useInterval'
 import { fetchUser, getPosts } from './actions'
 import { ReactComponent as Loading } from './assets/svg/circles.svg'
 //? Should we implement route-based code-splitting?
+//TODO: Need to make this DRY
 const LandingPagePromise = import('./pages/Landing')
 const HomePromise = import('./pages/Home')
 const BrowsePromise = import('./pages/Browse')
@@ -34,9 +35,9 @@ const App = ({ fetchUser, modal, getPosts }) => {
   useEffect(() => {
     // initial fetch user when you refresh browser
     fetchUser()
-
     // gets bookmarks only on first site load
-  }, [fetchUser])
+    getPosts()
+  }, [])
 
   useInterval(() => {
     // fetches user information every 5 minutes to reduce number of server requests
@@ -86,7 +87,7 @@ const mapStateToProps = ({ modal }) => ({ modal })
 export default withRouter(
   connect(
     mapStateToProps,
-    { fetchUser }
+    { fetchUser, getPosts }
   )(App)
 )
 

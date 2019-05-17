@@ -8,7 +8,7 @@ import SearchUsersDropDown from './SearchUsersDropDown'
 import { setSearchTerm, resetSearchTerm } from '../../actions'
 
 function Search(props) {
-  const { resetSearchTerm } = props
+  const { setSearchTerm, resetSearchTerm } = props
   const node = useRef()
   const [toggle, setToggle] = useState(false)
   const [search, setSearch] = useState('')
@@ -25,7 +25,7 @@ function Search(props) {
 
   const handleSearch = e => {
     toggle && setVisible(true)
-    toggle ? setSearch(e.target.value) : props.setSearchTerm(e)
+    toggle ? setSearch(e.target.value) : setSearchTerm(e)
   }
 
   const handleRefClick = e => {
@@ -156,11 +156,8 @@ function Search(props) {
   )
 }
 
-const mapStateToProps = ({ searchTerm, browse, home, profile }) => ({
+const mapStateToProps = ({ searchTerm }) => ({
   searchTerm,
-  browseIndex: browse.index,
-  homeIndex: home.index,
-  profileIndex: profile.index,
 })
 
 export default withRouter(
