@@ -45,7 +45,7 @@ class Sidebar extends Component {
           <div className='user-bio'>
             <h3>{this.props.user.displayName}</h3>
             <div className='profile-stats'>
-              <Link to='/home/bookmarks'>
+              <Link to='/home/collections'>
                 <ul>
                   <li>Posts</li>
                   <li>{this.props.posts.length}</li>

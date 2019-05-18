@@ -19,7 +19,7 @@ class ProfileById extends Component {
   state = { modalOpen: false, posts: [], savedPostIds: [] }
 
   componentDidMount = () => {
-    this.fetchPosts()
+    this.props.fetchPosts()
   }
 
   getPosts = async () => {

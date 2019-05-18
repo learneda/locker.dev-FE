@@ -12,7 +12,7 @@ import {
   LIKED_POSTS,
   SET_SEARCH_TERM,
   RESET_SEARCH_TERM,
-  EDIT_PROFILE,
+  EDIT_USER,
   GET_FOLLOWERS_AND_FOLLOWING_COUNT,
   FETCH_USER,
   FOLLOW_A_USER,
@@ -80,9 +80,8 @@ export const getlikedPosts = () => async dispatch => {
 }
 
 export const editProfile = (id, profile) => async dispatch => {
-  await axios.put(`${URL}/api/users/edit`, { id, ...profile })
-  const res = await axios.get(`${URL}/auth/current_user`)
-  dispatch({ type: EDIT_PROFILE, payload: res.data })
+  const res = await axios.put(`${URL}/api/users/edit`, { id, ...profile })
+  dispatch({ type: EDIT_USER, payload: res.data })
 }
 
 export const setSearchTerm = e => ({
