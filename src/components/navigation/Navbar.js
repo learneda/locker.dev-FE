@@ -27,7 +27,7 @@ class Navbar extends Component {
         <NavWrapper>
           <MobileNav show={this.state.show} handleClose={this.hideBurgerMenu} />
           <Burger>
-            <Search />
+            <Search className='mobile-search' />
             <img
               src={burgerIcon}
               alt='burger'
@@ -49,7 +49,7 @@ class Navbar extends Component {
                 </NavLink>
               </li>
             </ul>
-            <Search />
+            <Search className='main-search' />
             <NavRight>
               <Notifications />
               <AddLink />
@@ -156,6 +156,9 @@ const NavWrapper = styled.div`
 
   @media (max-width: 760px) {
     .main-nav {
+      display: none;
+    }
+    .main-search {
       display: none;
     }
   }

@@ -179,21 +179,23 @@ class Feed extends Component {
         post.username.toLowerCase().includes(search.toLowerCase())
       )
     })
-
-    const feed = filteredPosts.map((post, index) => (
-      <PostContainer
-        key={index}
-        handleSubmit={this.handleSubmit}
-        handleClick={this.handleClick}
-        getNewsFeed={this.getNewsFeed}
-        post={post}
-        user_id={this.props.auth.id}
-        username={this.props.user.username}
-        profile_picture={this.props.user.profilePicture}
-        handleDeleteComment={this.handleDeleteComment}
-        socketId={this.socket.id}
-      />
-    ))
+    let feed = []
+    if (this.props.user) {
+      feed = filteredPosts.map((post, index) => (
+        <PostContainer
+          key={index}
+          handleSubmit={this.handleSubmit}
+          handleClick={this.handleClick}
+          getNewsFeed={this.getNewsFeed}
+          post={post}
+          user_id={this.props.auth.id}
+          username={this.props.user.username}
+          profile_picture={this.props.user.profilePicture}
+          handleDeleteComment={this.handleDeleteComment}
+          socketId={this.socket.id}
+        />
+      ))
+    }
 
     while (this.state.loading === true) {
       return (
@@ -203,7 +205,7 @@ class Feed extends Component {
       )
     }
 
-    if (feed.length !== 0) {
+    if (feed && feed.length) {
       return (
         <Container>
           <InfiniteScroll
