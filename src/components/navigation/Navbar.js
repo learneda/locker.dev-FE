@@ -129,7 +129,7 @@ const MobileNav = ({ handleClose, show }) => {
             </Link>
           </li>
           <li>
-            <a href={`${authURL}logout`}>Log Out</a>
+            <a href={`${authURL}/logout`}>Log Out</a>
           </li>
         </ul>
       </div>

@@ -9,13 +9,13 @@ const AuthForm = props => {
   return isSignUp ? (
     <form id='signup-form'>
       <div className='form-oauth-providers'>
-        <a href={`${authURL}google`}>
+        <a href={`${authURL}/google`}>
           <img src={googleSvg} alt='' />
           <p>Sign up with Google</p>
         </a>
       </div>
       <div className='form-oauth-providers'>
-        <a href={`${authURL}github`}>
+        <a href={`${authURL}/github`}>
           <img src={githubSvg} alt='' />
           <p>Sign up with GitHub</p>
         </a>
@@ -24,13 +24,13 @@ const AuthForm = props => {
   ) : (
     <form id='login-form'>
       <div className='form-oauth-providers'>
-        <a href={`${authURL}google`}>
+        <a href={`${authURL}/google`}>
           <img src={googleSvg} alt='' />
           <p>Login with Google</p>
         </a>
       </div>
       <div className='form-oauth-providers'>
-        <a href={`${authURL}github`}>
+        <a href={`${authURL}/github`}>
           <img src={githubSvg} alt='' />
           <p>Login with GitHub</p>
         </a>

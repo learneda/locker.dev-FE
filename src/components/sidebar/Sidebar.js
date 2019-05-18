@@ -14,15 +14,14 @@ import { StyledSidebar } from './StyledSidebar'
 
 const MyLoader = () => (
   <ContentLoader
-    height={475}
-    width={300}
+    height={451}
+    width={266}
     speed={2}
     primaryColor='#f3f3f3'
     secondaryColor='#ecebeb'
   >
-    <circle cx='120' cy='73' r='56' />
-    <rect x='118' y='425' rx='0' ry='0' width='0' height='0' />
-    <rect x='17' y='144' rx='0' ry='0' width='364' height='300' />
+    <circle cx='133' cy='84' r='50' />
+    <rect x='0' y='134' rx='0' ry='0' width='266' height='317' />
   </ContentLoader>
 )
 class Sidebar extends Component {
@@ -33,99 +32,106 @@ class Sidebar extends Component {
   }
 
   render() {
-    if (!this.props.user) {
-      return <MyLoader />
+    if (this.props.loading) {
+      return (
+        <Wrapper>
+          <MyLoader />
+        </Wrapper>
+      )
     }
     return (
       <Wrapper>
-        <Profile>
-          <div className='user'>
-            <img src={this.props.user.profilePicture} alt='avatar' />
-          </div>
-          <div className='user-bio'>
-            <h3>{this.props.user.displayName}</h3>
-            <div className='profile-stats'>
-              <Link to='/home/collections'>
-                <ul>
-                  <li>Posts</li>
-                  <li>{this.props.posts.length}</li>
-                </ul>
-              </Link>
+        {this.props.user && (
+          <Profile>
+            <div className='user'>
+              <img src={this.props.user.profilePicture} alt='avatar' />
+            </div>
+            <div className='user-bio'>
+              <h3>{this.props.user.displayName}</h3>
+              <div className='profile-stats'>
+                <Link to='/home/collections'>
+                  <ul>
+                    <li>Posts</li>
+                    <li>{this.props.posts.length}</li>
+                  </ul>
+                </Link>
 
-              <Link to='/social/following'>
-                <ul>
-                  <li>Following</li>
-                  <li>{this.props.following.length}</li>
-                </ul>
-              </Link>
-              <Link to='/social/followers' className='sidebar-followers'>
-                <ul>
-                  <li>Followers</li>
-                  <li>{this.props.followers.length}</li>
-                </ul>
-              </Link>
-            </div>
-            <p>
-              {this.props.user.bio ? (
-                this.props.user.bio
-              ) : (
-                <Link to='/settings'>Add Bio</Link>
-              )}
-            </p>
-            <p>
-              <img src={locationSvg} alt='location-icon' />
-              {this.props.user.location ? (
-                this.props.user.location
-              ) : (
-                <Link to='/settings'>Add location</Link>
-              )}
-            </p>
-            <p>
-              <img src={linkSvg} alt='link-icon' />
-              {this.props.user.websiteUrl ? (
-                this.props.user.websiteUrl.includes('http') ? (
-                  <a
-                    href={this.props.user.websiteUrl}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    {this.props.user.websiteUrl.replace(/^https?:\/\//, '')}
-                  </a>
+                <Link to='/social/following'>
+                  <ul>
+                    <li>Following</li>
+                    <li>{this.props.following.length}</li>
+                  </ul>
+                </Link>
+                <Link to='/social/followers' className='sidebar-followers'>
+                  <ul>
+                    <li>Followers</li>
+                    <li>{this.props.followers.length}</li>
+                  </ul>
+                </Link>
+              </div>
+              <p>
+                {this.props.user.bio ? (
+                  this.props.user.bio
                 ) : (
-                  <a
-                    href={`https://${this.props.user.websiteUrl}`}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    {this.props.user.websiteUrl}
-                  </a>
-                )
-              ) : (
-                <Link to='/settings'>Add website URL</Link>
-              )}
-            </p>
-            <p>
-              <img src={calendarSvg} alt='calendar-icon' />
-              Joined{' '}
-              <Moment format='MMMM YYYY'>{this.props.user.createdAt}</Moment>
-            </p>
-            <div className='edit-profile-link'>
-              <Link to='/settings'>Edit Profile</Link>
+                  <Link to='/settings'>Add Bio</Link>
+                )}
+              </p>
+              <p>
+                <img src={locationSvg} alt='location-icon' />
+                {this.props.user.location ? (
+                  this.props.user.location
+                ) : (
+                  <Link to='/settings'>Add location</Link>
+                )}
+              </p>
+              <p>
+                <img src={linkSvg} alt='link-icon' />
+                {this.props.user.websiteUrl ? (
+                  this.props.user.websiteUrl.includes('http') ? (
+                    <a
+                      href={this.props.user.websiteUrl}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
+                      {this.props.user.websiteUrl.replace(/^https?:\/\//, '')}
+                    </a>
+                  ) : (
+                    <a
+                      href={`https://${this.props.user.websiteUrl}`}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
+                      {this.props.user.websiteUrl}
+                    </a>
+                  )
+                ) : (
+                  <Link to='/settings'>Add website URL</Link>
+                )}
+              </p>
+              <p>
+                <img src={calendarSvg} alt='calendar-icon' />
+                Joined{' '}
+                <Moment format='MMMM YYYY'>{this.props.user.createdAt}</Moment>
+              </p>
+              <div className='edit-profile-link'>
+                <Link to='/settings'>Edit Profile</Link>
+              </div>
             </div>
-          </div>
-        </Profile>
+          </Profile>
+        )}
       </Wrapper>
     )
   }
 }
 
-const mapStateToProps = ({ auth, user, posts, follow }) => {
+const mapStateToProps = ({ auth, user, posts, follow, loading }) => {
   return {
     auth,
     user,
     posts,
     followers: follow.userFollowers,
     following: follow.userFollowing,
+    loading: loading.sidebar,
   }
 }
 

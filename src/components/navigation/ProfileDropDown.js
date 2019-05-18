@@ -47,12 +47,12 @@ const ProfileDropDown = ({ auth, user }) => {
             <Link to='/settings'>Settings</Link>
           </li>
           <li>
-            <a href={`${authURL}logout`}>
+            <a href={`${authURL}/logout`}>
               <Logout
                 style={{ width: '24px', height: '24px', paddingRight: '9px' }}
               />
             </a>
-            <a href={`${authURL}logout`}>Logout</a>
+            <a href={`${authURL}/logout`}>Logout</a>
           </li>
         </DropDown>
       )}
