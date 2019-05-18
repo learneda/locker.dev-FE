@@ -122,9 +122,6 @@ const Wrapper = styled.div`
 
 const TabWrapper = styled.div`
   position: relative;
-  @media (max-width: 900px) {
-    margin-top: 20px;
-  }
 `
 
 const Tabs = styled.ul`
