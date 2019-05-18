@@ -1,11 +1,11 @@
-import { FETCH_USER, EDIT_PROFILE } from '../actions/types'
+import { FETCH_AUTH, EDIT_PROFILE } from '../actions/types'
 
 export const authReducer = (state = null, action) => {
   switch (action.type) {
-    case FETCH_USER:
-      return action.payload || false
+    case FETCH_AUTH:
+      return action.payload
     case EDIT_PROFILE:
-      return action.payload || false
+      return action.payload
     default:
       return state
   }

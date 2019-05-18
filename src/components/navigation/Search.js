@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Grommet, TextInput, CheckBox } from 'grommet'
 import styled from 'styled-components'
-
 import SearchUsersDropDown from './SearchUsersDropDown'
 import { setSearchTerm, resetSearchTerm } from '../../actions'
 
@@ -31,6 +30,7 @@ function Search(props) {
     }
   }
   useEffect(() => {
+    console.log('adding eventRefListen')
     document.addEventListener('click', handleRefClick)
     return () => {
       document.removeEventListener('click', handleRefClick)
@@ -39,6 +39,7 @@ function Search(props) {
 
   useEffect(() => {
     resetSearchTerm()
+    console.log(props.location.pathname, 'resetting search')
   }, [props.location.pathname])
 
   //TODO: Make this DRY

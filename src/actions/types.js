@@ -1,4 +1,4 @@
-export const FETCH_USER = 'FETCH_USER'
+export const FETCH_AUTH = 'FETCH_AUTH'
 
 // get Udemy courses
 export const FETCH_COURSES = 'FETCH_COURSES'
@@ -34,7 +34,7 @@ export const RESET_SEARCH_TERM = 'RESET_SEARCH_TERM'
 export const GET_FOLLOWERS_AND_FOLLOWING_COUNT =
   'GET_FOLLOWERS_AND_FOLLOWING_COUNT'
 
-export const GET_USER_PROFILE_DETAILS_BY_ID = 'GET_USER_PROFILE_DETAILS_BY_ID'
+export const FETCH_USER = 'FETCH_USER'
 
 export const FOLLOW_A_USER = 'FOLLOW_A_USER'
 

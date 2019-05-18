@@ -40,13 +40,11 @@ class Feed extends Component {
       hasMore: true,
       commentValue: '',
     }
-    this.username = props.auth.username
-    this.user_id = props.auth.id
     this.socket = openSocket(URL)
   }
 
   componentDidMount() {
-    this.socket.emit('join', { user_id: this.user_id })
+    this.socket.emit('join', { user_id: this.props.auth.id })
     this.socket.on('join', data => {
       console.log(data, 'FROM JOIN CONNECTION')
       this.props.populateNotifications(data)
@@ -150,9 +148,9 @@ class Feed extends Component {
       const comment = {
         action: 'create',
         content: body,
-        user_id: this.user_id,
+        user_id: this.props.auth.id,
         post_id: post_id,
-        username: this.username,
+        username: this.props.user.username,
         postOwnerId,
       }
       this.socket.emit('comments', comment)
@@ -189,9 +187,9 @@ class Feed extends Component {
         handleClick={this.handleClick}
         getNewsFeed={this.getNewsFeed}
         post={post}
-        user_id={this.user_id}
-        username={this.username}
-        profile_picture={this.props.auth.profile_picture}
+        user_id={this.props.auth.id}
+        username={this.props.user.username}
+        profile_picture={this.props.user.profilePicture}
         handleDeleteComment={this.handleDeleteComment}
         socketId={this.socket.id}
       />
@@ -231,14 +229,18 @@ class Feed extends Component {
   }
 }
 
-const Container = styled.div`
-  ${customWrapper('100%', '0 auto')}
-  ${StyledFeed}
-`
-
-const mapStateToProps = ({ auth, searchTerm }) => ({ auth, searchTerm })
+const mapStateToProps = ({ auth, user, searchTerm }) => ({
+  auth,
+  user,
+  searchTerm,
+})
 
 export default connect(
   mapStateToProps,
   { populateNotifications }
 )(Feed)
+
+const Container = styled.div`
+  ${customWrapper('100%', '0 auto')}
+  ${StyledFeed}
+`

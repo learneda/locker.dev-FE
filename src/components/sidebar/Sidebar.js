@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
-import {
-  getUserProfileDetails,
-  getUserFollowers,
-  getUserFollowing,
-} from '../../actions'
+import { fetchUser, getUserFollowers, getUserFollowing } from '../../actions'
 import ContentLoader from 'react-content-loader'
 
 import styled from 'styled-components'
@@ -30,95 +26,78 @@ const MyLoader = () => (
   </ContentLoader>
 )
 class Sidebar extends Component {
-  state = {
-    followingDropDownHeight: '0px',
-    followersDropDownHeight: '0px',
-  }
   componentDidMount() {
-    this.props.getUserProfileDetails(this.props.auth.id)
+    this.props.fetchUser(this.props.auth.id)
     this.props.getUserFollowers(this.props.auth.id)
     this.props.getUserFollowing(this.props.auth.id)
   }
-  handleFollowingDropdown = () => {
-    this.setState({
-      followingDropDownHeight:
-        this.state.followingDropDownHeight === '300px' ? '0px' : '300px',
-      followersDropDownHeight: '0px',
-    })
-  }
-  handleFollowersDropdown = () => {
-    this.setState({
-      followersDropDownHeight:
-        this.state.followersDropDownHeight === '300px' ? '0px' : '300px',
-      followingDropDownHeight: '0px',
-    })
-  }
+
   render() {
-    if (!this.props.user_details) {
+    if (!this.props.user) {
       return <MyLoader />
     }
     return (
       <Wrapper>
         <Profile>
           <div className='user'>
-            <img src={this.props.auth.profile_picture} alt='avatar' />
+            <img src={this.props.user.profilePicture} alt='avatar' />
           </div>
           <div className='user-bio'>
-            <h3>{this.props.auth.display_name}</h3>
+            <h3>{this.props.user.displayName}</h3>
             <div className='profile-stats'>
               <Link to='/home/bookmarks'>
                 <ul>
                   <li>Posts</li>
-                  <li>{this.props.user_details.post_count}</li>
+                  <li>{this.props.posts.length}</li>
                 </ul>
               </Link>
 
               <Link to='/social/following'>
                 <ul>
                   <li>Following</li>
-                  <li>{this.props.user_details.following_count}</li>
+                  <li>{this.props.following.length}</li>
                 </ul>
               </Link>
               <Link to='/social/followers' className='sidebar-followers'>
                 <ul>
                   <li>Followers</li>
-                  <li>{this.props.user_details.followers_count}</li>
+                  <li>{this.props.followers.length}</li>
                 </ul>
               </Link>
             </div>
             <p>
-              {this.props.auth.bio ? (
-                this.props.auth.bio
+              {this.props.user.bio ? (
+                this.props.user.bio
               ) : (
                 <Link to='/settings'>Add Bio</Link>
               )}
             </p>
             <p>
               <img src={locationSvg} alt='location-icon' />
-              {this.props.auth.location ? (
-                this.props.auth.location
+              {this.props.user.location ? (
+                this.props.user.location
               ) : (
                 <Link to='/settings'>Add location</Link>
               )}
             </p>
             <p>
               <img src={linkSvg} alt='link-icon' />
-              {this.props.auth.website_url ? (
-                this.props.auth.website_url.includes('http') ? (
+              {this.props.user.websiteUrl ? (
+                this.props.user.websiteUrl.includes('http') ? (
                   <a
-                    href={this.props.auth.website_url}
+                    href={this.props.user.websiteUrl}
                     target='_blank'
                     rel='noopener noreferrer'
                   >
-                    {this.props.auth.website_url.replace(/^https?:\/\//, '')}
+                    {this.props.user.websiteUrl.replace(/^https?:\/\//, '')}
                   </a>
                 ) : (
                   <a
-                    href={`https://${this.props.auth.website_url}`}
+                    href={`https://${this.props.user.websiteUrl}`}
                     target='_blank'
                     rel='noopener noreferrer'
                   >
-                    {this.props.auth.website_url}
+                    {this.props.user.websiteUrl}
                   </a>
                 )
               ) : (
@@ -127,7 +106,8 @@ class Sidebar extends Component {
             </p>
             <p>
               <img src={calendarSvg} alt='calendar-icon' />
-              Joined <Moment format='MMMM YYYY'>{this.props.created_at}</Moment>
+              Joined{' '}
+              <Moment format='MMMM YYYY'>{this.props.user.createdAt}</Moment>
             </p>
             <div className='edit-profile-link'>
               <Link to='/settings'>Edit Profile</Link>
@@ -139,10 +119,11 @@ class Sidebar extends Component {
   }
 }
 
-const mapStateToProps = ({ auth, user_details, follow }) => {
+const mapStateToProps = ({ auth, user, posts, follow }) => {
   return {
-    auth: auth,
-    user_details: user_details,
+    auth,
+    user,
+    posts,
     followers: follow.userFollowers,
     following: follow.userFollowing,
   }
@@ -151,7 +132,7 @@ const mapStateToProps = ({ auth, user_details, follow }) => {
 export default withRouter(
   connect(
     mapStateToProps,
-    { getUserProfileDetails, getUserFollowers, getUserFollowing }
+    { fetchUser, getUserFollowers, getUserFollowing }
   )(Sidebar)
 )
 

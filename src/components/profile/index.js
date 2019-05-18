@@ -10,7 +10,7 @@ import { customWrapper } from '../mixins'
 import { truncateText } from '../mixins'
 import NoPostScreen from '../utils/screens/NoPostScreen'
 import { post as URL } from '../../services/baseURL'
-import { getPosts, deletePost, setSearchTerm, saveLink } from '../../actions'
+import { fetchPosts, deletePost, setSearchTerm, saveLink } from '../../actions'
 import plusIcon from '../../assets/svg/add-icon.svg'
 import check from '../../assets/svg/check.svg'
 import { withAlert } from 'react-alert'
@@ -19,8 +19,9 @@ class ProfileById extends Component {
   state = { modalOpen: false, posts: [], savedPostIds: [] }
 
   componentDidMount = () => {
-    this.getPosts()
+    this.fetchPosts()
   }
+
   getPosts = async () => {
     const id = this.props.match.params.id
     const posts = await axios.get(`${URL}/api/posts/all/${id}`)
@@ -136,7 +137,7 @@ export default withRouter(
   connect(
     mapStateToProps,
     {
-      getPosts,
+      fetchPosts,
       deletePost,
       setSearchTerm,
       saveLink,

@@ -1,20 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import {
-  followAUser,
-  unfollowAUser,
-  getUserProfileDetails,
-} from '../../actions'
+import { followAUser, unfollowAUser, fetchUser } from '../../actions'
 import { StyledFollow } from './StyledFollow'
 const Following = props => {
-  const {
-    userId,
-    following,
-    followAUser,
-    unfollowAUser,
-    getUserProfileDetails,
-  } = props
+  const { userId, following, followAUser, unfollowAUser, fetchUser } = props
 
   const [toggles, setToggles] = useState([])
   const [isLoading, setIsLoading] = useState(false)
@@ -30,7 +20,7 @@ const Following = props => {
     setIsLoading(false)
 
     setToggles(toggles.map((toggle, idx) => (idx === index ? !toggle : toggle)))
-    getUserProfileDetails(userId)
+    fetchUser(userId)
   }
 
   const handleUnfollow = async (friend_id, index) => {
@@ -39,7 +29,7 @@ const Following = props => {
     await unfollowAUser({ user_id: userId, friend_id: friend_id })
     setIsLoading(false)
     setToggles(toggles.map((toggle, idx) => (idx === index ? !toggle : toggle)))
-    getUserProfileDetails(userId)
+    fetchUser(userId)
   }
 
   const handleClick = (id, index) => {
@@ -82,6 +72,6 @@ export default connect(
   {
     followAUser,
     unfollowAUser,
-    getUserProfileDetails,
+    fetchUser,
   }
 )(Following)

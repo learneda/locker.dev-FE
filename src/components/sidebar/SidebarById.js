@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import Moment from 'react-moment'
 import styled from 'styled-components'
 import {
-  getUserProfileDetails,
+  fetchUser,
   followAUser,
   unfollowAUser,
   getFollowing,
@@ -44,7 +44,7 @@ class SidebarById extends Component {
   }
   componentDidMount() {
     const id = this.props.match.params.id
-    this.props.getUserProfileDetails(id)
+    this.props.fetchUser(id)
     this.props.getFollowing(id)
 
     if (id) {
@@ -63,7 +63,7 @@ class SidebarById extends Component {
     e.preventDefault()
     const friend_id = this.props.match.params.id
     await this.props.followAUser({ user_id: this.props.auth.id, friend_id })
-    await this.props.getUserProfileDetails(friend_id)
+    await this.props.fetchUser(friend_id)
     await this.props.getFollowing(friend_id)
     if (friend_id) {
       axios.get(`${URL}/api/users/followers?id=${friend_id}`).then(res => {
@@ -76,7 +76,7 @@ class SidebarById extends Component {
     e.preventDefault()
     const friend_id = this.props.match.params.id
     await this.props.unfollowAUser({ user_id: this.props.auth.id, friend_id })
-    await this.props.getUserProfileDetails(friend_id)
+    await this.props.fetchUser(friend_id)
     await this.props.getFollowing(friend_id)
     if (friend_id) {
       axios.get(`${URL}/api/users/followers?id=${friend_id}`).then(res => {
@@ -207,7 +207,7 @@ class SidebarById extends Component {
                     target='_blank'
                     rel='noopener noreferrer'
                   >
-                    {this.props.auth.website_url}
+                    {this.props.user.websiteUrl}
                   </a>
                 )
               ) : (
@@ -225,10 +225,11 @@ class SidebarById extends Component {
   }
 }
 
-const mapStateToProps = ({ user_details, auth, follow }) => {
+const mapStateToProps = ({ user_details, auth, user, follow }) => {
   return {
     user_details,
     auth,
+    user,
     follow: follow.following,
   }
 }
@@ -237,7 +238,7 @@ export default withRouter(
   connect(
     mapStateToProps,
     {
-      getUserProfileDetails,
+      fetchUser,
       followAUser,
       unfollowAUser,
       getFollowing,

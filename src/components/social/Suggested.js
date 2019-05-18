@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import {
   followAUser,
   getUserFollowing,
-  getUserProfileDetails,
+  fetchUser,
   recommendedFollow,
 } from '../../actions'
 
@@ -13,7 +13,7 @@ const Suggested = props => {
     suggested,
     followAUser,
     getUserFollowing,
-    getUserProfileDetails,
+    fetchUser,
     recommendedFollow,
   } = props
 
@@ -21,7 +21,7 @@ const Suggested = props => {
     await followAUser({ user_id: userId, friend_id: friend_id })
     recommendedFollow(userId)
     getUserFollowing(userId)
-    getUserProfileDetails(userId)
+    fetchUser(userId)
   }
 
   return (
@@ -47,7 +47,7 @@ export default connect(
   {
     followAUser,
     getUserFollowing,
-    getUserProfileDetails,
+    fetchUser,
     recommendedFollow,
   }
 )(Suggested)

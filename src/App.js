@@ -8,7 +8,7 @@ import { customContainer } from './components/mixins'
 import { composedIndexRedirect as index } from './components/authentication/indexRedirect'
 import { composedHomeRedirect as home } from './components/authentication/homeRedirect'
 import useInterval from './components/hooks/useInterval'
-import { fetchUser, getPosts } from './actions'
+import { fetchAuth } from './actions'
 import { ReactComponent as Loading } from './assets/svg/circles.svg'
 //? Should we implement route-based code-splitting?
 //TODO: Need to make this DRY
@@ -29,18 +29,17 @@ const NoMatch = lazy(() => NoMatchPromise)
 const Profile = lazy(() => ProfilePromise)
 const SinglePost = lazy(() => SinglePostPromise)
 
-const App = ({ fetchUser, modal, getPosts }) => {
+const App = ({ fetchAuth, fetchUser, fetchPosts, modal, auth }) => {
   const { isAuthOpen, isEditOpen } = modal
   useEffect(() => {
     // initial fetch user when you refresh browser
-    fetchUser()
+    fetchAuth()
     // gets bookmarks only on first site load
-    getPosts()
   }, [])
 
   useInterval(() => {
     // fetches user information every 5 minutes to reduce number of server requests
-    fetchUser()
+    fetchAuth()
   }, 300000)
 
   if (isAuthOpen || isEditOpen) {
@@ -80,12 +79,12 @@ const App = ({ fetchUser, modal, getPosts }) => {
   )
 }
 
-const mapStateToProps = ({ modal }) => ({ modal })
+const mapStateToProps = ({ modal, auth }) => ({ modal, auth })
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { fetchUser, getPosts }
+    { fetchAuth }
   )(App)
 )
 

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {
-  FETCH_USER,
+  FETCH_AUTH,
   FETCH_COURSES,
   FETCH_ARTICLES,
   AUTH_MODAL_TOGGLE,
@@ -14,7 +14,7 @@ import {
   RESET_SEARCH_TERM,
   EDIT_PROFILE,
   GET_FOLLOWERS_AND_FOLLOWING_COUNT,
-  GET_USER_PROFILE_DETAILS_BY_ID,
+  FETCH_USER,
   FOLLOW_A_USER,
   UNFOLLOW_A_USER,
   GET_FOLLOWING,
@@ -32,11 +32,9 @@ import {
 import { post as URL } from '../services/baseURL'
 axios.defaults.withCredentials = true
 
-export const fetchUser = () => async dispatch => {
+export const fetchAuth = () => async dispatch => {
   const res = await axios.get(`${URL}/auth/current_user`)
-  if (res.data) {
-    dispatch({ type: FETCH_USER, payload: res.data })
-  }
+  dispatch({ type: FETCH_AUTH, payload: res.data })
 }
 
 export const getCourses = page => async dispatch => {
@@ -61,7 +59,7 @@ export const saveLink = post => async dispatch => {
 }
 
 // get all user posts
-export const getPosts = () => async dispatch => {
+export const fetchPosts = () => async dispatch => {
   const res = await axios.get(`${URL}/api/posts`)
   dispatch({ type: FETCH_POSTS, payload: res.data })
 }
@@ -102,9 +100,9 @@ export const getFollowersAndFollowingCount = () => async dispatch => {
   dispatch({ type: GET_FOLLOWERS_AND_FOLLOWING_COUNT, payload: res.data })
 }
 
-export const getUserProfileDetails = id => async dispatch => {
+export const fetchUser = id => async dispatch => {
   const res = await axios.get(`${URL}/api/users/id/${id}`)
-  dispatch({ type: GET_USER_PROFILE_DETAILS_BY_ID, payload: res.data[0] })
+  dispatch({ type: FETCH_USER, payload: res.data })
 }
 
 export const followAUser = payload => async dispatch => {
@@ -130,8 +128,8 @@ export const getFollowing = friend_id => async dispatch => {
 export const recommendedFollow = id => async dispatch => {
   dispatch({ type: LOADING_SUGGESTED })
   const res = await axios.get(`${URL}/api/users/recommendedFollow?id=${id}`)
-  dispatch({ type: LOADED_SUGGESTED })
   dispatch({ type: RECOMMENDED_FOLLOW, payload: res.data })
+  dispatch({ type: LOADED_SUGGESTED })
 }
 
 // get a users following list

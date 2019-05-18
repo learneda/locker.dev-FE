@@ -4,7 +4,7 @@ import axios from 'axios'
 import styled from 'styled-components'
 import { StyledAddLink } from './StyledAddLink'
 import ReusablePortal from './ModalPortal'
-import { getPosts, updatePostsState } from '../../actions'
+import { updatePostsState } from '../../actions'
 import { post as URL } from '../../services/baseURL'
 import { ReactComponent as X } from '../../assets/svg/x.svg'
 import { withAlert } from 'react-alert'
@@ -66,7 +66,7 @@ class AddLink extends Component {
         {/* <img src={addSvg} alt="" onClick={() => this.toggle()} /> */}
         {this.state.on && (
           <ReusablePortal>
-            <MODALWRAPPER
+            <ModalWrapper
               className='modal-wrapper'
               onClick={e =>
                 e.target.className === 'modal-wrapper' && this.toggle()
@@ -93,7 +93,7 @@ class AddLink extends Component {
                   </form>
                 </div>
               </div>
-            </MODALWRAPPER>
+            </ModalWrapper>
           </ReusablePortal>
         )}
       </div>
@@ -111,9 +111,9 @@ const Alert = withAlert()(AddLink)
 
 export default connect(
   mapStateToProps,
-  { getPosts, updatePostsState }
+  { updatePostsState }
 )(Alert)
 
-const MODALWRAPPER = styled.div`
+const ModalWrapper = styled.div`
   ${StyledAddLink}
 `

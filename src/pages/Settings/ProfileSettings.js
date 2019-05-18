@@ -1,41 +1,45 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import { withAlert } from 'react-alert'
 import styled from 'styled-components'
 import { Grommet, TextInput, TextArea } from 'grommet'
-import { post as URL } from '../../services/baseURL'
 import { editProfile } from '../../actions'
+import { post as URL } from '../../services/baseURL'
 import { customLayout, customWrapper } from '../../components/mixins'
 import axios from 'axios'
 
 class ProfileSettings extends Component {
-  state = {
-    display_name: this.props.auth.display_name,
-    username: this.props.auth.username,
-    bio: this.props.auth.bio,
-    location: this.props.auth.location,
-    website_url: this.props.auth.website_url,
-    selectedFile: null,
-    profile_pic: null,
-    email: null,
+  constructor(props) {
+    super(props)
+    this.state = {
+      displayName: this.props.user.displayName,
+      username: this.props.user.username,
+      bio: this.props.user.bio,
+      location: this.props.user.location,
+      websiteUrl: this.props.user.websiteUrl,
+      email: this.props.user.email,
+      selectedFile: null,
+      profile_pic: null,
+    }
   }
 
   editProfileHandler = (e, id) => {
     e.preventDefault()
     const {
-      display_name,
+      displayName,
       username,
       bio,
       location,
-      website_url,
+      websiteUrl,
       email,
     } = this.state
     this.props.editProfile(id, {
-      display_name,
+      displayName,
       username,
       bio,
       location,
-      website_url,
+      websiteUrl,
       email,
     })
   }
@@ -56,7 +60,7 @@ class ProfileSettings extends Component {
       ) {
         this.setState({ selectedFile: e.target.files[0] })
       } else {
-        alert("Only JPEG, PNG, or GIF's type files are allowed")
+        alert('Only JPEG, PNG, or GIF file types allowed')
       }
     }
   }
@@ -105,8 +109,8 @@ class ProfileSettings extends Component {
                       type='text'
                       onChange={this.handleInputChange}
                       placeholder='Add full name'
-                      value={this.state.display_name}
-                      name='display_name'
+                      value={this.state.displayName}
+                      name='displayName'
                       required
                     />
                   </label>
@@ -116,7 +120,7 @@ class ProfileSettings extends Component {
                       type='text'
                       onChange={this.handleInputChange}
                       placeholder='email address'
-                      value={this.props.auth.email}
+                      value={this.state.email}
                       name='email'
                       required
                     />
@@ -163,8 +167,8 @@ class ProfileSettings extends Component {
                       type='text'
                       onChange={this.handleInputChange}
                       placeholder='Add website URL'
-                      value={this.state.website_url}
-                      name='website_url'
+                      value={this.state.websiteUrl}
+                      name='websiteUrl'
                     />
                   </label>
                   <label>
@@ -216,7 +220,11 @@ class ProfileSettings extends Component {
 
 const ProfileSettingsWithAlert = withAlert()(ProfileSettings)
 
-export default ProfileSettingsWithAlert
+const mapStateToProps = ({ auth, user }) => ({ auth, user })
+export default connect(
+  mapStateToProps,
+  { editProfile }
+)(ProfileSettingsWithAlert)
 
 const theme = {
   global: {
