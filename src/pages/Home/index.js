@@ -14,48 +14,50 @@ class Home extends Component {
   render() {
     return (
       <Grommet theme={theme}>
-        <Container>
-          <Sidebar />
-          <Wrapper>
-            <Tabs>
-              <Tab>
-                <NavLink
-                  exact
-                  to='/home/feed'
-                  className={
-                    this.props.location.pathname === '/home' ? 'active' : null
-                  }
-                >
-                  Feed
-                </NavLink>
-              </Tab>
-              <Tab>
-                <NavLink to='/home/collections'>Collections</NavLink>
-              </Tab>
-              <Tab>
-                <NavLink to='/home/locker'>Locker(Alpha)</NavLink>
-              </Tab>
-            </Tabs>
-            <TabWrapper>
-              <Switch>
-                <Route
-                  exact
-                  path={['/home', '/home/feed']}
-                  render={props => <Feed {...props} />}
-                />
-                <Route
-                  path='/home/collections'
-                  render={props => <Collections {...props} />}
-                />
-                <Route
-                  path='/home/locker'
-                  render={props => <Likes {...props} />}
-                />
-              </Switch>
-            </TabWrapper>
-          </Wrapper>
-          <RecommendedFollow />
-        </Container>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <Tabs>
+            <Tab>
+              <NavLink
+                exact
+                to='/home/feed'
+                className={
+                  this.props.location.pathname === '/home' ? 'active' : null
+                }
+              >
+                Feed
+              </NavLink>
+            </Tab>
+            <Tab>
+              <NavLink to='/home/collections'>Collections</NavLink>
+            </Tab>
+            <Tab>
+              <NavLink to='/home/locker'>Locker(Alpha)</NavLink>
+            </Tab>
+          </Tabs>
+          <Container>
+            <Sidebar />
+            <Wrapper>
+              <TabWrapper>
+                <Switch>
+                  <Route
+                    exact
+                    path={['/home', '/home/feed']}
+                    render={props => <Feed {...props} />}
+                  />
+                  <Route
+                    path='/home/collections'
+                    render={props => <Collections {...props} />}
+                  />
+                  <Route
+                    path='/home/locker'
+                    render={props => <Likes {...props} />}
+                  />
+                </Switch>
+              </TabWrapper>
+            </Wrapper>
+            <RecommendedFollow />
+          </Container>
+        </div>
       </Grommet>
     )
   }
@@ -98,7 +100,9 @@ const theme = {
 }
 
 const Container = styled.div`
-  ${customWrapper('80%', '0 auto')} display: flex;
+  outline: 1px solid red;
+  ${customWrapper('80%', '0 auto')};
+  display: flex;
   justify-content: space-between;
   @media (max-width: 1400px) {
     width: 90%;
@@ -109,7 +113,7 @@ const Container = styled.div`
 `
 
 const Wrapper = styled.div`
-  max-width: 1600px;
+  max-width: 1440px;
   padding-left: 2%;
   width: 100%;
   @media (max-width: 900px) {
@@ -120,25 +124,22 @@ const Wrapper = styled.div`
 `
 
 const TabWrapper = styled.div`
-  border-top: 1px solid #bdbdbd;
-  padding-top: 20px;
-  margin-top: -3px;
+  position: relative;
   @media (max-width: 900px) {
     margin-top: 20px;
   }
 `
 
 const Tabs = styled.ul`
+  outline: 1px solid red;
   display: flex;
-  position: fixed;
-  height: 135px;
+  position: sticky;
+  justify-content: center;
   background: rgb(230, 233, 243);
+  top: 60px;
+  padding: 10px 0 0px;
   z-index: 2;
-  top: 0;
-  align-items: flex-end;
   width: 100%;
-  margin-left: -5px;
-  padding-bottom: 5px;
   /* border-bottom: 3px solid transparent; */
   .active {
     border-bottom: 3px solid #4064f2;
@@ -146,10 +147,8 @@ const Tabs = styled.ul`
     color: #4064f2;
   }
   @media (max-width: 900px) {
-    height: 120px;
   }
   @media (max-width: 760px) {
-    height: 100px;
     padding-bottom: 0px;
   }
 `

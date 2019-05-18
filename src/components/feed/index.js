@@ -197,7 +197,7 @@ class Feed extends Component {
       ))
     }
 
-    while (this.state.loading === true) {
+    while (!this.props.user) {
       return (
         <Container style={{ minWidth: '100%' }}>
           <MyLoader />
@@ -222,7 +222,7 @@ class Feed extends Component {
       return (
         <Container style={{ minWidth: '100%' }}>
           <HelpScreen
-            headerText='Hello! Follow your friends and share your posts to them.'
+            headerText='Hello! Follow your friends and share your posts with them.'
             imgSource={OnlineFriendsSVG}
           />
         </Container>

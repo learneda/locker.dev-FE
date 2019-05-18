@@ -118,14 +118,14 @@ export default connect(
 )(RecommendedFollow)
 
 const StyledCard = styled.div`
-  margin: 60px 0px 0px 30px;
+  margin: 0px 0px 0px 30px;
   height: auto;
   @media (max-width: 1200px) {
     display: none;
   }
   .sticky-container {
     position: sticky;
-    top: 160px;
+    top: 100px;
   }
   .recommended-follow-container {
     margin-bottom: 20px;

@@ -168,7 +168,6 @@ const Nav = styled.nav`
   ${customLayout('space-between', 'center')}
   padding: 7.5px 0;
   margin: 0 auto;
-  margin-bottom: 40px;
   width: 80%;
 
   @media (max-width: 1400px) {
