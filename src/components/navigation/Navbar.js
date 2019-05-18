@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import Notifications from './Notifications'
-import Search from '../search/Search'
+import Search from './Search'
 import Auth from '../authentication/Auth'
 import AddLink from '../utils/AddLink'
 import ProfileDropDown from './ProfileDropDown'
@@ -20,13 +20,12 @@ class Navbar extends Component {
   hideBurgerMenu = () => this.setState({ show: false })
 
   render() {
-    const { auth, authModalToggle, modalSignUp, modalLogin } = this.props
+    const { auth, user, authModalToggle, modalSignUp, modalLogin } = this.props
     if (auth) {
       // When user logged in
       return (
         <NavWrapper>
           <MobileNav show={this.state.show} handleClose={this.hideBurgerMenu} />
-
           <Burger>
             <Search />
             <img
@@ -50,13 +49,11 @@ class Navbar extends Component {
                 </NavLink>
               </li>
             </ul>
-
             <Search />
-
             <NavRight>
               <Notifications />
               <AddLink />
-              <ProfileDropDown auth={auth} />
+              <ProfileDropDown auth={auth} user={user} />
             </NavRight>
           </Nav>
         </NavWrapper>
@@ -140,8 +137,9 @@ const MobileNav = ({ handleClose, show }) => {
   )
 }
 
-const mapStateToProps = ({ auth }) => ({
+const mapStateToProps = ({ auth, user }) => ({
   auth,
+  user,
 })
 
 export default connect(

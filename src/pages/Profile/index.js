@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { withRouter, NavLink, Route, Switch } from 'react-router-dom'
 import { Grommet } from 'grommet'
 import styled from 'styled-components'
-import { setProfileTabIndex } from '../../actions'
 import { customWrapper } from '../../components/mixins'
 import SidebarById from '../../components/sidebar/SidebarById'
 import ProfileById from '../../components/profile'
@@ -19,19 +18,6 @@ class UserProfile extends Component {
         <Container>
           <SidebarById />
           <Wrapper>
-            {/* <Tabs
-              // activeIndex={this.props.index}
-              // onActive={this.props.setProfileTabIndex}
-              // justify='start'
-              className='tabs'
-            >
-              <Tab>
-                <NavLink to={`/profile/${id}/following`}>Bookmarks</NavLink>
-              </Tab>
-              <Tab>
-                <NavLink to={`/profile/${id}/likes`}>Likes</NavLink>
-              </Tab>
-            </Tabs> */}
             <div className='tabs'>
               <NavLink exact to={`/profile/${id}`}>
                 Bookmarks
@@ -67,12 +53,10 @@ class UserProfile extends Component {
   }
 }
 
-const mapStateToProps = ({ profile }) => ({ index: profile.index })
-
 export default withRouter(
   connect(
-    mapStateToProps,
-    { setProfileTabIndex }
+    null,
+    null
   )(UserProfile)
 )
 

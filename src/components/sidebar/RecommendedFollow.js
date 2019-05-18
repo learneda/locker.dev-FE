@@ -5,7 +5,7 @@ import ContentLoader from 'react-content-loader'
 import styled from 'styled-components'
 
 import {
-  getUserProfileDetails,
+  fetchUser,
   recommendedFollow,
   followAUser,
   getUserFollowing,
@@ -29,7 +29,7 @@ const MyLoader = () => (
 const RecommendedFollow = props => {
   const {
     followAUser,
-    getUserProfileDetails,
+    fetchUser,
     getUserFollowing,
     recommendedFollow,
     auth,
@@ -42,7 +42,7 @@ const RecommendedFollow = props => {
   const followAUserHandler = async (e, friend_id) => {
     e.preventDefault()
     await followAUser({ user_id: props.auth.id, friend_id })
-    getUserProfileDetails(props.auth.id)
+    fetchUser(props.auth.id)
     getUserFollowing(props.auth.id)
     recommendedFollow(props.auth.id)
   }
@@ -99,10 +99,9 @@ const RecommendedFollow = props => {
   )
 }
 
-const mapStateToProps = ({ auth, user_details, follow, loading }) => {
+const mapStateToProps = ({ auth, follow, loading }) => {
   return {
-    auth: auth,
-    user_details: user_details,
+    auth,
     follow: follow.suggestedFriends,
     loading: loading.suggested,
   }
@@ -111,7 +110,7 @@ const mapStateToProps = ({ auth, user_details, follow, loading }) => {
 export default connect(
   mapStateToProps,
   {
-    getUserProfileDetails,
+    fetchUser,
     recommendedFollow,
     followAUser,
     getUserFollowing,

@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
 import { truncateText } from '../mixins'
-import { getPosts, deletePost, getUserProfileDetails } from '../../actions'
+import { fetchPosts, deletePost } from '../../actions'
 import HelpScreen from '../utils/screens/HelpScreen'
 import BookmarkSVG from '../../assets/svg/bookmark-drawing.svg'
 import Collection from './Collection'
@@ -14,11 +13,10 @@ class Collections extends Component {
       modalOpen: false,
       editPost: null,
     }
-    const search = this.props.searchTerm
   }
 
   componentDidMount() {
-    this.props.getPosts()
+    this.props.fetchPosts()
   }
 
   handleTruncateText = (content, limit = 10) => truncateText(content, limit)
@@ -34,22 +32,23 @@ class Collections extends Component {
   render() {
     const { modalOpen, editPost } = this.state
     const { handleTruncateText, handleModalOpen } = this
-    if (this.props.posts.length > 0) {
-      // const filteredPosts = this.props.posts.filter((post) => {
-      // 	console.log(post)
-      // 	return post.title
-      // 		? post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1
-      // 		: null || post.thumbnail_url
-      // 			? post.thumbnail_url.toLowerCase().indexOf(search.toLowerCase()) !== -1
-      // 			: null || post.description
-      // 				? post.description.toLowerCase().indexOf(search.toLowerCase()) !== -1
-      // 				: null
-      // })
+    const { searchTerm: search } = this.props
+    if (this.props.posts.length) {
+      const filteredPosts = this.props.posts.filter(post => {
+        return post.title
+          ? post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1
+          : null || post.thumbnail_url
+          ? post.thumbnail_url.toLowerCase().indexOf(search.toLowerCase()) !==
+            -1
+          : null || post.description
+          ? post.description.toLowerCase().indexOf(search.toLowerCase()) !== -1
+          : null
+      })
       return (
         <Collection
           handleDelete={this.handleDelete}
           handleTruncateText={this.handleTruncateText}
-          posts={this.props.posts}
+          posts={filteredPosts}
           handleModalOpen={this.handleModalOpen}
           modalOpen={this.state.modalOpen}
           editPost={this.state.editPost}
@@ -80,8 +79,7 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   {
-    getPosts,
+    fetchPosts,
     deletePost,
-    getUserProfileDetails,
   }
 )(Collections)

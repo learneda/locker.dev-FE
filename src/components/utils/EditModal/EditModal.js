@@ -4,7 +4,7 @@ import axios from 'axios'
 import { post as URL } from '../../../services/baseURL'
 import { StyledEditModal } from './StyledEditModal'
 import styled from 'styled-components'
-import { getPosts } from '../../../actions'
+import { fetchPosts } from '../../../actions'
 import deleteIcon from '../../../assets/svg/delete-icon.svg'
 import useLockBodyScroll from '../../hooks/useLockBodyScroll'
 import { withAlert } from 'react-alert'
@@ -32,7 +32,7 @@ const EditModal = props => {
     axios
       .put(`${URL}/api/posts/${id}`, editedPost)
       .then(
-        res => props.getPosts(),
+        res => props.fetchPosts(),
         props.handleModalOpen(),
         props.alert.success('Bookmark Updated')
       )
@@ -89,5 +89,5 @@ const Alert = withAlert()(EditModal)
 
 export default connect(
   null,
-  { getPosts }
+  { fetchPosts }
 )(Alert)

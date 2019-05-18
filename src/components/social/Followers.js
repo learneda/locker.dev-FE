@@ -4,7 +4,7 @@ import {
   followAUser,
   unfollowAUser,
   getUserFollowing,
-  getUserProfileDetails,
+  fetchUser,
 } from '../../actions'
 import { StyledFollow } from './StyledFollow'
 import { Link } from 'react-router-dom'
@@ -17,7 +17,7 @@ const Followers = props => {
     followAUser,
     unfollowAUser,
     getUserFollowing,
-    getUserProfileDetails,
+    fetchUser,
   } = props
 
   const [isLoading, setIsLoading] = useState(false)
@@ -27,7 +27,7 @@ const Followers = props => {
     setLoadingIndex(index)
     await followAUser({ user_id: userId, friend_id: friend_id })
     getUserFollowing(userId).then(response => setIsLoading(false))
-    getUserProfileDetails(userId)
+    fetchUser(userId)
   }
 
   const handleUnfollow = async (friend_id, index) => {
@@ -35,7 +35,7 @@ const Followers = props => {
     setLoadingIndex(index)
     await unfollowAUser({ user_id: userId, friend_id: friend_id })
     getUserFollowing(userId).then(response => setIsLoading(false))
-    getUserProfileDetails(userId)
+    fetchUser(userId)
   }
 
   const handleClick = (id, index) => {
@@ -79,5 +79,5 @@ const Followers = props => {
 
 export default connect(
   null,
-  { followAUser, unfollowAUser, getUserFollowing, getUserProfileDetails }
+  { followAUser, unfollowAUser, getUserFollowing, fetchUser }
 )(Followers)

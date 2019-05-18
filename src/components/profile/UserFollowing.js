@@ -6,7 +6,7 @@ import {
   unfollowAUser,
   getUserFollowing,
   getUserFollowers,
-  getUserProfileDetails,
+  fetchUser,
 } from '../../actions'
 import { StyledFollow } from '../social/StyledFollow'
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
@@ -16,13 +16,11 @@ import { post as URL } from '../../services/baseURL'
 const UserFollowing = props => {
   const {
     userId,
-    // following,
-    // followers,
     followAUser,
     unfollowAUser,
     getUserFollowing,
     getUserFollowers,
-    getUserProfileDetails,
+    fetchUser,
   } = props
 
   const [toggles, setToggles] = useState([])
@@ -47,7 +45,7 @@ const UserFollowing = props => {
     setIsLoading(false)
 
     setToggles(toggles.map((toggle, idx) => (idx === index ? !toggle : toggle)))
-    // getUserProfileDetails(userId);
+    // fetchUser(userId);
   }
 
   const handleUnfollow = async (friend_id, index) => {
@@ -55,7 +53,7 @@ const UserFollowing = props => {
     await unfollowAUser({ user_id: userId, friend_id: friend_id })
     setIsLoading(false)
     setToggles(toggles.map((toggle, idx) => (idx === index ? !toggle : toggle)))
-    getUserProfileDetails(userId)
+    fetchUser(userId)
   }
 
   const handleClick = (id, index) => {
@@ -102,6 +100,6 @@ export default connect(
     unfollowAUser,
     getUserFollowing,
     getUserFollowers,
-    getUserProfileDetails,
+    fetchUser,
   }
 )(UserFollowing)

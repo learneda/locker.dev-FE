@@ -6,27 +6,7 @@ import { ReactComponent as Settings } from '../../assets/svg/settings.svg'
 import { ReactComponent as Logout } from '../../assets/svg/logout.svg'
 import { authURL } from '../../services/authURL'
 
-const DropDown = styled.ul`
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  font-weight: 500;
-  padding: 10px 10px 0 10px;
-  position: absolute;
-  right: 10%;
-  top: 66px;
-  width: 110px;
-
-  li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-`
-
-export default function ProfileDropDown({ auth }) {
+const ProfileDropDown = ({ auth, user }) => {
   const [toggle, set] = useState(false)
   const node = useRef()
 
@@ -48,12 +28,14 @@ export default function ProfileDropDown({ auth }) {
 
   return (
     <div ref={node}>
-      <img
-        src={auth.profile_picture}
-        className='auth-icon'
-        alt='avatar'
-        onClick={handleClick}
-      />
+      {user && (
+        <img
+          src={user.profilePicture}
+          className='auth-icon'
+          alt='avatar'
+          onClick={handleClick}
+        />
+      )}
       {toggle && (
         <DropDown>
           <li>
@@ -77,3 +59,25 @@ export default function ProfileDropDown({ auth }) {
     </div>
   )
 }
+
+export default ProfileDropDown
+
+const DropDown = styled.ul`
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  font-weight: 500;
+  padding: 10px 10px 0 10px;
+  position: absolute;
+  right: 10%;
+  top: 66px;
+  width: 110px;
+
+  li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+`

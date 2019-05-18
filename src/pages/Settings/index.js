@@ -1,24 +1,15 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { NavLink, Route, Switch, Link } from 'react-router-dom'
 import { withAlert } from 'react-alert'
 import styled from 'styled-components'
 import { Grommet } from 'grommet'
 import { post as URL } from '../../services/baseURL'
-import { editProfile } from '../../actions'
 import { customLayout, customWrapper } from '../../components/mixins'
 import axios from 'axios'
-import ProfileSettings from './ProfileSetting'
+import ProfileSettings from './ProfileSettings'
 import Integrations from './Integrations'
 
 class Settings extends Component {
-  componentDidMount() {
-    axios.get(`${URL}/api/images`).then(res => {
-      if (res.data.length > 0) {
-        this.setState({ profile_pic: `${res.data[0].profile_picture}` })
-      }
-    })
-  }
   render() {
     return (
       <Grommet theme={theme}>
@@ -37,7 +28,7 @@ class Settings extends Component {
                 <Route
                   exact
                   path={['/settings']}
-                  render={props => <ProfileSettings />}
+                  render={props => <ProfileSettings {...props} />}
                 />
 
                 <Route
@@ -52,6 +43,10 @@ class Settings extends Component {
     )
   }
 }
+
+const SettingsWithAlert = withAlert()(Settings)
+
+export default SettingsWithAlert
 
 const theme = {
   tab: {
@@ -212,12 +207,3 @@ const FormGroup = styled.form`
     }
   }
 `
-
-const mapStateToProps = ({ auth }) => ({ auth })
-
-const Alert = withAlert()(Settings)
-
-export default connect(
-  mapStateToProps,
-  { editProfile }
-)(Alert)

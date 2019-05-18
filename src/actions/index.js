@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {
-  FETCH_USER,
+  FETCH_AUTH,
   FETCH_COURSES,
   FETCH_ARTICLES,
   AUTH_MODAL_TOGGLE,
@@ -12,9 +12,9 @@ import {
   LIKED_POSTS,
   SET_SEARCH_TERM,
   RESET_SEARCH_TERM,
-  EDIT_PROFILE,
+  EDIT_USER,
   GET_FOLLOWERS_AND_FOLLOWING_COUNT,
-  GET_USER_PROFILE_DETAILS_BY_ID,
+  FETCH_USER,
   FOLLOW_A_USER,
   UNFOLLOW_A_USER,
   GET_FOLLOWING,
@@ -22,10 +22,6 @@ import {
   GET_USER_FOLLOWERS,
   GET_USER_FOLLOWING,
   UPDATE_POSTS_STATE,
-  SET_BROWSE_TAB_INDEX,
-  SET_HOME_TAB_INDEX,
-  SET_PROFILE_TAB_INDEX,
-  SET_SOCIAL_TAB_INDEX,
   LOADING_SUGGESTED,
   LOADED_SUGGESTED,
   FETCH_NOTIFICATIONS,
@@ -36,11 +32,9 @@ import {
 import { post as URL } from '../services/baseURL'
 axios.defaults.withCredentials = true
 
-export const fetchUser = () => async dispatch => {
+export const fetchAuth = () => async dispatch => {
   const res = await axios.get(`${URL}/auth/current_user`)
-  if (res.data) {
-    dispatch({ type: FETCH_USER, payload: res.data })
-  }
+  dispatch({ type: FETCH_AUTH, payload: res.data })
 }
 
 export const getCourses = page => async dispatch => {
@@ -65,7 +59,7 @@ export const saveLink = post => async dispatch => {
 }
 
 // get all user posts
-export const getPosts = () => async dispatch => {
+export const fetchPosts = () => async dispatch => {
   const res = await axios.get(`${URL}/api/posts`)
   dispatch({ type: FETCH_POSTS, payload: res.data })
 }
@@ -86,9 +80,8 @@ export const getlikedPosts = () => async dispatch => {
 }
 
 export const editProfile = (id, profile) => async dispatch => {
-  await axios.put(`${URL}/api/users/edit`, { id, ...profile })
-  const res = await axios.get(`${URL}/auth/current_user`)
-  dispatch({ type: EDIT_PROFILE, payload: res.data })
+  const res = await axios.put(`${URL}/api/users/edit`, { id, ...profile })
+  dispatch({ type: EDIT_USER, payload: res.data })
 }
 
 export const setSearchTerm = e => ({
@@ -106,9 +99,9 @@ export const getFollowersAndFollowingCount = () => async dispatch => {
   dispatch({ type: GET_FOLLOWERS_AND_FOLLOWING_COUNT, payload: res.data })
 }
 
-export const getUserProfileDetails = id => async dispatch => {
+export const fetchUser = id => async dispatch => {
   const res = await axios.get(`${URL}/api/users/id/${id}`)
-  dispatch({ type: GET_USER_PROFILE_DETAILS_BY_ID, payload: res.data[0] })
+  dispatch({ type: FETCH_USER, payload: res.data })
 }
 
 export const followAUser = payload => async dispatch => {
@@ -134,8 +127,8 @@ export const getFollowing = friend_id => async dispatch => {
 export const recommendedFollow = id => async dispatch => {
   dispatch({ type: LOADING_SUGGESTED })
   const res = await axios.get(`${URL}/api/users/recommendedFollow?id=${id}`)
-  dispatch({ type: LOADED_SUGGESTED })
   dispatch({ type: RECOMMENDED_FOLLOW, payload: res.data })
+  dispatch({ type: LOADED_SUGGESTED })
 }
 
 // get a users following list
@@ -149,30 +142,6 @@ export const getUserFollowers = id => async dispatch => {
   const followers = await axios.get(`${URL}/api/users/followers?id=${id}`)
   dispatch({ type: GET_USER_FOLLOWERS, payload: followers.data })
 }
-
-// controls Browse tabIndex
-export const setBrowseTabIndex = index => ({
-  type: SET_BROWSE_TAB_INDEX,
-  payload: index,
-})
-
-// controls Home tabIndex
-export const setHomeTabIndex = index => ({
-  type: SET_HOME_TAB_INDEX,
-  payload: index,
-})
-
-// controls Profile tabIndex
-export const setProfileTabIndex = index => ({
-  type: SET_PROFILE_TAB_INDEX,
-  payload: index,
-})
-
-// controls Profile tabIndex
-export const setSocialTabIndex = index => ({
-  type: SET_SOCIAL_TAB_INDEX,
-  payload: index,
-})
 
 export const populateNotifications = NotificationsArr => ({
   type: FETCH_NOTIFICATIONS,

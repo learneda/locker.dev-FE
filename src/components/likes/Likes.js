@@ -14,7 +14,7 @@ axios.defaults.withCredentials = true
 
 class Likes extends Component {
   componentDidMount = () => {
-    this.props.fetchUser()
+    this.props.fetchUser(this.props.auth.id)
     this.props.fetchLocker()
   }
 

@@ -10,8 +10,7 @@ import Videos from '../../components/browse/Videos'
 import Articles from '../../components/browse/Articles'
 import Podcasts from '../../components/browse/Podcasts'
 import Books from '../../components/browse/Books'
-
-import { getPosts, getCourses, getArticles, fetchUser } from '../../actions'
+import { fetchUser, getCourses, getArticles } from '../../actions'
 import { customWrapper, truncateText } from '../../components/mixins'
 import { post as URL } from '../../services/baseURL'
 
@@ -41,7 +40,7 @@ class Browse extends Component {
         ...media,
         user_id: this.props.auth.id,
       })
-      this.props.getPosts()
+      this.props.fetchUser(this.props.auth.id)
     }
   }
 
@@ -58,7 +57,6 @@ class Browse extends Component {
 
   render() {
     const { articles, courses } = this.props
-
     return (
       <Grommet theme={theme}>
         <Wrapper>
@@ -155,15 +153,13 @@ const mapStateToProps = state => {
     courses: state.browse.courses,
     articles: state.browse.articles,
     auth: state.auth,
-    index: state.browse.index,
   }
 }
 
 const Alert = withAlert()(Browse)
-
 export default connect(
   mapStateToProps,
-  { getPosts, getCourses, getArticles, fetchUser }
+  { fetchUser, getCourses, getArticles }
 )(Alert)
 
 const theme = {

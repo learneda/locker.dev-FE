@@ -9,7 +9,6 @@ import Likes from '../../components/likes/Likes'
 import Sidebar from '../../components/sidebar/Sidebar'
 import RecommendedFollow from '../../components/sidebar/RecommendedFollow'
 import { customWrapper } from '../../components/mixins'
-import { setHomeTabIndex } from '../../actions'
 
 class Home extends Component {
   render() {
@@ -62,12 +61,10 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = ({ home }) => ({ index: home.index })
-
 export default withRouter(
   connect(
-    mapStateToProps,
-    { setHomeTabIndex }
+    null,
+    null
   )(Home)
 )
 
