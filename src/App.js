@@ -10,6 +10,7 @@ import { composedHomeRedirect as home } from './components/authentication/homeRe
 import useInterval from './components/hooks/useInterval'
 import { fetchUser, getPosts } from './actions'
 import { ReactComponent as Loading } from './assets/svg/circles.svg'
+import Notifications from './pages/Notifications'
 //? Should we implement route-based code-splitting?
 const LandingPagePromise = import('./pages/Landing')
 const HomePromise = import('./pages/Home')
@@ -71,6 +72,7 @@ const App = ({ fetchUser, modal, getPosts }) => {
           <Route component={index(Home)} path='/home' />
           <Route component={index(Browse)} path='/browse' />
           <Route component={index(Social)} path='/social' />
+          <Route component={index(Notifications)} path='/notifications' />
           <Route component={index(Profile)} path='/profile/:id' />
           <Route component={index(SinglePost)} path='/status/:id' />
           <Route component={index(Settings)} path='/settings' />
