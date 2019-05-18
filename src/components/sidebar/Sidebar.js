@@ -146,7 +146,7 @@ export default withRouter(
 )
 
 const Wrapper = styled.div`
-  ${customWrapper('45%')}
+  ${customWrapper('45%')};
   max-width: 270px;
 
   @media (max-width: 900px) {
@@ -155,7 +155,7 @@ const Wrapper = styled.div`
 `
 
 const Profile = styled.div`
-  ${StyledSidebar}
+  ${StyledSidebar};
   .user {
     ${customLayout('center', 'center')}
   }

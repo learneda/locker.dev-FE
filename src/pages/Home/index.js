@@ -33,7 +33,7 @@ class Home extends Component {
                 <NavLink to='/home/collections'>Collections</NavLink>
               </Tab>
               <Tab>
-                <NavLink to='/home/locker'>Locker(Alpha)</NavLink>
+                <NavLink to='/home/locker'>Locker(α)</NavLink>
               </Tab>
             </Tabs>
             <TabWrapper>
@@ -132,7 +132,7 @@ const Tabs = styled.ul`
   position: sticky;
   background: rgb(230, 233, 243);
   top: 59px;
-  padding: 10px 0 0px;
+  padding: 10px 0 5px;
   z-index: 2;
   width: 100%;
   .active {
