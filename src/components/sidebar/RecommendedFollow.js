@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import ContentLoader from 'react-content-loader'
@@ -27,7 +27,9 @@ const MyLoader = () => (
 )
 
 const RecommendedFollow = props => {
+  const [isLoading, setIsLoading] = useState(true)
   const {
+    follow,
     followAUser,
     fetchUser,
     getUserFollowing,
@@ -36,20 +38,22 @@ const RecommendedFollow = props => {
   } = props
 
   useEffect(() => {
-    recommendedFollow(auth.id)
-  }, [recommendedFollow, auth.id])
+    recommendedFollow(auth.id).then(() => setIsLoading(false))
+  }, [])
 
   const followAUserHandler = async (e, friend_id) => {
     e.preventDefault()
     await followAUser({ user_id: props.auth.id, friend_id })
     fetchUser(props.auth.id)
     getUserFollowing(props.auth.id)
-    recommendedFollow(props.auth.id)
+    setIsLoading(true)
+    await recommendedFollow(props.auth.id)
+    setIsLoading(false)
   }
 
   const renderRecommended = () => {
-    const { follow, loading } = props
-    if (loading) {
+    const { follow } = props
+    if (isLoading) {
       return (
         <>
           <div className='recommended-follow-container'>
@@ -99,11 +103,10 @@ const RecommendedFollow = props => {
   )
 }
 
-const mapStateToProps = ({ auth, follow, loading }) => {
+const mapStateToProps = ({ auth, follow }) => {
   return {
     auth,
     follow: follow.suggestedFriends,
-    loading: loading.suggested,
   }
 }
 

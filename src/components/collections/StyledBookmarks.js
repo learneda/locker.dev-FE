@@ -1,13 +1,11 @@
 export const StyledBookmarks = () =>
   `
 display: flex;
-margin-top: 20px;
-margin-bottom: 35px;
+margin-bottom: 45px;
 box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 border-radius: 6px;
 background-color: #fff;
 max-height: 250px;
-height: 220px;
 position: relative;
 .date-like-heart {
   display: flex;

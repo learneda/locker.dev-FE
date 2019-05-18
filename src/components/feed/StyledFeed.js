@@ -2,7 +2,7 @@ export const StyledFeed = () =>
   `
   .post {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  margin-bottom: 40px;
+  margin: 0 1px 40px;
   border-radius: 8px;
   background: #fff;
 }

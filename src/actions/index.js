@@ -102,10 +102,8 @@ export const getFollowersAndFollowingCount = () => async dispatch => {
 }
 
 export const fetchUser = id => async dispatch => {
-  dispatch({ type: LOADING_SIDEBAR })
   const res = await axios.get(`${URL}/api/users/id/${id}`)
   dispatch({ type: FETCH_USER, payload: res.data })
-  dispatch({ type: LOADED_SIDEBAR })
 }
 
 export const followAUser = payload => async dispatch => {
@@ -129,10 +127,8 @@ export const getFollowing = friend_id => async dispatch => {
 }
 
 export const recommendedFollow = id => async dispatch => {
-  dispatch({ type: LOADING_SUGGESTED })
   const res = await axios.get(`${URL}/api/users/recommendedFollow?id=${id}`)
   dispatch({ type: RECOMMENDED_FOLLOW, payload: res.data })
-  dispatch({ type: LOADED_SUGGESTED })
 }
 
 // get a users following list
@@ -163,9 +159,7 @@ export const deleteNotifications = () => async dispatch => {
 }
 
 export const fetchLocker = () => async dispatch => {
-  dispatch({ type: LOADING_SUGGESTED })
   const lockerData = await axios.get(`${URL}/api/locker`)
-  dispatch({ type: LOADED_SUGGESTED })
   if (lockerData.data.length) {
     dispatch({ type: GET_LOCKER, payload: lockerData.data })
   }

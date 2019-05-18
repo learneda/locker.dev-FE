@@ -77,10 +77,10 @@ export default function(props) {
 }
 
 const Wrapper = styled.div`
-  // border: 1px solid blue;
-  ${customWrapper('100%', '0 auto')};
+  padding: 0px 5px 0px;
 `
 
 const Post = styled.div`
-  ${customWrapper('100%', 'auto')} ${StyledBookmarks};
+  /* ${customWrapper('100%', 'auto')}; */
+  ${StyledBookmarks};
 `

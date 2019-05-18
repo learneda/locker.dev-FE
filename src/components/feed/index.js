@@ -199,7 +199,7 @@ class Feed extends Component {
 
     while (!this.props.user) {
       return (
-        <Container style={{ minWidth: '100%' }}>
+        <Container>
           <MyLoader />
         </Container>
       )

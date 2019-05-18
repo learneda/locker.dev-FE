@@ -25,14 +25,17 @@ const MyLoader = () => (
   </ContentLoader>
 )
 class Sidebar extends Component {
+  state = { isLoading: true }
   componentDidMount() {
     this.props.fetchUser(this.props.auth.id)
     this.props.getUserFollowers(this.props.auth.id)
-    this.props.getUserFollowing(this.props.auth.id)
+    this.props.getUserFollowing(this.props.auth.id).then(() => {
+      this.setState({ isLoading: false })
+    })
   }
 
   render() {
-    if (this.props.loading) {
+    if (this.state.isLoading) {
       return (
         <Wrapper>
           <MyLoader />
