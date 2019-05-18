@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { withAlert } from 'react-alert'
 import styled from 'styled-components'
@@ -215,6 +214,10 @@ class ProfileSettings extends Component {
   }
 }
 
+const ProfileSettingsWithAlert = withAlert()(ProfileSettings)
+
+export default ProfileSettingsWithAlert
+
 const theme = {
   global: {
     focus: {
@@ -323,12 +326,3 @@ const FormGroup = styled.form`
     }
   }
 `
-
-const mapStateToProps = ({ auth }) => ({ auth })
-
-const Alert = withAlert()(ProfileSettings)
-
-export default connect(
-  mapStateToProps,
-  { editProfile }
-)(Alert)

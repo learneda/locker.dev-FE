@@ -8,6 +8,7 @@ import { customContainer } from './components/mixins'
 import { composedIndexRedirect as index } from './components/authentication/indexRedirect'
 import { composedHomeRedirect as home } from './components/authentication/homeRedirect'
 import useInterval from './components/hooks/useInterval'
+import { useCookies } from 'react-cookie'
 import { fetchUser, getPosts } from './actions'
 import { ReactComponent as Loading } from './assets/svg/circles.svg'
 //? Should we implement route-based code-splitting?
@@ -31,7 +32,7 @@ const SinglePost = lazy(() => SinglePostPromise)
 
 const App = ({ fetchUser, modal, getPosts }) => {
   const { isAuthOpen, isEditOpen } = modal
-
+  const [cookies, setCookies] = useCookies()
   useEffect(() => {
     // initial fetch user when you refresh browser
     fetchUser()
@@ -49,7 +50,7 @@ const App = ({ fetchUser, modal, getPosts }) => {
   } else {
     document.getElementById('body').setAttribute('style', 'overflow: auto')
   }
-
+  console.log('cookies', cookies)
   return (
     <Container>
       <GlobalStyle />

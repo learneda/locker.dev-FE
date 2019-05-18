@@ -14,14 +14,11 @@ function Search(props) {
   const [search, setSearch] = useState('')
   const [visible, setVisible] = useState(false)
 
-  const handleChange = useCallback(
-    e => {
-      setToggle(e.target.checked)
-      setSearch('')
-      resetSearchTerm()
-    },
-    [resetSearchTerm]
-  )
+  const handleChange = useCallback(e => {
+    console.log('callback launched')
+    setToggle(e.target.checked)
+    setSearch('')
+  }, [])
 
   const handleSearch = e => {
     toggle && setVisible(true)

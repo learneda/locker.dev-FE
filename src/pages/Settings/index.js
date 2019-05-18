@@ -20,6 +20,7 @@ class Settings extends Component {
     })
   }
   render() {
+    const { auth, editProfile } = this.props
     return (
       <Grommet theme={theme}>
         <Wrapper>
@@ -37,7 +38,13 @@ class Settings extends Component {
                 <Route
                   exact
                   path={['/settings']}
-                  render={props => <ProfileSettings />}
+                  render={props => (
+                    <ProfileSettings
+                      {...props}
+                      auth={auth}
+                      editProfile={editProfile}
+                    />
+                  )}
                 />
 
                 <Route
@@ -52,6 +59,15 @@ class Settings extends Component {
     )
   }
 }
+
+const mapStateToProps = ({ auth }) => ({ auth })
+
+const SettingsWithAlert = withAlert()(Settings)
+
+export default connect(
+  mapStateToProps,
+  { editProfile }
+)(SettingsWithAlert)
 
 const theme = {
   tab: {
@@ -212,12 +228,3 @@ const FormGroup = styled.form`
     }
   }
 `
-
-const mapStateToProps = ({ auth }) => ({ auth })
-
-const Alert = withAlert()(Settings)
-
-export default connect(
-  mapStateToProps,
-  { editProfile }
-)(Alert)
