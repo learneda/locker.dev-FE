@@ -10,7 +10,6 @@ import Videos from '../../components/browse/Videos'
 import Articles from '../../components/browse/Articles'
 import Podcasts from '../../components/browse/Podcasts'
 import Books from '../../components/browse/Books'
-import { withCookies } from 'react-cookie'
 import { getPosts, getCourses, getArticles } from '../../actions'
 import { customWrapper, truncateText } from '../../components/mixins'
 import { post as URL } from '../../services/baseURL'
@@ -58,7 +57,6 @@ class Browse extends Component {
 
   render() {
     const { articles, courses, cookies } = this.props
-    console.log(' 🦄', cookies)
     return (
       <Grommet theme={theme}>
         <Wrapper>
@@ -159,12 +157,10 @@ const mapStateToProps = state => {
 }
 
 const Alert = withAlert()(Browse)
-export default withCookies(
-  connect(
-    mapStateToProps,
-    { getPosts, getCourses, getArticles }
-  )(Alert)
-)
+export default connect(
+  mapStateToProps,
+  { getPosts, getCourses, getArticles }
+)(Alert)
 
 const theme = {
   tab: {
