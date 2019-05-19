@@ -6,9 +6,11 @@ import EditModal from '../utils/EditModal/EditModal'
 import deleteIcon from '../../assets/svg/delete-icon.svg'
 import editSvg from '../../assets/svg/edit.svg'
 import SharedButton from '../shared'
+import { selectLogo } from '../../helpers'
 import { StyledCollections } from './StyledCollections'
+//TODO: Make selectLogo and selectRootUrl DRY
 
-export default function(props) {
+const Collection = props => {
   const posts = props.posts
     .map(post => (
       <Post key={post.id}>
@@ -16,18 +18,41 @@ export default function(props) {
           <img src={post.thumbnail_url} alt='' />
         </a>
         <div className='post-content'>
-          <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
-            <h1>{props.handleTruncateText(post.title, 9)}</h1>
-          </a>
-          <p>{props.handleTruncateText(post.description, 15)}</p>
-          <a
-            className='post-root-url'
-            href={post.post_url}
-            target='_blank'
-            rel='noopener noreferrer'
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              height: '100%',
+            }}
           >
-            {post.root_url}
-          </a>
+            <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
+              <h1>{props.handleTruncateText(post.title, 9)}</h1>
+            </a>
+            <p>{props.handleTruncateText(post.description, 15)}</p>
+            <a
+              className='post-root-url'
+              href={post.post_url}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  marginTop: '5px',
+                  alignItems: 'center',
+                }}
+              >
+                {selectLogo(post.post_url)}
+                <span style={{ marginLeft: '5px' }}>
+                  {post.post_url.includes('google') ? 'google.com' : null}
+                </span>
+                <span style={{ marginLeft: '5px' }}>
+                  {post.post_url.includes('youtube') ? 'youtube.com' : null}
+                </span>
+                <span style={{ marginLeft: '-5px' }}>{post.root_url}</span>
+              </div>
+            </a>
+          </div>
           <div className='date-like-heart'>
             <span className='formatted-date'>
               {moment(post.created_at).fromNow() === 'a few seconds ago' ? (
@@ -73,6 +98,8 @@ export default function(props) {
     </Wrapper>
   )
 }
+
+export default Collection
 
 const Wrapper = styled.div`
   padding: 0px 5px 0px;

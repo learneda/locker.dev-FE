@@ -7,6 +7,7 @@ import { post as URL } from '../../../services/baseURL'
 import addIcon from '../../../assets/svg/add-icon.svg'
 import { withAlert } from 'react-alert'
 import { smartTruncate } from '../../mixins/'
+import { selectLogo } from '../../../helpers'
 class PostContainer extends Component {
   constructor(props) {
     super(props)
@@ -196,7 +197,22 @@ class PostContainer extends Component {
               target='_blank'
               rel='noopener noreferrer'
             >
-              {post.root_url}
+              <div
+                style={{
+                  display: 'flex',
+                  marginTop: '5px',
+                  alignItems: 'center',
+                }}
+              >
+                {selectLogo(post.post_url)}
+                <span style={{ marginLeft: '5px' }}>
+                  {post.post_url.includes('google') ? 'google.com' : null}
+                </span>
+                <span style={{ marginLeft: '5px' }}>
+                  {post.post_url.includes('youtube') ? 'youtube.com' : null}
+                </span>
+                <span style={{ marginLeft: '-5px' }}>{post.root_url}</span>
+              </div>
             </a>
           </div>
           <div className='likes-and-save'>

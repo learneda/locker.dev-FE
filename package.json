@@ -22,6 +22,7 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "^3.0.0",
     "react-spinners": "^0.5.4",
+    "react-tooltip": "^3.10.0",
     "react-transition-group": "^2.7.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",

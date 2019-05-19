@@ -70,7 +70,7 @@ class SharedButton extends Component {
       <div>
         <div className='share-to-feed' onClick={this.toggle}>
           <img src={shareSvg} alt='Share to feed' />
-          <span>Share to Feed</span>
+          <span>Share</span>
         </div>
         {this.state.on && (
           <ReusablePortal>
