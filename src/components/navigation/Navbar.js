@@ -173,9 +173,6 @@ const Nav = styled.nav`
   @media (max-width: 1400px) {
     width: 90%;
   }
-  @media (max-width: 960px) {
-    margin-bottom: 20px;
-  }
   h1 {
     font-size: 3rem;
     font-weight: 700;
@@ -263,7 +260,6 @@ const Burger = styled.div`
   @media (max-width: 760px) {
     height: 50px;
     margin: 0 auto;
-    margin-bottom: 20px;
     padding: 5px;
     ${customLayout('space-between', 'center')}
     width: 90%;

@@ -237,10 +237,11 @@ const TabWrapper = styled.div`
 
 const Tabs = styled.ul`
   display: flex;
+  align-items: flex-end;
   position: sticky;
   background: rgb(230, 233, 243);
-  top: 59px;
-  padding: 10px 0 5px;
+  top: 60px;
+  height: 75px;
   z-index: 1;
   width: 100%;
   .active {
@@ -248,8 +249,13 @@ const Tabs = styled.ul`
     font-weight: 900;
     color: #4064f2;
   }
+  @media (max-width: 900px) {
+    top: 59px;
+    height: 60px;
+  }
   @media (max-width: 760px) {
     top: 50px;
+    height: 50px;
   }
 `
 
