@@ -93,7 +93,6 @@ const Card = styled.div`
   }
 
   h3 {
-    // border: 1px solid red;
     height: 50px;
     margin: 10px 0;
     padding: 0 3%;
@@ -114,7 +113,6 @@ const Card = styled.div`
 `
 
 const SaveIcon = styled.div`
-  // border: 1px solid red;
   ${customLayout('flex-end')}
   margin-top: 15px;
   padding: 0 4%;
