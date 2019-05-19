@@ -12,7 +12,6 @@ import PostContainer from './posts/index'
 import { StyledFeed } from './StyledFeed'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
-import { populateNotifications } from '../../actions'
 
 const MyLoader = () => (
   <ContentLoader
@@ -29,7 +28,6 @@ const MyLoader = () => (
     <rect x='3' y='68' rx='5' ry='5' width='400' height='400' />
   </ContentLoader>
 )
-
 class Feed extends Component {
   constructor(props) {
     super(props)
@@ -231,16 +229,7 @@ class Feed extends Component {
   }
 }
 
-const mapStateToProps = ({ auth, user, searchTerm }) => ({
-  auth,
-  user,
-  searchTerm,
-})
-
-export default connect(
-  mapStateToProps,
-  { populateNotifications }
-)(Feed)
+export default Feed
 
 const Container = styled.div`
   ${customWrapper('100%', '0 auto')}

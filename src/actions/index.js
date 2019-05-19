@@ -13,22 +13,16 @@ import {
   SET_SEARCH_TERM,
   RESET_SEARCH_TERM,
   EDIT_USER,
-  GET_FOLLOWERS_AND_FOLLOWING_COUNT,
   FETCH_USER,
   FOLLOW_A_USER,
   UNFOLLOW_A_USER,
-  GET_FOLLOWING,
-  RECOMMENDED_FOLLOW,
-  GET_USER_FOLLOWERS,
-  GET_USER_FOLLOWING,
+  FETCH_SUGGESTED,
+  FETCH_FOLLOWERS,
+  FETCH_FOLLOWING,
   UPDATE_POSTS_STATE,
-  LOADING_SUGGESTED,
-  LOADED_SUGGESTED,
   FETCH_NOTIFICATIONS,
   CLEAR_NOTIFICATIONS,
-  GET_LOCKER,
-  LOADING_SIDEBAR,
-  LOADED_SIDEBAR,
+  FETCH_LOCKER,
 } from './types'
 
 import { post as URL } from '../services/baseURL'
@@ -96,11 +90,6 @@ export const resetSearchTerm = () => ({
   payload: '',
 })
 
-export const getFollowersAndFollowingCount = () => async dispatch => {
-  const res = await axios.get(`${URL}/api/users/followStats`)
-  dispatch({ type: GET_FOLLOWERS_AND_FOLLOWING_COUNT, payload: res.data })
-}
-
 export const fetchUser = id => async dispatch => {
   const res = await axios.get(`${URL}/api/users/id/${id}`)
   dispatch({ type: FETCH_USER, payload: res.data })
@@ -121,26 +110,21 @@ export const unfollowAUser = payload => async dispatch => {
   dispatch({ type: UNFOLLOW_A_USER, payload: res.data })
 }
 
-export const getFollowing = friend_id => async dispatch => {
-  const res = await axios.get(`${URL}/api/users/following/${friend_id}`)
-  dispatch({ type: GET_FOLLOWING, payload: res.data.following })
-}
-
-export const recommendedFollow = id => async dispatch => {
+export const fetchSuggested = id => async dispatch => {
   const res = await axios.get(`${URL}/api/users/recommendedFollow?id=${id}`)
-  dispatch({ type: RECOMMENDED_FOLLOW, payload: res.data })
+  dispatch({ type: FETCH_SUGGESTED, payload: res.data })
 }
 
-// get a users following list
-export const getUserFollowing = id => async dispatch => {
+// fetch a userIds following list
+export const fetchFollowing = id => async dispatch => {
   const following = await axios.get(`${URL}/api/users/following?id=${id}`)
-  dispatch({ type: GET_USER_FOLLOWING, payload: following.data })
+  dispatch({ type: FETCH_FOLLOWING, payload: following.data })
 }
 
-// get a users followers list
-export const getUserFollowers = id => async dispatch => {
+// fetch a userIds followers list
+export const fetchFollowers = id => async dispatch => {
   const followers = await axios.get(`${URL}/api/users/followers?id=${id}`)
-  dispatch({ type: GET_USER_FOLLOWERS, payload: followers.data })
+  dispatch({ type: FETCH_FOLLOWERS, payload: followers.data })
 }
 
 export const populateNotifications = NotificationsArr => ({
@@ -161,6 +145,6 @@ export const deleteNotifications = () => async dispatch => {
 export const fetchLocker = () => async dispatch => {
   const lockerData = await axios.get(`${URL}/api/locker`)
   if (lockerData.data.length) {
-    dispatch({ type: GET_LOCKER, payload: lockerData.data })
+    dispatch({ type: FETCH_LOCKER, payload: lockerData.data })
   }
 }

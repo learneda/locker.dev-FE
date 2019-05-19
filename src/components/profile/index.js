@@ -5,7 +5,7 @@ import Moment from 'react-moment'
 import axios from 'axios'
 import styled from 'styled-components'
 
-import { StyledBookmarks } from '../collections/StyledBookmarks'
+import { StyledCollections } from '../collections/StyledCollections'
 import { customWrapper } from '../mixins'
 import { truncateText } from '../mixins'
 import NoPostScreen from '../utils/screens/NoPostScreen'
@@ -146,10 +146,10 @@ export default withRouter(
 )
 
 const Wrapper = styled.div`
-  // border: 1px solid blue;
   ${customWrapper('100%', '0 auto')};
 `
 
 const Post = styled.div`
-  ${customWrapper('100%', 'auto')} ${StyledBookmarks};
+  ${customWrapper('100%', 'auto')};
+  ${StyledCollections};
 `

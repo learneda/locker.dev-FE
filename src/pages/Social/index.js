@@ -71,11 +71,11 @@ const Social = props => {
   )
 }
 
-const mapStateToProps = ({ auth, follow }) => ({
+const mapStateToProps = ({ auth, social }) => ({
   userId: auth.id,
-  following: follow.userFollowing,
-  followers: follow.userFollowers,
-  suggested: follow.suggestedFriends,
+  following: social.following,
+  followers: social.followers,
+  suggested: social.suggested,
 })
 
 export default connect(

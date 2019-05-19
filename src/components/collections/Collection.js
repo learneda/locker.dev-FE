@@ -2,13 +2,11 @@ import React from 'react'
 import moment from 'moment'
 import Moment from 'react-moment'
 import styled from 'styled-components'
-
 import EditModal from '../utils/EditModal/EditModal'
 import deleteIcon from '../../assets/svg/delete-icon.svg'
 import editSvg from '../../assets/svg/edit.svg'
 import SharedButton from '../shared'
-import { customWrapper } from '../mixins'
-import { StyledBookmarks } from './StyledBookmarks'
+import { StyledCollections } from './StyledCollections'
 
 export default function(props) {
   const posts = props.posts
@@ -81,6 +79,5 @@ const Wrapper = styled.div`
 `
 
 const Post = styled.div`
-  /* ${customWrapper('100%', 'auto')}; */
-  ${StyledBookmarks};
+  ${StyledCollections};
 `

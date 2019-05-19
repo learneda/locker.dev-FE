@@ -1,4 +1,4 @@
-export const StyledBookmarks = () =>
+export const StyledCollections = () =>
   `
 display: flex;
 margin-bottom: 45px;

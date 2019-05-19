@@ -30,7 +30,6 @@ function Search(props) {
     }
   }
   useEffect(() => {
-    console.log('adding eventRefListen')
     document.addEventListener('click', handleRefClick)
     return () => {
       document.removeEventListener('click', handleRefClick)
@@ -38,8 +37,9 @@ function Search(props) {
   }, [])
 
   useEffect(() => {
-    resetSearchTerm()
-    console.log(props.location.pathname, 'resetting search')
+    if (props.searchTerm) {
+      resetSearchTerm()
+    }
   }, [props.location.pathname])
 
   //TODO: Make this DRY

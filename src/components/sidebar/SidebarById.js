@@ -7,8 +7,8 @@ import {
   fetchUser,
   followAUser,
   unfollowAUser,
-  getFollowing,
-  getUserFollowers,
+  fetchFollowers,
+  fetchFollowing,
 } from '../../actions'
 import { customLayout, customWrapper } from '../mixins'
 import locationSvg from '../../assets/svg/location.svg'
@@ -17,8 +17,6 @@ import calendarSvg from '../../assets/svg/calendar.svg'
 import { post as URL } from '../../services/baseURL.js'
 import ContentLoader from 'react-content-loader'
 import axios from 'axios'
-import FollowingDropdown from '../utils/FollowingDropdown'
-import FollowersDropdown from '../utils/FollowersDropdown'
 
 const MyLoader = () => (
   <ContentLoader
@@ -39,13 +37,11 @@ class SidebarById extends Component {
     imageLoaded: false,
     followers: [],
     following: [],
-    followingDropDownHeight: '0px',
-    followersDropDownHeight: '0px',
   }
   componentDidMount() {
     const id = this.props.match.params.id
     this.props.fetchUser(id)
-    this.props.getFollowing(id)
+    this.props.fetchFollowing(id)
 
     if (id) {
       axios
@@ -64,7 +60,6 @@ class SidebarById extends Component {
     const friend_id = this.props.match.params.id
     await this.props.followAUser({ user_id: this.props.auth.id, friend_id })
     await this.props.fetchUser(friend_id)
-    await this.props.getFollowing(friend_id)
     if (friend_id) {
       axios.get(`${URL}/api/users/followers?id=${friend_id}`).then(res => {
         this.setState({ followers: res.data })
@@ -77,7 +72,6 @@ class SidebarById extends Component {
     const friend_id = this.props.match.params.id
     await this.props.unfollowAUser({ user_id: this.props.auth.id, friend_id })
     await this.props.fetchUser(friend_id)
-    await this.props.getFollowing(friend_id)
     if (friend_id) {
       axios.get(`${URL}/api/users/followers?id=${friend_id}`).then(res => {
         // console.log('res.data', res.data);
@@ -90,28 +84,12 @@ class SidebarById extends Component {
       imageLoaded: true,
     })
   }
-  handleFollowingDropdown = () => {
-    this.setState({
-      followingDropDownHeight:
-        this.state.followingDropDownHeight === '300px' ? '0px' : '300px',
-      followersDropDownHeight: '0px',
-    })
-  }
-
-  handleFollowersDropdown = () => {
-    this.setState({
-      followersDropDownHeight:
-        this.state.followersDropDownHeight === '300px' ? '0px' : '300px',
-      followingDropDownHeight: '0px',
-    })
-  }
 
   render() {
     if (!this.props.user_details) {
       return <MyLoader />
     }
     const {
-      // profile_picture,
       username,
       post_count,
       following_count,
@@ -166,25 +144,16 @@ class SidebarById extends Component {
                 <li>Posts</li>
                 <li>{post_count}</li>
               </ul>
-              <ul onClick={this.handleFollowingDropdown}>
+              <ul>
                 <li>Following</li>
                 <li>{following_count}</li>
               </ul>
-              <ul onClick={this.handleFollowersDropdown}>
+              <ul>
                 <li>Followers</li>
                 <li>{followers_count}</li>
               </ul>
             </div>
-            <FollowingDropdown
-              following={this.state.following}
-              height={this.state.followingDropDownHeight}
-              handleFollowingDropdown={this.handleFollowingDropdown}
-            />
-            <FollowersDropdown
-              followers={this.state.followers}
-              height={this.state.followersDropDownHeight}
-              handleFollowingDropdown={this.handleFollowersDropdown}
-            />
+
             <p>{bio ? bio : 'User has no bio.'}</p>
             <p>
               <img src={locationSvg} alt='location-icon' />
@@ -225,12 +194,11 @@ class SidebarById extends Component {
   }
 }
 
-const mapStateToProps = ({ user_details, auth, user, follow }) => {
+const mapStateToProps = ({ auth, user, social }) => {
   return {
-    user_details,
     auth,
     user,
-    follow: follow.following,
+    following: social.following,
   }
 }
 
@@ -241,8 +209,8 @@ export default withRouter(
       fetchUser,
       followAUser,
       unfollowAUser,
-      getFollowing,
-      getUserFollowers,
+      fetchFollowers,
+      fetchFollowing,
     }
   )(SidebarById)
 )
