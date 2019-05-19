@@ -4,10 +4,18 @@ import { ReactComponent as Udemy } from '../assets/svg/udemy.svg'
 import { ReactComponent as Hackernoon } from '../assets/svg/hackernoon.svg'
 import { ReactComponent as Google } from '../assets/svg/google.svg'
 import { ReactComponent as FreeCodeCamp } from '../assets/svg/freecodecamp.svg'
+import { ReactComponent as ListenApi } from '../assets/svg/listenapi.svg'
 
 export const selectLogo = url => {
   if (url) {
-    const logos = ['youtube', 'udemy', 'freecodecamp', 'google', 'hackernoon']
+    const logos = [
+      'youtube',
+      'udemy',
+      'freecodecamp',
+      'book',
+      'hackernoon',
+      'listen',
+    ]
     const logo = logos.filter(logo => url.includes(logo))[0]
     switch (logo) {
       case 'youtube':
@@ -16,10 +24,12 @@ export const selectLogo = url => {
         return <Udemy height='20px' width='20px' />
       case 'freecodecamp':
         return <FreeCodeCamp height='20px' width='20px' />
-      case 'google':
+      case 'book':
         return <Google height='20px' width='20px' />
       case 'hackernoon':
         return <Hackernoon height='20px' width='20px' />
+      case 'listen':
+        return <ListenApi height='20px' width='120px' />
       default:
         return
     }

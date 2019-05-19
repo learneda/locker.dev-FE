@@ -206,7 +206,7 @@ class PostContainer extends Component {
               >
                 {selectLogo(post.post_url)}
                 <span style={{ marginLeft: '5px' }}>
-                  {post.post_url.includes('google') ? 'google.com' : null}
+                  {post.post_url.includes('book') ? 'google.com' : null}
                 </span>
                 <span style={{ marginLeft: '5px' }}>
                   {post.post_url.includes('youtube') ? 'youtube.com' : null}
