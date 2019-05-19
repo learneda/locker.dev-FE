@@ -215,7 +215,7 @@ const Tabs = styled.ul`
   display: flex;
   font-size: 1.8rem;
   @media (max-width: 400px) {
-    font-size: 1.4rem;
+    font-size: 1.7rem;
   }
 `
 

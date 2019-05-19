@@ -36,6 +36,7 @@ class Home extends Component {
       user,
       searchTerm,
       locker,
+      location,
       posts,
       likedPosts,
       following,
@@ -66,7 +67,11 @@ class Home extends Component {
           <Wrapper>
             <Tabs>
               <Tab>
-                <NavLink exact to='/home/feed'>
+                <NavLink
+                  exact
+                  to='/home/feed'
+                  className={location.pathname === '/home' ? 'active' : null}
+                >
                   Feed
                 </NavLink>
               </Tab>
@@ -88,7 +93,7 @@ class Home extends Component {
                       auth={auth}
                       user={user}
                       searchTerm={searchTerm}
-                      populateNotification={populateNotifications}
+                      populateNotifications={populateNotifications}
                     />
                   )}
                 />

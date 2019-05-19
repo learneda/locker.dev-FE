@@ -11,10 +11,6 @@ import axios from 'axios'
 axios.defaults.withCredentials = true
 
 class Likes extends Component {
-  componentDidMount = () => {
-    this.props.fetchUser(this.props.auth.id)
-  }
-
   handleTruncateText = (content, limit = 10) => {
     return truncateText(content, limit)
   }

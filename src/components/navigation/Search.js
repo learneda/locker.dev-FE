@@ -7,8 +7,8 @@ import SearchUsersDropDown from './SearchUsersDropDown'
 import { setSearchTerm, resetSearchTerm } from '../../actions'
 
 function Search(props) {
+  const DropDownNode = useRef()
   const { setSearchTerm, resetSearchTerm } = props
-  const node = useRef()
   const [toggle, setToggle] = useState(false)
   const [search, setSearch] = useState('')
   const [visible, setVisible] = useState(false)
@@ -25,7 +25,7 @@ function Search(props) {
   }
 
   const handleRefClick = e => {
-    if (node.current) {
+    if (DropDownNode.current) {
       setVisible(false)
     }
   }
@@ -53,6 +53,7 @@ function Search(props) {
         path = path.split('/')[3]
       }
     }
+
     switch (path) {
       case '/home':
         placeholder = 'Feed'
@@ -146,7 +147,7 @@ function Search(props) {
         </Grommet>
       </Wrapper>
       {visible && toggle && search.length > 0 && (
-        <DropDown ref={node}>
+        <DropDown ref={DropDownNode}>
           <SearchUsersDropDown search={search} />
         </DropDown>
       )}

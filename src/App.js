@@ -55,6 +55,7 @@ const App = ({ fetchAuth, fetchUser, fetchPosts, modal, auth }) => {
         fallback={
           <div
             style={{
+              height: '200px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
