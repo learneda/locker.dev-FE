@@ -26,6 +26,8 @@ class Home extends Component {
     this.props.fetchLocker()
     this.props.fetchUser(this.props.auth.id)
     this.props.fetchSuggested(this.props.auth.id)
+    this.props.fetchFollowing(this.props.auth.id)
+    this.props.fetchFollowers(this.props.auth.id)
   }
 
   componentWillUnmount() {}
