@@ -208,9 +208,11 @@ class PostContainer extends Component {
                 <span style={{ marginLeft: '5px' }}>
                   {post.post_url.includes('book') ? 'google.com' : null}
                 </span>
-                <span style={{ marginLeft: '5px' }}>
-                  {post.post_url.includes('youtube') ? 'youtube.com' : null}
-                </span>
+                {process.env.NODE_ENV === 'production' ? null : (
+                  <span style={{ marginLeft: '5px' }}>
+                    {post.post_url.includes('youtube') ? 'youtube.com' : null}
+                  </span>
+                )}
                 <span style={{ marginLeft: '-5px' }}>{post.root_url}</span>
               </div>
             </a>
