@@ -44,12 +44,19 @@ const Collection = props => {
               >
                 {selectLogo(post.post_url)}
                 <span style={{ marginLeft: '5px' }}>
-                  {post.post_url.includes('book') ? 'google.com' : null}
+                  {post.post_url.includes('book') && !post.root_url
+                    ? 'google.com'
+                    : null}
                 </span>
                 <span style={{ marginLeft: '5px' }}>
-                  {post.post_url.includes('youtube') ? 'youtube.com' : null}
+                  {post.post_url.includes('youtube') && !post.root_url
+                    ? 'youtube.com'
+                    : null}
                 </span>
-                <span style={{ marginLeft: '-5px' }}>{post.root_url}</span>
+
+                {post.root_url ? (
+                  <span style={{ marginLeft: '0px' }}>{post.root_url}</span>
+                ) : null}
               </div>
             </a>
           </div>

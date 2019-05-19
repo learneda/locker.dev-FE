@@ -104,7 +104,7 @@ top: 105px;
     }
     li:nth-of-type(2) {
       opacity: 0.7;
-      text-align:center
+      // text-align:center
       transition: 200ms ease-out;
     }
   }
