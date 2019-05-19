@@ -26,9 +26,9 @@ const Collection = props => {
             }}
           >
             <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
-              <h1>{props.handleTruncateText(post.title, 9)}</h1>
+              <h1>{props.handleTruncateText(post.title, 80)}</h1>
             </a>
-            <p>{props.handleTruncateText(post.description, 15)}</p>
+            <p>{props.handleTruncateText(post.description, 120)}</p>
             <a
               className='post-root-url'
               href={post.post_url}
@@ -44,7 +44,7 @@ const Collection = props => {
               >
                 {selectLogo(post.post_url)}
                 <span style={{ marginLeft: '5px' }}>
-                  {post.post_url.includes('google') ? 'google.com' : null}
+                  {post.post_url.includes('book') ? 'google.com' : null}
                 </span>
                 <span style={{ marginLeft: '5px' }}>
                   {post.post_url.includes('youtube') ? 'youtube.com' : null}

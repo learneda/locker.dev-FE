@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { truncateText } from '../mixins'
+import { smartTruncate } from '../mixins'
 import HelpScreen from '../utils/screens/HelpScreen'
 import BookmarkSVG from '../../assets/svg/bookmark-drawing.svg'
 import Collection from './Collection'
@@ -13,7 +13,7 @@ class Collections extends Component {
     }
   }
 
-  handleTruncateText = (content, limit = 10) => truncateText(content, limit)
+  handleTruncateText = (content, limit = 10) => smartTruncate(content, limit)
 
   handleModalOpen = editPost => {
     this.setState({ editPost: editPost, modalOpen: !this.state.modalOpen })
