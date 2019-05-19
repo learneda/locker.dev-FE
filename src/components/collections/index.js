@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { truncateText } from '../mixins'
-import { fetchPosts, deletePost } from '../../actions'
 import HelpScreen from '../utils/screens/HelpScreen'
 import BookmarkSVG from '../../assets/svg/bookmark-drawing.svg'
 import Collection from './Collection'
@@ -13,10 +11,6 @@ class Collections extends Component {
       modalOpen: false,
       editPost: null,
     }
-  }
-
-  componentDidMount() {
-    this.props.fetchPosts()
   }
 
   handleTruncateText = (content, limit = 10) => truncateText(content, limit)
@@ -67,19 +61,4 @@ class Collections extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    userId: state.auth.id,
-    posts: state.posts,
-    deletePost: state.deletePost,
-    searchTerm: state.searchTerm,
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  {
-    fetchPosts,
-    deletePost,
-  }
-)(Collections)
+export default Collections

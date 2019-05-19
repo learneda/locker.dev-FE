@@ -5,9 +5,8 @@ import { modalReducer as modal } from './modalReducer'
 import { postReducer as posts } from './postReducer'
 import { likedPostReducer as likedPosts } from './likedPostReducer'
 import { searchReducer as searchTerm } from './searchReducer'
-import { followReducer as follow } from './followReducer'
+import { socialReducer as social } from './socialReducer'
 import { userReducer as user } from './userReducer'
-import { loadingReducer as loading } from './loadingReducer'
 import { notificationsReducer as notifications } from './notificationsReducer'
 import { lockerReducer as locker } from './lockerReducer'
 
@@ -18,9 +17,8 @@ export default combineReducers({
   posts,
   likedPosts,
   searchTerm,
-  follow,
+  social,
   user,
-  loading,
   notifications,
   locker,
 })

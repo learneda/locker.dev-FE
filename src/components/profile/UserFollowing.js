@@ -1,27 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import {
-  followAUser,
-  unfollowAUser,
-  getUserFollowing,
-  getUserFollowers,
-  fetchUser,
-} from '../../actions'
+import { followAUser, unfollowAUser, fetchUser } from '../../actions'
 import { StyledFollow } from '../social/StyledFollow'
-import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
 import axios from 'axios'
 import { post as URL } from '../../services/baseURL'
 
 const UserFollowing = props => {
-  const {
-    userId,
-    followAUser,
-    unfollowAUser,
-    getUserFollowing,
-    getUserFollowers,
-    fetchUser,
-  } = props
+  const { userId, followAUser, unfollowAUser, fetchUser } = props
 
   const [toggles, setToggles] = useState([])
   const [isLoading, setIsLoading] = useState(false)
@@ -98,8 +84,6 @@ export default connect(
   {
     followAUser,
     unfollowAUser,
-    getUserFollowing,
-    getUserFollowers,
     fetchUser,
   }
 )(UserFollowing)

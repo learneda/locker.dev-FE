@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grommet, TextInput, TextArea } from 'grommet'
+import { Grommet } from 'grommet'
 import styled from 'styled-components'
 import { customLayout, customWrapper } from '../../components/mixins'
 import { post as URL } from '../../services/baseURL'

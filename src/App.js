@@ -38,10 +38,10 @@ const App = ({ fetchAuth, fetchUser, fetchPosts, modal, auth }) => {
     // gets bookmarks only on first site load
   }, [])
 
-  useInterval(() => {
-    // fetches user information every 5 minutes to reduce number of server requests
-    fetchAuth()
-  }, 300000)
+  // useInterval(() => {
+  //   // fetches user information every 5 minutes to reduce number of server requests
+  //   fetchAuth()
+  // }, 300000)
 
   if (isAuthOpen || isEditOpen) {
     document.getElementById('body').setAttribute('style', 'overflow: hidden')

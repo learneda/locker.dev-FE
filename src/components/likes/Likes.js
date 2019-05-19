@@ -5,9 +5,7 @@ import Moment from 'react-moment'
 import NoPostScreen from '../utils/screens/NoPostScreen'
 import HelpScreen from '../utils/screens/HelpScreen'
 import LoveItSVG from '../../assets/svg/love-it-drawing.svg'
-
 import { truncateText, customLayout } from '../mixins'
-import { fetchUser, fetchLocker } from '../../actions'
 
 import axios from 'axios'
 axios.defaults.withCredentials = true
@@ -15,7 +13,6 @@ axios.defaults.withCredentials = true
 class Likes extends Component {
   componentDidMount = () => {
     this.props.fetchUser(this.props.auth.id)
-    this.props.fetchLocker()
   }
 
   handleTruncateText = (content, limit = 10) => {
@@ -25,10 +22,12 @@ class Likes extends Component {
   render() {
     console.log(this.props.locker)
     if (this.props.locker.length === 0) {
-      return <h1 style={{ border: '5px solid pink' }}>LOADING</h1>
+      return <h1 style={{ border: '5px solid pink' }}>Loading...</h1>
     }
     return (
-      <div style={{ border: '5px solid pink' }}>
+      <div
+        style={{ border: '5px solid pink', width: '100%', overflow: 'none' }}
+      >
         {this.props.locker.map(obj => {
           if (obj.pocket_id) {
             return (
@@ -39,7 +38,9 @@ class Likes extends Component {
                 rel='noopener'
               >
                 <h2>{obj.resolved_title}</h2>
-                <img src={obj.top_image_url} />
+                <div>
+                  <img style={{ maxWidth: '100%' }} src={obj.top_image_url} />
+                </div>
                 <p>{obj.excerpt}</p>
               </a>
             )
@@ -76,18 +77,8 @@ class Likes extends Component {
     )
   }
 }
-const mapStateToProps = ({ likedPosts, auth, locker }) => ({
-  likedPosts,
-  auth,
-  locker,
-})
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { fetchUser, fetchLocker }
-  )(Likes)
-)
+export default withRouter(Likes)
 
 // Extracted single post in a stateless component
 // const SinglePost = ({ post, handleTruncateText }) => {

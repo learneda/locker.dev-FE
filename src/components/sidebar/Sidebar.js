@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { withRouter, Link } from 'react-router-dom'
-import { fetchUser, getUserFollowers, getUserFollowing } from '../../actions'
+import { Link } from 'react-router-dom'
+import { fetchUser, fetchFollowers, fetchFollowing } from '../../actions'
 import ContentLoader from 'react-content-loader'
 
 import styled from 'styled-components'
@@ -25,17 +24,8 @@ const MyLoader = () => (
   </ContentLoader>
 )
 class Sidebar extends Component {
-  state = { isLoading: true }
-  componentDidMount() {
-    this.props.fetchUser(this.props.auth.id)
-    this.props.getUserFollowers(this.props.auth.id)
-    this.props.getUserFollowing(this.props.auth.id).then(() => {
-      this.setState({ isLoading: false })
-    })
-  }
-
   render() {
-    if (this.state.isLoading) {
+    if (!this.props.user) {
       return (
         <Wrapper>
           <MyLoader />
@@ -127,23 +117,7 @@ class Sidebar extends Component {
   }
 }
 
-const mapStateToProps = ({ auth, user, posts, follow, loading }) => {
-  return {
-    auth,
-    user,
-    posts,
-    followers: follow.userFollowers,
-    following: follow.userFollowing,
-    loading: loading.sidebar,
-  }
-}
-
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { fetchUser, getUserFollowers, getUserFollowing }
-  )(Sidebar)
-)
+export default Sidebar
 
 const Wrapper = styled.div`
   ${customWrapper('45%')};

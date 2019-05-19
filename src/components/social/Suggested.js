@@ -2,9 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {
   followAUser,
-  getUserFollowing,
+  fetchFollowing,
   fetchUser,
-  recommendedFollow,
+  fetchSuggested,
 } from '../../actions'
 
 const Suggested = props => {
@@ -12,15 +12,15 @@ const Suggested = props => {
     userId,
     suggested,
     followAUser,
-    getUserFollowing,
     fetchUser,
-    recommendedFollow,
+    fetchFollowing,
+    fetchSuggested,
   } = props
 
   const handleFollow = async friend_id => {
     await followAUser({ user_id: userId, friend_id: friend_id })
-    recommendedFollow(userId)
-    getUserFollowing(userId)
+    fetchSuggested(userId)
+    fetchFollowing(userId)
     fetchUser(userId)
   }
 
@@ -46,8 +46,8 @@ export default connect(
   null,
   {
     followAUser,
-    getUserFollowing,
     fetchUser,
-    recommendedFollow,
+    fetchFollowing,
+    fetchSuggested,
   }
 )(Suggested)

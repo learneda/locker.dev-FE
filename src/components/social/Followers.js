@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import {
   followAUser,
   unfollowAUser,
-  getUserFollowing,
+  fetchFollowing,
   fetchUser,
 } from '../../actions'
 import { StyledFollow } from './StyledFollow'
@@ -16,7 +16,7 @@ const Followers = props => {
     followers,
     followAUser,
     unfollowAUser,
-    getUserFollowing,
+    fetchFollowing,
     fetchUser,
   } = props
 
@@ -26,7 +26,7 @@ const Followers = props => {
     setIsLoading(true)
     setLoadingIndex(index)
     await followAUser({ user_id: userId, friend_id: friend_id })
-    getUserFollowing(userId).then(response => setIsLoading(false))
+    fetchFollowing(userId).then(response => setIsLoading(false))
     fetchUser(userId)
   }
 
@@ -34,7 +34,7 @@ const Followers = props => {
     setIsLoading(true)
     setLoadingIndex(index)
     await unfollowAUser({ user_id: userId, friend_id: friend_id })
-    getUserFollowing(userId).then(response => setIsLoading(false))
+    fetchFollowing(userId).then(response => setIsLoading(false))
     fetchUser(userId)
   }
 
@@ -79,5 +79,5 @@ const Followers = props => {
 
 export default connect(
   null,
-  { followAUser, unfollowAUser, getUserFollowing, fetchUser }
+  { followAUser, unfollowAUser, fetchFollowing, fetchUser }
 )(Followers)

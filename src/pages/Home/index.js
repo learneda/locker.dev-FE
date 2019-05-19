@@ -7,15 +7,62 @@ import Feed from '../../components/feed'
 import Collections from '../../components/collections'
 import Likes from '../../components/likes/Likes'
 import Sidebar from '../../components/sidebar/Sidebar'
-import RecommendedFollow from '../../components/sidebar/RecommendedFollow'
+import Suggested from '../../components/sidebar/Suggested'
 import { customWrapper } from '../../components/mixins'
-
+import {
+  populateNotifications,
+  deletePost,
+  fetchUser,
+  fetchFollowers,
+  fetchFollowing,
+  fetchSuggested,
+  fetchLocker,
+  fetchPosts,
+  followAUser,
+} from '../../actions'
 class Home extends Component {
+  componentDidMount() {
+    this.props.fetchPosts()
+    this.props.fetchLocker()
+    this.props.fetchUser(this.props.auth.id)
+    this.props.fetchSuggested(this.props.auth.id)
+  }
+
+  componentWillUnmount() {}
+
   render() {
+    const {
+      auth,
+      user,
+      searchTerm,
+      locker,
+      posts,
+      likedPosts,
+      following,
+      followers,
+      suggested,
+      populateNotifications,
+      fetchUser,
+      fetchLocker,
+      fetchPosts,
+      fetchFollowers,
+      fetchFollowing,
+      fetchSuggested,
+      followAUser,
+      deletePost,
+    } = this.props
     return (
       <Grommet theme={theme}>
         <Container>
-          <Sidebar />
+          <Sidebar
+            auth={auth}
+            user={user}
+            posts={posts}
+            followers={followers}
+            following={following}
+            fetchFollowers={fetchFollowers}
+            fetchFollowing={fetchFollowing}
+          />
           <Wrapper>
             <Tabs>
               <Tab>
@@ -41,30 +88,92 @@ class Home extends Component {
                 <Route
                   exact
                   path={['/home', '/home/feed']}
-                  render={props => <Feed {...props} />}
+                  render={props => (
+                    <Feed
+                      {...props}
+                      auth={auth}
+                      user={user}
+                      searchTerm={searchTerm}
+                      populateNotification={populateNotifications}
+                    />
+                  )}
                 />
                 <Route
                   path='/home/collections'
-                  render={props => <Collections {...props} />}
+                  render={props => (
+                    <Collections
+                      {...props}
+                      userId={auth.id}
+                      searchTerm={searchTerm}
+                      posts={posts}
+                      deletePost={deletePost}
+                      fetchPosts={fetchPosts}
+                    />
+                  )}
                 />
                 <Route
                   path='/home/locker'
-                  render={props => <Likes {...props} />}
+                  render={props => (
+                    <Likes
+                      {...props}
+                      auth={auth}
+                      locker={locker}
+                      fetchUser={fetchUser}
+                      fetchLocker={fetchLocker}
+                      likedPosts={likedPosts}
+                    />
+                  )}
                 />
               </Switch>
             </TabWrapper>
           </Wrapper>
-          <RecommendedFollow />
+          <Suggested
+            auth={auth}
+            suggested={suggested}
+            fetchUser={fetchUser}
+            fetchSuggested={fetchSuggested}
+            fetchFollowing={fetchFollowing}
+            followAUser={followAUser}
+          />
         </Container>
       </Grommet>
     )
   }
 }
+const mapStateToProps = ({
+  auth,
+  user,
+  searchTerm,
+  posts,
+  likedPosts,
+  locker,
+  social,
+}) => ({
+  auth,
+  user,
+  searchTerm,
+  posts,
+  likedPosts,
+  locker,
+  following: social.following,
+  followers: social.followers,
+  suggested: social.suggested,
+})
 
 export default withRouter(
   connect(
-    null,
-    null
+    mapStateToProps,
+    {
+      populateNotifications,
+      deletePost,
+      fetchUser,
+      fetchLocker,
+      fetchPosts,
+      fetchFollowers,
+      fetchFollowing,
+      fetchSuggested,
+      followAUser,
+    }
   )(Home)
 )
 

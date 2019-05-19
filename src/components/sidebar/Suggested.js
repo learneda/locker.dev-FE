@@ -6,9 +6,9 @@ import styled from 'styled-components'
 
 import {
   fetchUser,
-  recommendedFollow,
+  fetchSuggested,
+  fetchFollowing,
   followAUser,
-  getUserFollowing,
 } from '../../actions'
 
 const MyLoader = () => (
@@ -26,34 +26,26 @@ const MyLoader = () => (
   </ContentLoader>
 )
 
-const RecommendedFollow = props => {
-  const [isLoading, setIsLoading] = useState(true)
+const Suggested = props => {
   const {
-    follow,
-    followAUser,
-    fetchUser,
-    getUserFollowing,
-    recommendedFollow,
     auth,
+    suggested,
+    fetchUser,
+    fetchFollowing,
+    fetchSuggested,
+    followAUser,
   } = props
-
-  useEffect(() => {
-    recommendedFollow(auth.id).then(() => setIsLoading(false))
-  }, [])
 
   const followAUserHandler = async (e, friend_id) => {
     e.preventDefault()
     await followAUser({ user_id: props.auth.id, friend_id })
     fetchUser(props.auth.id)
-    getUserFollowing(props.auth.id)
-    setIsLoading(true)
-    await recommendedFollow(props.auth.id)
-    setIsLoading(false)
+    fetchFollowing(props.auth.id)
+    await fetchSuggested(props.auth.id)
   }
 
   const renderRecommended = () => {
-    const { follow } = props
-    if (isLoading) {
+    if (!suggested.length) {
       return (
         <>
           <div className='recommended-follow-container'>
@@ -68,26 +60,24 @@ const RecommendedFollow = props => {
         </>
       )
     } else {
-      return follow.map((following, index) => (
+      return suggested.map((ele, index) => (
         <div className='recommended-follow-container' key={index}>
           <div className='recommended-follow-info'>
-            <Link to={`/profile/${following.recommended_follow_id}`}>
-              <img src={following.image} alt='following' />
-              <h2>{following.username}</h2>
+            <Link to={`/profile/${ele.recommended_follow_id}`}>
+              <img src={ele.image} alt='suggested' />
+              <h2>{ele.username}</h2>
             </Link>
           </div>
           <div className='follow-button'>
             <button
               type='button'
-              onClick={e =>
-                followAUserHandler(e, following.recommended_follow_id)
-              }
+              onClick={e => followAUserHandler(e, ele.recommended_follow_id)}
             >
               Follow
             </button>
-            {following.followed_by_username && (
-              <Link to={`/profile/${following.followed_by_id}`}>
-                <p>Followed by {following.followed_by_username}</p>
+            {ele.followed_by_username && (
+              <Link to={`/profile/${ele.followed_by_id}`}>
+                <p>Followed by {ele.followed_by_username}</p>
               </Link>
             )}
           </div>
@@ -103,22 +93,7 @@ const RecommendedFollow = props => {
   )
 }
 
-const mapStateToProps = ({ auth, follow }) => {
-  return {
-    auth,
-    follow: follow.suggestedFriends,
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  {
-    fetchUser,
-    recommendedFollow,
-    followAUser,
-    getUserFollowing,
-  }
-)(RecommendedFollow)
+export default Suggested
 
 const StyledCard = styled.div`
   margin: 0px 0px 0px 30px;
