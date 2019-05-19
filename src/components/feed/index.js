@@ -203,7 +203,7 @@ class Feed extends Component {
       )
     }
 
-    if (feed && feed.length) {
+    if (this.state.posts) {
       return (
         <Container>
           <InfiniteScroll

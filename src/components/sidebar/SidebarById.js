@@ -336,12 +336,10 @@ const Profile = styled.div`
         transition: 200ms ease-in;
         li:nth-of-type(2) {
           opacity: 1;
-          // transition: 200ms ease-in;
         }
       }
       li {
         margin-bottom: 5px;
-        // transition: 200ms ease-out;
       }
       li:nth-of-type(2) {
         opacity: 0.7;
