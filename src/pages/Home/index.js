@@ -240,7 +240,7 @@ const Tabs = styled.ul`
   align-items: flex-end;
   position: sticky;
   background: rgb(230, 233, 243);
-  top: 60px;
+  top: 59px;
   height: 75px;
   z-index: 1;
   width: 100%;
