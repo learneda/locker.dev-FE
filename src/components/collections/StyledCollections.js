@@ -14,7 +14,7 @@ position: relative;
   bottom: 12px;
   justify-content: space-between;
   // min-width: 330px;
-  width: 300px;
+  width: 250px;
   @media (max-width: 450px) {
     width: 90%;
    }

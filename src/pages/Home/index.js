@@ -39,6 +39,7 @@ class Home extends Component {
       searchTerm,
       locker,
       location,
+      match,
       posts,
       likedPosts,
       following,
@@ -71,24 +72,24 @@ class Home extends Component {
               <Tab>
                 <NavLink
                   exact
-                  to='/home/feed'
+                  to={`${match.url}/feed`}
                   className={location.pathname === '/home' ? 'active' : null}
                 >
                   Feed
                 </NavLink>
               </Tab>
               <Tab>
-                <NavLink to='/home/collections'>Collections</NavLink>
+                <NavLink to={`${match.url}/collections`}>Collections</NavLink>
               </Tab>
               <Tab>
-                <NavLink to='/home/locker'>Locker(α)</NavLink>
+                <NavLink to={`${match.url}/locker`}>Locker(α)</NavLink>
               </Tab>
             </Tabs>
             <TabWrapper>
               <Switch>
                 <Route
                   exact
-                  path={['/home', '/home/feed']}
+                  path={[`${match.path}`, `${match.path}/feed`]}
                   render={props => (
                     <Feed
                       {...props}
@@ -100,7 +101,7 @@ class Home extends Component {
                   )}
                 />
                 <Route
-                  path='/home/collections'
+                  path={`${match.path}/collections`}
                   render={props => (
                     <Collections
                       {...props}
@@ -113,7 +114,7 @@ class Home extends Component {
                   )}
                 />
                 <Route
-                  path='/home/locker'
+                  path={`${match.path}/locker`}
                   render={props => (
                     <Likes
                       {...props}
