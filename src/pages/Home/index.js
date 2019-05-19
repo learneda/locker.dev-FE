@@ -66,13 +66,7 @@ class Home extends Component {
           <Wrapper>
             <Tabs>
               <Tab>
-                <NavLink
-                  exact
-                  to='/home/feed'
-                  className={
-                    this.props.location.pathname === '/home' ? 'active' : null
-                  }
-                >
+                <NavLink exact to='/home/feed'>
                   Feed
                 </NavLink>
               </Tab>
@@ -239,7 +233,7 @@ const Tabs = styled.ul`
   background: rgb(230, 233, 243);
   top: 59px;
   padding: 10px 0 5px;
-  z-index: 2;
+  z-index: 1;
   width: 100%;
   .active {
     border-bottom: 3px solid #4064f2;

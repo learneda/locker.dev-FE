@@ -1,5 +1,5 @@
 import React, { useEffect, lazy, Suspense } from 'react'
-import { Route, Switch, withRouter } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import GlobalStyle from './components/mixins'
@@ -35,13 +35,12 @@ const App = ({ fetchAuth, fetchUser, fetchPosts, modal, auth }) => {
   useEffect(() => {
     // initial fetch user when you refresh browser
     fetchAuth()
-    // gets bookmarks only on first site load
   }, [])
 
-  // useInterval(() => {
-  //   // fetches user information every 5 minutes to reduce number of server requests
-  //   fetchAuth()
-  // }, 300000)
+  useInterval(() => {
+    // fetches user information every 5 minutes to reduce number of server requests
+    fetchAuth()
+  }, 300000)
 
   if (isAuthOpen || isEditOpen) {
     document.getElementById('body').setAttribute('style', 'overflow: hidden')
@@ -83,12 +82,10 @@ const App = ({ fetchAuth, fetchUser, fetchPosts, modal, auth }) => {
 
 const mapStateToProps = ({ modal, auth }) => ({ modal, auth })
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { fetchAuth }
-  )(App)
-)
+export default connect(
+  mapStateToProps,
+  { fetchAuth }
+)(App)
 
 const Container = styled.div`
   ${customContainer()};
