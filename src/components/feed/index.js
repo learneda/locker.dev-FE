@@ -34,43 +34,55 @@ class Feed extends Component {
     this.state = {
       commentValue: '',
     }
+    // connect socket
     this.socket = openSocket(URL)
   }
 
   componentDidMount() {
+    // on CDM socket will emit to all other sockets online that this user connected
     this.socket.emit('join', { user_id: this.props.auth.id })
 
+    // join namespace contains all the current users who are online
     this.socket.on('join', data => {
       console.log(data, 'FROM JOIN CONNECTION')
       this.props.populateNotifications(data)
     })
 
+    // socket is listening on comments event & will receive an obj
     this.socket.on('comments', msg => {
-      console.log(msg)
+      // msg obj contains properties of content, action, post_id, user_id, username, created_at, & updated_at
+
       switch (msg.action) {
+        // when action type === destroy
         case 'destroy':
+          // invoke action creator deleteComment & pass in msg obj
           this.props.deleteComment(msg)
           break
+        // when action type === create
         case 'create':
+          // invoke action creator createComment & pass in msg obj
           this.props.createComment(msg)
           break
         default:
           break
       }
     })
+    // socket is listening on like event & will receive an obj
     this.socket.on('like', data => {
+      // obj contains postOwnerId, post_id, user_id, username
       console.log('in like socket connection', data)
       switch (data.action) {
         case 'unlike':
+          // invoke action creator unlikeComment & pass in msg obj
           this.props.unlikeComment(data)
           break
         case 'like':
+          // invoke action creator likeComment & pass in msg obj
           this.props.likeComment(data)
         default:
           break
       }
     })
-    console.log(this.props.feed)
   }
 
   componentWillUnmount() {
@@ -126,7 +138,6 @@ class Feed extends Component {
 
     let posts = []
 
-    // if (this.props.user) {
     posts = filteredPosts.map((post, index) => (
       <PostContainer
         key={index}
@@ -140,7 +151,7 @@ class Feed extends Component {
         socketId={this.socket.id}
       />
     ))
-    // }
+
     if (this.props.posts) {
       return (
         <Container>

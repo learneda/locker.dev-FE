@@ -157,24 +157,28 @@ export const fetchFeed = () => async dispatch => {
   }
 }
 
+// InfiniteScroll component will call this func with offset to get next posts
 export const subsequentFetchFeed = offset => async dispatch => {
+  // offset flow => 0, 5, 10 . offset will be incremented by +5 for everytime it is called
   const newsFeed = await axios.get(`${URL}/api/users/newsfeed?offset=${offset}`)
-
+  // if the response's data array is populated ?
   if (newsFeed.data.length) {
+    // set the array with new posts as payload
     dispatch({ type: FETCH_FEED, payload: newsFeed.data })
+    // increment the offset by 5
     dispatch({ type: INCREMENT_OFFSET, payload: offset + 5 })
   } else {
+    // else toggle hasMore state to false so InfiniteScroll can stop calling subsequentFetchFeed
+    // InfiniteScroll will unmount Loading component when hasMore boolean is false
     dispatch({ type: TOGGLE_HAS_MORE, payload: false })
   }
 }
 
 export const createComment = commentData => async dispatch => {
-  console.log('this is commentData', commentData)
   dispatch({ type: ADD_COMMENT, payload: commentData })
 }
 
 export const deleteComment = commentData => async dispatch => {
-  console.log('this is commentData', commentData)
   dispatch({ type: DELETE_COMMENT, payload: commentData })
 }
 
