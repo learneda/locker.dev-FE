@@ -4,6 +4,7 @@ import {
   SET_COURSE_PAGE,
   SET_ARTICLE_OFFSET,
   SEARCH_ARTICLES,
+  SEARCH_COURSES,
 } from '../actions/types'
 
 const initialState = {
@@ -24,6 +25,8 @@ export const browseReducer = (state = initialState, action) => {
       return { ...state, articleOffset: action.payload }
     case SEARCH_ARTICLES:
       return { ...state, articles: action.payload }
+    case SEARCH_COURSES:
+      return { ...state, courses: action.payload }
     default:
       return state
   }

@@ -13,10 +13,11 @@ import Books from '../../components/browse/Books'
 import {
   fetchUser,
   fetchCourses,
+  searchCourses,
   fetchArticles,
+  searchArticles,
   setCoursePage,
   setArticleOffset,
-  searchArticles,
   createPost,
 } from '../../actions'
 import { customWrapper, smartTruncate } from '../../components/mixins'
@@ -27,7 +28,7 @@ axios.defaults.withCredentials = true
 class Browse extends Component {
   componentDidMount() {
     if (!this.props.courses.length) {
-      this.props.fetchCourses(this.props.coursePage)
+      this.props.fetchCourses(this.props.searchTerm, this.props.coursePage)
       this.props.setCoursePage(this.props.coursePage + 1)
     }
     if (!this.props.articles.length) {
@@ -58,7 +59,7 @@ class Browse extends Component {
   }
 
   fetchMoreCourses = () => {
-    this.props.fetchCourses(this.props.coursePage)
+    this.props.fetchCourses(this.props.searchTerm, this.props.coursePage)
     this.props.setCoursePage(this.props.coursePage + 1)
   }
 
@@ -70,12 +71,14 @@ class Browse extends Component {
   render() {
     const {
       searchTerm,
-      articleOffset,
       articles,
+      articleOffset,
       courses,
       coursePage,
       setArticleOffset,
+      setCoursePage,
       searchArticles,
+      searchCourses,
       match,
     } = this.props
     return (
@@ -110,6 +113,10 @@ class Browse extends Component {
                     <Courses
                       {...props}
                       courses={courses}
+                      searchTerm={searchTerm}
+                      coursePage={coursePage}
+                      setCoursePage={setCoursePage}
+                      searchCourses={searchCourses}
                       fetchMoreCourses={this.fetchMoreCourses}
                       handleSaveLink={this.handleSaveLink}
                       handleTruncateText={this.handleTruncateText}
@@ -122,14 +129,14 @@ class Browse extends Component {
                   render={props => (
                     <Articles
                       {...props}
+                      articles={articles}
                       searchTerm={searchTerm}
                       articleOffset={articleOffset}
-                      articles={articles}
+                      setArticleOffset={setArticleOffset}
                       searchArticles={searchArticles}
                       fetchMoreArticles={this.fetchMoreArticles}
-                      setArticleOffset={setArticleOffset}
-                      handleTruncateText={this.handleTruncateText}
                       handleSaveLink={this.handleSaveLink}
+                      handleTruncateText={this.handleTruncateText}
                       alert={this.props.alert}
                     />
                   )}
@@ -186,6 +193,7 @@ export default connect(
   {
     fetchUser,
     fetchCourses,
+    searchCourses,
     fetchArticles,
     searchArticles,
     setCoursePage,
