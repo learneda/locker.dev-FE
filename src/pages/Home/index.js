@@ -41,7 +41,6 @@ class Home extends Component {
       location,
       match,
       posts,
-      likedPosts,
       following,
       followers,
       suggested,
@@ -122,7 +121,6 @@ class Home extends Component {
                       locker={locker}
                       fetchUser={fetchUser}
                       fetchLocker={fetchLocker}
-                      likedPosts={likedPosts}
                     />
                   )}
                 />
@@ -147,7 +145,6 @@ const mapStateToProps = ({
   user,
   searchTerm,
   posts,
-  likedPosts,
   locker,
   social,
 }) => ({
@@ -155,7 +152,6 @@ const mapStateToProps = ({
   user,
   searchTerm,
   posts,
-  likedPosts,
   locker,
   following: social.following,
   followers: social.followers,

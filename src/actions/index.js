@@ -9,7 +9,6 @@ import {
   SAVE_LINK,
   FETCH_POSTS,
   DELETE_POST,
-  LIKED_POSTS,
   SET_SEARCH_TERM,
   RESET_SEARCH_TERM,
   EDIT_USER,
@@ -68,11 +67,6 @@ export const updatePostsState = post => async dispatch => {
 export const deletePost = id => async dispatch => {
   const res = await axios.delete(`${URL}/api/posts/${id}`)
   dispatch({ type: DELETE_POST, payload: res.data })
-}
-
-export const getlikedPosts = () => async dispatch => {
-  const res = await axios.get(`${URL}/api/posts/likes`)
-  dispatch({ type: LIKED_POSTS, payload: res.data })
 }
 
 export const editProfile = (id, profile) => async dispatch => {
