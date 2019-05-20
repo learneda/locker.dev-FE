@@ -19,7 +19,7 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
     youtube
       .get('/search', {
         params: {
-          q: throttledSearch || 'javascript',
+          q: throttledSearch || 'react',
           pageToken,
         },
       })
@@ -39,7 +39,7 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
     youtube
       .get('/search', {
         params: {
-          q: query || 'javascript',
+          q: query || 'react',
         },
       })
       .then(res => {

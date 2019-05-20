@@ -20,7 +20,7 @@ const Podcasts = ({ search, handleSaveMedia, alert }) => {
     listenAPI
       .get('/search', {
         params: {
-          q: search || 'javascript',
+          q: search || 'react',
           offset,
         },
       })
@@ -39,7 +39,7 @@ const Podcasts = ({ search, handleSaveMedia, alert }) => {
     listenAPI
       .get('/search', {
         params: {
-          q: query || 'javascript',
+          q: query || 'react',
         },
       })
       .then(res => {
