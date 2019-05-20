@@ -27,6 +27,7 @@ import {
   INCREMENT_OFFSET,
   ADD_COMMENT,
   DELETE_COMMENT,
+  LIKE_COMMENT,
 } from './types'
 
 import { post as URL } from '../services/baseURL'
@@ -174,4 +175,8 @@ export const createComment = commentData => async dispatch => {
 export const deleteComment = commentData => async dispatch => {
   console.log('this is commentData', commentData)
   dispatch({ type: DELETE_COMMENT, payload: commentData })
+}
+
+export const likeComment = commentData => async dispatch => {
+  dispatch({ type: LIKE_COMMENT, payload: commentData })
 }

@@ -23,6 +23,7 @@ import {
   subsequentFetchFeed,
   createComment,
   deleteComment,
+  likeComment,
 } from '../../actions'
 class Home extends Component {
   componentDidMount() {
@@ -62,6 +63,7 @@ class Home extends Component {
       subsequentFetchFeed,
       createComment,
       deleteComment,
+      likeComment,
     } = this.props
     return (
       <Grommet theme={theme}>
@@ -111,6 +113,7 @@ class Home extends Component {
                       offset={feed.offset}
                       createComment={createComment}
                       deleteComment={deleteComment}
+                      likeComment={likeComment}
                     />
                   )}
                 />
@@ -192,6 +195,7 @@ export default withRouter(
       subsequentFetchFeed,
       createComment,
       deleteComment,
+      likeComment,
     }
   )(Home)
 )

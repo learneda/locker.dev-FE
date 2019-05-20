@@ -4,6 +4,7 @@ import {
   INCREMENT_OFFSET,
   ADD_COMMENT,
   DELETE_COMMENT,
+  LIKE_COMMENT,
 } from '../actions/types'
 
 const initialState = {
@@ -37,6 +38,15 @@ export const feedReducer = (state = initialState, action) => {
         return post
       })
       return { ...state, posts: newPosts }
+    case LIKE_COMMENT:
+      const updateLikePosts = state.posts.map(post => {
+        if (post.post_id === action.payload.post_id) {
+          const likes = post.likes
+          post.likes = likes + 1
+        }
+        return post
+      })
+      return { ...state, posts: updateLikePosts }
     default:
       return state
   }

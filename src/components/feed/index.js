@@ -71,15 +71,9 @@ class Feed extends Component {
           })
           this.setState({ posts: updated_state })
           break
+        case 'like':
+          this.props.likeComment(data)
         default:
-          const update_state = this.state.posts.map((post, index) => {
-            if (post.post_id === data.post_id) {
-              const likes = post.likes
-              post.likes = likes + 1
-            }
-            return post
-          })
-          this.setState({ posts: update_state })
           break
       }
     })
