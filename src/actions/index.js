@@ -25,6 +25,7 @@ import {
   FETCH_FEED,
   TOGGLE_HAS_MORE,
   INCREMENT_OFFSET,
+  ADD_COMMENT,
 } from './types'
 
 import { post as URL } from '../services/baseURL'
@@ -154,8 +155,6 @@ export const fetchFeed = () => async dispatch => {
 }
 
 export const subsequentFetchFeed = offset => async dispatch => {
-  console.log('subsequentFetchFeed got called')
-  console.log('this is offset', offset)
   const newsFeed = await axios.get(`${URL}/api/users/newsfeed?offset=${offset}`)
 
   if (newsFeed.data.length) {
@@ -164,4 +163,9 @@ export const subsequentFetchFeed = offset => async dispatch => {
   } else {
     dispatch({ type: TOGGLE_HAS_MORE, payload: false })
   }
+}
+
+export const createComment = commentData => async dispatch => {
+  console.log(commentData)
+  dispatch({ type: ADD_COMMENT, payload: commentData })
 }

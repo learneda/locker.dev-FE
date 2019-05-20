@@ -1,4 +1,9 @@
-import { FETCH_FEED, TOGGLE_HAS_MORE, INCREMENT_OFFSET } from '../actions/types'
+import {
+  FETCH_FEED,
+  TOGGLE_HAS_MORE,
+  INCREMENT_OFFSET,
+  ADD_COMMENT,
+} from '../actions/types'
 
 const initialState = {
   posts: [],
@@ -13,6 +18,14 @@ export const feedReducer = (state = initialState, action) => {
       return { ...state, hasmore: action.payload }
     case INCREMENT_OFFSET:
       return { ...state, offset: action.payload }
+    case ADD_COMMENT:
+      const updatedComments = state.posts.map(post => {
+        if (post.post_id === action.payload.post_id) {
+          post.comments.push(action.payload)
+        }
+        return post
+      })
+      return { ...state, posts: updatedComments }
     default:
       return state
   }

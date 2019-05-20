@@ -54,3 +54,5 @@ export const FETCH_FEED = 'FETCH_FEED'
 export const TOGGLE_HAS_MORE = 'TOGGLE_HAS_MORE'
 
 export const INCREMENT_OFFSET = 'INCREMENT_OFFSET'
+
+export const ADD_COMMENT = 'ADD_COMMENT'

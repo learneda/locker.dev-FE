@@ -38,65 +38,68 @@ class Feed extends Component {
   }
 
   componentDidMount() {
-    // this.socket.emit('join', { user_id: this.props.auth.id })
-    // this.socket.on('join', data => {
-    //   console.log(data, 'FROM JOIN CONNECTION')
-    //   this.props.populateNotifications(data)
-    // })
-    // this.socket.on('comments', msg => {
-    //   console.log(msg)
-    //   switch (msg.action) {
-    //     case 'destroy':
-    //       const new_state = this.state.posts.map((post, index) => {
-    //         if (post.post_id === msg.post_id) {
-    //           post.comments = post.comments.filter(
-    //             comment => comment.id !== msg.id
-    //           )
-    //         }
-    //         return post
-    //       })
-    //       this.setState({ posts: new_state })
-    //       break
-    //     case 'create':
-    //       const updated_state = this.state.posts.map((post, index) => {
-    //         if (post.post_id === msg.post_id) {
-    //           post.comments.push(msg)
-    //         }
-    //         return post
-    //       })
-    //       this.setState({ posts: updated_state })
-    //       break
-    //     default:
-    //       break
-    //   }
-    // })
-    // this.socket.on('like', data => {
-    //   console.log('in like socket connection', data)
-    //   switch (data.action) {
-    //     case 'unlike':
-    //       const updated_state = this.state.posts.map((post, index) => {
-    //         if (post.post_id === data.post_id) {
-    //           const likes = post.likes
-    //           post.likes = likes - 1
-    //         }
-    //         return post
-    //       })
-    //       this.setState({ posts: updated_state })
-    //       break
-    //     default:
-    //       const update_state = this.state.posts.map((post, index) => {
-    //         if (post.post_id === data.post_id) {
-    //           const likes = post.likes
-    //           post.likes = likes + 1
-    //         }
-    //         return post
-    //       })
-    //       this.setState({ posts: update_state })
-    //       break
-    //   }
-    // })
-    // this.getNewsFeed()
-    // console.log(this.props.feed)
+    this.socket.emit('join', { user_id: this.props.auth.id })
+
+    this.socket.on('join', data => {
+      console.log(data, 'FROM JOIN CONNECTION')
+      this.props.populateNotifications(data)
+    })
+
+    this.socket.on('comments', msg => {
+      console.log(msg)
+      switch (msg.action) {
+        case 'destroy':
+          const new_state = this.state.posts.map((post, index) => {
+            if (post.post_id === msg.post_id) {
+              post.comments = post.comments.filter(
+                comment => comment.id !== msg.id
+              )
+            }
+            return post
+          })
+
+          this.setState({ posts: new_state })
+          break
+        case 'create':
+          // const updated_state = this.props.posts.map((post, index) => {
+          //   if (post.post_id === msg.post_id) {
+          //     post.comments.push(msg)
+          //   }
+          //   return post
+          // })
+          // this.setState({ posts: updated_state })
+          this.props.createComment(msg)
+          break
+        default:
+          break
+      }
+    })
+    this.socket.on('like', data => {
+      console.log('in like socket connection', data)
+      switch (data.action) {
+        case 'unlike':
+          const updated_state = this.state.posts.map((post, index) => {
+            if (post.post_id === data.post_id) {
+              const likes = post.likes
+              post.likes = likes - 1
+            }
+            return post
+          })
+          this.setState({ posts: updated_state })
+          break
+        default:
+          const update_state = this.state.posts.map((post, index) => {
+            if (post.post_id === data.post_id) {
+              const likes = post.likes
+              post.likes = likes + 1
+            }
+            return post
+          })
+          this.setState({ posts: update_state })
+          break
+      }
+    })
+    console.log(this.props.feed)
   }
 
   componentWillUnmount() {
@@ -131,12 +134,6 @@ class Feed extends Component {
   }
 
   render() {
-    console.log(
-      'Feed component got rendered',
-      this.props.posts,
-      this.props.hasmore
-    )
-
     while (!this.props.user) {
       console.log('in while ')
       return (
