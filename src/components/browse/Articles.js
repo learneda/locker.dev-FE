@@ -23,14 +23,13 @@ const Articles = props => {
   //* Don't run search on mount if offset=0 and search is empty
   useEffect(() => {
     const asyncSearchArticles = async () => {
-      await searchArticles(searchTerm, articleOffset)
+      const offset = 0
+      await searchArticles(searchTerm, offset)
+      await setArticleOffset(offset + 12)
       setIsLoading(false)
     }
-    if (articleOffset || searchTerm) {
-      setArticleOffset(0)
-      setIsLoading(true)
-      asyncSearchArticles()
-    }
+    setIsLoading(true)
+    asyncSearchArticles()
   }, [searchTerm])
 
   //* hasMore false only when searchQuery returns no matches
