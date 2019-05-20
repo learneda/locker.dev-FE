@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { customLayout } from '../mixins'
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
-
+import { useThrottle } from 'use-throttle'
 const Articles = props => {
   const {
     searchTerm,
@@ -19,19 +19,20 @@ const Articles = props => {
   } = props
 
   const [isLoading, setIsLoading] = useState(false)
+  const throttledSearch = useThrottle(searchTerm, 1000)
 
   //* Don't run search on mount if offset=0 and search is empty
   useEffect(() => {
+    console.log(throttledSearch, 'search')
     const asyncSearchArticles = async () => {
-      await searchArticles(searchTerm, articleOffset)
+      const offset = 0
+      await searchArticles(searchTerm, offset)
+      await setArticleOffset(offset + 12)
       setIsLoading(false)
     }
-    if (articleOffset || searchTerm) {
-      setArticleOffset(0)
-      setIsLoading(true)
-      asyncSearchArticles()
-    }
-  }, [searchTerm])
+    setIsLoading(true)
+    asyncSearchArticles()
+  }, [throttledSearch])
 
   //* hasMore false only when searchQuery returns no matches
   const hasMore = !Boolean(searchTerm) || Boolean(articles.length)

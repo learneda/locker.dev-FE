@@ -13,7 +13,7 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [videos, setVideos] = useState([])
   const [pageToken, setPageToken] = useState(null)
-  const throttledSearch = useThrottle(search, 0.6)
+  const throttledSearch = useThrottle(search, 1000)
 
   const fetchMoreVideos = () => {
     youtube

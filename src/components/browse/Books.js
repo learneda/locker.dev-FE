@@ -14,7 +14,7 @@ const Books = ({ search, handleSaveMedia, alert }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [books, setBooks] = useState([])
   const [offset, setOffset] = useState(0)
-  const throttledSearch = useThrottle(search, 0.6)
+  const throttledSearch = useThrottle(search, 1000)
 
   useEffect(() => {
     setIsLoading(true)
