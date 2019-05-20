@@ -53,12 +53,10 @@ class UserProfile extends Component {
   }
 }
 
-export default withRouter(
-  connect(
-    null,
-    null
-  )(UserProfile)
-)
+export default connect(
+  null,
+  null
+)(withRouter(UserProfile))
 
 const theme = {
   tab: {

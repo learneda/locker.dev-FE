@@ -202,18 +202,16 @@ const mapStateToProps = ({ auth, user, social }) => {
   }
 }
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    {
-      fetchUser,
-      followAUser,
-      unfollowAUser,
-      fetchFollowers,
-      fetchFollowing,
-    }
-  )(SidebarById)
-)
+export default connect(
+  mapStateToProps,
+  {
+    fetchUser,
+    followAUser,
+    unfollowAUser,
+    fetchFollowers,
+    fetchFollowing,
+  }
+)(withRouter(SidebarById))
 
 const Wrapper = styled.div`
   ${customWrapper('40%')}

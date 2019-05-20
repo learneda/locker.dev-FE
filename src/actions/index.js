@@ -138,7 +138,6 @@ export const readNotifications = () => async dispatch => {
 
 export const deleteNotifications = () => async dispatch => {
   await axios.delete(`${URL}/api/notifications/clear`)
-
   dispatch({ type: CLEAR_NOTIFICATIONS })
 }
 

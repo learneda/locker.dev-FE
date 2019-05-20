@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { NavLink, Route, Switch } from 'react-router-dom'
+import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
 import { withAlert } from 'react-alert'
 import axios from 'axios'
 import { Grommet } from 'grommet'
@@ -56,35 +56,35 @@ class Browse extends Component {
   }
 
   render() {
-    const { articles, courses } = this.props
+    const { articles, courses, match } = this.props
     return (
       <Grommet theme={theme}>
         <Wrapper>
           <BrowseContainer>
             <Tabs>
               <Tab>
-                <NavLink exact to='/browse/courses'>
+                <NavLink exact to={`${match.url}/courses`}>
                   Course
                 </NavLink>
               </Tab>
               <Tab>
-                <NavLink to='/browse/articles'>Article</NavLink>
+                <NavLink to={`${match.url}/articles`}>Article</NavLink>
               </Tab>
               <Tab>
-                <NavLink to='/browse/videos'>Video</NavLink>
+                <NavLink to={`${match.url}/videos`}>Video</NavLink>
               </Tab>
               <Tab>
-                <NavLink to='/browse/books'>Book</NavLink>
+                <NavLink to={`${match.url}/books`}>Book</NavLink>
               </Tab>
               <Tab>
-                <NavLink to='/browse/podcasts'>Podcast</NavLink>
+                <NavLink to={`${match.url}/podcasts`}>Podcast</NavLink>
               </Tab>
             </Tabs>
             <TabWrapper>
               <Switch>
                 <Route
                   exact
-                  path={['/browse', '/browse/courses']}
+                  path={[`${match.path}`, `${match.path}/courses`]}
                   render={props => (
                     <Courses
                       {...props}
@@ -97,7 +97,7 @@ class Browse extends Component {
                   )}
                 />
                 <Route
-                  path='/browse/articles'
+                  path={`${match.path}/articles`}
                   render={props => (
                     <Articles
                       {...props}
@@ -109,7 +109,7 @@ class Browse extends Component {
                   )}
                 />
                 <Route
-                  path='/browse/videos'
+                  path={`${match.path}/videos`}
                   render={props => (
                     <Videos
                       {...props}
@@ -120,7 +120,7 @@ class Browse extends Component {
                   )}
                 />
                 <Route
-                  path='/browse/books'
+                  path={`${match.path}/books`}
                   render={props => (
                     <Books
                       {...props}
@@ -130,7 +130,7 @@ class Browse extends Component {
                   )}
                 />
                 <Route
-                  path='/browse/podcasts'
+                  path={`${match.path}/podcasts`}
                   render={props => (
                     <Podcasts
                       {...props}
@@ -160,7 +160,7 @@ const Alert = withAlert()(Browse)
 export default connect(
   mapStateToProps,
   { fetchUser, getCourses, getArticles }
-)(Alert)
+)(withRouter(Alert))
 
 const theme = {
   tab: {

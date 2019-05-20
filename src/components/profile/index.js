@@ -133,17 +133,15 @@ const mapStateToProps = state => {
 
 const Alert = withAlert()(ProfileById)
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    {
-      fetchPosts,
-      deletePost,
-      setSearchTerm,
-      saveLink,
-    }
-  )(Alert)
-)
+export default connect(
+  mapStateToProps,
+  {
+    fetchPosts,
+    deletePost,
+    setSearchTerm,
+    saveLink,
+  }
+)(withRouter(Alert))
 
 const Wrapper = styled.div`
   ${customWrapper('100%', '0 auto')};
