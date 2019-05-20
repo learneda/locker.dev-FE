@@ -57,7 +57,6 @@ class CommentBox extends Component {
                         <span>{comment.content}</span>
                       </div>
                       <MoreBtn
-                        getNewsFeed={this.props.getNewsFeed}
                         handleDeleteComment={this.props.handleDeleteComment}
                         comment_id={comment.id}
                         post_id={this.props.post_id}

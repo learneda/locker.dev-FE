@@ -32,112 +32,61 @@ class Feed extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      posts: [],
-      loading: true,
-      offset: 0,
-      hasMore: true,
       commentValue: '',
     }
+    // connect socket
     this.socket = openSocket(URL)
   }
 
   componentDidMount() {
+    // on CDM socket will emit to all other sockets online that this user connected
     this.socket.emit('join', { user_id: this.props.auth.id })
+
+    // join namespace contains all the current users who are online
     this.socket.on('join', data => {
       console.log(data, 'FROM JOIN CONNECTION')
       this.props.populateNotifications(data)
     })
+
+    // socket is listening on comments event & will receive an obj
     this.socket.on('comments', msg => {
-      console.log(msg)
+      // msg obj contains properties of content, action, post_id, user_id, username, created_at, & updated_at
+
       switch (msg.action) {
+        // when action type === destroy
         case 'destroy':
-          const new_state = this.state.posts.map((post, index) => {
-            if (post.post_id === msg.post_id) {
-              post.comments = post.comments.filter(
-                comment => comment.id !== msg.id
-              )
-            }
-            return post
-          })
-          this.setState({ posts: new_state })
+          // invoke action creator deleteComment & pass in msg obj
+          this.props.deleteComment(msg)
           break
+        // when action type === create
         case 'create':
-          const updated_state = this.state.posts.map((post, index) => {
-            if (post.post_id === msg.post_id) {
-              post.comments.push(msg)
-            }
-            return post
-          })
-          this.setState({ posts: updated_state })
+          // invoke action creator createComment & pass in msg obj
+          this.props.createComment(msg)
           break
         default:
           break
       }
     })
-
+    // socket is listening on like event & will receive an obj
     this.socket.on('like', data => {
+      // obj contains postOwnerId, post_id, user_id, username
       console.log('in like socket connection', data)
       switch (data.action) {
         case 'unlike':
-          const updated_state = this.state.posts.map((post, index) => {
-            if (post.post_id === data.post_id) {
-              const likes = post.likes
-              post.likes = likes - 1
-            }
-            return post
-          })
-          this.setState({ posts: updated_state })
+          // invoke action creator unlikeComment & pass in msg obj
+          this.props.unlikeComment(data)
           break
+        case 'like':
+          // invoke action creator likeComment & pass in msg obj
+          this.props.likeComment(data)
         default:
-          const update_state = this.state.posts.map((post, index) => {
-            if (post.post_id === data.post_id) {
-              const likes = post.likes
-              post.likes = likes + 1
-            }
-            return post
-          })
-          this.setState({ posts: update_state })
           break
       }
     })
-    this.getNewsFeed()
   }
 
   componentWillUnmount() {
     this.socket.disconnect()
-  }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   return this.state.posts != nextState.posts;
-  // }
-  // handles infinite scroll functionality
-
-  handleOffset = async () => {
-    this.setState(prevState => ({
-      offset: prevState.offset + 5,
-    }))
-
-    axios
-      .get(`${URL}/api/users/newsfeed?offset=${this.state.offset}`)
-      .then(res => {
-        if (res.data.length > 0) {
-          this.setState({
-            posts: this.state.posts.concat(res.data),
-          })
-        } else {
-          this.setState({ hasMore: false })
-        }
-      })
-  }
-
-  getNewsFeed = () => {
-    const offset = this.state.offset
-    axios
-      .get(`${URL}/api/users/newsfeed?offset=${offset}`)
-      .then(res => {
-        this.setState({ posts: res.data, loading: false })
-      })
-      .catch(err => console.log(err))
   }
 
   handleSubmit = (event, post_id, comment, postOwnerId) => {
@@ -168,9 +117,16 @@ class Feed extends Component {
   }
 
   render() {
-    console.log('rendering')
+    while (!this.props.user) {
+      console.log('in while ')
+      return (
+        <Container>
+          <MyLoader />
+        </Container>
+      )
+    }
     const search = this.props.searchTerm
-    const filteredPosts = this.state.posts.filter((post, index) => {
+    const filteredPosts = this.props.posts.filter((post, index) => {
       return (
         post.title.toLowerCase().includes(search.toLowerCase()) ||
         post.thumbnail_url.toLowerCase().includes(search.toLowerCase()) ||
@@ -178,42 +134,33 @@ class Feed extends Component {
         post.username.toLowerCase().includes(search.toLowerCase())
       )
     })
-    let feed = []
-    if (this.props.user) {
-      feed = filteredPosts.map((post, index) => (
-        <PostContainer
-          key={index}
-          handleSubmit={this.handleSubmit}
-          handleClick={this.handleClick}
-          getNewsFeed={this.getNewsFeed}
-          post={post}
-          user_id={this.props.auth.id}
-          username={this.props.user.username}
-          profile_picture={this.props.user.profilePicture}
-          handleDeleteComment={this.handleDeleteComment}
-          socketId={this.socket.id}
-        />
-      ))
-    }
 
-    while (!this.props.user) {
-      return (
-        <Container>
-          <MyLoader />
-        </Container>
-      )
-    }
+    let posts = []
 
-    if (this.state.posts) {
+    posts = filteredPosts.map((post, index) => (
+      <PostContainer
+        key={index}
+        handleSubmit={this.handleSubmit}
+        handleClick={this.handleClick}
+        post={post}
+        user_id={this.props.auth.id}
+        username={this.props.user.username}
+        profile_picture={this.props.user.profilePicture}
+        handleDeleteComment={this.handleDeleteComment}
+        socketId={this.socket.id}
+      />
+    ))
+
+    if (this.props.posts) {
       return (
         <Container>
           <InfiniteScroll
-            dataLength={this.state.posts.length}
-            next={this.handleOffset}
-            hasMore={this.state.hasMore}
+            dataLength={this.props.posts.length}
+            next={() => this.props.subsequentFetchFeed(this.props.offset)}
+            hasMore={this.props.hasmore}
             loader={<Loading style={{ margin: 'auto', display: 'block' }} />}
           >
-            {feed}
+            {posts}
           </InfiniteScroll>
         </Container>
       )
