@@ -5,7 +5,7 @@ import { Grommet } from 'grommet'
 import styled from 'styled-components'
 import Feed from '../../components/feed'
 import Collections from '../../components/collections'
-import Likes from '../../components/likes/Likes'
+import Locker from '../../components/locker/Locker'
 import Sidebar from '../../components/sidebar/Sidebar'
 import Suggested from '../../components/sidebar/Suggested'
 import { customWrapper } from '../../components/mixins'
@@ -19,6 +19,12 @@ import {
   fetchLocker,
   fetchPosts,
   followAUser,
+  fetchFeed,
+  subsequentFetchFeed,
+  createComment,
+  deleteComment,
+  likeComment,
+  unlikeComment,
 } from '../../actions'
 class Home extends Component {
   componentDidMount() {
@@ -28,6 +34,7 @@ class Home extends Component {
     this.props.fetchSuggested(this.props.auth.id)
     this.props.fetchFollowing(this.props.auth.id)
     this.props.fetchFollowers(this.props.auth.id)
+    this.props.fetchFeed()
   }
 
   componentWillUnmount() {}
@@ -53,6 +60,12 @@ class Home extends Component {
       fetchSuggested,
       followAUser,
       deletePost,
+      feed,
+      subsequentFetchFeed,
+      createComment,
+      deleteComment,
+      likeComment,
+      unlikeComment,
     } = this.props
     return (
       <Grommet theme={theme}>
@@ -96,6 +109,14 @@ class Home extends Component {
                       user={user}
                       searchTerm={searchTerm}
                       populateNotifications={populateNotifications}
+                      posts={feed.posts}
+                      hasmore={feed.hasmore}
+                      subsequentFetchFeed={subsequentFetchFeed}
+                      offset={feed.offset}
+                      createComment={createComment}
+                      deleteComment={deleteComment}
+                      likeComment={likeComment}
+                      unlikeComment={unlikeComment}
                     />
                   )}
                 />
@@ -115,7 +136,7 @@ class Home extends Component {
                 <Route
                   path={`${match.path}/locker`}
                   render={props => (
-                    <Likes
+                    <Locker
                       {...props}
                       auth={auth}
                       locker={locker}
@@ -147,6 +168,7 @@ const mapStateToProps = ({
   posts,
   locker,
   social,
+  feed,
 }) => ({
   auth,
   user,
@@ -156,6 +178,7 @@ const mapStateToProps = ({
   following: social.following,
   followers: social.followers,
   suggested: social.suggested,
+  feed,
 })
 
 export default connect(
@@ -170,6 +193,12 @@ export default connect(
     fetchFollowing,
     fetchSuggested,
     followAUser,
+    fetchFeed,
+    subsequentFetchFeed,
+    createComment,
+    deleteComment,
+    likeComment,
+    unlikeComment,
   }
 )(withRouter(Home))
 

@@ -10,7 +10,7 @@ import { truncateText, customLayout } from '../mixins'
 import axios from 'axios'
 axios.defaults.withCredentials = true
 
-class Likes extends Component {
+class Locker extends Component {
   handleTruncateText = (content, limit = 10) => {
     return truncateText(content, limit)
   }
@@ -74,7 +74,7 @@ class Likes extends Component {
   }
 }
 
-export default withRouter(Likes)
+export default withRouter(Locker)
 
 // Extracted single post in a stateless component
 // const SinglePost = ({ post, handleTruncateText }) => {
