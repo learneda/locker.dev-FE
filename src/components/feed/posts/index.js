@@ -156,7 +156,6 @@ class PostContainer extends Component {
       post,
       handleSubmit,
       handleClick,
-      getNewsFeed,
       profile_picture,
       user_id,
       handleDeleteComment,

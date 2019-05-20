@@ -57,6 +57,7 @@ class Home extends Component {
       followAUser,
       deletePost,
       feed,
+      subsequentFetchFeed,
     } = this.props
     return (
       <Grommet theme={theme}>
@@ -100,7 +101,10 @@ class Home extends Component {
                       user={user}
                       searchTerm={searchTerm}
                       populateNotifications={populateNotifications}
-                      feed={feed.feed}
+                      posts={feed.posts}
+                      hasmore={feed.hasmore}
+                      subsequentFetchFeed={subsequentFetchFeed}
+                      offset={feed.offset}
                     />
                   )}
                 />
@@ -179,6 +183,7 @@ export default withRouter(
       fetchSuggested,
       followAUser,
       fetchFeed,
+      subsequentFetchFeed,
     }
   )(Home)
 )

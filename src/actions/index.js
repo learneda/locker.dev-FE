@@ -23,7 +23,8 @@ import {
   CLEAR_NOTIFICATIONS,
   FETCH_LOCKER,
   FETCH_FEED,
-  TOGGLE_HAS_MORE
+  TOGGLE_HAS_MORE,
+  INCREMENT_OFFSET,
 } from './types'
 
 import { post as URL } from '../services/baseURL'
@@ -153,9 +154,13 @@ export const fetchFeed = () => async dispatch => {
 }
 
 export const subsequentFetchFeed = offset => async dispatch => {
+  console.log('subsequentFetchFeed got called')
+  console.log('this is offset', offset)
   const newsFeed = await axios.get(`${URL}/api/users/newsfeed?offset=${offset}`)
+
   if (newsFeed.data.length) {
     dispatch({ type: FETCH_FEED, payload: newsFeed.data })
+    dispatch({ type: INCREMENT_OFFSET, payload: offset + 5 })
   } else {
     dispatch({ type: TOGGLE_HAS_MORE, payload: false })
   }

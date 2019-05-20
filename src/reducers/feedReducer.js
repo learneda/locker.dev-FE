@@ -1,21 +1,19 @@
-import { FETCH_FEED, TOGGLE_HAS_MORE } from '../actions/types'
+import { FETCH_FEED, TOGGLE_HAS_MORE, INCREMENT_OFFSET } from '../actions/types'
 
 const initialState = {
-  feed: [],
+  posts: [],
   hasmore: true,
+  offset: 0,
 }
 export const feedReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_FEED:
-      state.feed = [...action.payload, ...state.feed]
-      return state
-      break
+      return { ...state, posts: [...state.posts, ...action.payload] }
     case TOGGLE_HAS_MORE:
-      state.hasmore = action.payload
-      return state
-      break
+      return { ...state, hasmore: action.payload }
+    case INCREMENT_OFFSET:
+      return { ...state, offset: action.payload }
     default:
       return state
-      break
   }
 }

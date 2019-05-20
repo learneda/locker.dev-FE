@@ -32,10 +32,6 @@ class Feed extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      posts: [],
-      loading: true,
-      offset: 0,
-      hasMore: true,
       commentValue: '',
     }
     this.socket = openSocket(URL)
@@ -107,37 +103,6 @@ class Feed extends Component {
     this.socket.disconnect()
   }
 
-  // handles infinite scroll functionality
-
-  handleOffset = async () => {
-    // this.setState(prevState => ({
-    //   offset: prevState.offset + 5,
-    // }))
-
-    // axios
-    //   .get(`${URL}/api/users/newsfeed?offset=${this.state.offset}`)
-    //   .then(res => {
-    //     if (res.data.length > 0) {
-    //       this.setState({
-    //         posts: this.state.posts.concat(res.data),
-    //       })
-    //     } else {
-    //       this.setState({ hasMore: false })
-    //     }
-    //   })
-    console.log('in handle off set')
-  }
-
-  // getNewsFeed = () => {
-  //   const offset = this.state.offset
-  //   axios
-  //     .get(`${URL}/api/users/newsfeed?offset=${offset}`)
-  //     .then(res => {
-  //       this.setState({ posts: res.data, loading: false })
-  //     })
-  //     .catch(err => console.log(err))
-  // }
-
   handleSubmit = (event, post_id, comment, postOwnerId) => {
     const body = comment.trim()
     if (body) {
@@ -166,34 +131,14 @@ class Feed extends Component {
   }
 
   render() {
-    console.log('from feed', this.props.feed)
-    const search = this.props.searchTerm
-    const filteredPosts = this.props.feed.filter((post, index) => {
-      return (
-        post.title.toLowerCase().includes(search.toLowerCase()) ||
-        post.thumbnail_url.toLowerCase().includes(search.toLowerCase()) ||
-        post.description.toLowerCase().includes(search.toLowerCase()) ||
-        post.username.toLowerCase().includes(search.toLowerCase())
-      )
-    })
-    let feed = []
-    if (this.props.user) {
-      feed = filteredPosts.map((post, index) => (
-        <PostContainer
-          key={index}
-          handleSubmit={this.handleSubmit}
-          handleClick={this.handleClick}
-          post={post}
-          user_id={this.props.auth.id}
-          username={this.props.user.username}
-          profile_picture={this.props.user.profilePicture}
-          handleDeleteComment={this.handleDeleteComment}
-          socketId={this.socket.id}
-        />
-      ))
-    }
+    console.log(
+      'Feed component got rendered',
+      this.props.posts,
+      this.props.hasmore
+    )
 
     while (!this.props.user) {
+      console.log('in while ')
       return (
         <Container>
           <MyLoader />
@@ -201,16 +146,43 @@ class Feed extends Component {
       )
     }
 
-    if (this.state.posts) {
+    const search = this.props.searchTerm
+    const filteredPosts = this.props.posts.filter((post, index) => {
+      return (
+        post.title.toLowerCase().includes(search.toLowerCase()) ||
+        post.thumbnail_url.toLowerCase().includes(search.toLowerCase()) ||
+        post.description.toLowerCase().includes(search.toLowerCase()) ||
+        post.username.toLowerCase().includes(search.toLowerCase())
+      )
+    })
+
+    let posts = []
+
+    // if (this.props.user) {
+    posts = filteredPosts.map((post, index) => (
+      <PostContainer
+        key={index}
+        handleSubmit={this.handleSubmit}
+        handleClick={this.handleClick}
+        post={post}
+        user_id={this.props.auth.id}
+        username={this.props.user.username}
+        profile_picture={this.props.user.profilePicture}
+        handleDeleteComment={this.handleDeleteComment}
+        socketId={this.socket.id}
+      />
+    ))
+    // }
+    if (this.props.posts) {
       return (
         <Container>
           <InfiniteScroll
-            dataLength={this.state.posts.length}
-            next={this.handleOffset}
-            hasMore={this.state.hasMore}
+            dataLength={this.props.posts.length}
+            next={() => this.props.subsequentFetchFeed(this.props.offset)}
+            hasMore={this.props.hasmore}
             loader={<Loading style={{ margin: 'auto', display: 'block' }} />}
           >
-            {feed}
+            {posts}
           </InfiniteScroll>
         </Container>
       )
