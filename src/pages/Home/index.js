@@ -5,7 +5,7 @@ import { Grommet } from 'grommet'
 import styled from 'styled-components'
 import Feed from '../../components/feed'
 import Collections from '../../components/collections'
-import Likes from '../../components/likes/Likes'
+import Locker from '../../components/locker/Locker'
 import Sidebar from '../../components/sidebar/Sidebar'
 import Suggested from '../../components/sidebar/Suggested'
 import { customWrapper } from '../../components/mixins'
@@ -136,7 +136,7 @@ class Home extends Component {
                 <Route
                   path={`${match.path}/locker`}
                   render={props => (
-                    <Likes
+                    <Locker
                       {...props}
                       auth={auth}
                       locker={locker}
