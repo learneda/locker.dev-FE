@@ -34,7 +34,11 @@ class Home extends Component {
     this.props.fetchSuggested(this.props.auth.id)
     this.props.fetchFollowing(this.props.auth.id)
     this.props.fetchFollowers(this.props.auth.id)
-    this.props.fetchFeed()
+
+    // only fetch if feed post arr is length of zero
+    if (!this.props.feed.posts.length) {
+      this.props.fetchFeed()
+    }
   }
 
   componentWillUnmount() {}
