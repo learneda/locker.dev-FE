@@ -28,6 +28,7 @@ import {
   ADD_COMMENT,
   DELETE_COMMENT,
   LIKE_COMMENT,
+  UNLIKE_COMMENT,
 } from './types'
 
 import { post as URL } from '../services/baseURL'
@@ -179,4 +180,8 @@ export const deleteComment = commentData => async dispatch => {
 
 export const likeComment = commentData => async dispatch => {
   dispatch({ type: LIKE_COMMENT, payload: commentData })
+}
+
+export const unlikeComment = commentData => async dispatch => {
+  dispatch({ type: UNLIKE_COMMENT, payload: commentData })
 }

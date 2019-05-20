@@ -62,14 +62,7 @@ class Feed extends Component {
       console.log('in like socket connection', data)
       switch (data.action) {
         case 'unlike':
-          const updated_state = this.state.posts.map((post, index) => {
-            if (post.post_id === data.post_id) {
-              const likes = post.likes
-              post.likes = likes - 1
-            }
-            return post
-          })
-          this.setState({ posts: updated_state })
+          this.props.unlikeComment(data)
           break
         case 'like':
           this.props.likeComment(data)

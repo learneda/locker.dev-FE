@@ -24,6 +24,7 @@ import {
   createComment,
   deleteComment,
   likeComment,
+  unlikeComment,
 } from '../../actions'
 class Home extends Component {
   componentDidMount() {
@@ -64,6 +65,7 @@ class Home extends Component {
       createComment,
       deleteComment,
       likeComment,
+      unlikeComment,
     } = this.props
     return (
       <Grommet theme={theme}>
@@ -114,6 +116,7 @@ class Home extends Component {
                       createComment={createComment}
                       deleteComment={deleteComment}
                       likeComment={likeComment}
+                      unlikeComment={unlikeComment}
                     />
                   )}
                 />
@@ -196,6 +199,7 @@ export default withRouter(
       createComment,
       deleteComment,
       likeComment,
+      unlikeComment,
     }
   )(Home)
 )
