@@ -13,7 +13,7 @@ export const postReducer = (state = [], action) => {
       return [...state, action.payload]
     case DELETE_POST:
       return state.filter(
-        collection => collection.id != action.payload.deletedRecord.id
+        collection => collection.id !== action.payload.deletedRecord.id
       )
     case UPDATE_POSTS_STATE:
       return [...state, action.payload]
