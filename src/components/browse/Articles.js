@@ -7,8 +7,8 @@ import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
 import { useThrottle } from 'use-throttle'
 const Articles = props => {
   const {
-    searchTerm,
     articles,
+    searchTerm,
     articleOffset,
     fetchMoreArticles,
     searchArticles,
@@ -23,7 +23,6 @@ const Articles = props => {
 
   //* Don't run search on mount if offset=0 and search is empty
   useEffect(() => {
-    console.log(throttledSearch, 'search')
     const asyncSearchArticles = async () => {
       const offset = 0
       await searchArticles(searchTerm, offset)
@@ -53,7 +52,6 @@ const Articles = props => {
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'space-between',
-            position: 'relative',
           }}
           endMessage={
             <div style={{}}>

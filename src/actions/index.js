@@ -2,6 +2,7 @@ import axios from 'axios'
 import {
   FETCH_AUTH,
   FETCH_COURSES,
+  SEARCH_COURSES,
   FETCH_ARTICLES,
   AUTH_MODAL_TOGGLE,
   AUTH_MODAL_LOGIN,
@@ -35,9 +36,14 @@ export const fetchAuth = () => async dispatch => {
   dispatch({ type: FETCH_AUTH, payload: res.data })
 }
 
-export const fetchCourses = page => async dispatch => {
-  const res = await axios.get(`${URL}/api/courses?page=${page}`)
+export const fetchCourses = (q, page) => async dispatch => {
+  const res = await axios.get(`${URL}/api/courses?page=${page}&search=${q}`)
   dispatch({ type: FETCH_COURSES, payload: res.data.results })
+}
+
+export const searchCourses = (q, page) => async dispatch => {
+  const res = await axios.get(`${URL}/api/courses?page=${page}&search=${q}`)
+  dispatch({ type: SEARCH_COURSES, payload: res.data.results })
 }
 
 export const fetchArticles = (q, offset) => async dispatch => {
