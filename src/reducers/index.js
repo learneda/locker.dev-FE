@@ -15,7 +15,6 @@ export default combineReducers({
   browse,
   modal,
   posts,
-  likedPosts,
   searchTerm,
   social,
   user,
