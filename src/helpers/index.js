@@ -6,6 +6,7 @@ import { ReactComponent as Google } from '../assets/svg/google.svg'
 import { ReactComponent as FreeCodeCamp } from '../assets/svg/freecodecamp.svg'
 import { ReactComponent as ListenApi } from '../assets/svg/listenapi.svg'
 
+//* Selects proper logo to display based on url
 export const selectLogo = url => {
   if (url) {
     const logos = [
@@ -33,5 +34,12 @@ export const selectLogo = url => {
       default:
         return
     }
+  }
+}
+
+//* Return random element from an array
+export const selectRandom = arr => {
+  if (arr && arr.length) {
+    return arr[Math.floor(Math.random() * arr.length)]
   }
 }

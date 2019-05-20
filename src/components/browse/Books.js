@@ -25,7 +25,7 @@ const Books = ({ search, handleSaveMedia, alert }) => {
     axios
       .get(`${URL}/api/books/search`, {
         params: {
-          q: query || 'javascript',
+          q: query || 'react',
         },
       })
       .then(res => {
@@ -41,7 +41,7 @@ const Books = ({ search, handleSaveMedia, alert }) => {
     axios
       .get(`${URL}/api/books/search`, {
         params: {
-          q: search || 'javascript',
+          q: search || 'react',
           offset,
         },
       })
