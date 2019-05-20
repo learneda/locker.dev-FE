@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import styled from 'styled-components'
 import { customLayout } from '../mixins'
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
+
 const Articles = props => {
   const {
     searchTerm,
     articles,
+    articleOffset,
     fetchMoreArticles,
     searchArticles,
     setArticleOffset,
@@ -16,15 +18,28 @@ const Articles = props => {
     alert,
   } = props
 
+  const [isLoading, setIsLoading] = useState(false)
+
+  //* Don't run search on mount if offset=0 and search is empty
   useEffect(() => {
-    const offset = 0
-    setArticleOffset(offset)
-    searchArticles(searchTerm, offset)
+    const asyncSearchArticles = async () => {
+      await searchArticles(searchTerm, articleOffset)
+      setIsLoading(false)
+    }
+    if (articleOffset || searchTerm) {
+      setArticleOffset(0)
+      setIsLoading(true)
+      asyncSearchArticles()
+    }
   }, [searchTerm])
 
+  //* hasMore false only when searchQuery returns no matches
+  const hasMore = !Boolean(searchTerm) || Boolean(articles.length)
+
+  //TODO: Clean up hasMore and isLoading logic
   return (
     <Cards>
-      {articles.length === 0 ? (
+      {isLoading ? (
         <Loader>
           <Loading />
         </Loader>
@@ -32,12 +47,18 @@ const Articles = props => {
         <InfiniteScroll
           dataLength={articles.length}
           next={fetchMoreArticles}
-          hasMore={true}
+          hasMore={hasMore}
           style={{
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'space-between',
+            position: 'relative',
           }}
+          endMessage={
+            <div style={{}}>
+              <b>No Articles Matched Search Criteria 🙁</b>
+            </div>
+          }
         >
           {/* //TODO: Fix Unsplash hack */}
           {articles.map((article, index) => (

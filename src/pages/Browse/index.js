@@ -70,6 +70,7 @@ class Browse extends Component {
   render() {
     const {
       searchTerm,
+      articleOffset,
       articles,
       courses,
       coursePage,
@@ -122,6 +123,7 @@ class Browse extends Component {
                     <Articles
                       {...props}
                       searchTerm={searchTerm}
+                      articleOffset={articleOffset}
                       articles={articles}
                       searchArticles={searchArticles}
                       fetchMoreArticles={this.fetchMoreArticles}

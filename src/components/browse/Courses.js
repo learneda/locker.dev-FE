@@ -38,8 +38,8 @@ const Courses = props => {
                 rel='noopener noreferrer'
               >
                 <img src={course.image_480x270} alt='course-thumbnail' />
-                <h3>{handleTruncateText(course.title)}</h3>
-                <p>{handleTruncateText(course.headline, 15)}</p>
+                <h3>{handleTruncateText(course.title, 80)}</h3>
+                <p>{handleTruncateText(course.headline, 160)}</p>
               </a>
               <SaveIcon>
                 <Add
