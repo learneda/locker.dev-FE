@@ -49,25 +49,9 @@ class Feed extends Component {
       console.log(msg)
       switch (msg.action) {
         case 'destroy':
-          const new_state = this.state.posts.map((post, index) => {
-            if (post.post_id === msg.post_id) {
-              post.comments = post.comments.filter(
-                comment => comment.id !== msg.id
-              )
-            }
-            return post
-          })
-
-          this.setState({ posts: new_state })
+          this.props.deleteComment(msg)
           break
         case 'create':
-          // const updated_state = this.props.posts.map((post, index) => {
-          //   if (post.post_id === msg.post_id) {
-          //     post.comments.push(msg)
-          //   }
-          //   return post
-          // })
-          // this.setState({ posts: updated_state })
           this.props.createComment(msg)
           break
         default:

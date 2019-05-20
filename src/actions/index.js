@@ -26,6 +26,7 @@ import {
   TOGGLE_HAS_MORE,
   INCREMENT_OFFSET,
   ADD_COMMENT,
+  DELETE_COMMENT,
 } from './types'
 
 import { post as URL } from '../services/baseURL'
@@ -166,6 +167,11 @@ export const subsequentFetchFeed = offset => async dispatch => {
 }
 
 export const createComment = commentData => async dispatch => {
-  console.log(commentData)
+  console.log('this is commentData', commentData)
   dispatch({ type: ADD_COMMENT, payload: commentData })
+}
+
+export const deleteComment = commentData => async dispatch => {
+  console.log('this is commentData', commentData)
+  dispatch({ type: DELETE_COMMENT, payload: commentData })
 }
