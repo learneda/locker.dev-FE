@@ -19,6 +19,8 @@ import {
   fetchLocker,
   fetchPosts,
   followAUser,
+  fetchFeed,
+  subsequentFetchFeed,
 } from '../../actions'
 class Home extends Component {
   componentDidMount() {
@@ -28,6 +30,7 @@ class Home extends Component {
     this.props.fetchSuggested(this.props.auth.id)
     this.props.fetchFollowing(this.props.auth.id)
     this.props.fetchFollowers(this.props.auth.id)
+    this.props.fetchFeed()
   }
 
   componentWillUnmount() {}
@@ -53,6 +56,7 @@ class Home extends Component {
       fetchSuggested,
       followAUser,
       deletePost,
+      feed,
     } = this.props
     return (
       <Grommet theme={theme}>
@@ -96,6 +100,7 @@ class Home extends Component {
                       user={user}
                       searchTerm={searchTerm}
                       populateNotifications={populateNotifications}
+                      feed={feed.feed}
                     />
                   )}
                 />
@@ -147,6 +152,7 @@ const mapStateToProps = ({
   posts,
   locker,
   social,
+  feed,
 }) => ({
   auth,
   user,
@@ -156,6 +162,7 @@ const mapStateToProps = ({
   following: social.following,
   followers: social.followers,
   suggested: social.suggested,
+  feed,
 })
 
 export default withRouter(
@@ -171,6 +178,7 @@ export default withRouter(
       fetchFollowing,
       fetchSuggested,
       followAUser,
+      fetchFeed,
     }
   )(Home)
 )

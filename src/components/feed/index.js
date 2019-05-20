@@ -42,103 +42,101 @@ class Feed extends Component {
   }
 
   componentDidMount() {
-    this.socket.emit('join', { user_id: this.props.auth.id })
-    this.socket.on('join', data => {
-      console.log(data, 'FROM JOIN CONNECTION')
-      this.props.populateNotifications(data)
-    })
-    this.socket.on('comments', msg => {
-      console.log(msg)
-      switch (msg.action) {
-        case 'destroy':
-          const new_state = this.state.posts.map((post, index) => {
-            if (post.post_id === msg.post_id) {
-              post.comments = post.comments.filter(
-                comment => comment.id !== msg.id
-              )
-            }
-            return post
-          })
-          this.setState({ posts: new_state })
-          break
-        case 'create':
-          const updated_state = this.state.posts.map((post, index) => {
-            if (post.post_id === msg.post_id) {
-              post.comments.push(msg)
-            }
-            return post
-          })
-          this.setState({ posts: updated_state })
-          break
-        default:
-          break
-      }
-    })
-
-    this.socket.on('like', data => {
-      console.log('in like socket connection', data)
-      switch (data.action) {
-        case 'unlike':
-          const updated_state = this.state.posts.map((post, index) => {
-            if (post.post_id === data.post_id) {
-              const likes = post.likes
-              post.likes = likes - 1
-            }
-            return post
-          })
-          this.setState({ posts: updated_state })
-          break
-        default:
-          const update_state = this.state.posts.map((post, index) => {
-            if (post.post_id === data.post_id) {
-              const likes = post.likes
-              post.likes = likes + 1
-            }
-            return post
-          })
-          this.setState({ posts: update_state })
-          break
-      }
-    })
-    this.getNewsFeed()
+    // this.socket.emit('join', { user_id: this.props.auth.id })
+    // this.socket.on('join', data => {
+    //   console.log(data, 'FROM JOIN CONNECTION')
+    //   this.props.populateNotifications(data)
+    // })
+    // this.socket.on('comments', msg => {
+    //   console.log(msg)
+    //   switch (msg.action) {
+    //     case 'destroy':
+    //       const new_state = this.state.posts.map((post, index) => {
+    //         if (post.post_id === msg.post_id) {
+    //           post.comments = post.comments.filter(
+    //             comment => comment.id !== msg.id
+    //           )
+    //         }
+    //         return post
+    //       })
+    //       this.setState({ posts: new_state })
+    //       break
+    //     case 'create':
+    //       const updated_state = this.state.posts.map((post, index) => {
+    //         if (post.post_id === msg.post_id) {
+    //           post.comments.push(msg)
+    //         }
+    //         return post
+    //       })
+    //       this.setState({ posts: updated_state })
+    //       break
+    //     default:
+    //       break
+    //   }
+    // })
+    // this.socket.on('like', data => {
+    //   console.log('in like socket connection', data)
+    //   switch (data.action) {
+    //     case 'unlike':
+    //       const updated_state = this.state.posts.map((post, index) => {
+    //         if (post.post_id === data.post_id) {
+    //           const likes = post.likes
+    //           post.likes = likes - 1
+    //         }
+    //         return post
+    //       })
+    //       this.setState({ posts: updated_state })
+    //       break
+    //     default:
+    //       const update_state = this.state.posts.map((post, index) => {
+    //         if (post.post_id === data.post_id) {
+    //           const likes = post.likes
+    //           post.likes = likes + 1
+    //         }
+    //         return post
+    //       })
+    //       this.setState({ posts: update_state })
+    //       break
+    //   }
+    // })
+    // this.getNewsFeed()
+    // console.log(this.props.feed)
   }
 
   componentWillUnmount() {
     this.socket.disconnect()
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   return this.state.posts != nextState.posts;
-  // }
   // handles infinite scroll functionality
 
   handleOffset = async () => {
-    this.setState(prevState => ({
-      offset: prevState.offset + 5,
-    }))
+    // this.setState(prevState => ({
+    //   offset: prevState.offset + 5,
+    // }))
 
-    axios
-      .get(`${URL}/api/users/newsfeed?offset=${this.state.offset}`)
-      .then(res => {
-        if (res.data.length > 0) {
-          this.setState({
-            posts: this.state.posts.concat(res.data),
-          })
-        } else {
-          this.setState({ hasMore: false })
-        }
-      })
+    // axios
+    //   .get(`${URL}/api/users/newsfeed?offset=${this.state.offset}`)
+    //   .then(res => {
+    //     if (res.data.length > 0) {
+    //       this.setState({
+    //         posts: this.state.posts.concat(res.data),
+    //       })
+    //     } else {
+    //       this.setState({ hasMore: false })
+    //     }
+    //   })
+    console.log('in handle off set')
   }
 
-  getNewsFeed = () => {
-    const offset = this.state.offset
-    axios
-      .get(`${URL}/api/users/newsfeed?offset=${offset}`)
-      .then(res => {
-        this.setState({ posts: res.data, loading: false })
-      })
-      .catch(err => console.log(err))
-  }
+  // getNewsFeed = () => {
+  //   const offset = this.state.offset
+  //   axios
+  //     .get(`${URL}/api/users/newsfeed?offset=${offset}`)
+  //     .then(res => {
+  //       this.setState({ posts: res.data, loading: false })
+  //     })
+  //     .catch(err => console.log(err))
+  // }
 
   handleSubmit = (event, post_id, comment, postOwnerId) => {
     const body = comment.trim()
@@ -168,8 +166,9 @@ class Feed extends Component {
   }
 
   render() {
+    console.log('from feed', this.props.feed)
     const search = this.props.searchTerm
-    const filteredPosts = this.state.posts.filter((post, index) => {
+    const filteredPosts = this.props.feed.filter((post, index) => {
       return (
         post.title.toLowerCase().includes(search.toLowerCase()) ||
         post.thumbnail_url.toLowerCase().includes(search.toLowerCase()) ||
@@ -184,7 +183,6 @@ class Feed extends Component {
           key={index}
           handleSubmit={this.handleSubmit}
           handleClick={this.handleClick}
-          getNewsFeed={this.getNewsFeed}
           post={post}
           user_id={this.props.auth.id}
           username={this.props.user.username}

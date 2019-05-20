@@ -8,6 +8,7 @@ import { socialReducer as social } from './socialReducer'
 import { userReducer as user } from './userReducer'
 import { notificationsReducer as notifications } from './notificationsReducer'
 import { lockerReducer as locker } from './lockerReducer'
+import { feedReducer as feed } from './feedReducer'
 
 export default combineReducers({
   auth,
@@ -19,4 +20,5 @@ export default combineReducers({
   user,
   notifications,
   locker,
+  feed,
 })

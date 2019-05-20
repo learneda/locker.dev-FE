@@ -246,7 +246,6 @@ class PostContainer extends Component {
           post_comments={post.comments}
           post_id={post.post_id}
           handleClick={handleClick}
-          getNewsFeed={getNewsFeed}
           handleSubmit={handleSubmit}
           profile_picture={profile_picture}
           handleDeleteComment={handleDeleteComment}

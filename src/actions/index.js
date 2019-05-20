@@ -22,6 +22,8 @@ import {
   FETCH_NOTIFICATIONS,
   CLEAR_NOTIFICATIONS,
   FETCH_LOCKER,
+  FETCH_FEED,
+  TOGGLE_HAS_MORE
 } from './types'
 
 import { post as URL } from '../services/baseURL'
@@ -140,5 +142,21 @@ export const fetchLocker = () => async dispatch => {
   const lockerData = await axios.get(`${URL}/api/locker`)
   if (lockerData.data.length) {
     dispatch({ type: FETCH_LOCKER, payload: lockerData.data })
+  }
+}
+// initial action creator to fetch newsfeed
+export const fetchFeed = () => async dispatch => {
+  const newsFeed = await axios.get(`${URL}/api/users/newsfeed?offset=0`)
+  if (newsFeed.data.length) {
+    dispatch({ type: FETCH_FEED, payload: newsFeed.data })
+  }
+}
+
+export const subsequentFetchFeed = offset => async dispatch => {
+  const newsFeed = await axios.get(`${URL}/api/users/newsfeed?offset=${offset}`)
+  if (newsFeed.data.length) {
+    dispatch({ type: FETCH_FEED, payload: newsFeed.data })
+  } else {
+    dispatch({ type: TOGGLE_HAS_MORE, payload: false })
   }
 }
