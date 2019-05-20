@@ -1,36 +1,91 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
 import styled from 'styled-components'
 import { customLayout } from '../mixins'
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
+
 const Articles = props => {
-  const { articles, handleTruncateText, handleSaveLink, alert } = props
+  const {
+    searchTerm,
+    articles,
+    articleOffset,
+    fetchMoreArticles,
+    searchArticles,
+    setArticleOffset,
+    handleTruncateText,
+    handleSaveLink,
+    alert,
+  } = props
+
+  const [isLoading, setIsLoading] = useState(false)
+
+  //* Don't run search on mount if offset=0 and search is empty
+  useEffect(() => {
+    const asyncSearchArticles = async () => {
+      await searchArticles(searchTerm, articleOffset)
+      setIsLoading(false)
+    }
+    if (articleOffset || searchTerm) {
+      setArticleOffset(0)
+      setIsLoading(true)
+      asyncSearchArticles()
+    }
+  }, [searchTerm])
+
+  //* hasMore false only when searchQuery returns no matches
+  const hasMore = !Boolean(searchTerm) || Boolean(articles.length)
+
+  //TODO: Clean up hasMore and isLoading logic
   return (
     <Cards>
-      {articles.length === 0 ? (
+      {isLoading ? (
         <Loader>
           <Loading />
         </Loader>
       ) : (
-        articles.map((article, index) => (
-          <Card key={index}>
-            <a href={article.url} target='_blank' rel='noopener noreferrer'>
-              <img src={article.thumbnail} alt='article-thumbnail' />
-
-              <h3>{handleTruncateText(article.title)}</h3>
-              <p>{handleTruncateText(article.description, 15)}</p>
-            </a>
-            <SaveIcon>
-              <Add
-                className='save-icon'
-                onClick={() => {
-                  handleSaveLink(article.url)
-                  alert.success('Article added to Bookmarks')
-                }}
-              />
-            </SaveIcon>
-          </Card>
-        ))
+        <InfiniteScroll
+          dataLength={articles.length}
+          next={fetchMoreArticles}
+          hasMore={hasMore}
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            position: 'relative',
+          }}
+          endMessage={
+            <div style={{}}>
+              <b>No Articles Matched Search Criteria 🙁</b>
+            </div>
+          }
+        >
+          {/* //TODO: Fix Unsplash hack */}
+          {articles.map((article, index) => (
+            <Card key={index}>
+              <a href={article.url} target='_blank' rel='noopener noreferrer'>
+                <img
+                  src={
+                    article.thumbnail ||
+                    'https://source.unsplash.com/random/345x180'
+                  }
+                  alt='article-thumbnail'
+                />
+                <h3>{handleTruncateText(article.title, 80)}</h3>
+                <p>{handleTruncateText(article.description, 160)}</p>
+              </a>
+              <SaveIcon>
+                <Add
+                  className='save-icon'
+                  onClick={() => {
+                    handleSaveLink(article.url)
+                    alert.success('Article added to Bookmarks')
+                  }}
+                />
+              </SaveIcon>
+            </Card>
+          ))}
+        </InfiniteScroll>
       )}
     </Cards>
   )

@@ -168,6 +168,7 @@ class Feed extends Component {
   }
 
   render() {
+    console.log('rendering')
     const search = this.props.searchTerm
     const filteredPosts = this.state.posts.filter((post, index) => {
       return (

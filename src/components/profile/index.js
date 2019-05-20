@@ -10,7 +10,7 @@ import { customWrapper } from '../mixins'
 import { truncateText } from '../mixins'
 import NoPostScreen from '../utils/screens/NoPostScreen'
 import { post as URL } from '../../services/baseURL'
-import { fetchPosts, deletePost, setSearchTerm, saveLink } from '../../actions'
+import { fetchPosts, deletePost, setSearchTerm } from '../../actions'
 import plusIcon from '../../assets/svg/add-icon.svg'
 import check from '../../assets/svg/check.svg'
 import { withAlert } from 'react-alert'
@@ -133,17 +133,14 @@ const mapStateToProps = state => {
 
 const Alert = withAlert()(ProfileById)
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    {
-      fetchPosts,
-      deletePost,
-      setSearchTerm,
-      saveLink,
-    }
-  )(Alert)
-)
+export default connect(
+  mapStateToProps,
+  {
+    fetchPosts,
+    deletePost,
+    setSearchTerm,
+  }
+)(withRouter(Alert))
 
 const Wrapper = styled.div`
   ${customWrapper('100%', '0 auto')};

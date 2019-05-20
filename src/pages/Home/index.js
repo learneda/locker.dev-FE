@@ -158,22 +158,20 @@ const mapStateToProps = ({
   suggested: social.suggested,
 })
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    {
-      populateNotifications,
-      deletePost,
-      fetchUser,
-      fetchLocker,
-      fetchPosts,
-      fetchFollowers,
-      fetchFollowing,
-      fetchSuggested,
-      followAUser,
-    }
-  )(Home)
-)
+export default connect(
+  mapStateToProps,
+  {
+    populateNotifications,
+    deletePost,
+    fetchUser,
+    fetchLocker,
+    fetchPosts,
+    fetchFollowers,
+    fetchFollowing,
+    fetchSuggested,
+    followAUser,
+  }
+)(withRouter(Home))
 
 const theme = {
   tab: {
