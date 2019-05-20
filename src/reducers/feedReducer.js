@@ -11,7 +11,7 @@ import {
 const initialState = {
   posts: [],
   hasmore: true,
-  offset: 0,
+  offset: 5,
 }
 export const feedReducer = (state = initialState, action) => {
   switch (action.type) {
