@@ -1,10 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
 import styled from 'styled-components'
 import { customLayout } from '../mixins'
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
 const Articles = props => {
-  const { articles, handleTruncateText, handleSaveLink, alert } = props
+  const {
+    searchTerm,
+    articles,
+    fetchMoreArticles,
+    searchArticles,
+    setArticleOffset,
+    handleTruncateText,
+    handleSaveLink,
+    alert,
+  } = props
+
+  useEffect(() => {
+    const offset = 0
+    setArticleOffset(offset)
+    searchArticles(searchTerm, offset)
+  }, [searchTerm])
+
   return (
     <Cards>
       {articles.length === 0 ? (
@@ -12,25 +29,42 @@ const Articles = props => {
           <Loading />
         </Loader>
       ) : (
-        articles.map((article, index) => (
-          <Card key={index}>
-            <a href={article.url} target='_blank' rel='noopener noreferrer'>
-              <img src={article.thumbnail} alt='article-thumbnail' />
-
-              <h3>{handleTruncateText(article.title)}</h3>
-              <p>{handleTruncateText(article.description, 15)}</p>
-            </a>
-            <SaveIcon>
-              <Add
-                className='save-icon'
-                onClick={() => {
-                  handleSaveLink(article.url)
-                  alert.success('Article added to Bookmarks')
-                }}
-              />
-            </SaveIcon>
-          </Card>
-        ))
+        <InfiniteScroll
+          dataLength={articles.length}
+          next={fetchMoreArticles}
+          hasMore={true}
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+          }}
+        >
+          {/* //TODO: Fix Unsplash hack */}
+          {articles.map((article, index) => (
+            <Card key={index}>
+              <a href={article.url} target='_blank' rel='noopener noreferrer'>
+                <img
+                  src={
+                    article.thumbnail ||
+                    'https://source.unsplash.com/random/345x180'
+                  }
+                  alt='article-thumbnail'
+                />
+                <h3>{handleTruncateText(article.title, 80)}</h3>
+                <p>{handleTruncateText(article.description, 160)}</p>
+              </a>
+              <SaveIcon>
+                <Add
+                  className='save-icon'
+                  onClick={() => {
+                    handleSaveLink(article.url)
+                    alert.success('Article added to Bookmarks')
+                  }}
+                />
+              </SaveIcon>
+            </Card>
+          ))}
+        </InfiniteScroll>
       )}
     </Cards>
   )

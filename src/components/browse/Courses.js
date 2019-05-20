@@ -5,9 +5,10 @@ import { customLayout } from '../../components/mixins'
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
 const Courses = props => {
+  console.log('hey in Courses', props)
   const {
     courses,
-    getMoreCourses,
+    fetchMoreCourses,
     handleSaveLink,
     handleTruncateText,
     alert,
@@ -21,9 +22,8 @@ const Courses = props => {
       ) : (
         <InfiniteScroll
           dataLength={courses.length}
-          next={getMoreCourses}
+          next={fetchMoreCourses}
           hasMore={true}
-          loader={null}
           style={{
             display: 'flex',
             flexWrap: 'wrap',

@@ -10,26 +10,36 @@ import Videos from '../../components/browse/Videos'
 import Articles from '../../components/browse/Articles'
 import Podcasts from '../../components/browse/Podcasts'
 import Books from '../../components/browse/Books'
-import { fetchUser, getCourses, getArticles } from '../../actions'
-import { customWrapper, truncateText } from '../../components/mixins'
+import {
+  fetchUser,
+  fetchCourses,
+  fetchArticles,
+  setCoursePage,
+  setArticleOffset,
+  searchArticles,
+  createPost,
+} from '../../actions'
+import { customWrapper, smartTruncate } from '../../components/mixins'
 import { post as URL } from '../../services/baseURL'
 
 axios.defaults.withCredentials = true
 
 class Browse extends Component {
-  state = {
-    page: 1,
-  }
   componentDidMount() {
-    this.props.getCourses(this.state.page)
-    this.props.getArticles()
+    if (!this.props.courses.length) {
+      this.props.fetchCourses(this.props.coursePage)
+      this.props.setCoursePage(this.props.coursePage + 1)
+    }
+    if (!this.props.articles.length) {
+      this.props.fetchArticles(this.props.searchTerm, this.props.articleOffset)
+      this.props.setArticleOffset(this.props.articleOffset + 12)
+    }
   }
 
   handleSaveLink = url => {
     if (this.props.auth) {
-      axios.post(`${URL}/api/posts`, {
+      this.props.createPost({
         post_url: url,
-        id: this.props.auth.id,
       })
     }
   }
@@ -40,23 +50,33 @@ class Browse extends Component {
         ...media,
         user_id: this.props.auth.id,
       })
-      this.props.fetchUser(this.props.auth.id)
     }
   }
 
   handleTruncateText = (content, limit = 10) => {
-    return truncateText(content, limit)
+    return smartTruncate(content, limit)
   }
 
-  getMoreCourses = () => {
-    this.setState({
-      page: this.state.page + 1,
-    })
-    this.props.getCourses(this.state.page)
+  fetchMoreCourses = () => {
+    this.props.fetchCourses(this.props.coursePage)
+    this.props.setCoursePage(this.props.coursePage + 1)
+  }
+
+  fetchMoreArticles = () => {
+    this.props.fetchArticles(this.props.searchTerm, this.props.articleOffset)
+    this.props.setArticleOffset(this.props.articleOffset + 12)
   }
 
   render() {
-    const { articles, courses, match } = this.props
+    const {
+      searchTerm,
+      articles,
+      courses,
+      coursePage,
+      setArticleOffset,
+      searchArticles,
+      match,
+    } = this.props
     return (
       <Grommet theme={theme}>
         <Wrapper>
@@ -89,7 +109,7 @@ class Browse extends Component {
                     <Courses
                       {...props}
                       courses={courses}
-                      getMoreCourses={this.getMoreCourses}
+                      fetchMoreCourses={this.fetchMoreCourses}
                       handleSaveLink={this.handleSaveLink}
                       handleTruncateText={this.handleTruncateText}
                       alert={this.props.alert}
@@ -101,7 +121,11 @@ class Browse extends Component {
                   render={props => (
                     <Articles
                       {...props}
+                      searchTerm={searchTerm}
                       articles={articles}
+                      searchArticles={searchArticles}
+                      fetchMoreArticles={this.fetchMoreArticles}
+                      setArticleOffset={setArticleOffset}
                       handleTruncateText={this.handleTruncateText}
                       handleSaveLink={this.handleSaveLink}
                       alert={this.props.alert}
@@ -148,18 +172,24 @@ class Browse extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    courses: state.browse.courses,
-    articles: state.browse.articles,
-    auth: state.auth,
-  }
-}
+const mapStateToProps = ({ auth, searchTerm, browse }) => ({
+  auth,
+  searchTerm,
+  ...browse,
+})
 
 const Alert = withAlert()(Browse)
 export default connect(
   mapStateToProps,
-  { fetchUser, getCourses, getArticles }
+  {
+    fetchUser,
+    fetchCourses,
+    fetchArticles,
+    searchArticles,
+    setCoursePage,
+    setArticleOffset,
+    createPost,
+  }
 )(withRouter(Alert))
 
 const theme = {

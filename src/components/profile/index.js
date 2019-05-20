@@ -10,7 +10,7 @@ import { customWrapper } from '../mixins'
 import { truncateText } from '../mixins'
 import NoPostScreen from '../utils/screens/NoPostScreen'
 import { post as URL } from '../../services/baseURL'
-import { fetchPosts, deletePost, setSearchTerm, saveLink } from '../../actions'
+import { fetchPosts, deletePost, setSearchTerm } from '../../actions'
 import plusIcon from '../../assets/svg/add-icon.svg'
 import check from '../../assets/svg/check.svg'
 import { withAlert } from 'react-alert'
@@ -139,7 +139,6 @@ export default connect(
     fetchPosts,
     deletePost,
     setSearchTerm,
-    saveLink,
   }
 )(withRouter(Alert))
 
