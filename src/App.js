@@ -66,14 +66,14 @@ const App = ({ fetchAuth, fetchUser, fetchPosts, modal, auth }) => {
         }
       >
         <Switch>
-          <Route component={home(LandingPage)} path='/' exact />
-          <Route component={index(Home)} path='/home' />
-          <Route component={index(Browse)} path='/browse' />
-          <Route component={index(Social)} path='/social' />
-          <Route component={index(Notifications)} path='/notifications' />
-          <Route component={index(Profile)} path='/profile/:id' />
-          <Route component={index(SinglePost)} path='/status/:id' />
-          <Route component={index(Settings)} path='/settings' />
+          <Route path='/' exact component={home(LandingPage)} />
+          <Route path='/home' component={index(Home)} />
+          <Route path='/browse' component={index(Browse)} />
+          <Route path='/social' component={index(Social)} />
+          <Route path='/notifications' component={index(Notifications)} />
+          <Route path='/profile/:id' component={index(Profile)} />
+          <Route path='/status/:id' component={index(SinglePost)} />
+          <Route path='/settings' component={index(Settings)} />
           <Route component={NoMatch} />
         </Switch>
       </Suspense>

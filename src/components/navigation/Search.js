@@ -159,12 +159,10 @@ const mapStateToProps = ({ searchTerm }) => ({
   searchTerm,
 })
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { setSearchTerm, resetSearchTerm }
-  )(Search)
-)
+export default connect(
+  mapStateToProps,
+  { setSearchTerm, resetSearchTerm }
+)(withRouter(Search))
 
 const theme = {
   global: {

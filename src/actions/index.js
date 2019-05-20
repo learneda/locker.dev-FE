@@ -2,12 +2,13 @@ import axios from 'axios'
 import {
   FETCH_AUTH,
   FETCH_COURSES,
+  SEARCH_COURSES,
   FETCH_ARTICLES,
   AUTH_MODAL_TOGGLE,
   AUTH_MODAL_LOGIN,
   AUTH_MODAL_SIGNUP,
-  SAVE_LINK,
   FETCH_POSTS,
+  CREATE_POST,
   DELETE_POST,
   SET_SEARCH_TERM,
   RESET_SEARCH_TERM,
@@ -29,6 +30,9 @@ import {
   DELETE_COMMENT,
   LIKE_COMMENT,
   UNLIKE_COMMENT,
+  SET_COURSE_PAGE,
+  SET_ARTICLE_OFFSET,
+  SEARCH_ARTICLES,
 } from './types'
 
 import { post as URL } from '../services/baseURL'
@@ -39,26 +43,40 @@ export const fetchAuth = () => async dispatch => {
   dispatch({ type: FETCH_AUTH, payload: res.data })
 }
 
-export const getCourses = page => async dispatch => {
-  const res = await axios.get(`${URL}/api/courses?page=${page}`)
+export const fetchCourses = (q, page) => async dispatch => {
+  const res = await axios.get(`${URL}/api/courses?page=${page}&search=${q}`)
   dispatch({ type: FETCH_COURSES, payload: res.data.results })
 }
 
-export const getArticles = () => async dispatch => {
-  const res = await axios.get(`${URL}/api/articles`)
+export const searchCourses = (q, page) => async dispatch => {
+  const res = await axios.get(`${URL}/api/courses?page=${page}&search=${q}`)
+  dispatch({ type: SEARCH_COURSES, payload: res.data.results })
+}
+
+export const fetchArticles = (q, offset) => async dispatch => {
+  let res
+  if (!q) {
+    res = await axios.get(`${URL}/api/articles?offset=${offset}`)
+  } else {
+    res = await axios.get(`${URL}/api/articles?q=${q}&offset=${offset}`)
+  }
   dispatch({ type: FETCH_ARTICLES, payload: res.data })
 }
 
+export const searchArticles = (q, offset) => async dispatch => {
+  let res
+  if (!q) {
+    res = await axios.get(`${URL}/api/articles?offset=${offset}`)
+  } else {
+    res = await axios.get(`${URL}/api/articles?q=${q}&offset=${offset}`)
+  }
+  dispatch({ type: SEARCH_ARTICLES, payload: res.data })
+}
 export const authModalToggle = () => ({ type: AUTH_MODAL_TOGGLE })
 
 export const modalSignUp = () => ({ type: AUTH_MODAL_SIGNUP })
 
 export const modalLogin = () => ({ type: AUTH_MODAL_LOGIN })
-
-export const saveLink = post => async dispatch => {
-  const res = await axios.post(`${URL}/api/posts`, { post_url: post })
-  dispatch({ type: SAVE_LINK, payload: res.data })
-}
 
 // get all user posts
 export const fetchPosts = () => async dispatch => {
@@ -66,6 +84,10 @@ export const fetchPosts = () => async dispatch => {
   dispatch({ type: FETCH_POSTS, payload: res.data })
 }
 
+export const createPost = post => async dispatch => {
+  const res = await axios.post(`${URL}/api/posts`, post)
+  dispatch({ type: CREATE_POST, payload: res.data })
+}
 // add new user post to posts state
 export const updatePostsState = post => async dispatch => {
   dispatch({ type: UPDATE_POSTS_STATE, payload: post })
@@ -139,7 +161,6 @@ export const readNotifications = () => async dispatch => {
 
 export const deleteNotifications = () => async dispatch => {
   await axios.delete(`${URL}/api/notifications/clear`)
-
   dispatch({ type: CLEAR_NOTIFICATIONS })
 }
 
@@ -189,3 +210,13 @@ export const likeComment = commentData => async dispatch => {
 export const unlikeComment = commentData => async dispatch => {
   dispatch({ type: UNLIKE_COMMENT, payload: commentData })
 }
+
+export const setCoursePage = page => ({
+  type: SET_COURSE_PAGE,
+  payload: page,
+})
+
+export const setArticleOffset = offset => ({
+  type: SET_ARTICLE_OFFSET,
+  payload: offset,
+})

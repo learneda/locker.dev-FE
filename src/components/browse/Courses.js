@@ -1,34 +1,62 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import styled from 'styled-components'
 import { customLayout } from '../../components/mixins'
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
+import { useThrottle } from 'use-throttle'
+
 const Courses = props => {
   const {
     courses,
-    getMoreCourses,
+    searchTerm,
+    coursePage,
+    setCoursePage,
+    fetchMoreCourses,
+    searchCourses,
     handleSaveLink,
     handleTruncateText,
     alert,
   } = props
+
+  const [isLoading, setIsLoading] = useState(false)
+  const throttledSearch = useThrottle(searchTerm, 1000)
+
+  useEffect(() => {
+    console.log(throttledSearch, 'search')
+    const asyncSearchCourses = async () => {
+      const page = 1
+      await searchCourses(searchTerm, page)
+      await setCoursePage(page + 1)
+      setIsLoading(false)
+    }
+    setIsLoading(true)
+    asyncSearchCourses()
+  }, [throttledSearch])
+
+  const hasMore = !Boolean(searchTerm) || Boolean(courses.length)
+
   return (
     <Cards>
-      {courses.length === 0 ? (
+      {isLoading ? (
         <Loader>
           <Loading />
         </Loader>
       ) : (
         <InfiniteScroll
           dataLength={courses.length}
-          next={getMoreCourses}
-          hasMore={true}
-          loader={null}
+          next={fetchMoreCourses}
+          hasMore={hasMore}
           style={{
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'space-between',
           }}
+          endMessage={
+            <div style={{}}>
+              <b>No Articles Matched Search Criteria 🙁</b>
+            </div>
+          }
         >
           {courses.map((course, index) => (
             <Card key={course.id + index}>
@@ -38,8 +66,8 @@ const Courses = props => {
                 rel='noopener noreferrer'
               >
                 <img src={course.image_480x270} alt='course-thumbnail' />
-                <h3>{handleTruncateText(course.title)}</h3>
-                <p>{handleTruncateText(course.headline, 15)}</p>
+                <h3>{handleTruncateText(course.title, 80)}</h3>
+                <p>{handleTruncateText(course.headline, 160)}</p>
               </a>
               <SaveIcon>
                 <Add

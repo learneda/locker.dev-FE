@@ -181,28 +181,26 @@ const mapStateToProps = ({
   feed,
 })
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    {
-      populateNotifications,
-      deletePost,
-      fetchUser,
-      fetchLocker,
-      fetchPosts,
-      fetchFollowers,
-      fetchFollowing,
-      fetchSuggested,
-      followAUser,
-      fetchFeed,
-      subsequentFetchFeed,
-      createComment,
-      deleteComment,
-      likeComment,
-      unlikeComment,
-    }
-  )(Home)
-)
+export default connect(
+  mapStateToProps,
+  {
+    populateNotifications,
+    deletePost,
+    fetchUser,
+    fetchLocker,
+    fetchPosts,
+    fetchFollowers,
+    fetchFollowing,
+    fetchSuggested,
+    followAUser,
+    fetchFeed,
+    subsequentFetchFeed,
+    createComment,
+    deleteComment,
+    likeComment,
+    unlikeComment,
+  }
+)(withRouter(Home))
 
 const theme = {
   tab: {

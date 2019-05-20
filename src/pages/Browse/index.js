@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { NavLink, Route, Switch } from 'react-router-dom'
+import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
 import { withAlert } from 'react-alert'
 import axios from 'axios'
 import { Grommet } from 'grommet'
@@ -10,26 +10,37 @@ import Videos from '../../components/browse/Videos'
 import Articles from '../../components/browse/Articles'
 import Podcasts from '../../components/browse/Podcasts'
 import Books from '../../components/browse/Books'
-import { fetchUser, getCourses, getArticles } from '../../actions'
-import { customWrapper, truncateText } from '../../components/mixins'
+import {
+  fetchUser,
+  fetchCourses,
+  searchCourses,
+  fetchArticles,
+  searchArticles,
+  setCoursePage,
+  setArticleOffset,
+  createPost,
+} from '../../actions'
+import { customWrapper, smartTruncate } from '../../components/mixins'
 import { post as URL } from '../../services/baseURL'
 
 axios.defaults.withCredentials = true
 
 class Browse extends Component {
-  state = {
-    page: 1,
-  }
   componentDidMount() {
-    this.props.getCourses(this.state.page)
-    this.props.getArticles()
+    if (!this.props.courses.length) {
+      this.props.fetchCourses(this.props.searchTerm, this.props.coursePage)
+      this.props.setCoursePage(this.props.coursePage + 1)
+    }
+    if (!this.props.articles.length) {
+      this.props.fetchArticles(this.props.searchTerm, this.props.articleOffset)
+      this.props.setArticleOffset(this.props.articleOffset + 12)
+    }
   }
 
   handleSaveLink = url => {
     if (this.props.auth) {
-      axios.post(`${URL}/api/posts`, {
+      this.props.createPost({
         post_url: url,
-        id: this.props.auth.id,
       })
     }
   }
@@ -40,56 +51,73 @@ class Browse extends Component {
         ...media,
         user_id: this.props.auth.id,
       })
-      this.props.fetchUser(this.props.auth.id)
     }
   }
 
   handleTruncateText = (content, limit = 10) => {
-    return truncateText(content, limit)
+    return smartTruncate(content, limit)
   }
 
-  getMoreCourses = () => {
-    this.setState({
-      page: this.state.page + 1,
-    })
-    this.props.getCourses(this.state.page)
+  fetchMoreCourses = () => {
+    this.props.fetchCourses(this.props.searchTerm, this.props.coursePage)
+    this.props.setCoursePage(this.props.coursePage + 1)
+  }
+
+  fetchMoreArticles = () => {
+    this.props.fetchArticles(this.props.searchTerm, this.props.articleOffset)
+    this.props.setArticleOffset(this.props.articleOffset + 12)
   }
 
   render() {
-    const { articles, courses } = this.props
+    const {
+      searchTerm,
+      articles,
+      articleOffset,
+      courses,
+      coursePage,
+      setArticleOffset,
+      setCoursePage,
+      searchArticles,
+      searchCourses,
+      match,
+    } = this.props
     return (
       <Grommet theme={theme}>
         <Wrapper>
           <BrowseContainer>
             <Tabs>
               <Tab>
-                <NavLink exact to='/browse/courses'>
+                <NavLink exact to={`${match.url}/courses`}>
                   Course
                 </NavLink>
               </Tab>
               <Tab>
-                <NavLink to='/browse/articles'>Article</NavLink>
+                <NavLink to={`${match.url}/articles`}>Article</NavLink>
               </Tab>
               <Tab>
-                <NavLink to='/browse/videos'>Video</NavLink>
+                <NavLink to={`${match.url}/videos`}>Video</NavLink>
               </Tab>
               <Tab>
-                <NavLink to='/browse/books'>Book</NavLink>
+                <NavLink to={`${match.url}/books`}>Book</NavLink>
               </Tab>
               <Tab>
-                <NavLink to='/browse/podcasts'>Podcast</NavLink>
+                <NavLink to={`${match.url}/podcasts`}>Podcast</NavLink>
               </Tab>
             </Tabs>
             <TabWrapper>
               <Switch>
                 <Route
                   exact
-                  path={['/browse', '/browse/courses']}
+                  path={[`${match.path}`, `${match.path}/courses`]}
                   render={props => (
                     <Courses
                       {...props}
                       courses={courses}
-                      getMoreCourses={this.getMoreCourses}
+                      searchTerm={searchTerm}
+                      coursePage={coursePage}
+                      setCoursePage={setCoursePage}
+                      searchCourses={searchCourses}
+                      fetchMoreCourses={this.fetchMoreCourses}
                       handleSaveLink={this.handleSaveLink}
                       handleTruncateText={this.handleTruncateText}
                       alert={this.props.alert}
@@ -97,19 +125,24 @@ class Browse extends Component {
                   )}
                 />
                 <Route
-                  path='/browse/articles'
+                  path={`${match.path}/articles`}
                   render={props => (
                     <Articles
                       {...props}
                       articles={articles}
-                      handleTruncateText={this.handleTruncateText}
+                      searchTerm={searchTerm}
+                      articleOffset={articleOffset}
+                      setArticleOffset={setArticleOffset}
+                      searchArticles={searchArticles}
+                      fetchMoreArticles={this.fetchMoreArticles}
                       handleSaveLink={this.handleSaveLink}
+                      handleTruncateText={this.handleTruncateText}
                       alert={this.props.alert}
                     />
                   )}
                 />
                 <Route
-                  path='/browse/videos'
+                  path={`${match.path}/videos`}
                   render={props => (
                     <Videos
                       {...props}
@@ -120,7 +153,7 @@ class Browse extends Component {
                   )}
                 />
                 <Route
-                  path='/browse/books'
+                  path={`${match.path}/books`}
                   render={props => (
                     <Books
                       {...props}
@@ -130,7 +163,7 @@ class Browse extends Component {
                   )}
                 />
                 <Route
-                  path='/browse/podcasts'
+                  path={`${match.path}/podcasts`}
                   render={props => (
                     <Podcasts
                       {...props}
@@ -148,19 +181,26 @@ class Browse extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    courses: state.browse.courses,
-    articles: state.browse.articles,
-    auth: state.auth,
-  }
-}
+const mapStateToProps = ({ auth, searchTerm, browse }) => ({
+  auth,
+  searchTerm,
+  ...browse,
+})
 
 const Alert = withAlert()(Browse)
 export default connect(
   mapStateToProps,
-  { fetchUser, getCourses, getArticles }
-)(Alert)
+  {
+    fetchUser,
+    fetchCourses,
+    searchCourses,
+    fetchArticles,
+    searchArticles,
+    setCoursePage,
+    setArticleOffset,
+    createPost,
+  }
+)(withRouter(Alert))
 
 const theme = {
   tab: {

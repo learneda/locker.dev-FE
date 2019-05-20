@@ -125,7 +125,6 @@ class Feed extends Component {
         </Container>
       )
     }
-
     const search = this.props.searchTerm
     const filteredPosts = this.props.posts.filter((post, index) => {
       return (

@@ -14,7 +14,7 @@ const Podcasts = ({ search, handleSaveMedia, alert }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [podcasts, setPodcasts] = useState([])
   const [offset, setOffset] = useState(null)
-  const throttledSearch = useThrottle(search, 0.6)
+  const throttledSearch = useThrottle(search, 1000)
 
   const fetchMorePodcasts = () => {
     listenAPI
