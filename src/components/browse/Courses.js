@@ -20,18 +20,21 @@ const Courses = props => {
   } = props
 
   const [isLoading, setIsLoading] = useState(false)
+  const [didMount, setDidMount] = useState(false)
   const throttledSearch = useThrottle(searchTerm, 1000)
 
   useEffect(() => {
-    console.log(throttledSearch, 'search')
     const asyncSearchCourses = async () => {
       const page = 1
       await searchCourses(searchTerm, page)
       await setCoursePage(page + 1)
       setIsLoading(false)
     }
-    setIsLoading(true)
-    asyncSearchCourses()
+    if (didMount) {
+      setIsLoading(true)
+      asyncSearchCourses()
+    }
+    setDidMount(true)
   }, [throttledSearch])
 
   const hasMore = !Boolean(searchTerm) || Boolean(courses.length)

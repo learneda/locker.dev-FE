@@ -19,6 +19,7 @@ const Articles = props => {
   } = props
 
   const [isLoading, setIsLoading] = useState(false)
+  const [didMount, setDidMount] = useState(false)
   const throttledSearch = useThrottle(searchTerm, 1000)
 
   //* Don't run search on mount if offset=0 and search is empty
@@ -29,8 +30,11 @@ const Articles = props => {
       await setArticleOffset(offset + 12)
       setIsLoading(false)
     }
-    setIsLoading(true)
-    asyncSearchArticles()
+    if (didMount) {
+      setIsLoading(true)
+      asyncSearchArticles()
+    }
+    setDidMount(true)
   }, [throttledSearch])
 
   //* hasMore false only when searchQuery returns no matches
