@@ -33,6 +33,7 @@ import {
   SET_ARTICLE_OFFSET,
   SEARCH_ARTICLES,
   FETCH_COLLECTIONS,
+  EDIT_COLLECTION
 } from './types'
 
 import { post as URL } from '../services/baseURL'
@@ -103,6 +104,13 @@ export const createCollection = post => async dispatch => {
 export const deleteCollection = id => async dispatch => {
   const res = await axios.delete(`${URL}/api/posts/${id}`)
   dispatch({ type: DELETE_COLLECTION, payload: res.data })
+}
+
+export const editCollection = editedCollection => async dispatch => {
+  const collection = await axios.put(`${URL}/api/posts/${editedCollection.id}`, editedCollection)
+  if (collection) {
+    dispatch({type: EDIT_COLLECTION, payload: collection.data})
+  }
 }
 
 export const editProfile = (id, profile) => async dispatch => {
