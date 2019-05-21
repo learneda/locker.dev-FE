@@ -20,15 +20,15 @@ class Collections extends Component {
   }
 
   handleDelete = postId => {
-    this.props.deletePost(postId)
+    this.props.deleteCollection(postId)
   }
 
   render() {
     const { modalOpen, editPost } = this.state
     const { handleTruncateText, handleModalOpen } = this
     const { searchTerm: search } = this.props
-    if (this.props.posts.length) {
-      const filteredPosts = this.props.posts.filter(post => {
+    if (this.props.collections.length) {
+      const filteredCollections = this.props.collections.filter(post => {
         return post.title
           ? post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1
           : null || post.thumbnail_url
@@ -42,7 +42,7 @@ class Collections extends Component {
         <Collection
           handleDelete={this.handleDelete}
           handleTruncateText={this.handleTruncateText}
-          posts={filteredPosts}
+          collections={filteredCollections}
           handleModalOpen={this.handleModalOpen}
           modalOpen={this.state.modalOpen}
           editPost={this.state.editPost}
@@ -50,7 +50,7 @@ class Collections extends Component {
       )
     }
 
-    if (this.props.posts.length === 0) {
+    if (this.props.collections.length === 0) {
       return (
         <HelpScreen
           imgSource={BookmarkSVG}

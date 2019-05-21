@@ -8,8 +8,8 @@ import {
   AUTH_MODAL_LOGIN,
   AUTH_MODAL_SIGNUP,
   FETCH_POSTS,
-  CREATE_POST,
-  DELETE_POST,
+  CREATE_COLLECTION,
+  DELETE_COLLECTION,
   SET_SEARCH_TERM,
   RESET_SEARCH_TERM,
   EDIT_USER,
@@ -19,7 +19,6 @@ import {
   FETCH_SUGGESTED,
   FETCH_FOLLOWERS,
   FETCH_FOLLOWING,
-  UPDATE_POSTS_STATE,
   FETCH_NOTIFICATIONS,
   CLEAR_NOTIFICATIONS,
   FETCH_LOCKER,
@@ -33,6 +32,7 @@ import {
   SET_COURSE_PAGE,
   SET_ARTICLE_OFFSET,
   SEARCH_ARTICLES,
+  FETCH_COLLECTIONS,
 } from './types'
 
 import { post as URL } from '../services/baseURL'
@@ -78,24 +78,31 @@ export const modalSignUp = () => ({ type: AUTH_MODAL_SIGNUP })
 
 export const modalLogin = () => ({ type: AUTH_MODAL_LOGIN })
 
-// get all user posts
-export const fetchPosts = () => async dispatch => {
+// get all user collections
+export const fetchCollections = () => async dispatch => {
   const res = await axios.get(`${URL}/api/posts`)
-  dispatch({ type: FETCH_POSTS, payload: res.data })
+  dispatch({ type: FETCH_COLLECTIONS, payload: res.data })
 }
 
-export const createPost = post => async dispatch => {
-  const res = await axios.post(`${URL}/api/posts`, post)
-  dispatch({ type: CREATE_POST, payload: res.data })
-}
-// add new user post to posts state
-export const updatePostsState = post => async dispatch => {
-  dispatch({ type: UPDATE_POSTS_STATE, payload: post })
+export const createCollection = post => async dispatch => {
+  let msg
+  try {
+    const res = await axios.post(`${URL}/api/posts`, post)
+    dispatch({ type: CREATE_COLLECTION, payload: res.data })
+    msg = 'success'
+  } catch (err) {
+    console.log(err)
+    msg = 'whoops!'
+  } finally {
+    return new Promise(function(resolve, reject) {
+      resolve(msg)
+    })
+  }
 }
 
-export const deletePost = id => async dispatch => {
+export const deleteCollection = id => async dispatch => {
   const res = await axios.delete(`${URL}/api/posts/${id}`)
-  dispatch({ type: DELETE_POST, payload: res.data })
+  dispatch({ type: DELETE_COLLECTION, payload: res.data })
 }
 
 export const editProfile = (id, profile) => async dispatch => {

@@ -1,22 +1,19 @@
 import {
-  FETCH_POSTS,
-  CREATE_POST,
-  DELETE_POST,
-  UPDATE_POSTS_STATE,
+  FETCH_COLLECTIONS,
+  CREATE_COLLECTION,
+  DELETE_COLLECTION,
 } from '../actions/types'
 
-export const postReducer = (state = [], action) => {
+export const collectionReducer = (state = [], action) => {
   switch (action.type) {
-    case FETCH_POSTS:
+    case FETCH_COLLECTIONS:
       return action.payload
-    case CREATE_POST:
+    case CREATE_COLLECTION:
       return [...state, action.payload]
-    case DELETE_POST:
+    case DELETE_COLLECTION:
       return state.filter(
         collection => collection.id !== action.payload.deletedRecord.id
       )
-    case UPDATE_POSTS_STATE:
-      return [...state, action.payload]
     default:
       return state
   }

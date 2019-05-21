@@ -56,7 +56,6 @@ class SharedButton extends Component {
         .post(`${URL}/api/posts/share`, {
           id,
           user_id: this.props.user_id,
-          // updated_at: Date.now(),
         })
         .then(res => {
           this.props.alert.success('Post shared to Feed')

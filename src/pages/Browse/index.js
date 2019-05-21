@@ -18,7 +18,7 @@ import {
   searchArticles,
   setCoursePage,
   setArticleOffset,
-  createPost,
+  createCollection,
 } from '../../actions'
 import { customWrapper, smartTruncate } from '../../components/mixins'
 import { post as URL } from '../../services/baseURL'
@@ -39,7 +39,7 @@ class Browse extends Component {
 
   handleSaveLink = url => {
     if (this.props.auth) {
-      this.props.createPost({
+      this.props.createCollection({
         post_url: url,
       })
     }
@@ -194,16 +194,9 @@ export default connect(
     searchArticles,
     setCoursePage,
     setArticleOffset,
-    createPost,
+    createCollection,
   }
 )(withRouter(Alert))
-
-// const BrowseContainer = styled.div`
-//   h2 {
-//     font-size: 3.5rem;
-//     margin: 35px 0;
-//   }
-// `
 
 const TabWrapper = styled.div`
   padding-top: 20px;

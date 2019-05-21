@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { positions } from 'react-alert'
+import { positions, types } from 'react-alert'
 import { ReactComponent as X } from '../../assets/svg/x.svg'
 
 export default function Alert({ message, close }) {
@@ -18,6 +18,7 @@ export default function Alert({ message, close }) {
 export const options = {
   position: positions.BOTTOM_CENTER,
   timeout: 3000,
+  type: types,
 }
 
 const Container = styled.div`
