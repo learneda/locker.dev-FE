@@ -35,7 +35,7 @@ const Container = styled.div`
       ? infoColor
       : options.type === 'success'
       ? successColor
-      : options.type === 'danger'
+      : options.type === 'error'
       ? errorColor
       : defaultColor};
   color: white;
