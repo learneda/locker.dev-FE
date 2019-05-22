@@ -1,55 +1,40 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import axios from 'axios'
 import styled from 'styled-components'
 import { customLayout, smartTruncate } from '../mixins'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
-import { post as URL } from '../../services/baseURL'
 import { useThrottle } from 'use-throttle'
-axios.defaults.withCredentials = true
-
-const Books = ({ search, handleSaveMedia, alert }) => {
+const Books = props => {
+  const {
+    books,
+    searchTerm,
+    bookOffset,
+    fetchMoreBooks,
+    searchBooks,
+    setBookOffset,
+    handleTruncateText,
+    handleSaveMedia,
+    alert,
+  } = props
   const [isLoading, setIsLoading] = useState(false)
-  const [books, setBooks] = useState([])
-  const [offset, setOffset] = useState(0)
-  const throttledSearch = useThrottle(search, 1000)
+  const [didMount, setDidMount] = useState(false)
+  const throttledSearch = useThrottle(searchTerm, 1000)
 
   useEffect(() => {
-    setIsLoading(true)
-    fetchBooks(search)
+    const asyncSearchBooks = async () => {
+      const offset = 0
+      await searchBooks(searchTerm, offset)
+      await setBookOffset(offset + 12)
+      setIsLoading(false)
+    }
+    if (didMount) {
+      setIsLoading(true)
+      asyncSearchBooks()
+    }
+    setDidMount(true)
   }, [throttledSearch])
-
-  const fetchBooks = query => {
-    axios
-      .get(`${URL}/api/books/search`, {
-        params: {
-          q: query || 'react',
-        },
-      })
-      .then(res => {
-        setBooks(res.data)
-        setOffset(0)
-        setIsLoading(false)
-      })
-      .catch(err => console.log(err))
-  }
-
-  const fetchMoreBooks = () => {
-    const limit = 12
-    axios
-      .get(`${URL}/api/books/search`, {
-        params: {
-          q: search || 'react',
-          offset,
-        },
-      })
-      .then(res => {
-        setBooks(prevBooks => [...prevBooks, ...res.data])
-        setOffset(offset + limit)
-      })
-  }
 
   const renderLoader = () => (
     <Loader>
@@ -57,11 +42,14 @@ const Books = ({ search, handleSaveMedia, alert }) => {
     </Loader>
   )
 
+  //* hasMore false only when searchQuery returns no matches
+  const hasMore = !Boolean(searchTerm) || Boolean(books.length)
+
   const renderBooks = () => (
     <InfiniteScroll
       dataLength={books.length}
       next={fetchMoreBooks}
-      hasMore={true}
+      hasMore={hasMore}
       style={{
         display: 'flex',
         flexWrap: 'wrap',
@@ -105,9 +93,9 @@ const Books = ({ search, handleSaveMedia, alert }) => {
                 />
               </div>
               <h3 style={{ marginTop: '20px' }}>
-                {smartTruncate(book.title, 75)}
+                {handleTruncateText(book.title, 75)}
               </h3>
-              <p>{smartTruncate(book.description, 120)}</p>
+              <p>{handleTruncateText(book.description, 120)}</p>
             </a>
             <SaveIcon>
               <Add
@@ -133,14 +121,7 @@ const Books = ({ search, handleSaveMedia, alert }) => {
   return <Cards>{isLoading ? renderLoader() : renderBooks()}</Cards>
 }
 
-const mapStateToProps = ({ searchTerm }) => ({
-  search: searchTerm,
-})
-
-export default connect(
-  mapStateToProps,
-  null
-)(Books)
+export default Books
 
 const Loader = styled.div`
   margin: 75px auto;

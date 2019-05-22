@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
 import { withAlert } from 'react-alert'
-import axios from 'axios'
 import styled from 'styled-components'
 import Courses from 'components/browse/Courses'
 import Videos from 'components/browse/Videos'
@@ -16,14 +15,14 @@ import {
   searchCourses,
   fetchArticles,
   searchArticles,
+  fetchBooks,
+  searchBooks,
   setCoursePage,
   setArticleOffset,
+  setBookOffset,
   createPost,
 } from '../../actions'
 import { customWrapper, smartTruncate } from '../../components/mixins'
-import { post as URL } from '../../services/baseURL'
-
-axios.defaults.withCredentials = true
 
 class Browse extends Component {
   componentDidMount() {
@@ -34,6 +33,10 @@ class Browse extends Component {
     if (!this.props.articles.length) {
       this.props.fetchArticles(this.props.searchTerm, this.props.articleOffset)
       this.props.setArticleOffset(this.props.articleOffset + 12)
+    }
+    if (!this.props.books.length) {
+      this.props.fetchBooks(this.props.searchTerm, this.props.bookOffset)
+      this.props.setBookOffset(this.props.bookOffset + 12)
     }
   }
 
@@ -47,7 +50,7 @@ class Browse extends Component {
 
   handleSaveMedia = async media => {
     if (this.props.auth) {
-      await axios.post(`${URL}/api/posts`, {
+      this.props.createPost({
         ...media,
         user_id: this.props.auth.id,
       })
@@ -68,6 +71,11 @@ class Browse extends Component {
     this.props.setArticleOffset(this.props.articleOffset + 12)
   }
 
+  fetchMoreBooks = () => {
+    this.props.fetchBooks(this.props.searchTerm, this.props.bookOffset)
+    this.props.setBookOffset(this.props.bookOffset + 12)
+  }
+
   render() {
     const {
       searchTerm,
@@ -75,10 +83,14 @@ class Browse extends Component {
       articleOffset,
       courses,
       coursePage,
+      books,
+      bookOffset,
       setArticleOffset,
       setCoursePage,
+      setBookOffset,
       searchArticles,
       searchCourses,
+      searchBooks,
       match,
     } = this.props
     return (
@@ -155,7 +167,14 @@ class Browse extends Component {
               render={props => (
                 <Books
                   {...props}
+                  books={books}
+                  searchTerm={searchTerm}
+                  bookOffset={bookOffset}
+                  setBookOffset={setBookOffset}
+                  searchBooks={searchBooks}
+                  fetchMoreBooks={this.fetchMoreBooks}
                   handleSaveMedia={this.handleSaveMedia}
+                  handleTruncateText={this.handleTruncateText}
                   alert={this.props.alert}
                 />
               )}
@@ -195,6 +214,9 @@ export default connect(
     setCoursePage,
     setArticleOffset,
     createPost,
+    fetchBooks,
+    searchBooks,
+    setBookOffset,
   }
 )(withRouter(Alert))
 
