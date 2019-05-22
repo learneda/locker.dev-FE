@@ -61,7 +61,7 @@ export const browseReducer = (state = initialState, action) => {
     case SET_VIDEO_PAGETOKEN:
       return { ...state, videoPageToken: action.payload }
     case SET_PODCAST_OFFSET:
-      return { ...state, podcastPageToken: action.payload }
+      return { ...state, podcastOffset: action.payload }
     case SHOW_IFRAME:
       return {
         ...state,

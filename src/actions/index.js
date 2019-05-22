@@ -1,7 +1,7 @@
 import axiosAuth from 'apis/axiosBackend'
 import axios from 'apis/axiosAPI'
 import youtube from 'apis/youtube'
-
+import listen from 'apis/listen'
 import {
   FETCH_AUTH,
   FETCH_COURSES,
@@ -42,6 +42,9 @@ import {
   FETCH_VIDEOS,
   SEARCH_VIDEOS,
   SET_VIDEO_PAGETOKEN,
+  FETCH_PODCASTS,
+  SEARCH_PODCASTS,
+  SET_PODCAST_OFFSET,
   SHOW_IFRAME,
   RESET_IFRAME,
 } from './types'
@@ -291,13 +294,29 @@ export const resetIframe = () => {
   return { type: RESET_IFRAME }
 }
 
-// const showIframe = id => {
-//   setVideos(prevVideos =>
-//     prevVideos.map(video => {
-//       if (video.id.videoId === id) {
-//         video.isThumbnail = false
-//       }
-//       return video
-//     })
-//   )
-// }
+export const fetchPodcasts = (query, offset) => async dispatch => {
+  const res = await listen.get('/search', {
+    params: {
+      q: query || 'react',
+      offset,
+    },
+  })
+  dispatch({ type: FETCH_PODCASTS, payload: res.data.results })
+  dispatch({
+    type: SET_PODCAST_OFFSET,
+    payload: res.data.next_offset,
+  })
+}
+
+export const searchPodcasts = query => dispatch => {
+  const res = listen.get('/search', {
+    params: {
+      q: query || 'react',
+    },
+  })
+  dispatch({ type: SEARCH_PODCASTS, payload: res.data.results })
+  dispatch({
+    type: SET_PODCAST_OFFSET,
+    payload: res.data.next_offset,
+  })
+}

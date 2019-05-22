@@ -19,13 +19,15 @@ import {
   searchBooks,
   fetchVideos,
   searchVideos,
+  fetchPodcasts,
+  searchPodcasts,
   setCoursePage,
   setArticleOffset,
   setBookOffset,
   showIframe,
   resetIframe,
   createPost,
-} from '../../actions'
+} from 'actions'
 import { customWrapper, smartTruncate } from '../../components/mixins'
 
 class Browse extends Component {
@@ -44,6 +46,9 @@ class Browse extends Component {
     }
     if (!this.props.videos.length) {
       this.props.fetchVideos(this.props.searchTerm, this.props.videoPageToken)
+    }
+    if (!this.props.podcasts.length) {
+      this.props.fetchPodcasts(this.props.searchTerm, this.props.podcastOffset)
     }
   }
 
@@ -87,6 +92,10 @@ class Browse extends Component {
     this.props.fetchVideos(this.props.searchTerm, this.props.videoPageToken)
   }
 
+  fetchMorePodcasts = () => {
+    this.props.fetchPodcasts(this.props.searchTerm, this.props.podcastOffset)
+  }
+
   render() {
     const {
       searchTerm,
@@ -98,10 +107,11 @@ class Browse extends Component {
       bookOffset,
       videos,
       videoPageToken,
+      podcasts,
+      podcastOffset,
       setArticleOffset,
       setCoursePage,
       setBookOffset,
-      setVideoPageToken,
       searchArticles,
       searchCourses,
       searchBooks,
@@ -208,6 +218,12 @@ class Browse extends Component {
               render={props => (
                 <Podcasts
                   {...props}
+                  podcasts={podcasts}
+                  searchTerm={searchTerm}
+                  podcastOffset={podcastOffset}
+                  searchPodcasts={searchPodcasts}
+                  fetchMorePodcasts={this.fetchMorePodcasts}
+                  handleTruncateText={this.handleTruncateText}
                   handleSaveMedia={this.handleSaveMedia}
                   alert={this.props.alert}
                 />
@@ -244,6 +260,8 @@ export default connect(
     fetchBooks,
     searchBooks,
     setBookOffset,
+    fetchPodcasts,
+    searchPodcasts,
     resetIframe,
   }
 )(withRouter(Alert))

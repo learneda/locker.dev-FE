@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { customLayout } from '../mixins'
 import InfiniteScroll from 'react-infinite-scroll-component'
@@ -8,7 +7,6 @@ import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
 import { useThrottle } from 'use-throttle'
 
 const Videos = props => {
-  console.log('props in videos', props)
   const {
     videos,
     searchTerm,
