@@ -4,12 +4,12 @@ import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
 import { withAlert } from 'react-alert'
 import axios from 'axios'
 import styled from 'styled-components'
-import Courses from '../../components/browse/Courses'
-import Videos from '../../components/browse/Videos'
-import Articles from '../../components/browse/Articles'
-import Podcasts from '../../components/browse/Podcasts'
-import Books from '../../components/browse/Books'
-import { withLayout } from '../../components/hoc/withLayout'
+import Courses from 'components/browse/Courses'
+import Videos from 'components/browse/Videos'
+import Articles from 'components/browse/Articles'
+import Podcasts from 'components/browse/Podcasts'
+import Books from 'components/browse/Books'
+import { withLayout } from 'components/hoc/withLayout'
 import {
   fetchUser,
   fetchCourses,

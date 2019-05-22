@@ -37,22 +37,22 @@ import {
 
 import { post as URL } from '../services/baseURL'
 axios.defaults.withCredentials = true
-
+//* Fetches userID on App mount
 export const fetchAuth = () => async dispatch => {
   const res = await axios.get(`${URL}/auth/current_user`)
   dispatch({ type: FETCH_AUTH, payload: res.data })
 }
-
+//* Fetches courses on Browse mount
 export const fetchCourses = (q, page) => async dispatch => {
   const res = await axios.get(`${URL}/api/courses?page=${page}&search=${q}`)
   dispatch({ type: FETCH_COURSES, payload: res.data.results })
 }
-
+//* Searches courses on user input
 export const searchCourses = (q, page) => async dispatch => {
   const res = await axios.get(`${URL}/api/courses?page=${page}&search=${q}`)
   dispatch({ type: SEARCH_COURSES, payload: res.data.results })
 }
-
+//* Fetches articles on Browse mount
 export const fetchArticles = (q, offset) => async dispatch => {
   let res
   if (!q) {
@@ -62,7 +62,7 @@ export const fetchArticles = (q, offset) => async dispatch => {
   }
   dispatch({ type: FETCH_ARTICLES, payload: res.data })
 }
-
+//* Search articles on user input
 export const searchArticles = (q, offset) => async dispatch => {
   let res
   if (!q) {
@@ -72,57 +72,58 @@ export const searchArticles = (q, offset) => async dispatch => {
   }
   dispatch({ type: SEARCH_ARTICLES, payload: res.data })
 }
+//* Toggle Auth modal on user input
 export const authModalToggle = () => ({ type: AUTH_MODAL_TOGGLE })
-
+//* Select Auth-SignUp tab on user input
 export const modalSignUp = () => ({ type: AUTH_MODAL_SIGNUP })
-
+//* Select Auth-Login tab on user input
 export const modalLogin = () => ({ type: AUTH_MODAL_LOGIN })
 
-// get all user posts
+//* Fetch posts on Home mount
 export const fetchPosts = () => async dispatch => {
   const res = await axios.get(`${URL}/api/posts`)
   dispatch({ type: FETCH_POSTS, payload: res.data })
 }
-
+//* Create a new port on user input
 export const createPost = post => async dispatch => {
   const res = await axios.post(`${URL}/api/posts`, post)
   dispatch({ type: CREATE_POST, payload: res.data })
 }
-// add new user post to posts state
+//* Crazy function we should delete
 export const updatePostsState = post => async dispatch => {
   dispatch({ type: UPDATE_POSTS_STATE, payload: post })
 }
-
+//* Deletes a post on user input
 export const deletePost = id => async dispatch => {
   const res = await axios.delete(`${URL}/api/posts/${id}`)
   dispatch({ type: DELETE_POST, payload: res.data })
 }
-
+//* Edits profile on user input
 export const editProfile = (id, profile) => async dispatch => {
   const res = await axios.put(`${URL}/api/users/edit`, { id, ...profile })
   dispatch({ type: EDIT_USER, payload: res.data })
 }
-
+//* Sets search term on user input
 export const setSearchTerm = e => ({
   type: SET_SEARCH_TERM,
   payload: e.target.value,
 })
-
+//* Resets search on user input
 export const resetSearchTerm = () => ({
   type: RESET_SEARCH_TERM,
   payload: '',
 })
-
+//* Fetch user details on Home mount
 export const fetchUser = id => async dispatch => {
   const res = await axios.get(`${URL}/api/users/id/${id}`)
   dispatch({ type: FETCH_USER, payload: res.data })
 }
-
+//* Create a following on user input
 export const followAUser = payload => async dispatch => {
   const res = await axios.post(`${URL}/api/users/subscribe`, payload)
   dispatch({ type: FOLLOW_A_USER, payload: res.data })
 }
-
+//* Delete a following on user input
 export const unfollowAUser = payload => async dispatch => {
   const res = await axios.delete(`${URL}/api/users/unsubscribe`, {
     data: {
@@ -132,12 +133,12 @@ export const unfollowAUser = payload => async dispatch => {
   })
   dispatch({ type: UNFOLLOW_A_USER, payload: res.data })
 }
-
+//* Fetch suggested on Home mount/user input
+//TODO: Consider fixing the logic here
 export const fetchSuggested = id => async dispatch => {
   const res = await axios.get(`${URL}/api/users/recommendedFollow?id=${id}`)
   dispatch({ type: FETCH_SUGGESTED, payload: res.data })
 }
-
 // fetch a userIds following list
 export const fetchFollowing = id => async dispatch => {
   const following = await axios.get(`${URL}/api/users/following?id=${id}`)
