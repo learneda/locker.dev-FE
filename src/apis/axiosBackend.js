@@ -4,7 +4,7 @@ import axios from 'axios'
 export default axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
-      ? 'https://learned-a.herokuapp.com'
+      ? 'https://api.learnlocker.dev'
       : 'http://localhost:8000',
   withCredentials: true,
 })
