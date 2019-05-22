@@ -123,7 +123,6 @@ class ProfileById extends Component {
 const mapStateToProps = state => {
   return {
     posts: state.posts,
-    deletePost: state.deletePost,
     searchTerm: state.searchTerm,
     modalOpen: state.modal.isEditOpen,
     editFormData: state.modal.editFormData,
