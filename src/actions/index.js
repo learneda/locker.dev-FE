@@ -2,6 +2,10 @@ import axiosAuth from 'apis/axiosBackend'
 import axios from 'apis/axiosAPI'
 import youtube from 'apis/youtube'
 import listen from 'apis/listen'
+import axiosOG from 'axios'
+axiosOG.defaults.withCredentials = true
+import { post as URL } from 'services/baseURL'
+
 import {
   FETCH_AUTH,
   FETCH_COURSES,
@@ -51,7 +55,7 @@ import {
 
 //* Fetches userID on App mount
 export const fetchAuth = () => async dispatch => {
-  const res = await axiosAuth.get(`/auth/current_user`)
+  const res = await axiosOG.get(`${URL}/auth/current_user`)
   dispatch({ type: FETCH_AUTH, payload: res.data })
 }
 //* Fetches courses on Browse mount
