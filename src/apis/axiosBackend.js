@@ -1,4 +1,5 @@
 import axios from 'axios'
+axios.defaults.withCredentials = true
 
 //* Configures axios for our backend
 export default axios.create({
@@ -6,5 +7,4 @@ export default axios.create({
     process.env.NODE_ENV === 'production'
       ? 'https://api.learnlocker.dev'
       : 'http://localhost:8000',
-  withCredentials: true,
 })
