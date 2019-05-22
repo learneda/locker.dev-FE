@@ -1,5 +1,7 @@
 import axiosAuth from 'apis/axiosBackend'
 import axios from 'apis/axiosAPI'
+import youtube from 'apis/youtube'
+
 import {
   FETCH_AUTH,
   FETCH_COURSES,
@@ -37,6 +39,10 @@ import {
   FETCH_BOOKS,
   SET_BOOK_OFFSET,
   SEARCH_BOOKS,
+  FETCH_VIDEOS,
+  SEARCH_VIDEOS,
+  SET_VIDEO_PAGETOKEN,
+  SHOW_IFRAME,
 } from './types'
 
 //* Fetches userID on App mount
@@ -246,3 +252,47 @@ export const setBookOffset = offset => ({
   type: SET_BOOK_OFFSET,
   payload: offset,
 })
+
+export const fetchVideos = (query, pageToken) => async dispatch => {
+  const res = await youtube.get('/search', {
+    params: {
+      q: query || 'react',
+      pageToken,
+    },
+  })
+  const videosWithThumbnailState = res.data.items.map(video => {
+    video.isThumbnail = true
+    return video
+  })
+  dispatch({ type: FETCH_VIDEOS, payload: videosWithThumbnailState })
+  dispatch({ type: SET_VIDEO_PAGETOKEN, payload: res.data.nextPageToken })
+}
+
+export const searchVideos = query => async dispatch => {
+  const res = await youtube.get('/search', {
+    params: {
+      q: query || 'react',
+    },
+  })
+  const videosWithThumbnailState = res.data.items.map(video => {
+    video.isThumbnail = true
+    return video
+  })
+  dispatch({ type: SEARCH_VIDEOS, payload: videosWithThumbnailState })
+  dispatch({ type: SET_VIDEO_PAGETOKEN, payload: res.data.nextPageToken })
+}
+
+export const showIframe = id => {
+  return { type: SHOW_IFRAME, payload: { id } }
+}
+
+// const showIframe = id => {
+//   setVideos(prevVideos =>
+//     prevVideos.map(video => {
+//       if (video.id.videoId === id) {
+//         video.isThumbnail = false
+//       }
+//       return video
+//     })
+//   )
+// }

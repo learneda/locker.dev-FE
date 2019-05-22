@@ -6,7 +6,7 @@ import { ReactComponent as X } from '../../assets/svg/x.svg'
 export const options = {
   position: positions.BOTTOM_CENTER,
   timeout: 3000,
-  offset: 0,
+  offset: '0',
 }
 
 const AlertTemplate = ({ message, options, close }) => {
@@ -20,11 +20,14 @@ const AlertTemplate = ({ message, options, close }) => {
     </Container>
   )
 }
+
+export default AlertTemplate
+
 const errorColor = `rgba(237, 23, 23, 0.85)`
 const successColor = `rgba(3, 177, 45, 0.85)`
 const infoColor = `rgba(8, 142, 219, 0.85)`
 const defaultColor = 'black'
-export default AlertTemplate
+
 const Container = styled.div`
   margin-top: 10px;
   display: flex;

@@ -17,9 +17,12 @@ import {
   searchArticles,
   fetchBooks,
   searchBooks,
+  fetchVideos,
+  searchVideos,
   setCoursePage,
   setArticleOffset,
   setBookOffset,
+  showIframe,
   createPost,
 } from '../../actions'
 import { customWrapper, smartTruncate } from '../../components/mixins'
@@ -37,6 +40,9 @@ class Browse extends Component {
     if (!this.props.books.length) {
       this.props.fetchBooks(this.props.searchTerm, this.props.bookOffset)
       this.props.setBookOffset(this.props.bookOffset + 12)
+    }
+    if (!this.props.videos.length) {
+      this.props.fetchVideos(this.props.searchTerm, this.props.videoPageToken)
     }
   }
 
@@ -76,6 +82,10 @@ class Browse extends Component {
     this.props.setBookOffset(this.props.bookOffset + 12)
   }
 
+  fetchMoreVideos = () => {
+    this.props.fetchVideos(this.props.searchTerm, this.props.videoPageToken)
+  }
+
   render() {
     const {
       searchTerm,
@@ -85,12 +95,17 @@ class Browse extends Component {
       coursePage,
       books,
       bookOffset,
+      videos,
+      videoPageToken,
       setArticleOffset,
       setCoursePage,
       setBookOffset,
+      setVideoPageToken,
       searchArticles,
       searchCourses,
       searchBooks,
+      searchVideos,
+      showIframe,
       match,
     } = this.props
     return (
@@ -156,8 +171,14 @@ class Browse extends Component {
               render={props => (
                 <Videos
                   {...props}
+                  videos={videos}
+                  searchTerm={searchTerm}
+                  videoPageToken={videoPageToken}
+                  searchVideos={searchVideos}
+                  fetchMoreVideos={this.fetchMoreVideos}
                   handleTruncateText={this.handleTruncateText}
                   handleSaveMedia={this.handleSaveMedia}
+                  showIframe={showIframe}
                   alert={this.props.alert}
                 />
               )}
@@ -211,8 +232,11 @@ export default connect(
     searchCourses,
     fetchArticles,
     searchArticles,
+    fetchVideos,
+    searchVideos,
     setCoursePage,
     setArticleOffset,
+    showIframe,
     createPost,
     fetchBooks,
     searchBooks,

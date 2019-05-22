@@ -1,61 +1,40 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import youtube from '../../apis/youtube'
-import { setSearchTerm } from '../../actions'
 import styled from 'styled-components'
-import { customLayout, smartTruncate } from '../mixins'
+import { customLayout } from '../mixins'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
 import { useThrottle } from 'use-throttle'
 
-const Videos = ({ search, handleSaveMedia, alert }) => {
+const Videos = props => {
+  console.log('props in videos', props)
+  const {
+    videos,
+    searchTerm,
+    videoPageToken,
+    fetchMoreVideos,
+    searchVideos,
+    setVideoPageToken,
+    handleTruncateText,
+    handleSaveMedia,
+    showIframe,
+    alert,
+  } = props
   const [isLoading, setIsLoading] = useState(false)
-  const [videos, setVideos] = useState([])
-  const [pageToken, setPageToken] = useState(null)
-  const throttledSearch = useThrottle(search, 1000)
-
-  const fetchMoreVideos = () => {
-    youtube
-      .get('/search', {
-        params: {
-          q: throttledSearch || 'react',
-          pageToken,
-        },
-      })
-      .then(res => {
-        setVideos(prevVideos => {
-          const videosWithState = res.data.items.map(video => {
-            video.isThumbnail = true
-            return video
-          })
-          return [...prevVideos, ...videosWithState]
-        })
-        setPageToken(res.data.nextPageToken)
-      })
-  }
-
-  const fetchVideos = query => {
-    youtube
-      .get('/search', {
-        params: {
-          q: query || 'react',
-        },
-      })
-      .then(res => {
-        const videosWithState = res.data.items.map(video => {
-          video.isThumbnail = true
-          return video
-        })
-        setVideos(videosWithState)
-        setPageToken(res.data.nextPageToken)
-        setIsLoading(false)
-      })
-  }
+  const [didMount, setDidMount] = useState(false)
+  const throttledSearch = useThrottle(searchTerm, 1000)
 
   useEffect(() => {
-    setIsLoading(true)
-    fetchVideos(search)
+    const asyncSearchVideos = async () => {
+      await searchVideos(searchTerm)
+      setIsLoading(false)
+    }
+    if (didMount) {
+      setIsLoading(true)
+      asyncSearchVideos()
+    }
+    setDidMount(true)
   }, [throttledSearch])
 
   const renderLoader = () => (
@@ -63,23 +42,13 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
       <Loading />
     </Loader>
   )
-
-  const showIframe = id => {
-    setVideos(prevVideos =>
-      prevVideos.map(video => {
-        if (video.id.videoId === id) {
-          video.isThumbnail = false
-        }
-        return video
-      })
-    )
-  }
+  const hasMore = !Boolean(searchTerm) || Boolean(videos.length)
 
   const renderVideos = () => (
     <InfiniteScroll
       dataLength={videos.length}
       next={fetchMoreVideos}
-      hasMore={true}
+      hasMore={hasMore}
       style={{
         display: 'flex',
         flexWrap: 'wrap',
@@ -87,7 +56,7 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
       }}
     >
       {videos.map((video, index) => (
-        <Card key={index}>
+        <Card key={video.id.videoId}>
           <div
             style={{
               overflow: 'hidden',
@@ -133,9 +102,9 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
             rel='noopener noreferrer'
           >
             <h3 style={{ marginTop: '20px' }}>
-              {smartTruncate(video.snippet.title, 75)}
+              {handleTruncateText(video.snippet.title, 75)}
             </h3>
-            <p>{smartTruncate(video.snippet.description, 80)}</p>
+            <p>{handleTruncateText(video.snippet.description, 80)}</p>
           </a>
           <SaveIcon>
             <Add
@@ -162,14 +131,7 @@ const Videos = ({ search, handleSaveMedia, alert }) => {
   return <Cards>{isLoading ? renderLoader() : renderVideos()}</Cards>
 }
 
-const mapStateToProps = ({ searchTerm }) => ({
-  search: searchTerm,
-})
-
-export default connect(
-  mapStateToProps,
-  null
-)(Videos)
+export default Videos
 
 const Loader = styled.div`
   margin: 75px auto;
