@@ -5,6 +5,6 @@ axios.defaults.withCredentials = true
 export default axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
-      ? 'https://api.learnlocker.dev'
+      ? 'https://learned-a.herokuapp.com'
       : 'http://localhost:8000',
 })
