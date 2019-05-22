@@ -29,7 +29,7 @@ const UserFollowers = props => {
     setIsLoading(false)
 
     setToggles(toggles.map((toggle, idx) => (idx === index ? !toggle : toggle)))
-    fetchUser(userId)
+    // fetchUser(userId)
   }
 
   const handleUnfollow = async (friend_id, index) => {
@@ -37,7 +37,7 @@ const UserFollowers = props => {
     await unfollowAUser({ user_id: userId, friend_id: friend_id })
     setIsLoading(false)
     setToggles(toggles.map((toggle, idx) => (idx === index ? !toggle : toggle)))
-    fetchUser(userId)
+    // fetchUser(userId)
   }
 
   const handleClick = (id, index) => {

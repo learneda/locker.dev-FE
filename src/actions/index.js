@@ -37,6 +37,8 @@ import {
   FETCH_BOOKS,
   SET_BOOK_OFFSET,
   SEARCH_BOOKS,
+  FETCH_OTHER_COLLECTION,
+  FETCH_OTHER_FOLLOWING,
 } from './types'
 
 //* Fetches userID on App mount
@@ -246,3 +248,27 @@ export const setBookOffset = offset => ({
   type: SET_BOOK_OFFSET,
   payload: offset,
 })
+
+export const fetchOtherCollections = id => async dispatch => {
+  console.log(id)
+  try {
+    const collections = await axios.get(`/posts/all/${id}`)
+    if (collections) {
+      console.log('fetch other collections ==> ', collections.data)
+      dispatch({ type: FETCH_OTHER_COLLECTION, payload: collections.data })
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const fetchOtherFollowing = id => async dispatch => {
+  try {
+    const following = await axios.get(`/users/following?id=${id}`)
+    if (following) {
+      dispatch({ type: FETCH_OTHER_FOLLOWING, payload: following.data })
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}

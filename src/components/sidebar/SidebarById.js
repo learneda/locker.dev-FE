@@ -40,7 +40,7 @@ class SidebarById extends Component {
   }
   componentDidMount() {
     const id = this.props.match.params.id
-    this.props.fetchUser(id)
+    // this.props.fetchUser(id) THIS WAS FUCCIN IT UP
     this.props.fetchFollowing(id)
 
     if (id) {

@@ -8,19 +8,25 @@ import SidebarById from '../../components/sidebar/SidebarById'
 import ProfileById from '../../components/profile'
 import UserFollowing from '../../components/profile/UserFollowing'
 import UserFollowers from '../../components/profile/UserFollowers'
+import { fetchOtherCollections, fetchOtherFollowing } from 'actions'
 
 class UserProfile extends Component {
+  componentDidMount() {
+    const id = this.props.match.params.id
+    // fetching other collections
+    this.props.fetchOtherCollections(id)
+    this.props.fetchOtherFollowing(id)
+  }
   render() {
     const id = this.props.match.params.id
-    // console.log(this.props.match.params.id);
     return (
       <Grommet theme={theme}>
         <Container>
-          <SidebarById />
+          {/* <SidebarById /> */}
           <Wrapper>
             <div className='tabs'>
               <NavLink exact to={`/profile/${id}`}>
-                Bookmarks
+                Collections
               </NavLink>
               <NavLink to={`/profile/${id}/likes`}>Likes</NavLink>
               <NavLink to={`/profile/${id}/following`}>Following</NavLink>
@@ -32,12 +38,23 @@ class UserProfile extends Component {
                 <Route
                   exact
                   path={`/profile/:id`}
-                  render={props => <ProfileById {...props} />}
+                  render={props => (
+                    <ProfileById
+                      {...props}
+                      collections={this.props.other.collections}
+                    />
+                  )}
                 />
                 <Route
                   exact
                   path={'/profile/:id/following'}
-                  render={props => <UserFollowing {...props} />}
+                  render={props => (
+                    <UserFollowing
+                      {...props}
+                      otherFollowing={this.props.other.following}
+                      myFollowing={this.props.social.following}
+                    />
+                  )}
                 />
                 <Route
                   exact
@@ -52,10 +69,12 @@ class UserProfile extends Component {
     )
   }
 }
-
+const mapStateToProps = ({ other, social }) => {
+  return { other, social }
+}
 export default connect(
-  null,
-  null
+  mapStateToProps,
+  { fetchOtherCollections, fetchOtherFollowing }
 )(withRouter(UserProfile))
 
 const theme = {
