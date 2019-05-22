@@ -23,16 +23,17 @@ const EditModal = props => {
 
   const onSubmit = async e => {
     e.preventDefault()
+
     const { id } = props.post
+
     const collection = {
       id: id,
       post_url: postUrl,
       description,
       title,
     }
-    // action creator 
-    props.editCollection(collection)
-    .then(() => {
+    // action creator
+    props.editCollection(collection).then(() => {
       props.handleModalOpen()
       props.alert.success('Bookmark Updated')
     })

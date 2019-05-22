@@ -33,7 +33,8 @@ import {
   SET_ARTICLE_OFFSET,
   SEARCH_ARTICLES,
   FETCH_COLLECTIONS,
-  EDIT_COLLECTION
+  EDIT_COLLECTION,
+  ADD_TO_FEED,
 } from './types'
 
 import { post as URL } from '../services/baseURL'
@@ -107,15 +108,41 @@ export const deleteCollection = id => async dispatch => {
 }
 
 export const editCollection = editedCollection => async dispatch => {
-  const collection = await axios.put(`${URL}/api/posts/${editedCollection.id}`, editedCollection)
+  const collection = await axios.put(
+    `${URL}/api/posts/${editedCollection.id}`,
+    editedCollection
+  )
   if (collection) {
-    dispatch({type: EDIT_COLLECTION, payload: collection.data})
+    dispatch({ type: EDIT_COLLECTION, payload: collection.data })
   }
 }
 
 export const editProfile = (id, profile) => async dispatch => {
   const res = await axios.put(`${URL}/api/users/edit`, { id, ...profile })
   dispatch({ type: EDIT_USER, payload: res.data })
+}
+
+export const shareCollection = collection => async dispatch => {
+  // edit collection
+  const editCollection = await axios.put(
+    `${URL}/api/posts/${collection.id}`,
+    collection
+  )
+  if (editCollection) {
+    dispatch({ type: EDIT_COLLECTION, payload: editCollection.data })
+    // insert new record to newfeed table
+    await axios.post(`${URL}/api/posts/share`, {
+      id: collection.id,
+      user_id: editCollection.data.user_id,
+    })
+
+    const sharedCollection = editCollection.data
+
+    // feed post's are exprecting to have these to properites on them
+    sharedCollection['comments'] = []
+    sharedCollection['likes'] = 0
+    dispatch({ type: ADD_TO_FEED, payload: sharedCollection })
+  }
 }
 
 export const setSearchTerm = e => ({
@@ -211,6 +238,7 @@ export const subsequentFetchFeed = offset => async dispatch => {
 }
 
 export const createComment = commentData => async dispatch => {
+  console.log(commentData)
   dispatch({ type: ADD_COMMENT, payload: commentData })
 }
 
@@ -219,6 +247,7 @@ export const deleteComment = commentData => async dispatch => {
 }
 
 export const likeComment = commentData => async dispatch => {
+  console.log(commentData)
   dispatch({ type: LIKE_COMMENT, payload: commentData })
 }
 
