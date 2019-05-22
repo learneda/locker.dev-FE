@@ -3,9 +3,7 @@ import axiosAPI from 'apis/axiosAPI'
 import youtube from 'apis/youtube'
 import listen from 'apis/listen'
 import axios from 'axios'
-axios.defaults.withCredentials = true
 import { post as URL } from 'services/baseURL'
-
 import {
   FETCH_AUTH,
   FETCH_COURSES,
@@ -52,6 +50,7 @@ import {
   SHOW_IFRAME,
   RESET_IFRAME,
 } from './types'
+axios.defaults.withCredentials = true
 
 //* Fetches userID on App mount
 export const fetchAuth = () => async dispatch => {
