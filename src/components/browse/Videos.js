@@ -19,6 +19,7 @@ const Videos = props => {
     handleTruncateText,
     handleSaveMedia,
     showIframe,
+    resetIframe,
     alert,
   } = props
   const [isLoading, setIsLoading] = useState(false)
@@ -33,6 +34,8 @@ const Videos = props => {
     if (didMount) {
       setIsLoading(true)
       asyncSearchVideos()
+    } else {
+      resetIframe()
     }
     setDidMount(true)
   }, [throttledSearch])

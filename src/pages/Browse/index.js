@@ -23,6 +23,7 @@ import {
   setArticleOffset,
   setBookOffset,
   showIframe,
+  resetIframe,
   createPost,
 } from '../../actions'
 import { customWrapper, smartTruncate } from '../../components/mixins'
@@ -106,6 +107,7 @@ class Browse extends Component {
       searchBooks,
       searchVideos,
       showIframe,
+      resetIframe,
       match,
     } = this.props
     return (
@@ -179,6 +181,7 @@ class Browse extends Component {
                   handleTruncateText={this.handleTruncateText}
                   handleSaveMedia={this.handleSaveMedia}
                   showIframe={showIframe}
+                  resetIframe={resetIframe}
                   alert={this.props.alert}
                 />
               )}
@@ -241,6 +244,7 @@ export default connect(
     fetchBooks,
     searchBooks,
     setBookOffset,
+    resetIframe,
   }
 )(withRouter(Alert))
 

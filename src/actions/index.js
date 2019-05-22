@@ -43,6 +43,7 @@ import {
   SEARCH_VIDEOS,
   SET_VIDEO_PAGETOKEN,
   SHOW_IFRAME,
+  RESET_IFRAME,
 } from './types'
 
 //* Fetches userID on App mount
@@ -284,6 +285,10 @@ export const searchVideos = query => async dispatch => {
 
 export const showIframe = id => {
   return { type: SHOW_IFRAME, payload: { id } }
+}
+
+export const resetIframe = () => {
+  return { type: RESET_IFRAME }
 }
 
 // const showIframe = id => {

@@ -15,6 +15,7 @@ import {
   FETCH_PODCASTS,
   SEARCH_PODCASTS,
   SET_PODCAST_OFFSET,
+  RESET_IFRAME,
 } from '../actions/types'
 
 const initialState = {
@@ -68,6 +69,14 @@ export const browseReducer = (state = initialState, action) => {
           if (video.id.videoId === action.payload.id) {
             video.isThumbnail = false
           }
+          return video
+        }),
+      }
+    case RESET_IFRAME:
+      return {
+        ...state,
+        videos: state.videos.map(video => {
+          video.isThumbnail = true
           return video
         }),
       }
