@@ -3,9 +3,15 @@ import styled from 'styled-components'
 import { positions } from 'react-alert'
 import { ReactComponent as X } from '../../assets/svg/x.svg'
 
-export default function Alert({ message, close }) {
+export const options = {
+  position: positions.BOTTOM_CENTER,
+  timeout: 3000,
+  offset: 0,
+}
+
+const AlertTemplate = ({ message, options, close }) => {
   return (
-    <Container onClick={close}>
+    <Container onClick={close} options={options}>
       <div />
       <Message>{message}</Message>
       <XX>
@@ -14,18 +20,24 @@ export default function Alert({ message, close }) {
     </Container>
   )
 }
-
-export const options = {
-  position: positions.BOTTOM_CENTER,
-  timeout: 3000,
-}
-
-
+const errorColor = `rgba(237, 23, 23, 0.85)`
+const successColor = `rgba(3, 177, 45, 0.85)`
+const infoColor = `rgba(8, 142, 219, 0.85)`
+const defaultColor = 'black'
+export default AlertTemplate
 const Container = styled.div`
+  margin-top: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: rgba(3, 177, 45, 0.85);
+  background-color: ${({ options }) =>
+    options.type === 'info'
+      ? infoColor
+      : options.type === 'success'
+      ? successColor
+      : options.type === 'error'
+      ? errorColor
+      : defaultColor};
   color: white;
   cursor: pointer;
   font-weight: 500;
