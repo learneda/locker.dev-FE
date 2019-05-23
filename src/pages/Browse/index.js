@@ -22,12 +22,13 @@ import {
   fetchPodcasts,
   searchPodcasts,
   setCoursePage,
+  setBookOffset,
   setArticleOffset,
   createCollection,
   bookOffset,
   showIframe,
   resetIframe,
-} from '/actions'
+} from 'actions'
 import { customWrapper, smartTruncate } from 'components/mixins'
 
 class Browse extends Component {

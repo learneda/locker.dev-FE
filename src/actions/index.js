@@ -54,7 +54,6 @@ import {
   SHOW_IFRAME,
   RESET_IFRAME,
 } from './types'
-axios.defaults.withCredentials = true
 
 //* Fetches userID on App mount
 export const fetchAuth = () => async dispatch => {
@@ -133,24 +132,11 @@ export const editCollection = editedCollection => async dispatch => {
   if (collection) {
     dispatch({ type: EDIT_COLLECTION, payload: collection.data })
   }
+}
 //* Fetch posts on Home mount
 export const fetchPosts = () => async dispatch => {
   const res = await axios.get(`/posts`)
   dispatch({ type: FETCH_POSTS, payload: res.data })
-}
-//* Create a new port on user input
-export const createPost = post => async dispatch => {
-  const res = await axios.post(`/posts`, post)
-  dispatch({ type: CREATE_POST, payload: res.data })
-}
-//* Crazy function we should delete
-export const updatePostsState = post => async dispatch => {
-  dispatch({ type: UPDATE_POSTS_STATE, payload: post })
-}
-//* Deletes a post on user input
-export const deletePost = id => async dispatch => {
-  const res = await axios.delete(`/posts/${id}`)
-  dispatch({ type: DELETE_POST, payload: res.data })
 }
 //* Edits profile on user input
 export const editProfile = (id, profile) => async dispatch => {
@@ -174,7 +160,7 @@ export const shareCollection = collection => async dispatch => {
 
     const sharedCollection = editCollection.data
 
-    // feed post's are exprecting to have these to properites on them
+    // feed post's are exprecting to have these to properties on them
     sharedCollection['comments'] = []
     sharedCollection['likes'] = 0
     dispatch({ type: ADD_TO_FEED, payload: sharedCollection })
