@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import Sidebar from '../../components/sidebar/Sidebar'
-import { customWrapper } from '../../components/mixins'
+import Sidebar from 'components/sidebar/Sidebar'
+import { customWrapper } from 'components/mixins'
 import styled from 'styled-components'
-import Notifications from '../../components/notifications'
+import Notifications from 'components/notifications'
 
 export default class index extends Component {
   render() {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { post as URL } from '../../services/baseURL'
+import { post as URL } from 'services/baseURL'
 import { withRouter } from 'react-router-dom'
 
 class SinglePost extends Component {

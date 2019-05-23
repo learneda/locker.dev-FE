@@ -3,12 +3,12 @@ import { connect } from 'react-redux'
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
 import { Grommet } from 'grommet'
 import styled from 'styled-components'
-import Feed from '../../components/feed'
-import Collections from '../../components/collections'
-import Locker from '../../components/locker/Locker'
-import Sidebar from '../../components/sidebar/Sidebar'
-import Suggested from '../../components/sidebar/Suggested'
-import { customWrapper } from '../../components/mixins'
+import Feed from 'components/feed'
+import Collections from 'components/collections'
+import Locker from 'components/locker/Locker'
+import Sidebar from 'components/sidebar/Sidebar'
+import Suggested from 'components/sidebar/Suggested'
+import { customWrapper } from 'components/mixins'
 import {
   populateNotifications,
   deletePost,
@@ -40,8 +40,6 @@ class Home extends Component {
       this.props.fetchFeed()
     }
   }
-
-  componentWillUnmount() {}
 
   render() {
     const {

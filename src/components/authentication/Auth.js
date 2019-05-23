@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import AuthForm from './AuthForm'
 import { authModalToggle, modalSignUp, modalLogin } from '../../actions/index'
-import deleteIcon from '../../assets/svg/delete-icon.svg'
+import deleteIcon from 'assets/svg/delete-icon.svg'
 import styled from 'styled-components'
 import { StyledAuth } from './StyledAuth'
 
