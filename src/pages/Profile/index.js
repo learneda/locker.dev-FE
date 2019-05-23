@@ -45,7 +45,6 @@ class UserProfile extends Component {
               <NavLink exact to={`/profile/${id}`}>
                 Collections
               </NavLink>
-              <NavLink to={`/profile/${id}/likes`}>Likes</NavLink>
               <NavLink to={`/profile/${id}/following`}>Following</NavLink>
               <NavLink to={`/profile/${id}/followers`}>Followers</NavLink>
             </div>
