@@ -4,10 +4,10 @@ import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
 import { withAlert } from 'react-alert'
 import styled from 'styled-components'
 import Courses from 'components/browse/Courses'
-import Videos from 'components/browse/Videos'
 import Articles from 'components/browse/Articles'
-import Podcasts from 'components/browse/Podcasts'
+import Videos from 'components/browse/Videos'
 import Books from 'components/browse/Books'
+import Podcasts from 'components/browse/Podcasts'
 import { withLayout } from 'components/hoc/withLayout'
 import {
   fetchUser,
@@ -28,7 +28,6 @@ import {
   resetIframe,
   createPost,
 } from 'actions'
-
 import { customWrapper, smartTruncate } from 'components/mixins'
 
 class Browse extends Component {
@@ -61,7 +60,7 @@ class Browse extends Component {
     }
   }
 
-  handleSaveMedia = async media => {
+  handleSaveMedia = media => {
     if (this.props.auth) {
       this.props.createPost({
         ...media,
@@ -117,6 +116,7 @@ class Browse extends Component {
       searchCourses,
       searchBooks,
       searchVideos,
+      searchPodcasts,
       showIframe,
       resetIframe,
       match,
