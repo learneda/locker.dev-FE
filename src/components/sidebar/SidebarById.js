@@ -46,27 +46,27 @@ class SidebarById extends Component {
 
   followAUserHandler = async e => {
     e.preventDefault()
-    const friend_id = this.props.match.params.id
+    const friend_id = Number(this.props.match.params.id)
     await this.props.followAUser({ user_id: this.props.auth.id, friend_id })
-    await this.props.fetchUser(friend_id)
-    if (friend_id) {
-      axios.get(`${URL}/api/users/followers?id=${friend_id}`).then(res => {
-        this.setState({ followers: res.data })
-      })
-    }
+    // await this.props.fetchUser(friend_id)
+    // if (friend_id) {
+    //   axios.get(`${URL}/api/users/followers?id=${friend_id}`).then(res => {
+    //     this.setState({ followers: res.data })
+    //   })
+    // }
   }
 
   unfollowAUserHandler = async e => {
     e.preventDefault()
     const friend_id = this.props.match.params.id
     await this.props.unfollowAUser({ user_id: this.props.auth.id, friend_id })
-    await this.props.fetchUser(friend_id)
-    if (friend_id) {
-      axios.get(`${URL}/api/users/followers?id=${friend_id}`).then(res => {
-        // console.log('res.data', res.data);
-        this.setState({ followers: res.data })
-      })
-    }
+    // await this.props.fetchUser(friend_id)
+    // if (friend_id) {
+    //   axios.get(`${URL}/api/users/followers?id=${friend_id}`).then(res => {
+    //     // console.log('res.data', res.data);
+    //     this.setState({ followers: res.data })
+    //   })
+    // }
   }
   imageLoaded = async () => {
     this.setState({

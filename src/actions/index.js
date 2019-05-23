@@ -137,6 +137,7 @@ export const fetchUser = id => async dispatch => {
 //* Create a following on user input
 export const followAUser = payload => async dispatch => {
   const res = await axios.post(`/users/subscribe`, payload)
+  console.log(res.data)
   dispatch({ type: FOLLOW_A_USER, payload: res.data })
 }
 //* Delete a following on user input
@@ -147,6 +148,8 @@ export const unfollowAUser = payload => async dispatch => {
       friend_id: Number(payload.friend_id),
     },
   })
+  console.log(res.data)
+
   dispatch({ type: UNFOLLOW_A_USER, payload: res.data })
 }
 //* Fetch suggested on Home mount/user input
