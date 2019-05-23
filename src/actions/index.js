@@ -42,6 +42,7 @@ import {
   FETCH_OTHER_COLLECTION,
   FETCH_OTHER_FOLLOWING,
   FETCH_OTHER_FOLLOWERS,
+  FETCH_OTHER_USER_DETAILS,
   FETCH_VIDEOS,
   SEARCH_VIDEOS,
   SET_VIDEO_PAGETOKEN,
@@ -136,6 +137,7 @@ export const fetchUser = id => async dispatch => {
 //* Create a following on user input
 export const followAUser = payload => async dispatch => {
   const res = await axios.post(`/users/subscribe`, payload)
+  console.log(res.data)
   dispatch({ type: FOLLOW_A_USER, payload: res.data })
 }
 //* Delete a following on user input
@@ -146,6 +148,8 @@ export const unfollowAUser = payload => async dispatch => {
       friend_id: Number(payload.friend_id),
     },
   })
+  console.log(res.data)
+
   dispatch({ type: UNFOLLOW_A_USER, payload: res.data })
 }
 //* Fetch suggested on Home mount/user input
@@ -295,6 +299,19 @@ export const fetchOtherFollowers = id => async dispatch => {
     console.error(err)
   }
 }
+
+export const fetchOtherUserDetails = id => async dispatch => {
+  try {
+    const userDetails = await axios.get(`/users/id/${id}`)
+    if (userDetails) {
+      console.log(userDetails.data)
+      dispatch({ type: FETCH_OTHER_USER_DETAILS, payload: userDetails.data })
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export const fetchVideos = (query, pageToken) => async dispatch => {
   const res = await youtube.get('/search', {
     params: {
@@ -309,6 +326,7 @@ export const fetchVideos = (query, pageToken) => async dispatch => {
   dispatch({ type: FETCH_VIDEOS, payload: videosWithThumbnailState })
   dispatch({ type: SET_VIDEO_PAGETOKEN, payload: res.data.nextPageToken })
 }
+
 export const searchVideos = query => async dispatch => {
   const res = await youtube.get('/search', {
     params: {

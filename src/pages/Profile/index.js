@@ -12,6 +12,7 @@ import {
   fetchOtherCollections,
   fetchOtherFollowing,
   fetchOtherFollowers,
+  fetchOtherUserDetails,
 } from 'actions'
 
 class UserProfile extends Component {
@@ -21,19 +22,30 @@ class UserProfile extends Component {
     this.props.fetchOtherCollections(id)
     this.props.fetchOtherFollowing(id)
     this.props.fetchOtherFollowers(id)
+    this.props.fetchOtherUserDetails(id)
   }
+
   render() {
     const id = this.props.match.params.id
     return (
       <Grommet theme={theme}>
         <Container>
-          <SidebarById />
+          <SidebarById
+            collectionsCount={this.props.other.collections.length}
+            followingCount={this.props.other.following.length}
+            followersCount={this.props.other.followers.length}
+            userDetails={this.props.other.userDetails}
+            myFollowing={this.props.social.following}
+            follow={this.props.social.following
+              .map(profile => profile.id)
+              .includes(Number(id))}
+            fetchOtherFollowers={this.props.fetchOtherFollowers}
+          />
           <Wrapper>
             <div className='tabs'>
               <NavLink exact to={`/profile/${id}`}>
                 Collections
               </NavLink>
-              <NavLink to={`/profile/${id}/likes`}>Likes</NavLink>
               <NavLink to={`/profile/${id}/following`}>Following</NavLink>
               <NavLink to={`/profile/${id}/followers`}>Followers</NavLink>
             </div>
@@ -85,7 +97,12 @@ const mapStateToProps = ({ other, social }) => {
 }
 export default connect(
   mapStateToProps,
-  { fetchOtherCollections, fetchOtherFollowing, fetchOtherFollowers }
+  {
+    fetchOtherCollections,
+    fetchOtherFollowing,
+    fetchOtherFollowers,
+    fetchOtherUserDetails,
+  }
 )(withRouter(UserProfile))
 
 const theme = {
