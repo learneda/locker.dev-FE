@@ -99,14 +99,14 @@ export const modalLogin = () => ({ type: AUTH_MODAL_LOGIN })
 
 // get all user collections
 export const fetchCollections = () => async dispatch => {
-  const res = await axios.get(`${URL}/api/posts`)
+  const res = await axios.get(`/posts`)
   dispatch({ type: FETCH_COLLECTIONS, payload: res.data })
 }
 
 export const createCollection = post => async dispatch => {
   let msg
   try {
-    const res = await axios.post(`${URL}/api/posts`, post)
+    const res = await axios.post(`/posts`, post)
     dispatch({ type: CREATE_COLLECTION, payload: res.data })
     msg = 'success'
   } catch (err) {
@@ -120,13 +120,13 @@ export const createCollection = post => async dispatch => {
 }
 
 export const deleteCollection = id => async dispatch => {
-  const res = await axios.delete(`${URL}/api/posts/${id}`)
+  const res = await axios.delete(`/posts/${id}`)
   dispatch({ type: DELETE_COLLECTION, payload: res.data })
 }
 
 export const editCollection = editedCollection => async dispatch => {
   const collection = await axios.put(
-    `${URL}/api/posts/${editedCollection.id}`,
+    `/posts/${editedCollection.id}`,
     editedCollection
   )
   if (collection) {
@@ -146,14 +146,11 @@ export const editProfile = (id, profile) => async dispatch => {
 
 export const shareCollection = collection => async dispatch => {
   // edit collection
-  const editCollection = await axios.put(
-    `${URL}/api/posts/${collection.id}`,
-    collection
-  )
+  const editCollection = await axios.put(`/posts/${collection.id}`, collection)
   if (editCollection) {
     dispatch({ type: EDIT_COLLECTION, payload: editCollection.data })
     // insert new record to newfeed table
-    await axios.post(`${URL}/api/posts/share`, {
+    await axios.post(`/posts/share`, {
       id: collection.id,
       user_id: editCollection.data.user_id,
     })

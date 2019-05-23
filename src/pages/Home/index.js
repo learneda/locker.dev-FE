@@ -28,8 +28,8 @@ import {
 } from '../../actions'
 class Home extends Component {
   componentDidMount() {
-    this.props.fetchCollections()
     this.props.fetchLocker()
+    this.props.fetchCollections()
     this.props.fetchUser(this.props.auth.id)
     this.props.fetchSuggested(this.props.auth.id)
     this.props.fetchFollowing(this.props.auth.id)
