@@ -8,7 +8,11 @@ import SidebarById from '../../components/sidebar/SidebarById'
 import ProfileById from '../../components/profile'
 import UserFollowing from '../../components/profile/UserFollowing'
 import UserFollowers from '../../components/profile/UserFollowers'
-import { fetchOtherCollections, fetchOtherFollowing } from 'actions'
+import {
+  fetchOtherCollections,
+  fetchOtherFollowing,
+  fetchOtherFollowers,
+} from 'actions'
 
 class UserProfile extends Component {
   componentDidMount() {
@@ -16,6 +20,7 @@ class UserProfile extends Component {
     // fetching other collections
     this.props.fetchOtherCollections(id)
     this.props.fetchOtherFollowing(id)
+    this.props.fetchOtherFollowers(id)
   }
   render() {
     const id = this.props.match.params.id
@@ -59,7 +64,13 @@ class UserProfile extends Component {
                 <Route
                   exact
                   path={'/profile/:id/followers'}
-                  render={props => <UserFollowers {...props} />}
+                  render={props => (
+                    <UserFollowers
+                      {...props}
+                      otherFollowers={this.props.other.followers}
+                      myFollowers={this.props.social.followers}
+                    />
+                  )}
                 />
               </Switch>
             </TabWrapper>
@@ -74,7 +85,7 @@ const mapStateToProps = ({ other, social }) => {
 }
 export default connect(
   mapStateToProps,
-  { fetchOtherCollections, fetchOtherFollowing }
+  { fetchOtherCollections, fetchOtherFollowing, fetchOtherFollowers }
 )(withRouter(UserProfile))
 
 const theme = {

@@ -39,6 +39,7 @@ import {
   SEARCH_BOOKS,
   FETCH_OTHER_COLLECTION,
   FETCH_OTHER_FOLLOWING,
+  FETCH_OTHER_FOLLOWERS,
 } from './types'
 
 //* Fetches userID on App mount
@@ -270,5 +271,16 @@ export const fetchOtherFollowing = id => async dispatch => {
     }
   } catch (err) {
     console.log(err)
+  }
+}
+
+export const fetchOtherFollowers = id => async dispatch => {
+  try {
+    const followers = await axios.get(`/users/followers?id=${id}`)
+    if (followers) {
+      dispatch({ type: FETCH_OTHER_FOLLOWERS, payload: followers.data })
+    }
+  } catch (err) {
+    console.error(err)
   }
 }
