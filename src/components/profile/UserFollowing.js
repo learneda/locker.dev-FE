@@ -14,10 +14,15 @@ const UserFollowing = props => {
   const [following, setFollowing] = useState([])
 
   useEffect(() => {
-    const id = props.match.params.id
-    axios
-      .get(`${URL}/api/users/following?id=${id}`)
-      .then(res => setFollowing(res.data))
+    console.log('MY FOLLOWING ', props.myFollowing)
+    const myFollowingIdsArr = props.myFollowing.map(followingProfile => {
+      return followingProfile.id
+    })
+    console.log(myFollowingIdsArr, 'FOOWLOING UD ARR')
+    const toggles_arr = props.otherFollowing.map(profile =>
+      myFollowingIdsArr.includes(profile.id)
+    )
+    setToggles(toggles_arr)
   }, [])
 
   // console.log(props.match.params.id);
@@ -50,6 +55,7 @@ const UserFollowing = props => {
     if (isLoading) {
       return <button style={{ width: '8.5rem' }}>...</button>
     }
+    console.log(toggles, 'AYYYYYYYEEEEEEE')
     const text = toggles[index] ? 'Unfollow' : 'Follow'
     return (
       <button
@@ -63,7 +69,7 @@ const UserFollowing = props => {
 
   return (
     <StyledFollow style={{ marginTop: '30px' }}>
-      {following.map((ele, index) => (
+      {props.otherFollowing.map((ele, index) => (
         <div key={index}>
           <Link to={`/profile/${ele.id}`}>
             <h2>{ele.username}</h2>

@@ -41,6 +41,9 @@ import {
   FETCH_BOOKS,
   SET_BOOK_OFFSET,
   SEARCH_BOOKS,
+  FETCH_OTHER_COLLECTION,
+  FETCH_OTHER_FOLLOWING,
+  FETCH_OTHER_FOLLOWERS,
   FETCH_VIDEOS,
   SEARCH_VIDEOS,
   SET_VIDEO_PAGETOKEN,
@@ -260,6 +263,40 @@ export const setBookOffset = offset => ({
   payload: offset,
 })
 
+export const fetchOtherCollections = id => async dispatch => {
+  console.log(id)
+  try {
+    const collections = await axios.get(`/posts/all/${id}`)
+    if (collections) {
+      console.log('fetch other collections ==> ', collections.data)
+      dispatch({ type: FETCH_OTHER_COLLECTION, payload: collections.data })
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const fetchOtherFollowing = id => async dispatch => {
+  try {
+    const following = await axios.get(`/users/following?id=${id}`)
+    if (following) {
+      dispatch({ type: FETCH_OTHER_FOLLOWING, payload: following.data })
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const fetchOtherFollowers = id => async dispatch => {
+  try {
+    const followers = await axios.get(`/users/followers?id=${id}`)
+    if (followers) {
+      dispatch({ type: FETCH_OTHER_FOLLOWERS, payload: followers.data })
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
 export const fetchVideos = (query, pageToken) => async dispatch => {
   const res = await youtube.get('/search', {
     params: {
@@ -274,7 +311,6 @@ export const fetchVideos = (query, pageToken) => async dispatch => {
   dispatch({ type: FETCH_VIDEOS, payload: videosWithThumbnailState })
   dispatch({ type: SET_VIDEO_PAGETOKEN, payload: res.data.nextPageToken })
 }
-
 export const searchVideos = query => async dispatch => {
   const res = await youtube.get('/search', {
     params: {

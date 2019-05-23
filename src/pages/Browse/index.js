@@ -28,7 +28,8 @@ import {
   resetIframe,
   createPost,
 } from 'actions'
-import { customWrapper, smartTruncate } from '../../components/mixins'
+
+import { customWrapper, smartTruncate } from 'components/mixins'
 
 class Browse extends Component {
   componentDidMount() {
