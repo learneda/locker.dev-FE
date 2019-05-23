@@ -11,13 +11,13 @@ import Suggested from 'components/sidebar/Suggested'
 import { customWrapper } from 'components/mixins'
 import {
   populateNotifications,
-  deletePost,
+  deleteCollection,
   fetchUser,
   fetchFollowers,
   fetchFollowing,
   fetchSuggested,
   fetchLocker,
-  fetchPosts,
+  fetchCollections,
   followAUser,
   fetchFeed,
   subsequentFetchFeed,
@@ -28,7 +28,7 @@ import {
 } from '../../actions'
 class Home extends Component {
   componentDidMount() {
-    this.props.fetchPosts()
+    this.props.fetchCollections()
     this.props.fetchLocker()
     this.props.fetchUser(this.props.auth.id)
     this.props.fetchSuggested(this.props.auth.id)
@@ -49,19 +49,19 @@ class Home extends Component {
       locker,
       location,
       match,
-      posts,
+      collections,
       following,
       followers,
       suggested,
       populateNotifications,
       fetchUser,
       fetchLocker,
-      fetchPosts,
+      fetchCollections,
       fetchFollowers,
       fetchFollowing,
       fetchSuggested,
       followAUser,
-      deletePost,
+      deleteCollection,
       feed,
       subsequentFetchFeed,
       createComment,
@@ -75,7 +75,7 @@ class Home extends Component {
           <Sidebar
             auth={auth}
             user={user}
-            posts={posts}
+            collections={collections}
             followers={followers}
             following={following}
             fetchFollowers={fetchFollowers}
@@ -129,9 +129,9 @@ class Home extends Component {
                       {...props}
                       userId={auth.id}
                       searchTerm={searchTerm}
-                      posts={posts}
-                      deletePost={deletePost}
-                      fetchPosts={fetchPosts}
+                      collections={collections}
+                      deleteCollection={deleteCollection}
+                      fetchCollections={fetchCollections}
                     />
                   )}
                 />
@@ -167,7 +167,7 @@ const mapStateToProps = ({
   auth,
   user,
   searchTerm,
-  posts,
+  collections,
   locker,
   social,
   feed,
@@ -175,7 +175,7 @@ const mapStateToProps = ({
   auth,
   user,
   searchTerm,
-  posts,
+  collections,
   locker,
   following: social.following,
   followers: social.followers,
@@ -187,10 +187,10 @@ export default connect(
   mapStateToProps,
   {
     populateNotifications,
-    deletePost,
+    deleteCollection,
     fetchUser,
     fetchLocker,
-    fetchPosts,
+    fetchCollections,
     fetchFollowers,
     fetchFollowing,
     fetchSuggested,

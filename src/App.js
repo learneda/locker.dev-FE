@@ -30,7 +30,7 @@ const NoMatch = lazy(() => NoMatchPromise)
 const Profile = lazy(() => ProfilePromise)
 const SinglePost = lazy(() => SinglePostPromise)
 
-const App = ({ fetchAuth, fetchUser, fetchPosts, modal, auth }) => {
+const App = ({ fetchAuth, fetchUser, fetchCollections, modal, auth }) => {
   const { isAuthOpen, isEditOpen } = modal
   useEffect(() => {
     // initial fetch user when you refresh browser

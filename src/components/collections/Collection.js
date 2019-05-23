@@ -11,11 +11,11 @@ import { StyledCollections } from './StyledCollections'
 //TODO: Make selectLogo and selectRootUrl DRY
 
 const Collection = props => {
-  const posts = props.posts
-    .map(post => (
-      <Post key={post.id}>
-        <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
-          <img src={post.thumbnail_url} alt='' />
+  const collections = props.collections
+    .map(collection => (
+      <CollectionCard key={collection.id}>
+        <a href={collection.post_url} target='_blank' rel='noopener noreferrer'>
+          <img src={collection.thumbnail_url} alt='' />
         </a>
         <div className='post-content'>
           <div
@@ -25,13 +25,17 @@ const Collection = props => {
               height: '100%',
             }}
           >
-            <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
-              <h1>{props.handleTruncateText(post.title, 80)}</h1>
+            <a
+              href={collection.post_url}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <h1>{props.handleTruncateText(collection.title, 80)}</h1>
             </a>
-            <p>{props.handleTruncateText(post.description, 120)}</p>
+            <p>{props.handleTruncateText(collection.description, 120)}</p>
             <a
               className='post-root-url'
-              href={post.post_url}
+              href={collection.post_url}
               target='_blank'
               rel='noopener noreferrer'
             >
@@ -42,37 +46,41 @@ const Collection = props => {
                   alignItems: 'center',
                 }}
               >
-                {selectLogo(post.post_url)}
+                {selectLogo(collection.post_url)}
                 <span style={{ marginLeft: '5px' }}>
-                  {post.post_url.includes('book') && !post.root_url
+                  {collection.post_url.includes('book') && !collection.root_url
                     ? 'google.com'
                     : null}
                 </span>
                 <span style={{ marginLeft: '5px' }}>
-                  {post.post_url.includes('youtube') && !post.root_url
+                  {collection.post_url.includes('youtube') &&
+                  !collection.root_url
                     ? 'youtube.com'
                     : null}
                 </span>
 
-                {post.root_url ? (
-                  <span style={{ marginLeft: '0px' }}>{post.root_url}</span>
+                {collection.root_url ? (
+                  <span style={{ marginLeft: '0px' }}>
+                    {collection.root_url}
+                  </span>
                 ) : null}
               </div>
             </a>
           </div>
           <div className='date-like-heart'>
             <span className='formatted-date'>
-              {moment(post.created_at).fromNow() === 'a few seconds ago' ? (
+              {moment(collection.created_at).fromNow() ===
+              'a few seconds ago' ? (
                 'just now'
               ) : (
-                <Moment fromNow>{post.created_at}</Moment>
+                <Moment fromNow>{collection.created_at}</Moment>
               )}
             </span>
 
-            <SharedButton bookmark={post} />
+            <SharedButton bookmark={collection} />
             <div
               className='delete-bookmark'
-              onClick={() => props.handleDelete(post.id)}
+              onClick={() => props.handleDelete(collection.id)}
             >
               <img src={deleteIcon} className='delete-icon' alt='delete icon' />
               <span className='del-span'>Delete</span>
@@ -83,12 +91,12 @@ const Collection = props => {
               src={editSvg}
               alt=''
               onClick={() => {
-                props.handleModalOpen(post)
+                props.handleModalOpen(collection)
               }}
             />
           </div>
         </div>
-      </Post>
+      </CollectionCard>
     ))
     .reverse()
 
@@ -101,7 +109,7 @@ const Collection = props => {
           post={props.editPost}
         />
       )}
-      {posts}
+      {collections}
     </Wrapper>
   )
 }
@@ -112,6 +120,6 @@ const Wrapper = styled.div`
   padding: 0px 5px 0px;
 `
 
-const Post = styled.div`
+const CollectionCard = styled.div`
   ${StyledCollections};
 `

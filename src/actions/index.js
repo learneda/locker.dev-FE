@@ -11,8 +11,8 @@ import {
   AUTH_MODAL_LOGIN,
   AUTH_MODAL_SIGNUP,
   FETCH_POSTS,
-  CREATE_POST,
-  DELETE_POST,
+  CREATE_COLLECTION,
+  DELETE_COLLECTION,
   SET_SEARCH_TERM,
   RESET_SEARCH_TERM,
   EDIT_USER,
@@ -22,7 +22,6 @@ import {
   FETCH_SUGGESTED,
   FETCH_FOLLOWERS,
   FETCH_FOLLOWING,
-  UPDATE_POSTS_STATE,
   FETCH_NOTIFICATIONS,
   CLEAR_NOTIFICATIONS,
   FETCH_LOCKER,
@@ -36,6 +35,9 @@ import {
   SET_COURSE_PAGE,
   SET_ARTICLE_OFFSET,
   SEARCH_ARTICLES,
+  FETCH_COLLECTIONS,
+  EDIT_COLLECTION,
+  ADD_TO_FEED,
   FETCH_BOOKS,
   SET_BOOK_OFFSET,
   SEARCH_BOOKS,
@@ -52,7 +54,6 @@ import {
   SHOW_IFRAME,
   RESET_IFRAME,
 } from './types'
-axios.defaults.withCredentials = true
 
 //* Fetches userID on App mount
 export const fetchAuth = () => async dispatch => {
@@ -95,30 +96,77 @@ export const authModalToggle = () => ({ type: AUTH_MODAL_TOGGLE })
 export const modalSignUp = () => ({ type: AUTH_MODAL_SIGNUP })
 //* Select Auth-Login tab on user input
 export const modalLogin = () => ({ type: AUTH_MODAL_LOGIN })
+
+// get all user collections
+export const fetchCollections = () => async dispatch => {
+  const res = await axios.get(`${URL}/api/posts`)
+  dispatch({ type: FETCH_COLLECTIONS, payload: res.data })
+}
+
+export const createCollection = post => async dispatch => {
+  let msg
+  try {
+    const res = await axios.post(`${URL}/api/posts`, post)
+    dispatch({ type: CREATE_COLLECTION, payload: res.data })
+    msg = 'success'
+  } catch (err) {
+    console.log(err)
+    msg = 'whoops!'
+  } finally {
+    return new Promise(function(resolve, reject) {
+      resolve(msg)
+    })
+  }
+}
+
+export const deleteCollection = id => async dispatch => {
+  const res = await axios.delete(`${URL}/api/posts/${id}`)
+  dispatch({ type: DELETE_COLLECTION, payload: res.data })
+}
+
+export const editCollection = editedCollection => async dispatch => {
+  const collection = await axios.put(
+    `${URL}/api/posts/${editedCollection.id}`,
+    editedCollection
+  )
+  if (collection) {
+    dispatch({ type: EDIT_COLLECTION, payload: collection.data })
+  }
+}
 //* Fetch posts on Home mount
 export const fetchPosts = () => async dispatch => {
   const res = await axios.get(`/posts`)
   dispatch({ type: FETCH_POSTS, payload: res.data })
-}
-//* Create a new port on user input
-export const createPost = post => async dispatch => {
-  const res = await axios.post(`/posts`, post)
-  dispatch({ type: CREATE_POST, payload: res.data })
-}
-//* Crazy function we should delete
-export const updatePostsState = post => async dispatch => {
-  dispatch({ type: UPDATE_POSTS_STATE, payload: post })
-}
-//* Deletes a post on user input
-export const deletePost = id => async dispatch => {
-  const res = await axios.delete(`/posts/${id}`)
-  dispatch({ type: DELETE_POST, payload: res.data })
 }
 //* Edits profile on user input
 export const editProfile = (id, profile) => async dispatch => {
   const res = await axios.put(`/users/edit`, { id, ...profile })
   dispatch({ type: EDIT_USER, payload: res.data })
 }
+
+export const shareCollection = collection => async dispatch => {
+  // edit collection
+  const editCollection = await axios.put(
+    `${URL}/api/posts/${collection.id}`,
+    collection
+  )
+  if (editCollection) {
+    dispatch({ type: EDIT_COLLECTION, payload: editCollection.data })
+    // insert new record to newfeed table
+    await axios.post(`${URL}/api/posts/share`, {
+      id: collection.id,
+      user_id: editCollection.data.user_id,
+    })
+
+    const sharedCollection = editCollection.data
+
+    // feed post's are exprecting to have these to properties on them
+    sharedCollection['comments'] = []
+    sharedCollection['likes'] = 0
+    dispatch({ type: ADD_TO_FEED, payload: sharedCollection })
+  }
+}
+
 //* Sets search term on user input
 export const setSearchTerm = e => ({
   type: SET_SEARCH_TERM,
@@ -215,6 +263,7 @@ export const subsequentFetchFeed = offset => async dispatch => {
 }
 
 export const createComment = commentData => async dispatch => {
+  console.log(commentData)
   dispatch({ type: ADD_COMMENT, payload: commentData })
 }
 
@@ -223,6 +272,7 @@ export const deleteComment = commentData => async dispatch => {
 }
 
 export const likeComment = commentData => async dispatch => {
+  console.log(commentData)
   dispatch({ type: LIKE_COMMENT, payload: commentData })
 }
 

@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import ReusablePortal from '../utils/ModalPortal'
+import { connect } from 'react-redux'
+import { shareCollection } from '../../actions/index'
 import { StyledAddLink } from '../utils/StyledAddLink.js'
 import styled from 'styled-components'
 import { ReactComponent as X } from '../../assets/svg/x.svg'
@@ -23,16 +25,9 @@ class SharedButton extends Component {
   }
 
   toggle = () => {
-    this.setState(
-      {
-        on: !this.state.on,
-      }
-      //   () => {
-      //     if (this.state.on) {
-      //       document.getElementById('form-key').focus();
-      //     }
-      //   }
-    )
+    this.setState({
+      on: !this.state.on,
+    })
   }
 
   handleChange = event => {
@@ -50,18 +45,12 @@ class SharedButton extends Component {
       title: this.state.title,
       user_thoughts: this.state.userThoughts,
       shared: true,
+      id: id,
     }
-    axios.put(`${URL}/api/posts/${id}`, editedPost).then(res => {
-      axios
-        .post(`${URL}/api/posts/share`, {
-          id,
-          user_id: this.props.user_id,
-          // updated_at: Date.now(),
-        })
-        .then(res => {
-          this.props.alert.success('Post shared to Feed')
-          this.setState({ on: false })
-        })
+
+    this.props.shareCollection(editedPost).then(res => {
+      this.props.alert.success('Post shared to Feed')
+      this.setState({ on: false })
     })
   }
 
@@ -134,7 +123,10 @@ class SharedButton extends Component {
 
 const Alert = withAlert()(SharedButton)
 
-export default Alert
+export default connect(
+  null,
+  { shareCollection }
+)(Alert)
 
 const MODALWRAPPER = styled.div`
   ${StyledAddLink};

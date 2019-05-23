@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { authReducer as auth } from './authReducer'
 import { browseReducer as browse } from './browseReducer'
 import { modalReducer as modal } from './modalReducer'
-import { postReducer as posts } from './postReducer'
+import { collectionReducer as collections } from './collectionReducer'
 import { searchReducer as searchTerm } from './searchReducer'
 import { socialReducer as social } from './socialReducer'
 import { userReducer as user } from './userReducer'
@@ -15,7 +15,7 @@ export default combineReducers({
   auth,
   browse,
   modal,
-  posts,
+  collections,
   searchTerm,
   social,
   user,

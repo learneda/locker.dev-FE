@@ -45,7 +45,7 @@ class Sidebar extends Component {
                 <Link to='/home/collections'>
                   <ul>
                     <li>Posts</li>
-                    <li>{this.props.posts.length}</li>
+                    <li>{this.props.collections.length}</li>
                   </ul>
                 </Link>
 

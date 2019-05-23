@@ -10,17 +10,17 @@ import { customWrapper } from '../mixins'
 import { truncateText } from '../mixins'
 import NoPostScreen from '../utils/screens/NoPostScreen'
 import { post as URL } from '../../services/baseURL'
-import { fetchPosts, deletePost, setSearchTerm } from '../../actions'
+import {
+  fetchCollections,
+  deleteCollection,
+  setSearchTerm,
+} from '../../actions'
 import plusIcon from '../../assets/svg/add-icon.svg'
 import check from '../../assets/svg/check.svg'
 import { withAlert } from 'react-alert'
 
 class ProfileById extends Component {
   state = { modalOpen: false, posts: [], savedPostIds: [] }
-
-  // componentDidMount = () => {
-  //   this.props.fetchPosts()
-  // }
 
   getPosts = async () => {
     const id = this.props.match.params.id
@@ -135,8 +135,8 @@ const Alert = withAlert()(ProfileById)
 export default connect(
   mapStateToProps,
   {
-    fetchPosts,
-    deletePost,
+    fetchCollections,
+    deleteCollection,
     setSearchTerm,
   }
 )(withRouter(Alert))

@@ -177,7 +177,6 @@ class PostContainer extends Component {
             </Link>
             <p className='post-thoughts'>{this.props.post.user_thoughts}</p>
           </div>
-          {/* <div>{this.props.post.user_thoughts}</div> */}
         </div>
         <div className='post-content'>
           {post.thumbnail_url ? (

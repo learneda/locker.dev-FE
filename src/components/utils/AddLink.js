@@ -4,7 +4,7 @@ import axios from 'axios'
 import styled from 'styled-components'
 import { StyledAddLink } from './StyledAddLink'
 import ReusablePortal from './ModalPortal'
-import { updatePostsState } from '../../actions'
+import { createCollection } from '../../actions'
 import { post as URL } from '../../services/baseURL'
 import { ReactComponent as X } from '../../assets/svg/x.svg'
 import { withAlert } from 'react-alert'
@@ -40,20 +40,20 @@ class AddLink extends Component {
     e.preventDefault()
 
     if (this.props.auth) {
-      axios
-        .post(`${URL}/api/posts`, {
+      this.setState({ on: !this.state.on, inputValue: '' })
+
+      this.props
+        .createCollection({
           post_url: this.state.inputValue,
           id: this.props.auth.id,
         })
         .then(res => {
-          this.props.updatePostsState(res.data)
-          this.setState({
-            inputValue: '',
-            on: false,
-          })
-          document.querySelector('#root').classList.remove('root-modal-open')
-
-          this.props.alert.success('Link added to Bookmarks')
+          console.log('response from createCollection ==>', res)
+          if (res === 'success') {
+            this.props.alert.success('Link added to Bookmarks')
+          } else if (res === 'whoops!') {
+            this.props.alert.error('whoops, unable to add')
+          }
         })
     }
   }
@@ -111,7 +111,7 @@ const Alert = withAlert()(AddLink)
 
 export default connect(
   mapStateToProps,
-  { updatePostsState }
+  { createCollection }
 )(Alert)
 
 const ModalWrapper = styled.div`

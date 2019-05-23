@@ -22,11 +22,12 @@ import {
   fetchPodcasts,
   searchPodcasts,
   setCoursePage,
-  setArticleOffset,
   setBookOffset,
+  setArticleOffset,
+  createCollection,
+  bookOffset,
   showIframe,
   resetIframe,
-  createPost,
 } from 'actions'
 import { customWrapper, smartTruncate } from 'components/mixins'
 
@@ -54,7 +55,7 @@ class Browse extends Component {
 
   handleSaveLink = url => {
     if (this.props.auth) {
-      this.props.createPost({
+      this.props.createCollection({
         post_url: url,
       })
     }
@@ -62,7 +63,7 @@ class Browse extends Component {
 
   handleSaveMedia = media => {
     if (this.props.auth) {
-      this.props.createPost({
+      this.props.createCollection({
         ...media,
         user_id: this.props.auth.id,
       })
@@ -256,8 +257,8 @@ export default connect(
     searchVideos,
     setCoursePage,
     setArticleOffset,
+    createCollection,
     showIframe,
-    createPost,
     fetchBooks,
     searchBooks,
     setBookOffset,
@@ -266,13 +267,6 @@ export default connect(
     resetIframe,
   }
 )(withRouter(Alert))
-
-// const BrowseContainer = styled.div`
-//   h2 {
-//     font-size: 3.5rem;
-//     margin: 35px 0;
-//   }
-// `
 
 const TabWrapper = styled.div`
   padding-top: 20px;
