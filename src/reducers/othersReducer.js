@@ -3,7 +3,7 @@ import {
   FETCH_OTHER_FOLLOWING,
   FETCH_OTHER_FOLLOWERS,
   FETCH_OTHER_USER_DETAILS,
-} from '../actions/types'
+} from 'actions/types'
 
 const initialState = {
   collections: [],

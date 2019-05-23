@@ -1,4 +1,4 @@
-import { FETCH_LOCKER } from '../actions/types'
+import { FETCH_LOCKER } from 'actions/types'
 
 export const lockerReducer = (state = [], action) => {
   switch (action.type) {

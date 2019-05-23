@@ -4,7 +4,7 @@ import {
   FETCH_SUGGESTED,
   FETCH_FOLLOWERS,
   FETCH_FOLLOWING,
-} from '../actions/types'
+} from 'actions/types'
 
 const initialState = {
   suggested: [],

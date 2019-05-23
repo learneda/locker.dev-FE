@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Grommet } from 'grommet'
 import styled from 'styled-components'
-import { customLayout, customWrapper } from '../../components/mixins'
-import { post as URL } from '../../services/baseURL'
+import { customLayout, customWrapper } from 'components/mixins'
+import { post as URL } from 'services/baseURL'
 
 export default class Integrations extends Component {
   render() {

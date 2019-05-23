@@ -1,7 +1,7 @@
 import React from 'react'
 import Body from './Body'
 import styled from 'styled-components'
-import { customWrapper } from '../../components/mixins'
+import { customWrapper } from 'components/mixins'
 
 export default () => {
   return (

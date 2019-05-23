@@ -1,4 +1,4 @@
-import { SET_SEARCH_TERM, RESET_SEARCH_TERM } from '../actions/types'
+import { SET_SEARCH_TERM, RESET_SEARCH_TERM } from 'actions/types'
 
 const initialState = ''
 

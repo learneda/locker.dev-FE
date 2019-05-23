@@ -6,7 +6,7 @@ import {
   DELETE_COMMENT,
   LIKE_COMMENT,
   UNLIKE_COMMENT,
-} from '../actions/types'
+} from 'actions/types'
 
 const initialState = {
   posts: [],

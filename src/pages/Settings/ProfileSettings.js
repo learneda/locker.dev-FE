@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import { withAlert } from 'react-alert'
 import styled from 'styled-components'
 import { Grommet, TextInput, TextArea } from 'grommet'
-import { editProfile } from '../../actions'
-import { post as URL } from '../../services/baseURL'
-import { customLayout, customWrapper } from '../../components/mixins'
+import { editProfile } from 'actions'
+import { post as URL } from 'services/baseURL'
+import { customLayout, customWrapper } from 'components/mixins'
 import axios from 'axios'
 
 class ProfileSettings extends Component {
