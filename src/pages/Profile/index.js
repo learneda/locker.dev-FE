@@ -39,6 +39,7 @@ class UserProfile extends Component {
             follow={this.props.social.following
               .map(profile => profile.id)
               .includes(Number(id))}
+            fetchOtherFollowers={this.props.fetchOtherFollowers}
           />
           <Wrapper>
             <div className='tabs'>
