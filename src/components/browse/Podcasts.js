@@ -104,11 +104,11 @@ const Podcasts = props => {
                   style={{
                     display: 'inline-block',
                     width: '80%',
-                    height: '150px',
+                    height: '50px',
                     alignSelf: 'center',
                     justifySelf: 'center',
                     position: 'absolute',
-                    top: '20px',
+                    top: '30%',
                   }}
                   src={podcast.audio}
                   controls
