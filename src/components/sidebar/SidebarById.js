@@ -25,6 +25,7 @@ const MyLoader = () => (
     speed={2}
     primaryColor='#f3f3f3'
     secondaryColor='#ecebeb'
+    style={{ width: '100%', maxWidth: '350px' }}
   >
     <circle cx='148' cy='73' r='56' />
     <rect x='118' y='425' rx='0' ry='0' width='0' height='0' />
@@ -33,52 +34,30 @@ const MyLoader = () => (
 )
 
 class SidebarById extends Component {
-  state = {
-    imageLoaded: false,
-    followers: [],
-    following: [],
+  constructor(props) {
+    super(props)
+    this.state = {
+      imageLoaded: false,
+    }
   }
   componentDidMount() {
-    const id = this.props.match.params.id
-    this.props.fetchUser(id)
-    this.props.fetchFollowing(id)
-
-    if (id) {
-      axios
-        .get(`${URL}/api/users/followers?id=${id}`)
-        .then(res => this.setState({ followers: res.data }))
-    }
-    if (id) {
-      axios
-        .get(`${URL}/api/users/following?id=${id}`)
-        .then(res => this.setState({ following: res.data }))
-    }
+    console.log(this.props.follow)
   }
 
   followAUserHandler = async e => {
     e.preventDefault()
-    const friend_id = this.props.match.params.id
+    const friend_id = Number(this.props.match.params.id)
     await this.props.followAUser({ user_id: this.props.auth.id, friend_id })
-    await this.props.fetchUser(friend_id)
-    if (friend_id) {
-      axios.get(`${URL}/api/users/followers?id=${friend_id}`).then(res => {
-        this.setState({ followers: res.data })
-      })
-    }
+    await this.props.fetchOtherFollowers(this.props.match.params.id)
   }
 
   unfollowAUserHandler = async e => {
     e.preventDefault()
     const friend_id = this.props.match.params.id
     await this.props.unfollowAUser({ user_id: this.props.auth.id, friend_id })
-    await this.props.fetchUser(friend_id)
-    if (friend_id) {
-      axios.get(`${URL}/api/users/followers?id=${friend_id}`).then(res => {
-        // console.log('res.data', res.data);
-        this.setState({ followers: res.data })
-      })
-    }
+    await this.props.fetchOtherFollowers(this.props.match.params.id)
   }
+
   imageLoaded = async () => {
     this.setState({
       imageLoaded: true,
@@ -86,35 +65,24 @@ class SidebarById extends Component {
   }
 
   render() {
-    if (!this.props.user_details) {
+    if (!this.props.userDetails) {
       return <MyLoader />
     }
     const {
       username,
-      post_count,
-      following_count,
-      followers_count,
       bio,
       location,
-      website_url,
+      websiteUrl,
       created_at,
-    } = this.props.user_details
-    let imgURL
-    if (
-      this.props.user_details.profile_picture.indexOf(
-        '/uploads/profile_pic-'
-      ) >= 0
-    ) {
-      imgURL = `${URL}${this.props.user_details.profile_picture}`
-    } else {
-      imgURL = this.props.user_details.profile_picture
-    }
+      profilePicture,
+    } = this.props.userDetails
+
     return (
       <Wrapper>
         <Profile>
           <div className='user'>
             <img
-              src={imgURL}
+              src={profilePicture}
               style={
                 this.state.imageLoaded
                   ? { opacity: '1', visibility: 'visible' }
@@ -142,15 +110,15 @@ class SidebarById extends Component {
             <div className='profile-stats'>
               <ul>
                 <li>Posts</li>
-                <li>{post_count}</li>
+                <li>{this.props.collectionsCount}</li>
               </ul>
               <ul>
                 <li>Following</li>
-                <li>{following_count}</li>
+                <li>{this.props.followingCount}</li>
               </ul>
               <ul>
                 <li>Followers</li>
-                <li>{followers_count}</li>
+                <li>{this.props.followersCount}</li>
               </ul>
             </div>
 
@@ -161,18 +129,18 @@ class SidebarById extends Component {
             </p>
             <p>
               <img src={linkSvg} alt='link-icon' />
-              {website_url ? (
-                website_url.includes('http') ? (
+              {websiteUrl ? (
+                websiteUrl.includes('http') ? (
                   <a
-                    href={website_url}
+                    href={websiteUrl}
                     target='_blank'
                     rel='noopener noreferrer'
                   >
-                    {website_url.replace(/^https?:\/\//, '')}
+                    {websiteUrl.replace(/^https?:\/\//, '')}
                   </a>
                 ) : (
                   <a
-                    href={`https://${website_url}`}
+                    href={`https://${websiteUrl}`}
                     target='_blank'
                     rel='noopener noreferrer'
                   >

@@ -1,4 +1,4 @@
-import { FETCH_AUTH } from '../actions/types'
+import { FETCH_AUTH } from 'actions/types'
 
 export const authReducer = (state = null, action) => {
   switch (action.type) {

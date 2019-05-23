@@ -22,10 +22,6 @@ import { withAlert } from 'react-alert'
 class ProfileById extends Component {
   state = { modalOpen: false, posts: [], savedPostIds: [] }
 
-  componentDidMount = () => {
-    this.props.fetchCollections()
-  }
-
   getPosts = async () => {
     const id = this.props.match.params.id
     const posts = await axios.get(`${URL}/api/posts/all/${id}`)
@@ -61,7 +57,7 @@ class ProfileById extends Component {
   render() {
     const search = this.props.searchTerm
 
-    const filteredPosts = this.state.posts.filter(post => {
+    const filteredPosts = this.props.collections.filter(post => {
       return post.title
         ? post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1
         : null || post.thumbnail_url

@@ -4,7 +4,7 @@ import {
   FETCH_SUGGESTED,
   FETCH_FOLLOWERS,
   FETCH_FOLLOWING,
-} from '../actions/types'
+} from 'actions/types'
 
 const initialState = {
   suggested: [],
@@ -15,9 +15,17 @@ const initialState = {
 export const socialReducer = (state = initialState, action) => {
   switch (action.type) {
     case FOLLOW_A_USER:
-      return { ...state }
+      return {
+        ...state,
+        following: [...state.following, { id: action.payload.friend_id }],
+      }
     case UNFOLLOW_A_USER:
-      return { ...state }
+      return {
+        ...state,
+        following: state.following.filter(
+          friend => friend.id != action.payload.friend_id
+        ),
+      }
     case FETCH_SUGGESTED:
       return { ...state, suggested: action.payload }
     case FETCH_FOLLOWERS:

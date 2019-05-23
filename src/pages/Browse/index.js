@@ -2,28 +2,33 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
 import { withAlert } from 'react-alert'
-import axios from 'axios'
 import styled from 'styled-components'
-import Courses from '../../components/browse/Courses'
-import Videos from '../../components/browse/Videos'
-import Articles from '../../components/browse/Articles'
-import Podcasts from '../../components/browse/Podcasts'
-import Books from '../../components/browse/Books'
-import { withLayout } from '../../components/hoc/withLayout'
+import Courses from 'components/browse/Courses'
+import Articles from 'components/browse/Articles'
+import Videos from 'components/browse/Videos'
+import Books from 'components/browse/Books'
+import Podcasts from 'components/browse/Podcasts'
+import { withLayout } from 'components/hoc/withLayout'
 import {
   fetchUser,
   fetchCourses,
   searchCourses,
   fetchArticles,
   searchArticles,
+  fetchBooks,
+  searchBooks,
+  fetchVideos,
+  searchVideos,
+  fetchPodcasts,
+  searchPodcasts,
   setCoursePage,
   setArticleOffset,
   createCollection,
-} from '../../actions'
-import { customWrapper, smartTruncate } from '../../components/mixins'
-import { post as URL } from '../../services/baseURL'
-
-axios.defaults.withCredentials = true
+  bookOffset,
+  showIframe,
+  resetIframe,
+} from '/actions'
+import { customWrapper, smartTruncate } from 'components/mixins'
 
 class Browse extends Component {
   componentDidMount() {
@@ -35,6 +40,16 @@ class Browse extends Component {
       this.props.fetchArticles(this.props.searchTerm, this.props.articleOffset)
       this.props.setArticleOffset(this.props.articleOffset + 12)
     }
+    if (!this.props.books.length) {
+      this.props.fetchBooks(this.props.searchTerm, this.props.bookOffset)
+      this.props.setBookOffset(this.props.bookOffset + 12)
+    }
+    if (!this.props.videos.length) {
+      this.props.fetchVideos(this.props.searchTerm, this.props.videoPageToken)
+    }
+    if (!this.props.podcasts.length) {
+      this.props.fetchPodcasts(this.props.searchTerm, this.props.podcastOffset)
+    }
   }
 
   handleSaveLink = url => {
@@ -45,9 +60,9 @@ class Browse extends Component {
     }
   }
 
-  handleSaveMedia = async media => {
+  handleSaveMedia = media => {
     if (this.props.auth) {
-      await axios.post(`${URL}/api/posts`, {
+      this.props.createCollection({
         ...media,
         user_id: this.props.auth.id,
       })
@@ -68,6 +83,19 @@ class Browse extends Component {
     this.props.setArticleOffset(this.props.articleOffset + 12)
   }
 
+  fetchMoreBooks = () => {
+    this.props.fetchBooks(this.props.searchTerm, this.props.bookOffset)
+    this.props.setBookOffset(this.props.bookOffset + 12)
+  }
+
+  fetchMoreVideos = () => {
+    this.props.fetchVideos(this.props.searchTerm, this.props.videoPageToken)
+  }
+
+  fetchMorePodcasts = () => {
+    this.props.fetchPodcasts(this.props.searchTerm, this.props.podcastOffset)
+  }
+
   render() {
     const {
       searchTerm,
@@ -75,10 +103,22 @@ class Browse extends Component {
       articleOffset,
       courses,
       coursePage,
+      books,
+      bookOffset,
+      videos,
+      videoPageToken,
+      podcasts,
+      podcastOffset,
       setArticleOffset,
       setCoursePage,
+      setBookOffset,
       searchArticles,
       searchCourses,
+      searchBooks,
+      searchVideos,
+      searchPodcasts,
+      showIframe,
+      resetIframe,
       match,
     } = this.props
     return (
@@ -144,8 +184,15 @@ class Browse extends Component {
               render={props => (
                 <Videos
                   {...props}
+                  videos={videos}
+                  searchTerm={searchTerm}
+                  videoPageToken={videoPageToken}
+                  searchVideos={searchVideos}
+                  fetchMoreVideos={this.fetchMoreVideos}
                   handleTruncateText={this.handleTruncateText}
                   handleSaveMedia={this.handleSaveMedia}
+                  showIframe={showIframe}
+                  resetIframe={resetIframe}
                   alert={this.props.alert}
                 />
               )}
@@ -155,7 +202,14 @@ class Browse extends Component {
               render={props => (
                 <Books
                   {...props}
+                  books={books}
+                  searchTerm={searchTerm}
+                  bookOffset={bookOffset}
+                  setBookOffset={setBookOffset}
+                  searchBooks={searchBooks}
+                  fetchMoreBooks={this.fetchMoreBooks}
                   handleSaveMedia={this.handleSaveMedia}
+                  handleTruncateText={this.handleTruncateText}
                   alert={this.props.alert}
                 />
               )}
@@ -165,6 +219,12 @@ class Browse extends Component {
               render={props => (
                 <Podcasts
                   {...props}
+                  podcasts={podcasts}
+                  searchTerm={searchTerm}
+                  podcastOffset={podcastOffset}
+                  searchPodcasts={searchPodcasts}
+                  fetchMorePodcasts={this.fetchMorePodcasts}
+                  handleTruncateText={this.handleTruncateText}
                   handleSaveMedia={this.handleSaveMedia}
                   alert={this.props.alert}
                 />
@@ -192,9 +252,18 @@ export default connect(
     searchCourses,
     fetchArticles,
     searchArticles,
+    fetchVideos,
+    searchVideos,
     setCoursePage,
     setArticleOffset,
     createCollection,
+    showIframe,
+    fetchBooks,
+    searchBooks,
+    setBookOffset,
+    fetchPodcasts,
+    searchPodcasts,
+    resetIframe,
   }
 )(withRouter(Alert))
 

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
-import listenAPI from '../../apis/listen'
 import styled from 'styled-components'
-import { customLayout, smartTruncate } from '../mixins'
+import { customLayout } from '../mixins'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
@@ -10,65 +8,65 @@ import { useThrottle } from 'use-throttle'
 
 import he from 'he'
 
-const Podcasts = ({ search, handleSaveMedia, alert }) => {
+const Podcasts = props => {
+  const {
+    podcasts,
+    searchTerm,
+    podcastOffset,
+    fetchMorePodcasts,
+    searchPodcasts,
+    handleTruncateText,
+    handleSaveMedia,
+    alert,
+  } = props
   const [isLoading, setIsLoading] = useState(false)
-  const [podcasts, setPodcasts] = useState([])
-  const [offset, setOffset] = useState(null)
-  const throttledSearch = useThrottle(search, 1000)
-
-  const fetchMorePodcasts = () => {
-    listenAPI
-      .get('/search', {
-        params: {
-          q: search || 'react',
-          offset,
-        },
-      })
-      .then(res => {
-        setPodcasts(prevPodcasts => [...prevPodcasts, ...res.data.results])
-        setOffset(res.data.next_offset)
-      })
-  }
-
+  const [isImage, setIsImage] = useState(Array(podcasts.length))
+  const [didMount, setDidMount] = useState(false)
+  const throttledSearch = useThrottle(searchTerm, 1000)
   useEffect(() => {
-    setIsLoading(true)
-    fetchPodcasts(search)
+    const asyncSearchPodcasts = async () => {
+      searchPodcasts(searchTerm)
+      setIsLoading(false)
+    }
+    if (didMount) {
+      setIsLoading(true)
+      asyncSearchPodcasts()
+    }
+    setDidMount(true)
   }, [throttledSearch])
 
-  const fetchPodcasts = query => {
-    listenAPI
-      .get('/search', {
-        params: {
-          q: query || 'react',
-        },
-      })
-      .then(res => {
-        setPodcasts(res.data.results)
-        setOffset(res.data.next_offset)
-        setIsLoading(false)
-      })
-  }
-
+  useEffect(() => {
+    setIsImage(Array(podcasts.length).fill(false))
+  }, [podcasts])
   const renderLoader = () => (
     <Loader>
       <Loading />
     </Loader>
   )
+  const handleClick = index => {
+    console.log(' 🦄', 'CLICKED', isImage, podcasts)
+    setIsImage(prevIsImage =>
+      prevIsImage.map((isImage, idx) => (idx === index ? !isImage : isImage))
+    )
+  }
+
+  const hasMore = !Boolean(searchTerm) || Boolean(podcasts.length)
 
   const renderPodcasts = () => (
     <InfiniteScroll
       dataLength={podcasts.length}
       next={fetchMorePodcasts}
-      hasMore={true}
+      hasMore={hasMore}
       style={{
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
       }}
     >
-      {podcasts.map(podcast => (
-        <Card key={podcast.id}>
-          <a href={podcast.audio} target='_blank' rel='noopener noreferrer'>
+      {podcasts.map((podcast, index) => (
+        <Card key={podcast.id} onClick={() => handleClick(index)}>
+          {/* <a href={podcast.audio} target='_blank' rel='noopener noreferrer'> */}
+          <div>
             <div
               style={{
                 display: 'flex',
@@ -87,23 +85,43 @@ const Podcasts = ({ search, handleSaveMedia, alert }) => {
                   filter: `blur(1.5rem)`,
                 }}
               />
-              <img
-                style={{
-                  display: 'inline-block',
-                  width: '150px',
-                  height: '150px',
-                  alignSelf: 'center',
-                  justifySelf: 'center',
-                  position: 'absolute',
-                  top: '20px',
-                }}
-                src={podcast.image}
-                alt='youtube'
-              />
+              {!isImage[index] ? (
+                <img
+                  style={{
+                    display: 'inline-block',
+                    width: '150px',
+                    height: '150px',
+                    alignSelf: 'center',
+                    justifySelf: 'center',
+                    position: 'absolute',
+                    top: '20px',
+                  }}
+                  src={podcast.image}
+                  alt='youtube'
+                />
+              ) : (
+                <audio
+                  style={{
+                    display: 'inline-block',
+                    width: '80%',
+                    height: '50px',
+                    alignSelf: 'center',
+                    justifySelf: 'center',
+                    position: 'absolute',
+                    top: '30%',
+                  }}
+                  src={podcast.audio}
+                  controls
+                >
+                  Your browser does not support the <code>audio</code> element.
+                </audio>
+              )}
             </div>
-            <h3>{smartTruncate(podcast.title_original, 75)}</h3>
-            <p>{smartTruncate(he.decode(podcast.description_original), 120)}</p>
-          </a>
+            <h3>{handleTruncateText(podcast.title_original, 75)}</h3>
+            <p>
+              {handleTruncateText(he.decode(podcast.description_original), 120)}
+            </p>
+          </div>
           <SaveIcon>
             <Add
               className='save-icon'
@@ -126,14 +144,7 @@ const Podcasts = ({ search, handleSaveMedia, alert }) => {
   return <Cards>{isLoading ? renderLoader() : renderPodcasts()}</Cards>
 }
 
-const mapStateToProps = ({ searchTerm }) => ({
-  search: searchTerm,
-})
-
-export default connect(
-  mapStateToProps,
-  null
-)(Podcasts)
+export default Podcasts
 
 const Loader = styled.div`
   margin: 75px auto;

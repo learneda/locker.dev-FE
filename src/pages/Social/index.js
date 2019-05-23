@@ -3,12 +3,12 @@ import { connect } from 'react-redux'
 import { NavLink, Route, Switch } from 'react-router-dom'
 import { Grommet } from 'grommet'
 import styled from 'styled-components'
-import Following from '../../components/social/Following'
-import Followers from '../../components/social/Followers'
-import Suggested from '../../components/social/Suggested'
-import Meetups from '../../components/social/Meetups'
-import Sidebar from '../../components/sidebar/Sidebar'
-import { customWrapper } from '../../components/mixins'
+import Following from 'components/social/Following'
+import Followers from 'components/social/Followers'
+import Suggested from 'components/social/Suggested'
+import Meetups from 'components/social/Meetups'
+import Sidebar from 'components/sidebar/Sidebar'
+import { customWrapper } from 'components/mixins'
 
 const Social = props => {
   const { userId, following, followers, suggested } = props

@@ -2,7 +2,7 @@ import {
   AUTH_MODAL_TOGGLE,
   AUTH_MODAL_SIGNUP,
   AUTH_MODAL_LOGIN,
-} from '../actions/types'
+} from 'actions/types'
 
 const initialState = {
   isAuthOpen: false,

@@ -1,4 +1,4 @@
-import { FETCH_USER, EDIT_USER } from '../actions/types'
+import { FETCH_USER, EDIT_USER } from 'actions/types'
 
 export const userReducer = (state = null, action) => {
   switch (action.type) {

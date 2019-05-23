@@ -7,7 +7,7 @@ import {
   LIKE_COMMENT,
   UNLIKE_COMMENT,
   ADD_TO_FEED,
-} from '../actions/types'
+} from 'actions/types'
 
 const initialState = {
   posts: [],
