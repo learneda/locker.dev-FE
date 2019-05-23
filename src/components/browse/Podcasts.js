@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
-import listenAPI from '../../apis/listen'
 import styled from 'styled-components'
-import { customLayout, smartTruncate } from '../mixins'
+import { customLayout } from '../mixins'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
@@ -10,44 +8,32 @@ import { useThrottle } from 'use-throttle'
 
 import he from 'he'
 
-const Podcasts = ({ search, handleSaveMedia, alert }) => {
+const Podcasts = props => {
+  const {
+    podcasts,
+    searchTerm,
+    podcastOffset,
+    fetchMorePodcasts,
+    searchPodcasts,
+    handleTruncateText,
+    handleSaveMedia,
+    alert,
+  } = props
   const [isLoading, setIsLoading] = useState(false)
-  const [podcasts, setPodcasts] = useState([])
-  const [offset, setOffset] = useState(null)
-  const throttledSearch = useThrottle(search, 1000)
-
-  const fetchMorePodcasts = () => {
-    listenAPI
-      .get('/search', {
-        params: {
-          q: search || 'react',
-          offset,
-        },
-      })
-      .then(res => {
-        setPodcasts(prevPodcasts => [...prevPodcasts, ...res.data.results])
-        setOffset(res.data.next_offset)
-      })
-  }
+  const [didMount, setDidMount] = useState(false)
+  const throttledSearch = useThrottle(searchTerm, 1000)
 
   useEffect(() => {
-    setIsLoading(true)
-    fetchPodcasts(search)
+    const asyncSearchPodcasts = async () => {
+      await searchPodcasts(searchTerm)
+      setIsLoading(false)
+    }
+    if (didMount) {
+      setIsLoading(true)
+      asyncSearchPodcasts()
+    }
+    setDidMount(true)
   }, [throttledSearch])
-
-  const fetchPodcasts = query => {
-    listenAPI
-      .get('/search', {
-        params: {
-          q: query || 'react',
-        },
-      })
-      .then(res => {
-        setPodcasts(res.data.results)
-        setOffset(res.data.next_offset)
-        setIsLoading(false)
-      })
-  }
 
   const renderLoader = () => (
     <Loader>
@@ -55,11 +41,13 @@ const Podcasts = ({ search, handleSaveMedia, alert }) => {
     </Loader>
   )
 
+  const hasMore = !Boolean(searchTerm) || Boolean(podcasts.length)
+
   const renderPodcasts = () => (
     <InfiniteScroll
       dataLength={podcasts.length}
       next={fetchMorePodcasts}
-      hasMore={true}
+      hasMore={hasMore}
       style={{
         display: 'flex',
         flexWrap: 'wrap',
@@ -101,8 +89,10 @@ const Podcasts = ({ search, handleSaveMedia, alert }) => {
                 alt='youtube'
               />
             </div>
-            <h3>{smartTruncate(podcast.title_original, 75)}</h3>
-            <p>{smartTruncate(he.decode(podcast.description_original), 120)}</p>
+            <h3>{handleTruncateText(podcast.title_original, 75)}</h3>
+            <p>
+              {handleTruncateText(he.decode(podcast.description_original), 120)}
+            </p>
           </a>
           <SaveIcon>
             <Add
@@ -126,14 +116,7 @@ const Podcasts = ({ search, handleSaveMedia, alert }) => {
   return <Cards>{isLoading ? renderLoader() : renderPodcasts()}</Cards>
 }
 
-const mapStateToProps = ({ searchTerm }) => ({
-  search: searchTerm,
-})
-
-export default connect(
-  mapStateToProps,
-  null
-)(Podcasts)
+export default Podcasts
 
 const Loader = styled.div`
   margin: 75px auto;

@@ -11,9 +11,11 @@ import {
   FETCH_VIDEOS,
   SEARCH_VIDEOS,
   SET_VIDEO_PAGETOKEN,
+  SHOW_IFRAME,
   FETCH_PODCASTS,
   SEARCH_PODCASTS,
   SET_PODCAST_OFFSET,
+  RESET_IFRAME,
 } from '../actions/types'
 
 const initialState = {
@@ -59,7 +61,25 @@ export const browseReducer = (state = initialState, action) => {
     case SET_VIDEO_PAGETOKEN:
       return { ...state, videoPageToken: action.payload }
     case SET_PODCAST_OFFSET:
-      return { ...state, podcastPageToken: action.payload }
+      return { ...state, podcastOffset: action.payload }
+    case SHOW_IFRAME:
+      return {
+        ...state,
+        videos: state.videos.map(video => {
+          if (video.id.videoId === action.payload.id) {
+            video.isThumbnail = false
+          }
+          return video
+        }),
+      }
+    case RESET_IFRAME:
+      return {
+        ...state,
+        videos: state.videos.map(video => {
+          video.isThumbnail = true
+          return video
+        }),
+      }
     default:
       return state
   }

@@ -27,7 +27,7 @@ class UserProfile extends Component {
     return (
       <Grommet theme={theme}>
         <Container>
-          {/* <SidebarById /> */}
+          <SidebarById />
           <Wrapper>
             <div className='tabs'>
               <NavLink exact to={`/profile/${id}`}>
