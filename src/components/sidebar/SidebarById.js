@@ -25,6 +25,7 @@ const MyLoader = () => (
     speed={2}
     primaryColor='#f3f3f3'
     secondaryColor='#ecebeb'
+    style={{ width: '100%', maxWidth: '350px' }}
   >
     <circle cx='148' cy='73' r='56' />
     <rect x='118' y='425' rx='0' ry='0' width='0' height='0' />
