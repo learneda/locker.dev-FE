@@ -24,6 +24,7 @@ class UserProfile extends Component {
     this.props.fetchOtherFollowers(id)
     this.props.fetchOtherUserDetails(id)
   }
+
   render() {
     const id = this.props.match.params.id
     return (
@@ -34,6 +35,10 @@ class UserProfile extends Component {
             followingCount={this.props.other.following.length}
             followersCount={this.props.other.followers.length}
             userDetails={this.props.other.userDetails}
+            myFollowing={this.props.social.following}
+            follow={this.props.social.following
+              .map(profile => profile.id)
+              .includes(Number(id))}
           />
           <Wrapper>
             <div className='tabs'>

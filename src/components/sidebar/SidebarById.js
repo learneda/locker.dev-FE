@@ -41,19 +41,7 @@ class SidebarById extends Component {
     }
   }
   componentDidMount() {
-    // const id = this.props.match.params.id
-    // // this.props.fetchUser(id) THIS WAS FUCCIN IT UP
-    // this.props.fetchFollowing(id)
-    // if (id) {
-    //   axios
-    //     .get(`${URL}/api/users/followers?id=${id}`)
-    //     .then(res => this.setState({ followers: res.data }))
-    // }
-    // if (id) {
-    //   axios
-    //     .get(`${URL}/api/users/following?id=${id}`)
-    //     .then(res => this.setState({ following: res.data }))
-    // }
+    console.log(this.props.follow)
   }
 
   followAUserHandler = async e => {
@@ -92,29 +80,19 @@ class SidebarById extends Component {
     }
     const {
       username,
-      post_count,
-      following_count,
-      followers_count,
       bio,
       location,
       websiteUrl,
       created_at,
+      profilePicture,
     } = this.props.userDetails
-    let imgURL
-    if (
-      this.props.userDetails.profilePicture.indexOf('/uploads/profile_pic-') >=
-      0
-    ) {
-      imgURL = `${URL}${this.props.userDetails.profilePicture}`
-    } else {
-      imgURL = this.props.userDetails.profilePicture
-    }
+
     return (
       <Wrapper>
         <Profile>
           <div className='user'>
             <img
-              src={imgURL}
+              src={profilePicture}
               style={
                 this.state.imageLoaded
                   ? { opacity: '1', visibility: 'visible' }
