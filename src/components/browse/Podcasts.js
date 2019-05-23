@@ -20,6 +20,7 @@ const Podcasts = props => {
     alert,
   } = props
   const [isLoading, setIsLoading] = useState(false)
+  const [isImage, setIsImage] = useState(Array(podcasts.length))
   const [didMount, setDidMount] = useState(false)
   const throttledSearch = useThrottle(searchTerm, 1000)
   useEffect(() => {
@@ -34,11 +35,20 @@ const Podcasts = props => {
     setDidMount(true)
   }, [throttledSearch])
 
+  useEffect(() => {
+    setIsImage(Array(podcasts.length).fill(false))
+  }, [podcasts])
   const renderLoader = () => (
     <Loader>
       <Loading />
     </Loader>
   )
+  const handleClick = index => {
+    console.log(' 🦄', 'CLICKED', isImage, podcasts)
+    setIsImage(prevIsImage =>
+      prevIsImage.map((isImage, idx) => (idx === index ? !isImage : isImage))
+    )
+  }
 
   const hasMore = !Boolean(searchTerm) || Boolean(podcasts.length)
 
@@ -53,9 +63,10 @@ const Podcasts = props => {
         justifyContent: 'space-between',
       }}
     >
-      {podcasts.map(podcast => (
-        <Card key={podcast.id}>
-          <a href={podcast.audio} target='_blank' rel='noopener noreferrer'>
+      {podcasts.map((podcast, index) => (
+        <Card key={podcast.id} onClick={() => handleClick(index)}>
+          {/* <a href={podcast.audio} target='_blank' rel='noopener noreferrer'> */}
+          <div>
             <div
               style={{
                 display: 'flex',
@@ -74,25 +85,43 @@ const Podcasts = props => {
                   filter: `blur(1.5rem)`,
                 }}
               />
-              <img
-                style={{
-                  display: 'inline-block',
-                  width: '150px',
-                  height: '150px',
-                  alignSelf: 'center',
-                  justifySelf: 'center',
-                  position: 'absolute',
-                  top: '20px',
-                }}
-                src={podcast.image}
-                alt='youtube'
-              />
+              {!isImage[index] ? (
+                <img
+                  style={{
+                    display: 'inline-block',
+                    width: '150px',
+                    height: '150px',
+                    alignSelf: 'center',
+                    justifySelf: 'center',
+                    position: 'absolute',
+                    top: '20px',
+                  }}
+                  src={podcast.image}
+                  alt='youtube'
+                />
+              ) : (
+                <audio
+                  style={{
+                    display: 'inline-block',
+                    width: '80%',
+                    height: '150px',
+                    alignSelf: 'center',
+                    justifySelf: 'center',
+                    position: 'absolute',
+                    top: '20px',
+                  }}
+                  src={podcast.audio}
+                  controls
+                >
+                  Your browser does not support the <code>audio</code> element.
+                </audio>
+              )}
             </div>
             <h3>{handleTruncateText(podcast.title_original, 75)}</h3>
             <p>
               {handleTruncateText(he.decode(podcast.description_original), 120)}
             </p>
-          </a>
+          </div>
           <SaveIcon>
             <Add
               className='save-icon'
