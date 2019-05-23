@@ -34,26 +34,26 @@ const MyLoader = () => (
 )
 
 class SidebarById extends Component {
-  state = {
-    imageLoaded: false,
-    followers: [],
-    following: [],
+  constructor(props) {
+    super(props)
+    this.state = {
+      imageLoaded: false,
+    }
   }
   componentDidMount() {
-    const id = this.props.match.params.id
-    // this.props.fetchUser(id) THIS WAS FUCCIN IT UP
-    this.props.fetchFollowing(id)
-
-    if (id) {
-      axios
-        .get(`${URL}/api/users/followers?id=${id}`)
-        .then(res => this.setState({ followers: res.data }))
-    }
-    if (id) {
-      axios
-        .get(`${URL}/api/users/following?id=${id}`)
-        .then(res => this.setState({ following: res.data }))
-    }
+    // const id = this.props.match.params.id
+    // // this.props.fetchUser(id) THIS WAS FUCCIN IT UP
+    // this.props.fetchFollowing(id)
+    // if (id) {
+    //   axios
+    //     .get(`${URL}/api/users/followers?id=${id}`)
+    //     .then(res => this.setState({ followers: res.data }))
+    // }
+    // if (id) {
+    //   axios
+    //     .get(`${URL}/api/users/following?id=${id}`)
+    //     .then(res => this.setState({ following: res.data }))
+    // }
   }
 
   followAUserHandler = async e => {
@@ -87,7 +87,7 @@ class SidebarById extends Component {
   }
 
   render() {
-    if (!this.props.user_details) {
+    if (!this.props.userDetails) {
       return <MyLoader />
     }
     const {
@@ -97,18 +97,17 @@ class SidebarById extends Component {
       followers_count,
       bio,
       location,
-      website_url,
+      websiteUrl,
       created_at,
-    } = this.props.user_details
+    } = this.props.userDetails
     let imgURL
     if (
-      this.props.user_details.profile_picture.indexOf(
-        '/uploads/profile_pic-'
-      ) >= 0
+      this.props.userDetails.profilePicture.indexOf('/uploads/profile_pic-') >=
+      0
     ) {
-      imgURL = `${URL}${this.props.user_details.profile_picture}`
+      imgURL = `${URL}${this.props.userDetails.profilePicture}`
     } else {
-      imgURL = this.props.user_details.profile_picture
+      imgURL = this.props.userDetails.profilePicture
     }
     return (
       <Wrapper>
@@ -143,15 +142,15 @@ class SidebarById extends Component {
             <div className='profile-stats'>
               <ul>
                 <li>Posts</li>
-                <li>{post_count}</li>
+                <li>{this.props.collectionsCount}</li>
               </ul>
               <ul>
                 <li>Following</li>
-                <li>{following_count}</li>
+                <li>{this.props.followingCount}</li>
               </ul>
               <ul>
                 <li>Followers</li>
-                <li>{followers_count}</li>
+                <li>{this.props.followersCount}</li>
               </ul>
             </div>
 
@@ -162,18 +161,18 @@ class SidebarById extends Component {
             </p>
             <p>
               <img src={linkSvg} alt='link-icon' />
-              {website_url ? (
-                website_url.includes('http') ? (
+              {websiteUrl ? (
+                websiteUrl.includes('http') ? (
                   <a
-                    href={website_url}
+                    href={websiteUrl}
                     target='_blank'
                     rel='noopener noreferrer'
                   >
-                    {website_url.replace(/^https?:\/\//, '')}
+                    {websiteUrl.replace(/^https?:\/\//, '')}
                   </a>
                 ) : (
                   <a
-                    href={`https://${website_url}`}
+                    href={`https://${websiteUrl}`}
                     target='_blank'
                     rel='noopener noreferrer'
                   >
