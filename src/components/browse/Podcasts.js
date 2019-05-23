@@ -22,10 +22,9 @@ const Podcasts = props => {
   const [isLoading, setIsLoading] = useState(false)
   const [didMount, setDidMount] = useState(false)
   const throttledSearch = useThrottle(searchTerm, 1000)
-
   useEffect(() => {
     const asyncSearchPodcasts = async () => {
-      await searchPodcasts(searchTerm)
+      searchPodcasts(searchTerm)
       setIsLoading(false)
     }
     if (didMount) {

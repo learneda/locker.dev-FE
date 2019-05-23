@@ -1,9 +1,7 @@
 import axiosAuth from 'apis/axiosBackend'
-import axiosAPI from 'apis/axiosAPI'
+import axios from 'apis/axiosAPI'
 import youtube from 'apis/youtube'
 import listen from 'apis/listen'
-import axios from 'axios'
-import { post as URL } from 'services/baseURL'
 import {
   FETCH_AUTH,
   FETCH_COURSES,
@@ -54,26 +52,26 @@ axios.defaults.withCredentials = true
 
 //* Fetches userID on App mount
 export const fetchAuth = () => async dispatch => {
-  const res = await axios.get(`${URL}/auth/current_user`)
+  const res = await axiosAuth.get(`/auth/current_user`)
   dispatch({ type: FETCH_AUTH, payload: res.data })
 }
 //* Fetches courses on Browse mount
 export const fetchCourses = (q, page) => async dispatch => {
-  const res = await axiosAPI.get(`/courses?page=${page}&search=${q}`)
+  const res = await axios.get(`/courses?page=${page}&search=${q}`)
   dispatch({ type: FETCH_COURSES, payload: res.data.results })
 }
 //* Searches courses on user input
 export const searchCourses = (q, page) => async dispatch => {
-  const res = await axiosAPI.get(`/courses?page=${page}&search=${q}`)
+  const res = await axios.get(`/courses?page=${page}&search=${q}`)
   dispatch({ type: SEARCH_COURSES, payload: res.data.results })
 }
 //* Fetches articles on Browse mount
 export const fetchArticles = (q, offset) => async dispatch => {
   let res
   if (!q) {
-    res = await axiosAPI.get(`/articles?offset=${offset}`)
+    res = await axios.get(`/articles?offset=${offset}`)
   } else {
-    res = await axiosAPI.get(`/articles?q=${q}&offset=${offset}`)
+    res = await axios.get(`/articles?q=${q}&offset=${offset}`)
   }
   dispatch({ type: FETCH_ARTICLES, payload: res.data })
 }
@@ -81,9 +79,9 @@ export const fetchArticles = (q, offset) => async dispatch => {
 export const searchArticles = (q, offset) => async dispatch => {
   let res
   if (!q) {
-    res = await axiosAPI.get(`/articles?offset=${offset}`)
+    res = await axios.get(`/articles?offset=${offset}`)
   } else {
-    res = await axiosAPI.get(`/articles?q=${q}&offset=${offset}`)
+    res = await axios.get(`/articles?q=${q}&offset=${offset}`)
   }
   dispatch({ type: SEARCH_ARTICLES, payload: res.data })
 }
@@ -95,12 +93,12 @@ export const modalSignUp = () => ({ type: AUTH_MODAL_SIGNUP })
 export const modalLogin = () => ({ type: AUTH_MODAL_LOGIN })
 //* Fetch posts on Home mount
 export const fetchPosts = () => async dispatch => {
-  const res = await axiosAPI.get(`/posts`)
+  const res = await axios.get(`/posts`)
   dispatch({ type: FETCH_POSTS, payload: res.data })
 }
 //* Create a new port on user input
 export const createPost = post => async dispatch => {
-  const res = await axiosAPI.post(`/posts`, post)
+  const res = await axios.post(`/posts`, post)
   dispatch({ type: CREATE_POST, payload: res.data })
 }
 //* Crazy function we should delete
@@ -109,12 +107,12 @@ export const updatePostsState = post => async dispatch => {
 }
 //* Deletes a post on user input
 export const deletePost = id => async dispatch => {
-  const res = await axiosAPI.delete(`/posts/${id}`)
+  const res = await axios.delete(`/posts/${id}`)
   dispatch({ type: DELETE_POST, payload: res.data })
 }
 //* Edits profile on user input
 export const editProfile = (id, profile) => async dispatch => {
-  const res = await axiosAPI.put(`/users/edit`, { id, ...profile })
+  const res = await axios.put(`/users/edit`, { id, ...profile })
   dispatch({ type: EDIT_USER, payload: res.data })
 }
 //* Sets search term on user input
@@ -129,17 +127,17 @@ export const resetSearchTerm = () => ({
 })
 //* Fetch user details on Home mount
 export const fetchUser = id => async dispatch => {
-  const res = await axiosAPI.get(`/users/id/${id}`)
+  const res = await axios.get(`/users/id/${id}`)
   dispatch({ type: FETCH_USER, payload: res.data })
 }
 //* Create a following on user input
 export const followAUser = payload => async dispatch => {
-  const res = await axiosAPI.post(`/users/subscribe`, payload)
+  const res = await axios.post(`/users/subscribe`, payload)
   dispatch({ type: FOLLOW_A_USER, payload: res.data })
 }
 //* Delete a following on user input
 export const unfollowAUser = payload => async dispatch => {
-  const res = await axiosAPI.delete(`/users/unsubscribe`, {
+  const res = await axios.delete(`/users/unsubscribe`, {
     data: {
       user_id: payload.user_id,
       friend_id: Number(payload.friend_id),
@@ -150,17 +148,17 @@ export const unfollowAUser = payload => async dispatch => {
 //* Fetch suggested on Home mount/user input
 //TODO: Consider fixing the logic here
 export const fetchSuggested = id => async dispatch => {
-  const res = await axiosAPI.get(`/users/recommendedFollow?id=${id}`)
+  const res = await axios.get(`/users/recommendedFollow?id=${id}`)
   dispatch({ type: FETCH_SUGGESTED, payload: res.data })
 }
 // fetch a userIds following list
 export const fetchFollowing = id => async dispatch => {
-  const following = await axiosAPI.get(`/users/following?id=${id}`)
+  const following = await axios.get(`/users/following?id=${id}`)
   dispatch({ type: FETCH_FOLLOWING, payload: following.data })
 }
 // fetch a userIds followers list
 export const fetchFollowers = id => async dispatch => {
-  const followers = await axiosAPI.get(`/users/followers?id=${id}`)
+  const followers = await axios.get(`/users/followers?id=${id}`)
   dispatch({ type: FETCH_FOLLOWERS, payload: followers.data })
 }
 
@@ -170,23 +168,23 @@ export const populateNotifications = NotificationsArr => ({
 })
 
 export const readNotifications = () => async dispatch => {
-  await axiosAPI.post(`/notifications/read`)
+  await axios.post(`/notifications/read`)
 }
 
 export const deleteNotifications = () => async dispatch => {
-  await axiosAPI.delete(`/notifications/clear`)
+  await axios.delete(`/notifications/clear`)
   dispatch({ type: CLEAR_NOTIFICATIONS })
 }
 
 export const fetchLocker = () => async dispatch => {
-  const lockerData = await axiosAPI.get(`/locker`)
+  const lockerData = await axios.get(`/locker`)
   if (lockerData.data.length) {
     dispatch({ type: FETCH_LOCKER, payload: lockerData.data })
   }
 }
 // initial action creator to fetch newsfeed
 export const fetchFeed = () => async dispatch => {
-  const newsFeed = await axiosAPI.get(`/users/newsfeed?offset=0`)
+  const newsFeed = await axios.get(`/users/newsfeed?offset=0`)
   if (newsFeed.data.length) {
     dispatch({ type: FETCH_FEED, payload: newsFeed.data })
   }
@@ -195,7 +193,7 @@ export const fetchFeed = () => async dispatch => {
 // InfiniteScroll component will call this func with offset to get next posts
 export const subsequentFetchFeed = offset => async dispatch => {
   // offset flow => 0, 5, 10 . offset will be incremented by +5 for everytime it is called
-  const newsFeed = await axiosAPI.get(`/users/newsfeed?offset=${offset}`)
+  const newsFeed = await axios.get(`/users/newsfeed?offset=${offset}`)
   // if the response's data array is populated ?
   if (newsFeed.data.length) {
     // set the array with new posts as payload
@@ -236,9 +234,9 @@ export const setArticleOffset = offset => ({
 })
 
 export const fetchBooks = (query, offset) => async dispatch => {
-  const res = await axiosAPI.get(`/books/search`, {
+  const res = await axios.get(`/books/search`, {
     params: {
-      q: query || 'react',
+      q: query || 'javascript',
       offset,
     },
   })
@@ -246,9 +244,9 @@ export const fetchBooks = (query, offset) => async dispatch => {
 }
 
 export const searchBooks = (query, offset) => async dispatch => {
-  const res = await axiosAPI.get(`/books/search`, {
+  const res = await axios.get(`/books/search`, {
     params: {
-      q: query || 'react',
+      q: query || 'javascript',
       offset,
     },
   })
@@ -263,7 +261,7 @@ export const setBookOffset = offset => ({
 export const fetchVideos = (query, pageToken) => async dispatch => {
   const res = await youtube.get('/search', {
     params: {
-      q: query || 'react',
+      q: query || 'javascript',
       pageToken,
     },
   })
@@ -278,7 +276,7 @@ export const fetchVideos = (query, pageToken) => async dispatch => {
 export const searchVideos = query => async dispatch => {
   const res = await youtube.get('/search', {
     params: {
-      q: query || 'react',
+      q: query || 'javascript',
     },
   })
   const videosWithThumbnailState = res.data.items.map(video => {
@@ -300,7 +298,7 @@ export const resetIframe = () => {
 export const fetchPodcasts = (query, offset) => async dispatch => {
   const res = await listen.get('/search', {
     params: {
-      q: query || 'react',
+      q: query || 'javascript',
       offset,
     },
   })
@@ -311,10 +309,11 @@ export const fetchPodcasts = (query, offset) => async dispatch => {
   })
 }
 
-export const searchPodcasts = query => dispatch => {
-  const res = listen.get('/search', {
+export const searchPodcasts = query => async dispatch => {
+  const res = await listen.get('/search', {
     params: {
-      q: query || 'react',
+      q: query || 'javascript',
+      offset: 0,
     },
   })
   dispatch({ type: SEARCH_PODCASTS, payload: res.data.results })
