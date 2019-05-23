@@ -3,7 +3,7 @@ import {
   CREATE_POST,
   DELETE_POST,
   UPDATE_POSTS_STATE,
-} from '../actions/types'
+} from 'actions/types'
 
 export const postReducer = (state = [], action) => {
   switch (action.type) {

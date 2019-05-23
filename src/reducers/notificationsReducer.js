@@ -1,4 +1,4 @@
-import { FETCH_NOTIFICATIONS, CLEAR_NOTIFICATIONS } from '../actions/types'
+import { FETCH_NOTIFICATIONS, CLEAR_NOTIFICATIONS } from 'actions/types'
 
 export const notificationsReducer = (state = [], action) => {
   switch (action.type) {
