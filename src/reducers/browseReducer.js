@@ -27,8 +27,8 @@ const initialState = {
   coursePage: 1,
   articleOffset: 0,
   bookOffset: 0,
-  videoPageToken: null,
   podcastOffset: 0,
+  videoPageToken: null,
 }
 
 export const browseReducer = (state = initialState, action) => {

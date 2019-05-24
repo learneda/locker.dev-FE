@@ -7,7 +7,6 @@ import {
 const initialState = {
   isAuthOpen: false,
   isSignUp: true,
-  isEditOpen: false,
 }
 
 export const modalReducer = (state = initialState, action) => {
