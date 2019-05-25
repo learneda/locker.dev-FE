@@ -6,7 +6,6 @@
 
 ## Table of Contents
 - [Team](#team)
--
 
 ## Team
  |                                            [**Sumayyah Asgar**](https://github.com/sumi419)                                            |                                         [**Jasmine Galang**](https://github.com/jsmnglng)                                         |                                           [**Riley Brown**](https://github.com/Riley-Brown)                                            |                                              [**Luis Martinez**](https://github.com/luiscmartinez)                                               |                                           [**Samuel Ko**](https://github.com/samsisle)                                            |                                                        [**Cesar Mejia**](https://github.com/cesarnml)                                                        |
