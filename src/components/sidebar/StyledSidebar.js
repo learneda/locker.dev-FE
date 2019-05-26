@@ -2,8 +2,10 @@ export const StyledSidebar = () => `
 box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 border-radius: 5px;
 background: #fff;
-position: sticky;
+position: fixed;
 top: 105px;
+width: 300px;
+z-index: 200;
 
 .user {
   border-top-right-radius: 5px;
@@ -53,6 +55,24 @@ top: 105px;
   mark {
     background-color: transparent;
     color: #333;
+  }
+
+  .follow-btn-grp {
+   display: flex;
+   justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+    button {
+      padding: 5px 10px;
+      font-weight: 700;
+      border: transparent;
+      border-radius: 5px;
+      background-color: #3f65f2;
+      color: white;
+      cursor: pointer;
+      transition: 200ms ease-out;
+      font-size: 1.4rem;
+    }
   }
 
   .edit-profile-link {

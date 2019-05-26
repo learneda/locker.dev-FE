@@ -148,4 +148,7 @@ const Wrapper = styled.div`
 const Post = styled.div`
   ${customWrapper('100%', 'auto')};
   ${StyledCollections};
+  margin-top: 30px;
+  min-height: 200px;
+  max-height: 250px;
 `

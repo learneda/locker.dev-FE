@@ -120,7 +120,7 @@ export default Sidebar
 
 const Wrapper = styled.div`
   ${customWrapper('45%')};
-  max-width: 270px;
+  max-width: 300px;
 
   @media (max-width: 900px) {
     display: none;
