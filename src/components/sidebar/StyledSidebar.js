@@ -2,8 +2,10 @@ export const StyledSidebar = () => `
 box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 border-radius: 5px;
 background: #fff;
-position: sticky;
+position: fixed;
 top: 105px;
+width: 300px;
+z-index: 200;
 
 .user {
   border-top-right-radius: 5px;
