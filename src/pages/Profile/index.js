@@ -145,7 +145,7 @@ const Container = styled.div`
     top: 0;
     z-index: 2;
     align-items: flex-end;
-    height: 135px;
+    height: 145px;
     display: flex;
     background: rgb(230, 233, 243);
     width: 100%;
@@ -176,7 +176,7 @@ const Wrapper = styled.div`
 
 const TabWrapper = styled.div`
   padding-top: 20px;
-  margin-top: -3px;
+  margin-top: 40px;
   margin-left: 12px;
   @media (max-width: 900px) {
     margin-left: 0;
