@@ -43,6 +43,7 @@ const Browse = props => {
     showIframe,
     resetIframe,
     match,
+    alert,
   } = props
 
   useEffect(() => {
@@ -106,6 +107,7 @@ const Browse = props => {
     fetchPodcasts(searchTerm, podcastOffset)
   }
 
+  console.log('props', props)
   return (
     <>
       <Tabs>
@@ -146,7 +148,7 @@ const Browse = props => {
                 searchCourses={searchCourses}
                 fetchMoreCourses={fetchMoreCourses}
                 handleSaveLink={handleSaveLink}
-                alert={props.alert}
+                alert={alert}
               />
             )}
           />
@@ -162,7 +164,7 @@ const Browse = props => {
                 searchArticles={searchArticles}
                 fetchMoreArticles={fetchMoreArticles}
                 handleSaveLink={handleSaveLink}
-                alert={props.alert}
+                alert={alert}
               />
             )}
           />
@@ -179,7 +181,7 @@ const Browse = props => {
                 handleSaveMedia={handleSaveMedia}
                 showIframe={showIframe}
                 resetIframe={resetIframe}
-                alert={props.alert}
+                alert={alert}
               />
             )}
           />
@@ -195,7 +197,7 @@ const Browse = props => {
                 searchBooks={searchBooks}
                 fetchMoreBooks={fetchMoreBooks}
                 handleSaveMedia={handleSaveMedia}
-                alert={props.alert}
+                alert={alert}
               />
             )}
           />
@@ -210,7 +212,7 @@ const Browse = props => {
                 searchPodcasts={searchPodcasts}
                 fetchMorePodcasts={fetchMorePodcasts}
                 handleSaveMedia={handleSaveMedia}
-                alert={props.alert}
+                alert={alert}
               />
             )}
           />
