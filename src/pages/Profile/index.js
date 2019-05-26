@@ -21,6 +21,7 @@ const UserProfile = props => {
     fetchProfileFollowing,
     fetchProfileFollowers,
     fetchProfileDetails,
+    resetProfile,
   } = props
   const { id } = match.params
 
@@ -30,6 +31,10 @@ const UserProfile = props => {
     fetchProfileFollowing(id)
     fetchProfileFollowers(id)
     fetchProfileDetails(id)
+
+    return () => {
+      resetProfile()
+    }
   }, [])
 
   return (

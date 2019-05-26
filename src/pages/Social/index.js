@@ -30,11 +30,17 @@ const Social = props => {
   } = props
 
   useEffect(() => {
-    fetchUser(userId)
-    fetchFollowing(userId)
-    fetchFollowers(userId)
-    fetchSuggested(userId)
-    fetchCollections(userId)
+    if (!user) {
+      fetchUser(userId)
+    }
+    if (!following.length) {
+      fetchFollowing(userId)
+      fetchFollowers(userId)
+      fetchSuggested(userId)
+    }
+    if (!collections.length) {
+      fetchCollections(userId)
+    }
   }, [])
   return (
     <Grommet>
@@ -118,7 +124,7 @@ const Social = props => {
 
 const mapStateToProps = ({ auth, user, social, collections }) => ({
   userId: auth.id,
-  user: user,
+  user,
   collections,
   ...social,
 })

@@ -44,13 +44,20 @@ const Home = props => {
   } = props
 
   useEffect(() => {
-    fetchLocker()
-    fetchCollections()
-    fetchUser(auth.id)
-    fetchSuggested(auth.id)
-    fetchFollowing(auth.id)
-    fetchFollowers(auth.id)
-
+    if (!user) {
+      fetchUser(auth.id)
+    }
+    if (!following.length) {
+      fetchFollowing(auth.id)
+      fetchFollowers(auth.id)
+      fetchSuggested(auth.id)
+    }
+    if (!locker.length) {
+      fetchLocker()
+    }
+    if (!collections.length) {
+      fetchCollections()
+    }
     // only fetch if feed post arr is length of zero
     if (!feed.posts.length) {
       fetchFeed()

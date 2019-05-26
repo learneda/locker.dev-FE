@@ -50,3 +50,7 @@ export const fetchProfileDetails = id => async dispatch => {
     console.log(err)
   }
 }
+
+export const resetProfile = () => {
+  return { type: type.RESET_PROFILE }
+}

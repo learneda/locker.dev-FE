@@ -1,13 +1,7 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-import * as notificationActions from 'actions'
+import React from 'react'
 
 const Notifications = props => {
-  const { notifications, readNotifications } = props
-
-  useEffect(() => {
-    readNotifications()
-  }, [])
+  const { notifications } = props
 
   const displayNotifications = notifications.map(notification => (
     <>
