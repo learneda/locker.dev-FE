@@ -57,6 +57,24 @@ z-index: 200;
     color: #333;
   }
 
+  .follow-btn-grp {
+   display: flex;
+   justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+    button {
+      padding: 5px 10px;
+      font-weight: 700;
+      border: transparent;
+      border-radius: 5px;
+      background-color: #3f65f2;
+      color: white;
+      cursor: pointer;
+      transition: 200ms ease-out;
+      font-size: 1.4rem;
+    }
+  }
+
   .edit-profile-link {
     margin-bottom: 3.5px;
     a {
