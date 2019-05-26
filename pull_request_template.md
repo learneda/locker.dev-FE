@@ -18,9 +18,9 @@ Fixes # (issue)
 
 ## Checklist
 
-- [x] My code follows the style guidelines of this project
-- [x] I have performed a self-review of my own code
-- [x] I have commented my code, particularly in hard-to-understand areas
-- [x] My changes generate no new warnings
-- [x] There are no merge conflicts
+- [ ] My code follows the style guidelines of this project
+- [ ] I have performed a self-review of my own code
+- [ ] I have commented my code, particularly in hard-to-understand areas
+- [ ] My changes generate no new warnings
+- [ ] There are no merge conflicts
 - [ ] I have made corresponding changes to the documentation
