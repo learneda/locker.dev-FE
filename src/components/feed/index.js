@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import openSocket from 'socket.io-client'
 import styled from 'styled-components'
 import { customWrapper } from '../mixins'
