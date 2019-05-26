@@ -42,6 +42,7 @@ export const fetchCollections = () => async dispatch => {
   const res = await axios.get(`/posts`)
   dispatch({ type: FETCH_COLLECTIONS, payload: res.data })
 }
+
 export const createCollection = post => async dispatch => {
   let msg
   try {
@@ -70,6 +71,7 @@ export const editCollection = editedCollection => async dispatch => {
     dispatch({ type: EDIT_COLLECTION, payload: collection.data })
   }
 }
+
 export const shareCollection = collection => async dispatch => {
   // edit collection
   const editCollection = await axios.put(`/posts/${collection.id}`, collection)

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import openSocket from 'socket.io-client'
 import styled from 'styled-components'
 import { customWrapper } from '../mixins'
-import { postURL } from 'services'
+import { baseURL } from 'services'
 import ContentLoader from 'react-content-loader'
 import HelpScreen from '../utils/screens/HelpScreen'
 import OnlineFriendsSVG from 'assets/svg/online_friends.svg'
@@ -33,7 +33,7 @@ class Feed extends Component {
       commentValue: '',
     }
     // connect socket
-    this.socket = openSocket(postURL)
+    this.socket = openSocket(baseURL)
   }
 
   componentDidMount() {
