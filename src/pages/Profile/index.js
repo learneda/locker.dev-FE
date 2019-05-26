@@ -27,6 +27,7 @@ class UserProfile extends Component {
 
   render() {
     const id = this.props.match.params.id
+    const {match} = this.props
     return (
       <Grommet theme={theme}>
         <Container>
@@ -43,18 +44,18 @@ class UserProfile extends Component {
           />
           <Wrapper>
             <div className='tabs'>
-              <NavLink exact to={`/profile/${id}`}>
+              <NavLink exact to={`${match.url}/collections`}>
                 Collections
               </NavLink>
-              <NavLink to={`/profile/${id}/following`}>Following</NavLink>
-              <NavLink to={`/profile/${id}/followers`}>Followers</NavLink>
+              <NavLink to={`${match.url}/following`}>Following</NavLink>
+              <NavLink to={`${match.url}/followers`}>Followers</NavLink>
             </div>
 
             <TabWrapper>
               <Switch>
                 <Route
                   exact
-                  path={`/profile/:id`}
+                  path={[`${match.path}`,`${match.path}/collections`]}
                   render={props => (
                     <ProfileById
                       {...props}
@@ -64,7 +65,7 @@ class UserProfile extends Component {
                 />
                 <Route
                   exact
-                  path={'/profile/:id/following'}
+                  path={`${match.path}/following`}
                   render={props => (
                     <UserFollowing
                       {...props}
@@ -75,7 +76,7 @@ class UserProfile extends Component {
                 />
                 <Route
                   exact
-                  path={'/profile/:id/followers'}
+                  path={`${match.path}/followers`}
                   render={props => (
                     <UserFollowers
                       {...props}
