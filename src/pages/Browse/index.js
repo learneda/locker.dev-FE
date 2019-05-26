@@ -113,7 +113,7 @@ const Browse = props => {
           <NavLink
             exact
             to={`${match.url}/courses`}
-            className={props.location.pathname == '/browse' ? 'active' : null}
+            className={props.location.pathname === '/browse' ? 'active' : null}
           >
             Course
           </NavLink>
