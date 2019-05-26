@@ -16,8 +16,8 @@ import {
   fetchFollowing,
   fetchFollowers,
   fetchSuggested,
+  fetchCollections
 } from 'actions'
-import { fetchCollections } from 'actions/index'
 const Social = props => {
   const {
     userId,
@@ -94,13 +94,17 @@ const Social = props => {
                     userId={userId}
                     following={following}
                     followers={followers}
+                    followAUser={followAUser}
+                    fetchUser={fetchUser}
+                    unfollowAUser={unfollowAUser}
+                    fetchFollowing={fetchFollowing}
                   />
                 )}
               />
               <Route
                 path={`${match.path}/suggested`}
                 render={props => (
-                  <Suggested {...props} userId={userId} suggested={suggested} />
+                  <Suggested {...props} userId={userId} suggested={suggested} followAUser={followAUser} fetchUser={fetchUser} fetchFollowing={fetchFollowing} fetchSuggested={fetchSuggested} />
                 )}
               />
               <Route path={`${match.path}/meetups`} component={Meetups} />

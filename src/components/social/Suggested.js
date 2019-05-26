@@ -1,11 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import {
-  followAUser,
-  fetchFollowing,
-  fetchUser,
-  fetchSuggested,
-} from '../../actions'
 
 const Suggested = props => {
   const {
@@ -42,12 +35,4 @@ const Suggested = props => {
   )
 }
 
-export default connect(
-  null,
-  {
-    followAUser,
-    fetchUser,
-    fetchFollowing,
-    fetchSuggested,
-  }
-)(Suggested)
+export default Suggested

@@ -1,13 +1,6 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import {
-  followAUser,
-  unfollowAUser,
-  fetchFollowing,
-  fetchUser,
-} from '../../actions'
-import { StyledFollow } from './StyledFollow'
 import { Link } from 'react-router-dom'
+import { StyledFollow } from './StyledFollow'
 
 const Followers = props => {
   const {
@@ -77,7 +70,4 @@ const Followers = props => {
   )
 }
 
-export default connect(
-  null,
-  { followAUser, unfollowAUser, fetchFollowing, fetchUser }
-)(Followers)
+export default Followers
