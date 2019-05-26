@@ -251,7 +251,7 @@ const Tabs = styled.ul`
   align-items: flex-end;
   background: rgb(230, 233, 243);
   padding-bottom: 20px;
-  margin-left: 5px;
+  margin-left: -5px;
   &:hover {
     color: #4064f2;
   }
@@ -268,6 +268,7 @@ const Tabs = styled.ul`
 const Tab = styled.li`
   margin-right: 2rem;
   font-size: 2rem;
+  margin-left: 10px;
 
   a {
     transition: 100ms ease-out;
