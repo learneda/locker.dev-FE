@@ -26,7 +26,6 @@ const NotificationsPage = props => {
     </Container>
   )
 }
-
 const mapStateToProps = ({ user, collections, notifications, social }) => ({
   user,
   collections,

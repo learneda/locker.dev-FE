@@ -18,7 +18,4 @@ const Notifications = props => {
   return <div>{displayNotifications}</div>
 }
 
-export default connect(
-  mapStateToProps,
-  { ...notificationActions }
-)(Notifications)
+export default Notifications

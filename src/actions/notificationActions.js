@@ -1,5 +1,8 @@
+import * as type from './notificationTypes'
+import axios from 'apis/axiosAPI'
+
 export const fetchNotifications = NotificationsArr => ({
-  type: FETCH_NOTIFICATIONS,
+  type: type.FETCH_NOTIFICATIONS,
   payload: NotificationsArr,
 })
 export const readNotifications = () => async dispatch => {
@@ -7,5 +10,5 @@ export const readNotifications = () => async dispatch => {
 }
 export const deleteNotifications = () => async dispatch => {
   await axios.delete(`/notifications/clear`)
-  dispatch({ type: DELETE_NOTIFICATIONS })
+  dispatch({ type: type.DELETE_NOTIFICATIONS })
 }

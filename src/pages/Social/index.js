@@ -158,13 +158,33 @@ const Wrapper = styled.div`
 const TabWrapper = styled.div`
   border-top: 1px solid #bdbdbd;
   padding-top: 20px;
-  margin-top: -3px;
+  margin-top: 60px;
 `
 
 const Tabs = styled.ul`
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  align-items: flex-end;
+  height: 135px;
   display: flex;
+  background: rgb(230, 233, 243);
+  width: 100%;
+  padding-bottom: 10px;
+  .active {
+    border-bottom: 3px solid #4064f2;
+    font-weight: 900;
+    color: #4064f2;
+  }
 `
 
 const Tab = styled.li`
   margin-right: 2rem;
+  a {
+    transition: 100ms ease-out;
+    &:hover {
+      color: #4064f2;
+      transition: 100ms ease-in;
+    }
+  }
 `

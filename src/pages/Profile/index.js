@@ -48,7 +48,13 @@ const UserProfile = props => {
         />
         <Wrapper>
           <div className='tabs'>
-            <NavLink exact to={`${match.url}/collections`}>
+            <NavLink
+              exact
+              to={`${match.url}/collections`}
+              className={
+                props.location.pathname === `/profile/${id}` ? 'active' : null
+              }
+            >
               Collections
             </NavLink>
             <NavLink to={`${match.url}/following`}>Following</NavLink>

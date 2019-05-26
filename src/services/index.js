@@ -1,15 +1,9 @@
-const baseURL, authURL, apiURL, postURL
-
-if (process.env.NODE_ENV === 'production') {
- baseURL = 'https://learned-a.herokuapp.com'
- authURL = 'https://learned-a.herokuapp.com/auth'
- apiURL = 'https://learned-a.herokuapp.com/api'
- postURL = 'https://learned-a.herokuapp.com/api/post/?url='
-} else {
- baseURL = 'http://localhost:8000'
- authURL = 'http://localhost:8000/auth'
- apiURL = 'http://localhost:8000/api'
- postURL = 'http://localhost:8000/api/post/?url='
-}
+const baseURL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://learned-a.herokuapp.com'
+    : 'http://localhost:8000'
+const authURL = `${baseURL}/auth`
+const apiURL = `${baseURL}/api`
+const postURL = `${baseURL}/api/post/?url=`
 
 export { baseURL, authURL, apiURL, postURL }
