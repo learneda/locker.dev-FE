@@ -9,14 +9,12 @@ import {
   unfollowAUser,
   fetchFollowers,
   fetchFollowing,
-} from '../../actions'
+} from 'actions'
 import { customLayout, customWrapper } from '../mixins'
-import locationSvg from '../../assets/svg/location.svg'
-import linkSvg from '../../assets/svg/link-symbol.svg'
-import calendarSvg from '../../assets/svg/calendar.svg'
-import { post as URL } from '../../services/baseURL.js'
+import locationSvg from 'assets/svg/location.svg'
+import linkSvg from 'assets/svg/link-symbol.svg'
+import calendarSvg from 'assets/svg/calendar.svg'
 import ContentLoader from 'react-content-loader'
-import axios from 'axios'
 
 const MyLoader = () => (
   <ContentLoader

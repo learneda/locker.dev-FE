@@ -7,9 +7,6 @@ import HelpScreen from '../utils/screens/HelpScreen'
 import LoveItSVG from '../../assets/svg/love-it-drawing.svg'
 import { truncateText, customLayout } from '../mixins'
 
-import axios from 'axios'
-axios.defaults.withCredentials = true
-
 class Locker extends Component {
   handleTruncateText = (content, limit = 10) => {
     return truncateText(content, limit)

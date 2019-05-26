@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import axios from 'axios'
 import styled from 'styled-components'
 import { StyledAddLink } from './StyledAddLink'
 import ReusablePortal from './ModalPortal'
 import { createCollection } from '../../actions'
-import { post as URL } from '../../services/baseURL'
 import { ReactComponent as X } from '../../assets/svg/x.svg'
 import { withAlert } from 'react-alert'
 

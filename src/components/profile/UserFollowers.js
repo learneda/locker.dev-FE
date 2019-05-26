@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { followAUser, unfollowAUser, fetchUser } from '../../actions'
+import { followAUser, unfollowAUser, fetchUser } from 'actions'
 import { StyledFollow } from '../social/StyledFollow'
-import axios from 'axios'
-import { post as URL } from '../../services/baseURL'
 
 const UserFollowers = props => {
   const { userId, followAUser, unfollowAUser, fetchUser } = props

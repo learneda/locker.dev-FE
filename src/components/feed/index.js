@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import openSocket from 'socket.io-client'
-import axios from 'axios'
 import styled from 'styled-components'
 import { customWrapper } from '../mixins'
 import { post as URL } from '../../services/baseURL'

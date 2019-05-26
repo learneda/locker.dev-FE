@@ -1,7 +1,7 @@
 import React from 'react'
-import { authURL } from '../../services/authURL'
-import googleSvg from '../../assets/svg/google.svg'
-import githubSvg from '../../assets/svg/github.svg'
+import { authURL } from 'services/authURL'
+import googleSvg from 'assets/svg/google.svg'
+import githubSvg from 'assets/svg/github.svg'
 
 const AuthForm = props => {
   const { isSignUp } = props

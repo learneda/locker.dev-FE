@@ -7,11 +7,11 @@ import Search from './Search'
 import Auth from '../authentication/Auth'
 import AddLink from '../utils/AddLink'
 import ProfileDropDown from './ProfileDropDown'
-import { authModalToggle, modalSignUp, modalLogin } from '../../actions'
-import { authURL } from '../../services/authURL'
+import { authModalToggle, modalSignUp, modalLogin } from 'actions'
+import { authURL } from 'services/authURL'
 import { customLayout, hoverBg } from '../mixins'
-import burgerIcon from '../../assets/svg/burger.svg'
-import closeIcon from '../../assets/svg/close.svg'
+import burgerIcon from 'assets/svg/burger.svg'
+import closeIcon from 'assets/svg/close.svg'
 
 class Navbar extends Component {
   state = { show: false }
