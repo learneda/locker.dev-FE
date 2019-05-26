@@ -15,9 +15,9 @@ const Followers = props => {
     following,
     followers,
     followAUser,
+    fetchUser,
     unfollowAUser,
     fetchFollowing,
-    fetchUser,
   } = props
 
   const [isLoading, setIsLoading] = useState(false)

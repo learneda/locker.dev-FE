@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { fetchUser, fetchFollowers, fetchFollowing } from '../../actions'
+import Moment from 'react-moment'
 import ContentLoader from 'react-content-loader'
-
 import styled from 'styled-components'
 import { customLayout, customWrapper } from '../mixins'
-import Moment from 'react-moment'
-import locationSvg from '../../assets/svg/location.svg'
-import linkSvg from '../../assets/svg/link-symbol.svg'
-import calendarSvg from '../../assets/svg/calendar.svg'
+import locationSvg from 'assets/svg/location.svg'
+import linkSvg from 'assets/svg/link-symbol.svg'
+import calendarSvg from 'assets/svg/calendar.svg'
+import { fetchUser, fetchFollowers, fetchFollowing } from 'actions'
 import { StyledSidebar } from './StyledSidebar'
 
 const MyLoader = () => (

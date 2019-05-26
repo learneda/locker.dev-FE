@@ -1,52 +1,93 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { NavLink, Route, Switch } from 'react-router-dom'
+import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
 import { Grommet } from 'grommet'
 import styled from 'styled-components'
+import Sidebar from 'components/sidebar/Sidebar'
 import Following from 'components/social/Following'
 import Followers from 'components/social/Followers'
 import Suggested from 'components/social/Suggested'
 import Meetups from 'components/social/Meetups'
-import Sidebar from 'components/sidebar/Sidebar'
 import { customWrapper } from 'components/mixins'
-
+import {
+  followAUser,
+  unfollowAUser,
+  fetchUser,
+  fetchFollowing,
+  fetchFollowers,
+  fetchSuggested,
+} from 'actions'
+import { fetchCollections } from 'actions/index'
 const Social = props => {
-  const { userId, following, followers, suggested } = props
+  const {
+    userId,
+    user,
+    following,
+    followers,
+    suggested,
+    collections,
+    followAUser,
+    unfollowAUser,
+    fetchUser,
+    fetchFollowing,
+    fetchFollowers,
+    fetchSuggested,
+    fetchCollections,
+    match,
+  } = props
+
+  useEffect(() => {
+    fetchUser(userId)
+    fetchFollowing(userId)
+    fetchFollowers(userId)
+    fetchSuggested(userId)
+    fetchCollections(userId)
+  }, [])
+  console.log('mounted')
   return (
     <Grommet>
       <Container>
-        <Sidebar />
+        <Sidebar
+          user={user}
+          collections={collections}
+          following={following}
+          followers={followers}
+        />
         <Wrapper>
           <Tabs>
             <Tab>
-              <NavLink to='/social/following'>Following</NavLink>
+              <NavLink to={`${match.url}/following`}>Following</NavLink>
             </Tab>
             <Tab>
-              <NavLink to='/social/followers'>Followers</NavLink>
+              <NavLink to={`${match.url}/followers`}>Followers</NavLink>
             </Tab>
             <Tab>
-              <NavLink to='/social/suggested'>Suggested</NavLink>
+              <NavLink to={`${match.url}/suggested`}>Suggested</NavLink>
             </Tab>
             <Tab>
-              <NavLink to='/social/meetups'>Meetups</NavLink>
+              <NavLink to={`${match.url}/meetups`}>Meetups</NavLink>
             </Tab>
           </Tabs>
           <TabWrapper>
             <Switch>
               <Route
                 exact
-                path={['/social/', '/social/following']}
+                path={[`${match.path}`, `${match.path}/following`]}
                 render={props => (
                   <Following
                     {...props}
                     userId={userId}
+                    user={user}
                     following={following}
                     followers={followers}
+                    followAUser={followAUser}
+                    unfollowAUser={unfollowAUser}
+                    fetchFollowing={fetchFollowing}
                   />
                 )}
               />
               <Route
-                path='/social/followers'
+                path={`${match.path}/followers`}
                 render={props => (
                   <Followers
                     {...props}
@@ -57,12 +98,12 @@ const Social = props => {
                 )}
               />
               <Route
-                path='/social/suggested'
+                path={`${match.path}/suggested`}
                 render={props => (
                   <Suggested {...props} userId={userId} suggested={suggested} />
                 )}
               />
-              <Route path='/social/meetups' component={Meetups} />
+              <Route path={`${match.path}/meetups`} component={Meetups} />
             </Switch>
           </TabWrapper>
         </Wrapper>
@@ -71,17 +112,27 @@ const Social = props => {
   )
 }
 
-const mapStateToProps = ({ auth, social }) => ({
+const mapStateToProps = ({ auth, user, social, collections }) => ({
   userId: auth.id,
+  user: user,
   following: social.following,
   followers: social.followers,
   suggested: social.suggested,
+  collections,
 })
 
 export default connect(
   mapStateToProps,
-  null
-)(Social)
+  {
+    followAUser,
+    unfollowAUser,
+    fetchUser,
+    fetchFollowing,
+    fetchFollowers,
+    fetchSuggested,
+    fetchCollections,
+  }
+)(withRouter(Social))
 
 const Container = styled.div`
   ${customWrapper('80%', '0 auto')}
