@@ -5,7 +5,7 @@ import { Grommet } from 'grommet'
 import styled from 'styled-components'
 import { customWrapper } from 'components/mixins'
 import SidebarById from 'components/sidebar/SidebarById'
-import ProfileById from 'components/profile'
+import ProfileById from 'components/profile'  
 import UserFollowing from 'components/profile/UserFollowing'
 import UserFollowers from 'components/profile/UserFollowers'
 import {

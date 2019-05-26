@@ -58,13 +58,14 @@ class ProfileById extends Component {
     const search = this.props.searchTerm
 
     const filteredPosts = this.props.collections.filter(post => {
-      return post.title
-        ? post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1
-        : null || post.thumbnail_url
-        ? post.thumbnail_url.toLowerCase().indexOf(search.toLowerCase()) !== -1
-        : null || post.description
-        ? post.description.toLowerCase().indexOf(search.toLowerCase()) !== -1
-        : null
+      return (
+        (post.title &&
+          post.title.toLowerCase().includes(search.toLowerCase())) ||
+        (post.thumbnail_url &&
+          post.thumbnail_url.toLowerCase().includes(search.toLowerCase())) ||
+        (post.description &&
+          post.description.toLowerCase().includes(search.toLowerCase()))
+      )
     })
 
     const posts = filteredPosts
