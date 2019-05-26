@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import bellIcon from '../../assets/svg/bell.svg'
+import bellIcon from 'assets/svg/bell.svg'
 import { connect } from 'react-redux'
 import ModalPortal from '../utils/ModalPortal'
 import { Link } from 'react-router-dom'
-import { readNotifications, deleteNotifications } from '../../actions'
+import { readNotifications, deleteNotifications } from 'actions'
 import styled from 'styled-components'
 class Notifications extends Component {
   constructor() {

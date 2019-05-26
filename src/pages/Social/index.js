@@ -9,15 +9,8 @@ import Followers from 'components/social/Followers'
 import Suggested from 'components/social/Suggested'
 import Meetups from 'components/social/Meetups'
 import { customWrapper } from 'components/mixins'
-import {
-  followAUser,
-  unfollowAUser,
-  fetchUser,
-  fetchFollowing,
-  fetchFollowers,
-  fetchSuggested,
-  fetchCollections
-} from 'actions'
+import * as socialActions from 'actions/socialActions'
+import { fetchUser, fetchCollections } from 'actions'
 const Social = props => {
   const {
     userId,
@@ -43,7 +36,6 @@ const Social = props => {
     fetchSuggested(userId)
     fetchCollections(userId)
   }, [])
-  console.log('mounted')
   return (
     <Grommet>
       <Container>
@@ -104,7 +96,15 @@ const Social = props => {
               <Route
                 path={`${match.path}/suggested`}
                 render={props => (
-                  <Suggested {...props} userId={userId} suggested={suggested} followAUser={followAUser} fetchUser={fetchUser} fetchFollowing={fetchFollowing} fetchSuggested={fetchSuggested} />
+                  <Suggested
+                    {...props}
+                    userId={userId}
+                    suggested={suggested}
+                    followAUser={followAUser}
+                    fetchUser={fetchUser}
+                    fetchFollowing={fetchFollowing}
+                    fetchSuggested={fetchSuggested}
+                  />
                 )}
               />
               <Route path={`${match.path}/meetups`} component={Meetups} />
@@ -119,22 +119,16 @@ const Social = props => {
 const mapStateToProps = ({ auth, user, social, collections }) => ({
   userId: auth.id,
   user: user,
-  following: social.following,
-  followers: social.followers,
-  suggested: social.suggested,
   collections,
+  ...social,
 })
 
 export default connect(
   mapStateToProps,
   {
-    followAUser,
-    unfollowAUser,
     fetchUser,
-    fetchFollowing,
-    fetchFollowers,
-    fetchSuggested,
     fetchCollections,
+    ...socialActions,
   }
 )(withRouter(Social))
 

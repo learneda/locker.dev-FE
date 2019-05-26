@@ -1,26 +1,24 @@
 import { combineReducers } from 'redux'
 import { authReducer as auth } from './authReducer'
-import { browseReducer as browse } from './browseReducer'
-import { modalReducer as modal } from './modalReducer'
-import { collectionReducer as collections } from './collectionReducer'
-import { searchReducer as searchTerm } from './searchReducer'
-import { socialReducer as social } from './socialReducer'
 import { userReducer as user } from './userReducer'
+import { profileReducer as profile } from 'pages/Profile/profileReducer'
+import { homeReducer as home } from 'pages/Home/homeReducer'
+import { browseReducer as browse } from 'pages/Browse/browseReducer'
+import { socialReducer as social } from './socialReducer'
+import { collectionReducer as collections } from './collectionReducer'
 import { notificationsReducer as notifications } from './notificationsReducer'
-import { lockerReducer as locker } from './lockerReducer'
-import { feedReducer as feed } from './feedReducer'
-import { othersReducer as other } from './othersReducer'
+import { searchReducer as searchTerm } from './searchReducer'
+import { modalReducer as modal } from './modalReducer'
 
 export default combineReducers({
   auth,
-  browse,
-  modal,
-  collections,
-  searchTerm,
-  social,
   user,
+  profile,
+  home,
+  browse,
+  social,
+  collections,
   notifications,
-  locker,
-  feed,
-  other,
+  searchTerm,
+  modal,
 })

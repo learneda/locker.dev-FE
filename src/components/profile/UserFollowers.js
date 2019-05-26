@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { followAUser, unfollowAUser, fetchUser } from 'actions'
+import { fetchUser } from 'actions'
+import { followAUser, unfollowAUser } from 'actions/socialActions'
 import { StyledFollow } from '../social/StyledFollow'
 
 const UserFollowers = props => {
@@ -17,7 +18,7 @@ const UserFollowers = props => {
       return followingProfile.id
     })
     console.log(myFollowersIdsArr, 'FOOWLOING UD ARR')
-    const toggles_arr = props.otherFollowers.map(profile =>
+    const toggles_arr = props.profileFollowers.map(profile =>
       myFollowersIdsArr.includes(profile.id)
     )
   }, [])
@@ -63,7 +64,7 @@ const UserFollowers = props => {
 
   return (
     <StyledFollow style={{ marginTop: '30px' }}>
-      {props.otherFollowers.map((ele, index) => (
+      {props.profileFollowers.map((ele, index) => (
         <div key={index}>
           <Link to={`/profile/${ele.id}`}>
             <h2>{ele.username}</h2>

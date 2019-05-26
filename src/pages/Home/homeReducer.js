@@ -1,33 +1,25 @@
-import {
-  FETCH_FEED,
-  TOGGLE_HAS_MORE,
-  INCREMENT_OFFSET,
-  ADD_COMMENT,
-  DELETE_COMMENT,
-  LIKE_COMMENT,
-  UNLIKE_COMMENT,
-  ADD_TO_FEED,
-} from 'actions/types'
-
+import * as type from './homeTypes'
+import { ADD_TO_FEED } from 'actions/types'
 const initialState = {
   posts: [],
+  locker: [],
   hasmore: true,
   offset: 5,
 }
-export const feedReducer = (state = initialState, action) => {
+export const homeReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_FEED:
+    case type.FETCH_FEED:
       // payload === an array of posts
       // creating new state obj & merging previous post state with new incoming post state
       return { ...state, posts: [...state.posts, ...action.payload] }
     // hasmore boolean will switch to false so infinite scroll component will stop fetching newsfeed post
-    case TOGGLE_HAS_MORE:
+    case type.TOGGLE_HAS_MORE:
       return { ...state, hasmore: action.payload }
     // incrementing offset by +5
-    case INCREMENT_OFFSET:
+    case type.INCREMENT_OFFSET:
       return { ...state, offset: action.payload }
     // pushing comment obj into a single post's comment arr
-    case ADD_COMMENT:
+    case type.CREATE_COMMENT:
       // mapping thru each post in posts arr
       // payload will be the comment obj that contains which post it belongs to
       const updatedComments = state.posts.map(post => {
@@ -39,7 +31,7 @@ export const feedReducer = (state = initialState, action) => {
         return post
       })
       return { ...state, posts: updatedComments }
-    case DELETE_COMMENT:
+    case type.DELETE_COMMENT:
       //  payload will be the comment obj that contains which post it belongs to
       const newPosts = state.posts.map(post => {
         // if a post id in our state arr matches the payload post id
@@ -52,7 +44,7 @@ export const feedReducer = (state = initialState, action) => {
         return post
       })
       return { ...state, posts: newPosts }
-    case LIKE_COMMENT:
+    case type.LIKE_COMMENT:
       //  payload will be the comment obj that contains which post it belongs to & how many like it has
       const updateLikePosts = state.posts.map(post => {
         // if a post id in our state arr matches the payload post id
@@ -63,7 +55,7 @@ export const feedReducer = (state = initialState, action) => {
         return post
       })
       return { ...state, posts: updateLikePosts }
-    case UNLIKE_COMMENT:
+    case type.UNLIKE_COMMENT:
       //  payload will be the comment obj that contains which post it belongs to & how many like it has
 
       const unlikeComment = state.posts.map(post => {
@@ -75,10 +67,11 @@ export const feedReducer = (state = initialState, action) => {
         return post
       })
       return { ...state, posts: unlikeComment }
+    case type.FETCH_LOCKER:
+      return { ...state, locker: action.payload }
     case ADD_TO_FEED:
       const new_posts = [action.payload, ...state.posts]
       return { ...state, posts: new_posts }
-
     default:
       return state
   }

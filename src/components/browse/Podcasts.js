@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { customLayout } from '../mixins'
+import { customLayout, smartTruncate } from '../mixins'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
-import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
+import { ReactComponent as Loading } from 'assets/svg/circles.svg'
+import { ReactComponent as Add } from 'assets/svg/add-icon.svg'
 import { useThrottle } from 'use-throttle'
 
 import he from 'he'
@@ -15,7 +15,6 @@ const Podcasts = props => {
     podcastOffset,
     fetchMorePodcasts,
     searchPodcasts,
-    handleTruncateText,
     handleSaveMedia,
     alert,
   } = props
@@ -117,10 +116,8 @@ const Podcasts = props => {
                 </audio>
               )}
             </div>
-            <h3>{handleTruncateText(podcast.title_original, 75)}</h3>
-            <p>
-              {handleTruncateText(he.decode(podcast.description_original), 120)}
-            </p>
+            <h3>{smartTruncate(podcast.title_original, 75)}</h3>
+            <p>{smartTruncate(he.decode(podcast.description_original), 120)}</p>
           </div>
           <SaveIcon>
             <Add

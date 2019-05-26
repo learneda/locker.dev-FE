@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { followAUser, unfollowAUser, fetchUser } from '../../actions'
+import { fetchUser } from 'actions'
+import { followAUser, unfollowAUser } from 'actions/socialActions'
 import { StyledFollow } from '../social/StyledFollow'
-import axios from 'axios'
-import { post as URL } from '../../services/baseURL'
 
 const UserFollowing = props => {
   const { userId, followAUser, unfollowAUser, fetchUser } = props
@@ -14,12 +13,10 @@ const UserFollowing = props => {
   const [following, setFollowing] = useState([])
 
   useEffect(() => {
-    console.log('MY FOLLOWING ', props.myFollowing)
     const myFollowingIdsArr = props.myFollowing.map(followingProfile => {
       return followingProfile.id
     })
-    console.log(myFollowingIdsArr, 'FOOWLOING UD ARR')
-    const toggles_arr = props.otherFollowing.map(profile =>
+    const toggles_arr = props.profileFollowing.map(profile =>
       myFollowingIdsArr.includes(profile.id)
     )
     setToggles(toggles_arr)
@@ -55,7 +52,6 @@ const UserFollowing = props => {
     if (isLoading) {
       return <button style={{ width: '8.5rem' }}>...</button>
     }
-    console.log(toggles, 'AYYYYYYYEEEEEEE')
     const text = toggles[index] ? 'Unfollow' : 'Follow'
     return (
       <button
@@ -69,7 +65,7 @@ const UserFollowing = props => {
 
   return (
     <StyledFollow style={{ marginTop: '30px' }}>
-      {props.otherFollowing.map((ele, index) => (
+      {props.profileFollowing.map((ele, index) => (
         <div key={index}>
           <Link to={`/profile/${ele.id}`}>
             <h2>{ele.username}</h2>

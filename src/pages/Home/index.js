@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
 import { Grommet } from 'grommet'
@@ -10,197 +10,176 @@ import Sidebar from 'components/sidebar/Sidebar'
 import Suggested from 'components/sidebar/Suggested'
 import { customWrapper } from 'components/mixins'
 import {
-  populateNotifications,
-  deleteCollection,
   fetchUser,
-  fetchFollowers,
-  fetchFollowing,
-  fetchSuggested,
-  fetchLocker,
   fetchCollections,
-  followAUser,
-  fetchFeed,
-  subsequentFetchFeed,
-  createComment,
-  deleteComment,
-  likeComment,
-  unlikeComment,
-} from '../../actions'
-class Home extends Component {
-  componentDidMount() {
-    this.props.fetchLocker()
-    this.props.fetchCollections()
-    this.props.fetchUser(this.props.auth.id)
-    this.props.fetchSuggested(this.props.auth.id)
-    this.props.fetchFollowing(this.props.auth.id)
-    this.props.fetchFollowers(this.props.auth.id)
+  deleteCollection,
+  fetchNotifications,
+} from 'actions'
+import * as socialActions from 'actions/socialActions'
+import * as homeActions from './homeActions'
+const Home = props => {
+  const {
+    auth,
+    user,
+    searchTerm,
+    locker,
+    location,
+    match,
+    feed,
+    collections,
+    following,
+    followers,
+    suggested,
+    fetchUser,
+    fetchCollections,
+    fetchFollowing,
+    fetchFollowers,
+    fetchSuggested,
+    fetchNotifications,
+    deleteCollection,
+    followAUser,
+    fetchFeed,
+    fetchLocker,
+    fetchMoreFeed,
+    createComment,
+    deleteComment,
+    likeComment,
+    unlikeComment,
+  } = props
+
+  useEffect(() => {
+    fetchLocker()
+    fetchCollections()
+    fetchUser(auth.id)
+    fetchSuggested(auth.id)
+    fetchFollowing(auth.id)
+    fetchFollowers(auth.id)
 
     // only fetch if feed post arr is length of zero
-    if (!this.props.feed.posts.length) {
-      this.props.fetchFeed()
+    if (!feed.posts.length) {
+      fetchFeed()
     }
-  }
+  }, [])
 
-  render() {
-    const {
-      auth,
-      user,
-      searchTerm,
-      locker,
-      location,
-      match,
-      collections,
-      following,
-      followers,
-      suggested,
-      populateNotifications,
-      fetchUser,
-      fetchLocker,
-      fetchCollections,
-      fetchFollowers,
-      fetchFollowing,
-      fetchSuggested,
-      followAUser,
-      deleteCollection,
-      feed,
-      subsequentFetchFeed,
-      createComment,
-      deleteComment,
-      likeComment,
-      unlikeComment,
-    } = this.props
-    return (
-      <Grommet theme={theme}>
-        <Container>
-          <Sidebar
-            auth={auth}
-            user={user}
-            collections={collections}
-            followers={followers}
-            following={following}
-            fetchFollowers={fetchFollowers}
-            fetchFollowing={fetchFollowing}
-          />
-          <Wrapper>
-            <Tabs>
-              <Tab>
-                <NavLink
-                  exact
-                  to={`${match.url}/feed`}
-                  className={location.pathname === '/home' ? 'active' : null}
-                >
-                  Feed
-                </NavLink>
-              </Tab>
-              <Tab>
-                <NavLink to={`${match.url}/collections`}>Collections</NavLink>
-              </Tab>
-              <Tab>
-                <NavLink to={`${match.url}/locker`}>Locker(α)</NavLink>
-              </Tab>
-            </Tabs>
-            <TabWrapper>
-              <Switch>
-                <Route
-                  exact
-                  path={[`${match.path}`, `${match.path}/feed`]}
-                  render={props => (
-                    <Feed
-                      {...props}
-                      auth={auth}
-                      user={user}
-                      searchTerm={searchTerm}
-                      populateNotifications={populateNotifications}
-                      posts={feed.posts}
-                      hasmore={feed.hasmore}
-                      subsequentFetchFeed={subsequentFetchFeed}
-                      offset={feed.offset}
-                      createComment={createComment}
-                      deleteComment={deleteComment}
-                      likeComment={likeComment}
-                      unlikeComment={unlikeComment}
-                    />
-                  )}
-                />
-                <Route
-                  path={`${match.path}/collections`}
-                  render={props => (
-                    <Collections
-                      {...props}
-                      userId={auth.id}
-                      searchTerm={searchTerm}
-                      collections={collections}
-                      deleteCollection={deleteCollection}
-                      fetchCollections={fetchCollections}
-                    />
-                  )}
-                />
-                <Route
-                  path={`${match.path}/locker`}
-                  render={props => (
-                    <Locker
-                      {...props}
-                      auth={auth}
-                      locker={locker}
-                      fetchUser={fetchUser}
-                      fetchLocker={fetchLocker}
-                    />
-                  )}
-                />
-              </Switch>
-            </TabWrapper>
-          </Wrapper>
-          <Suggested
-            auth={auth}
-            suggested={suggested}
-            fetchUser={fetchUser}
-            fetchSuggested={fetchSuggested}
-            fetchFollowing={fetchFollowing}
-            followAUser={followAUser}
-          />
-        </Container>
-      </Grommet>
-    )
-  }
+  return (
+    <Grommet theme={theme}>
+      <Container>
+        <Sidebar
+          auth={auth}
+          user={user}
+          collections={collections}
+          followers={followers}
+          following={following}
+          fetchFollowers={fetchFollowers}
+          fetchFollowing={fetchFollowing}
+        />
+        <Wrapper>
+          <Tabs>
+            <Tab>
+              <NavLink
+                exact
+                to={`${match.url}/feed`}
+                className={location.pathname === '/home' ? 'active' : null}
+              >
+                Feed
+              </NavLink>
+            </Tab>
+            <Tab>
+              <NavLink to={`${match.url}/collections`}>Collections</NavLink>
+            </Tab>
+            <Tab>
+              <NavLink to={`${match.url}/locker`}>Locker(α)</NavLink>
+            </Tab>
+          </Tabs>
+          <TabWrapper>
+            <Switch>
+              <Route
+                exact
+                path={[`${match.path}`, `${match.path}/feed`]}
+                render={props => (
+                  <Feed
+                    {...props}
+                    auth={auth}
+                    user={user}
+                    searchTerm={searchTerm}
+                    fetchNotifications={fetchNotifications}
+                    posts={feed.posts}
+                    hasmore={feed.hasmore}
+                    fetchMoreFeed={fetchMoreFeed}
+                    offset={feed.offset}
+                    createComment={createComment}
+                    deleteComment={deleteComment}
+                    likeComment={likeComment}
+                    unlikeComment={unlikeComment}
+                  />
+                )}
+              />
+              <Route
+                path={`${match.path}/collections`}
+                render={props => (
+                  <Collections
+                    {...props}
+                    userId={auth.id}
+                    searchTerm={searchTerm}
+                    collections={collections}
+                    deleteCollection={deleteCollection}
+                    fetchCollections={fetchCollections}
+                  />
+                )}
+              />
+              <Route
+                path={`${match.path}/locker`}
+                render={props => (
+                  <Locker
+                    {...props}
+                    auth={auth}
+                    locker={locker}
+                    fetchUser={fetchUser}
+                    fetchLocker={fetchLocker}
+                  />
+                )}
+              />
+            </Switch>
+          </TabWrapper>
+        </Wrapper>
+        <Suggested
+          auth={auth}
+          suggested={suggested}
+          fetchUser={fetchUser}
+          fetchSuggested={fetchSuggested}
+          fetchFollowing={fetchFollowing}
+          followAUser={followAUser}
+        />
+      </Container>
+    </Grommet>
+  )
 }
 const mapStateToProps = ({
   auth,
   user,
   searchTerm,
   collections,
-  locker,
   social,
-  feed,
+  home,
 }) => ({
   auth,
   user,
   searchTerm,
   collections,
-  locker,
-  following: social.following,
-  followers: social.followers,
-  suggested: social.suggested,
-  feed,
+  feed: home,
+  locker: home.locker,
+  ...social,
 })
 
 export default connect(
   mapStateToProps,
   {
-    populateNotifications,
-    deleteCollection,
     fetchUser,
-    fetchLocker,
+    fetchNotifications,
     fetchCollections,
-    fetchFollowers,
-    fetchFollowing,
-    fetchSuggested,
-    followAUser,
-    fetchFeed,
-    subsequentFetchFeed,
-    createComment,
-    deleteComment,
-    likeComment,
-    unlikeComment,
+    deleteCollection,
+    ...socialActions,
+    ...homeActions,
   }
 )(withRouter(Home))
 

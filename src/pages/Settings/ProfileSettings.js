@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { withAlert } from 'react-alert'
 import styled from 'styled-components'
 import { Grommet, TextInput, TextArea } from 'grommet'
-import { editProfile } from 'actions'
+import { editUser } from 'actions'
 import { post as URL } from 'services/baseURL'
 import { customLayout, customWrapper } from 'components/mixins'
 import axios from 'axios'
@@ -34,7 +34,7 @@ class ProfileSettings extends Component {
       websiteUrl,
       email,
     } = this.state
-    this.props.editProfile(id, {
+    this.props.editUser(id, {
       displayName,
       username,
       bio,
@@ -223,7 +223,7 @@ const ProfileSettingsWithAlert = withAlert()(ProfileSettings)
 const mapStateToProps = ({ auth, user }) => ({ auth, user })
 export default connect(
   mapStateToProps,
-  { editProfile }
+  { editUser }
 )(ProfileSettingsWithAlert)
 
 const theme = {

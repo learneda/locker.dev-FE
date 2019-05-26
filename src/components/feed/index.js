@@ -44,7 +44,7 @@ class Feed extends Component {
     // join namespace contains all the current users who are online
     this.socket.on('join', data => {
       console.log(data, 'FROM JOIN CONNECTION')
-      this.props.populateNotifications(data)
+      this.props.fetchNotifications(data)
     })
 
     // socket is listening on comments event & will receive an obj
@@ -155,7 +155,7 @@ class Feed extends Component {
         <Container>
           <InfiniteScroll
             dataLength={this.props.posts.length}
-            next={() => this.props.subsequentFetchFeed(this.props.offset)}
+            next={() => this.props.fetchMoreFeed(this.props.offset)}
             hasMore={this.props.hasmore}
             loader={<Loading style={{ margin: 'auto', display: 'block' }} />}
           >

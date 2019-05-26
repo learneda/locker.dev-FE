@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { customLayout } from '../mixins'
+import { customLayout, smartTruncate } from '../mixins'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
@@ -14,7 +14,6 @@ const Videos = props => {
     fetchMoreVideos,
     searchVideos,
     setVideoPageToken,
-    handleTruncateText,
     handleSaveMedia,
     showIframe,
     resetIframe,
@@ -103,9 +102,9 @@ const Videos = props => {
             rel='noopener noreferrer'
           >
             <h3 style={{ marginTop: '20px' }}>
-              {handleTruncateText(video.snippet.title, 75)}
+              {smartTruncate(video.snippet.title, 75)}
             </h3>
-            <p>{handleTruncateText(video.snippet.description, 80)}</p>
+            <p>{smartTruncate(video.snippet.description, 80)}</p>
           </a>
           <SaveIcon>
             <Add
