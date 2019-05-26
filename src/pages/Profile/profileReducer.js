@@ -17,6 +17,8 @@ export const profileReducer = (state = initialState, action) => {
       return { ...state, followers: action.payload }
     case type.FETCH_PROFILE_DETAILS:
       return { ...state, other: action.payload }
+    case type.RESET_PROFILE:
+      return initialState
     default:
       return state
   }
