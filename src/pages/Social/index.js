@@ -16,7 +16,7 @@ import {
   fetchFollowing,
   fetchFollowers,
   fetchSuggested,
-  fetchCollections
+  fetchCollections,
 } from 'actions'
 const Social = props => {
   const {
@@ -43,7 +43,6 @@ const Social = props => {
     fetchSuggested(userId)
     fetchCollections(userId)
   }, [])
-  console.log('mounted')
   return (
     <Grommet>
       <Container>
@@ -104,7 +103,15 @@ const Social = props => {
               <Route
                 path={`${match.path}/suggested`}
                 render={props => (
-                  <Suggested {...props} userId={userId} suggested={suggested} followAUser={followAUser} fetchUser={fetchUser} fetchFollowing={fetchFollowing} fetchSuggested={fetchSuggested} />
+                  <Suggested
+                    {...props}
+                    userId={userId}
+                    suggested={suggested}
+                    followAUser={followAUser}
+                    fetchUser={fetchUser}
+                    fetchFollowing={fetchFollowing}
+                    fetchSuggested={fetchSuggested}
+                  />
                 )}
               />
               <Route path={`${match.path}/meetups`} component={Meetups} />
