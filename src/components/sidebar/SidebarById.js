@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import styled from 'styled-components'
 import { StyledSidebar } from './StyledSidebar'
@@ -78,6 +78,8 @@ class SidebarById extends Component {
       profilePicture,
     } = this.props.userDetails
 
+    const profileId = Number(this.props.match.params.id)
+
     return (
       <Wrapper>
         <Profile>
@@ -109,18 +111,24 @@ class SidebarById extends Component {
             </div>
 
             <div className='profile-stats'>
-              <ul>
-                <li>Posts</li>
-                <li>{this.props.collectionsCount}</li>
-              </ul>
-              <ul>
-                <li>Following</li>
-                <li>{this.props.followingCount}</li>
-              </ul>
-              <ul>
-                <li>Followers</li>
-                <li>{this.props.followersCount}</li>
-              </ul>
+              <Link to={`/profile/${profileId}`}>
+                <ul>
+                  <li>Posts</li>
+                  <li>{this.props.collectionsCount}</li>
+                </ul>
+              </Link>
+              <Link to={`/profile/${profileId}/following`}>
+                <ul>
+                  <li>Following</li>
+                  <li>{this.props.followingCount}</li>
+                </ul>
+              </Link>
+              <Link to={`/profile/${profileId}/followers`}>
+                <ul>
+                  <li>Followers</li>
+                  <li>{this.props.followersCount}</li>
+                </ul>
+              </Link>
             </div>
 
             <p>{bio ? bio : 'User has no bio.'}</p>
