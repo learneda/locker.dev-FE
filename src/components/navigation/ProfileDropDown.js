@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { ReactComponent as Settings } from 'assets/svg/settings.svg'
 import { ReactComponent as Logout } from 'assets/svg/logout.svg'
-import { authURL } from 'services/authURL'
+import { authURL } from 'services'
 
 const ProfileDropDown = ({ auth, user }) => {
   const [toggle, set] = useState(false)

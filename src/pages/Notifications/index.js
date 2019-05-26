@@ -1,54 +1,43 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
 import Sidebar from 'components/sidebar/Sidebar'
+import Notifications from 'components/notifications'
 import { customWrapper } from 'components/mixins'
 import styled from 'styled-components'
-import Notifications from 'components/notifications'
-import { connect } from 'react-redux'
-import { fetchUser } from 'actions'
 
-class Notification extends Component {
-  componentDidMount() {
-    this.props.fetchUser(this.props.auth.id)
-  }
-  render() {
-    const {
-      auth,
-      user,
-      collections,
-      followers,
-      following,
-      fetchFollowers,
-      fetchFollowing,
-    } = this.props
-    return (
-      <Container>
-        <Sidebar
-          auth={auth}
-          user={user}
-          collections={collections}
-          followers={followers}
-          following={following}
-          fetchFollowers={fetchFollowers}
-          fetchFollowing={fetchFollowing}
-        />
-        <Notifications />
-      </Container>
-    )
-  }
+const NotificationsPage = props => {
+  const {
+    user,
+    collections,
+    notifications,
+    social,
+    following,
+    followers,
+  } = props
+  return (
+    <Container>
+      <Sidebar
+        user={user}
+        collections={collections}
+        following={following}
+        followers={followers}
+      />
+      <Notifications />
+    </Container>
+  )
 }
-const mapStateToProps = ({ auth, user, collections, social }) => ({
-  auth,
+const mapStateToProps = ({ user, collections, notifications, social }) => ({
   user,
   collections,
-  ...social,
+  notifications,
+  following: social.following,
+  followers: social.followers,
 })
 
 export default connect(
   mapStateToProps,
-  {
-    fetchUser,
-  }
-)(Notification)
+  null
+)(NotificationsPage)
 
 const Container = styled.div`
   ${customWrapper('80%', '0 auto')} display: flex;

@@ -3,7 +3,7 @@ import bellIcon from 'assets/svg/bell.svg'
 import { connect } from 'react-redux'
 import ModalPortal from '../utils/ModalPortal'
 import { Link } from 'react-router-dom'
-import { readNotifications, deleteNotifications } from 'actions'
+import * as notificationActions from 'actions/notificationActions'
 import styled from 'styled-components'
 class Notifications extends Component {
   constructor() {
@@ -85,7 +85,7 @@ const mapStateToProps = ({ notifications }) => ({ notifications })
 
 export default connect(
   mapStateToProps,
-  { readNotifications, deleteNotifications }
+  { ...notificationActions }
 )(Notifications)
 
 const StyledNotifications = styled.div`

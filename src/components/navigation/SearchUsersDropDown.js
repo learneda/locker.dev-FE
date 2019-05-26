@@ -4,13 +4,13 @@ import axios from 'axios'
 import styled from 'styled-components'
 
 import { ReactComponent as Location } from '../../assets/svg/location.svg'
-import { post as URL } from '../../services/baseURL'
+import { apiURL } from 'services'
 
 export default function SearchUsersDropDown({ search }) {
   const [users, setUsers] = useState([])
 
   const fetchUsers = async () => {
-    const res = await axios.get(`${URL}/api/users/all`, {
+    const res = await axios.get(`${apiURL}/users/all`, {
       withCredentials: true,
     })
     setUsers(res.data)

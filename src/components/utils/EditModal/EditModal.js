@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { post as URL } from '../../../services/baseURL'
 import { StyledEditModal } from './StyledEditModal'
 import styled from 'styled-components'
-import { editCollection } from '../../../actions'
-import deleteIcon from '../../../assets/svg/delete-icon.svg'
-import useLockBodyScroll from '../../hooks/useLockBodyScroll'
+import { editCollection } from 'actions'
+import deleteIcon from 'assets/svg/delete-icon.svg'
+import useLockBodyScroll from 'components/hooks/useLockBodyScroll'
 import { withAlert } from 'react-alert'
 
 const Wrapper = styled.div`

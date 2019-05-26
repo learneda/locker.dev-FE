@@ -5,7 +5,7 @@ import { withAlert } from 'react-alert'
 import styled from 'styled-components'
 import { Grommet, TextInput, TextArea } from 'grommet'
 import { editUser } from 'actions'
-import { post as URL } from 'services/baseURL'
+import { apiURL } from 'services'
 import { customLayout, customWrapper } from 'components/mixins'
 import axios from 'axios'
 
@@ -74,9 +74,9 @@ class ProfileSettings extends Component {
         this.state.selectedFile,
         this.state.selectedFile.name
       )
-      axios.post(`${URL}/api/images`, fd).then(res => {
+      axios.post(`${apiURL}/images`, fd).then(res => {
         if (res.data.success) {
-          axios.get(`${URL}/api/images`).then(res => {
+          axios.get(`${apiURL}/images`).then(res => {
             if (res.data.length > 0) {
               this.setState({ profile_pic: `${res.data[0].profile_picture}` })
             }
@@ -87,7 +87,7 @@ class ProfileSettings extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${URL}/api/images`).then(res => {
+    axios.get(`${apiURL}/images`).then(res => {
       if (res.data.length > 0) {
         this.setState({ profile_pic: `${res.data[0].profile_picture}` })
       }
