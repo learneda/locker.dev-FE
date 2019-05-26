@@ -1,4 +1,6 @@
 import axios from 'axios'
+axios.default.withCredentials = true
+
 export default axios.create({
   baseURL: 'https://listen-api.listennotes.com/api/v2/',
   headers: { 'X-ListenAPI-Key': '608e70293265412eba4de5b5f1a88d57' },
@@ -6,6 +8,5 @@ export default axios.create({
     sort_by_date: 1,
     type: 'episode',
     offset: 0,
-  },
-  withCredentials: true,
+  }
 })
