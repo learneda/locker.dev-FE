@@ -62,8 +62,7 @@ const Podcasts = props => {
       }}
     >
       {podcasts.map((podcast, index) => (
-        <Card key={podcast.id} onClick={() => handleClick(index)}>
-          {/* <a href={podcast.audio} target='_blank' rel='noopener noreferrer'> */}
+        <Card key={podcast.id}>
           <div>
             <div
               style={{
@@ -85,6 +84,7 @@ const Podcasts = props => {
               />
               {!isImage[index] ? (
                 <img
+                  onClick={() => handleClick(index)}
                   style={{
                     display: 'inline-block',
                     width: '150px',
@@ -93,29 +93,48 @@ const Podcasts = props => {
                     justifySelf: 'center',
                     position: 'absolute',
                     top: '20px',
+                    cursor: 'pointer',
                   }}
                   src={podcast.image}
                   alt='youtube'
                 />
               ) : (
-                <audio
-                  style={{
-                    display: 'inline-block',
-                    width: '80%',
-                    height: '50px',
-                    alignSelf: 'center',
-                    justifySelf: 'center',
-                    position: 'absolute',
-                    top: '30%',
-                  }}
-                  src={podcast.audio}
-                  controls
-                >
-                  Your browser does not support the <code>audio</code> element.
-                </audio>
+                <>
+                  <audio
+                    style={{
+                      display: 'inline-block',
+                      width: '80%',
+                      height: '50px',
+                      alignSelf: 'center',
+                      justifySelf: 'center',
+                      position: 'absolute',
+                      top: '30%',
+                    }}
+                    src={podcast.audio}
+                    controls
+                  >
+                    Your browser does not support the <code>audio</code>{' '}
+                    element.
+                  </audio>
+                  <button
+                    onClick={() => handleClick(index)}
+                    style={{
+                      display: 'inline-block',
+                      width: '50px',
+                      height: '20px',
+                      position: 'absolute',
+                      top: '20px',
+                      right: '20px',
+                    }}
+                  >
+                    close
+                  </button>
+                </>
               )}
             </div>
-            <h3>{smartTruncate(podcast.title_original, 75)}</h3>
+            <a href={podcast.audio} target='_blank' rel='noopener noreferrer'>
+              <h3>{smartTruncate(podcast.title_original, 75)}</h3>
+            </a>
             <p>{smartTruncate(he.decode(podcast.description_original), 120)}</p>
           </div>
           <SaveIcon>
@@ -167,7 +186,6 @@ const Card = styled.div`
   height: 350px;
   margin-bottom: 30px;
   background-color: #fff;
-  cursor: pointer;
   position: relative;
   @media (max-width: 1500px) {
     width: 30%;
