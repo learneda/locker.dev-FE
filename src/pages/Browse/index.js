@@ -42,6 +42,7 @@ const Browse = props => {
     setBookOffset,
     showIframe,
     resetIframe,
+    createCollection,
     match,
     alert,
   } = props
