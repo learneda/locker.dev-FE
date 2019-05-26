@@ -43,7 +43,6 @@ const Podcasts = props => {
     </Loader>
   )
   const handleClick = index => {
-    console.log(' 🦄', 'CLICKED', isImage, podcasts)
     setIsImage(prevIsImage =>
       prevIsImage.map((isImage, idx) => (idx === index ? !isImage : isImage))
     )

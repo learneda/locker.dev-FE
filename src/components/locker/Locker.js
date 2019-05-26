@@ -13,7 +13,6 @@ class Locker extends Component {
   }
 
   render() {
-    console.log(this.props.locker)
     if (this.props.locker.length === 0) {
       return <h1 style={{ border: '5px solid pink' }}>Loading...</h1>
     }
@@ -38,7 +37,6 @@ class Locker extends Component {
               </a>
             )
           } else {
-            console.log('this is a goodreads obj')
             return (
               <a
                 key={obj.book_id}

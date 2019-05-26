@@ -33,7 +33,7 @@ export const fetchMoreFeed = offset => async dispatch => {
 }
 
 export const createComment = commentData => async dispatch => {
-  console.log(commentData)
+  // console.log(commentData)
   dispatch({ type: type.CREATE_COMMENT, payload: commentData })
 }
 
@@ -42,7 +42,7 @@ export const deleteComment = commentData => async dispatch => {
 }
 
 export const likeComment = commentData => async dispatch => {
-  console.log(commentData)
+  // console.log(commentData)
   dispatch({ type: type.LIKE_COMMENT, payload: commentData })
 }
 

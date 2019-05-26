@@ -14,7 +14,6 @@ function Search(props) {
   const [visible, setVisible] = useState(false)
 
   const handleChange = useCallback(e => {
-    console.log('callback launched')
     setToggle(e.target.checked)
     setSearch('')
   }, [])

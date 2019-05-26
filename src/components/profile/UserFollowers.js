@@ -13,11 +13,11 @@ const UserFollowers = props => {
   const [followers, setFollowers] = useState([])
 
   useEffect(() => {
-    console.log('MY FOLLOWING ', props.myFollowing)
+    // console.log('MY FOLLOWING ', props.myFollowing)
     const myFollowersIdsArr = props.myFollowers.map(followingProfile => {
       return followingProfile.id
     })
-    console.log(myFollowersIdsArr, 'FOOWLOING UD ARR')
+    // console.log(myFollowersIdsArr, 'FOOWLOING UD ARR')
     const toggles_arr = props.profileFollowers.map(profile =>
       myFollowersIdsArr.includes(profile.id)
     )

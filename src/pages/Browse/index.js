@@ -107,7 +107,7 @@ const Browse = props => {
     fetchPodcasts(searchTerm, podcastOffset)
   }
 
-  console.log('props', props)
+  // console.log('props', props)
   return (
     <>
       <Tabs>

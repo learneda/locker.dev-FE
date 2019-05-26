@@ -43,7 +43,6 @@ class Feed extends Component {
 
     // join namespace contains all the current users who are online
     this.socket.on('join', data => {
-      console.log(data, 'FROM JOIN CONNECTION')
       this.props.fetchNotifications(data)
     })
 
@@ -69,7 +68,7 @@ class Feed extends Component {
     // socket is listening on like event & will receive an obj
     this.socket.on('like', data => {
       // obj contains postOwnerId, post_id, user_id, username
-      console.log('in like socket connection', data)
+      // console.log('in like socket connection', data)
       switch (data.action) {
         case 'unlike':
           // invoke action creator unlikeComment & pass in msg obj
@@ -117,7 +116,6 @@ class Feed extends Component {
 
   render() {
     while (!this.props.user) {
-      console.log('in while ')
       return (
         <Container>
           <MyLoader />

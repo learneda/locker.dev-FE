@@ -3,7 +3,6 @@ import axios from 'apis/axiosAPI'
 //* Create a following on user input
 export const followAUser = payload => async dispatch => {
   const res = await axios.post(`/users/subscribe`, payload)
-  console.log(res.data)
   dispatch({ type: type.FOLLOW_A_USER, payload: res.data })
 }
 //* Delete a following on user input

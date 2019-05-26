@@ -50,9 +50,7 @@ class ProfileSettings extends Component {
     e.preventDefault()
     if (e.target.files[0]) {
       const file = e.target.files[0].type
-      console.log(
-        file === 'image/jpeg' || file === 'image/png' || file === 'image/gif'
-      )
+
       if (
         file === 'image/jpeg' ||
         file === 'image/png' ||

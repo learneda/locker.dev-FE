@@ -7,7 +7,6 @@ import { customLayout, customWrapper } from '../mixins'
 import locationSvg from 'assets/svg/location.svg'
 import linkSvg from 'assets/svg/link-symbol.svg'
 import calendarSvg from 'assets/svg/calendar.svg'
-import { fetchUser, fetchFollowers, fetchFollowing } from 'actions'
 import { StyledSidebar } from './StyledSidebar'
 
 const MyLoader = () => (

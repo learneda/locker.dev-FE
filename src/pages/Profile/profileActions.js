@@ -2,11 +2,9 @@ import * as type from './profileTypes'
 import axios from 'apis/axiosAPI'
 
 export const fetchProfileCollections = id => async dispatch => {
-  console.log(id)
   try {
     const collections = await axios.get(`/posts/all/${id}`)
     if (collections) {
-      console.log('fetch other collections ==> ', collections.data)
       dispatch({
         type: type.FETCH_PROFILE_COLLECTION,
         payload: collections.data,
@@ -43,7 +41,6 @@ export const fetchProfileDetails = id => async dispatch => {
   try {
     const userDetails = await axios.get(`/users/id/${id}`)
     if (userDetails) {
-      console.log(userDetails.data)
       dispatch({ type: type.FETCH_PROFILE_DETAILS, payload: userDetails.data })
     }
   } catch (err) {

@@ -46,7 +46,7 @@ class AddLink extends Component {
           id: this.props.auth.id,
         })
         .then(res => {
-          console.log('response from createCollection ==>', res)
+          // console.log('response from createCollection ==>', res)
           if (res === 'success') {
             this.props.alert.success('Link added to Bookmarks')
           } else if (res === 'whoops!') {
