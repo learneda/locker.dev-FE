@@ -7,9 +7,9 @@ import {
 } from 'actions/types'
 
 const initialState = {
-  suggested: [],
-  followers: [],
   following: [],
+  followers: [],
+  suggested: [],
 }
 
 export const socialReducer = (state = initialState, action) => {

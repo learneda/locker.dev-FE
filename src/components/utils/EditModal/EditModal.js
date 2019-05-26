@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import axios from 'axios'
 import { post as URL } from '../../../services/baseURL'
 import { StyledEditModal } from './StyledEditModal'
 import styled from 'styled-components'
@@ -8,7 +7,6 @@ import { editCollection } from '../../../actions'
 import deleteIcon from '../../../assets/svg/delete-icon.svg'
 import useLockBodyScroll from '../../hooks/useLockBodyScroll'
 import { withAlert } from 'react-alert'
-axios.defaults.withCredentials = true
 
 const Wrapper = styled.div`
   ${StyledEditModal}

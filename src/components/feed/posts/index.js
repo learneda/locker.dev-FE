@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import CommentBox from '../comments'
 import axios from 'axios'
-import { post as URL } from '../../../services/baseURL'
-import addIcon from '../../../assets/svg/add-icon.svg'
+import { post as URL } from 'services/baseURL'
+import addIcon from 'assets/svg/add-icon.svg'
 import { withAlert } from 'react-alert'
 import { smartTruncate } from '../../mixins/'
-import { selectLogo } from '../../../helpers'
+import { selectLogo } from 'helpers'
 class PostContainer extends Component {
   constructor(props) {
     super(props)

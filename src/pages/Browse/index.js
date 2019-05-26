@@ -244,7 +244,7 @@ const mapStateToProps = ({ auth, searchTerm, browse }) => ({
   ...browse,
 })
 
-const Alert = withLayout(withAlert()(Browse))
+const BrowseWithAlert = withLayout(withAlert()(Browse))
 export default connect(
   mapStateToProps,
   {
@@ -266,7 +266,7 @@ export default connect(
     searchPodcasts,
     resetIframe,
   }
-)(withRouter(Alert))
+)(withRouter(BrowseWithAlert))
 
 const TabWrapper = styled.div`
   padding-top: 20px;

@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import ReusablePortal from '../utils/ModalPortal'
 import { connect } from 'react-redux'
-import { shareCollection } from '../../actions/index'
+import { shareCollection } from 'actions/index'
 import { StyledAddLink } from '../utils/StyledAddLink.js'
 import styled from 'styled-components'
-import { ReactComponent as X } from '../../assets/svg/x.svg'
-import axios from 'axios'
-import { post as URL } from '../../services/baseURL'
-import shareSvg from '../../assets/svg/share.svg'
+import { ReactComponent as X } from 'assets/svg/x.svg'
+import shareSvg from 'assets/svg/share.svg'
 import { withAlert } from 'react-alert'
 
 class SharedButton extends Component {

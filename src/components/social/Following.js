@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { followAUser, unfollowAUser, fetchFollowing } from '../../actions'
 import { StyledFollow } from './StyledFollow'
+
 const Following = props => {
   const {
     userId,
     following,
+    followers,
     followAUser,
     unfollowAUser,
     fetchFollowing,
@@ -14,6 +14,7 @@ const Following = props => {
   const [toggles, setToggles] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [loadingIndex, setLoadingIndex] = useState(null)
+
   useEffect(() => {
     setToggles(Array(following.length).fill(true))
   }, [following])
@@ -71,11 +72,4 @@ const Following = props => {
   )
 }
 
-export default connect(
-  null,
-  {
-    followAUser,
-    unfollowAUser,
-    fetchFollowing,
-  }
-)(Following)
+export default Following
