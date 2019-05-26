@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 import openSocket from 'socket.io-client'
 import styled from 'styled-components'
 import { customWrapper } from '../mixins'
-import { post as URL } from '../../services/baseURL'
+import { postURL } from 'services'
 import ContentLoader from 'react-content-loader'
 import HelpScreen from '../utils/screens/HelpScreen'
-import OnlineFriendsSVG from '../../assets/svg/online_friends.svg'
+import OnlineFriendsSVG from 'poassets/svg/online_friends.svg'
 import PostContainer from './posts/index'
 import { StyledFeed } from './StyledFeed'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
+import { ReactComponent as Loading } from 'poassets/svg/circles.svg'
 
 const MyLoader = () => (
   <ContentLoader
@@ -34,7 +34,7 @@ class Feed extends Component {
       commentValue: '',
     }
     // connect socket
-    this.socket = openSocket(URL)
+    this.socket = openSocket(postURL)
   }
 
   componentDidMount() {

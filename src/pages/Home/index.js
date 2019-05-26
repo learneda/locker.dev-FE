@@ -9,12 +9,8 @@ import Locker from 'components/locker/Locker'
 import Sidebar from 'components/sidebar/Sidebar'
 import Suggested from 'components/sidebar/Suggested'
 import { customWrapper } from 'components/mixins'
-import {
-  fetchUser,
-  fetchCollections,
-  deleteCollection,
-  fetchNotifications,
-} from 'actions'
+import { fetchUser, fetchCollections, deleteCollection } from 'actions'
+import { fetchNotifications } from 'actions/notificationActions'
 import * as socialActions from 'actions/socialActions'
 import * as homeActions from './homeActions'
 const Home = props => {
@@ -65,13 +61,10 @@ const Home = props => {
     <Grommet theme={theme}>
       <Container>
         <Sidebar
-          auth={auth}
           user={user}
           collections={collections}
           followers={followers}
           following={following}
-          fetchFollowers={fetchFollowers}
-          fetchFollowing={fetchFollowing}
         />
         <Wrapper>
           <Tabs>
@@ -159,8 +152,8 @@ const mapStateToProps = ({
   user,
   searchTerm,
   collections,
-  social,
   home,
+  social,
 }) => ({
   auth,
   user,

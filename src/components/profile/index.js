@@ -9,14 +9,10 @@ import { StyledCollections } from '../collections/StyledCollections'
 import { customWrapper } from '../mixins'
 import { truncateText } from '../mixins'
 import NoPostScreen from '../utils/screens/NoPostScreen'
-import { post as URL } from '../../services/baseURL'
-import {
-  fetchCollections,
-  deleteCollection,
-  setSearchTerm,
-} from '../../actions'
-import plusIcon from '../../assets/svg/add-icon.svg'
-import check from '../../assets/svg/check.svg'
+import { apiURL } from 'services'
+import { fetchCollections, deleteCollection, setSearchTerm } from 'actions'
+import plusIcon from 'assets/svg/add-icon.svg'
+import check from 'assets/svg/check.svg'
 import { withAlert } from 'react-alert'
 
 class ProfileById extends Component {
@@ -24,7 +20,7 @@ class ProfileById extends Component {
 
   getPosts = async () => {
     const id = this.props.match.params.id
-    const posts = await axios.get(`${URL}/api/posts/all/${id}`)
+    const posts = await axios.get(`${apiURL}/posts/all/${id}`)
     this.setState({
       posts: posts.data,
     })
@@ -37,7 +33,7 @@ class ProfileById extends Component {
       id: this.props.auth.id,
     }
     this.props.alert.success('Post added to Bookmarks')
-    axios.post(`${URL}/api/posts`, post)
+    axios.post(`${apiURL}/posts`, post)
 
     // saves post id to users account to keep track of saved posts toggle
     const profileId = this.props.match.params.id
@@ -48,7 +44,7 @@ class ProfileById extends Component {
       post_id: postId,
     }
 
-    await axios.post(`${URL}/api/users/saved-post-ids`, body)
+    await axios.post(`${apiURL}/users/saved-post-ids`, body)
     await this.getPosts()
   }
 

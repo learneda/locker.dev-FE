@@ -1,5 +1,5 @@
 import React from 'react'
-import { authURL } from 'services/authURL'
+import { authURL } from 'services'
 import googleSvg from 'assets/svg/google.svg'
 import githubSvg from 'assets/svg/github.svg'
 

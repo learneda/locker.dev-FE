@@ -1,4 +1,4 @@
-import axiosAuth from 'apis/axiosBackend'
+import axiosAuth from 'apis/axiosAuth'
 import axios from 'apis/axiosAPI'
 import {
   FETCH_AUTH,
@@ -13,14 +13,12 @@ import {
   DELETE_COLLECTION,
   SET_SEARCH_TERM,
   RESET_SEARCH_TERM,
-  FETCH_NOTIFICATIONS,
-  CLEAR_NOTIFICATIONS,
   ADD_TO_FEED,
 } from './types'
 
 //* Fetches userID on App mount
 export const fetchAuth = () => async dispatch => {
-  const res = await axiosAuth.get(`/auth/current_user`)
+  const res = await axiosAuth.get(`/current_user`)
   dispatch({ type: FETCH_AUTH, payload: res.data })
 }
 //* Fetch user details on Home mount
@@ -101,14 +99,3 @@ export const resetSearchTerm = () => ({
   type: RESET_SEARCH_TERM,
   payload: '',
 })
-export const fetchNotifications = NotificationsArr => ({
-  type: FETCH_NOTIFICATIONS,
-  payload: NotificationsArr,
-})
-export const readNotifications = () => async dispatch => {
-  await axios.post(`/notifications/read`)
-}
-export const deleteNotifications = () => async dispatch => {
-  await axios.delete(`/notifications/clear`)
-  dispatch({ type: CLEAR_NOTIFICATIONS })
-}

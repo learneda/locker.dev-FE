@@ -1,25 +1,24 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { readNotifications, deleteNotifications } from '../../actions'
+import * as notificationActions from 'actions'
 
-class Notifications extends Component {
-  componentDidMount() {
-    this.props.readNotifications()
-  }
-  render() {
-    let notifications = this.props.notifications.map(notification => (
-      <>
-        <h1>{notification.invoker}</h1>
-        <p>{notification.type}</p>
-      </>
-    ))
-    return <div>{notifications}</div>
-  }
+const Notifications = props => {
+  const { notifications, readNotifications } = props
+
+  useEffect(() => {
+    readNotifications()
+  }, [])
+
+  const displayNotifications = notifications.map(notification => (
+    <>
+      <h1>{notification.invoker}</h1>
+      <p>{notification.type}</p>
+    </>
+  ))
+  return <div>{displayNotifications}</div>
 }
-
-const mapStateToProps = ({ notifications }) => ({ notifications })
 
 export default connect(
   mapStateToProps,
-  { readNotifications, deleteNotifications }
+  { ...notificationActions }
 )(Notifications)

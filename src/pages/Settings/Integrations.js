@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Grommet } from 'grommet'
 import styled from 'styled-components'
 import { customLayout, customWrapper } from 'components/mixins'
-import { post as URL } from 'services/baseURL'
+import { apiURL } from 'services'
 
 export default class Integrations extends Component {
   render() {
@@ -14,7 +14,7 @@ export default class Integrations extends Component {
               <div className='col-2'>
                 <label>
                   GoodReads Api
-                  <a href={`${URL}/api/goodreads`}>
+                  <a href={`${apiURL}/goodreads`}>
                     <button type='button'>connect</button>
                   </a>
                 </label>
@@ -22,7 +22,7 @@ export default class Integrations extends Component {
               <div className='col-2'>
                 <label>
                   Pocket Api
-                  <a href={`${URL}/api/pocket`}>
+                  <a href={`${apiURL}/pocket`}>
                     <button type='button'>connect</button>
                   </a>
                 </label>

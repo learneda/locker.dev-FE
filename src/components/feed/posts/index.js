@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import CommentBox from '../comments'
 import axios from 'axios'
-import { post as URL } from 'services/baseURL'
+import { apiURL } from 'services'
 import addIcon from 'assets/svg/add-icon.svg'
 import { withAlert } from 'react-alert'
 import { smartTruncate } from '../../mixins/'
@@ -17,7 +17,7 @@ class PostContainer extends Component {
   componentDidMount() {
     if (this.props.post) {
       axios
-        .post(`${URL}/api/posts/like/users`, {
+        .post(`${apiURL}/posts/like/users`, {
           post_id: this.props.post.post_id,
         })
         .then(res => {
@@ -57,7 +57,10 @@ class PostContainer extends Component {
     }
   }
   handleSaveToProfile = url => {
-    axios.post(`${URL}/api/posts`, { post_url: url, id: this.props.user_id })
+    axios.post(`${apiURL}/posts`, {
+      post_url: url,
+      id: this.props.user_id,
+    })
   }
 
   displayMedia = post => {
