@@ -110,7 +110,11 @@ const Browse = props => {
     <>
       <Tabs>
         <Tab>
-          <NavLink exact to={`${match.url}/courses`}>
+          <NavLink
+            exact
+            to={`${match.url}/courses`}
+            className={props.location.pathname == '/browse' ? 'active' : null}
+          >
             Course
           </NavLink>
         </Tab>
@@ -234,12 +238,28 @@ export default connect(
 
 const TabWrapper = styled.div`
   padding-top: 20px;
-  margin-top: -3px;
 `
 
 const Tabs = styled.ul`
   display: flex;
   font-size: 1.8rem;
+  position: fixed;
+  z-index: 2;
+  width: 100%;
+  top: 0;
+  height: 145px;
+  align-items: flex-end;
+  background: rgb(230, 233, 243);
+  padding-bottom: 20px;
+  margin-left: 5px;
+  &:hover {
+    color: #4064f2;
+  }
+  .active {
+    border-bottom: 3px solid #4064f2;
+    font-weight: 900;
+    color: #4064f2;
+  }
   @media (max-width: 400px) {
     font-size: 1.7rem;
   }
@@ -247,4 +267,13 @@ const Tabs = styled.ul`
 
 const Tab = styled.li`
   margin-right: 2rem;
+  font-size: 2rem;
+
+  a {
+    transition: 100ms ease-out;
+    &:hover {
+      color: #4064f2;
+      transition: 100ms ease-in;
+    }
+  }
 `
