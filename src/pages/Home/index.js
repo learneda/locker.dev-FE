@@ -10,22 +10,13 @@ import Sidebar from 'components/sidebar/Sidebar'
 import Suggested from 'components/sidebar/Suggested'
 import { customWrapper } from 'components/mixins'
 import {
-  populateNotifications,
-  deleteCollection,
   fetchUser,
-  fetchFollowers,
-  fetchFollowing,
-  fetchSuggested,
-  fetchLocker,
   fetchCollections,
-  followAUser,
-  fetchFeed,
-  subsequentFetchFeed,
-  createComment,
-  deleteComment,
-  likeComment,
-  unlikeComment,
+  deleteCollection,
+  fetchNotifications,
 } from 'actions'
+import * as socialActions from 'actions/socialActions'
+import * as homeActions from './homeActions'
 const Home = props => {
   const {
     auth,
@@ -38,18 +29,18 @@ const Home = props => {
     collections,
     following,
     followers,
-    fetchLocker,
     suggested,
-    fetchCollections,
     fetchUser,
-    fetchSuggested,
+    fetchCollections,
     fetchFollowing,
     fetchFollowers,
-    fetchFeed,
-    populateNotifications,
-    followAUser,
+    fetchSuggested,
+    fetchNotifications,
     deleteCollection,
-    subsequentFetchFeed,
+    followAUser,
+    fetchFeed,
+    fetchLocker,
+    fetchMoreFeed,
     createComment,
     deleteComment,
     likeComment,
@@ -111,10 +102,10 @@ const Home = props => {
                     auth={auth}
                     user={user}
                     searchTerm={searchTerm}
-                    populateNotifications={populateNotifications}
+                    fetchNotifications={fetchNotifications}
                     posts={feed.posts}
                     hasmore={feed.hasmore}
-                    subsequentFetchFeed={subsequentFetchFeed}
+                    fetchMoreFeed={fetchMoreFeed}
                     offset={feed.offset}
                     createComment={createComment}
                     deleteComment={deleteComment}
@@ -168,39 +159,27 @@ const mapStateToProps = ({
   user,
   searchTerm,
   collections,
-  locker,
   social,
-  feed,
+  home,
 }) => ({
   auth,
   user,
   searchTerm,
   collections,
-  locker,
-  following: social.following,
-  followers: social.followers,
-  suggested: social.suggested,
-  feed,
+  feed: home,
+  locker: home.locker,
+  ...social,
 })
 
 export default connect(
   mapStateToProps,
   {
-    populateNotifications,
-    deleteCollection,
     fetchUser,
-    fetchLocker,
+    fetchNotifications,
     fetchCollections,
-    fetchFollowers,
-    fetchFollowing,
-    fetchSuggested,
-    followAUser,
-    fetchFeed,
-    subsequentFetchFeed,
-    createComment,
-    deleteComment,
-    likeComment,
-    unlikeComment,
+    deleteCollection,
+    ...socialActions,
+    ...homeActions,
   }
 )(withRouter(Home))
 

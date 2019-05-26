@@ -8,49 +8,43 @@ import SidebarById from 'components/sidebar/SidebarById'
 import ProfileById from 'components/profile'
 import UserFollowing from 'components/profile/UserFollowing'
 import UserFollowers from 'components/profile/UserFollowers'
-import {
-  fetchOtherCollections,
-  fetchOtherFollowing,
-  fetchOtherFollowers,
-  fetchOtherUserDetails,
-} from 'actions'
-
+import * as profileActions from './profileActions'
 const UserProfile = props => {
   const {
     match,
     collections,
     following,
     followers,
-    other,
+    profile,
     social,
-    fetchOtherCollections,
-    fetchOtherFollowing,
-    fetchOtherFollowers,
-    fetchOtherUserDetails,
+    fetchProfileCollections,
+    fetchProfileFollowing,
+    fetchProfileFollowers,
+    fetchProfileDetails,
   } = props
   const { id } = match.params
 
   useEffect(() => {
     // fetching other collections
-    fetchOtherCollections(id)
-    fetchOtherFollowing(id)
-    fetchOtherFollowers(id)
-    fetchOtherUserDetails(id)
+    fetchProfileCollections(id)
+    fetchProfileFollowing(id)
+    fetchProfileFollowers(id)
+    fetchProfileDetails(id)
   }, [])
 
   return (
     <Grommet theme={theme}>
       <Container>
         <SidebarById
-          collectionsCount={other.collections.length}
-          followingCount={other.following.length}
-          followersCount={other.followers.length}
-          userDetails={other.userDetails}
+          collectionsCount={profile.collections.length}
+          followingCount={profile.following.length}
+          followersCount={profile.followers.length}
+          other={profile.other}
           myFollowing={social.following}
           follow={social.following
             .map(profile => profile.id)
             .includes(Number(id))}
-          fetchOtherFollowers={fetchOtherFollowers}
+          fetchProfileFollowers={fetchProfileFollowers}
         />
         <Wrapper>
           <div className='tabs'>
@@ -67,7 +61,7 @@ const UserProfile = props => {
                 exact
                 path={[`${match.path}`, `${match.path}/collections`]}
                 render={props => (
-                  <ProfileById {...props} collections={other.collections} />
+                  <ProfileById {...props} collections={profile.collections} />
                 )}
               />
               <Route
@@ -76,7 +70,7 @@ const UserProfile = props => {
                 render={props => (
                   <UserFollowing
                     {...props}
-                    otherFollowing={other.following}
+                    profileFollowing={profile.following}
                     myFollowing={social.following}
                   />
                 )}
@@ -87,7 +81,7 @@ const UserProfile = props => {
                 render={props => (
                   <UserFollowers
                     {...props}
-                    otherFollowers={other.followers}
+                    profileFollowers={profile.followers}
                     myFollowers={social.followers}
                   />
                 )}
@@ -99,16 +93,13 @@ const UserProfile = props => {
     </Grommet>
   )
 }
-const mapStateToProps = ({ other, social }) => {
-  return { other, social }
+const mapStateToProps = ({ profile, social }) => {
+  return { profile, social }
 }
 export default connect(
   mapStateToProps,
   {
-    fetchOtherCollections,
-    fetchOtherFollowing,
-    fetchOtherFollowers,
-    fetchOtherUserDetails,
+    ...profileActions,
   }
 )(withRouter(UserProfile))
 

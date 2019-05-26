@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import styled from 'styled-components'
-import { customLayout } from '../mixins'
+import { customLayout, smartTruncate } from '../mixins'
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
 import { useThrottle } from 'use-throttle'
@@ -13,7 +13,6 @@ const Articles = props => {
     fetchMoreArticles,
     searchArticles,
     setArticleOffset,
-    handleTruncateText,
     handleSaveLink,
     alert,
   } = props
@@ -74,8 +73,8 @@ const Articles = props => {
                   }
                   alt='article-thumbnail'
                 />
-                <h3>{handleTruncateText(article.title, 80)}</h3>
-                <p>{handleTruncateText(article.description, 160)}</p>
+                <h3>{smartTruncate(article.title, 80)}</h3>
+                <p>{smartTruncate(article.description, 160)}</p>
               </a>
               <SaveIcon>
                 <Add

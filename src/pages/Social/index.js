@@ -9,15 +9,8 @@ import Followers from 'components/social/Followers'
 import Suggested from 'components/social/Suggested'
 import Meetups from 'components/social/Meetups'
 import { customWrapper } from 'components/mixins'
-import {
-  followAUser,
-  unfollowAUser,
-  fetchUser,
-  fetchFollowing,
-  fetchFollowers,
-  fetchSuggested,
-  fetchCollections,
-} from 'actions'
+import * as socialActions from 'actions/socialActions'
+import { fetchUser, fetchCollections } from 'actions'
 const Social = props => {
   const {
     userId,
@@ -126,22 +119,16 @@ const Social = props => {
 const mapStateToProps = ({ auth, user, social, collections }) => ({
   userId: auth.id,
   user: user,
-  following: social.following,
-  followers: social.followers,
-  suggested: social.suggested,
   collections,
+  ...social,
 })
 
 export default connect(
   mapStateToProps,
   {
-    followAUser,
-    unfollowAUser,
     fetchUser,
-    fetchFollowing,
-    fetchFollowers,
-    fetchSuggested,
     fetchCollections,
+    ...socialActions,
   }
 )(withRouter(Social))
 

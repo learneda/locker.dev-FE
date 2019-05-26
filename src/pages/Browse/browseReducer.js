@@ -1,22 +1,4 @@
-import {
-  FETCH_COURSES,
-  FETCH_ARTICLES,
-  FETCH_VIDEOS,
-  FETCH_BOOKS,
-  FETCH_PODCASTS,
-  SEARCH_COURSES,
-  SEARCH_ARTICLES,
-  SEARCH_VIDEOS,
-  SEARCH_BOOKS,
-  SEARCH_PODCASTS,
-  SET_COURSE_PAGE,
-  SET_ARTICLE_OFFSET,
-  SET_BOOK_OFFSET,
-  SET_VIDEO_PAGETOKEN,
-  SET_PODCAST_OFFSET,
-  SHOW_IFRAME,
-  RESET_IFRAME,
-} from 'actions/types'
+import * as type from './browseTypes'
 
 const initialState = {
   courses: [],
@@ -33,37 +15,37 @@ const initialState = {
 
 export const browseReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_COURSES:
+    case type.FETCH_COURSES:
       return { ...state, courses: [...state.courses, ...action.payload] }
-    case FETCH_ARTICLES:
+    case type.FETCH_ARTICLES:
       return { ...state, articles: [...state.articles, ...action.payload] }
-    case FETCH_VIDEOS:
+    case type.FETCH_VIDEOS:
       return { ...state, videos: [...state.videos, ...action.payload] }
-    case FETCH_BOOKS:
+    case type.FETCH_BOOKS:
       return { ...state, books: [...state.books, ...action.payload] }
-    case FETCH_PODCASTS:
+    case type.FETCH_PODCASTS:
       return { ...state, podcasts: [...state.podcasts, ...action.payload] }
-    case SEARCH_COURSES:
+    case type.SEARCH_COURSES:
       return { ...state, courses: action.payload }
-    case SEARCH_ARTICLES:
+    case type.SEARCH_ARTICLES:
       return { ...state, articles: action.payload }
-    case SEARCH_VIDEOS:
+    case type.SEARCH_VIDEOS:
       return { ...state, videos: action.payload }
-    case SEARCH_BOOKS:
+    case type.SEARCH_BOOKS:
       return { ...state, books: action.payload }
-    case SEARCH_PODCASTS:
+    case type.SEARCH_PODCASTS:
       return { ...state, podcasts: action.payload }
-    case SET_COURSE_PAGE:
+    case type.SET_COURSE_PAGE:
       return { ...state, coursePage: action.payload }
-    case SET_ARTICLE_OFFSET:
+    case type.SET_ARTICLE_OFFSET:
       return { ...state, articleOffset: action.payload }
-    case SET_VIDEO_PAGETOKEN:
+    case type.SET_VIDEO_PAGETOKEN:
       return { ...state, videoPageToken: action.payload }
-    case SET_BOOK_OFFSET:
+    case type.SET_BOOK_OFFSET:
       return { ...state, bookOffset: action.payload }
-    case SET_PODCAST_OFFSET:
+    case type.SET_PODCAST_OFFSET:
       return { ...state, podcastOffset: action.payload }
-    case SHOW_IFRAME:
+    case type.SHOW_IFRAME:
       return {
         ...state,
         videos: state.videos.map(video => {
@@ -73,7 +55,7 @@ export const browseReducer = (state = initialState, action) => {
           return video
         }),
       }
-    case RESET_IFRAME:
+    case type.RESET_IFRAME:
       return {
         ...state,
         videos: state.videos.map(video => {

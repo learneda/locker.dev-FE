@@ -4,13 +4,8 @@ import { withRouter, Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import styled from 'styled-components'
 import { StyledSidebar } from './StyledSidebar'
-import {
-  fetchUser,
-  followAUser,
-  unfollowAUser,
-  fetchFollowers,
-  fetchFollowing,
-} from 'actions'
+import { fetchUser } from 'actions'
+import * as socialActions from 'actions/socialActions'
 import { customLayout, customWrapper } from '../mixins'
 import locationSvg from 'assets/svg/location.svg'
 import linkSvg from 'assets/svg/link-symbol.svg'
@@ -47,14 +42,14 @@ class SidebarById extends Component {
     e.preventDefault()
     const friend_id = Number(this.props.match.params.id)
     await this.props.followAUser({ user_id: this.props.auth.id, friend_id })
-    await this.props.fetchOtherFollowers(this.props.match.params.id)
+    await this.props.fetchProfileFollowers(this.props.match.params.id)
   }
 
   unfollowAUserHandler = async e => {
     e.preventDefault()
     const friend_id = this.props.match.params.id
     await this.props.unfollowAUser({ user_id: this.props.auth.id, friend_id })
-    await this.props.fetchOtherFollowers(this.props.match.params.id)
+    await this.props.fetchProfileFollowers(this.props.match.params.id)
   }
 
   imageLoaded = async () => {
@@ -64,7 +59,7 @@ class SidebarById extends Component {
   }
 
   render() {
-    if (!this.props.userDetails) {
+    if (!this.props.other) {
       return <MyLoader />
     }
     const {
@@ -74,7 +69,7 @@ class SidebarById extends Component {
       websiteUrl,
       created_at,
       profilePicture,
-    } = this.props.userDetails
+    } = this.props.other
 
     const profileId = Number(this.props.match.params.id)
 
@@ -181,10 +176,7 @@ export default connect(
   mapStateToProps,
   {
     fetchUser,
-    followAUser,
-    unfollowAUser,
-    fetchFollowers,
-    fetchFollowing,
+    ...socialActions,
   }
 )(withRouter(SidebarById))
 

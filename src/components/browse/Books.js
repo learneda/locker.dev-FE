@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { customLayout } from '../mixins'
+import { customLayout, smartTruncate } from '../mixins'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
@@ -14,7 +14,6 @@ const Books = props => {
     fetchMoreBooks,
     searchBooks,
     setBookOffset,
-    handleTruncateText,
     handleSaveMedia,
     alert,
   } = props
@@ -93,9 +92,9 @@ const Books = props => {
                 />
               </div>
               <h3 style={{ marginTop: '20px' }}>
-                {handleTruncateText(book.title, 75)}
+                {smartTruncate(book.title, 75)}
               </h3>
-              <p>{handleTruncateText(book.description, 120)}</p>
+              <p>{smartTruncate(book.description, 120)}</p>
             </a>
             <SaveIcon>
               <Add

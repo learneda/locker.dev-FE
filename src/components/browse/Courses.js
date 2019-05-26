@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import styled from 'styled-components'
-import { customLayout } from '../../components/mixins'
-import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
-import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
+import { customLayout, smartTruncate } from 'components/mixins'
+import { ReactComponent as Add } from 'assets/svg/add-icon.svg'
+import { ReactComponent as Loading } from 'assets/svg/circles.svg'
 import { useThrottle } from 'use-throttle'
 
 const Courses = props => {
@@ -15,7 +15,6 @@ const Courses = props => {
     fetchMoreCourses,
     searchCourses,
     handleSaveLink,
-    handleTruncateText,
     alert,
   } = props
 
@@ -69,8 +68,8 @@ const Courses = props => {
                 rel='noopener noreferrer'
               >
                 <img src={course.image_480x270} alt='course-thumbnail' />
-                <h3>{handleTruncateText(course.title, 80)}</h3>
-                <p>{handleTruncateText(course.headline, 160)}</p>
+                <h3>{smartTruncate(course.title, 80)}</h3>
+                <p>{smartTruncate(course.headline, 160)}</p>
               </a>
               <SaveIcon>
                 <Add
