@@ -13,6 +13,9 @@ export const fetchFeed = () => async dispatch => {
   if (newsFeed.data.length) {
     dispatch({ type: type.FETCH_FEED, payload: newsFeed.data })
   }
+  if (newsFeed.data.length < 5) {
+    dispatch({ type: type.TOGGLE_HAS_MORE, payload: false })
+  }
 }
 
 // InfiniteScroll component will call this func with offset to get next posts
