@@ -2,38 +2,37 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { StyledFollow } from './StyledFollow'
 
-const Followers = props => {
+const OtherFollowers = props => {
   const {
     userId,
     following,
     followers,
     followAUser,
-    fetchUser,
     unfollowAUser,
     fetchFollowing,
   } = props
 
   const [isLoading, setIsLoading] = useState(false)
   const [loadingIndex, setLoadingIndex] = useState(null)
+  const followingIds = following.map(ele => ele.id)
 
   const handleFollow = async (friend_id, index) => {
     setIsLoading(true)
     setLoadingIndex(index)
     await followAUser({ user_id: userId, friend_id: friend_id })
-    fetchFollowing(userId).then(() => setIsLoading(false))
-    fetchUser(userId)
+    await fetchFollowing(userId)
+    setIsLoading(false)
   }
 
   const handleUnfollow = async (friend_id, index) => {
     setIsLoading(true)
     setLoadingIndex(index)
     await unfollowAUser({ user_id: userId, friend_id: friend_id })
-    fetchFollowing(userId).then(response => setIsLoading(false))
-    fetchUser(userId)
+    await fetchFollowing(userId)
+    setIsLoading(false)
   }
 
   const handleClick = (id, index) => {
-    const followingIds = following.map(ele => ele.id)
     return followingIds.includes(id)
       ? handleUnfollow(id, index)
       : handleFollow(id, index)
@@ -43,7 +42,6 @@ const Followers = props => {
     if (isLoading && loadingIndex === index) {
       return <button style={{ width: '8.5rem' }}>...</button>
     }
-    const followingIds = following.map(ele => ele.id)
     const text = followingIds.includes(id) ? 'Unfollow' : 'Follow'
     return (
       <button
@@ -71,4 +69,4 @@ const Followers = props => {
   )
 }
 
-export default Followers
+export default OtherFollowers

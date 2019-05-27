@@ -34,9 +34,6 @@ class SidebarById extends Component {
       imageLoaded: false,
     }
   }
-  componentDidMount() {
-    console.log(this.props.follow)
-  }
 
   followAUserHandler = async e => {
     e.preventDefault()
@@ -146,7 +143,7 @@ class SidebarById extends Component {
                     target='_blank'
                     rel='noopener noreferrer'
                   >
-                    {this.props.user.websiteUrl}
+                    {websiteUrl}
                   </a>
                 )
               ) : (
@@ -164,10 +161,9 @@ class SidebarById extends Component {
   }
 }
 
-const mapStateToProps = ({ auth, user, social }) => {
+const mapStateToProps = ({ auth, social }) => {
   return {
     auth,
-    user,
     following: social.following,
   }
 }

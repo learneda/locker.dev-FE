@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import styled from 'styled-components'
 import { customLayout, smartTruncate } from '../mixins'
-import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
-import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
+import { ReactComponent as Add } from 'assets/svg/add-icon.svg'
+import { ReactComponent as Loading } from 'assets/svg/circles.svg'
 import { useThrottle } from 'use-throttle'
 const Articles = props => {
   const {

@@ -3,31 +3,44 @@ import { connect } from 'react-redux'
 import { withRouter, NavLink, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
 import { customWrapper } from 'components/mixins'
+import Sidebar from 'components/sidebar/Sidebar'
 import SidebarById from 'components/sidebar/SidebarById'
-import ProfileById from 'components/profile'
-import UserFollowing from 'components/profile/UserFollowing'
-import UserFollowers from 'components/profile/UserFollowers'
+import OtherCollections from 'components/profile/OtherCollections'
+import OtherFollowing from 'components/profile/OtherFollowing'
+import OtherFollowers from 'components/profile/OtherFollowers'
 import * as profileActions from './profileActions'
-import { createCollection } from 'actions'
-const UserProfile = props => {
+import { fetchUser, createCollection, fetchCollections } from 'actions'
+import {
+  followAUser,
+  unfollowAUser,
+  fetchFollowing,
+} from 'actions/socialActions'
+const ProfilePage = props => {
   const {
+    auth,
+    user,
     match,
-    collections,
-    following,
-    followers,
     profile,
     social,
+    collections,
     fetchProfileCollections,
     fetchProfileFollowing,
     fetchProfileFollowers,
     fetchProfileDetails,
     resetProfile,
+    fetchUser,
     createCollection,
+    fetchCollections,
+    followAUser,
+    unfollowAUser,
+    fetchFollowing,
   } = props
-  const { id } = match.params
+  const id = Number(match.params.id)
 
   useEffect(() => {
     // fetching other collections
+    fetchUser(auth.id)
+    fetchCollections()
     fetchProfileCollections(id)
     fetchProfileFollowing(id)
     fetchProfileFollowers(id)
@@ -36,21 +49,28 @@ const UserProfile = props => {
     return () => {
       resetProfile()
     }
-  }, [])
+  }, [id])
 
   return (
     <Container>
-      <SidebarById
-        collectionsCount={profile.collections.length}
-        followingCount={profile.following.length}
-        followersCount={profile.followers.length}
-        other={profile.other}
-        myFollowing={social.following}
-        follow={social.following
-          .map(profile => profile.id)
-          .includes(Number(id))}
-        fetchProfileFollowers={fetchProfileFollowers}
-      />
+      {auth.id === id ? (
+        <Sidebar
+          user={user}
+          collections={collections}
+          followers={social.followers}
+          following={social.following}
+        />
+      ) : (
+        <SidebarById
+          collectionsCount={profile.collections.length}
+          followingCount={profile.following.length}
+          followersCount={profile.followers.length}
+          other={profile.other}
+          myFollowing={social.following}
+          follow={social.following.map(ele => ele.id).includes(id)}
+          fetchProfileFollowers={fetchProfileFollowers}
+        />
+      )}
       <Wrapper>
         <Tabs>
           <Tab>
@@ -77,7 +97,7 @@ const UserProfile = props => {
               exact
               path={[`${match.path}`, `${match.path}/collections`]}
               render={props => (
-                <ProfileById
+                <OtherCollections
                   {...props}
                   createCollection={createCollection}
                   fetchProfileCollections={fetchProfileCollections}
@@ -89,10 +109,14 @@ const UserProfile = props => {
               exact
               path={`${match.path}/following`}
               render={props => (
-                <UserFollowing
+                <OtherFollowing
                   {...props}
-                  profileFollowing={profile.following}
-                  myFollowing={social.following}
+                  userId={auth.id}
+                  following={profile.following}
+                  userFollowing={social.following}
+                  followAUser={followAUser}
+                  unfollowAUser={unfollowAUser}
+                  fetchFollowing={fetchFollowing}
                 />
               )}
             />
@@ -100,10 +124,14 @@ const UserProfile = props => {
               exact
               path={`${match.path}/followers`}
               render={props => (
-                <UserFollowers
+                <OtherFollowers
                   {...props}
-                  profileFollowers={profile.followers}
-                  myFollowers={social.followers}
+                  userId={auth.id}
+                  following={social.following}
+                  followers={profile.followers}
+                  followAUser={followAUser}
+                  unfollowAUser={unfollowAUser}
+                  fetchFollowing={fetchFollowing}
                 />
               )}
             />
@@ -113,16 +141,21 @@ const UserProfile = props => {
     </Container>
   )
 }
-const mapStateToProps = ({ profile, social }) => {
-  return { profile, social }
+const mapStateToProps = ({ auth, user, profile, social, collections }) => {
+  return { auth, user, profile, social, collections }
 }
 export default connect(
   mapStateToProps,
   {
     ...profileActions,
+    fetchUser,
+    fetchCollections,
     createCollection,
+    followAUser,
+    unfollowAUser,
+    fetchFollowing,
   }
-)(withRouter(UserProfile))
+)(withRouter(ProfilePage))
 
 const Container = styled.div`
   ${customWrapper('80%', '0 auto')}
@@ -139,11 +172,6 @@ const Wrapper = styled.div`
     width: 100%;
     padding: 0;
   }
-`
-
-const TabWrapper = styled.div`
-  margin-bottom: 40px;
-  padding: 0 5px;
 `
 
 const Tabs = styled.ul`
@@ -170,6 +198,11 @@ const Tabs = styled.ul`
     top: 50px;
     height: 80px;
   }
+`
+
+const TabWrapper = styled.div`
+  margin-bottom: 40px;
+  padding: 0 5px;
 `
 
 const Tab = styled.li`
