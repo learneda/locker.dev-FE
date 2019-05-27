@@ -25,6 +25,7 @@ const Videos = props => {
 
   useEffect(() => {
     const asyncSearchVideos = async () => {
+      //* Don't send videoPageToken on initial search query
       await searchVideos(searchTerm)
       setIsLoading(false)
     }

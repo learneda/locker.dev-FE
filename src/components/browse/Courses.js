@@ -11,8 +11,7 @@ const Courses = props => {
     courses,
     searchTerm,
     coursePage,
-    setCoursePage,
-    fetchMoreCourses,
+    fetchCourses,
     searchCourses,
     handleSaveLink,
     alert,
@@ -24,9 +23,9 @@ const Courses = props => {
 
   useEffect(() => {
     const asyncSearchCourses = async () => {
+      //* Searches reset page=1
       const page = 1
       await searchCourses(searchTerm, page)
-      await setCoursePage(page + 1)
       setIsLoading(false)
     }
     if (didMount) {
@@ -47,7 +46,7 @@ const Courses = props => {
       ) : (
         <InfiniteScroll
           dataLength={courses.length}
-          next={fetchMoreCourses}
+          next={() => fetchCourses(searchTerm, coursePage)}
           hasMore={hasMore}
           style={{
             display: 'flex',
@@ -55,7 +54,7 @@ const Courses = props => {
             justifyContent: 'space-between',
           }}
           endMessage={
-            <div style={{}}>
+            <div>
               <b>No Articles Matched Search Criteria 🙁</b>
             </div>
           }

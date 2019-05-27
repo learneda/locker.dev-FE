@@ -13,7 +13,7 @@ const Podcasts = props => {
     podcasts,
     searchTerm,
     podcastOffset,
-    fetchMorePodcasts,
+    fetchPodcasts,
     searchPodcasts,
     handleSaveMedia,
     alert,
@@ -24,7 +24,9 @@ const Podcasts = props => {
   const throttledSearch = useThrottle(searchTerm, 1000)
   useEffect(() => {
     const asyncSearchPodcasts = async () => {
-      searchPodcasts(searchTerm)
+      //* Search resets offset=0
+      const offset = 0
+      searchPodcasts(searchTerm, offset)
       setIsLoading(false)
     }
     if (didMount) {
@@ -37,23 +39,25 @@ const Podcasts = props => {
   useEffect(() => {
     setIsImage(Array(podcasts.length).fill(false))
   }, [podcasts])
-  const renderLoader = () => (
-    <Loader>
-      <Loading />
-    </Loader>
-  )
+
   const handleClick = index => {
     setIsImage(prevIsImage =>
       prevIsImage.map((isImage, idx) => (idx === index ? !isImage : isImage))
     )
   }
 
+  const renderLoader = () => (
+    <Loader>
+      <Loading />
+    </Loader>
+  )
+
   const hasMore = !Boolean(searchTerm) || Boolean(podcasts.length)
 
   const renderPodcasts = () => (
     <InfiniteScroll
       dataLength={podcasts.length}
-      next={fetchMorePodcasts}
+      next={() => fetchPodcasts(searchTerm, podcastOffset)}
       hasMore={hasMore}
       style={{
         display: 'flex',

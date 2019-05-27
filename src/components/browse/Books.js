@@ -11,9 +11,8 @@ const Books = props => {
     books,
     searchTerm,
     bookOffset,
-    fetchMoreBooks,
+    fetchBooks,
     searchBooks,
-    setBookOffset,
     handleSaveMedia,
     alert,
   } = props
@@ -23,9 +22,9 @@ const Books = props => {
 
   useEffect(() => {
     const asyncSearchBooks = async () => {
+      //* Search resets offset=0
       const offset = 0
       await searchBooks(searchTerm, offset)
-      await setBookOffset(offset + 12)
       setIsLoading(false)
     }
     if (didMount) {
@@ -47,7 +46,7 @@ const Books = props => {
   const renderBooks = () => (
     <InfiniteScroll
       dataLength={books.length}
-      next={fetchMoreBooks}
+      next={() => fetchBooks(searchTerm, bookOffset)}
       hasMore={hasMore}
       style={{
         display: 'flex',

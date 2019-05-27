@@ -37,8 +37,6 @@ const Browse = props => {
     searchVideos,
     searchBooks,
     searchPodcasts,
-    setArticleOffset,
-    setBookOffset,
     showIframe,
     resetIframe,
     createCollection,
@@ -52,11 +50,9 @@ const Browse = props => {
     }
     if (!articles.length) {
       fetchArticles(searchTerm, articleOffset)
-      setArticleOffset(articleOffset + 12)
     }
     if (!books.length) {
       fetchBooks(searchTerm, bookOffset)
-      setBookOffset(bookOffset + 12)
     }
     if (!videos.length) {
       fetchVideos(searchTerm, videoPageToken)
@@ -81,28 +77,6 @@ const Browse = props => {
         user_id: auth.id,
       })
     }
-  }
-
-  const fetchMoreCourses = () => {
-    fetchCourses(searchTerm, coursePage)
-  }
-
-  const fetchMoreArticles = () => {
-    fetchArticles(searchTerm, articleOffset)
-    setArticleOffset(articleOffset + 12)
-  }
-
-  const fetchMoreBooks = () => {
-    fetchBooks(searchTerm, bookOffset)
-    setBookOffset(bookOffset + 12)
-  }
-
-  const fetchMoreVideos = () => {
-    fetchVideos(searchTerm, videoPageToken)
-  }
-
-  const fetchMorePodcasts = () => {
-    fetchPodcasts(searchTerm, podcastOffset)
   }
 
   return (
@@ -141,9 +115,8 @@ const Browse = props => {
                 courses={courses}
                 searchTerm={searchTerm}
                 coursePage={coursePage}
-                setCoursePage={setCoursePage}
                 searchCourses={searchCourses}
-                fetchMoreCourses={fetchMoreCourses}
+                fetchCourses={fetchCourses}
                 handleSaveLink={handleSaveLink}
                 alert={alert}
               />
@@ -157,9 +130,8 @@ const Browse = props => {
                 articles={articles}
                 searchTerm={searchTerm}
                 articleOffset={articleOffset}
-                setArticleOffset={setArticleOffset}
                 searchArticles={searchArticles}
-                fetchMoreArticles={fetchMoreArticles}
+                fetchArticles={fetchArticles}
                 handleSaveLink={handleSaveLink}
                 alert={alert}
               />
@@ -174,7 +146,7 @@ const Browse = props => {
                 searchTerm={searchTerm}
                 videoPageToken={videoPageToken}
                 searchVideos={searchVideos}
-                fetchMoreVideos={fetchMoreVideos}
+                fetchVideos={fetchVideos}
                 handleSaveMedia={handleSaveMedia}
                 showIframe={showIframe}
                 resetIframe={resetIframe}
@@ -190,9 +162,8 @@ const Browse = props => {
                 books={books}
                 searchTerm={searchTerm}
                 bookOffset={bookOffset}
-                setBookOffset={setBookOffset}
                 searchBooks={searchBooks}
-                fetchMoreBooks={fetchMoreBooks}
+                fetchBooks={fetchBooks}
                 handleSaveMedia={handleSaveMedia}
                 alert={alert}
               />
@@ -207,7 +178,7 @@ const Browse = props => {
                 searchTerm={searchTerm}
                 podcastOffset={podcastOffset}
                 searchPodcasts={searchPodcasts}
-                fetchMorePodcasts={fetchMorePodcasts}
+                fetchPodcasts={fetchPodcasts}
                 handleSaveMedia={handleSaveMedia}
                 alert={alert}
               />

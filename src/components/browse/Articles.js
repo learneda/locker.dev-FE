@@ -10,9 +10,8 @@ const Articles = props => {
     articles,
     searchTerm,
     articleOffset,
-    fetchMoreArticles,
+    fetchArticles,
     searchArticles,
-    setArticleOffset,
     handleSaveLink,
     alert,
   } = props
@@ -24,9 +23,9 @@ const Articles = props => {
   //* Don't run search on mount if offset=0 and search is empty
   useEffect(() => {
     const asyncSearchArticles = async () => {
+      //* Search resets offset=0
       const offset = 0
       await searchArticles(searchTerm, offset)
-      await setArticleOffset(offset + 12)
       setIsLoading(false)
     }
     if (didMount) {
@@ -39,7 +38,6 @@ const Articles = props => {
   //* hasMore false only when searchQuery returns no matches
   const hasMore = !Boolean(searchTerm) || Boolean(articles.length)
 
-  //TODO: Clean up hasMore and isLoading logic
   return (
     <Cards>
       {isLoading ? (
@@ -49,7 +47,7 @@ const Articles = props => {
       ) : (
         <InfiniteScroll
           dataLength={articles.length}
-          next={fetchMoreArticles}
+          next={() => fetchArticles(searchTerm, articleOffset)}
           hasMore={hasMore}
           style={{
             display: 'flex',
@@ -57,7 +55,7 @@ const Articles = props => {
             justifyContent: 'space-between',
           }}
           endMessage={
-            <div style={{}}>
+            <div>
               <b>No Articles Matched Search Criteria 🙁</b>
             </div>
           }
