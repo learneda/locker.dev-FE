@@ -37,7 +37,6 @@ const Browse = props => {
     searchVideos,
     searchBooks,
     searchPodcasts,
-    setCoursePage,
     setArticleOffset,
     setBookOffset,
     showIframe,
@@ -50,7 +49,6 @@ const Browse = props => {
   useEffect(() => {
     if (!courses.length) {
       fetchCourses(searchTerm, coursePage)
-      setCoursePage(coursePage + 1)
     }
     if (!articles.length) {
       fetchArticles(searchTerm, articleOffset)
@@ -87,7 +85,6 @@ const Browse = props => {
 
   const fetchMoreCourses = () => {
     fetchCourses(searchTerm, coursePage)
-    setCoursePage(coursePage + 1)
   }
 
   const fetchMoreArticles = () => {

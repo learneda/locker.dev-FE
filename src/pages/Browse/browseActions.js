@@ -2,13 +2,34 @@ import axios from 'apis/axiosAPI'
 import youtube from 'apis/youtube'
 import listen from 'apis/listen'
 import * as type from './browseTypes'
+import { selectRandom } from 'helpers'
 
-//* Fetches courses on Browse mount
+//* Random topics array for initial fetch of Courses
+const topics = [
+  'Javascript',
+  'GraphQL',
+  'Redux',
+  'React',
+  'Node',
+  'SQL',
+  'Vue',
+  'Firebase',
+]
+//*** COURSES
 export const fetchCourses = (q, page) => async dispatch => {
+  if (!q) {
+    q = selectRandom(topics)
+  }
   const res = await axios.get(`/courses?page=${page}&search=${q}`)
   dispatch({ type: type.FETCH_COURSES, payload: res.data.results })
+  dispatch({ type: type.SET_COURSE_PAGE, payload: page + 1 })
 }
-//* Fetches articles on Browse mount
+export const searchCourses = (q, page) => async dispatch => {
+  const res = await axios.get(`/courses?page=${page}&search=${q}`)
+  dispatch({ type: type.SEARCH_COURSES, payload: res.data.results })
+  dispatch({ type: type.SET_COURSE_PAGE, payload: page + 1 })
+}
+//* Fetch Articles on Browse mount
 export const fetchArticles = (q, offset) => async dispatch => {
   let res
   if (!q) {
@@ -18,7 +39,7 @@ export const fetchArticles = (q, offset) => async dispatch => {
   }
   dispatch({ type: type.FETCH_ARTICLES, payload: res.data })
 }
-//* Fetches videos on Browse mount
+//* Fetch Videos on Browse mount
 export const fetchVideos = (query, pageToken) => async dispatch => {
   const res = await youtube.get('/search', {
     params: {
@@ -33,7 +54,7 @@ export const fetchVideos = (query, pageToken) => async dispatch => {
   dispatch({ type: type.FETCH_VIDEOS, payload: videosWithThumbnailState })
   dispatch({ type: type.SET_VIDEO_PAGETOKEN, payload: res.data.nextPageToken })
 }
-//* Fetches books on Browse mount
+//* Fetch Books on Browse mount
 export const fetchBooks = (query, offset) => async dispatch => {
   const res = await axios.get(`/books/search`, {
     params: {
@@ -43,7 +64,7 @@ export const fetchBooks = (query, offset) => async dispatch => {
   })
   dispatch({ type: type.FETCH_BOOKS, payload: res.data })
 }
-//* Fetches podcasts on Browse mount
+//* Fetch Podcasts on Browse mount
 export const fetchPodcasts = (query, offset) => async dispatch => {
   const res = await listen.get('/search', {
     params: {
@@ -57,12 +78,7 @@ export const fetchPodcasts = (query, offset) => async dispatch => {
     payload: res.data.next_offset,
   })
 }
-//* Searches courses on user input
-export const searchCourses = (q, page) => async dispatch => {
-  const res = await axios.get(`/courses?page=${page}&search=${q}`)
-  dispatch({ type: type.SEARCH_COURSES, payload: res.data.results })
-}
-//* Search articles on user input
+//* Search Articles on user input
 export const searchArticles = (q, offset) => async dispatch => {
   let res
   if (!q) {
@@ -72,7 +88,7 @@ export const searchArticles = (q, offset) => async dispatch => {
   }
   dispatch({ type: type.SEARCH_ARTICLES, payload: res.data })
 }
-//* Search videos on user input
+//* Search Videos on user input
 export const searchVideos = query => async dispatch => {
   const res = await youtube.get('/search', {
     params: {
@@ -86,7 +102,7 @@ export const searchVideos = query => async dispatch => {
   dispatch({ type: type.SEARCH_VIDEOS, payload: videosWithThumbnailState })
   dispatch({ type: type.SET_VIDEO_PAGETOKEN, payload: res.data.nextPageToken })
 }
-//* Search books on user input
+//* Search Books on user input
 export const searchBooks = (query, offset) => async dispatch => {
   const res = await axios.get(`/books/search`, {
     params: {
@@ -96,7 +112,7 @@ export const searchBooks = (query, offset) => async dispatch => {
   })
   dispatch({ type: type.SEARCH_BOOKS, payload: res.data })
 }
-//* Search podcasts on user input
+//* Search Podcasts on user input
 export const searchPodcasts = query => async dispatch => {
   const res = await listen.get('/search', {
     params: {
@@ -110,17 +126,12 @@ export const searchPodcasts = query => async dispatch => {
     payload: res.data.next_offset,
   })
 }
-//* Set course page for pagination
-export const setCoursePage = page => ({
-  type: type.SET_COURSE_PAGE,
-  payload: page,
-})
-//* Set article offset for pagination
+//* Set ArticleOffset for pagination
 export const setArticleOffset = offset => ({
   type: type.SET_ARTICLE_OFFSET,
   payload: offset,
 })
-//* Set book offset for pagination
+//* Set BookOffset for pagination
 export const setBookOffset = offset => ({
   type: type.SET_BOOK_OFFSET,
   payload: offset,
