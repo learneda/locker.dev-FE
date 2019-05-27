@@ -43,13 +43,12 @@ class AddLink extends Component {
       this.props
         .createCollection({
           post_url: this.state.inputValue,
-          id: this.props.auth.id,
         })
         .then(res => {
           // console.log('response from createCollection ==>', res)
-          if (res === 'success') {
-            this.props.alert.success('Link added to Bookmarks')
-          } else if (res === 'whoops!') {
+          if (res.msg === 'success') {
+            this.props.alert.success('Link added to Collections')
+          } else if (res.msg === 'whoops!') {
             this.props.alert.error('whoops, unable to add')
           }
         })

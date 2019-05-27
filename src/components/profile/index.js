@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import Moment from 'react-moment'
-import axios from 'axios'
+import axios from 'apis/axiosAPI'
 import styled from 'styled-components'
 import { StyledCollections } from '../collections/StyledCollections'
 import { customWrapper, truncateText } from '../mixins'
@@ -14,6 +14,10 @@ import check from 'assets/svg/check.svg'
 import { withAlert } from 'react-alert'
 
 class ProfileById extends Component {
+  // componentDidMount() {
+  //   console.log(this.props.createCollection)
+  // }
+
   state = { modalOpen: false, posts: [], savedPostIds: [] }
 
   getPosts = async () => {
@@ -25,25 +29,27 @@ class ProfileById extends Component {
   }
 
   handleSave = async (url, postId) => {
-    // saves user's post to your bookmarks
+    // saves user's post to your collection
     const post = {
       post_url: url,
       id: this.props.auth.id,
     }
-    this.props.alert.success('Post added to Bookmarks')
-    axios.post(`${apiURL}/posts`, post)
+    this.props.alert.success('Post added to Collections')
+    // create new collection
+    this.props.createCollection(post).then(async result => {
+      // saves post id to users account to keep track of saved posts toggle
+      const profileId = this.props.match.params.id
+      const userId = this.props.auth.id
+      const body = {
+        user_id: userId,
+        saved_from_id: profileId,
+        post_id: postId,
+        created_post_id: result.post_id,
+      }
 
-    // saves post id to users account to keep track of saved posts toggle
-    const profileId = this.props.match.params.id
-    const userId = this.props.auth.id
-    const body = {
-      user_id: userId,
-      saved_from_id: profileId,
-      post_id: postId,
-    }
-
-    await axios.post(`${apiURL}/users/saved-post-ids`, body)
-    await this.getPosts()
+      await axios.post(`${apiURL}/users/saved-post-ids`, body)
+      await this.props.fetchProfileCollections(this.props.match.params.id)
+    })
   }
 
   handleTruncateText = (content, limit = 10) => truncateText(content, limit)
@@ -88,7 +94,7 @@ class ProfileById extends Component {
               {post.saved_to_profile ? (
                 <div className='save-to-profile'>
                   <img src={check} className='add-icon' alt='' />
-                  <span className='rec-span'>Saved to Bookmarks</span>
+                  <span className='rec-span'>Saved to Collections</span>
                 </div>
               ) : (
                 <div
@@ -96,7 +102,7 @@ class ProfileById extends Component {
                   onClick={() => this.handleSave(post.post_url, post.id)}
                 >
                   <img src={plusIcon} className='add-icon' alt='' />
-                  <span className='rec-span'>Save to Bookmarks</span>
+                  <span className='rec-span'>Save to Collections</span>
                 </div>
               )}
             </div>

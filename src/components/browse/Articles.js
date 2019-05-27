@@ -81,7 +81,7 @@ const Articles = props => {
                   className='save-icon'
                   onClick={() => {
                     handleSaveLink(article.url)
-                    alert.success('Article added to Bookmarks')
+                    alert.success('Article added to Collections')
                   }}
                 />
               </SaveIcon>

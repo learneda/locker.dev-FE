@@ -149,7 +149,7 @@ const Podcasts = props => {
                   description: he.decode(podcast.description_original),
                   thumbnail_url: podcast.image,
                 })
-                alert.success('Article added to Bookmarks')
+                alert.success('Article added to Collections')
               }}
             />
           </SaveIcon>

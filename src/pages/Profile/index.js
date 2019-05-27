@@ -8,6 +8,7 @@ import ProfileById from 'components/profile'
 import UserFollowing from 'components/profile/UserFollowing'
 import UserFollowers from 'components/profile/UserFollowers'
 import * as profileActions from './profileActions'
+import { createCollection } from 'actions'
 const UserProfile = props => {
   const {
     match,
@@ -21,6 +22,7 @@ const UserProfile = props => {
     fetchProfileFollowers,
     fetchProfileDetails,
     resetProfile,
+    createCollection,
   } = props
   const { id } = match.params
 
@@ -75,7 +77,12 @@ const UserProfile = props => {
               exact
               path={[`${match.path}`, `${match.path}/collections`]}
               render={props => (
-                <ProfileById {...props} collections={profile.collections} />
+                <ProfileById
+                  {...props}
+                  createCollection={createCollection}
+                  fetchProfileCollections={fetchProfileCollections}
+                  collections={profile.collections}
+                />
               )}
             />
             <Route
@@ -113,6 +120,7 @@ export default connect(
   mapStateToProps,
   {
     ...profileActions,
+    createCollection,
   }
 )(withRouter(UserProfile))
 

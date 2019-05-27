@@ -234,11 +234,11 @@ class PostContainer extends Component {
                 className='save'
                 onClick={() => {
                   this.handleSaveToProfile(post.post_url)
-                  this.props.alert.success('Post added to Bookmarks')
+                  this.props.alert.success('Post added to Collections')
                 }}
               >
                 <img src={addIcon} alt='' />
-                <h3>Save to Bookmarks</h3>
+                <h3>Save to Collections</h3>
               </div>
             )}
           </div>
