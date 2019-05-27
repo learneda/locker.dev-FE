@@ -23,6 +23,7 @@ class Notifications extends Component {
               this.props.readNotifications()
             }}
           >
+            {/* <span id='notifications'>Notifications</span> */}
             <img src={bellIcon} alt='bell-icon' className='bell-icon' />
             {count}
             {this.state.toggle && (
@@ -51,7 +52,7 @@ class Notifications extends Component {
               this.props.readNotifications()
             }}
           >
-            <span id='notifications'>Notifications</span>
+            {/* <span id='notifications'>Notifications</span> */}
             <img src={bellIcon} alt='bell-icon' className='bell-icon' />
             <p>{count}</p>
             {this.state.toggle && (
