@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
 import { withAlert } from 'react-alert'
-import { Grommet } from 'grommet'
 import styled from 'styled-components'
 import Courses from 'components/browse/Courses'
 import Articles from 'components/browse/Articles'
@@ -110,7 +109,7 @@ const Browse = props => {
   }
 
   return (
-    <Grommet theme={theme}>
+    <div>
       <Tabs>
         <Tab>
           <NavLink
@@ -219,7 +218,7 @@ const Browse = props => {
           />
         </Switch>
       </TabWrapper>
-    </Grommet>
+    </div>
   )
 }
 
@@ -238,35 +237,6 @@ export default connect(
     createCollection,
   }
 )(withRouter(BrowseWithAlert))
-
-const theme = {
-  tab: {
-    color: 'dark-1',
-    active: {
-      weight: 'bold',
-    },
-    border: {
-      side: 'bottom',
-      size: 'medium',
-      color: {
-        light: null,
-      },
-      active: {
-        color: {
-          light: 'dark-1',
-        },
-      },
-      hover: {
-        color: {
-          light: null,
-        },
-      },
-      margin: {
-        bottom: '30px',
-      },
-    },
-  },
-}
 
 const TabWrapper = styled.div`
   padding-top: 20px;

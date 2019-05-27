@@ -181,14 +181,14 @@ export default connect(
 )(withRouter(SidebarById))
 
 const Wrapper = styled.div`
-  ${customWrapper('40%')}
   max-width: 300px;
+  position: relative;
   @media (max-width: 900px) {
     display: none;
   }
 `
-
 const Profile = styled.div`
+  margin-top: 47px;
   ${StyledSidebar};
   .user {
     ${customLayout('center', 'center')}

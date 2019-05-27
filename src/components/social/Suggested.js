@@ -1,4 +1,5 @@
 import React from 'react'
+import { StyledFollow } from './StyledFollow'
 
 const Suggested = props => {
   const {
@@ -18,20 +19,21 @@ const Suggested = props => {
   }
 
   return (
-    <ul>
+    <StyledFollow>
       {suggested.map((ele, index) => (
-        <div style={{ outline: '1px solid salmon' }} key={index}>
-          <li>{ele.username}</li>
+        <div key={index}>
+          <h2>{ele.username}</h2>
           <img src={ele.image} alt='suggested' />
           <p>{ele.user}</p>
-          <p>Followed by {ele.followed_by_username}</p>
-          <p>From {ele.location}</p>
+          <p style={{ textAlign: 'center' }}>
+            Followed by {ele.followed_by_username}
+          </p>
           <button onClick={() => handleFollow(ele.recommended_follow_id)}>
             Follow
           </button>
         </div>
       ))}
-    </ul>
+    </StyledFollow>
   )
 }
 

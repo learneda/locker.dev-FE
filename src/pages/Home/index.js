@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
-import { Grommet } from 'grommet'
 import styled from 'styled-components'
 import Feed from 'components/feed'
 import Collections from 'components/collections'
@@ -65,93 +64,91 @@ const Home = props => {
   }, [])
 
   return (
-    <Grommet theme={theme}>
-      <Container>
-        <Sidebar
-          user={user}
-          collections={collections}
-          followers={followers}
-          following={following}
-        />
-        <Wrapper>
-          <Tabs>
-            <Tab>
-              <NavLink
-                exact
-                to={`${match.url}/feed`}
-                className={location.pathname === '/home' ? 'active' : null}
-              >
-                Feed
-              </NavLink>
-            </Tab>
-            <Tab>
-              <NavLink to={`${match.url}/collections`}>Collections</NavLink>
-            </Tab>
-            <Tab>
-              <NavLink to={`${match.url}/locker`}>Locker(α)</NavLink>
-            </Tab>
-          </Tabs>
-          <TabWrapper>
-            <Switch>
-              <Route
-                exact
-                path={[`${match.path}`, `${match.path}/feed`]}
-                render={props => (
-                  <Feed
-                    {...props}
-                    auth={auth}
-                    user={user}
-                    searchTerm={searchTerm}
-                    fetchNotifications={fetchNotifications}
-                    posts={feed.posts}
-                    hasmore={feed.hasmore}
-                    fetchMoreFeed={fetchMoreFeed}
-                    offset={feed.offset}
-                    createComment={createComment}
-                    deleteComment={deleteComment}
-                    likeComment={likeComment}
-                    unlikeComment={unlikeComment}
-                  />
-                )}
-              />
-              <Route
-                path={`${match.path}/collections`}
-                render={props => (
-                  <Collections
-                    {...props}
-                    userId={auth.id}
-                    searchTerm={searchTerm}
-                    collections={collections}
-                    deleteCollection={deleteCollection}
-                    fetchCollections={fetchCollections}
-                  />
-                )}
-              />
-              <Route
-                path={`${match.path}/locker`}
-                render={props => (
-                  <Locker
-                    {...props}
-                    auth={auth}
-                    locker={locker}
-                    fetchUser={fetchUser}
-                    fetchLocker={fetchLocker}
-                  />
-                )}
-              />
-            </Switch>
-          </TabWrapper>
-        </Wrapper>
-        <Suggested
-          auth={auth}
-          suggested={suggested}
-          fetchUser={fetchUser}
-          fetchSuggested={fetchSuggested}
-          fetchFollowing={fetchFollowing}
-          followAUser={followAUser}
-        />
-      </Container>
-    </Grommet>
+    <Container>
+      <Sidebar
+        user={user}
+        collections={collections}
+        followers={followers}
+        following={following}
+      />
+      <Wrapper>
+        <Tabs>
+          <Tab>
+            <NavLink
+              exact
+              to={`${match.url}/feed`}
+              className={location.pathname === '/home' ? 'active' : null}
+            >
+              Feed
+            </NavLink>
+          </Tab>
+          <Tab>
+            <NavLink to={`${match.url}/collections`}>Collections</NavLink>
+          </Tab>
+          <Tab>
+            <NavLink to={`${match.url}/locker`}>Locker(α)</NavLink>
+          </Tab>
+        </Tabs>
+        <TabWrapper>
+          <Switch>
+            <Route
+              exact
+              path={[`${match.path}`, `${match.path}/feed`]}
+              render={props => (
+                <Feed
+                  {...props}
+                  auth={auth}
+                  user={user}
+                  searchTerm={searchTerm}
+                  fetchNotifications={fetchNotifications}
+                  posts={feed.posts}
+                  hasmore={feed.hasmore}
+                  fetchMoreFeed={fetchMoreFeed}
+                  offset={feed.offset}
+                  createComment={createComment}
+                  deleteComment={deleteComment}
+                  likeComment={likeComment}
+                  unlikeComment={unlikeComment}
+                />
+              )}
+            />
+            <Route
+              path={`${match.path}/collections`}
+              render={props => (
+                <Collections
+                  {...props}
+                  userId={auth.id}
+                  searchTerm={searchTerm}
+                  collections={collections}
+                  deleteCollection={deleteCollection}
+                  fetchCollections={fetchCollections}
+                />
+              )}
+            />
+            <Route
+              path={`${match.path}/locker`}
+              render={props => (
+                <Locker
+                  {...props}
+                  auth={auth}
+                  locker={locker}
+                  fetchUser={fetchUser}
+                  fetchLocker={fetchLocker}
+                />
+              )}
+            />
+          </Switch>
+        </TabWrapper>
+      </Wrapper>
+      <Suggested
+        auth={auth}
+        suggested={suggested}
+        fetchUser={fetchUser}
+        fetchSuggested={fetchSuggested}
+        fetchFollowing={fetchFollowing}
+        followAUser={followAUser}
+      />
+    </Container>
   )
 }
 const mapStateToProps = ({
@@ -182,35 +179,6 @@ export default connect(
     ...homeActions,
   }
 )(withRouter(Home))
-
-const theme = {
-  tab: {
-    color: 'dark-1',
-    active: {
-      weight: 'bold',
-    },
-    border: {
-      side: 'bottom',
-      size: 'medium',
-      color: {
-        light: null,
-      },
-      active: {
-        color: {
-          light: 'dark-1',
-        },
-      },
-      hover: {
-        color: {
-          light: null,
-        },
-      },
-      margin: {
-        bottom: '30px',
-      },
-    },
-  },
-}
 
 const Container = styled.div`
   ${customWrapper('80%', '0 auto')};
@@ -246,7 +214,7 @@ const Tabs = styled.ul`
   background: rgb(230, 233, 243);
   top: 59px;
   font-size: 2rem;
-  height: 90px;
+  height: 100px;
   z-index: 1;
   width: 100%;
   padding-bottom: 25px;
@@ -257,7 +225,7 @@ const Tabs = styled.ul`
   }
   @media (max-width: 900px) {
     top: 59px;
-    height: 85px;
+    height: 80px;
   }
   @media (max-width: 760px) {
     top: 50px;

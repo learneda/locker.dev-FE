@@ -124,6 +124,11 @@ const MobileNav = ({ handleClose, show }) => {
             </Link>
           </li>
           <li onClick={handleClose}>
+            <Link to='/social'>
+              <span>Social</span>
+            </Link>
+          </li>
+          <li onClick={handleClose}>
             <Link to='/settings'>
               <span>Settings</span>
             </Link>
