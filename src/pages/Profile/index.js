@@ -50,20 +50,25 @@ const UserProfile = props => {
         fetchProfileFollowers={fetchProfileFollowers}
       />
       <Wrapper>
-        <div className='tabs'>
-          <NavLink
-            exact
-            to={`${match.url}/collections`}
-            className={
-              props.location.pathname === `/profile/${id}` ? 'active' : null
-            }
-          >
-            Collections
-          </NavLink>
-          <NavLink to={`${match.url}/following`}>Following</NavLink>
-          <NavLink to={`${match.url}/followers`}>Followers</NavLink>
-        </div>
-
+        <Tabs>
+          <Tab>
+            <NavLink
+              exact
+              to={`${match.url}/collections`}
+              className={
+                props.location.pathname === `/profile/${id}` ? 'active' : null
+              }
+            >
+              Collections
+            </NavLink>
+          </Tab>
+          <Tab>
+            <NavLink to={`${match.url}/following`}>Following</NavLink>
+          </Tab>
+          <Tab>
+            <NavLink to={`${match.url}/followers`}>Followers</NavLink>
+          </Tab>
+        </Tabs>
         <TabWrapper>
           <Switch>
             <Route
@@ -117,29 +122,6 @@ const Container = styled.div`
   @media (max-width: 1100px) {
     width: 90%;
   }
-  .tabs {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    align-items: flex-end;
-    height: 145px;
-    display: flex;
-    background: rgb(230, 233, 243);
-    width: 100%;
-    padding-bottom: 5px;
-
-    a {
-      margin-right: 10px;
-      margin-right: 2rem;
-      margin-bottom: 9px;
-      margin-left: 12px;
-    }
-    .active {
-      border-bottom: 3px solid #4064f2;
-      font-weight: 900;
-      color: #4064f2;
-    }
-  }
 `
 
 const Wrapper = styled.div`
@@ -152,10 +134,46 @@ const Wrapper = styled.div`
 `
 
 const TabWrapper = styled.div`
-  padding-top: 20px;
-  margin-top: 40px;
-  margin-left: 12px;
+  margin-bottom: 40px;
+  padding: 0 5px;
+`
+
+const Tabs = styled.ul`
+  display: flex;
+  align-items: flex-end;
+  position: sticky;
+  background: rgb(230, 233, 243);
+  top: 59px;
+  font-size: 2rem;
+  height: 100px;
+  z-index: 1;
+  width: 100%;
+  padding-bottom: 25px;
+  .active {
+    border-bottom: 3px solid #4064f2;
+    font-weight: 900;
+    color: #4064f2;
+  }
   @media (max-width: 900px) {
-    margin-left: 0;
+    top: 59px;
+    height: 80px;
+  }
+  @media (max-width: 760px) {
+    top: 50px;
+    height: 80px;
+  }
+`
+
+const Tab = styled.li`
+  margin-right: 2rem;
+  font-size: 2rem;
+  margin-left: 10px;
+
+  a {
+    transition: 100ms ease-out;
+    &:hover {
+      color: #4064f2;
+      transition: 100ms ease-in;
+    }
   }
 `

@@ -25,8 +25,9 @@ const Suggested = props => {
           <h2>{ele.username}</h2>
           <img src={ele.image} alt='suggested' />
           <p>{ele.user}</p>
-          <p>Followed by {ele.followed_by_username}</p>
-          <p>From {ele.location}</p>
+          <p style={{ textAlign: 'center' }}>
+            Followed by {ele.followed_by_username}
+          </p>
           <button onClick={() => handleFollow(ele.recommended_follow_id)}>
             Follow
           </button>
