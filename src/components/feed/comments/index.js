@@ -47,13 +47,12 @@ class CommentBox extends Component {
                       <div className='comment-text'>
                         <h2>
                           <Link to={`/profile/${comment.user_id}`}>
-                            {comment.username}
+                            {comment.username}{' '}
                             <span className='comment-date'>
                               <Moment fromNow>{comment.created_at}</Moment>:
                             </span>
                           </Link>
                         </h2>
-
                         <span>{comment.content}</span>
                       </div>
                       <MoreBtn
