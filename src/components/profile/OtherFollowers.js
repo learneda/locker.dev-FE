@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { StyledFollow } from './StyledFollow'
+import { StyledFollow } from '../social/StyledFollow'
 
 const OtherFollowers = props => {
   const {
