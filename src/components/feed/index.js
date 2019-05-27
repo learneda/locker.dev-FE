@@ -144,6 +144,7 @@ class Feed extends Component {
         profile_picture={this.props.user.profilePicture}
         handleDeleteComment={this.handleDeleteComment}
         socketId={this.socket.id}
+        createCollection={this.props.createCollection}
       />
     ))
 

@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import CommentBox from '../comments'
-import axios from 'axios'
 import { apiURL } from 'services'
 import addIcon from 'assets/svg/add-icon.svg'
 import { withAlert } from 'react-alert'
 import { smartTruncate } from '../../mixins/'
 import { selectLogo } from 'helpers'
+import axiosAPI from '../../../apis/axiosAPI'
 class PostContainer extends Component {
   constructor(props) {
     super(props)
@@ -16,7 +16,7 @@ class PostContainer extends Component {
 
   componentDidMount() {
     if (this.props.post) {
-      axios
+      axiosAPI
         .post(`${apiURL}/posts/like/users`, {
           post_id: this.props.post.post_id,
         })
@@ -57,10 +57,7 @@ class PostContainer extends Component {
     }
   }
   handleSaveToProfile = url => {
-    axios.post(`${apiURL}/posts`, {
-      post_url: url,
-      id: this.props.user_id,
-    })
+    this.props.createCollection({ post_url: url })
   }
 
   displayMedia = post => {

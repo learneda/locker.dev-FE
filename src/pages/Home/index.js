@@ -8,7 +8,12 @@ import Locker from 'components/locker/Locker'
 import Sidebar from 'components/sidebar/Sidebar'
 import Suggested from 'components/sidebar/Suggested'
 import { customWrapper } from 'components/mixins'
-import { fetchUser, fetchCollections, deleteCollection } from 'actions'
+import {
+  fetchUser,
+  fetchCollections,
+  deleteCollection,
+  createCollection,
+} from 'actions'
 import { fetchNotifications } from 'actions/notificationActions'
 import * as socialActions from 'actions/socialActions'
 import * as homeActions from './homeActions'
@@ -40,6 +45,7 @@ const Home = props => {
     deleteComment,
     likeComment,
     unlikeComment,
+    createCollection,
   } = props
 
   useEffect(() => {
@@ -109,6 +115,7 @@ const Home = props => {
                   deleteComment={deleteComment}
                   likeComment={likeComment}
                   unlikeComment={unlikeComment}
+                  createCollection={createCollection}
                 />
               )}
             />
@@ -175,6 +182,7 @@ export default connect(
     fetchNotifications,
     fetchCollections,
     deleteCollection,
+    createCollection,
     ...socialActions,
     ...homeActions,
   }
