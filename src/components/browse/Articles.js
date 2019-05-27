@@ -20,8 +20,7 @@ const Articles = props => {
   const [isLoading, setIsLoading] = useState(false)
   const [didMount, setDidMount] = useState(false)
   const throttledSearch = useThrottle(searchTerm, 1000)
-
-  //* Don't run search on mount if offset=0 and search is empty
+  //* Performs throttled search and prevents search on initial mount
   useEffect(() => {
     const asyncSearchArticles = async () => {
       //* Search resets offset=0
@@ -35,61 +34,59 @@ const Articles = props => {
     }
     setDidMount(true)
   }, [throttledSearch])
-
   //* hasMore false only when searchQuery returns no matches
   const hasMore = !Boolean(searchTerm) || Boolean(articles.length)
 
-  return (
-    <Cards>
-      {isLoading ? (
-        <Loader>
-          <Loading />
-        </Loader>
-      ) : (
-        <InfiniteScroll
-          dataLength={articles.length}
-          next={() => fetchArticles(searchTerm, articleOffset)}
-          hasMore={hasMore}
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-          }}
-          endMessage={
-            <div>
-              <b>No Articles Matched Search Criteria 🙁</b>
-            </div>
-          }
-        >
-          {/* //TODO: Fix Unsplash hack */}
-          {articles.map((article, index) => (
-            <Card key={index}>
-              <a href={article.url} target='_blank' rel='noopener noreferrer'>
-                <img
-                  src={
-                    article.thumbnail ||
-                    'https://source.unsplash.com/random/345x180'
-                  }
-                  alt='article-thumbnail'
-                />
-                <h3>{smartTruncate(article.title, 80)}</h3>
-                <p>{smartTruncate(article.description, 160)}</p>
-              </a>
-              <SaveIcon>
-                <Add
-                  className='save-icon'
-                  onClick={() => {
-                    handleSaveLink(article.url)
-                    alert.success('Article added to Collections')
-                  }}
-                />
-              </SaveIcon>
-            </Card>
-          ))}
-        </InfiniteScroll>
-      )}
-    </Cards>
+  const renderLoader = () => (
+    <Loader>
+      <Loading />
+    </Loader>
   )
+
+  const renderArticles = () => (
+    <InfiniteScroll
+      dataLength={articles.length}
+      next={() => fetchArticles(searchTerm, articleOffset)}
+      hasMore={hasMore}
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+      }}
+      endMessage={
+        <div>
+          <b>No Articles Matched Search Criteria 🙁</b>
+        </div>
+      }
+    >
+      {/* //TODO: Fix Unsplash hack */}
+      {articles.map((article, index) => (
+        <Card key={index}>
+          <a href={article.url} target='_blank' rel='noopener noreferrer'>
+            <img
+              src={
+                article.thumbnail ||
+                'https://source.unsplash.com/random/345x180'
+              }
+              alt='article-thumbnail'
+            />
+            <h3>{smartTruncate(article.title, 80)}</h3>
+            <p>{smartTruncate(article.description, 160)}</p>
+          </a>
+          <SaveIcon>
+            <Add
+              className='save-icon'
+              onClick={() => {
+                handleSaveLink(article.url)
+                alert.success('Article added to Collections')
+              }}
+            />
+          </SaveIcon>
+        </Card>
+      ))}
+    </InfiniteScroll>
+  )
+  return <Cards>{isLoading ? renderLoader() : renderArticles()}</Cards>
 }
 
 export default Articles

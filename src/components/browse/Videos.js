@@ -39,12 +39,13 @@ const Videos = props => {
     setDidMount(true)
   }, [throttledSearch])
 
+  const hasMore = !Boolean(searchTerm) || Boolean(videos.length)
+
   const renderLoader = () => (
     <Loader>
       <Loading />
     </Loader>
   )
-  const hasMore = !Boolean(searchTerm) || Boolean(videos.length)
 
   const renderVideos = () => (
     <InfiniteScroll

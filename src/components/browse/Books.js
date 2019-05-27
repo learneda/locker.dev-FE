@@ -20,7 +20,7 @@ const Books = props => {
   const [isLoading, setIsLoading] = useState(false)
   const [didMount, setDidMount] = useState(false)
   const throttledSearch = useThrottle(searchTerm, 1000)
-
+  //* Performs throttled search and prevents search on initial mount
   useEffect(() => {
     const asyncSearchBooks = async () => {
       //* Search resets offset=0
@@ -34,15 +34,14 @@ const Books = props => {
     }
     setDidMount(true)
   }, [throttledSearch])
+  //* hasMore false only when searchQuery returns no matches
+  const hasMore = !Boolean(searchTerm) || Boolean(books.length)
 
   const renderLoader = () => (
     <Loader>
       <Loading />
     </Loader>
   )
-
-  //* hasMore false only when searchQuery returns no matches
-  const hasMore = !Boolean(searchTerm) || Boolean(books.length)
 
   const renderBooks = () => (
     <InfiniteScroll

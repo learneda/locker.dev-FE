@@ -23,6 +23,7 @@ const Podcasts = props => {
   const [isImage, setIsImage] = useState(Array(podcasts.length))
   const [didMount, setDidMount] = useState(false)
   const throttledSearch = useThrottle(searchTerm, 1000)
+
   useEffect(() => {
     const asyncSearchPodcasts = async () => {
       //* Search resets offset=0
@@ -47,13 +48,13 @@ const Podcasts = props => {
     )
   }
 
+  const hasMore = !Boolean(searchTerm) || Boolean(podcasts.length)
+
   const renderLoader = () => (
     <Loader>
       <Loading />
     </Loader>
   )
-
-  const hasMore = !Boolean(searchTerm) || Boolean(podcasts.length)
 
   const renderPodcasts = () => (
     <InfiniteScroll
