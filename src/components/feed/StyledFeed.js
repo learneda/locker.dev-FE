@@ -137,6 +137,9 @@ i {
     margin: 0 10px 10px;
    }
 }
+.like_num {
+  margin-left: -15px;
+}
 .save {
   display: flex;
   margin-left: 30px;
