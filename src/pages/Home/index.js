@@ -245,9 +245,11 @@ const Tabs = styled.ul`
   position: sticky;
   background: rgb(230, 233, 243);
   top: 59px;
+  font-size: 2rem;
   height: 75px;
   z-index: 1;
   width: 100%;
+  margin-bottom: 30px;
   .active {
     border-bottom: 3px solid #4064f2;
     font-weight: 900;

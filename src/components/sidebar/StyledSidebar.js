@@ -5,6 +5,9 @@ background: #fff;
 position: sticky;
 top: 105px;
 width: 300px;
+@media (max-width: 1200px) {
+  margin-top: 45px;
+}
 
 .user {
   border-top-right-radius: 5px;

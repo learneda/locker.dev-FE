@@ -147,7 +147,7 @@ class Feed extends Component {
       />
     ))
 
-    if (this.props.posts) {
+    if (this.props.posts.length) {
       return (
         <Container>
           <InfiniteScroll
@@ -162,7 +162,7 @@ class Feed extends Component {
       )
     } else {
       return (
-        <Container style={{ minWidth: '100%' }}>
+        <Container>
           <HelpScreen
             headerText='Hello! Follow your friends and share your posts with them.'
             imgSource={OnlineFriendsSVG}

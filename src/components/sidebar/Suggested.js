@@ -104,6 +104,7 @@ const StyledCard = styled.div`
   .sticky-container {
     position: sticky;
     top: 135px;
+    margin-top: 27px;
   }
   .recommended-follow-container {
     margin-bottom: 20px;
