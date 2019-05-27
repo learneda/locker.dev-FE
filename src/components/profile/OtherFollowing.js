@@ -41,15 +41,23 @@ const OtherFollowing = props => {
     if (isLoading && loadingIndex === index) {
       return <button style={{ width: '8.5rem' }}>...</button>
     }
-    const text = userFollowingIds.includes(id) ? 'Unfollow' : 'Follow'
-    return (
-      <button
-        style={{ width: '8.5rem' }}
-        onClick={() => handleClick(id, index)}
-      >
-        {text}
-      </button>
-    )
+    if (userId === id) {
+      return (
+        <button style={{ cursor: 'not-allowed', width: '8.5rem' }}>
+          It's you!
+        </button>
+      )
+    } else {
+      const text = userFollowingIds.includes(id) ? 'Unfollow' : 'Follow'
+      return (
+        <button
+          style={{ width: '8.5rem' }}
+          onClick={() => handleClick(id, index)}
+        >
+          {text}
+        </button>
+      )
+    }
   }
 
   return (
