@@ -44,25 +44,40 @@ export const fetchCollections = () => async dispatch => {
 }
 
 export const createCollection = post => async dispatch => {
+  // response object returned by this function
   let responseObj = {}
   try {
+    // requesting to insert new record to posts tbl
     const res = await axios.post(`/posts`, post)
+    // dispatching the new created record from the response
     dispatch({ type: CREATE_COLLECTION, payload: res.data })
+    // attaching the id of the new created record on to the response obj
     responseObj['post_id'] = res.data.id
+    // attaching the status of the response if no error is thrown
     responseObj['msg'] = 'success'
   } catch (err) {
     console.log(err)
+    // attaching the status of the response if an error is thrown
     responseObj['msg'] = 'whoops!'
   } finally {
+    // returning a new promise that will return the responseObj
     return new Promise(function(resolve, reject) {
       resolve(responseObj)
     })
   }
 }
+
 export const deleteCollection = id => async dispatch => {
-  const res = await axios.delete(`/posts/${id}`)
-  await axios.delete(`/users/saved-post-ids/${id}`)
-  dispatch({ type: DELETE_COLLECTION, payload: res.data })
+  try {
+    // deleting record from posts tbl where id equals <id>
+    const res = await axios.delete(`/posts/${id}`)
+    dispatch({ type: DELETE_COLLECTION, payload: res.data })
+    // deleting record from saved_post_id tbl
+    await axios.delete(`/users/saved-post-ids/${id}`)
+  } catch (err) {
+    // if this error is hit its probably bc id wasn't found on save_post_id
+    console.log('sorry 4 that err')
+  }
 }
 export const editCollection = editedCollection => async dispatch => {
   const collection = await axios.put(
