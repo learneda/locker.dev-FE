@@ -43,7 +43,7 @@ const Social = props => {
     }
   }, [])
   return (
-    <Grommet>
+    <Grommet theme={theme}>
       <Container>
         <Sidebar
           user={user}
@@ -138,10 +138,40 @@ export default connect(
   }
 )(withRouter(Social))
 
+const theme = {
+  tab: {
+    color: 'dark-1',
+    active: {
+      weight: 'bold',
+    },
+    border: {
+      side: 'bottom',
+      size: 'medium',
+      color: {
+        light: null,
+      },
+      active: {
+        color: {
+          light: 'dark-1',
+        },
+      },
+      hover: {
+        color: {
+          light: null,
+        },
+      },
+      margin: {
+        bottom: '30px',
+      },
+    },
+  },
+}
+
 const Container = styled.div`
   ${customWrapper('80%', '0 auto')}
   display: flex;
   justify-content: space-between;
+  position: relative;
   @media (max-width: 1400px) {
     width: 90%;
   }
@@ -149,7 +179,6 @@ const Container = styled.div`
     width: 100%;
   }
 `
-
 const Wrapper = styled.div`
   max-width: 1600px;
   padding-left: 2%;

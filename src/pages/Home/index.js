@@ -226,7 +226,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   max-width: 1440px;
-  padding-left: 2%;
+  padding-left: 3%;
   width: 100%;
   @media (max-width: 900px) {
     width: 90%;
@@ -246,10 +246,10 @@ const Tabs = styled.ul`
   background: rgb(230, 233, 243);
   top: 59px;
   font-size: 2rem;
-  height: 75px;
+  height: 90px;
   z-index: 1;
   width: 100%;
-  margin-bottom: 30px;
+  padding-bottom: 25px;
   .active {
     border-bottom: 3px solid #4064f2;
     font-weight: 900;
@@ -257,16 +257,24 @@ const Tabs = styled.ul`
   }
   @media (max-width: 900px) {
     top: 59px;
-    height: 60px;
+    height: 85px;
   }
   @media (max-width: 760px) {
     top: 50px;
-    height: 50px;
+    height: 80px;
   }
 `
 
 const Tab = styled.li`
   margin-right: 2rem;
-  margin-bottom: 9px;
-  margin-left: 5px;
+  font-size: 2rem;
+  margin-left: 10px;
+
+  a {
+    transition: 100ms ease-out;
+    &:hover {
+      color: #4064f2;
+      transition: 100ms ease-in;
+    }
+  }
 `

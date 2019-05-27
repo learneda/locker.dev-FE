@@ -168,13 +168,10 @@ const Loader = styled.div`
 `
 
 const Cards = styled.div`
-  border-top: 1px solid #bdbdbd;
   ${customLayout('space-between')}
   flex-wrap: wrap;
   width: 100%;
-  margin: 0 6px;
   margin-top: -12px;
-  padding: 40px 0;
   @media (max-width: 768px) {
     margin: -12px auto 0;
   }

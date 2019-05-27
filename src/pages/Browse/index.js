@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
 import { withAlert } from 'react-alert'
+import { Grommet } from 'grommet'
 import styled from 'styled-components'
 import Courses from 'components/browse/Courses'
 import Articles from 'components/browse/Articles'
@@ -110,7 +111,7 @@ const Browse = props => {
 
   // console.log('props', props)
   return (
-    <>
+    <Grommet theme={theme}>
       <Tabs>
         <Tab>
           <NavLink
@@ -219,7 +220,7 @@ const Browse = props => {
           />
         </Switch>
       </TabWrapper>
-    </>
+    </Grommet>
   )
 }
 
@@ -239,22 +240,53 @@ export default connect(
   }
 )(withRouter(BrowseWithAlert))
 
+const theme = {
+  tab: {
+    color: 'dark-1',
+    active: {
+      weight: 'bold',
+    },
+    border: {
+      side: 'bottom',
+      size: 'medium',
+      color: {
+        light: null,
+      },
+      active: {
+        color: {
+          light: 'dark-1',
+        },
+      },
+      hover: {
+        color: {
+          light: null,
+        },
+      },
+      margin: {
+        bottom: '30px',
+      },
+    },
+  },
+}
+
 const TabWrapper = styled.div`
   padding-top: 20px;
 `
 
 const Tabs = styled.ul`
   display: flex;
-  font-size: 1.8rem;
-  position: fixed;
-  z-index: 2;
+  position: sticky;
+  top: 59px;
+  height: 80px;
   width: 100%;
-  top: 0;
-  height: 145px;
+  font-size: 1.8rem;
+  z-index: 1;
   align-items: flex-end;
   background: rgb(230, 233, 243);
-  padding-bottom: 20px;
-  margin-left: -5px;
+  padding-bottom: 25px;
+  @media (max-width: 900px) {
+    top: 50px;
+  }
   &:hover {
     color: #4064f2;
   }

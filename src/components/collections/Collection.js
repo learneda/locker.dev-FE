@@ -115,9 +115,9 @@ const Collection = props => {
 }
 
 export default Collection
-
+//* padding necessary for sticky Tabs to work
 const Wrapper = styled.div`
-  padding: 0px 5px 0px;
+  padding: 0px 6px 0px;
 `
 
 const CollectionCard = styled.div`

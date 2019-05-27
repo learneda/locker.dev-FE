@@ -14,9 +14,9 @@ export const withLayout = Component => {
 }
 const StyledContainer = styled.div`
   width: 80%;
-  margin: 50px auto 0;
+  margin: 0 auto;
   @media (max-width: 900px) {
     width: 90%;
-    margin: 30px auto 0;
+    margin: 0 auto 0;
   }
 `

@@ -120,12 +120,11 @@ export default Sidebar
 const Wrapper = styled.div`
   ${customWrapper('45%')};
   max-width: 300px;
-
+  position: relative;
   @media (max-width: 900px) {
     display: none;
   }
 `
-
 const Profile = styled.div`
   ${StyledSidebar};
   .user {
