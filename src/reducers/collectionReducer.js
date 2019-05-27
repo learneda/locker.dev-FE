@@ -3,7 +3,7 @@ import {
   CREATE_COLLECTION,
   DELETE_COLLECTION,
   EDIT_COLLECTION,
-} from '../actions/types'
+} from 'actions/types'
 
 export const collectionReducer = (state = [], action) => {
   switch (action.type) {
@@ -16,7 +16,7 @@ export const collectionReducer = (state = [], action) => {
         collection => collection.id !== action.payload.deletedRecord.id
       )
     case EDIT_COLLECTION:
-      return state.map((collection) => {
+      return state.map(collection => {
         if (collection.id === action.payload.id) {
           collection = action.payload
         }

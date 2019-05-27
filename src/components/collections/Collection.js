@@ -32,7 +32,7 @@ const Collection = props => {
             >
               <h1>{props.handleTruncateText(collection.title, 80)}</h1>
             </a>
-            <p>{props.handleTruncateText(collection.description, 120)}</p>
+            <p>{props.handleTruncateText(collection.description, 110)}</p>
             <a
               className='post-root-url'
               href={collection.post_url}
