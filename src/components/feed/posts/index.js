@@ -226,9 +226,9 @@ class PostContainer extends Component {
                 this.handleLikes(e, post.post_id, post)
                 e.target.classList.toggle('heart-red')
               }}
-            >
-              <span>{this.props.post.likes}</span>
-            </i>
+            />
+            <span className='like_num'>{this.props.post.likes}</span>
+
             {this.props.user_id !== post.user_id && (
               <div
                 className='save'
