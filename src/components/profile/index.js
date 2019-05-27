@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import Moment from 'react-moment'
-import axios from 'axios'
+import axios from 'apis/axiosAPI'
 import styled from 'styled-components'
 import { StyledCollections } from '../collections/StyledCollections'
 import { customWrapper, truncateText } from '../mixins'
@@ -14,6 +14,10 @@ import check from 'assets/svg/check.svg'
 import { withAlert } from 'react-alert'
 
 class ProfileById extends Component {
+  // componentDidMount() {
+  //   console.log(this.props.createCollection)
+  // }
+
   state = { modalOpen: false, posts: [], savedPostIds: [] }
 
   getPosts = async () => {
@@ -31,7 +35,8 @@ class ProfileById extends Component {
       id: this.props.auth.id,
     }
     this.props.alert.success('Post added to Bookmarks')
-    axios.post(`${apiURL}/posts`, post)
+    // axios.post(`${apiURL}/posts`, post)
+    this.props.createCollection(post)
 
     // saves post id to users account to keep track of saved posts toggle
     const profileId = this.props.match.params.id
@@ -43,7 +48,7 @@ class ProfileById extends Component {
     }
 
     await axios.post(`${apiURL}/users/saved-post-ids`, body)
-    await this.getPosts()
+    await this.props.fetchProfileCollections(this.props.match.params.id)
   }
 
   handleTruncateText = (content, limit = 10) => truncateText(content, limit)

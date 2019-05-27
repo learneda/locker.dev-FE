@@ -43,7 +43,6 @@ class AddLink extends Component {
       this.props
         .createCollection({
           post_url: this.state.inputValue,
-          id: this.props.auth.id,
         })
         .then(res => {
           // console.log('response from createCollection ==>', res)
