@@ -5,12 +5,16 @@ import styled from 'styled-components'
 import { customWrapper } from 'components/mixins'
 import Sidebar from 'components/sidebar/Sidebar'
 import SidebarById from 'components/sidebar/SidebarById'
-import ProfileById from 'components/profile'
-import UserFollowing from 'components/profile/UserFollowing'
-import UserFollowers from 'components/profile/UserFollowers'
+import OtherCollections from 'components/profile/OtherCollections'
+import OtherFollowing from 'components/profile/OtherFollowing'
+import OtherFollowers from 'components/profile/OtherFollowers'
 import * as profileActions from './profileActions'
-import { fetchUser, createCollection } from 'actions'
-import { fetchCollections } from 'actions/index'
+import { fetchUser, createCollection, fetchCollections } from 'actions'
+import {
+  followAUser,
+  unfollowAUser,
+  fetchFollowing,
+} from 'actions/socialActions'
 const ProfilePage = props => {
   const {
     auth,
@@ -19,16 +23,19 @@ const ProfilePage = props => {
     profile,
     social,
     collections,
-    fetchUser,
-    fetchCollections,
     fetchProfileCollections,
     fetchProfileFollowing,
     fetchProfileFollowers,
     fetchProfileDetails,
     resetProfile,
+    fetchUser,
     createCollection,
+    fetchCollections,
+    followAUser,
+    unfollowAUser,
+    fetchFollowing,
   } = props
-  const { id } = match.params
+  const id = Number(match.params.id)
 
   useEffect(() => {
     // fetching other collections
@@ -42,11 +49,11 @@ const ProfilePage = props => {
     return () => {
       resetProfile()
     }
-  }, [])
+  }, [id])
 
   return (
     <Container>
-      {auth.id == id ? (
+      {auth.id === id ? (
         <Sidebar
           user={user}
           collections={collections}
@@ -60,7 +67,7 @@ const ProfilePage = props => {
           followersCount={profile.followers.length}
           other={profile.other}
           myFollowing={social.following}
-          follow={social.following.map(ele => ele.id).includes(Number(id))}
+          follow={social.following.map(ele => ele.id).includes(id)}
           fetchProfileFollowers={fetchProfileFollowers}
         />
       )}
@@ -90,7 +97,7 @@ const ProfilePage = props => {
               exact
               path={[`${match.path}`, `${match.path}/collections`]}
               render={props => (
-                <ProfileById
+                <OtherCollections
                   {...props}
                   createCollection={createCollection}
                   fetchProfileCollections={fetchProfileCollections}
@@ -102,10 +109,14 @@ const ProfilePage = props => {
               exact
               path={`${match.path}/following`}
               render={props => (
-                <UserFollowing
+                <OtherFollowing
                   {...props}
-                  profileFollowing={profile.following}
-                  myFollowing={social.following}
+                  userId={auth.id}
+                  following={profile.following}
+                  userFollowing={social.following}
+                  followAUser={followAUser}
+                  unfollowAUser={unfollowAUser}
+                  fetchFollowing={fetchFollowing}
                 />
               )}
             />
@@ -113,10 +124,14 @@ const ProfilePage = props => {
               exact
               path={`${match.path}/followers`}
               render={props => (
-                <UserFollowers
+                <OtherFollowers
                   {...props}
-                  profileFollowers={profile.followers}
-                  myFollowers={social.followers}
+                  userId={auth.id}
+                  following={social.following}
+                  followers={profile.followers}
+                  followAUser={followAUser}
+                  unfollowAUser={unfollowAUser}
+                  fetchFollowing={fetchFollowing}
                 />
               )}
             />
@@ -136,13 +151,15 @@ export default connect(
     fetchUser,
     fetchCollections,
     createCollection,
+    followAUser,
+    unfollowAUser,
+    fetchFollowing,
   }
 )(withRouter(ProfilePage))
 
 const Container = styled.div`
   ${customWrapper('80%', '0 auto')}
   display: flex;
-  border: 1px solid blue;
   @media (max-width: 1100px) {
     width: 90%;
   }
@@ -150,7 +167,6 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   ${customWrapper('75%')}
-  border: 1px solid red;
   padding-left: 2%;
   @media (max-width: 900px) {
     width: 100%;
@@ -159,7 +175,6 @@ const Wrapper = styled.div`
 `
 
 const Tabs = styled.ul`
-  border: 1px solid green;
   display: flex;
   align-items: flex-end;
   position: sticky;

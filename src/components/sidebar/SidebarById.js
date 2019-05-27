@@ -34,9 +34,6 @@ class SidebarById extends Component {
       imageLoaded: false,
     }
   }
-  componentDidMount() {
-    console.log(this.props.follow)
-  }
 
   followAUserHandler = async e => {
     e.preventDefault()

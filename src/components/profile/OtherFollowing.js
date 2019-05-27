@@ -1,40 +1,38 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { StyledFollow } from './StyledFollow'
 
-const Followers = props => {
+const OtherFollowing = props => {
   const {
     userId,
     following,
-    followers,
+    userFollowing,
     followAUser,
-    fetchUser,
     unfollowAUser,
     fetchFollowing,
   } = props
-
   const [isLoading, setIsLoading] = useState(false)
   const [loadingIndex, setLoadingIndex] = useState(null)
+  const userFollowingIds = userFollowing.map(ele => ele.id)
 
   const handleFollow = async (friend_id, index) => {
     setIsLoading(true)
     setLoadingIndex(index)
     await followAUser({ user_id: userId, friend_id: friend_id })
-    fetchFollowing(userId).then(() => setIsLoading(false))
-    fetchUser(userId)
+    await fetchFollowing(userId)
+    setIsLoading(false)
   }
 
   const handleUnfollow = async (friend_id, index) => {
     setIsLoading(true)
     setLoadingIndex(index)
     await unfollowAUser({ user_id: userId, friend_id: friend_id })
-    fetchFollowing(userId).then(response => setIsLoading(false))
-    fetchUser(userId)
+    await fetchFollowing(userId)
+    setIsLoading(false)
   }
 
   const handleClick = (id, index) => {
-    const followingIds = following.map(ele => ele.id)
-    return followingIds.includes(id)
+    return userFollowingIds.includes(id)
       ? handleUnfollow(id, index)
       : handleFollow(id, index)
   }
@@ -43,8 +41,7 @@ const Followers = props => {
     if (isLoading && loadingIndex === index) {
       return <button style={{ width: '8.5rem' }}>...</button>
     }
-    const followingIds = following.map(ele => ele.id)
-    const text = followingIds.includes(id) ? 'Unfollow' : 'Follow'
+    const text = userFollowingIds.includes(id) ? 'Unfollow' : 'Follow'
     return (
       <button
         style={{ width: '8.5rem' }}
@@ -57,11 +54,11 @@ const Followers = props => {
 
   return (
     <StyledFollow>
-      {followers.map((ele, index) => (
+      {following.map((ele, index) => (
         <div key={index}>
           <Link to={`/profile/${ele.id}`}>
             <h2>{ele.username}</h2>
-            <img src={ele.profile_picture} alt='fan' />
+            <img src={ele.profile_picture} alt='friend' />
           </Link>
           {renderSuggestion(ele.id, index)}
           {ele.bio ? <p>{ele.bio}</p> : <p>User has no bio.</p>}
@@ -71,4 +68,4 @@ const Followers = props => {
   )
 }
 
-export default Followers
+export default OtherFollowing

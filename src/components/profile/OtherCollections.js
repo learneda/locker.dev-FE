@@ -13,11 +13,7 @@ import plusIcon from 'assets/svg/add-icon.svg'
 import check from 'assets/svg/check.svg'
 import { withAlert } from 'react-alert'
 
-class ProfileById extends Component {
-  // componentDidMount() {
-  //   console.log(this.props.createCollection)
-  // }
-
+class OtherCollections extends Component {
   state = { modalOpen: false, posts: [], savedPostIds: [] }
 
   getPosts = async () => {
@@ -131,7 +127,7 @@ const mapStateToProps = state => {
   }
 }
 
-const Alert = withAlert()(ProfileById)
+const Alert = withAlert()(OtherCollections)
 
 export default connect(
   mapStateToProps,
