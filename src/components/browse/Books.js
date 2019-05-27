@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { customLayout, smartTruncate } from '../mixins'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
+import { useAlert } from 'react-alert'
 import { useThrottle } from 'use-throttle'
+import { customLayout, smartTruncate } from '../mixins'
 
 const Books = props => {
   const {
     books,
     searchTerm,
     bookOffset,
-    fetchMoreBooks,
+    fetchBooks,
     searchBooks,
-    setBookOffset,
     handleSaveMedia,
-    alert,
   } = props
+  const alert = useAlert()
   const [isLoading, setIsLoading] = useState(false)
   const [didMount, setDidMount] = useState(false)
   const throttledSearch = useThrottle(searchTerm, 1000)
 
   useEffect(() => {
     const asyncSearchBooks = async () => {
+      //* Search resets offset=0
       const offset = 0
       await searchBooks(searchTerm, offset)
-      await setBookOffset(offset + 12)
       setIsLoading(false)
     }
     if (didMount) {
@@ -47,7 +47,7 @@ const Books = props => {
   const renderBooks = () => (
     <InfiniteScroll
       dataLength={books.length}
-      next={fetchMoreBooks}
+      next={() => fetchBooks(searchTerm, bookOffset)}
       hasMore={hasMore}
       style={{
         display: 'flex',
@@ -116,7 +116,6 @@ const Books = props => {
       })}
     </InfiniteScroll>
   )
-
   return <Cards>{isLoading ? renderLoader() : renderBooks()}</Cards>
 }
 
@@ -126,7 +125,6 @@ const Loader = styled.div`
   margin: 75px auto;
   text-align: center;
 `
-
 const Cards = styled.div`
   ${customLayout('space-between')}
   flex-wrap: wrap;
@@ -136,7 +134,6 @@ const Cards = styled.div`
     margin: -12px auto 0;
   }
 `
-
 const Card = styled.div`
   overflow-y: hidden;
   position: relative;
@@ -174,7 +171,6 @@ const Card = styled.div`
     object-fit: contain;
     padding: 10px;
   }
-
   h3 {
     max-height: 50px;
     margin: 0px 0 10px;
@@ -185,7 +181,6 @@ const Card = styled.div`
     word-break: break-word;
     overflow: hidden;
   }
-
   p {
     padding: 0 4%;
     height: 60px;
@@ -195,7 +190,6 @@ const Card = styled.div`
     overflow: hidden;
   }
 `
-
 const SaveIcon = styled.div`
   // border: 1px solid red;
   /* ${customLayout('flex-end')} */

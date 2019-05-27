@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { customLayout, smartTruncate } from '../mixins'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
+import { useAlert } from 'react-alert'
 import { useThrottle } from 'use-throttle'
+import { customLayout, smartTruncate } from '../mixins'
 
 const Videos = props => {
   const {
@@ -17,14 +18,15 @@ const Videos = props => {
     handleSaveMedia,
     showIframe,
     resetIframe,
-    alert,
   } = props
+  const alert = useAlert()
   const [isLoading, setIsLoading] = useState(false)
   const [didMount, setDidMount] = useState(false)
   const throttledSearch = useThrottle(searchTerm, 1000)
 
   useEffect(() => {
     const asyncSearchVideos = async () => {
+      //* Don't send videoPageToken on initial search query
       await searchVideos(searchTerm)
       setIsLoading(false)
     }
@@ -137,7 +139,6 @@ const Loader = styled.div`
   margin: 75px auto;
   text-align: center;
 `
-
 const Cards = styled.div`
   ${customLayout('space-between')}
   flex-wrap: wrap;
@@ -147,7 +148,6 @@ const Cards = styled.div`
     margin: -12px auto 0;
   }
 `
-
 const Card = styled.div`
   position: relative;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -163,11 +163,9 @@ const Card = styled.div`
   @media (max-width: 960px) {
     width: 45%;
   }
-
   @media (max-width: 570px) {
     width: 100%;
   }
-
   a {
     &:hover {
       h3 {
@@ -175,7 +173,6 @@ const Card = styled.div`
       }
     }
   }
-
   img {
     border: 0px;
     height: 100%;
@@ -184,9 +181,7 @@ const Card = styled.div`
     top: 0px;
     width: 100%;
   }
-
   h3 {
-    // border: 1px solid red;
     max-height: 50px;
     margin: 10px 0;
     padding: 0 3%;
@@ -196,7 +191,6 @@ const Card = styled.div`
     word-break: break-word;
     overflow: hidden;
   }
-
   p {
     padding: 0 4%;
     height: 60px;
@@ -206,10 +200,7 @@ const Card = styled.div`
     overflow: hidden;
   }
 `
-
 const SaveIcon = styled.div`
-  // border: 1px solid red;
-  /* ${customLayout('flex-end')} */
   position: absolute;
   right: 15px;
   bottom: 10px;

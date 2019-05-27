@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
-import { withAlert } from 'react-alert'
 import styled from 'styled-components'
 import Courses from 'components/browse/Courses'
 import Articles from 'components/browse/Articles'
@@ -37,28 +36,21 @@ const Browse = props => {
     searchVideos,
     searchBooks,
     searchPodcasts,
-    setCoursePage,
-    setArticleOffset,
-    setBookOffset,
     showIframe,
     resetIframe,
     createCollection,
     match,
-    alert,
   } = props
 
   useEffect(() => {
     if (!courses.length) {
       fetchCourses(searchTerm, coursePage)
-      setCoursePage(coursePage + 1)
     }
     if (!articles.length) {
       fetchArticles(searchTerm, articleOffset)
-      setArticleOffset(articleOffset + 12)
     }
     if (!books.length) {
       fetchBooks(searchTerm, bookOffset)
-      setBookOffset(bookOffset + 12)
     }
     if (!videos.length) {
       fetchVideos(searchTerm, videoPageToken)
@@ -85,31 +77,8 @@ const Browse = props => {
     }
   }
 
-  const fetchMoreCourses = () => {
-    fetchCourses(searchTerm, coursePage)
-    setCoursePage(coursePage + 1)
-  }
-
-  const fetchMoreArticles = () => {
-    fetchArticles(searchTerm, articleOffset)
-    setArticleOffset(articleOffset + 12)
-  }
-
-  const fetchMoreBooks = () => {
-    fetchBooks(searchTerm, bookOffset)
-    setBookOffset(bookOffset + 12)
-  }
-
-  const fetchMoreVideos = () => {
-    fetchVideos(searchTerm, videoPageToken)
-  }
-
-  const fetchMorePodcasts = () => {
-    fetchPodcasts(searchTerm, podcastOffset)
-  }
-
   return (
-    <div>
+    <>
       <Tabs>
         <Tab>
           <NavLink
@@ -133,7 +102,7 @@ const Browse = props => {
           <NavLink to={`${match.url}/podcasts`}>Podcast</NavLink>
         </Tab>
       </Tabs>
-      <TabWrapper>
+      <RouteWrapper>
         <Switch>
           <Route
             exact
@@ -144,11 +113,9 @@ const Browse = props => {
                 courses={courses}
                 searchTerm={searchTerm}
                 coursePage={coursePage}
-                setCoursePage={setCoursePage}
                 searchCourses={searchCourses}
-                fetchMoreCourses={fetchMoreCourses}
+                fetchCourses={fetchCourses}
                 handleSaveLink={handleSaveLink}
-                alert={alert}
               />
             )}
           />
@@ -160,11 +127,9 @@ const Browse = props => {
                 articles={articles}
                 searchTerm={searchTerm}
                 articleOffset={articleOffset}
-                setArticleOffset={setArticleOffset}
                 searchArticles={searchArticles}
-                fetchMoreArticles={fetchMoreArticles}
+                fetchArticles={fetchArticles}
                 handleSaveLink={handleSaveLink}
-                alert={alert}
               />
             )}
           />
@@ -177,11 +142,10 @@ const Browse = props => {
                 searchTerm={searchTerm}
                 videoPageToken={videoPageToken}
                 searchVideos={searchVideos}
-                fetchMoreVideos={fetchMoreVideos}
+                fetchVideos={fetchVideos}
                 handleSaveMedia={handleSaveMedia}
                 showIframe={showIframe}
                 resetIframe={resetIframe}
-                alert={alert}
               />
             )}
           />
@@ -193,11 +157,9 @@ const Browse = props => {
                 books={books}
                 searchTerm={searchTerm}
                 bookOffset={bookOffset}
-                setBookOffset={setBookOffset}
                 searchBooks={searchBooks}
-                fetchMoreBooks={fetchMoreBooks}
+                fetchBooks={fetchBooks}
                 handleSaveMedia={handleSaveMedia}
-                alert={alert}
               />
             )}
           />
@@ -210,15 +172,14 @@ const Browse = props => {
                 searchTerm={searchTerm}
                 podcastOffset={podcastOffset}
                 searchPodcasts={searchPodcasts}
-                fetchMorePodcasts={fetchMorePodcasts}
+                fetchPodcasts={fetchPodcasts}
                 handleSaveMedia={handleSaveMedia}
-                alert={alert}
               />
             )}
           />
         </Switch>
-      </TabWrapper>
-    </div>
+      </RouteWrapper>
+    </>
   )
 }
 
@@ -228,7 +189,7 @@ const mapStateToProps = ({ auth, searchTerm, browse }) => ({
   ...browse,
 })
 
-const BrowseWithAlert = withLayout(withAlert()(Browse))
+const BrowseWithLayout = withLayout(Browse)
 
 export default connect(
   mapStateToProps,
@@ -236,11 +197,7 @@ export default connect(
     ...browseActions,
     createCollection,
   }
-)(withRouter(BrowseWithAlert))
-
-const TabWrapper = styled.div`
-  padding-top: 20px;
-`
+)(withRouter(BrowseWithLayout))
 
 const Tabs = styled.ul`
   display: flex;
@@ -253,9 +210,7 @@ const Tabs = styled.ul`
   align-items: flex-end;
   background: rgb(230, 233, 243);
   padding-bottom: 25px;
-  @media (max-width: 900px) {
-    top: 50px;
-  }
+  border-bottom: 3px solid transparent;
   &:hover {
     color: #4064f2;
   }
@@ -264,16 +219,16 @@ const Tabs = styled.ul`
     font-weight: 900;
     color: #4064f2;
   }
+  @media (max-width: 900px) {
+    top: 50px;
+  }
   @media (max-width: 400px) {
     font-size: 1.7rem;
   }
 `
-
 const Tab = styled.li`
-  margin-right: 2rem;
+  margin: 0 2rem 0 1rem;
   font-size: 2rem;
-  margin-left: 10px;
-
   a {
     transition: 100ms ease-out;
     &:hover {
@@ -281,4 +236,7 @@ const Tab = styled.li`
       transition: 100ms ease-in;
     }
   }
+`
+const RouteWrapper = styled.div`
+  padding-top: 20px;
 `

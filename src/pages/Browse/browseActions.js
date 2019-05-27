@@ -2,14 +2,38 @@ import axios from 'apis/axiosAPI'
 import youtube from 'apis/youtube'
 import listen from 'apis/listen'
 import * as type from './browseTypes'
+import { selectRandom } from 'helpers'
 
-//* Fetches courses on Browse mount
+//* Random topics array for initial fetch of Courses
+const topics = [
+  'javascript',
+  'graphQL',
+  'redux javascript',
+  'react javascript',
+  'node javascript',
+  'sql',
+  'vue javascript',
+  'firebase',
+]
+//*** COURSES ***//
 export const fetchCourses = (q, page) => async dispatch => {
+  const pageStep = 1
+  if (!q) {
+    q = selectRandom(topics)
+  }
   const res = await axios.get(`/courses?page=${page}&search=${q}`)
   dispatch({ type: type.FETCH_COURSES, payload: res.data.results })
+  dispatch({ type: type.SET_COURSE_PAGE, payload: page + pageStep })
 }
-//* Fetches articles on Browse mount
+export const searchCourses = (q, page) => async dispatch => {
+  const pageStep = 1
+  const res = await axios.get(`/courses?page=${page}&search=${q}`)
+  dispatch({ type: type.SEARCH_COURSES, payload: res.data.results })
+  dispatch({ type: type.SET_COURSE_PAGE, payload: page + pageStep })
+}
+//*** ARTICLES ***//
 export const fetchArticles = (q, offset) => async dispatch => {
+  const offsetStep = 12
   let res
   if (!q) {
     res = await axios.get(`/articles?offset=${offset}`)
@@ -17,53 +41,10 @@ export const fetchArticles = (q, offset) => async dispatch => {
     res = await axios.get(`/articles?q=${q}&offset=${offset}`)
   }
   dispatch({ type: type.FETCH_ARTICLES, payload: res.data })
+  dispatch({ type: type.SET_ARTICLE_OFFSET, payload: offset + offsetStep })
 }
-//* Fetches videos on Browse mount
-export const fetchVideos = (query, pageToken) => async dispatch => {
-  const res = await youtube.get('/search', {
-    params: {
-      q: query || 'javascript',
-      pageToken,
-    },
-  })
-  const videosWithThumbnailState = res.data.items.map(video => {
-    video.isThumbnail = true
-    return video
-  })
-  dispatch({ type: type.FETCH_VIDEOS, payload: videosWithThumbnailState })
-  dispatch({ type: type.SET_VIDEO_PAGETOKEN, payload: res.data.nextPageToken })
-}
-//* Fetches books on Browse mount
-export const fetchBooks = (query, offset) => async dispatch => {
-  const res = await axios.get(`/books/search`, {
-    params: {
-      q: query || 'javascript',
-      offset,
-    },
-  })
-  dispatch({ type: type.FETCH_BOOKS, payload: res.data })
-}
-//* Fetches podcasts on Browse mount
-export const fetchPodcasts = (query, offset) => async dispatch => {
-  const res = await listen.get('/search', {
-    params: {
-      q: query || 'javascript',
-      offset,
-    },
-  })
-  dispatch({ type: type.FETCH_PODCASTS, payload: res.data.results })
-  dispatch({
-    type: type.SET_PODCAST_OFFSET,
-    payload: res.data.next_offset,
-  })
-}
-//* Searches courses on user input
-export const searchCourses = (q, page) => async dispatch => {
-  const res = await axios.get(`/courses?page=${page}&search=${q}`)
-  dispatch({ type: type.SEARCH_COURSES, payload: res.data.results })
-}
-//* Search articles on user input
 export const searchArticles = (q, offset) => async dispatch => {
+  const offsetStep = 12
   let res
   if (!q) {
     res = await axios.get(`/articles?offset=${offset}`)
@@ -71,12 +52,31 @@ export const searchArticles = (q, offset) => async dispatch => {
     res = await axios.get(`/articles?q=${q}&offset=${offset}`)
   }
   dispatch({ type: type.SEARCH_ARTICLES, payload: res.data })
+  dispatch({ type: type.SET_ARTICLE_OFFSET, payload: offset + offsetStep })
 }
-//* Search videos on user input
-export const searchVideos = query => async dispatch => {
+//*** VIDEOS ***//
+export const fetchVideos = (q, pageToken) => async dispatch => {
+  if (!q) {
+    q = selectRandom(topics)
+  }
   const res = await youtube.get('/search', {
     params: {
-      q: query || 'javascript',
+      q,
+      pageToken,
+    },
+  })
+  //* Adds isThumbnail property to each video; default to true
+  const videosWithThumbnailState = res.data.items.map(video => {
+    video.isThumbnail = true
+    return video
+  })
+  dispatch({ type: type.FETCH_VIDEOS, payload: videosWithThumbnailState })
+  dispatch({ type: type.SET_VIDEO_PAGETOKEN, payload: res.data.nextPageToken })
+}
+export const searchVideos = q => async dispatch => {
+  const res = await youtube.get('/search', {
+    params: {
+      q,
     },
   })
   const videosWithThumbnailState = res.data.items.map(video => {
@@ -86,50 +86,61 @@ export const searchVideos = query => async dispatch => {
   dispatch({ type: type.SEARCH_VIDEOS, payload: videosWithThumbnailState })
   dispatch({ type: type.SET_VIDEO_PAGETOKEN, payload: res.data.nextPageToken })
 }
-//* Search books on user input
-export const searchBooks = (query, offset) => async dispatch => {
+//* Sets isThumbnail to false to reveal iframe for video with id
+export const showIframe = id => {
+  return { type: type.SHOW_IFRAME, payload: { id } }
+}
+//* Resets all loaded iframes to thumbnails on Videos mount
+export const resetIframe = () => {
+  return { type: type.RESET_IFRAME }
+}
+//*** BOOKS ***//
+export const fetchBooks = (q, offset) => async dispatch => {
+  const offsetStep = 12
+  if (!q) {
+    q = selectRandom(topics)
+  }
   const res = await axios.get(`/books/search`, {
     params: {
-      q: query || 'javascript',
+      q,
+      offset,
+    },
+  })
+  dispatch({ type: type.FETCH_BOOKS, payload: res.data })
+  dispatch({ type: type.SET_BOOK_OFFSET, payload: offset + offsetStep })
+}
+export const searchBooks = (q, offset) => async dispatch => {
+  const offsetStep = 12
+  const res = await axios.get(`/books/search`, {
+    params: {
+      q,
       offset,
     },
   })
   dispatch({ type: type.SEARCH_BOOKS, payload: res.data })
+  dispatch({ type: type.SET_BOOK_OFFSET, payload: offset + offsetStep })
 }
-//* Search podcasts on user input
-export const searchPodcasts = query => async dispatch => {
+//*** PODCASTS ***//
+export const fetchPodcasts = (q, offset) => async dispatch => {
+  if (!q) {
+    q = selectRandom(topics)
+  }
   const res = await listen.get('/search', {
     params: {
-      q: query || 'javascript',
-      offset: 0,
+      q,
+      offset,
+    },
+  })
+  dispatch({ type: type.FETCH_PODCASTS, payload: res.data.results })
+  dispatch({ type: type.SET_PODCAST_OFFSET, payload: res.data.next_offset })
+}
+export const searchPodcasts = (q, offset) => async dispatch => {
+  const res = await listen.get('/search', {
+    params: {
+      q,
+      offset,
     },
   })
   dispatch({ type: type.SEARCH_PODCASTS, payload: res.data.results })
-  dispatch({
-    type: type.SET_PODCAST_OFFSET,
-    payload: res.data.next_offset,
-  })
-}
-//* Set course page for pagination
-export const setCoursePage = page => ({
-  type: type.SET_COURSE_PAGE,
-  payload: page,
-})
-//* Set article offset for pagination
-export const setArticleOffset = offset => ({
-  type: type.SET_ARTICLE_OFFSET,
-  payload: offset,
-})
-//* Set book offset for pagination
-export const setBookOffset = offset => ({
-  type: type.SET_BOOK_OFFSET,
-  payload: offset,
-})
-//* Switches video_thumbnail into iframe
-export const showIframe = id => {
-  return { type: type.SHOW_IFRAME, payload: { id } }
-}
-//* Resets all iframes to video_thumbnail
-export const resetIframe = () => {
-  return { type: type.RESET_IFRAME }
+  dispatch({ type: type.SET_PODCAST_OFFSET, payload: res.data.next_offset })
 }

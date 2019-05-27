@@ -1,32 +1,31 @@
 import React, { useState, useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import styled from 'styled-components'
-import { customLayout, smartTruncate } from 'components/mixins'
 import { ReactComponent as Add } from 'assets/svg/add-icon.svg'
 import { ReactComponent as Loading } from 'assets/svg/circles.svg'
+import { useAlert } from 'react-alert'
 import { useThrottle } from 'use-throttle'
+import { customLayout, smartTruncate } from 'components/mixins'
 
 const Courses = props => {
   const {
     courses,
     searchTerm,
     coursePage,
-    setCoursePage,
-    fetchMoreCourses,
+    fetchCourses,
     searchCourses,
     handleSaveLink,
-    alert,
   } = props
-
+  const alert = useAlert()
   const [isLoading, setIsLoading] = useState(false)
   const [didMount, setDidMount] = useState(false)
   const throttledSearch = useThrottle(searchTerm, 1000)
 
   useEffect(() => {
     const asyncSearchCourses = async () => {
+      //* Searches reset page=1
       const page = 1
       await searchCourses(searchTerm, page)
-      await setCoursePage(page + 1)
       setIsLoading(false)
     }
     if (didMount) {
@@ -47,7 +46,7 @@ const Courses = props => {
       ) : (
         <InfiniteScroll
           dataLength={courses.length}
-          next={fetchMoreCourses}
+          next={() => fetchCourses(searchTerm, coursePage)}
           hasMore={hasMore}
           style={{
             display: 'flex',
@@ -55,7 +54,7 @@ const Courses = props => {
             justifyContent: 'space-between',
           }}
           endMessage={
-            <div style={{}}>
+            <div>
               <b>No Articles Matched Search Criteria 🙁</b>
             </div>
           }
@@ -94,7 +93,6 @@ const Loader = styled.div`
   margin: 75px auto;
   text-align: center;
 `
-
 const Cards = styled.div`
   ${customLayout('space-between')}
   flex-wrap: wrap;
@@ -104,7 +102,6 @@ const Cards = styled.div`
     margin: -12px auto 0;
   }
 `
-
 const Card = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 6px;
@@ -120,11 +117,9 @@ const Card = styled.div`
   @media (max-width: 960px) {
     width: 45%;
   }
-
   @media (max-width: 570px) {
     width: 100%;
   }
-
   a {
     &:hover {
       h3 {
@@ -132,7 +127,6 @@ const Card = styled.div`
       }
     }
   }
-
   img {
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
@@ -140,9 +134,7 @@ const Card = styled.div`
     height: 180px;
     object-fit: cover;
   }
-
   h3 {
-    // border: 1px solid red;
     height: 50px;
     margin: 10px 0;
     padding: 0 3%;
@@ -152,7 +144,6 @@ const Card = styled.div`
     word-break: break-word;
     overflow: hidden;
   }
-
   p {
     padding: 0 3%;
     height: 45px;
@@ -161,7 +152,6 @@ const Card = styled.div`
     color: #6d767e;
   }
 `
-
 const SaveIcon = styled.div`
   // border: 1px solid red;
   ${customLayout('flex-end')}

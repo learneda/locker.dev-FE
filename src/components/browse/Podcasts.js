@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { customLayout, smartTruncate } from '../mixins'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { ReactComponent as Loading } from 'assets/svg/circles.svg'
 import { ReactComponent as Add } from 'assets/svg/add-icon.svg'
+import { useAlert } from 'react-alert'
 import { useThrottle } from 'use-throttle'
+import { customLayout, smartTruncate } from '../mixins'
 
 import he from 'he'
 
@@ -13,18 +14,20 @@ const Podcasts = props => {
     podcasts,
     searchTerm,
     podcastOffset,
-    fetchMorePodcasts,
+    fetchPodcasts,
     searchPodcasts,
     handleSaveMedia,
-    alert,
   } = props
+  const alert = useAlert()
   const [isLoading, setIsLoading] = useState(false)
   const [isImage, setIsImage] = useState(Array(podcasts.length))
   const [didMount, setDidMount] = useState(false)
   const throttledSearch = useThrottle(searchTerm, 1000)
   useEffect(() => {
     const asyncSearchPodcasts = async () => {
-      searchPodcasts(searchTerm)
+      //* Search resets offset=0
+      const offset = 0
+      searchPodcasts(searchTerm, offset)
       setIsLoading(false)
     }
     if (didMount) {
@@ -37,23 +40,25 @@ const Podcasts = props => {
   useEffect(() => {
     setIsImage(Array(podcasts.length).fill(false))
   }, [podcasts])
-  const renderLoader = () => (
-    <Loader>
-      <Loading />
-    </Loader>
-  )
+
   const handleClick = index => {
     setIsImage(prevIsImage =>
       prevIsImage.map((isImage, idx) => (idx === index ? !isImage : isImage))
     )
   }
 
+  const renderLoader = () => (
+    <Loader>
+      <Loading />
+    </Loader>
+  )
+
   const hasMore = !Boolean(searchTerm) || Boolean(podcasts.length)
 
   const renderPodcasts = () => (
     <InfiniteScroll
       dataLength={podcasts.length}
-      next={fetchMorePodcasts}
+      next={() => fetchPodcasts(searchTerm, podcastOffset)}
       hasMore={hasMore}
       style={{
         display: 'flex',
@@ -166,7 +171,6 @@ const Loader = styled.div`
   margin: 75px auto;
   text-align: center;
 `
-
 const Cards = styled.div`
   ${customLayout('space-between')}
   flex-wrap: wrap;
@@ -176,7 +180,6 @@ const Cards = styled.div`
     margin: -12px auto 0;
   }
 `
-
 const Card = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 6px;
@@ -191,11 +194,9 @@ const Card = styled.div`
   @media (max-width: 960px) {
     width: 45%;
   }
-
   @media (max-width: 570px) {
     width: 100%;
   }
-
   a {
     &:hover {
       h3 {
@@ -203,7 +204,6 @@ const Card = styled.div`
       }
     }
   }
-
   img {
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
@@ -211,7 +211,6 @@ const Card = styled.div`
     height: 180px;
     object-fit: contain;
   }
-
   h3 {
     // border: 1px solid red;
     max-height: 50px;
@@ -223,7 +222,6 @@ const Card = styled.div`
     word-break: break-word;
     overflow: hidden;
   }
-
   p {
     padding: 0 4%;
     height: 60px;
@@ -233,10 +231,7 @@ const Card = styled.div`
     overflow: hidden;
   }
 `
-
 const SaveIcon = styled.div`
-  // border: 1px solid red;
-  /* ${customLayout('flex-end')} */
   position: absolute;
   bottom: 10px;
   right: 15px;

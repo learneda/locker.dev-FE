@@ -8,5 +8,6 @@ export default axios.create({
     sort_by_date: 1,
     type: 'episode',
     offset: 0,
+    language: 'English',
   },
 })
