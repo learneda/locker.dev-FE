@@ -15,7 +15,6 @@ const Books = props => {
     fetchBooks,
     searchBooks,
     handleSaveMedia,
-    alert,
   } = props
   const alert = useAlert()
   const [isLoading, setIsLoading] = useState(false)
@@ -126,7 +125,6 @@ const Loader = styled.div`
   margin: 75px auto;
   text-align: center;
 `
-
 const Cards = styled.div`
   ${customLayout('space-between')}
   flex-wrap: wrap;
@@ -136,7 +134,6 @@ const Cards = styled.div`
     margin: -12px auto 0;
   }
 `
-
 const Card = styled.div`
   overflow-y: hidden;
   position: relative;
@@ -174,7 +171,6 @@ const Card = styled.div`
     object-fit: contain;
     padding: 10px;
   }
-
   h3 {
     max-height: 50px;
     margin: 0px 0 10px;
@@ -185,7 +181,6 @@ const Card = styled.div`
     word-break: break-word;
     overflow: hidden;
   }
-
   p {
     padding: 0 4%;
     height: 60px;
@@ -195,7 +190,6 @@ const Card = styled.div`
     overflow: hidden;
   }
 `
-
 const SaveIcon = styled.div`
   // border: 1px solid red;
   /* ${customLayout('flex-end')} */

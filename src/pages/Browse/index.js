@@ -102,7 +102,7 @@ const Browse = props => {
           <NavLink to={`${match.url}/podcasts`}>Podcast</NavLink>
         </Tab>
       </Tabs>
-      <TabWrapper>
+      <RouteWrapper>
         <Switch>
           <Route
             exact
@@ -178,7 +178,7 @@ const Browse = props => {
             )}
           />
         </Switch>
-      </TabWrapper>
+      </RouteWrapper>
     </>
   )
 }
@@ -189,7 +189,7 @@ const mapStateToProps = ({ auth, searchTerm, browse }) => ({
   ...browse,
 })
 
-const BrowseWithAlert = withLayout(withAlert()(Browse))
+const BrowseWithLayout = withLayout(Browse)
 
 export default connect(
   mapStateToProps,
@@ -197,7 +197,7 @@ export default connect(
     ...browseActions,
     createCollection,
   }
-)(withRouter(BrowseWithAlert))
+)(withRouter(BrowseWithLayout))
 
 const Tabs = styled.ul`
   display: flex;
@@ -210,6 +210,7 @@ const Tabs = styled.ul`
   align-items: flex-end;
   background: rgb(230, 233, 243);
   padding-bottom: 25px;
+  border-bottom: 3px solid transparent;
   &:hover {
     color: #4064f2;
   }
@@ -225,9 +226,6 @@ const Tabs = styled.ul`
     font-size: 1.7rem;
   }
 `
-const TabWrapper = styled.div`
-  padding-top: 20px;
-`
 const Tab = styled.li`
   margin: 0 2rem 0 1rem;
   font-size: 2rem;
@@ -238,4 +236,7 @@ const Tab = styled.li`
       transition: 100ms ease-in;
     }
   }
+`
+const RouteWrapper = styled.div`
+  padding-top: 20px;
 `

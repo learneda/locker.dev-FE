@@ -15,7 +15,6 @@ const Articles = props => {
     fetchArticles,
     searchArticles,
     handleSaveLink,
-    alert,
   } = props
   const alert = useAlert()
   const [isLoading, setIsLoading] = useState(false)
@@ -99,7 +98,6 @@ const Loader = styled.div`
   margin: 75px auto;
   text-align: center;
 `
-
 const Cards = styled.div`
   ${customLayout('space-between')}
   flex-wrap: wrap;
@@ -109,8 +107,8 @@ const Cards = styled.div`
     margin: -12px auto 0;
   }
 `
-
 const Card = styled.div`
+  position: relative;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 6px;
   width: 22%;
@@ -118,18 +116,15 @@ const Card = styled.div`
   margin-bottom: 30px;
   background-color: #fff;
   cursor: pointer;
-  position: relative;
   @media (max-width: 1500px) {
     width: 30%;
   }
   @media (max-width: 960px) {
     width: 45%;
   }
-
   @media (max-width: 570px) {
     width: 100%;
   }
-
   a {
     &:hover {
       h3 {
@@ -137,7 +132,6 @@ const Card = styled.div`
       }
     }
   }
-
   img {
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
@@ -145,7 +139,6 @@ const Card = styled.div`
     height: 180px;
     object-fit: cover;
   }
-
   h3 {
     height: 50px;
     margin: 10px 0;
@@ -156,7 +149,6 @@ const Card = styled.div`
     word-break: break-word;
     overflow: hidden;
   }
-
   p {
     padding: 0 3%;
     height: 45px;
@@ -165,11 +157,10 @@ const Card = styled.div`
     color: #6d767e;
   }
 `
-
 const SaveIcon = styled.div`
-  ${customLayout('flex-end')}
-  margin-top: 15px;
-  padding: 0 4%;
+  position: absolute;
+  right: 15px;
+  bottom: 10px;
   opacity: 0.8;
   transition: 200ms ease-out;
   &:hover {
