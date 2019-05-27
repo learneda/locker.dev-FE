@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, NavLink, Route, Switch } from 'react-router-dom'
-import { Grommet } from 'grommet'
 import styled from 'styled-components'
 import { customWrapper } from 'components/mixins'
 import SidebarById from 'components/sidebar/SidebarById'
@@ -38,70 +37,68 @@ const UserProfile = props => {
   }, [])
 
   return (
-    <Grommet theme={theme}>
-      <Container>
-        <SidebarById
-          collectionsCount={profile.collections.length}
-          followingCount={profile.following.length}
-          followersCount={profile.followers.length}
-          other={profile.other}
-          myFollowing={social.following}
-          follow={social.following
-            .map(profile => profile.id)
-            .includes(Number(id))}
-          fetchProfileFollowers={fetchProfileFollowers}
-        />
-        <Wrapper>
-          <div className='tabs'>
-            <NavLink
-              exact
-              to={`${match.url}/collections`}
-              className={
-                props.location.pathname === `/profile/${id}` ? 'active' : null
-              }
-            >
-              Collections
-            </NavLink>
-            <NavLink to={`${match.url}/following`}>Following</NavLink>
-            <NavLink to={`${match.url}/followers`}>Followers</NavLink>
-          </div>
+    <Container>
+      <SidebarById
+        collectionsCount={profile.collections.length}
+        followingCount={profile.following.length}
+        followersCount={profile.followers.length}
+        other={profile.other}
+        myFollowing={social.following}
+        follow={social.following
+          .map(profile => profile.id)
+          .includes(Number(id))}
+        fetchProfileFollowers={fetchProfileFollowers}
+      />
+      <Wrapper>
+        <div className='tabs'>
+          <NavLink
+            exact
+            to={`${match.url}/collections`}
+            className={
+              props.location.pathname === `/profile/${id}` ? 'active' : null
+            }
+          >
+            Collections
+          </NavLink>
+          <NavLink to={`${match.url}/following`}>Following</NavLink>
+          <NavLink to={`${match.url}/followers`}>Followers</NavLink>
+        </div>
 
-          <TabWrapper>
-            <Switch>
-              <Route
-                exact
-                path={[`${match.path}`, `${match.path}/collections`]}
-                render={props => (
-                  <ProfileById {...props} collections={profile.collections} />
-                )}
-              />
-              <Route
-                exact
-                path={`${match.path}/following`}
-                render={props => (
-                  <UserFollowing
-                    {...props}
-                    profileFollowing={profile.following}
-                    myFollowing={social.following}
-                  />
-                )}
-              />
-              <Route
-                exact
-                path={`${match.path}/followers`}
-                render={props => (
-                  <UserFollowers
-                    {...props}
-                    profileFollowers={profile.followers}
-                    myFollowers={social.followers}
-                  />
-                )}
-              />
-            </Switch>
-          </TabWrapper>
-        </Wrapper>
-      </Container>
-    </Grommet>
+        <TabWrapper>
+          <Switch>
+            <Route
+              exact
+              path={[`${match.path}`, `${match.path}/collections`]}
+              render={props => (
+                <ProfileById {...props} collections={profile.collections} />
+              )}
+            />
+            <Route
+              exact
+              path={`${match.path}/following`}
+              render={props => (
+                <UserFollowing
+                  {...props}
+                  profileFollowing={profile.following}
+                  myFollowing={social.following}
+                />
+              )}
+            />
+            <Route
+              exact
+              path={`${match.path}/followers`}
+              render={props => (
+                <UserFollowers
+                  {...props}
+                  profileFollowers={profile.followers}
+                  myFollowers={social.followers}
+                />
+              )}
+            />
+          </Switch>
+        </TabWrapper>
+      </Wrapper>
+    </Container>
   )
 }
 const mapStateToProps = ({ profile, social }) => {
@@ -114,35 +111,6 @@ export default connect(
   }
 )(withRouter(UserProfile))
 
-const theme = {
-  tab: {
-    color: 'dark-1',
-    active: {
-      weight: 'bold',
-    },
-    border: {
-      side: 'bottom',
-      size: 'medium',
-      color: {
-        light: null,
-      },
-      active: {
-        color: {
-          light: 'dark-1',
-        },
-      },
-      hover: {
-        color: {
-          light: null,
-        },
-      },
-      margin: {
-        bottom: '30px',
-      },
-    },
-  },
-}
-
 const Container = styled.div`
   ${customWrapper('80%', '0 auto')}
   display: flex;
@@ -150,7 +118,7 @@ const Container = styled.div`
     width: 90%;
   }
   .tabs {
-    position: fixed;
+    position: sticky;
     top: 0;
     z-index: 2;
     align-items: flex-end;

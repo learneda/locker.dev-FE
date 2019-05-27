@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
-import { Grommet } from 'grommet'
 import styled from 'styled-components'
 import Sidebar from 'components/sidebar/Sidebar'
 import Following from 'components/social/Following'
@@ -43,82 +42,80 @@ const Social = props => {
     }
   }, [])
   return (
-    <Grommet theme={theme}>
-      <Container>
-        <Sidebar
-          user={user}
-          collections={collections}
-          following={following}
-          followers={followers}
-        />
-        <Wrapper>
-          <Tabs>
-            <Tab>
-              <NavLink to={`${match.url}/following`}>Following</NavLink>
-            </Tab>
-            <Tab>
-              <NavLink to={`${match.url}/followers`}>Followers</NavLink>
-            </Tab>
-            <Tab>
-              <NavLink to={`${match.url}/suggested`}>Suggested</NavLink>
-            </Tab>
-            <Tab>
-              <NavLink to={`${match.url}/meetups`}>Meetups</NavLink>
-            </Tab>
-          </Tabs>
-          <TabWrapper>
-            <Switch>
-              <Route
-                exact
-                path={[`${match.path}`, `${match.path}/following`]}
-                render={props => (
-                  <Following
-                    {...props}
-                    userId={userId}
-                    user={user}
-                    following={following}
-                    followers={followers}
-                    followAUser={followAUser}
-                    unfollowAUser={unfollowAUser}
-                    fetchFollowing={fetchFollowing}
-                  />
-                )}
-              />
-              <Route
-                path={`${match.path}/followers`}
-                render={props => (
-                  <Followers
-                    {...props}
-                    userId={userId}
-                    following={following}
-                    followers={followers}
-                    followAUser={followAUser}
-                    fetchUser={fetchUser}
-                    unfollowAUser={unfollowAUser}
-                    fetchFollowing={fetchFollowing}
-                  />
-                )}
-              />
-              <Route
-                path={`${match.path}/suggested`}
-                render={props => (
-                  <Suggested
-                    {...props}
-                    userId={userId}
-                    suggested={suggested}
-                    followAUser={followAUser}
-                    fetchUser={fetchUser}
-                    fetchFollowing={fetchFollowing}
-                    fetchSuggested={fetchSuggested}
-                  />
-                )}
-              />
-              <Route path={`${match.path}/meetups`} component={Meetups} />
-            </Switch>
-          </TabWrapper>
-        </Wrapper>
-      </Container>
-    </Grommet>
+    <Container>
+      <Sidebar
+        user={user}
+        collections={collections}
+        following={following}
+        followers={followers}
+      />
+      <Wrapper>
+        <Tabs>
+          <Tab>
+            <NavLink to={`${match.url}/following`}>Following</NavLink>
+          </Tab>
+          <Tab>
+            <NavLink to={`${match.url}/followers`}>Followers</NavLink>
+          </Tab>
+          <Tab>
+            <NavLink to={`${match.url}/suggested`}>Suggested</NavLink>
+          </Tab>
+          <Tab>
+            <NavLink to={`${match.url}/meetups`}>Meetups</NavLink>
+          </Tab>
+        </Tabs>
+        <TabWrapper>
+          <Switch>
+            <Route
+              exact
+              path={[`${match.path}`, `${match.path}/following`]}
+              render={props => (
+                <Following
+                  {...props}
+                  userId={userId}
+                  user={user}
+                  following={following}
+                  followers={followers}
+                  followAUser={followAUser}
+                  unfollowAUser={unfollowAUser}
+                  fetchFollowing={fetchFollowing}
+                />
+              )}
+            />
+            <Route
+              path={`${match.path}/followers`}
+              render={props => (
+                <Followers
+                  {...props}
+                  userId={userId}
+                  following={following}
+                  followers={followers}
+                  followAUser={followAUser}
+                  fetchUser={fetchUser}
+                  unfollowAUser={unfollowAUser}
+                  fetchFollowing={fetchFollowing}
+                />
+              )}
+            />
+            <Route
+              path={`${match.path}/suggested`}
+              render={props => (
+                <Suggested
+                  {...props}
+                  userId={userId}
+                  suggested={suggested}
+                  followAUser={followAUser}
+                  fetchUser={fetchUser}
+                  fetchFollowing={fetchFollowing}
+                  fetchSuggested={fetchSuggested}
+                />
+              )}
+            />
+            <Route path={`${match.path}/meetups`} component={Meetups} />
+          </Switch>
+        </TabWrapper>
+      </Wrapper>
+    </Container>
   )
 }
 
@@ -138,35 +135,6 @@ export default connect(
   }
 )(withRouter(Social))
 
-const theme = {
-  tab: {
-    color: 'dark-1',
-    active: {
-      weight: 'bold',
-    },
-    border: {
-      side: 'bottom',
-      size: 'medium',
-      color: {
-        light: null,
-      },
-      active: {
-        color: {
-          light: 'dark-1',
-        },
-      },
-      hover: {
-        color: {
-          light: null,
-        },
-      },
-      margin: {
-        bottom: '30px',
-      },
-    },
-  },
-}
-
 const Container = styled.div`
   ${customWrapper('80%', '0 auto')}
   display: flex;
@@ -181,7 +149,7 @@ const Container = styled.div`
 `
 const Wrapper = styled.div`
   max-width: 1600px;
-  padding-left: 2%;
+  padding-left: 3%;
   width: 100%;
   @media (max-width: 900px) {
     width: 90%;
@@ -191,30 +159,40 @@ const Wrapper = styled.div`
 `
 
 const TabWrapper = styled.div`
-  border-top: 1px solid #bdbdbd;
-  padding-top: 20px;
-  margin-top: 60px;
+  position: relative;
 `
 
 const Tabs = styled.ul`
-  position: fixed;
-  top: 0;
-  z-index: 2;
-  align-items: flex-end;
-  height: 135px;
   display: flex;
+  align-items: flex-end;
+  position: sticky;
   background: rgb(230, 233, 243);
+  top: 59px;
+  font-size: 2rem;
+  height: 100px;
+  z-index: 1;
   width: 100%;
-  padding-bottom: 10px;
+  padding-bottom: 25px;
   .active {
     border-bottom: 3px solid #4064f2;
     font-weight: 900;
     color: #4064f2;
   }
+  @media (max-width: 900px) {
+    top: 59px;
+    height: 80px;
+  }
+  @media (max-width: 760px) {
+    top: 50px;
+    height: 80px;
+  }
 `
 
 const Tab = styled.li`
   margin-right: 2rem;
+  font-size: 2rem;
+  margin-left: 10px;
+
   a {
     transition: 100ms ease-out;
     &:hover {

@@ -118,7 +118,6 @@ class Sidebar extends Component {
 export default Sidebar
 
 const Wrapper = styled.div`
-  ${customWrapper('45%')};
   max-width: 300px;
   position: relative;
   @media (max-width: 900px) {
@@ -126,6 +125,7 @@ const Wrapper = styled.div`
   }
 `
 const Profile = styled.div`
+  margin-top: 47px;
   ${StyledSidebar};
   .user {
     ${customLayout('center', 'center')}
