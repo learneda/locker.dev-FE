@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import styled from 'styled-components'
-import { customLayout, smartTruncate } from '../mixins'
 import { ReactComponent as Add } from 'assets/svg/add-icon.svg'
 import { ReactComponent as Loading } from 'assets/svg/circles.svg'
+import { useAlert } from 'react-alert'
 import { useThrottle } from 'use-throttle'
+import { customLayout, smartTruncate } from '../mixins'
+
 const Articles = props => {
   const {
     articles,
@@ -15,7 +17,7 @@ const Articles = props => {
     handleSaveLink,
     alert,
   } = props
-
+  const alert = useAlert()
   const [isLoading, setIsLoading] = useState(false)
   const [didMount, setDidMount] = useState(false)
   const throttledSearch = useThrottle(searchTerm, 1000)

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
-import { withAlert } from 'react-alert'
 import styled from 'styled-components'
 import Courses from 'components/browse/Courses'
 import Articles from 'components/browse/Articles'
@@ -41,7 +40,6 @@ const Browse = props => {
     resetIframe,
     createCollection,
     match,
-    alert,
   } = props
 
   useEffect(() => {
@@ -80,7 +78,7 @@ const Browse = props => {
   }
 
   return (
-    <div>
+    <>
       <Tabs>
         <Tab>
           <NavLink
@@ -118,7 +116,6 @@ const Browse = props => {
                 searchCourses={searchCourses}
                 fetchCourses={fetchCourses}
                 handleSaveLink={handleSaveLink}
-                alert={alert}
               />
             )}
           />
@@ -133,7 +130,6 @@ const Browse = props => {
                 searchArticles={searchArticles}
                 fetchArticles={fetchArticles}
                 handleSaveLink={handleSaveLink}
-                alert={alert}
               />
             )}
           />
@@ -150,7 +146,6 @@ const Browse = props => {
                 handleSaveMedia={handleSaveMedia}
                 showIframe={showIframe}
                 resetIframe={resetIframe}
-                alert={alert}
               />
             )}
           />
@@ -165,7 +160,6 @@ const Browse = props => {
                 searchBooks={searchBooks}
                 fetchBooks={fetchBooks}
                 handleSaveMedia={handleSaveMedia}
-                alert={alert}
               />
             )}
           />
@@ -180,13 +174,12 @@ const Browse = props => {
                 searchPodcasts={searchPodcasts}
                 fetchPodcasts={fetchPodcasts}
                 handleSaveMedia={handleSaveMedia}
-                alert={alert}
               />
             )}
           />
         </Switch>
       </TabWrapper>
-    </div>
+    </>
   )
 }
 
@@ -206,10 +199,6 @@ export default connect(
   }
 )(withRouter(BrowseWithAlert))
 
-const TabWrapper = styled.div`
-  padding-top: 20px;
-`
-
 const Tabs = styled.ul`
   display: flex;
   position: sticky;
@@ -221,9 +210,6 @@ const Tabs = styled.ul`
   align-items: flex-end;
   background: rgb(230, 233, 243);
   padding-bottom: 25px;
-  @media (max-width: 900px) {
-    top: 50px;
-  }
   &:hover {
     color: #4064f2;
   }
@@ -232,16 +218,19 @@ const Tabs = styled.ul`
     font-weight: 900;
     color: #4064f2;
   }
+  @media (max-width: 900px) {
+    top: 50px;
+  }
   @media (max-width: 400px) {
     font-size: 1.7rem;
   }
 `
-
+const TabWrapper = styled.div`
+  padding-top: 20px;
+`
 const Tab = styled.li`
-  margin-right: 2rem;
+  margin: 0 2rem 0 1rem;
   font-size: 2rem;
-  margin-left: 10px;
-
   a {
     transition: 100ms ease-out;
     &:hover {

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { customLayout, smartTruncate } from '../mixins'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
 import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
+import { useAlert } from 'react-alert'
 import { useThrottle } from 'use-throttle'
+import { customLayout, smartTruncate } from '../mixins'
 
 const Videos = props => {
   const {
@@ -19,6 +20,7 @@ const Videos = props => {
     resetIframe,
     alert,
   } = props
+  const alert = useAlert()
   const [isLoading, setIsLoading] = useState(false)
   const [didMount, setDidMount] = useState(false)
   const throttledSearch = useThrottle(searchTerm, 1000)
