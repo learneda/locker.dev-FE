@@ -29,13 +29,13 @@ class ProfileById extends Component {
   }
 
   handleSave = async (url, postId) => {
-    // saves user's post to your bookmarks
+    // saves user's post to your collection
     const post = {
       post_url: url,
       id: this.props.auth.id,
     }
-    this.props.alert.success('Post added to Bookmarks')
-    // axios.post(`${apiURL}/posts`, post)
+    this.props.alert.success('Post added to Collections')
+    // create new collection
     this.props.createCollection(post).then(async result => {
       // saves post id to users account to keep track of saved posts toggle
       const profileId = this.props.match.params.id
@@ -94,7 +94,7 @@ class ProfileById extends Component {
               {post.saved_to_profile ? (
                 <div className='save-to-profile'>
                   <img src={check} className='add-icon' alt='' />
-                  <span className='rec-span'>Saved to Bookmarks</span>
+                  <span className='rec-span'>Saved to Collections</span>
                 </div>
               ) : (
                 <div

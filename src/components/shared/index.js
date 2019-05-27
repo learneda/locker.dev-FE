@@ -64,7 +64,7 @@ class SharedButton extends Component {
             <MODALWRAPPER className='modal-wrapper' onClick={this.toggle}>
               <div className='modal_' onClick={e => e.stopPropagation()}>
                 <div className='top'>
-                  <div className='modal_name'>Share Bookmark</div>
+                  <div className='modal_name'>Share Collection</div>
                   <div className='modal_close' onClick={this.toggle}>
                     <X />
                   </div>
@@ -106,7 +106,7 @@ class SharedButton extends Component {
                     <input
                       type='submit'
                       id='edit-submit'
-                      value='Share Bookmark to Feed'
+                      value='SHARE!'
                     />
                   </form>
                 </div>
