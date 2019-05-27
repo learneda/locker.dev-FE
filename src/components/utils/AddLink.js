@@ -46,9 +46,9 @@ class AddLink extends Component {
         })
         .then(res => {
           // console.log('response from createCollection ==>', res)
-          if (res === 'success') {
+          if (res.msg === 'success') {
             this.props.alert.success('Link added to Bookmarks')
-          } else if (res === 'whoops!') {
+          } else if (res.msg === 'whoops!') {
             this.props.alert.error('whoops, unable to add')
           }
         })

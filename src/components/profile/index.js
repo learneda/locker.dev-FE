@@ -36,19 +36,20 @@ class ProfileById extends Component {
     }
     this.props.alert.success('Post added to Bookmarks')
     // axios.post(`${apiURL}/posts`, post)
-    this.props.createCollection(post)
+    this.props.createCollection(post).then(async result => {
+      // saves post id to users account to keep track of saved posts toggle
+      const profileId = this.props.match.params.id
+      const userId = this.props.auth.id
+      const body = {
+        user_id: userId,
+        saved_from_id: profileId,
+        post_id: postId,
+        created_post_id: result.post_id,
+      }
 
-    // saves post id to users account to keep track of saved posts toggle
-    const profileId = this.props.match.params.id
-    const userId = this.props.auth.id
-    const body = {
-      user_id: userId,
-      saved_from_id: profileId,
-      post_id: postId,
-    }
-
-    await axios.post(`${apiURL}/users/saved-post-ids`, body)
-    await this.props.fetchProfileCollections(this.props.match.params.id)
+      await axios.post(`${apiURL}/users/saved-post-ids`, body)
+      await this.props.fetchProfileCollections(this.props.match.params.id)
+    })
   }
 
   handleTruncateText = (content, limit = 10) => truncateText(content, limit)

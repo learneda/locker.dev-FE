@@ -44,22 +44,24 @@ export const fetchCollections = () => async dispatch => {
 }
 
 export const createCollection = post => async dispatch => {
-  let msg
+  let responseObj = {}
   try {
     const res = await axios.post(`/posts`, post)
     dispatch({ type: CREATE_COLLECTION, payload: res.data })
-    msg = 'success'
+    responseObj['post_id'] = res.data.id
+    responseObj['msg'] = 'success'
   } catch (err) {
     console.log(err)
-    msg = 'whoops!'
+    responseObj['msg'] = 'whoops!'
   } finally {
     return new Promise(function(resolve, reject) {
-      resolve(msg)
+      resolve(responseObj)
     })
   }
 }
 export const deleteCollection = id => async dispatch => {
   const res = await axios.delete(`/posts/${id}`)
+  await axios.delete(`/users/saved-post-ids/${id}`)
   dispatch({ type: DELETE_COLLECTION, payload: res.data })
 }
 export const editCollection = editedCollection => async dispatch => {
