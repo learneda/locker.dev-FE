@@ -102,7 +102,7 @@ class ProfileById extends Component {
                   onClick={() => this.handleSave(post.post_url, post.id)}
                 >
                   <img src={plusIcon} className='add-icon' alt='' />
-                  <span className='rec-span'>Save to Bookmarks</span>
+                  <span className='rec-span'>Save to Collections</span>
                 </div>
               )}
             </div>
