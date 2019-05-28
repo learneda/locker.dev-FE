@@ -13,7 +13,7 @@ const Videos = props => {
     videos,
     searchTerm,
     videoPageToken,
-    fetchMoreVideos,
+    fetchVideos,
     searchVideos,
     setVideoPageToken,
     handleSaveMedia,
@@ -53,7 +53,7 @@ const Videos = props => {
       <ScrollToTopOnMount />
       <InfiniteScroll
         dataLength={videos.length}
-        next={fetchMoreVideos}
+        next={() => fetchVideos(searchTerm, videoPageToken)}
         hasMore={hasMore}
         style={{
           display: 'flex',
