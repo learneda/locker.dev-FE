@@ -95,7 +95,7 @@ const Home = props => {
             <NavLink to={`${match.url}/locker`}>Locker(α)</NavLink>
           </Tab>
         </Tabs>
-        <TabWrapper>
+        <RouteWrapper>
           <Switch>
             <Route
               exact
@@ -145,7 +145,7 @@ const Home = props => {
               )}
             />
           </Switch>
-        </TabWrapper>
+        </RouteWrapper>
       </Wrapper>
       <Suggested
         auth={auth}
@@ -199,7 +199,6 @@ const Container = styled.div`
     width: 100%;
   }
 `
-
 const Wrapper = styled.div`
   max-width: 1440px;
   padding-left: 3%;
@@ -210,11 +209,9 @@ const Wrapper = styled.div`
     padding: 0;
   }
 `
-
-const TabWrapper = styled.div`
+const RouteWrapper = styled.div`
   position: relative;
 `
-
 const Tabs = styled.ul`
   display: flex;
   align-items: flex-end;
@@ -240,7 +237,6 @@ const Tabs = styled.ul`
     height: 80px;
   }
 `
-
 const Tab = styled.li`
   margin-right: 2rem;
   font-size: 2rem;

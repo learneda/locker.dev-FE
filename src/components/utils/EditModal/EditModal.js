@@ -1,17 +1,14 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { StyledEditModal } from './StyledEditModal'
 import styled from 'styled-components'
+import { useAlert } from 'react-alert'
 import { editCollection } from 'actions'
-import deleteIcon from 'assets/svg/delete-icon.svg'
 import useLockBodyScroll from 'components/hooks/useLockBodyScroll'
-import { withAlert } from 'react-alert'
-
-const Wrapper = styled.div`
-  ${StyledEditModal}
-`
+import deleteIcon from 'assets/svg/delete-icon.svg'
+import { StyledEditModal } from './StyledEditModal'
 
 const EditModal = props => {
+  const alert = useAlert()
   const [description, setDescription] = useState(props.post.description)
   const [postUrl, setPostUrl] = useState(props.post.post_url)
   const [title, setTitle] = useState(props.post.title)
@@ -32,7 +29,7 @@ const EditModal = props => {
     // action creator
     props.editCollection(collection).then(() => {
       props.handleModalOpen()
-      props.alert.success('Bookmark Updated')
+      alert.success('Bookmark Updated')
     })
   }
 
@@ -83,9 +80,11 @@ const EditModal = props => {
   )
 }
 
-const Alert = withAlert()(EditModal)
-
 export default connect(
   null,
   { editCollection }
-)(Alert)
+)(EditModal)
+
+const Wrapper = styled.div`
+  ${StyledEditModal}
+`

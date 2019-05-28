@@ -37,6 +37,12 @@ export const selectLogo = url => {
   }
 }
 
+export const printRootDomain = url => {
+  return url && !url.includes('listen') ? (
+    <span style={{ marginLeft: '5px' }}>{url}</span>
+  ) : null
+}
+
 //* Return random element from an array
 export const selectRandom = arr => {
   if (arr && arr.length) {

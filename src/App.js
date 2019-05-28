@@ -33,12 +33,12 @@ const SinglePost = lazy(() => SinglePostPromise)
 const App = ({ fetchAuth, fetchUser, fetchCollections, modal, auth }) => {
   const { isAuthOpen, isEditOpen } = modal
   useEffect(() => {
-    // initial fetch user when you refresh browser
+    //* initial fetch user when you refresh browser
     fetchAuth()
   }, [])
 
   useInterval(() => {
-    // fetches user information every 5 minutes to reduce number of server requests
+    //* fetches user information every 5 minutes to reduce number of server requests
     fetchAuth()
   }, 300000)
 

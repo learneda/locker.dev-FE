@@ -1,63 +1,51 @@
-import React, { Component } from 'react'
-import { smartTruncate } from '../mixins'
+import React, { useState } from 'react'
 import HelpScreen from '../utils/screens/HelpScreen'
-import BookmarkSVG from '../../assets/svg/bookmark-drawing.svg'
+import BookmarkSVG from 'assets/svg/bookmark-drawing.svg'
 import Collection from './Collection'
 
-class Collections extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      modalOpen: false,
-      editPost: null,
-    }
+const Collections = props => {
+  const { searchTerm: search } = props
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isEditPost, setIsEditPost] = useState(null)
+
+  const handleModalOpen = editPost => {
+    setIsModalOpen(prevIsModalOpen => !prevIsModalOpen)
+    setIsEditPost(editPost)
   }
 
-  handleTruncateText = (content, limit = 10) => smartTruncate(content, limit)
-
-  handleModalOpen = editPost => {
-    this.setState({ editPost: editPost, modalOpen: !this.state.modalOpen })
+  const handleDelete = postId => {
+    props.deleteCollection(postId)
   }
 
-  handleDelete = postId => {
-    this.props.deleteCollection(postId)
-  }
-
-  render() {
-    const { modalOpen, editPost } = this.state
-    const { handleTruncateText, handleModalOpen } = this
-    const { searchTerm: search } = this.props
-    if (this.props.collections.length) {
-      const filteredCollections = this.props.collections.filter(post => {
-        return (
-          (post.title &&
-            post.title.toLowerCase().includes(search.toLowerCase())) ||
-          (post.thumbnail_url &&
-            post.thumbnail_url.toLowerCase().includes(search.toLowerCase())) ||
-          (post.description &&
-            post.description.toLowerCase().includes(search.toLowerCase()))
-        )
-      })
+  if (props.collections.length) {
+    const filteredCollections = props.collections.filter(post => {
       return (
-        <Collection
-          handleDelete={this.handleDelete}
-          handleTruncateText={this.handleTruncateText}
-          collections={filteredCollections}
-          handleModalOpen={this.handleModalOpen}
-          modalOpen={this.state.modalOpen}
-          editPost={this.state.editPost}
-        />
+        (post.title &&
+          post.title.toLowerCase().includes(search.toLowerCase())) ||
+        (post.thumbnail_url &&
+          post.thumbnail_url.toLowerCase().includes(search.toLowerCase())) ||
+        (post.description &&
+          post.description.toLowerCase().includes(search.toLowerCase()))
       )
-    }
+    })
+    return (
+      <Collection
+        handleDelete={handleDelete}
+        collections={filteredCollections}
+        handleModalOpen={handleModalOpen}
+        modalOpen={isModalOpen}
+        editPost={isEditPost}
+      />
+    )
+  }
 
-    if (this.props.collections.length === 0) {
-      return (
-        <HelpScreen
-          imgSource={BookmarkSVG}
-          headerText='Your saved courses and articles will be stored here.'
-        />
-      )
-    }
+  if (props.collections.length === 0) {
+    return (
+      <HelpScreen
+        imgSource={BookmarkSVG}
+        headerText='Your saved courses and articles will be stored here.'
+      />
+    )
   }
 }
 

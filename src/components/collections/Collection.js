@@ -6,14 +6,14 @@ import EditModal from 'components/utils/EditModal/EditModal'
 import deleteIcon from 'assets/svg/delete-icon.svg'
 import editSvg from 'assets/svg/edit.svg'
 import SharedButton from '../shared'
-import { selectLogo } from 'helpers'
+import { selectLogo, printRootDomain } from 'helpers'
+import { smartTruncate } from '../mixins'
 import { StyledCollections } from './StyledCollections'
-//TODO: Make selectLogo and selectRootUrl DRY
 
 const Collection = props => {
   const collections = props.collections
     .map(collection => (
-      <CollectionCard key={collection.id}>
+      <Card key={collection.id}>
         <a href={collection.post_url} target='_blank' rel='noopener noreferrer'>
           <img src={collection.thumbnail_url} alt='' />
         </a>
@@ -21,6 +21,7 @@ const Collection = props => {
           <div
             style={{
               display: 'flex',
+              justifyContent: 'space-between',
               flexDirection: 'column',
               height: '100%',
             }}
@@ -30,9 +31,9 @@ const Collection = props => {
               target='_blank'
               rel='noopener noreferrer'
             >
-              <h1>{props.handleTruncateText(collection.title, 80)}</h1>
+              <h1>{smartTruncate(collection.title, 80)}</h1>
             </a>
-            <p>{props.handleTruncateText(collection.description, 110)}</p>
+            <p>{smartTruncate(collection.description, 100)}</p>
             <a
               className='post-root-url'
               href={collection.post_url}
@@ -47,23 +48,7 @@ const Collection = props => {
                 }}
               >
                 {selectLogo(collection.post_url)}
-                <span style={{ marginLeft: '5px' }}>
-                  {collection.post_url.includes('book') && !collection.root_url
-                    ? 'google.com'
-                    : null}
-                </span>
-                <span style={{ marginLeft: '5px' }}>
-                  {collection.post_url.includes('youtube') &&
-                  !collection.root_url
-                    ? 'youtube.com'
-                    : null}
-                </span>
-
-                {collection.root_url ? (
-                  <span style={{ marginLeft: '0px' }}>
-                    {collection.root_url}
-                  </span>
-                ) : null}
+                {printRootDomain(collection.root_url)}
               </div>
             </a>
           </div>
@@ -96,7 +81,7 @@ const Collection = props => {
             />
           </div>
         </div>
-      </CollectionCard>
+      </Card>
     ))
     .reverse()
 
@@ -119,7 +104,6 @@ export default Collection
 const Wrapper = styled.div`
   padding: 0px 6px 0px;
 `
-
-const CollectionCard = styled.div`
+const Card = styled.div`
   ${StyledCollections};
 `

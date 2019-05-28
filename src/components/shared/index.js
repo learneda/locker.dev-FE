@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+// import React, { Component } from 'react'
+import React, { useState } from 'react'
 import ReusablePortal from '../utils/ModalPortal'
 import { connect } from 'react-redux'
 import { shareCollection } from 'actions/index'
@@ -6,127 +7,108 @@ import { StyledAddLink } from '../utils/StyledAddLink.js'
 import styled from 'styled-components'
 import { ReactComponent as X } from 'assets/svg/x.svg'
 import shareSvg from 'assets/svg/share.svg'
-import { withAlert } from 'react-alert'
+import { useAlert } from 'react-alert'
+import useLockBodyScroll from 'components/hooks/useLockBodyScroll'
 
-class SharedButton extends Component {
-  constructor(props) {
-    super(props)
-    const { post_url, description, title, thumbnail_url } = this.props.bookmark
-    this.state = {
-      on: false,
-      description: description,
-      post_url,
-      title,
-      thumbnail_url,
-      userThoughts: '',
-    }
+const SharedButton = props => {
+  useLockBodyScroll()
+  const { bookmark } = props
+  const alert = useAlert()
+  const [title, setTitle] = useState(bookmark.title)
+  const [description, setDescription] = useState(bookmark.description)
+  const [post_url, setPostUrl] = useState(bookmark.post_url)
+  const [user_thoughts, setUserThoughts] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const toggle = () => {
+    setIsModalOpen(prevIsModalOpen => !prevIsModalOpen)
   }
 
-  toggle = () => {
-    this.setState({
-      on: !this.state.on,
-    })
-  }
-
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value })
-  }
-
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault()
-    // console.log('submitting ...', this.props.bookmark.id);
-    const id = this.props.bookmark.id
-
+    const { id } = bookmark
     const editedPost = {
-      post_url: this.state.post_url,
-      description: this.state.description,
-      title: this.state.title,
-      user_thoughts: this.state.userThoughts,
+      id,
+      title,
+      description,
+      post_url,
+      user_thoughts,
       shared: true,
-      id: id,
     }
 
-    this.props.shareCollection(editedPost).then(res => {
-      this.props.alert.success('Post shared to Feed')
-      this.setState({ on: false })
+    props.shareCollection(editedPost).then(res => {
+      alert.success('Post shared to Feed')
+      setIsModalOpen(false)
     })
   }
 
-  render() {
-    return (
-      <div>
-        <div className='share-to-feed' onClick={this.toggle}>
-          <img src={shareSvg} alt='Share to feed' />
-          <span>Share</span>
-        </div>
-        {this.state.on && (
-          <ReusablePortal>
-            <MODALWRAPPER className='modal-wrapper' onClick={this.toggle}>
-              <div className='modal_' onClick={e => e.stopPropagation()}>
-                <div className='top'>
-                  <div className='modal_name'>Share Collection</div>
-                  <div className='modal_close' onClick={this.toggle}>
-                    <X />
-                  </div>
-                </div>
-                <div className='modal_group'>
-                  <form onSubmit={this.handleSubmit} className='add_link_form'>
-                    <label htmlFor='Post Url'>Title</label>
-                    <input
-                      name='title'
-                      id='post-description'
-                      value={this.state.title}
-                      onChange={this.handleChange}
-                    />
-                    <label htmlFor='Post Url'>Url</label>
-                    <input
-                      name='post_url'
-                      id='post-description'
-                      value={this.state.post_url}
-                      onChange={this.handleChange}
-                    />
-                    <label htmlFor='Post Description'>Description</label>
-                    <textarea
-                      name='description'
-                      id='post-description'
-                      rows='7'
-                      value={this.state.description}
-                      onChange={this.handleChange}
-                    />
-                    <label htmlFor='Post Description'>
-                      Add your thoughts to this post
-                    </label>
-                    <textarea
-                      name='userThoughts'
-                      id='post-description'
-                      rows='7'
-                      value={this.state.userThoughts}
-                      onChange={this.handleChange}
-                    />
-                    <input
-                      type='submit'
-                      id='edit-submit'
-                      value='SHARE!'
-                    />
-                  </form>
+  return (
+    <div>
+      <div className='share-to-feed' onClick={toggle}>
+        <img src={shareSvg} alt='Share to feed' />
+        <span>Share</span>
+      </div>
+      {isModalOpen && (
+        <ReusablePortal>
+          <ModalWrapper className='modal-wrapper' onClick={toggle}>
+            <div className='modal_' onClick={e => e.stopPropagation()}>
+              <div className='top'>
+                <div className='modal_name'>Share Collection</div>
+                <div className='modal_close' onClick={toggle}>
+                  <X />
                 </div>
               </div>
-            </MODALWRAPPER>
-          </ReusablePortal>
-        )}
-      </div>
-    )
-  }
+              <div className='modal_group'>
+                <form onSubmit={handleSubmit} className='add_link_form'>
+                  <label htmlFor='Post Url'>Title</label>
+                  <input
+                    name='title'
+                    id='post-description'
+                    value={title}
+                    onChange={e => setTitle(e.target.value)}
+                  />
+                  <label htmlFor='Post Url'>Url</label>
+                  <input
+                    name='post_url'
+                    id='post-description'
+                    value={post_url}
+                    onChange={e => setPostUrl(e.target.value)}
+                  />
+                  <label htmlFor='Post Description'>Description</label>
+                  <textarea
+                    name='description'
+                    id='post-description'
+                    rows='7'
+                    value={description}
+                    onChange={e => setDescription(e.target.value)}
+                  />
+                  <label htmlFor='Post Description'>
+                    Add your thoughts to this post
+                  </label>
+                  <textarea
+                    name='userThoughts'
+                    id='post-description'
+                    rows='7'
+                    value={user_thoughts}
+                    onChange={e => setUserThoughts(e.target.value)}
+                  />
+                  <input type='submit' id='edit-submit' value='SHARE!' />
+                </form>
+              </div>
+            </div>
+          </ModalWrapper>
+        </ReusablePortal>
+      )}
+    </div>
+  )
 }
-
-const Alert = withAlert()(SharedButton)
 
 export default connect(
   null,
   { shareCollection }
-)(Alert)
+)(SharedButton)
 
-const MODALWRAPPER = styled.div`
+const ModalWrapper = styled.div`
   ${StyledAddLink};
   overflow: auto;
   text-align: left;
