@@ -198,7 +198,7 @@ const Nav = styled.nav`
     ${customLayout('space-between')}
 
     li {
-      margin-right: 1.5rem;
+      margin-right: 1rem;
     }
 
     li:last-child {
@@ -245,7 +245,7 @@ const NavRight = styled.div`
   align-items: center;
   span {
     padding: 10px;
-    margin: 0 20px;
+    margin: 0 10px 0 5px;
     font-weight: 700;
     border: transparent;
     border-radius: 5px;
