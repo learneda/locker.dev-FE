@@ -6,6 +6,7 @@ import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
 import { useAlert } from 'react-alert'
 import { useThrottle } from 'use-throttle'
 import { customLayout, smartTruncate } from '../mixins'
+import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 
 const Books = props => {
   const {
@@ -44,76 +45,79 @@ const Books = props => {
   )
 
   const renderBooks = () => (
-    <InfiniteScroll
-      dataLength={books.length}
-      next={() => fetchBooks(searchTerm, bookOffset)}
-      hasMore={hasMore}
-      style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-      }}
-    >
-      {books.map((book, index) => {
-        return (
-          <Card key={index}>
-            <a href={book.link} target='_blank' rel='noopener noreferrer'>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  overflow: 'hidden',
-                  position: 'relative',
-                  alignItems: 'center',
-                }}
-              >
+    <>
+      <ScrollToTopOnMount />
+      <InfiniteScroll
+        dataLength={books.length}
+        next={() => fetchBooks(searchTerm, bookOffset)}
+        hasMore={hasMore}
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+        }}
+      >
+        {books.map((book, index) => {
+          return (
+            <Card key={index}>
+              <a href={book.link} target='_blank' rel='noopener noreferrer'>
                 <div
                   style={{
-                    height: '200px',
-                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
                     overflow: 'hidden',
                     position: 'relative',
-                    backgroundImage: `url(${book.thumbnail}`,
-                    backgroundRepeat: 'no-repeat',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    filter: `blur(1.5rem)`,
+                    alignItems: 'center',
+                  }}
+                >
+                  <div
+                    style={{
+                      height: '200px',
+                      width: '100%',
+                      overflow: 'hidden',
+                      position: 'relative',
+                      backgroundImage: `url(${book.thumbnail}`,
+                      backgroundRepeat: 'no-repeat',
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      filter: `blur(1.5rem)`,
+                    }}
+                  />
+                  <img
+                    style={{
+                      position: 'absolute',
+                      padding: '0px',
+                      top: '10px',
+                    }}
+                    alt={book.title}
+                    src={book.thumbnail}
+                  />
+                </div>
+                <h3 style={{ marginTop: '20px' }}>
+                  {smartTruncate(book.title, 75)}
+                </h3>
+                <p>{smartTruncate(book.description, 120)}</p>
+              </a>
+              <SaveIcon>
+                <Add
+                  className='save-icon'
+                  onClick={() => {
+                    handleSaveMedia({
+                      type: 'book',
+                      post_url: book.link,
+                      title: book.title,
+                      description: book.description,
+                      thumbnail_url: book.thumbnail,
+                    })
+                    alert.success('Book added to Collections')
                   }}
                 />
-                <img
-                  style={{
-                    position: 'absolute',
-                    padding: '0px',
-                    top: '10px',
-                  }}
-                  alt={book.title}
-                  src={book.thumbnail}
-                />
-              </div>
-              <h3 style={{ marginTop: '20px' }}>
-                {smartTruncate(book.title, 75)}
-              </h3>
-              <p>{smartTruncate(book.description, 120)}</p>
-            </a>
-            <SaveIcon>
-              <Add
-                className='save-icon'
-                onClick={() => {
-                  handleSaveMedia({
-                    type: 'book',
-                    post_url: book.link,
-                    title: book.title,
-                    description: book.description,
-                    thumbnail_url: book.thumbnail,
-                  })
-                  alert.success('Book added to Collections')
-                }}
-              />
-            </SaveIcon>
-          </Card>
-        )
-      })}
-    </InfiniteScroll>
+              </SaveIcon>
+            </Card>
+          )
+        })}
+      </InfiniteScroll>
+    </>
   )
   return <Cards>{isLoading ? renderLoader() : renderBooks()}</Cards>
 }

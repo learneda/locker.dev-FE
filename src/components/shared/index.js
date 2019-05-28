@@ -17,14 +17,14 @@ const SharedButton = props => {
   const [post_url, setPostUrl] = useState(bookmark.post_url)
   const [user_thoughts, setUserThoughts] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
-
+  //* Locks scroll on body and hides overflow when modal is open
   useEffect(() => {
     if (isModalOpen) {
       document.getElementById('body').setAttribute('style', 'overflow: hidden')
     } else {
       document.getElementById('body').setAttribute('style', 'overflow: auto')
     }
-  })
+  }, [isModalOpen])
 
   const toggle = () => {
     setIsModalOpen(prevIsModalOpen => !prevIsModalOpen)

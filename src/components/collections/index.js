@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import HelpScreen from '../utils/screens/HelpScreen'
 import BookmarkSVG from 'assets/svg/bookmark-drawing.svg'
 import Collection from './Collection'
+import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 
 const Collections = props => {
   const { searchTerm: search } = props
@@ -29,13 +30,16 @@ const Collections = props => {
       )
     })
     return (
-      <Collection
-        handleDelete={handleDelete}
-        collections={filteredCollections}
-        handleModalOpen={handleModalOpen}
-        modalOpen={isModalOpen}
-        editPost={isEditPost}
-      />
+      <>
+        <ScrollToTopOnMount />
+        <Collection
+          handleDelete={handleDelete}
+          collections={filteredCollections}
+          handleModalOpen={handleModalOpen}
+          modalOpen={isModalOpen}
+          editPost={isEditPost}
+        />
+      </>
     )
   }
 

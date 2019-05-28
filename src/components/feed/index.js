@@ -10,6 +10,7 @@ import PostContainer from './posts/index'
 import { StyledFeed } from './StyledFeed'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { ReactComponent as Loading } from 'assets/svg/circles.svg'
+import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 
 const MyLoader = () => (
   <ContentLoader
@@ -151,6 +152,7 @@ class Feed extends Component {
     if (this.props.posts.length) {
       return (
         <Container>
+          <ScrollToTopOnMount />
           <InfiniteScroll
             dataLength={this.props.posts.length}
             next={() => this.props.fetchMoreFeed(this.props.offset)}

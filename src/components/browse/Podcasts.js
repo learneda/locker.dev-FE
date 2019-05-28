@@ -6,6 +6,7 @@ import { ReactComponent as Add } from 'assets/svg/add-icon.svg'
 import { useAlert } from 'react-alert'
 import { useThrottle } from 'use-throttle'
 import { customLayout, smartTruncate } from '../mixins'
+import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 
 import he from 'he'
 
@@ -57,111 +58,116 @@ const Podcasts = props => {
   )
 
   const renderPodcasts = () => (
-    <InfiniteScroll
-      dataLength={podcasts.length}
-      next={() => fetchPodcasts(searchTerm, podcastOffset)}
-      hasMore={hasMore}
-      style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-      }}
-    >
-      {podcasts.map((podcast, index) => (
-        <Card key={podcast.id}>
-          <div>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                overflow: 'hidden',
-              }}
-            >
+    <>
+      <ScrollToTopOnMount />
+      <InfiniteScroll
+        dataLength={podcasts.length}
+        next={() => fetchPodcasts(searchTerm, podcastOffset)}
+        hasMore={hasMore}
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+        }}
+      >
+        {podcasts.map((podcast, index) => (
+          <Card key={podcast.id}>
+            <div>
               <div
                 style={{
-                  height: '190px',
-                  position: 'relative',
-                  backgroundImage: `url(${podcast.image})`,
-                  backgroundRepeat: 'no-repeat',
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  filter: `blur(1.5rem)`,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  overflow: 'hidden',
                 }}
-              />
-              {!isImage[index] ? (
-                <img
-                  onClick={() => handleClick(index)}
+              >
+                <div
                   style={{
-                    display: 'inline-block',
-                    width: '150px',
-                    height: '150px',
-                    alignSelf: 'center',
-                    justifySelf: 'center',
-                    position: 'absolute',
-                    top: '20px',
-                    cursor: 'pointer',
+                    height: '190px',
+                    position: 'relative',
+                    backgroundImage: `url(${podcast.image})`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    filter: `blur(1.5rem)`,
                   }}
-                  src={podcast.image}
-                  alt='youtube'
                 />
-              ) : (
-                <>
-                  <audio
-                    style={{
-                      display: 'inline-block',
-                      width: '80%',
-                      height: '50px',
-                      alignSelf: 'center',
-                      justifySelf: 'center',
-                      position: 'absolute',
-                      top: '30%',
-                    }}
-                    src={podcast.audio}
-                    controls
-                  >
-                    Your browser does not support the <code>audio</code>{' '}
-                    element.
-                  </audio>
-                  <button
+                {!isImage[index] ? (
+                  <img
                     onClick={() => handleClick(index)}
                     style={{
                       display: 'inline-block',
-                      width: '50px',
-                      height: '20px',
+                      width: '150px',
+                      height: '150px',
+                      alignSelf: 'center',
+                      justifySelf: 'center',
                       position: 'absolute',
                       top: '20px',
-                      right: '20px',
                       cursor: 'pointer',
                     }}
-                  >
-                    close
-                  </button>
-                </>
-              )}
+                    src={podcast.image}
+                    alt='youtube'
+                  />
+                ) : (
+                  <>
+                    <audio
+                      style={{
+                        display: 'inline-block',
+                        width: '80%',
+                        height: '50px',
+                        alignSelf: 'center',
+                        justifySelf: 'center',
+                        position: 'absolute',
+                        top: '30%',
+                      }}
+                      src={podcast.audio}
+                      controls
+                    >
+                      Your browser does not support the <code>audio</code>{' '}
+                      element.
+                    </audio>
+                    <button
+                      onClick={() => handleClick(index)}
+                      style={{
+                        display: 'inline-block',
+                        width: '50px',
+                        height: '20px',
+                        position: 'absolute',
+                        top: '20px',
+                        right: '20px',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      close
+                    </button>
+                  </>
+                )}
+              </div>
+              <a href={podcast.audio} target='_blank' rel='noopener noreferrer'>
+                <h3>{smartTruncate(podcast.title_original, 75)}</h3>
+              </a>
+              <p>
+                {smartTruncate(he.decode(podcast.description_original), 120)}
+              </p>
             </div>
-            <a href={podcast.audio} target='_blank' rel='noopener noreferrer'>
-              <h3>{smartTruncate(podcast.title_original, 75)}</h3>
-            </a>
-            <p>{smartTruncate(he.decode(podcast.description_original), 120)}</p>
-          </div>
-          <SaveIcon>
-            <Add
-              className='save-icon'
-              onClick={() => {
-                handleSaveMedia({
-                  type: 'podcast',
-                  post_url: podcast.audio,
-                  title: podcast.title_original,
-                  description: he.decode(podcast.description_original),
-                  thumbnail_url: podcast.image,
-                })
-                alert.success('Article added to Collections')
-              }}
-            />
-          </SaveIcon>
-        </Card>
-      ))}
-    </InfiniteScroll>
+            <SaveIcon>
+              <Add
+                className='save-icon'
+                onClick={() => {
+                  handleSaveMedia({
+                    type: 'podcast',
+                    post_url: podcast.audio,
+                    title: podcast.title_original,
+                    description: he.decode(podcast.description_original),
+                    thumbnail_url: podcast.image,
+                  })
+                  alert.success('Article added to Collections')
+                }}
+              />
+            </SaveIcon>
+          </Card>
+        ))}
+      </InfiniteScroll>
+    </>
   )
   return <Cards>{isLoading ? renderLoader() : renderPodcasts()}</Cards>
 }

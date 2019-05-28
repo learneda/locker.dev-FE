@@ -6,6 +6,7 @@ import { ReactComponent as Loading } from 'assets/svg/circles.svg'
 import { useAlert } from 'react-alert'
 import { useThrottle } from 'use-throttle'
 import { customLayout, smartTruncate } from 'components/mixins'
+import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 
 const Courses = props => {
   const {
@@ -44,44 +45,47 @@ const Courses = props => {
   )
 
   const renderCourses = () => (
-    <InfiniteScroll
-      dataLength={courses.length}
-      next={() => fetchCourses(searchTerm, coursePage)}
-      hasMore={hasMore}
-      style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-      }}
-      endMessage={
-        <div>
-          <b>No Articles Matched Search Criteria 🙁</b>
-        </div>
-      }
-    >
-      {courses.map((course, index) => (
-        <Card key={course.id + index}>
-          <a
-            href={`https://www.udemy.com${course.url}`}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <img src={course.image_480x270} alt='course-thumbnail' />
-            <h3>{smartTruncate(course.title, 80)}</h3>
-            <p>{smartTruncate(course.headline, 160)}</p>
-          </a>
-          <SaveIcon>
-            <Add
-              className='save-icon'
-              onClick={() => {
-                handleSaveLink(`https://www.udemy.com${course.url}`)
-                alert.success('Course added to Collections')
-              }}
-            />
-          </SaveIcon>
-        </Card>
-      ))}
-    </InfiniteScroll>
+    <>
+      <ScrollToTopOnMount />
+      <InfiniteScroll
+        dataLength={courses.length}
+        next={() => fetchCourses(searchTerm, coursePage)}
+        hasMore={hasMore}
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+        }}
+        endMessage={
+          <div>
+            <b>No Articles Matched Search Criteria 🙁</b>
+          </div>
+        }
+      >
+        {courses.map((course, index) => (
+          <Card key={course.id + index}>
+            <a
+              href={`https://www.udemy.com${course.url}`}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <img src={course.image_480x270} alt='course-thumbnail' />
+              <h3>{smartTruncate(course.title, 80)}</h3>
+              <p>{smartTruncate(course.headline, 160)}</p>
+            </a>
+            <SaveIcon>
+              <Add
+                className='save-icon'
+                onClick={() => {
+                  handleSaveLink(`https://www.udemy.com${course.url}`)
+                  alert.success('Course added to Collections')
+                }}
+              />
+            </SaveIcon>
+          </Card>
+        ))}
+      </InfiniteScroll>
+    </>
   )
   return <Cards>{isLoading ? renderLoader() : renderCourses()}</Cards>
 }

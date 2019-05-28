@@ -6,6 +6,7 @@ import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
 import { useAlert } from 'react-alert'
 import { useThrottle } from 'use-throttle'
 import { customLayout, smartTruncate } from '../mixins'
+import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 
 const Videos = props => {
   const {
@@ -48,87 +49,90 @@ const Videos = props => {
   )
 
   const renderVideos = () => (
-    <InfiniteScroll
-      dataLength={videos.length}
-      next={fetchMoreVideos}
-      hasMore={hasMore}
-      style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-      }}
-    >
-      {videos.map((video, index) => (
-        <Card key={video.id.videoId}>
-          <div
-            style={{
-              overflow: 'hidden',
-              paddingTop: '56.25%',
-              position: 'relative',
-              backgroundImage: `url(${video.snippet.thumbnails.medium.url})`,
-              backgroundRepeat: 'norepeat',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          >
-            {video.isThumbnail ? (
-              <img
-                onClick={() => showIframe(video.id.videoId)}
-                src={video.snippet.thumbnails.medium.url}
-                alt={video.title}
-              />
-            ) : (
-              <iframe
-                style={{
-                  border: '0px',
-                  height: '100%',
-                  left: '0px',
-                  position: 'absolute',
-                  top: '0px',
-                  width: '100%',
-                }}
-                frameBorder='0'
-                width='560'
-                height='315'
-                title={video.title}
-                src={`https://www.youtube.com/embed/${
-                  video.id.videoId
-                }?autoplay=1`}
-                allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-                allowFullScreen
-              />
-            )}
-          </div>
-          <a
-            href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <h3 style={{ marginTop: '20px' }}>
-              {smartTruncate(video.snippet.title, 75)}
-            </h3>
-            <p>{smartTruncate(video.snippet.description, 80)}</p>
-          </a>
-          <SaveIcon>
-            <Add
-              className='save-icon'
-              onClick={() => {
-                handleSaveMedia({
-                  type: 'video',
-                  post_url: `https://www.youtube.com/watch?v=${
-                    video.id.videoId
-                  }`,
-                  title: video.snippet.title,
-                  description: video.snippet.description,
-                  thumbnail_url: video.snippet.thumbnails.medium.url,
-                })
-                alert.success('Article added to Collections')
+    <>
+      <ScrollToTopOnMount />
+      <InfiniteScroll
+        dataLength={videos.length}
+        next={fetchMoreVideos}
+        hasMore={hasMore}
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+        }}
+      >
+        {videos.map((video, index) => (
+          <Card key={video.id.videoId}>
+            <div
+              style={{
+                overflow: 'hidden',
+                paddingTop: '56.25%',
+                position: 'relative',
+                backgroundImage: `url(${video.snippet.thumbnails.medium.url})`,
+                backgroundRepeat: 'norepeat',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
               }}
-            />
-          </SaveIcon>
-        </Card>
-      ))}
-    </InfiniteScroll>
+            >
+              {video.isThumbnail ? (
+                <img
+                  onClick={() => showIframe(video.id.videoId)}
+                  src={video.snippet.thumbnails.medium.url}
+                  alt={video.title}
+                />
+              ) : (
+                <iframe
+                  style={{
+                    border: '0px',
+                    height: '100%',
+                    left: '0px',
+                    position: 'absolute',
+                    top: '0px',
+                    width: '100%',
+                  }}
+                  frameBorder='0'
+                  width='560'
+                  height='315'
+                  title={video.title}
+                  src={`https://www.youtube.com/embed/${
+                    video.id.videoId
+                  }?autoplay=1`}
+                  allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+                  allowFullScreen
+                />
+              )}
+            </div>
+            <a
+              href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <h3 style={{ marginTop: '20px' }}>
+                {smartTruncate(video.snippet.title, 75)}
+              </h3>
+              <p>{smartTruncate(video.snippet.description, 80)}</p>
+            </a>
+            <SaveIcon>
+              <Add
+                className='save-icon'
+                onClick={() => {
+                  handleSaveMedia({
+                    type: 'video',
+                    post_url: `https://www.youtube.com/watch?v=${
+                      video.id.videoId
+                    }`,
+                    title: video.snippet.title,
+                    description: video.snippet.description,
+                    thumbnail_url: video.snippet.thumbnails.medium.url,
+                  })
+                  alert.success('Article added to Collections')
+                }}
+              />
+            </SaveIcon>
+          </Card>
+        ))}
+      </InfiniteScroll>
+    </>
   )
 
   return <Cards>{isLoading ? renderLoader() : renderVideos()}</Cards>
