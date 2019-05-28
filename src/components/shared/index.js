@@ -1,5 +1,5 @@
 // import React, { Component } from 'react'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReusablePortal from '../utils/ModalPortal'
 import { connect } from 'react-redux'
 import { shareCollection } from 'actions/index'
@@ -8,10 +8,8 @@ import styled from 'styled-components'
 import { ReactComponent as X } from 'assets/svg/x.svg'
 import shareSvg from 'assets/svg/share.svg'
 import { useAlert } from 'react-alert'
-import useLockBodyScroll from 'components/hooks/useLockBodyScroll'
 
 const SharedButton = props => {
-  useLockBodyScroll()
   const { bookmark } = props
   const alert = useAlert()
   const [title, setTitle] = useState(bookmark.title)
@@ -19,6 +17,14 @@ const SharedButton = props => {
   const [post_url, setPostUrl] = useState(bookmark.post_url)
   const [user_thoughts, setUserThoughts] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  useEffect(() => {
+    if (isModalOpen) {
+      document.getElementById('body').setAttribute('style', 'overflow: hidden')
+    } else {
+      document.getElementById('body').setAttribute('style', 'overflow: auto')
+    }
+  })
 
   const toggle = () => {
     setIsModalOpen(prevIsModalOpen => !prevIsModalOpen)
