@@ -7,8 +7,7 @@ import { Grommet, TextInput, TextArea } from 'grommet'
 import { editUser } from 'actions'
 import { apiURL } from 'services'
 import { customLayout, customWrapper } from 'components/mixins'
-import axios from 'axios'
-
+import axios from 'apis/axiosAPI'
 class ProfileSettings extends Component {
   constructor(props) {
     super(props)
@@ -72,9 +71,9 @@ class ProfileSettings extends Component {
         this.state.selectedFile,
         this.state.selectedFile.name
       )
-      axios.post(`${apiURL}/images`, fd).then(res => {
+      axios.post(`/images`, fd).then(res => {
         if (res.data.success) {
-          axios.get(`${apiURL}/images`).then(res => {
+          axios.get(`/images`).then(res => {
             if (res.data.length > 0) {
               this.setState({ profile_pic: `${res.data[0].profile_picture}` })
             }
@@ -85,7 +84,7 @@ class ProfileSettings extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${apiURL}/images`).then(res => {
+    axios.get(`/images`).then(res => {
       if (res.data.length > 0) {
         this.setState({ profile_pic: `${res.data[0].profile_picture}` })
       }
