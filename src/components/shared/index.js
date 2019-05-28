@@ -119,16 +119,18 @@ const ModalWrapper = styled.div`
   overflow: auto;
   text-align: left;
   z-index: 20;
-
   .modal_ {
     /* margin-top: 2%; */
-    margin: 80px auto;
+    position: absolute;
+    position: relative;
+    top: 3%;
+    margin: 0 auto;
     border-radius: 15px;
     max-width: 700px;
     width: 90%;
     @media (max-width: 650px) {
       border-radius: 8px;
-      margin: 60px auto;
+      margin: 0 auto;
     }
   }
   .top {
