@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 
-function MyDropzone() {
+function MyDropzone(props) {
   const onDrop = useCallback(acceptedFiles => {
     console.log(acceptedFiles)
     // Do something with the files
@@ -9,7 +9,14 @@ function MyDropzone() {
   const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
   return (
-    <div style={{ border: '2px solid red' }} {...getRootProps()}>
+    <div
+      style={{
+        border: '2px solid red',
+        height: '300px',
+        backgroundImage: `url(${props.backgroundPicture})`,
+      }}
+      {...getRootProps()}
+    >
       <input {...getInputProps()} />
       {true ? (
         <p>Drop the files here ...</p>

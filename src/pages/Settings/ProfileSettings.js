@@ -8,6 +8,7 @@ import { editUser } from 'actions'
 import { apiURL } from 'services'
 import { customLayout, customWrapper } from 'components/mixins'
 import axios from 'apis/axiosAPI'
+import Dropzone from './Dropzone'
 class ProfileSettings extends Component {
   constructor(props) {
     super(props)
@@ -170,7 +171,7 @@ class ProfileSettings extends Component {
                   </label>
                   <label>
                     Profile Picture
-                    <img
+                    {/* <img
                       style={{
                         width: '200px',
                         display: 'block',
@@ -178,7 +179,8 @@ class ProfileSettings extends Component {
                       }}
                       src={this.state.profile_pic}
                       alt='user_upload_picture'
-                    />
+                    /> */}
+                    <Dropzone backgroundPicture={this.state.profile_pic} />
                     <input
                       onChange={e => this.handleFileSelection(e)}
                       type='file'
