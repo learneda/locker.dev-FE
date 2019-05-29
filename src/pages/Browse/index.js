@@ -60,21 +60,17 @@ const Browse = props => {
     }
   }, [])
 
-  const handleSaveLink = url => {
-    if (auth) {
-      createCollection({
-        post_url: url,
-      })
-    }
+  const handleSaveLink = (url, type) => {
+    createCollection({
+      post_url: url,
+      type,
+    })
   }
 
   const handleSaveMedia = media => {
-    if (auth) {
-      createCollection({
-        ...media,
-        user_id: auth.id,
-      })
-    }
+    createCollection({
+      ...media,
+    })
   }
 
   return (
