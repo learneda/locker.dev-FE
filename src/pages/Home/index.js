@@ -92,7 +92,7 @@ const Home = props => {
             <NavLink to={`${match.url}/collections`}>Collections</NavLink>
           </Tab>
           <Tab>
-            <NavLink to={`${match.url}/locker`}>Locker(α)</NavLink>
+            <NavLink to={`${match.url}/locker`}>Locker(βeta)</NavLink>
           </Tab>
         </Tabs>
         <RouteWrapper>
