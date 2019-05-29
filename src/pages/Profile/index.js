@@ -76,12 +76,12 @@ const ProfilePage = props => {
           <Tab>
             <NavLink
               exact
-              to={`${match.url}/collections`}
+              to={`${match.url}/saved`}
               className={
                 props.location.pathname === `/profile/${id}` ? 'active' : null
               }
             >
-              Collections
+              Saved
             </NavLink>
           </Tab>
           <Tab>
@@ -95,7 +95,7 @@ const ProfilePage = props => {
           <Switch>
             <Route
               exact
-              path={[`${match.path}`, `${match.path}/collections`]}
+              path={[`${match.path}`, `${match.path}/saved`]}
               render={props => (
                 <OtherCollections
                   {...props}

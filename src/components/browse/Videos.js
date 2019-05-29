@@ -125,7 +125,7 @@ const Videos = props => {
                     description: video.snippet.description,
                     thumbnail_url: video.snippet.thumbnails.medium.url,
                   })
-                  alert.success('Article added to Collections')
+                  alert.success('Article added to Saved')
                 }}
               />
             </SaveIcon>

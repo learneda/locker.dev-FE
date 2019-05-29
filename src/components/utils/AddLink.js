@@ -47,7 +47,7 @@ class AddLink extends Component {
         .then(res => {
           // console.log('response from createCollection ==>', res)
           if (res.msg === 'success') {
-            this.props.alert.success('Link added to Collections')
+            this.props.alert.success('Link added to Saved')
           } else if (res.msg === 'whoops!') {
             this.props.alert.error('whoops, unable to add')
           }

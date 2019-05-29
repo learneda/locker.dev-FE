@@ -78,7 +78,7 @@ const Courses = props => {
                 className='save-icon'
                 onClick={() => {
                   handleSaveLink(`https://www.udemy.com${course.url}`)
-                  alert.success('Course added to Collections')
+                  alert.success('Course added to Saved')
                 }}
               />
             </SaveIcon>

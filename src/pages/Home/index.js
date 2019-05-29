@@ -89,7 +89,7 @@ const Home = props => {
             </NavLink>
           </Tab>
           <Tab>
-            <NavLink to={`${match.url}/collections`}>Collections</NavLink>
+            <NavLink to={`${match.url}/saved`}>Saved</NavLink>
           </Tab>
           <Tab>
             <NavLink to={`${match.url}/locker`}>Locker(βeta)</NavLink>
@@ -120,7 +120,7 @@ const Home = props => {
               )}
             />
             <Route
-              path={`${match.path}/collections`}
+              path={`${match.path}/saved`}
               render={props => (
                 <Collections
                   {...props}

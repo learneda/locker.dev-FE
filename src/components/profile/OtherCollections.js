@@ -30,7 +30,7 @@ class OtherCollections extends Component {
       post_url: url,
       id: this.props.auth.id,
     }
-    this.props.alert.success('Post added to Collections')
+    this.props.alert.success('Post added to Saved')
     // create new collection
     this.props.createCollection(post).then(async result => {
       // saves post id to users account to keep track of saved posts toggle
@@ -90,7 +90,7 @@ class OtherCollections extends Component {
               {post.saved_to_profile ? (
                 <div className='save-to-profile'>
                   <img src={check} className='add-icon' alt='' />
-                  <span className='rec-span'>Saved to Collections</span>
+                  <span className='rec-span'>✅ Saved</span>
                 </div>
               ) : (
                 <div
@@ -98,7 +98,7 @@ class OtherCollections extends Component {
                   onClick={() => this.handleSave(post.post_url, post.id)}
                 >
                   <img src={plusIcon} className='add-icon' alt='' />
-                  <span className='rec-span'>Save to Collections</span>
+                  <span className='rec-span'>Add to Saved</span>
                 </div>
               )}
             </div>

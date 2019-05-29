@@ -40,9 +40,9 @@ class Sidebar extends Component {
             <div className='user-bio'>
               <h3>{this.props.user.displayName}</h3>
               <div className='profile-stats'>
-                <Link to='/home/collections'>
+                <Link to='/home/saved'>
                   <ul>
-                    <li>Posts</li>
+                    <li>Saved</li>
                     <li>{this.props.collections.length}</li>
                   </ul>
                 </Link>

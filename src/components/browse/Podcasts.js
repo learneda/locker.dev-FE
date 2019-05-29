@@ -160,7 +160,7 @@ const Podcasts = props => {
                     description: he.decode(podcast.description_original),
                     thumbnail_url: podcast.image,
                   })
-                  alert.success('Article added to Collections')
+                  alert.success('Article added to Saved')
                 }}
               />
             </SaveIcon>

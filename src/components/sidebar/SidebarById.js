@@ -103,7 +103,7 @@ class SidebarById extends Component {
             <div className='profile-stats'>
               <Link to={`/profile/${profileId}`}>
                 <ul>
-                  <li>Posts</li>
+                  <li>Saved</li>
                   <li>{this.props.collectionsCount}</li>
                 </ul>
               </Link>

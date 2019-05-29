@@ -109,7 +109,7 @@ const Books = props => {
                       description: book.description,
                       thumbnail_url: book.thumbnail,
                     })
-                    alert.success('Book added to Collections')
+                    alert.success('Book added to Saved')
                   }}
                 />
               </SaveIcon>
