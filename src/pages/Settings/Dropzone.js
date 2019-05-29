@@ -5,6 +5,7 @@ function MyDropzone(props) {
   const onDrop = useCallback(acceptedFiles => {
     console.log(acceptedFiles)
     // Do something with the files
+    props.handleDropZone(acceptedFiles[0])
   }, [])
   const { getRootProps, getInputProps } = useDropzone({ onDrop })
 

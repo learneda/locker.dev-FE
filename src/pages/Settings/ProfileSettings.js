@@ -56,15 +56,32 @@ class ProfileSettings extends Component {
         file === 'image/png' ||
         file === 'image/gif'
       ) {
-        this.setState({ selectedFile: e.target.files[0] })
+        this.setState({ profile_pic: e.target.files[0] })
       } else {
         alert('Only JPEG, PNG, or GIF file types allowed')
       }
     }
   }
 
+  handleDropZone = file => {
+    if (
+      file.type === 'image/jpeg' ||
+      file.type === 'image/png' ||
+      file.type === 'image/gif'
+    ) {
+      console.log('setting selectedFile state')
+      this.setState({ selectedFile: file }, () => {
+        console.log('handleFileUpload fired !!', this.state.selectedFile)
+        this.handleFileUpload()
+      })
+    } else {
+      alert('Only JPEG, PNG, or GIF file types allowed')
+    }
+  }
+
   handleFileUpload = e => {
-    e.preventDefault()
+    // e.preventDefault()
+    console.log('in the fired func !', this.state.selectedFile)
     if (this.state.selectedFile) {
       const fd = new FormData()
       fd.append(
@@ -180,7 +197,10 @@ class ProfileSettings extends Component {
                       src={this.state.profile_pic}
                       alt='user_upload_picture'
                     /> */}
-                    <Dropzone backgroundPicture={this.state.profile_pic} />
+                    <Dropzone
+                      backgroundPicture={this.state.profile_pic}
+                      handleDropZone={this.handleDropZone}
+                    />
                     <input
                       onChange={e => this.handleFileSelection(e)}
                       type='file'
