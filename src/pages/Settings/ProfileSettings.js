@@ -11,6 +11,7 @@ import axios from 'apis/axiosAPI'
 class ProfileSettings extends Component {
   constructor(props) {
     super(props)
+    // if any prop value is null, use an empty string so value on input wont be null
     this.state = {
       displayName: this.props.user.displayName,
       username: this.props.user.username || '',
@@ -21,9 +22,10 @@ class ProfileSettings extends Component {
       selectedFile: '',
       profile_pic: '',
     }
+    // create a ref to access src & replace with new profile pic selection
     this.image = React.createRef()
   }
-
+  //* launches onSubmitting of page form
   editProfileHandler = (e, id) => {
     e.preventDefault()
     const {
@@ -42,22 +44,28 @@ class ProfileSettings extends Component {
       websiteUrl,
       email,
     })
-    this.handleFileUpload()
+    // calls func to handle profile change if a new file has been selected
+    // selectedFile default value is falsey until user selects file
+    if (this.state.selectedFile) {
+      this.handleFileUpload()
+    }
   }
 
   handleInputChange = e => this.setState({ [e.target.name]: e.target.value })
 
+  // invokes when user selects picture NOT thru dropzone
   handleFileSelection = e => {
     e.preventDefault()
     if (e.target.files[0]) {
       const file = e.target.files[0].type
 
       if (
-        file === 'image/jpeg' ||
-        file === 'image/png' ||
-        file === 'image/gif'
+        file.startsWith('image/')
       ) {
+        // set state on selected file
         this.setState({ selectedFile: e.target.files[0] })
+        // read more on => 
+        // https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Showing_thumbnails_of_user-selected_images
         const reader = new FileReader()
 
         reader.onload = (function(aImg) {
@@ -74,13 +82,12 @@ class ProfileSettings extends Component {
       }
     }
   }
-
+// invokes when user drops a file on dropzone
   handleDropZone = file => {
     if (
-      file.type === 'image/jpeg' ||
-      file.type === 'image/png' ||
-      file.type === 'image/gif'
+      file.type.startsWith('image/')
     ) {
+      // set state on selected file
       this.setState({ selectedFile: file })
       const reader = new FileReader()
 
@@ -96,9 +103,7 @@ class ProfileSettings extends Component {
     }
   }
 
-  handleFileUpload = e => {
-    // e.preventDefault()
-    console.log('in the fired func !', this.state.selectedFile)
+  handleFileUpload = () => {
     if (this.state.selectedFile) {
       const fd = new FormData()
       fd.append(
@@ -128,22 +133,20 @@ class ProfileSettings extends Component {
       }
     })
   }
-  dragEnter = e => {
+  handleDragEvent = e => {
     e.stopPropagation()
     e.preventDefault()
   }
-  dragOver = e => {
-    e.stopPropagation()
-    e.preventDefault()
-  }
-  drop = e => {
+
+  handleDrop = e => {
+    // read more on 
+    // https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Showing_thumbnails_of_user-selected_images
     e.stopPropagation()
     e.preventDefault()
 
     const dt = e.dataTransfer
     const files = dt.files
 
-    console.log(files[0])
     this.handleDropZone(files[0])
   }
   render() {
@@ -233,26 +236,16 @@ class ProfileSettings extends Component {
                       }}
                       ref={this.image}
                       src={this.state.profile_pic}
-                      onDragEnter={this.dragEnter}
-                      onDragOver={this.dragOver}
-                      onDrop={this.drop}
+                      onDragEnter={this.handleDragEvent}
+                      onDragOver={this.handleDragEvent}
+                      onDrop={this.handleDrop}
                       alt='user_upload_picture'
                     />
-                    {/* <Dropzone
-                      backgroundPicture={this.state.profile_pic}
-                      handleDropZone={this.handleDropZone}
-                    /> */}
                     <input
                       onChange={e => this.handleFileSelection(e)}
                       type='file'
                       name='profile_pic'
                     />
-                    {/* <button
-                      onClick={e => this.handleFileUpload(e)}
-                      type='submit'
-                    >
-                      Submit
-                    </button> */}
                   </label>
                 </div>
               </div>
