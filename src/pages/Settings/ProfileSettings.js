@@ -8,20 +8,20 @@ import { editUser } from 'actions'
 import { apiURL } from 'services'
 import { customLayout, customWrapper } from 'components/mixins'
 import axios from 'apis/axiosAPI'
-import Dropzone from './Dropzone'
 class ProfileSettings extends Component {
   constructor(props) {
     super(props)
     this.state = {
       displayName: this.props.user.displayName,
-      username: this.props.user.username,
-      bio: this.props.user.bio,
-      location: this.props.user.location,
-      websiteUrl: this.props.user.websiteUrl,
-      email: this.props.user.email,
-      selectedFile: null,
-      profile_pic: null,
+      username: this.props.user.username || '',
+      bio: this.props.user.bio || '',
+      location: this.props.user.location || '',
+      websiteUrl: this.props.user.websiteUrl || '',
+      email: this.props.user.email || '',
+      selectedFile: '',
+      profile_pic: '',
     }
+    this.image = React.createRef()
   }
 
   editProfileHandler = (e, id) => {
@@ -42,6 +42,7 @@ class ProfileSettings extends Component {
       websiteUrl,
       email,
     })
+    this.handleFileUpload()
   }
 
   handleInputChange = e => this.setState({ [e.target.name]: e.target.value })
@@ -56,7 +57,18 @@ class ProfileSettings extends Component {
         file === 'image/png' ||
         file === 'image/gif'
       ) {
-        this.setState({ profile_pic: e.target.files[0] })
+        this.setState({ selectedFile: e.target.files[0] })
+        const reader = new FileReader()
+
+        reader.onload = (function(aImg) {
+          return function(e) {
+            aImg.src = e.target.result
+          }
+        })(this.image.current)
+
+        reader.readAsDataURL(e.target.files[0])
+
+        // console.log(this.image.current.src)
       } else {
         alert('Only JPEG, PNG, or GIF file types allowed')
       }
@@ -69,11 +81,16 @@ class ProfileSettings extends Component {
       file.type === 'image/png' ||
       file.type === 'image/gif'
     ) {
-      console.log('setting selectedFile state')
-      this.setState({ selectedFile: file }, () => {
-        console.log('handleFileUpload fired !!', this.state.selectedFile)
-        this.handleFileUpload()
-      })
+      this.setState({ selectedFile: file })
+      const reader = new FileReader()
+
+      reader.onload = (function(aImg) {
+        return function(e) {
+          aImg.src = e.target.result
+        }
+      })(this.image.current)
+
+      reader.readAsDataURL(file)
     } else {
       alert('Only JPEG, PNG, or GIF file types allowed')
     }
@@ -94,6 +111,9 @@ class ProfileSettings extends Component {
           axios.get(`/images`).then(res => {
             if (res.data.length > 0) {
               this.setState({ profile_pic: `${res.data[0].profile_picture}` })
+              this.props.editUser(this.props.auth.id, {
+                profile_picture: res.data[0].profile_picture,
+              })
             }
           })
         }
@@ -107,6 +127,24 @@ class ProfileSettings extends Component {
         this.setState({ profile_pic: `${res.data[0].profile_picture}` })
       }
     })
+  }
+  dragEnter = e => {
+    e.stopPropagation()
+    e.preventDefault()
+  }
+  dragOver = e => {
+    e.stopPropagation()
+    e.preventDefault()
+  }
+  drop = e => {
+    e.stopPropagation()
+    e.preventDefault()
+
+    const dt = e.dataTransfer
+    const files = dt.files
+
+    console.log(files[0])
+    this.handleDropZone(files[0])
   }
   render() {
     return (
@@ -137,7 +175,6 @@ class ProfileSettings extends Component {
                       placeholder='email address'
                       value={this.state.email}
                       name='email'
-                      required
                     />
                   </label>
                   <label>
@@ -188,30 +225,34 @@ class ProfileSettings extends Component {
                   </label>
                   <label>
                     Profile Picture
-                    {/* <img
+                    <img
                       style={{
                         width: '200px',
                         display: 'block',
                         margin: '10px auto',
                       }}
+                      ref={this.image}
                       src={this.state.profile_pic}
+                      onDragEnter={this.dragEnter}
+                      onDragOver={this.dragOver}
+                      onDrop={this.drop}
                       alt='user_upload_picture'
-                    /> */}
-                    <Dropzone
+                    />
+                    {/* <Dropzone
                       backgroundPicture={this.state.profile_pic}
                       handleDropZone={this.handleDropZone}
-                    />
+                    /> */}
                     <input
                       onChange={e => this.handleFileSelection(e)}
                       type='file'
                       name='profile_pic'
                     />
-                    <button
+                    {/* <button
                       onClick={e => this.handleFileUpload(e)}
                       type='submit'
                     >
                       Submit
-                    </button>
+                    </button> */}
                   </label>
                 </div>
               </div>
