@@ -79,7 +79,7 @@ const Articles = props => {
               <Add
                 className='save-icon'
                 onClick={() => {
-                  handleSaveLink(article.url, 'articles')
+                  handleSaveLink(article.url, 'article')
                   alert.success('Article added to Saved')
                 }}
               />

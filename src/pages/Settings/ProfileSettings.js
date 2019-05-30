@@ -11,18 +11,21 @@ import axios from 'apis/axiosAPI'
 class ProfileSettings extends Component {
   constructor(props) {
     super(props)
+    // if any prop value is null, use an empty string so value on input wont be null
     this.state = {
       displayName: this.props.user.displayName,
-      username: this.props.user.username,
-      bio: this.props.user.bio,
-      location: this.props.user.location,
-      websiteUrl: this.props.user.websiteUrl,
-      email: this.props.user.email,
-      selectedFile: null,
-      profile_pic: null,
+      username: this.props.user.username || '',
+      bio: this.props.user.bio || '',
+      location: this.props.user.location || '',
+      websiteUrl: this.props.user.websiteUrl || '',
+      email: this.props.user.email || '',
+      selectedFile: '',
+      profile_pic: '',
     }
+    // create a ref to access src & replace with new profile pic selection
+    this.image = React.createRef()
   }
-
+  //* launches onSubmitting of page form
   editProfileHandler = (e, id) => {
     e.preventDefault()
     const {
@@ -41,29 +44,66 @@ class ProfileSettings extends Component {
       websiteUrl,
       email,
     })
+    // calls func to handle profile change if a new file has been selected
+    // selectedFile default value is falsey until user selects file
+    if (this.state.selectedFile) {
+      this.handleFileUpload()
+    }
   }
 
   handleInputChange = e => this.setState({ [e.target.name]: e.target.value })
 
+  // invokes when user selects picture NOT thru dropzone
   handleFileSelection = e => {
     e.preventDefault()
     if (e.target.files[0]) {
       const file = e.target.files[0].type
 
       if (
-        file === 'image/jpeg' ||
-        file === 'image/png' ||
-        file === 'image/gif'
+        file.startsWith('image/')
       ) {
+        // set state on selected file
         this.setState({ selectedFile: e.target.files[0] })
+        // read more on => 
+        // https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Showing_thumbnails_of_user-selected_images
+        const reader = new FileReader()
+
+        reader.onload = (function(aImg) {
+          return function(e) {
+            aImg.src = e.target.result
+          }
+        })(this.image.current)
+
+        reader.readAsDataURL(e.target.files[0])
+
+        // console.log(this.image.current.src)
       } else {
         alert('Only JPEG, PNG, or GIF file types allowed')
       }
     }
   }
+// invokes when user drops a file on dropzone
+  handleDropZone = file => {
+    if (
+      file.type.startsWith('image/')
+    ) {
+      // set state on selected file
+      this.setState({ selectedFile: file })
+      const reader = new FileReader()
 
-  handleFileUpload = e => {
-    e.preventDefault()
+      reader.onload = (function(aImg) {
+        return function(e) {
+          aImg.src = e.target.result
+        }
+      })(this.image.current)
+
+      reader.readAsDataURL(file)
+    } else {
+      alert('Only JPEG, PNG, or GIF file types allowed')
+    }
+  }
+
+  handleFileUpload = () => {
     if (this.state.selectedFile) {
       const fd = new FormData()
       fd.append(
@@ -76,6 +116,9 @@ class ProfileSettings extends Component {
           axios.get(`/images`).then(res => {
             if (res.data.length > 0) {
               this.setState({ profile_pic: `${res.data[0].profile_picture}` })
+              this.props.editUser(this.props.auth.id, {
+                profile_picture: res.data[0].profile_picture,
+              })
             }
           })
         }
@@ -89,6 +132,22 @@ class ProfileSettings extends Component {
         this.setState({ profile_pic: `${res.data[0].profile_picture}` })
       }
     })
+  }
+  handleDragEvent = e => {
+    e.stopPropagation()
+    e.preventDefault()
+  }
+
+  handleDrop = e => {
+    // read more on 
+    // https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Showing_thumbnails_of_user-selected_images
+    e.stopPropagation()
+    e.preventDefault()
+
+    const dt = e.dataTransfer
+    const files = dt.files
+
+    this.handleDropZone(files[0])
   }
   render() {
     return (
@@ -119,7 +178,6 @@ class ProfileSettings extends Component {
                       placeholder='email address'
                       value={this.state.email}
                       name='email'
-                      required
                     />
                   </label>
                   <label>
@@ -176,7 +234,11 @@ class ProfileSettings extends Component {
                         display: 'block',
                         margin: '10px auto',
                       }}
+                      ref={this.image}
                       src={this.state.profile_pic}
+                      onDragEnter={this.handleDragEvent}
+                      onDragOver={this.handleDragEvent}
+                      onDrop={this.handleDrop}
                       alt='user_upload_picture'
                     />
                     <input
@@ -184,12 +246,6 @@ class ProfileSettings extends Component {
                       type='file'
                       name='profile_pic'
                     />
-                    <button
-                      onClick={e => this.handleFileUpload(e)}
-                      type='submit'
-                    >
-                      Submit
-                    </button>
                   </label>
                 </div>
               </div>

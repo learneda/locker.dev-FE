@@ -6,7 +6,7 @@ class SinglePost extends Component {
   componentDidMount() {
     // console.log(this.props);
     axios.get(`/posts/shared/${this.props.match.params.id}`).then(res => {
-      // console.log(res.data);
+      console.log(res.data)
     })
   }
 
