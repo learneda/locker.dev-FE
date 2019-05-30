@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import Sidebar from 'components/sidebar/Sidebar'
-import Notifications from 'components/notifications'
+import Notifications from './Notifications'
 import { customWrapper } from 'components/mixins'
 import { fetchUser } from 'actions'
 import * as socialActions from 'actions/socialActions'
-import * as notificationActions from 'actions/notificationActions'
+import * as notificationActions from './notificationActions'
 
 const NotificationsPage = props => {
   const {

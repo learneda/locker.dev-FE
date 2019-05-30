@@ -1,4 +1,4 @@
-import * as type from 'actions/notificationTypes'
+import * as type from 'pages/Notifications/notificationTypes'
 
 export const notificationsReducer = (state = [], action) => {
   switch (action.type) {

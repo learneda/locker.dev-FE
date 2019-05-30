@@ -14,7 +14,7 @@ import {
   deleteCollection,
   createCollection,
 } from 'actions'
-import { fetchNotifications } from 'actions/notificationActions'
+import { fetchNotifications } from '../Notifications/notificationActions'
 import * as socialActions from 'actions/socialActions'
 import * as homeActions from './homeActions'
 const Home = props => {

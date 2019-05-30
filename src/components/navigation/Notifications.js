@@ -3,7 +3,7 @@ import bellIcon from 'assets/svg/bell.svg'
 import { connect } from 'react-redux'
 import ModalPortal from '../utils/ModalPortal'
 import { Link } from 'react-router-dom'
-import * as notificationActions from 'actions/notificationActions'
+import * as notificationActions from 'pages/Notifications/notificationActions'
 import styled from 'styled-components'
 class Notifications extends Component {
   constructor() {
