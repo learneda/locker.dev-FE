@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import ContentLoader from 'react-content-loader'
 import styled from 'styled-components'
 
-import {
-  fetchUser,
-  fetchSuggested,
-  fetchFollowing,
-  followAUser,
-} from '../../actions'
+import { fetchUser, fetchSuggested, fetchFollowing, followAUser } from 'actions'
 
 const MyLoader = () => (
   <ContentLoader

@@ -8,7 +8,7 @@ import { StyledCollections } from '../collections/StyledCollections'
 import { customWrapper, truncateText } from '../mixins'
 import NoPostScreen from '../utils/screens/NoPostScreen'
 import { apiURL } from 'services'
-import { fetchCollections, deleteCollection, setSearchTerm } from 'actions'
+import { fetchCollections, deleteCollection } from 'actions'
 import plusIcon from 'assets/svg/add-icon.svg'
 import check from 'assets/svg/check.svg'
 import { withAlert } from 'react-alert'
@@ -140,7 +140,6 @@ export default connect(
   {
     fetchCollections,
     deleteCollection,
-    setSearchTerm,
   }
 )(withRouter(Alert))
 

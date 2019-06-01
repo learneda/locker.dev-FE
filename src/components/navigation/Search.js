@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { Grommet, TextInput, CheckBox } from 'grommet'
 import styled from 'styled-components'
 import SearchUsersDropDown from './SearchUsersDropDown'
-import { setSearchTerm, resetSearchTerm } from '../../actions'
+import * as searchActions from './searchActions'
 
 function Search(props) {
   const DropDownNode = useRef()
@@ -59,13 +59,12 @@ function Search(props) {
         break
       case '/home/feed':
         placeholder = 'Feed'
-
         break
-      case '/home/bookmarks':
-        placeholder = 'Bookmarks'
+      case '/home/saved':
+        placeholder = 'Saved'
         break
-      case '/home/likes':
-        placeholder = 'Likes'
+      case '/home/locker':
+        placeholder = 'Locker'
         break
       case '/browse':
         placeholder = 'Courses'
@@ -101,25 +100,28 @@ function Search(props) {
         placeholder = 'Meetups'
         break
       case '/settings':
-        placeholder = 'Settings'
+        placeholder = 'Profile'
+        break
+      case '/settings/profile':
+        placeholder = 'Profile'
         break
       case '/settings/integrations':
         placeholder = 'Integrations'
         break
       case '/profile':
-        placeholder = 'Profile'
+        placeholder = 'Saved'
         break
-      case 'following':
+      case '/profile/saved':
+        placeholder = 'Saved'
+        break
+      case '/profile/following':
         placeholder = 'Following'
         break
-      case 'likes':
-        placeholder = 'Likes'
-        break
-      case 'followers':
+      case '/profile/followers':
         placeholder = 'Followers'
         break
       default:
-        placeholder = 'Profile'
+        placeholder = 'Default'
     }
     return (
       <TextInput
@@ -160,7 +162,7 @@ const mapStateToProps = ({ searchTerm }) => ({
 
 export default connect(
   mapStateToProps,
-  { setSearchTerm, resetSearchTerm }
+  { ...searchActions }
 )(withRouter(Search))
 
 const theme = {
