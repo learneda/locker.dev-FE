@@ -15,7 +15,6 @@ const Videos = props => {
     videoPageToken,
     fetchVideos,
     searchVideos,
-    setVideoPageToken,
     handleSaveMedia,
     showIframe,
     resetIframe,

@@ -91,7 +91,12 @@ class OtherCollections extends Component {
               {post.saved_to_profile ? (
                 <div className='save-to-profile'>
                   <img src={check} className='add-icon' alt='' />
-                  <span className='rec-span'>✅ Saved</span>
+                  <span className='rec-span'>
+                    <span role='img' aria-label='check'>
+                      ✅
+                    </span>
+                    Saved
+                  </span>
                 </div>
               ) : (
                 <div

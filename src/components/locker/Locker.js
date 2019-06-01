@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import Moment from 'react-moment'
-import NoPostScreen from '../utils/screens/NoPostScreen'
-import HelpScreen from '../utils/screens/HelpScreen'
-import LoveItSVG from '../../assets/svg/love-it-drawing.svg'
-import { truncateText, customLayout } from '../mixins'
+import { truncateText } from '../mixins'
 
 class Locker extends Component {
   handleTruncateText = (content, limit = 10) => {
@@ -26,11 +22,15 @@ class Locker extends Component {
                 key={obj.item_id}
                 href={obj.resolved_url}
                 target='_blank'
-                rel='noopener'
+                rel='noopener noreferrer'
               >
                 <h2>{obj.resolved_title}</h2>
                 <div>
-                  <img style={{ maxWidth: '100%' }} src={obj.top_image_url} />
+                  <img
+                    style={{ maxWidth: '100%' }}
+                    src={obj.top_image_url}
+                    alt='locker'
+                  />
                 </div>
                 <p>{obj.excerpt}</p>
               </a>
@@ -41,7 +41,7 @@ class Locker extends Component {
                 key={obj.book_id}
                 href={obj.link}
                 target='_blank'
-                rel='noopener'
+                rel='noopener noreferrer'
               >
                 <h2>
                   <strong>Title:</strong> {obj.title}
@@ -49,7 +49,7 @@ class Locker extends Component {
                 <h3>
                   <strong>Author:</strong> {obj.author}
                 </h3>
-                <img src={obj.image} />
+                <img src={obj.image} alt='' />
                 <p>
                   <strong>Description:</strong> {obj.description}
                 </p>

@@ -7,7 +7,6 @@ const Following = props => {
   const {
     userId,
     following,
-    followers,
     followAUser,
     unfollowAUser,
     fetchFollowing,

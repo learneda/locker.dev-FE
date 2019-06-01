@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import ContentLoader from 'react-content-loader'
 import styled from 'styled-components'
-
-import { fetchUser, fetchSuggested, fetchFollowing, followAUser } from 'actions'
 
 const MyLoader = () => (
   <ContentLoader
@@ -32,10 +30,10 @@ const Suggested = props => {
 
   const followAUserHandler = async (e, friend_id) => {
     e.preventDefault()
-    await followAUser({ user_id: props.auth.id, friend_id })
-    fetchUser(props.auth.id)
-    fetchFollowing(props.auth.id)
-    await fetchSuggested(props.auth.id)
+    await followAUser({ user_id: auth.id, friend_id })
+    fetchUser(auth.id)
+    fetchFollowing(auth.id)
+    await fetchSuggested(auth.id)
   }
 
   const renderRecommended = () => {

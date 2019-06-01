@@ -77,6 +77,7 @@ class Feed extends Component {
         case 'like':
           // invoke action creator likeComment & pass in msg obj
           this.props.likeComment(data)
+          break
         default:
           break
       }
