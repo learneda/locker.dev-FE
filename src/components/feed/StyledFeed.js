@@ -34,7 +34,7 @@ export const StyledFeed = () =>
 
   h2 {
     margin-bottom: -5px;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     font-weight: 500;
     @media(max-width: 500px) {
       font-size: 1.5rem;
@@ -44,14 +44,19 @@ export const StyledFeed = () =>
     font-size: 1.4rem;
     opacity: 0.8;
     font-weight: normal;
-    margin-left: 7px;
+    margin-left: 5px;
     @media(max-width: 500px) {
       font-size: 1.3rem;
     }
   }
+  .post-date::before {
+    content: '-';
+    margin-right: 5px;
+  }
   .post-thoughts {
-    margin-top: 3px;
+    margin-top: 6px;
     font-size: 2rem;
+    font-weight: 400;
     @media(max-width: 500px) {
       font-size: 1.7rem;
       line-height: 1.25;
