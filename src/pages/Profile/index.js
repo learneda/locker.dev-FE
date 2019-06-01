@@ -9,7 +9,7 @@ import OtherCollections from 'components/profile/OtherCollections'
 import OtherFollowing from 'components/profile/OtherFollowing'
 import OtherFollowers from 'components/profile/OtherFollowers'
 import * as profileActions from './profileActions'
-import { fetchUser, createCollection, fetchCollections } from 'actions'
+import { createCollection, fetchCollections } from 'actions'
 import {
   followAUser,
   unfollowAUser,
@@ -28,7 +28,6 @@ const ProfilePage = props => {
     fetchProfileFollowers,
     fetchProfileDetails,
     resetProfile,
-    fetchUser,
     createCollection,
     fetchCollections,
     followAUser,
@@ -39,7 +38,6 @@ const ProfilePage = props => {
 
   useEffect(() => {
     // fetching other collections
-    fetchUser(auth.id)
     fetchCollections()
     fetchProfileCollections(id)
     fetchProfileFollowing(id)
@@ -148,7 +146,6 @@ export default connect(
   mapStateToProps,
   {
     ...profileActions,
-    fetchUser,
     fetchCollections,
     createCollection,
     followAUser,

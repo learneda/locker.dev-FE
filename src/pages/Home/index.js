@@ -8,12 +8,7 @@ import Locker from 'components/locker/Locker'
 import Sidebar from 'components/sidebar/Sidebar'
 import Suggested from 'components/sidebar/Suggested'
 import { customWrapper } from 'components/mixins'
-import {
-  fetchUser,
-  fetchCollections,
-  deleteCollection,
-  createCollection,
-} from 'actions'
+import { fetchCollections, deleteCollection, createCollection } from 'actions'
 import { fetchNotifications } from '../Notifications/notificationActions'
 import * as socialActions from 'actions/socialActions'
 import * as homeActions from './homeActions'
@@ -49,9 +44,6 @@ const Home = props => {
   } = props
 
   useEffect(() => {
-    if (!user) {
-      fetchUser(auth.id)
-    }
     if (!following.length) {
       fetchFollowing(auth.id)
       fetchFollowers(auth.id)
@@ -178,7 +170,6 @@ const mapStateToProps = ({
 export default connect(
   mapStateToProps,
   {
-    fetchUser,
     fetchNotifications,
     fetchCollections,
     deleteCollection,

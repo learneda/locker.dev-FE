@@ -1,122 +1,54 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { withAlert } from 'react-alert'
-import styled from 'styled-components'
+import { useAlert } from 'react-alert'
 import { Grommet, TextInput, TextArea } from 'grommet'
-import { editUser } from 'actions'
 import { apiURL } from 'services'
 import { customLayout, customWrapper } from 'components/mixins'
 import axios from 'apis/axiosAPI'
-class ProfileSettings extends Component {
-  constructor(props) {
-    super(props)
-    // if any prop value is null, use an empty string so value on input wont be null
-    this.state = {
-      displayName: this.props.user.displayName,
-      username: this.props.user.username || '',
-      bio: this.props.user.bio || '',
-      location: this.props.user.location || '',
-      websiteUrl: this.props.user.websiteUrl || '',
-      email: this.props.user.email || '',
-      selectedFile: '',
-      profile_pic: '',
+
+const ProfileSettings = props => {
+  const { auth, user, editUser } = props
+  const alert = useAlert()
+  const image = useRef()
+  const [displayName, setDisplayName] = useState('')
+  const [username, setUsername] = useState('')
+  const [bio, setBio] = useState('')
+  const [location, setLocation] = useState('')
+  const [websiteUrl, setWebsiteUrl] = useState('')
+  const [email, setEmail] = useState('')
+  const [selectedFile, setSelectedFile] = useState('')
+  const [profile_pic, setProfilePic] = useState('')
+
+  useEffect(() => {
+    if (user) {
+      setDisplayName(user.displayName)
+      setUsername(user.username)
+      setBio(user.bio)
+      setLocation(user.location)
+      setWebsiteUrl(user.websiteUrl)
+      setEmail(user.email)
+      setSelectedFile(user.selectedFile)
+      setProfilePic(user.profile_pic)
     }
-    // create a ref to access src & replace with new profile pic selection
-    this.image = React.createRef()
-  }
-  //* launches onSubmitting of page form
-  editProfileHandler = (e, id) => {
-    e.preventDefault()
-    const {
-      displayName,
-      username,
-      bio,
-      location,
-      websiteUrl,
-      email,
-    } = this.state
-    this.props.editUser(id, {
-      displayName,
-      username,
-      bio,
-      location,
-      websiteUrl,
-      email,
-    })
-    // calls func to handle profile change if a new file has been selected
-    // selectedFile default value is falsey until user selects file
-    if (this.state.selectedFile) {
-      this.handleFileUpload()
-    }
-  }
-
-  handleInputChange = e => this.setState({ [e.target.name]: e.target.value })
-
-  // invokes when user selects picture NOT thru dropzone
-  handleFileSelection = e => {
-    e.preventDefault()
-    if (e.target.files[0]) {
-      const file = e.target.files[0].type
-
-      if (
-        file.startsWith('image/')
-      ) {
-        // set state on selected file
-        this.setState({ selectedFile: e.target.files[0] })
-        // read more on => 
-        // https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Showing_thumbnails_of_user-selected_images
-        const reader = new FileReader()
-
-        reader.onload = (function(aImg) {
-          return function(e) {
-            aImg.src = e.target.result
-          }
-        })(this.image.current)
-
-        reader.readAsDataURL(e.target.files[0])
-
-        // console.log(this.image.current.src)
-      } else {
-        alert('Only JPEG, PNG, or GIF file types allowed')
+    axios.get(`/images`).then(res => {
+      if (res.data.length > 0) {
+        setProfilePic(res.data[0].profile_picture)
       }
-    }
-  }
-// invokes when user drops a file on dropzone
-  handleDropZone = file => {
-    if (
-      file.type.startsWith('image/')
-    ) {
-      // set state on selected file
-      this.setState({ selectedFile: file })
-      const reader = new FileReader()
+    })
+  }, [user])
 
-      reader.onload = (function(aImg) {
-        return function(e) {
-          aImg.src = e.target.result
-        }
-      })(this.image.current)
-
-      reader.readAsDataURL(file)
-    } else {
-      alert('Only JPEG, PNG, or GIF file types allowed')
-    }
-  }
-
-  handleFileUpload = () => {
-    if (this.state.selectedFile) {
+  const handleFileUpload = () => {
+    if (selectedFile) {
       const fd = new FormData()
-      fd.append(
-        'profile_pic',
-        this.state.selectedFile,
-        this.state.selectedFile.name
-      )
+      fd.append('profile_pic', selectedFile, selectedFile.name)
       axios.post(`/images`, fd).then(res => {
         if (res.data.success) {
           axios.get(`/images`).then(res => {
             if (res.data.length > 0) {
-              this.setState({ profile_pic: `${res.data[0].profile_picture}` })
-              this.props.editUser(this.props.auth.id, {
+              setProfilePic(res.data[0].profile_picture)
+              editUser(auth.id, {
                 profile_picture: res.data[0].profile_picture,
               })
             }
@@ -126,20 +58,77 @@ class ProfileSettings extends Component {
     }
   }
 
-  componentDidMount() {
-    axios.get(`/images`).then(res => {
-      if (res.data.length > 0) {
-        this.setState({ profile_pic: `${res.data[0].profile_picture}` })
-      }
+  //* launches onSubmitting of page form
+  const editProfileHandler = (e, id) => {
+    e.preventDefault()
+    editUser(id, {
+      displayName,
+      username,
+      bio,
+      location,
+      websiteUrl,
+      email,
     })
+    // calls func to handle profile change if a new file has been selected
+    // selectedFile default value is falsey until user selects file
+    if (selectedFile) {
+      handleFileUpload()
+    }
   }
-  handleDragEvent = e => {
+
+  // invokes when user selects picture NOT thru dropzone
+  const handleFileSelection = e => {
+    e.preventDefault()
+    if (e.target.files[0]) {
+      const file = e.target.files[0].type
+
+      if (file.startsWith('image/')) {
+        // set state on selected file
+        setSelectedFile(e.target.files[0])
+        // read more on =>
+        // https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Showing_thumbnails_of_user-selected_images
+        const reader = new FileReader()
+
+        reader.onload = (function(aImg) {
+          return function(e) {
+            aImg.src = e.target.result
+          }
+        })(image.current)
+
+        reader.readAsDataURL(e.target.files[0])
+
+        // console.log(this.image.current.src)
+      } else {
+        alert('Only JPEG, PNG, or GIF file types allowed')
+      }
+    }
+  }
+  // invokes when user drops a file on dropzone
+  const handleDropZone = file => {
+    if (file.type.startsWith('image/')) {
+      // set state on selected file
+      setSelectedFile(file)
+      const reader = new FileReader()
+
+      reader.onload = (function(aImg) {
+        return function(e) {
+          aImg.src = e.target.result
+        }
+      })(image.current)
+
+      reader.readAsDataURL(file)
+    } else {
+      alert('Only JPEG, PNG, or GIF file types allowed')
+    }
+  }
+
+  const handleDragEvent = e => {
     e.stopPropagation()
     e.preventDefault()
   }
 
-  handleDrop = e => {
-    // read more on 
+  const handleDrop = e => {
+    // read more on
     // https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Showing_thumbnails_of_user-selected_images
     e.stopPropagation()
     e.preventDefault()
@@ -147,137 +136,125 @@ class ProfileSettings extends Component {
     const dt = e.dataTransfer
     const files = dt.files
 
-    this.handleDropZone(files[0])
+    handleDropZone(files[0])
   }
-  render() {
-    return (
-      <Wrapper>
-        <FormGroup
-          onSubmit={e => this.editProfileHandler(e, this.props.auth.id)}
-        >
-          <div className='form-wrapper'>
-            <Grommet theme={theme}>
-              <div className='row'>
-                <div className='col-2'>
-                  <label>
-                    Name
-                    <TextInput
-                      type='text'
-                      onChange={this.handleInputChange}
-                      placeholder='Add full name'
-                      value={this.state.displayName}
-                      name='displayName'
-                      required
-                    />
-                  </label>
-                  <label>
-                    Email Address
-                    <TextInput
-                      type='text'
-                      onChange={this.handleInputChange}
-                      placeholder='email address'
-                      value={this.state.email}
-                      name='email'
-                    />
-                  </label>
-                  <label>
-                    Username
-                    <TextInput
-                      type='text'
-                      onChange={this.handleInputChange}
-                      placeholder='Add username'
-                      value={this.state.username}
-                      name='username'
-                      required
-                    />
-                  </label>
+  return (
+    <Wrapper>
+      <FormGroup onSubmit={e => editProfileHandler(e, auth.id)}>
+        <div className='form-wrapper'>
+          <Grommet theme={theme}>
+            <div className='row'>
+              <div className='col-2'>
+                <label>
+                  Name
+                  <TextInput
+                    type='text'
+                    onChange={e => setDisplayName(e.target.value)}
+                    placeholder='Add full name'
+                    value={displayName}
+                    name='displayName'
+                    required
+                  />
+                </label>
+                <label>
+                  Email Address
+                  <TextInput
+                    type='text'
+                    onChange={e => setEmail(e.target.value)}
+                    placeholder='email address'
+                    value={email}
+                    name='email'
+                  />
+                </label>
+                <label>
+                  Username
+                  <TextInput
+                    type='text'
+                    onChange={e => setUsername(e.target.value)}
+                    placeholder='Add username'
+                    value={username}
+                    name='username'
+                    required
+                  />
+                </label>
 
-                  <label>
-                    Bio
-                    <TextArea
-                      type='text'
-                      onChange={this.handleInputChange}
-                      placeholder='Add bio'
-                      value={this.state.bio}
-                      name='bio'
-                    />
-                  </label>
-                </div>
-
-                <div className='col-2'>
-                  <label>
-                    Location
-                    <TextInput
-                      type='text'
-                      onChange={this.handleInputChange}
-                      placeholder='Add location'
-                      value={this.state.location}
-                      name='location'
-                    />
-                  </label>
-
-                  <label>
-                    Website URL
-                    <TextInput
-                      type='text'
-                      onChange={this.handleInputChange}
-                      placeholder='Add website URL'
-                      value={this.state.websiteUrl}
-                      name='websiteUrl'
-                    />
-                  </label>
-                  <label>
-                    Profile Picture
-                    <img
-                      style={{
-                        width: '200px',
-                        display: 'block',
-                        margin: '10px auto',
-                      }}
-                      ref={this.image}
-                      src={this.state.profile_pic}
-                      onDragEnter={this.handleDragEvent}
-                      onDragOver={this.handleDragEvent}
-                      onDrop={this.handleDrop}
-                      alt='user_upload_picture'
-                    />
-                    <input
-                      onChange={e => this.handleFileSelection(e)}
-                      type='file'
-                      name='profile_pic'
-                    />
-                  </label>
-                </div>
+                <label>
+                  Bio
+                  <TextArea
+                    type='text'
+                    onChange={e => setBio(e.target.value)}
+                    placeholder='Add bio'
+                    value={bio}
+                    name='bio'
+                  />
+                </label>
               </div>
-            </Grommet>
 
-            <div className='btn-group'>
-              <Link to='/home'>Cancel</Link>
-              <button
-                type='submit'
-                onClick={() => {
-                  this.props.alert.success(
-                    'User settings successfully updated.'
-                  )
-                }}
-              >
-                Save
-              </button>
+              <div className='col-2'>
+                <label>
+                  Location
+                  <TextInput
+                    type='text'
+                    onChange={e => setLocation(e.target.value)}
+                    placeholder='Add location'
+                    value={location}
+                    name='location'
+                  />
+                </label>
+
+                <label>
+                  Website URL
+                  <TextInput
+                    type='text'
+                    onChange={e => setWebsiteUrl(e.target.value)}
+                    placeholder='Add website URL'
+                    value={websiteUrl}
+                    name='websiteUrl'
+                  />
+                </label>
+                <label>
+                  Profile Picture
+                  <img
+                    style={{
+                      width: '200px',
+                      display: 'block',
+                      margin: '10px auto',
+                    }}
+                    ref={image}
+                    src={profile_pic}
+                    onDragEnter={handleDragEvent}
+                    onDragOver={handleDragEvent}
+                    onDrop={handleDrop}
+                    alt='user_upload_picture'
+                  />
+                  <input
+                    onChange={e => handleFileSelection(e)}
+                    type='file'
+                    name='profile_pic'
+                  />
+                </label>
+              </div>
             </div>
+          </Grommet>
+
+          <div className='btn-group'>
+            <Link to='/home'>Cancel</Link>
+            <button
+              type='submit'
+              onClick={() => {
+                alert.success('User settings successfully updated.')
+              }}
+            >
+              Save
+            </button>
           </div>
-        </FormGroup>
-      </Wrapper>
-    )
-  }
+        </div>
+      </FormGroup>
+    </Wrapper>
+  )
 }
 
-const ProfileSettingsWithAlert = withAlert()(ProfileSettings)
-
-const mapStateToProps = ({ auth, user }) => ({ auth, user })
-export default connect(
-  mapStateToProps,
-  { editUser }
-)(ProfileSettingsWithAlert)
+export default ProfileSettings
 
 const theme = {
   global: {

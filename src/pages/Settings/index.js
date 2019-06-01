@@ -1,50 +1,65 @@
-import React, { Component } from 'react'
-import { NavLink, Route, Switch } from 'react-router-dom'
+import React from 'react'
+import { connect } from 'react-redux'
+import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
 import { withAlert } from 'react-alert'
 import styled from 'styled-components'
 import { Grommet } from 'grommet'
 import { customLayout, customWrapper } from '../../components/mixins'
 import ProfileSettings from './ProfileSettings'
 import Integrations from './Integrations'
+import { editUser } from 'actions'
 
-class Settings extends Component {
-  render() {
-    return (
-      <Grommet theme={theme}>
-        <Wrapper>
-          <BrowseContainer>
-            <Tabs>
-              <Tab>
-                <NavLink to='/settings'>Settings</NavLink>
-              </Tab>
-              <Tab>
-                <NavLink to='/settings/integrations'>Integrations</NavLink>
-              </Tab>
-            </Tabs>
-            <TabWrapper>
-              <Switch>
-                <Route
-                  exact
-                  path={['/settings']}
-                  render={props => <ProfileSettings {...props} />}
-                />
-
-                <Route
-                  path='/settings/integrations'
-                  render={props => <Integrations />}
-                />
-              </Switch>
-            </TabWrapper>
-          </BrowseContainer>
-        </Wrapper>
-      </Grommet>
-    )
-  }
+const Settings = props => {
+  const { auth, user, editUser, location, match } = props
+  return (
+    <Grommet theme={theme}>
+      <Wrapper>
+        <BrowseContainer>
+          <Tabs>
+            <Tab>
+              <NavLink
+                to={`${match.url}/profile`}
+                className={location.pathname === '/settings' ? 'active' : null}
+              >
+                Settings
+              </NavLink>
+            </Tab>
+            <Tab>
+              <NavLink to={`${match.url}/integrations`}>Integrations</NavLink>
+            </Tab>
+          </Tabs>
+          <TabWrapper>
+            <Switch>
+              <Route
+                exact
+                path={[`${match.path}`, `${match.path}/profile`]}
+                render={props => (
+                  <ProfileSettings
+                    {...props}
+                    auth={auth}
+                    user={user}
+                    editUser={editUser}
+                  />
+                )}
+              />
+              <Route
+                path={`${match.path}/integrations`}
+                render={props => <Integrations {...props} />}
+              />
+            </Switch>
+          </TabWrapper>
+        </BrowseContainer>
+      </Wrapper>
+    </Grommet>
+  )
 }
 
-const SettingsWithAlert = withAlert()(Settings)
+const mapStateToProps = ({ auth, user }) => ({ auth, user })
 
-export default SettingsWithAlert
+export default connect(
+  mapStateToProps,
+  { editUser }
+)(withRouter(Settings))
 
 const theme = {
   tab: {
@@ -97,10 +112,32 @@ const TabWrapper = styled.div`
 
 const Tabs = styled.ul`
   display: flex;
+  position: sticky;
+  background: rgb(230, 233, 243);
+  font-size: 2rem;
+  top: 60px;
+  height: 60px;
+  align-items: flex-end;
+  padding-bottom: 15px;
+  outline: 2px solid red;
+  .active {
+    border-bottom: 3px solid #4064f2;
+    font-weight: 900;
+    color: #4064f2;
+  }
 `
 
 const Tab = styled.li`
   margin-right: 2rem;
+  font-size: 2rem;
+  margin-left: 10px;
+  a {
+    transition: 100ms ease-out;
+    &:hover {
+      color: #4064f2;
+      transition: 100ms ease-in;
+    }
+  }
 `
 
 // const Wrapper = styled.div`
