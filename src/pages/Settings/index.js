@@ -119,7 +119,6 @@ const Tabs = styled.ul`
   height: 60px;
   align-items: flex-end;
   padding-bottom: 15px;
-  outline: 2px solid red;
   .active {
     border-bottom: 3px solid #4064f2;
     font-weight: 900;

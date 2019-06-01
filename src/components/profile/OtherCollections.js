@@ -12,6 +12,7 @@ import { fetchCollections, deleteCollection, setSearchTerm } from 'actions'
 import plusIcon from 'assets/svg/add-icon.svg'
 import check from 'assets/svg/check.svg'
 import { withAlert } from 'react-alert'
+import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 
 class OtherCollections extends Component {
   state = { modalOpen: false, posts: [], savedPostIds: [] }
@@ -112,7 +113,12 @@ class OtherCollections extends Component {
         <NoPostScreen textDescription='No courses or articles have been bookmarked yet.' />
       )
     } else {
-      return <Wrapper>{posts}</Wrapper>
+      return (
+        <Wrapper>
+          <ScrollToTopOnMount />
+          {posts}
+        </Wrapper>
+      )
     }
   }
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyledFollow } from './StyledFollow'
+import ScrollToTopOnMount from '../utils/ScrollToTopOnMount'
 
 const Suggested = props => {
   const {
@@ -20,6 +21,7 @@ const Suggested = props => {
 
   return (
     <StyledFollow>
+      <ScrollToTopOnMount />
       {suggested.map((ele, index) => (
         <div key={index}>
           <h2>{ele.username}</h2>
