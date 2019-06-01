@@ -34,7 +34,11 @@ const App = ({ fetchAuth, fetchUser, fetchCollections, modal, auth }) => {
   const { isAuthOpen, isEditOpen } = modal
   useEffect(() => {
     //* initial fetchAuth and fetchUser on browser refresh
-    fetchAuth().then(res => fetchUser(res.id))
+    fetchAuth().then(res => {
+      if (res.id) {
+        fetchUser(res.id)
+      }
+    })
   }, [])
 
   useInterval(() => {

@@ -1,150 +1,64 @@
-import React, { Component, Fragment } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { Link, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import MobileNav from './MobileNav'
+import NavLeft from './NavLeft'
 import Notifications from './Notifications'
 import Search from './Search'
 import Auth from '../authentication/Auth'
 import AddLink from '../utils/AddLink'
 import ProfileDropDown from './ProfileDropDown'
+import NavLanding from './NavLanding'
 import { authModalToggle, modalSignUp, modalLogin } from 'actions'
-import { authURL } from 'services'
 import { customLayout, hoverBg } from '../mixins'
 import burgerIcon from 'assets/svg/burger.svg'
-import closeIcon from 'assets/svg/close.svg'
 
-class Navbar extends Component {
-  state = { show: false }
+const Navbar = props => {
+  const [show, setShow] = useState(false)
+  const showBurgerMenu = () => setShow(true)
+  const hideBurgerMenu = () => setShow(false)
 
-  showBurgerMenu = () => this.setState({ show: true })
-  hideBurgerMenu = () => this.setState({ show: false })
-
-  render() {
-    const { auth, user, authModalToggle, modalSignUp, modalLogin } = this.props
-    if (auth) {
-      // When user logged in
-      return (
-        <NavWrapper>
-          <MobileNav show={this.state.show} handleClose={this.hideBurgerMenu} />
-          <Burger>
-            <Search className='mobile-search' />
-            <img
-              src={burgerIcon}
-              alt='burger'
-              className='burger-icon'
-              onClick={this.showBurgerMenu}
-            />
-          </Burger>
-
-          <Nav className='main-nav' auth={auth}>
-            <ul>
-              <li>
-                <NavLink to='/home' activeClassName='active'>
-                  <span>Home</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to='/browse' activeClassName='active'>
-                  <span>Browse</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to='/social' activeClassName='active'>
-                  <span>Social</span>
-                </NavLink>
-              </li>
-            </ul>
-            <Search className='main-search' />
-            <NavRight>
-              <Notifications />
-              <AddLink />
-              <ProfileDropDown auth={auth} user={user} />
-            </NavRight>
-          </Nav>
-        </NavWrapper>
-      )
-    } else {
-      // When user NOT logged in
-      return (
-        <Fragment>
-          <Auth />
-          <Nav style={{ marginTop: '20px' }}>
-            <h1>
-              <Link to='/home'>LearnLocker</Link>
-            </h1>
-            <ul>
-              <li>
-                <span
-                  onClick={() => {
-                    authModalToggle()
-                    modalLogin()
-                  }}
-                >
-                  Log In
-                </span>
-              </li>
-              <li>
-                <span
-                  onClick={() => {
-                    authModalToggle()
-                    modalSignUp()
-                  }}
-                >
-                  Sign Up
-                </span>
-              </li>
-            </ul>
-          </Nav>
-        </Fragment>
-      )
-    }
-  }
-}
-
-const MobileNav = ({ handleClose, show }) => {
-  const showHideClassName = show
-    ? 'burger display-block'
-    : 'burger display-none'
-
-  return (
-    <BurgerMenu>
-      <div className={showHideClassName}>
-        <div className='close-btn'>
+  const { auth, user, authModalToggle, modalSignUp, modalLogin } = props
+  if (auth) {
+    // When user logged in
+    return (
+      <NavWrapper>
+        <MobileNav show={show} handleClose={hideBurgerMenu} />
+        <Burger>
+          <Search className='mobile-search' />
           <img
-            src={closeIcon}
-            alt='close-icon'
-            onClick={handleClose}
-            className='close-icon'
+            src={burgerIcon}
+            alt='burger'
+            className='burger-icon'
+            onClick={showBurgerMenu}
           />
-        </div>
-        <ul className='burger-main'>
-          <li onClick={handleClose}>
-            <Link to='/home'>
-              <span>Home</span>
-            </Link>
-          </li>
-          <li onClick={handleClose}>
-            <Link to='/browse'>
-              <span>Browse</span>
-            </Link>
-          </li>
-          <li onClick={handleClose}>
-            <Link to='/social'>
-              <span>Social</span>
-            </Link>
-          </li>
-          <li onClick={handleClose}>
-            <Link to='/settings'>
-              <span>Settings</span>
-            </Link>
-          </li>
-          <li>
-            <a href={`${authURL}/logout`}>Log Out</a>
-          </li>
-        </ul>
-      </div>
-    </BurgerMenu>
-  )
+        </Burger>
+
+        <Nav className='main-nav' auth={auth}>
+          <NavLeft />
+          <Search className='main-search' />
+          <NavRight>
+            <Notifications />
+            <AddLink />
+            <ProfileDropDown auth={auth} user={user} />
+          </NavRight>
+        </Nav>
+      </NavWrapper>
+    )
+  } else {
+    // When user NOT logged in
+    return (
+      <>
+        <Auth />
+        <NavLanding
+          authModalToggle={authModalToggle}
+          modalSignUp={modalSignUp}
+          modalLogin={modalLogin}
+        />
+      </>
+    )
+  }
 }
 
 const mapStateToProps = ({ auth, user }) => ({
@@ -174,7 +88,7 @@ const NavWrapper = styled.div`
   }
 `
 
-const Nav = styled.nav`
+export const Nav = styled.nav`
   ${customLayout('space-between', 'center')}
   padding: 7.5px 0;
   margin: 0 auto;
@@ -291,78 +205,5 @@ const Burger = styled.div`
       opacity: 1;
       transition: 200ms ease-in;
     }
-  }
-`
-
-const BurgerMenu = styled.div`
-  // min-height: 100vh;
-
-  .burger {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-height: 100vh;
-    background: #fff;
-    z-index: 10;
-
-    animation: fadeBackground 200ms;
-
-    @keyframes fadeBackground {
-      from {
-        background-color: transparent;
-      }
-      to {
-        background-color: #fff;
-      }
-    }
-  }
-
-  .close-btn {
-    ${customLayout('flex-end')}
-    // border: 1px solid red;
-    padding: 20px 8%;
-
-    .close-icon {
-      width: 25px;
-      height: 25px;
-      cursor: pointer;
-      opacity: 0.7;
-      transition: 200ms ease-in;
-
-      &:hover {
-        opacity: 1;
-        transition: 200ms ease-in;
-      }
-    }
-  }
-
-  .burger-main {
-    ${customLayout('center', 'center')}
-    flex-wrap: wrap;
-    margin: 20px 0;
-
-    li {
-      width: 100%;
-      padding: 20px 0;
-      text-align: center;
-      font-size: 3rem;
-      opacity: 0.8;
-      transition: 200ms ease-in;
-
-      &:hover {
-        opacity: 1;
-        transition: 200ms ease-in;
-        background-color: #e6e8f3;
-      }
-    }
-  }
-
-  .display-block {
-    display: block;
-  }
-
-  .display-none {
-    display: none;
   }
 `

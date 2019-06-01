@@ -20,7 +20,7 @@ export const fetchAuth = () => async dispatch => {
   dispatch({ type: FETCH_AUTH, payload: res.data })
   return res.data
 }
-//* Fetch user details on Home mount
+//* Fetch user details
 export const fetchUser = id => async dispatch => {
   const res = await axios.get(`/users/id/${id}`)
   dispatch({ type: FETCH_USER, payload: res.data })
@@ -64,7 +64,6 @@ export const createCollection = post => async dispatch => {
     })
   }
 }
-
 export const deleteCollection = id => async dispatch => {
   try {
     // deleting record from posts tbl where id equals <id>
@@ -86,7 +85,6 @@ export const editCollection = editedCollection => async dispatch => {
     dispatch({ type: EDIT_COLLECTION, payload: collection.data })
   }
 }
-
 export const shareCollection = collection => async dispatch => {
   // edit collection
   const editCollection = await axios.put(`/posts/${collection.id}`, collection)
@@ -100,7 +98,7 @@ export const shareCollection = collection => async dispatch => {
 
     const sharedCollection = editCollection.data
 
-    //* Feed post's are exprecting to have these to properties on them
+    //* Feed post's are expecting to have these to properties on them
     sharedCollection['comments'] = []
     sharedCollection['likes'] = 0
     dispatch({ type: ADD_TO_FEED, payload: sharedCollection })

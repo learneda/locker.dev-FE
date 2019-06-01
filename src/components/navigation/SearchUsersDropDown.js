@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import { ReactComponent as Location } from '../../assets/svg/location.svg'
 import { apiURL } from 'services'
 
-export default function SearchUsersDropDown({ search }) {
+const SearchUsersDropDown = ({ search }) => {
   const [users, setUsers] = useState([])
 
   const fetchUsers = async () => {
@@ -42,6 +42,8 @@ export default function SearchUsersDropDown({ search }) {
     </Fragment>
   )
 }
+
+export default SearchUsersDropDown
 
 const Card = styled.div`
   display: flex;
