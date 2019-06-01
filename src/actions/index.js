@@ -20,6 +20,7 @@ import {
 export const fetchAuth = () => async dispatch => {
   const res = await axiosAuth.get(`/current_user`)
   dispatch({ type: FETCH_AUTH, payload: res.data })
+  return res.data
 }
 //* Fetch user details on Home mount
 export const fetchUser = id => async dispatch => {

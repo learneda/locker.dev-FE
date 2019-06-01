@@ -26,12 +26,10 @@ const Social = props => {
     fetchSuggested,
     fetchCollections,
     match,
+    location,
   } = props
 
   useEffect(() => {
-    if (!user) {
-      fetchUser(userId)
-    }
     if (!following.length) {
       fetchFollowing(userId)
       fetchFollowers(userId)
@@ -52,7 +50,12 @@ const Social = props => {
       <Wrapper>
         <Tabs>
           <Tab>
-            <NavLink to={`${match.url}/following`}>Following</NavLink>
+            <NavLink
+              to={`${match.url}/following`}
+              className={location.pathname === '/social' ? 'active' : null}
+            >
+              Following
+            </NavLink>
           </Tab>
           <Tab>
             <NavLink to={`${match.url}/followers`}>Followers</NavLink>

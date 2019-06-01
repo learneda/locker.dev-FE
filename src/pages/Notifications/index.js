@@ -17,7 +17,6 @@ const NotificationsPage = props => {
     social,
     following,
     followers,
-    fetchUser,
     fetchFollowing,
     fetchFollowers,
     readNotifications,
@@ -25,9 +24,6 @@ const NotificationsPage = props => {
 
   useEffect(() => {
     readNotifications()
-    if (!user) {
-      fetchUser(auth.id)
-    }
     if (!social) {
       fetchFollowing(auth.id)
       fetchFollowers(auth.id)
@@ -63,7 +59,7 @@ const mapStateToProps = ({
 
 export default connect(
   mapStateToProps,
-  { fetchUser, ...socialActions, ...notificationActions }
+  { ...socialActions, ...notificationActions }
 )(NotificationsPage)
 
 const Container = styled.div`

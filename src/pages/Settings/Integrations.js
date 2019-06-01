@@ -1,39 +1,39 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Grommet } from 'grommet'
 import styled from 'styled-components'
 import { customLayout, customWrapper } from 'components/mixins'
 import { apiURL } from 'services'
 
-export default class Integrations extends Component {
-  render() {
-    return (
-      <Wrapper>
-        <FormGroup>
-          <Grommet theme={theme}>
-            <div className='row'>
-              <div className='col-2'>
-                <label>
-                  GoodReads Api
-                  <a href={`${apiURL}/goodreads`}>
-                    <button type='button'>connect</button>
-                  </a>
-                </label>
-              </div>
-              <div className='col-2'>
-                <label>
-                  Pocket Api
-                  <a href={`${apiURL}/pocket`}>
-                    <button type='button'>connect</button>
-                  </a>
-                </label>
-              </div>
+const Integrations = props => {
+  return (
+    <Wrapper>
+      <FormGroup>
+        <Grommet theme={theme}>
+          <div className='row'>
+            <div className='col-2'>
+              <label>
+                GoodReads Api
+                <a href={`${apiURL}/goodreads`}>
+                  <button type='button'>connect</button>
+                </a>
+              </label>
             </div>
-          </Grommet>
-        </FormGroup>
-      </Wrapper>
-    )
-  }
+            <div className='col-2'>
+              <label>
+                Pocket Api
+                <a href={`${apiURL}/pocket`}>
+                  <button type='button'>connect</button>
+                </a>
+              </label>
+            </div>
+          </div>
+        </Grommet>
+      </FormGroup>
+    </Wrapper>
+  )
 }
+export default Integrations
+
 const theme = {
   global: {
     focus: {
