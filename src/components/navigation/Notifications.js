@@ -7,12 +7,24 @@ import styled from 'styled-components'
 import useOnClickOutside from 'use-onclickoutside'
 
 const Notifications = props => {
-  const { notifications, readNotifications, deleteNotifications } = props
+  const {
+    user,
+    posts,
+    notifications,
+    readNotifications,
+    deleteNotifications,
+  } = props
   const modal = useRef(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   useOnClickOutside(modal, () => setIsModalOpen(false))
   let count = props.notifications
   count = count.length
+
+  const selectThumbnail = postId => {
+    return posts
+      .filter(post => post.id === postId)
+      .map(post => post.thumbnail_url)
+  }
   return (
     <StyledNotifications>
       <img
@@ -45,14 +57,22 @@ const Notifications = props => {
           ) : (
             notifications.map((obj, i) => {
               return (
-                <div className='notification' key={i}>
-                  <Link
-                    to={`/status/${obj.post_id}`}
-                    onClick={() => setIsModalOpen(false)}
-                  >
-                    <div>{`${obj.invoker} ${obj.type} on your post`}</div>
-                  </Link>
-                </div>
+                <Link
+                  className='notification'
+                  key={i}
+                  to={`/status/${obj.post_id}`}
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  <img
+                    className='notification-image'
+                    src={user.profilePicture}
+                  />
+                  <span>{`${obj.invoker} ${obj.type} on your post`}</span>
+                  <img
+                    className='notification-post-thumbnail'
+                    src={selectThumbnail(obj.post_id)}
+                  />
+                </Link>
               )
             })
           )}
@@ -62,7 +82,11 @@ const Notifications = props => {
   )
 }
 
-const mapStateToProps = ({ notifications }) => ({ notifications })
+const mapStateToProps = ({ user, home, notifications }) => ({
+  user,
+  notifications,
+  posts: home.posts,
+})
 
 export default connect(
   mapStateToProps,
@@ -132,14 +156,23 @@ const StyledNotifications = styled.div`
     }
 
     .notification {
-      min-height: 60px;
       display: flex;
+      min-height: 60px;
       align-items: center;
       padding-left: 15px;
       border-bottom: 1px solid #e6e6e6;
     }
-    .notification:last-child {
-      border-bottom: none;
+    .notification-image {
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      margin-right: 15px;
+    }
+
+    .notification-post-thumbnail {
+      height: 30px;
+      width: 30px;
+      margin-left: 20px;
     }
   }
 `
