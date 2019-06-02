@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { customLayout } from '../../mixins'
 import Moment from 'react-moment'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 class CommentBox extends Component {
   constructor(props) {
     super(props)
@@ -49,7 +50,13 @@ class CommentBox extends Component {
                           <Link to={`/profile/${comment.user_id}`}>
                             {comment.username}{' '}
                             <span className='comment-date'>
-                              <Moment fromNow>{comment.created_at}</Moment>:
+                              <Moment fromNow>
+                                {moment(comment.created_at).subtract(
+                                  '30',
+                                  'seconds'
+                                )}
+                              </Moment>
+                              :
                             </span>
                           </Link>
                         </h2>
@@ -70,7 +77,13 @@ class CommentBox extends Component {
                           <Link to={`/profile/${comment.user_id}`}>
                             {comment.username}{' '}
                             <span className='comment-date'>
-                              <Moment fromNow>{comment.created_at}</Moment>:
+                              <Moment fromNow>
+                                {moment(comment.created_at).subtract(
+                                  '30',
+                                  'seconds'
+                                )}
+                              </Moment>
+                              :
                             </span>
                           </Link>
                         </h2>
