@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyledFollow } from './StyledFollow'
+import { Link } from 'react-router-dom'
 import ScrollToTopOnMount from '../utils/ScrollToTopOnMount'
 
 const Suggested = props => {
@@ -24,12 +25,15 @@ const Suggested = props => {
       <ScrollToTopOnMount />
       {suggested.map((ele, index) => (
         <div key={index}>
-          <h2>{ele.username}</h2>
-          <img src={ele.image} alt='suggested' />
-          <p>{ele.user}</p>
-          <p style={{ textAlign: 'center' }}>
-            Followed by {ele.followed_by_username}
-          </p>
+          <Link to={`/profile/${ele.recommended_follow_id}`}>
+            <h2>{ele.username}</h2>
+            <img src={ele.image} alt='suggested' />
+          </Link>
+          {ele.followed_by_username && (
+            <Link to={`/profile/${ele.followed_by_id}`}>
+              <p>Followed by {ele.followed_by_username}</p>
+            </Link>
+          )}
           <button onClick={() => handleFollow(ele.recommended_follow_id)}>
             Follow
           </button>
