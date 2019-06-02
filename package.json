@@ -29,6 +29,7 @@
     "socket.io-client": "^2.2.0",
     "styled-components": "^4.1.3",
     "typeface-roboto": "0.0.54",
+    "use-onclickoutside": "^0.3.1",
     "use-throttle": "0.0.3"
   },
   "scripts": {

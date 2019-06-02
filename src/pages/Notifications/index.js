@@ -8,6 +8,7 @@ import * as socialActions from 'actions/socialActions'
 import * as notificationActions from './notificationActions'
 
 const NotificationsPage = props => {
+  console.log(' 🦄', props)
   const {
     auth,
     user,
