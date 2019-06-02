@@ -216,15 +216,17 @@ class PostContainer extends Component {
             </a>
           </div>
           <div className='likes-and-save'>
-            <i
-              className='far fa-heart fa-lg'
-              ref={this.heartIcon}
-              onClick={e => {
-                this.handleLikes(e, post.post_id, post)
-                e.target.classList.toggle('heart-red')
-              }}
-            />
-            <span className='like_num'>{this.props.post.likes}</span>
+            <div>
+              <i
+                className='far fa-heart fa-lg'
+                ref={this.heartIcon}
+                onClick={e => {
+                  this.handleLikes(e, post.post_id, post)
+                  e.target.classList.toggle('heart-red')
+                }}
+              />
+              <span className='like_num'>{this.props.post.likes}</span>
+            </div>
 
             {this.props.user_id !== post.user_id && (
               <div

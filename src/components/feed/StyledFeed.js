@@ -138,7 +138,7 @@ i {
   margin-left: 25px;
   margin-bottom: 10px;
   @media(max-width: 600px) {
-    // justify-content: space-between;
+    justify-content: space-between;
     margin: 0 10px 10px;
    }
 }
