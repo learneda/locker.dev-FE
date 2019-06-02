@@ -96,7 +96,7 @@ const StyledNotifications = styled.div`
     position: absolute;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.0975);
     flex-direction: column;
-    height: 250px;
+    max-height: 250px;
     width: 450px;
     overflow: auto;
     border: 1px solid #e6e6e6;
@@ -107,27 +107,11 @@ const StyledNotifications = styled.div`
     z-index: 10;
     @media (max-width: 760px) {
       position: fixed;
-      height: 150px;
+      max-height: 150px;
       top: 50px;
       right: 0;
       width: 100%;
-    }
-    .modal-close {
-      position: absolute;
-      display: flex;
-      align-item: center;
-      justify-content: center;
-      padding: 0;
-      margin: 0;
-      border-radius: 5px;
-      top: 10px;
-      right: 5px;
-      z-index: 20;
-      background: none;
-      border: 2px solid #3059f3;
-      width: 45px;
-      height: 25px;
-      cursor: pointer;
+      border-radius: 0px;
     }
     .notification-empty {
       text-align: center;
@@ -140,7 +124,7 @@ const StyledNotifications = styled.div`
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid #e6e6e6;
-      padding: 0 20px;
+      padding: 0 30px;
       .text {
         background: none;
         color: #333;
