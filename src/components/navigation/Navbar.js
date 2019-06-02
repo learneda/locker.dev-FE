@@ -27,12 +27,15 @@ const Navbar = props => {
         <MobileNav show={show} handleClose={hideBurgerMenu} />
         <Burger>
           <Search className='mobile-search' />
-          <img
-            src={burgerIcon}
-            alt='burger'
-            className='burger-icon'
-            onClick={showBurgerMenu}
-          />
+          <div className='mobile-right'>
+            <Notifications className='mobile-bell' />
+            <img
+              src={burgerIcon}
+              alt='burger'
+              className='burger-icon'
+              onClick={showBurgerMenu}
+            />
+          </div>
         </Burger>
 
         <Nav className='main-nav' auth={auth}>
@@ -118,6 +121,15 @@ export const Nav = styled.nav`
     li:last-child {
       margin-right: 0;
     }
+    @media (max-width: 900px) {
+      li {
+        margin-right: 0.5rem;
+      }
+
+      li:last-child {
+        margin-right: 0;
+      }
+    }
 
     span {
       padding: 10px;
@@ -193,8 +205,12 @@ const Burger = styled.div`
     width: 50%;
     height: 30px;
   }
-
+  .mobile-right {
+    display: flex;
+    align-items: center;
+  }
   .burger-icon {
+    margin-left: 5px;
     width: 25px;
     height: 25px;
     cursor: pointer;

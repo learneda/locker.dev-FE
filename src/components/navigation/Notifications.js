@@ -12,66 +12,48 @@ const Notifications = props => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   useOnClickOutside(modal, () => setIsModalOpen(false))
   let count = props.notifications
-  if (count.length === 0) {
-    return (
-      <StyledNotifications
+  count = count.length
+  return (
+    <StyledNotifications>
+      <img
         onClick={() => {
-          setIsModalOpen(prevIsModal => !prevIsModal)
-          readNotifications()
+          setIsModalOpen(true)
+          {
+            /* readNotifications() */
+          }
         }}
-      >
-        <img src={bellIcon} alt='bell-icon' className='bell-icon' />
-        {count}
-        {isModalOpen && (
-          <div className='modal-portal' ref={modal}>
-            <button
-              onClick={e => {
-                e.stopPropagation()
-                setIsModalOpen(prevIsModal => !prevIsModal)
-                deleteNotifications()
-              }}
-            >
-              clear
-            </button>
-            <div>You have no new notifications.</div>
-          </div>
-        )}
-      </StyledNotifications>
-    )
-  } else {
-    count = count.length
-    return (
-      <StyledNotifications
-        onClick={() => {
-          setIsModalOpen(prevIsModal => !prevIsModal)
-          readNotifications()
-        }}
-      >
-        <img src={bellIcon} alt='bell-icon' className='bell-icon' />
-        <p>{count}</p>
-        {isModalOpen && (
-          <div className='modal-portal' ref={modal}>
-            <button
-              onClick={e => {
-                e.stopPropagation()
-                setIsModalOpen(prevIsModal => !prevIsModal)
-                deleteNotifications()
-              }}
-            >
-              clear
-            </button>
-            {notifications.map((obj, i) => {
+        src={bellIcon}
+        alt='bell-icon'
+        className='bell-icon'
+      />
+      <p>{count ? count : null}</p>
+      {isModalOpen && (
+        <div className='modal-portal' ref={modal}>
+          <button className='modal-close' onClick={() => setIsModalOpen(false)}>
+            close
+          </button>
+          {!count ? (
+            <div className='notification-empty'>
+              You have no new notifications.
+            </div>
+          ) : (
+            notifications.map((obj, i) => {
               return (
-                <Link to={`/status/${obj.post_id}`} key={i}>
-                  <div>{`${obj.invoker} ${obj.type} on your post`}</div>
-                </Link>
+                <div className='notification' key={i}>
+                  <Link
+                    to={`/status/${obj.post_id}`}
+                    onClick={() => setIsModalOpen(false)}
+                  >
+                    <div>{`${obj.invoker} ${obj.type} on your post`}</div>
+                  </Link>
+                </div>
               )
-            })}
-          </div>
-        )}
-      </StyledNotifications>
-    )
-  }
+            })
+          )}
+        </div>
+      )}
+    </StyledNotifications>
+  )
 }
 
 const mapStateToProps = ({ notifications }) => ({ notifications })
@@ -106,30 +88,52 @@ const StyledNotifications = styled.div`
   }
   .modal-portal {
     display: flex;
-    flex-direction: column;
-    min-height: 180px;
-    height: 100%;
-    min-width: 320px;
-    border: 2px solid #3059f3;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 5px;
     position: absolute;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.0975);
+    flex-direction: column;
+    height: 250px;
+    width: 450px;
+    overflow: auto;
+    border: 1px solid #e6e6e6;
+    background-color: rgba(255, 255, 255, 0.98);
+    border-radius: 5px;
     top: 40px;
     right: -140px;
     z-index: 10;
-    button {
+    .modal-close {
+      position: absolute;
+      display: flex;
+      align-item: center;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
       border-radius: 5px;
-      align-self: flex-end;
-      margin: 10px;
+      top: 10px;
+      right: 5px;
+      z-index: 20;
       background: none;
       border: 2px solid #3059f3;
       width: 45px;
       height: 25px;
       cursor: pointer;
     }
-    div {
+    .notification-empty {
       text-align: center;
-      margin-top: 30px;
+      margin-top: 50px;
+    }
+    @media (max-width: 760px) {
+      right: -40px;
+    }
+
+    .notification {
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      padding-left: 15px;
+      border-bottom: 1px solid #e6e6e6;
+    }
+    .notification:last-child {
+      border-bottom: none;
     }
   }
 `
