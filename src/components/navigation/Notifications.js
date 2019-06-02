@@ -110,7 +110,7 @@ const StyledNotifications = styled.div`
       height: 150px;
       top: 50px;
       right: 0;
-      width: 100vw;
+      width: 100%;
     }
     .modal-close {
       position: absolute;
@@ -141,9 +141,6 @@ const StyledNotifications = styled.div`
       align-items: center;
       border-bottom: 1px solid #e6e6e6;
       padding: 0 20px;
-      @media (max-width: 760px) {
-        padding: 0 50px;
-      }
       .text {
         background: none;
         color: #333;
