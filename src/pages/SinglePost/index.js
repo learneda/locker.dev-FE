@@ -11,7 +11,6 @@ const SinglePost = props => {
       setPost(res.data[0])
     })
   }, [])
-  console.log(post, 'post')
   return (
     <Container>
       <div className='post-header'>

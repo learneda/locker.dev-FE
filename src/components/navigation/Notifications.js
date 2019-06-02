@@ -33,7 +33,7 @@ const Notifications = props => {
             className='modal-close'
             onClick={() => {
               setIsModalOpen(false)
-              readNotifications()
+              deleteNotifications()
             }}
           >
             clear
