@@ -10,11 +10,9 @@ import Podcasts from 'components/browse/Podcasts'
 import { withLayout } from 'components/hoc/withLayout'
 import { createCollection } from 'actions'
 import * as browseActions from './browseActions'
-import { customWrapper, smartTruncate } from 'components/mixins'
 
 const Browse = props => {
   const {
-    auth,
     searchTerm,
     articles,
     courses,
@@ -179,8 +177,7 @@ const Browse = props => {
   )
 }
 
-const mapStateToProps = ({ auth, searchTerm, browse }) => ({
-  auth,
+const mapStateToProps = ({ searchTerm, browse }) => ({
   searchTerm,
   ...browse,
 })

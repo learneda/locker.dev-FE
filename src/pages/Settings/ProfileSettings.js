@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
 import { useAlert } from 'react-alert'
 import { Grommet, TextInput, TextArea } from 'grommet'
-import { apiURL } from 'services'
 import { customLayout, customWrapper } from 'components/mixins'
 import axios from 'apis/axiosAPI'
 

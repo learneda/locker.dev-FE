@@ -4,9 +4,8 @@ import { withRouter, Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import styled from 'styled-components'
 import { StyledSidebar } from './StyledSidebar'
-import { fetchUser } from 'actions'
 import * as socialActions from 'actions/socialActions'
-import { customLayout, customWrapper } from '../mixins'
+import { customLayout } from '../mixins'
 import locationSvg from 'assets/svg/location.svg'
 import linkSvg from 'assets/svg/link-symbol.svg'
 import calendarSvg from 'assets/svg/calendar.svg'
@@ -170,10 +169,7 @@ const mapStateToProps = ({ auth, social }) => {
 
 export default connect(
   mapStateToProps,
-  {
-    fetchUser,
-    ...socialActions,
-  }
+  { ...socialActions }
 )(withRouter(SidebarById))
 
 const Wrapper = styled.div`

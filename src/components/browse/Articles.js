@@ -57,7 +57,12 @@ const Articles = props => {
         }}
         endMessage={
           <div>
-            <b>No Articles Matched Search Criteria 🙁</b>
+            <b>
+              No Articles Matched Search Criteria{' '}
+              <span role='img' aria-label='frown'>
+                🙁
+              </span>
+            </b>
           </div>
         }
       >

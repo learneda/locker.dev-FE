@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { StyledFollow } from './StyledFollow'
+import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 
 const Followers = props => {
   const {
@@ -57,6 +58,7 @@ const Followers = props => {
 
   return (
     <StyledFollow>
+      <ScrollToTopOnMount />
       {followers.map((ele, index) => (
         <div key={index}>
           <Link to={`/profile/${ele.id}`}>

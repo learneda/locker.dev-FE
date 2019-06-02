@@ -17,7 +17,7 @@ export const socialReducer = (state = initialState, action) => {
       return {
         ...state,
         following: state.following.filter(
-          friend => friend.id != action.payload.friend_id
+          friend => friend.id !== Number(action.payload.friend_id)
         ),
       }
     case type.FETCH_SUGGESTED:

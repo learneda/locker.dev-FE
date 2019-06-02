@@ -1,10 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
-import { withAlert } from 'react-alert'
 import styled from 'styled-components'
 import { Grommet } from 'grommet'
-import { customLayout, customWrapper } from '../../components/mixins'
+import { customWrapper } from '../../components/mixins'
 import ProfileSettings from './ProfileSettings'
 import Integrations from './Integrations'
 import { editUser } from 'actions'
@@ -119,7 +118,6 @@ const Tabs = styled.ul`
   height: 60px;
   align-items: flex-end;
   padding-bottom: 15px;
-  outline: 2px solid red;
   .active {
     border-bottom: 3px solid #4064f2;
     font-weight: 900;

@@ -8,10 +8,11 @@ import { StyledCollections } from '../collections/StyledCollections'
 import { customWrapper, truncateText } from '../mixins'
 import NoPostScreen from '../utils/screens/NoPostScreen'
 import { apiURL } from 'services'
-import { fetchCollections, deleteCollection, setSearchTerm } from 'actions'
+import { fetchCollections, deleteCollection } from 'actions'
 import plusIcon from 'assets/svg/add-icon.svg'
 import check from 'assets/svg/check.svg'
 import { withAlert } from 'react-alert'
+import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 
 class OtherCollections extends Component {
   state = { modalOpen: false, posts: [], savedPostIds: [] }
@@ -90,7 +91,12 @@ class OtherCollections extends Component {
               {post.saved_to_profile ? (
                 <div className='save-to-profile'>
                   <img src={check} className='add-icon' alt='' />
-                  <span className='rec-span'>✅ Saved</span>
+                  <span className='rec-span'>
+                    <span role='img' aria-label='check'>
+                      ✅
+                    </span>
+                    Saved
+                  </span>
                 </div>
               ) : (
                 <div
@@ -112,7 +118,12 @@ class OtherCollections extends Component {
         <NoPostScreen textDescription='No courses or articles have been bookmarked yet.' />
       )
     } else {
-      return <Wrapper>{posts}</Wrapper>
+      return (
+        <Wrapper>
+          <ScrollToTopOnMount />
+          {posts}
+        </Wrapper>
+      )
     }
   }
 }
@@ -134,7 +145,6 @@ export default connect(
   {
     fetchCollections,
     deleteCollection,
-    setSearchTerm,
   }
 )(withRouter(Alert))
 

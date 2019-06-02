@@ -11,8 +11,6 @@ import {
   CREATE_COLLECTION,
   EDIT_COLLECTION,
   DELETE_COLLECTION,
-  SET_SEARCH_TERM,
-  RESET_SEARCH_TERM,
   ADD_TO_FEED,
 } from './types'
 
@@ -43,7 +41,6 @@ export const fetchCollections = () => async dispatch => {
   const res = await axios.get(`/posts`)
   dispatch({ type: FETCH_COLLECTIONS, payload: res.data })
 }
-
 export const createCollection = post => async dispatch => {
   // response object returned by this function
   let responseObj = {}
@@ -109,13 +106,3 @@ export const shareCollection = collection => async dispatch => {
     dispatch({ type: ADD_TO_FEED, payload: sharedCollection })
   }
 }
-//* Sets search term on user input
-export const setSearchTerm = e => ({
-  type: SET_SEARCH_TERM,
-  payload: e.target.value,
-})
-//* Resets search on user input
-export const resetSearchTerm = () => ({
-  type: RESET_SEARCH_TERM,
-  payload: '',
-})
