@@ -98,8 +98,6 @@ const StyledNotifications = styled.div`
   display: flex;
   padding: 5px 10px;
   border-radius: 5px;
-  /* background: #f4511e;
-  color: #fff; */
   color: #333;
   #notifications {
     background: none;
@@ -130,6 +128,13 @@ const StyledNotifications = styled.div`
     top: 40px;
     right: -140px;
     z-index: 10;
+    @media (max-width: 760px) {
+      position: fixed;
+      height: 150px;
+      top: 50px;
+      right: 0;
+      width: 100vw;
+    }
     .modal-close {
       position: absolute;
       display: flex;
@@ -150,9 +155,6 @@ const StyledNotifications = styled.div`
     .notification-empty {
       text-align: center;
       margin-top: 50px;
-    }
-    @media (max-width: 760px) {
-      right: -40px;
     }
 
     .notification {
