@@ -41,20 +41,22 @@ const SinglePost = props => {
       </div>
       <div className='post-comments'>
         {post.comments &&
-          post.comments.map((comment, index) => {
-            return (
-              <div className='post-comment' key={index}>
-                <div>
+          post.comments
+            .map((comment, index) => {
+              return (
+                <div className='post-comment' key={index}>
                   <div>
-                    <span>{comment.username}</span>
-                    <span>{comment.created_at}</span>
+                    <div>
+                      <span>{comment.username}</span>
+                      <span>{comment.created_at}</span>
+                    </div>
+                    <div>{comment.content}</div>
                   </div>
-                  <div>{comment.content}</div>
+                  <div>delete</div>
                 </div>
-                <div>delete</div>
-              </div>
-            )
-          })}
+              )
+            })
+            .reverse()}
       </div>
     </Container>
   )
