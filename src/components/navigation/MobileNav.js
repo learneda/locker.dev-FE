@@ -24,22 +24,22 @@ const MobileNav = ({ handleClose, show }) => {
         <ul className='burger-main'>
           <li onClick={handleClose}>
             <Link to='/home'>
-              <span>Home</span>
+              <div>Home</div>
             </Link>
           </li>
           <li onClick={handleClose}>
             <Link to='/browse'>
-              <span>Browse</span>
+              <div>Browse</div>
             </Link>
           </li>
           <li onClick={handleClose}>
             <Link to='/social'>
-              <span>Social</span>
+              <div>Social</div>
             </Link>
           </li>
           <li onClick={handleClose}>
             <Link to='/settings'>
-              <span>Settings</span>
+              <div>Settings</div>
             </Link>
           </li>
           <li>
