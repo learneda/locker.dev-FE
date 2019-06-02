@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import * as notificationActions from 'pages/Notifications/notificationActions'
 import styled from 'styled-components'
-import useOnClickOutside from 'use-onclickoutside'
 
 const Notifications = props => {
   const {
@@ -14,9 +13,7 @@ const Notifications = props => {
     readNotifications,
     deleteNotifications,
   } = props
-  const modal = useRef(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  useOnClickOutside(modal, () => setIsModalOpen(false))
   let count = props.notifications
   count = count.length
 
@@ -29,27 +26,16 @@ const Notifications = props => {
     <StyledNotifications>
       <img
         onClick={() => {
-          setIsModalOpen(true)
-          {
-            /* readNotifications() */
-          }
+          setIsModalOpen(prevState => !prevState)
+          readNotifications()
         }}
         src={bellIcon}
         alt='bell-icon'
         className='bell-icon'
       />
-      <p>{count ? count : null}</p>
+      <p className='count'>{count ? count : null}</p>
       {isModalOpen && (
-        <div className='modal-portal' ref={modal}>
-          <button
-            className='modal-close'
-            onClick={() => {
-              setIsModalOpen(false)
-              deleteNotifications()
-            }}
-          >
-            clear
-          </button>
+        <div className='modal-portal'>
           {!count ? (
             <div className='notification-empty'>
               You have no new notifications.
@@ -63,11 +49,15 @@ const Notifications = props => {
                   to={`/status/${obj.post_id}`}
                   onClick={() => setIsModalOpen(false)}
                 >
-                  <img
-                    className='notification-image'
-                    src={user.profilePicture}
-                  />
-                  <span>{`${obj.invoker} ${obj.type} on your post`}</span>
+                  <div className='notification-left'>
+                    <img
+                      className='notification-image'
+                      src={user.profilePicture}
+                    />
+                    <span className='text'>{`${obj.invoker} ${
+                      obj.type
+                    } on your post`}</span>
+                  </div>
                   <img
                     className='notification-post-thumbnail'
                     src={selectThumbnail(obj.post_id)}
@@ -94,24 +84,11 @@ export default connect(
 )(Notifications)
 
 const StyledNotifications = styled.div`
-  position: relative;
   display: flex;
+  position: relative;
   padding: 5px 10px;
-  border-radius: 5px;
   color: #333;
-  #notifications {
-    background: none;
-    margin: 0;
-    padding: 5px 2px;
-    color: #333;
-  }
-  span {
-    background: none;
-    margin: 0;
-    padding: 0;
-  }
-  p {
-    /* align-self: flex-end; */
+  .count {
     color: #3f65f2;
   }
   .modal-portal {
@@ -160,21 +137,33 @@ const StyledNotifications = styled.div`
     .notification {
       display: flex;
       min-height: 60px;
+      justify-content: space-between;
       align-items: center;
-      padding-left: 15px;
       border-bottom: 1px solid #e6e6e6;
+      padding: 0 20px;
+      @media (max-width: 760px) {
+        padding: 0 50px;
+      }
+      .text {
+        background: none;
+        color: #333;
+        font-weight: normal;
+      }
+    }
+    .notification-left {
+      display: flex;
+      align-items: center;
     }
     .notification-image {
       height: 30px;
       width: 30px;
       border-radius: 50%;
-      margin-right: 15px;
+      margin-right: 10px;
     }
 
     .notification-post-thumbnail {
       height: 30px;
       width: 30px;
-      margin-left: 20px;
     }
   }
 `
