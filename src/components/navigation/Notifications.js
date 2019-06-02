@@ -29,8 +29,14 @@ const Notifications = props => {
       <p>{count ? count : null}</p>
       {isModalOpen && (
         <div className='modal-portal' ref={modal}>
-          <button className='modal-close' onClick={() => setIsModalOpen(false)}>
-            close
+          <button
+            className='modal-close'
+            onClick={() => {
+              setIsModalOpen(false)
+              readNotifications()
+            }}
+          >
+            clear
           </button>
           {!count ? (
             <div className='notification-empty'>
