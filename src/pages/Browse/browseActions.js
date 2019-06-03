@@ -59,10 +59,14 @@ export const fetchVideos = (q, pageToken) => async dispatch => {
   if (!q) {
     q = selectRandom(topics)
   }
-  const res = await youtube.get('/search', {
+  const res = await youtube.get(`/search`, {
     params: {
       q,
       pageToken,
+      part: 'snippet',
+      maxResults: 12,
+      type: 'video',
+      key: 'AIzaSyAox9SoXZEVF2JjbJ9lRsCE_Fpw_6sXKO0',
     },
   })
   //* Adds isThumbnail property to each video; default to true
@@ -77,6 +81,10 @@ export const searchVideos = q => async dispatch => {
   const res = await youtube.get('/search', {
     params: {
       q,
+      part: 'snippet',
+      maxResults: 12,
+      type: 'video',
+      key: 'AIzaSyAox9SoXZEVF2JjbJ9lRsCE_Fpw_6sXKO0',
     },
   })
   const videosWithThumbnailState = res.data.items.map(video => {
