@@ -36,7 +36,7 @@ const SinglePost = props => {
       <div className='post-content'>
         <h2>{post.title}</h2>
         <p>{post.description}</p>
-        <div>{post.root_url}</div>
+        <div className='root-url'>{post.root_url}</div>
         <div className='post-actionbar'>
           <span>Likes {post.likes}</span>
           <span>Add to Saved</span>
@@ -49,13 +49,15 @@ const SinglePost = props => {
               return (
                 <div className='post-comment' key={index}>
                   <div>
-                    <div>
+                    <div className='comment-author'>
                       <span>{comment.username}</span>
-                      <span>{comment.created_at}</span>
+                      <span>
+                        <Moment fromNow>{comment.created_at}</Moment>
+                      </span>
                     </div>
                     <div>{comment.content}</div>
                   </div>
-                  <div>delete</div>
+                  <div className='comment-delete'>delete</div>
                 </div>
               )
             })
@@ -126,13 +128,58 @@ const Container = styled.div`
     object-fit: cover;
   }
   .post-content {
+    margin: 15px auto;
     h2 {
       font-size: 2rem;
       font-weight: bold;
+      font-size: 2.6rem;
+      opacity: 0.8;
+    }
+    p {
+      margin-top: 10px;
+      opacity: 0.8;
+    }
+    .root-url {
+      display: inline-block;
+      opacity: 0.8;
+      margin: 5px auto;
+      font-size: 1.7rem;
+    }
+    .post-actionbar {
+      margin-top: 20px;
+      span {
+        margin-right: 40px;
+      }
     }
   }
-  .post-actionbar {
-  }
+
   .post-comments {
+    .post-comment {
+      background: #f3f4f7;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      padding: 10px;
+      position: relative;
+      .comment-author {
+        span:nth-child(1) {
+          font-weight: bold;
+          margin-right: 5px;
+          font-size: 1.4rem;
+        }
+        span:nth-child(2) {
+          font-size: 1.2rem;
+          opacity: 0.7;
+          font-weight: bold;
+          &::after {
+            content: ':';
+          }
+        }
+      }
+      .comment-delete {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+      }
+    }
   }
 `
