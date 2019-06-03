@@ -111,7 +111,6 @@ const TabWrapper = styled.div`
 
 const Tabs = styled.ul`
   display: flex;
-  border: 1px solid red;
   position: sticky;
   background: rgb(230, 233, 243);
   top: 60px;

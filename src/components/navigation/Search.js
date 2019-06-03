@@ -1,4 +1,5 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react'
+// import React, { useState, useCallback, useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Grommet, TextInput, CheckBox } from 'grommet'
@@ -7,33 +8,33 @@ import SearchUsersDropDown from './SearchUsersDropDown'
 import * as searchActions from './searchActions'
 
 function Search(props) {
-  const DropDownNode = useRef()
-  const { setSearchTerm, resetSearchTerm } = props
-  const [toggle, setToggle] = useState(false)
-  const [search, setSearch] = useState('')
-  const [visible, setVisible] = useState(false)
+  // const DropDownNode = useRef()
+  const { searchTerm, setSearchTerm, resetSearchTerm } = props
+  // const [toggle, setToggle] = useState(false)
+  // const [search, setSearch] = useState('')
+  // const [visible, setVisible] = useState(false)
 
-  const handleChange = useCallback(e => {
-    setToggle(e.target.checked)
-    setSearch('')
-  }, [])
+  // const handleChange = useCallback(e => {
+  //   setToggle(e.target.checked)
+  //   setSearch('')
+  // }, [])
 
-  const handleSearch = e => {
-    toggle && setVisible(true)
-    toggle ? setSearch(e.target.value) : setSearchTerm(e)
-  }
+  // const handleSearch = e => {
+  //   // toggle && setVisible(true)
+  //   toggle ? setSearch(e.target.value) : setSearchTerm(e)
+  // }
 
-  const handleRefClick = e => {
-    if (DropDownNode.current) {
-      setVisible(false)
-    }
-  }
-  useEffect(() => {
-    document.addEventListener('click', handleRefClick)
-    return () => {
-      document.removeEventListener('click', handleRefClick)
-    }
-  }, [])
+  // const handleRefClick = e => {
+  //   if (DropDownNode.current) {
+  //     setVisible(false)
+  //   }
+  // }
+  // useEffect(() => {
+  //   document.addEventListener('click', handleRefClick)
+  //   return () => {
+  //     document.removeEventListener('click', handleRefClick)
+  //   }
+  // }, [])
 
   useEffect(() => {
     if (props.searchTerm) {
@@ -127,9 +128,9 @@ function Search(props) {
       <TextInput
         size='small'
         height='45px'
-        placeholder={toggle ? 'Search Users' : `Search ${placeholder}`}
-        value={toggle ? search : props.searchTerm}
-        onChange={handleSearch}
+        placeholder={`Search ${placeholder}`}
+        value={searchTerm}
+        onChange={setSearchTerm}
         id='search-input'
       />
     )
@@ -140,22 +141,22 @@ function Search(props) {
       <Wrapper>
         <Grommet theme={theme}>
           <Container>
-            <Toggle>
+            {/* <Toggle>
               <CheckBox toggle checked={toggle} onChange={handleChange} />
-            </Toggle>
+            </Toggle> */}
             {displaySearch()}
           </Container>
         </Grommet>
       </Wrapper>
-      {visible && toggle && search.length > 0 && (
-        <DropDown ref={DropDownNode}>
-          <SearchUsersDropDown search={search} />
-        </DropDown>
-      )}
     </>
   )
 }
 
+// {visible && toggle && search.length > 0 && (
+//   <DropDown ref={DropDownNode}>
+//     <SearchUsersDropDown search={search} />
+//   </DropDown>
+// )}
 const mapStateToProps = ({ searchTerm }) => ({
   searchTerm,
 })
