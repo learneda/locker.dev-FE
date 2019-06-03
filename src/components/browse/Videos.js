@@ -15,7 +15,7 @@ const Videos = props => {
     videoPageToken,
     fetchVideos,
     searchVideos,
-    handleSaveMedia,
+    createCollection,
     showIframe,
     resetIframe,
   } = props
@@ -115,7 +115,7 @@ const Videos = props => {
               <Add
                 className='save-icon'
                 onClick={() => {
-                  handleSaveMedia({
+                  createCollection({
                     type: 'video',
                     post_url: `https://www.youtube.com/watch?v=${
                       video.id.videoId

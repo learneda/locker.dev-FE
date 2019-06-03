@@ -17,7 +17,7 @@ const Podcasts = props => {
     podcastOffset,
     fetchPodcasts,
     searchPodcasts,
-    handleSaveMedia,
+    createCollection,
   } = props
   const alert = useAlert()
   const [isLoading, setIsLoading] = useState(false)
@@ -153,7 +153,7 @@ const Podcasts = props => {
               <Add
                 className='save-icon'
                 onClick={() => {
-                  handleSaveMedia({
+                  createCollection({
                     type: 'podcast',
                     post_url: podcast.audio,
                     title: podcast.title_original,

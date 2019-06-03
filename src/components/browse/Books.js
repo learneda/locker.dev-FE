@@ -15,7 +15,7 @@ const Books = props => {
     bookOffset,
     fetchBooks,
     searchBooks,
-    handleSaveMedia,
+    createCollection,
   } = props
   const alert = useAlert()
   const [isLoading, setIsLoading] = useState(false)
@@ -102,7 +102,7 @@ const Books = props => {
                 <Add
                   className='save-icon'
                   onClick={() => {
-                    handleSaveMedia({
+                    createCollection({
                       type: 'book',
                       post_url: book.link,
                       title: book.title,

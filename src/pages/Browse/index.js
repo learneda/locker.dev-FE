@@ -58,19 +58,6 @@ const Browse = props => {
     }
   }, [])
 
-  const handleSaveLink = (url, type) => {
-    createCollection({
-      post_url: url,
-      type,
-    })
-  }
-
-  const handleSaveMedia = media => {
-    createCollection({
-      ...media,
-    })
-  }
-
   return (
     <>
       <Tabs>
@@ -109,7 +96,7 @@ const Browse = props => {
                 coursePage={coursePage}
                 searchCourses={searchCourses}
                 fetchCourses={fetchCourses}
-                handleSaveLink={handleSaveLink}
+                createCollection={createCollection}
               />
             )}
           />
@@ -123,7 +110,7 @@ const Browse = props => {
                 articleOffset={articleOffset}
                 searchArticles={searchArticles}
                 fetchArticles={fetchArticles}
-                handleSaveLink={handleSaveLink}
+                createCollection={createCollection}
               />
             )}
           />
@@ -137,7 +124,7 @@ const Browse = props => {
                 videoPageToken={videoPageToken}
                 searchVideos={searchVideos}
                 fetchVideos={fetchVideos}
-                handleSaveMedia={handleSaveMedia}
+                createCollection={createCollection}
                 showIframe={showIframe}
                 resetIframe={resetIframe}
               />
@@ -153,7 +140,7 @@ const Browse = props => {
                 bookOffset={bookOffset}
                 searchBooks={searchBooks}
                 fetchBooks={fetchBooks}
-                handleSaveMedia={handleSaveMedia}
+                createCollection={createCollection}
               />
             )}
           />
@@ -167,7 +154,7 @@ const Browse = props => {
                 podcastOffset={podcastOffset}
                 searchPodcasts={searchPodcasts}
                 fetchPodcasts={fetchPodcasts}
-                handleSaveMedia={handleSaveMedia}
+                createCollection={createCollection}
               />
             )}
           />

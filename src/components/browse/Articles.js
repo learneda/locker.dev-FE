@@ -14,7 +14,7 @@ const Articles = props => {
     articleOffset,
     fetchArticles,
     searchArticles,
-    handleSaveLink,
+    createCollection,
   } = props
   const alert = useAlert()
   const [isLoading, setIsLoading] = useState(false)
@@ -84,7 +84,7 @@ const Articles = props => {
               <Add
                 className='save-icon'
                 onClick={() => {
-                  handleSaveLink(article.url, 'article')
+                  createCollection(article.url, 'article')
                   alert.success('Article added to Saved')
                 }}
               />

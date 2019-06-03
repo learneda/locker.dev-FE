@@ -15,7 +15,7 @@ const Courses = props => {
     coursePage,
     fetchCourses,
     searchCourses,
-    handleSaveLink,
+    createCollection,
   } = props
   const alert = useAlert()
   const [isLoading, setIsLoading] = useState(false)
@@ -82,7 +82,10 @@ const Courses = props => {
               <Add
                 className='save-icon'
                 onClick={() => {
-                  handleSaveLink(`https://www.udemy.com${course.url}`, 'course')
+                  createCollection(
+                    `https://www.udemy.com${course.url}`,
+                    'course'
+                  )
                   alert.success('Course added to Saved')
                 }}
               />
