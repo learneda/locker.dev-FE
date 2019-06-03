@@ -209,7 +209,6 @@ const Tabs = styled.ul`
   position: sticky;
   background: rgb(230, 233, 243);
   top: 59px;
-  font-size: 2rem;
   height: 100px;
   z-index: 1;
   width: 100%;
@@ -232,12 +231,20 @@ const Tab = styled.li`
   margin-right: 2rem;
   font-size: 2rem;
   margin-left: 10px;
-
   a {
     transition: 100ms ease-out;
     &:hover {
       color: #4064f2;
       transition: 100ms ease-in;
     }
+  }
+  @media (max-width: 500px) {
+    font-size: 1.5rem;
+  }
+  @media (max-width: 400px) {
+    font-size: 1.2rem;
+  }
+  @media (max-width: 350px) {
+    font-size: 1rem;
   }
 `

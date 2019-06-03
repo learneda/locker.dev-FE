@@ -185,7 +185,6 @@ const Tabs = styled.ul`
   top: 59px;
   height: 80px;
   width: 100%;
-  font-size: 1.8rem;
   z-index: 1;
   align-items: flex-end;
   background: rgb(230, 233, 243);
@@ -202,9 +201,6 @@ const Tabs = styled.ul`
   @media (max-width: 900px) {
     top: 50px;
   }
-  @media (max-width: 400px) {
-    font-size: 1.7rem;
-  }
 `
 const Tab = styled.li`
   margin: 0 2rem 0 1rem;
@@ -215,6 +211,15 @@ const Tab = styled.li`
       color: #4064f2;
       transition: 100ms ease-in;
     }
+  }
+  @media (max-width: 500px) {
+    font-size: 1.5rem;
+  }
+  @media (max-width: 400px) {
+    font-size: 1.2rem;
+  }
+  @media (max-width: 350px) {
+    font-size: 1rem;
   }
 `
 const RouteWrapper = styled.div`
