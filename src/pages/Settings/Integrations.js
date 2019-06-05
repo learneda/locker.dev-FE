@@ -13,7 +13,7 @@ const Integrations = props => {
             <div className='col-2'>
               <label>
                 GoodReads Api
-                <a href={`${authURL}/goodreads`}>
+                <a href={`${authURL}/goodreads`} target='_blank' rel='noopener'>
                   <button type='button'>connect</button>
                 </a>
               </label>
