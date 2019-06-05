@@ -2,7 +2,7 @@ import React from 'react'
 import { Grommet } from 'grommet'
 import styled from 'styled-components'
 import { customLayout, customWrapper } from 'components/mixins'
-import { apiURL, authURL } from 'services'
+import { apiURL } from 'services'
 
 const Integrations = props => {
   return (
@@ -13,7 +13,7 @@ const Integrations = props => {
             <div className='col-2'>
               <label>
                 GoodReads Api
-                <a href={`${authURL}/goodreads`}>
+                <a href={`${apiURL}/goodreads`}>
                   <button type='button'>connect</button>
                 </a>
               </label>
