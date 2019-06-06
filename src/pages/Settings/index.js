@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
-import { Grommet } from 'grommet'
 import { customWrapper } from '../../components/mixins'
 import ProfileSettings from './ProfileSettings'
 import Integrations from './Integrations'
@@ -11,45 +10,43 @@ import { editUser } from 'actions'
 const Settings = props => {
   const { auth, user, editUser, location, match } = props
   return (
-    <Grommet theme={theme}>
-      <Wrapper>
-        <BrowseContainer>
-          <Tabs>
-            <Tab>
-              <NavLink
-                to={`${match.url}/profile`}
-                className={location.pathname === '/settings' ? 'active' : null}
-              >
-                Settings
-              </NavLink>
-            </Tab>
-            <Tab>
-              <NavLink to={`${match.url}/integrations`}>Integrations</NavLink>
-            </Tab>
-          </Tabs>
-          <TabWrapper>
-            <Switch>
-              <Route
-                exact
-                path={[`${match.path}`, `${match.path}/profile`]}
-                render={props => (
-                  <ProfileSettings
-                    {...props}
-                    auth={auth}
-                    user={user}
-                    editUser={editUser}
-                  />
-                )}
-              />
-              <Route
-                path={`${match.path}/integrations`}
-                render={props => <Integrations {...props} />}
-              />
-            </Switch>
-          </TabWrapper>
-        </BrowseContainer>
-      </Wrapper>
-    </Grommet>
+    <Wrapper>
+      <BrowseContainer>
+        <Tabs>
+          <Tab>
+            <NavLink
+              to={`${match.url}/profile`}
+              className={location.pathname === '/settings' ? 'active' : null}
+            >
+              Settings
+            </NavLink>
+          </Tab>
+          <Tab>
+            <NavLink to={`${match.url}/integrations`}>Integrations</NavLink>
+          </Tab>
+        </Tabs>
+        <TabWrapper>
+          <Switch>
+            <Route
+              exact
+              path={[`${match.path}`, `${match.path}/profile`]}
+              render={props => (
+                <ProfileSettings
+                  {...props}
+                  auth={auth}
+                  user={user}
+                  editUser={editUser}
+                />
+              )}
+            />
+            <Route
+              path={`${match.path}/integrations`}
+              render={props => <Integrations {...props} />}
+            />
+          </Switch>
+        </TabWrapper>
+      </BrowseContainer>
+    </Wrapper>
   )
 }
 

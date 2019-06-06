@@ -1,5 +1,4 @@
 import React from 'react'
-import { Grommet } from 'grommet'
 import styled from 'styled-components'
 import { customLayout, customWrapper } from 'components/mixins'
 import { apiURL, authURL } from 'services'
@@ -8,26 +7,24 @@ const Integrations = props => {
   return (
     <Wrapper>
       <FormGroup>
-        <Grommet theme={theme}>
-          <div className='row'>
-            <div className='col-2'>
-              <label>
-                GoodReads Api
-                <a href={`${authURL}/goodreads`} target='_blank' rel='noopener'>
-                  <button type='button'>connect</button>
-                </a>
-              </label>
-            </div>
-            <div className='col-2'>
-              <label>
-                Pocket Api
-                <a href={`${apiURL}/pocket`}>
-                  <button type='button'>connect</button>
-                </a>
-              </label>
-            </div>
+        <div className='row'>
+          <div className='col-2'>
+            <label>
+              GoodReads Api
+              <a href={`${authURL}/goodreads`} target='_blank' rel='noopener'>
+                <button type='button'>connect</button>
+              </a>
+            </label>
           </div>
-        </Grommet>
+          <div className='col-2'>
+            <label>
+              Pocket Api
+              <a href={`${apiURL}/pocket`}>
+                <button type='button'>connect</button>
+              </a>
+            </label>
+          </div>
+        </div>
       </FormGroup>
     </Wrapper>
   )
