@@ -180,6 +180,7 @@ export default connect(
     deleteCollection,
     fetchUser,
     createCollection,
+    fetchUser,
     ...socialActions,
     ...homeActions,
   }

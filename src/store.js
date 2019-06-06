@@ -1,9 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import rootReducer from './reducers'
 import thunk from 'redux-thunk'
-// import logger from 'redux-logger'
+import createSagaMiddleware from 'redux-saga'
 
 let store
+const sagaMiddleware = createSagaMiddleware()
 
 if (process.env.NODE_ENV === 'production') {
   store = createStore(rootReducer, applyMiddleware(thunk))

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useAlert } from 'react-alert'
-import { Grommet, TextInput, TextArea } from 'grommet'
 import { customLayout, customWrapper } from 'components/mixins'
 import axios from 'apis/axiosAPI'
 
@@ -140,100 +139,98 @@ const ProfileSettings = props => {
     <Wrapper>
       <FormGroup onSubmit={e => editProfileHandler(e, auth.id)}>
         <div className='form-wrapper'>
-          <Grommet theme={theme}>
-            <div className='row'>
-              <div className='col-2'>
-                <label>
-                  Name
-                  <TextInput
-                    type='text'
-                    onChange={e => setDisplayName(e.target.value)}
-                    placeholder='Add full name'
-                    value={displayName}
-                    name='displayName'
-                    required
-                  />
-                </label>
-                <label>
-                  Email Address
-                  <TextInput
-                    type='text'
-                    onChange={e => setEmail(e.target.value)}
-                    placeholder='email address'
-                    value={email}
-                    name='email'
-                  />
-                </label>
-                <label>
-                  Username
-                  <TextInput
-                    type='text'
-                    onChange={e => setUsername(e.target.value)}
-                    placeholder='Add username'
-                    value={username}
-                    name='username'
-                    required
-                  />
-                </label>
+          <div className='row'>
+            <div className='col-2'>
+              <label>
+                Name
+                <input
+                  type='text'
+                  onChange={e => setDisplayName(e.target.value)}
+                  placeholder='Add full name'
+                  value={displayName}
+                  name='displayName'
+                  required
+                />
+              </label>
+              <label>
+                Email Address
+                <input
+                  type='text'
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder='email address'
+                  value={email}
+                  name='email'
+                />
+              </label>
+              <label>
+                Username
+                <input
+                  type='text'
+                  onChange={e => setUsername(e.target.value)}
+                  placeholder='Add username'
+                  value={username}
+                  name='username'
+                  required
+                />
+              </label>
 
-                <label>
-                  Bio
-                  <TextArea
-                    type='text'
-                    onChange={e => setBio(e.target.value)}
-                    placeholder='Add bio'
-                    value={bio}
-                    name='bio'
-                  />
-                </label>
-              </div>
-
-              <div className='col-2'>
-                <label>
-                  Location
-                  <TextInput
-                    type='text'
-                    onChange={e => setLocation(e.target.value)}
-                    placeholder='Add location'
-                    value={location}
-                    name='location'
-                  />
-                </label>
-
-                <label>
-                  Website URL
-                  <TextInput
-                    type='text'
-                    onChange={e => setWebsiteUrl(e.target.value)}
-                    placeholder='Add website URL'
-                    value={websiteUrl}
-                    name='websiteUrl'
-                  />
-                </label>
-                <label>
-                  Profile Picture
-                  <img
-                    style={{
-                      width: '200px',
-                      display: 'block',
-                      margin: '10px auto',
-                    }}
-                    ref={image}
-                    src={profile_pic}
-                    onDragEnter={handleDragEvent}
-                    onDragOver={handleDragEvent}
-                    onDrop={handleDrop}
-                    alt='user_upload_picture'
-                  />
-                  <input
-                    onChange={e => handleFileSelection(e)}
-                    type='file'
-                    name='profile_pic'
-                  />
-                </label>
-              </div>
+              <label>
+                Bio
+                <textarea
+                  type='text'
+                  onChange={e => setBio(e.target.value)}
+                  placeholder='Add bio'
+                  value={bio}
+                  name='bio'
+                />
+              </label>
             </div>
-          </Grommet>
+
+            <div className='col-2'>
+              <label>
+                Location
+                <input
+                  type='text'
+                  onChange={e => setLocation(e.target.value)}
+                  placeholder='Add location'
+                  value={location}
+                  name='location'
+                />
+              </label>
+
+              <label>
+                Website URL
+                <input
+                  type='text'
+                  onChange={e => setWebsiteUrl(e.target.value)}
+                  placeholder='Add website URL'
+                  value={websiteUrl}
+                  name='websiteUrl'
+                />
+              </label>
+              <label>
+                Profile Picture
+                <img
+                  style={{
+                    width: '200px',
+                    display: 'block',
+                    margin: '10px auto',
+                  }}
+                  ref={image}
+                  src={profile_pic}
+                  onDragEnter={handleDragEvent}
+                  onDragOver={handleDragEvent}
+                  onDrop={handleDrop}
+                  alt='user_upload_picture'
+                />
+                <input
+                  onChange={e => handleFileSelection(e)}
+                  type='file'
+                  name='profile_pic'
+                />
+              </label>
+            </div>
+          </div>
 
           <div className='btn-group'>
             <Link to='/home'>Cancel</Link>

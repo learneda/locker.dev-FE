@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { Grommet, TextInput, CheckBox } from 'grommet'
 import styled from 'styled-components'
 import SearchUsersDropDown from './SearchUsersDropDown'
 import * as searchActions from './searchActions'
@@ -125,7 +124,7 @@ function Search(props) {
         placeholder = 'Default'
     }
     return (
-      <TextInput
+      <input
         size='small'
         height='45px'
         placeholder={`Search ${placeholder}`}
@@ -139,14 +138,12 @@ function Search(props) {
   return (
     <>
       <Wrapper>
-        <Grommet theme={theme}>
-          <Container>
-            {/* <Toggle>
+        <Container>
+          {/* <Toggle>
               <CheckBox toggle checked={toggle} onChange={handleChange} />
             </Toggle> */}
-            {displaySearch()}
-          </Container>
-        </Grommet>
+          {displaySearch()}
+        </Container>
       </Wrapper>
     </>
   )

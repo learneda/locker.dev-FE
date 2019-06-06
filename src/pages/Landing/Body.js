@@ -1,7 +1,5 @@
 import React, { useRef } from 'react'
 import styled from 'styled-components'
-import { Button, Grommet } from 'grommet'
-
 import { buttonBg } from 'components/mixins'
 import friendsSVG from 'assets/svg/online_friends.svg'
 import booksSVG from 'assets/svg/reading-list-drawing.svg'
@@ -28,11 +26,11 @@ function Body(props) {
     scrollDown.current.scrollIntoView({ behavior: 'smooth' })
 
   return (
-    <Grommet theme={theme}>
+    <div>
       <CallToAction>
         <div className='landing-content'>
           <h1>The exciting new way to learn.</h1>
-          <Button
+          <button
             className='get-started'
             primary
             label='Find Out More'
@@ -81,7 +79,7 @@ function Body(props) {
       <StyledFeature textAlign='center'>
         <div className='try-learnlocker'>
           <h2>Try LearnLocker for Free</h2>
-          <Button
+          <button
             className='create-acct-btn'
             primary
             label='Create an Account'
@@ -107,7 +105,7 @@ function Body(props) {
           <p>&copy; 2019 LearnLocker, Inc.</p>
         </div>
       </Footer>
-    </Grommet>
+    </div>
   )
 }
 
