@@ -8,7 +8,12 @@ import Locker from 'components/locker/Locker'
 import Sidebar from 'components/sidebar/Sidebar'
 import Suggested from 'components/sidebar/Suggested'
 import { customWrapper } from 'components/mixins'
-import { fetchCollections, deleteCollection, createCollection } from 'actions'
+import {
+  fetchCollections,
+  deleteCollection,
+  createCollection,
+  fetchUser,
+} from 'actions'
 import { fetchNotifications } from '../Notifications/notificationActions'
 import * as socialActions from 'actions/socialActions'
 import * as homeActions from './homeActions'
@@ -173,6 +178,7 @@ export default connect(
     fetchNotifications,
     fetchCollections,
     deleteCollection,
+    fetchUser,
     createCollection,
     ...socialActions,
     ...homeActions,
