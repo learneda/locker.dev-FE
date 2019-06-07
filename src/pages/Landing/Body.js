@@ -30,13 +30,9 @@ function Body(props) {
       <CallToAction>
         <div className='landing-content'>
           <h1>The exciting new way to learn.</h1>
-          <button
-            className='get-started'
-            primary
-            label='Find Out More'
-            onClick={handleClick}
-            reverse
-          />
+          <button className='get-started' onClick={handleClick}>
+            Find Out More
+          </button>
         </div>
         <div className='landing-img'>
           <img src={browser} alt='browser top section' />
@@ -81,14 +77,13 @@ function Body(props) {
           <h2>Try LearnLocker for Free</h2>
           <button
             className='create-acct-btn'
-            primary
-            label='Create an Account'
-            reverse
             onClick={() => {
               authModalToggle()
               modalSignUp()
             }}
-          />
+          >
+            Create an Account
+          </button>
         </div>
       </StyledFeature>
       <Footer>
