@@ -79,24 +79,24 @@ const Home = props => {
           <Tab>
             <NavLink
               exact
-              to={`${match.url}/feed`}
-              className={location.pathname === '/home' ? 'active' : null}
+              to={`/feed`}
+              className={location.pathname === '/' ? 'active' : null}
             >
               Feed
             </NavLink>
           </Tab>
           <Tab>
-            <NavLink to={`${match.url}/saved`}>Saved</NavLink>
+            <NavLink to={`/saved`}>Saved</NavLink>
           </Tab>
           <Tab>
-            <NavLink to={`${match.url}/locker`}>Locker(βeta)</NavLink>
+            <NavLink to={`/locker`}>Locker(βeta)</NavLink>
           </Tab>
         </Tabs>
         <RouteWrapper>
           <Switch>
             <Route
               exact
-              path={[`${match.path}`, `${match.path}/feed`]}
+              path={[`/`, `/feed`]}
               render={props => (
                 <Feed
                   {...props}
@@ -117,7 +117,7 @@ const Home = props => {
               )}
             />
             <Route
-              path={`${match.path}/saved`}
+              path={`/saved`}
               render={props => (
                 <Collections
                   {...props}
@@ -130,7 +130,7 @@ const Home = props => {
               )}
             />
             <Route
-              path={`${match.path}/locker`}
+              path={`/locker`}
               render={props => (
                 <Locker
                   {...props}

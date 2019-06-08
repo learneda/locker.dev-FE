@@ -54,16 +54,16 @@ function Search(props) {
     }
 
     switch (path) {
-      case '/home':
+      case '/':
         placeholder = 'Feed'
         break
-      case '/home/feed':
+      case '/feed':
         placeholder = 'Feed'
         break
-      case '/home/saved':
+      case '/saved':
         placeholder = 'Saved'
         break
-      case '/home/locker':
+      case '/locker':
         placeholder = 'Locker'
         break
       case '/browse':

@@ -233,7 +233,7 @@ const ProfileSettings = props => {
           </div>
 
           <div className='btn-group'>
-            <Link to='/home'>Cancel</Link>
+            <Link to='/'>Cancel</Link>
             <button
               type='submit'
               onClick={() => {

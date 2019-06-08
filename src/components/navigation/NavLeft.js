@@ -5,7 +5,7 @@ const NavLeft = props => {
   return (
     <ul>
       <li>
-        <NavLink to='/home'>
+        <NavLink to='/'>
           <span>Home</span>
         </NavLink>
       </li>

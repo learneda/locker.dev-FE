@@ -19,7 +19,7 @@ export default class MetadataParse extends Component {
   }
   render() {
     let metaData = ''
-    if (this.props.path === '/home') {
+    if (this.props.path === '/') {
       metaData = (
         <React.Fragment>
           <img src={this.state.image} alt='' />

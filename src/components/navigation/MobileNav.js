@@ -23,7 +23,7 @@ const MobileNav = ({ handleClose, show }) => {
         </div>
         <ul className='burger-main'>
           <li onClick={handleClose}>
-            <Link to='/home'>
+            <Link to='/'>
               <div>Home</div>
             </Link>
           </li>

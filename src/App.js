@@ -6,11 +6,12 @@ import GlobalStyle from 'components/mixins'
 import Navbar from 'components/navigation/Navbar'
 import { customContainer } from 'components/mixins'
 import { composedIndexRedirect as index } from 'components/authentication/indexRedirect'
-import { composedHomeRedirect as home } from 'components/authentication/homeRedirect'
+import { composedHomeRedirect as authentication } from 'components/authentication/homeRedirect'
 import useInterval from 'components/hooks/useInterval'
 import { fetchAuth, fetchUser } from 'actions'
 import { ReactComponent as Loading } from 'assets/svg/circles.svg'
 import Notifications from 'pages/Notifications'
+import Landing from 'pages/Landing/index'
 //? Should we implement route-based code-splitting?
 //TODO: Need to make this DRY
 const LandingPagePromise = import('pages/Landing')
@@ -70,8 +71,13 @@ const App = ({ fetchAuth, fetchUser, fetchCollections, modal, auth }) => {
         }
       >
         <Switch>
-          <Route path='/' exact component={home(LandingPage)} />
-          <Route path='/home' component={index(Home)} />
+          // home HOC
+          <Route
+            exact
+            path={['/', '/feed', '/saved', '/locker']}
+            component={authentication(Home)}
+          />
+          <Route path='/landing' component={LandingPage} />
           <Route path='/browse' component={index(Browse)} />
           <Route path='/social' component={index(Social)} />
           <Route path='/notifications' component={index(Notifications)} />
