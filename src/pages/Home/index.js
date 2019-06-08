@@ -7,6 +7,7 @@ import Collections from 'components/collections'
 import Locker from 'components/locker/Locker'
 import Sidebar from 'components/sidebar/Sidebar'
 import Suggested from 'components/sidebar/Suggested'
+import Navbar from 'components/navigation/Navbar'
 import { customWrapper } from 'components/mixins'
 import {
   fetchCollections,

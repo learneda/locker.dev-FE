@@ -8,7 +8,13 @@ import { customContainer } from 'components/mixins'
 import { composedIndexRedirect as index } from 'components/authentication/indexRedirect'
 import { composedHomeRedirect as authentication } from 'components/authentication/homeRedirect'
 import useInterval from 'components/hooks/useInterval'
-import { fetchAuth, fetchUser } from 'actions'
+import {
+  fetchAuth,
+  fetchUser,
+  authModalToggle,
+  modalLogin,
+  modalSignUp,
+} from 'actions'
 import { ReactComponent as Loading } from 'assets/svg/circles.svg'
 import Notifications from 'pages/Notifications'
 import Landing from 'pages/Landing/index'
@@ -31,7 +37,17 @@ const NoMatch = lazy(() => NoMatchPromise)
 const Profile = lazy(() => ProfilePromise)
 const SinglePost = lazy(() => SinglePostPromise)
 
-const App = ({ fetchAuth, fetchUser, fetchCollections, modal, auth }) => {
+const App = ({
+  fetchAuth,
+  fetchUser,
+  fetchCollections,
+  authModalToggle,
+  modalSignUp,
+  modalLogin,
+  modal,
+  auth,
+}) => {
+  console.log(authModalToggle)
   const { isAuthOpen, isEditOpen } = modal
   useEffect(() => {
     //* initial fetchAuth and fetchUser on browser refresh
@@ -77,7 +93,17 @@ const App = ({ fetchAuth, fetchUser, fetchCollections, modal, auth }) => {
             path={['/', '/feed', '/saved', '/locker']}
             component={authentication(Home)}
           />
-          <Route path='/landing' component={LandingPage} />
+          <Route
+            path='/landing'
+            render={props => (
+              <LandingPage
+                {...props}
+                modalSignUp={modalSignUp}
+                modalLogin={modalLogin}
+                authModalToggle={authModalToggle}
+              />
+            )}
+          />
           <Route path='/browse' component={index(Browse)} />
           <Route path='/social' component={index(Social)} />
           <Route path='/notifications' component={index(Notifications)} />
@@ -95,7 +121,7 @@ const mapStateToProps = ({ modal, auth }) => ({ modal, auth })
 
 export default connect(
   mapStateToProps,
-  { fetchAuth, fetchUser }
+  { fetchAuth, fetchUser, authModalToggle, modalLogin, modalSignUp }
 )(App)
 
 const Container = styled.div`

@@ -2,9 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Nav } from './Navbar'
 
-const NavLanding = ({ authModalToggle, modalSignUp, modalLogin }) => {
+const NavLanding = props => {
   return (
-    <Nav style={{ marginTop: '20px' }}>
+    <Nav>
       <h1>
         <Link to='/'>LearnLocker</Link>
       </h1>
@@ -12,8 +12,8 @@ const NavLanding = ({ authModalToggle, modalSignUp, modalLogin }) => {
         <li>
           <span
             onClick={() => {
-              authModalToggle()
-              modalLogin()
+              props.authModalToggle()
+              props.modalLogin()
             }}
           >
             Log In
@@ -22,8 +22,8 @@ const NavLanding = ({ authModalToggle, modalSignUp, modalLogin }) => {
         <li>
           <span
             onClick={() => {
-              authModalToggle()
-              modalSignUp()
+              props.authModalToggle()
+              props.modalSignUp()
             }}
           >
             Sign Up

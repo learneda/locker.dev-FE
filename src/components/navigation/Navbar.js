@@ -20,50 +20,39 @@ const Navbar = props => {
   const hideBurgerMenu = () => setShow(false)
 
   const { auth, user, authModalToggle, modalSignUp, modalLogin } = props
-  if (auth) {
-    // When user logged in
-    return (
-      <NavWrapper>
-        <MobileNav show={show} handleClose={hideBurgerMenu} />
-        <Burger>
-          <Search className='mobile-search' />
-          <div className='mobile-right'>
-            <Notifications className='mobile-bell' />
-            <img
-              src={burgerIcon}
-              alt='burger'
-              className='burger-icon'
-              onClick={showBurgerMenu}
-            />
-          </div>
-        </Burger>
+  // When user logged in
+  return (
+    <div>
+      {auth && (
+        <NavWrapper>
+          <MobileNav show={show} handleClose={hideBurgerMenu} />
+          <Burger>
+            <Search className='mobile-search' />
+            <div className='mobile-right'>
+              <Notifications className='mobile-bell' />
+              <img
+                src={burgerIcon}
+                alt='burger'
+                className='burger-icon'
+                onClick={showBurgerMenu}
+              />
+            </div>
+          </Burger>
 
-        <Nav className='main-nav' auth={auth}>
-          <NavLeft />
-          <Search className='main-search' />
-          <NavRight>
-            <Notifications />
-            <AddLink />
-            <ProfileDropDown auth={auth} user={user} />
-          </NavRight>
-        </Nav>
-      </NavWrapper>
-    )
-  } else {
-    // When user NOT logged in
-    return (
-      <>
-        <Auth />
-        <NavLanding
-          authModalToggle={authModalToggle}
-          modalSignUp={modalSignUp}
-          modalLogin={modalLogin}
-        />
-      </>
-    )
-  }
+          <Nav className='main-nav' auth={auth}>
+            <NavLeft />
+            <Search className='main-search' />
+            <NavRight>
+              <Notifications />
+              <AddLink />
+              <ProfileDropDown auth={auth} user={user} />
+            </NavRight>
+          </Nav>
+        </NavWrapper>
+      )}
+    </div>
+  )
 }
-
 const mapStateToProps = ({ auth, user }) => ({
   auth,
   user,
@@ -94,9 +83,7 @@ const NavWrapper = styled.div`
 export const Nav = styled.nav`
   ${customLayout('space-between', 'center')}
   padding: 7.5px 0;
-  margin: 0 auto;
-  width: 80%;
-
+  margin: 20px 0;
   @media (max-width: 1400px) {
     width: 90%;
   }
