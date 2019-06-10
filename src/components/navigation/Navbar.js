@@ -6,11 +6,8 @@ import MobileNav from './MobileNav'
 import NavLeft from './NavLeft'
 import Notifications from './Notifications'
 import Search from './Search'
-import Auth from '../authentication/Auth'
 import AddLink from '../utils/AddLink'
 import ProfileDropDown from './ProfileDropDown'
-import NavLanding from './NavLanding'
-import { authModalToggle, modalSignUp, modalLogin } from 'actions'
 import { customLayout, hoverBg } from '../mixins'
 import burgerIcon from 'assets/svg/burger.svg'
 
@@ -19,7 +16,7 @@ const Navbar = props => {
   const showBurgerMenu = () => setShow(true)
   const hideBurgerMenu = () => setShow(false)
 
-  const { auth, user, authModalToggle, modalSignUp, modalLogin } = props
+  const { auth, user } = props
   // When user logged in
   return (
     <div>
@@ -60,7 +57,7 @@ const mapStateToProps = ({ auth, user }) => ({
 
 export default connect(
   mapStateToProps,
-  { authModalToggle, modalSignUp, modalLogin }
+  null
 )(Navbar)
 
 const NavWrapper = styled.div`
@@ -80,7 +77,7 @@ const NavWrapper = styled.div`
   }
 `
 
-export const Nav = styled.nav`
+const Nav = styled.nav`
   ${customLayout('space-between', 'center')}
   padding: 7.5px 0;
   margin: 20px 0;

@@ -5,19 +5,13 @@ import styled from 'styled-components'
 import GlobalStyle from 'components/mixins'
 import Navbar from 'components/navigation/Navbar'
 import { customContainer } from 'components/mixins'
-import { composedIndexRedirect as index } from 'components/authentication/indexRedirect'
-import { composedHomeRedirect as authentication } from 'components/authentication/homeRedirect'
+import { composedIndexRedirect as index } from 'components/hoc/indexRedirect'
+import { composedHomeRedirect as authentication } from 'components/hoc/homeRedirect'
 import useInterval from 'components/hooks/useInterval'
-import {
-  fetchAuth,
-  fetchUser,
-  authModalToggle,
-  modalLogin,
-  modalSignUp,
-} from 'actions'
 import { ReactComponent as Loading } from 'assets/svg/circles.svg'
 import Notifications from 'pages/Notifications'
 import Landing from 'pages/Landing/index'
+import { fetchAuth, fetchUser } from 'actions'
 //? Should we implement route-based code-splitting?
 //TODO: Need to make this DRY
 const LandingPagePromise = import('pages/Landing')
@@ -37,20 +31,9 @@ const NoMatch = lazy(() => NoMatchPromise)
 const Profile = lazy(() => ProfilePromise)
 const SinglePost = lazy(() => SinglePostPromise)
 
-const App = ({
-  fetchAuth,
-  fetchUser,
-  fetchCollections,
-  authModalToggle,
-  modalSignUp,
-  modalLogin,
-  modal,
-  auth,
-}) => {
-  console.log(authModalToggle)
-  const { isAuthOpen, isEditOpen } = modal
+const App = ({ fetchAuth, fetchUser }) => {
+  //* initial fetchAuth and fetchUser on browser refresh
   useEffect(() => {
-    //* initial fetchAuth and fetchUser on browser refresh
     fetchAuth().then(res => {
       if (res.id) {
         fetchUser(res.id)
@@ -58,16 +41,6 @@ const App = ({
     })
   }, [])
 
-  useInterval(() => {
-    //* fetches auth information every 5 minutes to reduce number of server requests
-    fetchAuth()
-  }, 300000)
-
-  if (isAuthOpen || isEditOpen) {
-    document.getElementById('body').setAttribute('style', 'overflow: hidden')
-  } else {
-    document.getElementById('body').setAttribute('style', 'overflow: auto')
-  }
   return (
     <Container>
       <GlobalStyle />
@@ -93,17 +66,7 @@ const App = ({
             path={['/', '/feed', '/saved', '/locker']}
             component={authentication(Home)}
           />
-          <Route
-            path='/landing'
-            render={props => (
-              <LandingPage
-                {...props}
-                modalSignUp={modalSignUp}
-                modalLogin={modalLogin}
-                authModalToggle={authModalToggle}
-              />
-            )}
-          />
+          <Route path='/landing' component={LandingPage} />
           <Route path='/browse' component={index(Browse)} />
           <Route path='/social' component={index(Social)} />
           <Route path='/notifications' component={index(Notifications)} />
@@ -117,13 +80,12 @@ const App = ({
   )
 }
 
-const mapStateToProps = ({ modal, auth }) => ({ modal, auth })
-
 export default connect(
-  mapStateToProps,
-  { fetchAuth, fetchUser, authModalToggle, modalLogin, modalSignUp }
+  null,
+  { fetchAuth, fetchUser }
 )(App)
 
 const Container = styled.div`
   ${customContainer()};
+  outline: 2px solid red;
 `

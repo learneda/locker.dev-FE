@@ -10,7 +10,6 @@ import browser from 'assets/img/browser.png'
 import downIcon from 'assets/svg/down-icon.svg'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { authModalToggle, modalSignUp } from 'actions/index'
 import {
   Feature,
   FeatureTitle,
@@ -104,10 +103,7 @@ function Body(props) {
   )
 }
 
-export default connect(
-  null,
-  { authModalToggle, modalSignUp }
-)(Body)
+export default Body
 
 const StyledFeature = styled.div`
   text-align: ${props => props.textAlign};
