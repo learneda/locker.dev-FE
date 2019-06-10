@@ -119,21 +119,6 @@ const StyledFeatureTitle = styled.h3`
   margin-bottom: ${props => props.marginBottom};
 `
 
-const theme = {
-  button: {
-    padding: {
-      vertical: '20px',
-    },
-    border: {
-      radius: '5px',
-      color: buttonBg,
-    },
-    primary: {
-      color: buttonBg,
-    },
-  },
-}
-
 const StyledFeaturesContainer = styled.div`
   ${FeaturesContainer}
 `

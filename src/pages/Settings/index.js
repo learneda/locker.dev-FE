@@ -57,36 +57,6 @@ export default connect(
   { editUser }
 )(withRouter(Settings))
 
-const theme = {
-  tab: {
-    color: 'dark-1',
-    active: {
-      weight: 'bold',
-    },
-    border: {
-      side: 'bottom',
-      size: 'medium',
-      color: {
-        light: null,
-      },
-      active: {
-        color: {
-          light: 'dark-1',
-        },
-      },
-      hover: {
-        color: {
-          light: null,
-        },
-      },
-    },
-    margin: {
-      vertical: 'small',
-      horizontal: 'xsmall',
-    },
-  },
-}
-
 const BrowseContainer = styled.div`
   h2 {
     font-size: 3.5rem;

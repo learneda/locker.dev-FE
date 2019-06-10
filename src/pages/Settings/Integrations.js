@@ -31,23 +31,6 @@ const Integrations = props => {
 }
 export default Integrations
 
-const theme = {
-  global: {
-    focus: {
-      border: {
-        color: '#3f65f2',
-      },
-    },
-  },
-  text: {
-    xsmall: {
-      size: '12px',
-      height: '18px',
-      maxWidth: '288px',
-    },
-  },
-}
-
 const Wrapper = styled.div`
   ${customWrapper('80%', '0 auto')} @media (max-width: 768px) {
     ${customWrapper('90%', '0 auto')};
