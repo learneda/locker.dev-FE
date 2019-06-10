@@ -87,5 +87,5 @@ export default connect(
 
 const Container = styled.div`
   ${customContainer()};
-  outline: 2px solid red;
+  border: 2px solid red;
 `
