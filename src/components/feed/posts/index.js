@@ -57,13 +57,13 @@ class PostContainer extends Component {
     }
   }
   handleSaveToProfile = url => {
-    this.props.createCollection({ post_url: url })
+    this.props.createCollection({ url: url })
   }
 
   displayMedia = post => {
-    const { post_url, thumbnail_url } = post
-    if (post_url.includes('youtube.com/watch')) {
-      const videoId = post_url.split('=')[1]
+    const { url, thumbnail_url } = post
+    if (url.includes('youtube.com/watch')) {
+      const videoId = url.split('=')[1]
       return (
         <div
           style={{
@@ -180,18 +180,18 @@ class PostContainer extends Component {
         </div>
         <div className='post-content'>
           {post.thumbnail_url ? (
-            <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
+            <a href={post.url} target='_blank' rel='noopener noreferrer'>
               {this.displayMedia(post)}
             </a>
           ) : null}
           <div className='title-and-description'>
-            <a href={post.post_url} target='_blank' rel='noopener noreferrer'>
+            <a href={post.url} target='_blank' rel='noopener noreferrer'>
               <h2>{post.title}</h2>
             </a>
             <p>{smartTruncate(post.description, 210)}</p>
             <a
               className='post-root-url'
-              href={post.post_url}
+              href={post.url}
               target='_blank'
               rel='noopener noreferrer'
             >
@@ -202,12 +202,12 @@ class PostContainer extends Component {
                   alignItems: 'center',
                 }}
               >
-                {selectLogo(post.post_url)}
+                {selectLogo(post.url)}
                 <span style={{ marginLeft: '5px' }}>
-                  {post.post_url.includes('book') ? 'google.com' : null}
+                  {post.url.includes('book') ? 'google.com' : null}
                 </span>
                 <span style={{ marginLeft: '5px' }}>
-                  {post.post_url.includes('youtube') ? 'youtube.com' : null}
+                  {post.url.includes('youtube') ? 'youtube.com' : null}
                 </span>
                 {post.root_url === 'youtube.com' ? null : (
                   <span style={{ marginLeft: '-5px' }}>{post.root_url}</span>
@@ -232,7 +232,7 @@ class PostContainer extends Component {
               <div
                 className='save'
                 onClick={() => {
-                  this.handleSaveToProfile(post.post_url)
+                  this.handleSaveToProfile(post.url)
                   this.props.alert.success('Post added to Saved')
                 }}
               >
