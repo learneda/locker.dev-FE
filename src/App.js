@@ -5,69 +5,87 @@ import styled from 'styled-components'
 import GlobalStyle from 'components/mixins'
 import Navbar from 'components/navigation/Navbar'
 import { customContainer } from 'components/mixins'
-import { composedIndexRedirect as index } from 'components/authentication/indexRedirect'
-import { composedHomeRedirect as authentication } from 'components/authentication/homeRedirect'
-import useInterval from 'components/hooks/useInterval'
-import {
-  fetchAuth,
-  fetchUser,
-  authModalToggle,
-  modalLogin,
-  modalSignUp,
-} from 'actions'
+import { composedIndexRedirect as index } from 'components/hoc/indexRedirect'
+import { composedHomeRedirect as authentication } from 'components/hoc/homeRedirect'
 import { ReactComponent as Loading } from 'assets/svg/circles.svg'
-import Notifications from 'pages/Notifications'
-import Landing from 'pages/Landing/index'
-//? Should we implement route-based code-splitting?
-//TODO: Need to make this DRY
-const LandingPagePromise = import('pages/Landing')
-const HomePromise = import('pages/Home')
-const BrowsePromise = import('pages/Browse')
-const SocialPromise = import('pages/Social')
-const SettingsPromise = import('pages/Settings')
-const NoMatchPromise = import('pages/NoMatch')
-const ProfilePromise = import('pages/Profile')
-const SinglePostPromise = import('pages/SinglePost')
-const LandingPage = lazy(() => LandingPagePromise)
-const Home = lazy(() => HomePromise)
-const Browse = lazy(() => BrowsePromise)
-const Social = lazy(() => SocialPromise)
-const Settings = lazy(() => SettingsPromise)
-const NoMatch = lazy(() => NoMatchPromise)
-const Profile = lazy(() => ProfilePromise)
-const SinglePost = lazy(() => SinglePostPromise)
+import * as appActions from 'appActions'
+import socket from 'socket'
+const LandingPage = lazy(() => import('pages/Landing'))
+const Home = lazy(() => import('pages/Home'))
+const Browse = lazy(() => import('pages/Browse'))
+const Social = lazy(() => import('pages/Social'))
+const Notifications = lazy(() => import('pages/Notifications'))
+const Profile = lazy(() => import('pages/Profile'))
+const SinglePost = lazy(() => import('pages/SinglePost'))
+const Settings = lazy(() => import('pages/Settings'))
+const NoMatch = lazy(() => import('pages/NoMatch'))
 
 const App = ({
+  auth,
   fetchAuth,
   fetchUser,
-  fetchCollections,
-  authModalToggle,
-  modalSignUp,
-  modalLogin,
-  modal,
-  auth,
+  fetchNotifications,
+  createComment,
+  deleteComment,
+  likeComment,
+  unlikeComment,
 }) => {
-  console.log(authModalToggle)
-  const { isAuthOpen, isEditOpen } = modal
+  //* initial fetchAuth and fetchUser on browser refresh
   useEffect(() => {
-    //* initial fetchAuth and fetchUser on browser refresh
     fetchAuth().then(res => {
       if (res.id) {
         fetchUser(res.id)
+        //* on CDM socket will emit to all other sockets online that this user connected
+        socket.emit('join', { user_id: res.id })
+        //* join namespace contains all the current users who are online
+
+        socket.on('join', data => {
+          fetchNotifications(data)
+        })
+        //* socket is listening on comments event & will receive an obj
+        socket.on('comments', msg => {
+          //* msg obj contains properties of content, action, post_id, user_id, username, created_at, & updated_at
+
+          switch (msg.action) {
+            //* when action type === destroy
+            case 'destroy':
+              //* invoke action creator deleteComment & pass in msg obj
+              deleteComment(msg)
+              break
+            //* when action type === create
+            case 'create':
+              //* invoke action creator createComment & pass in msg obj
+              createComment(msg)
+              break
+            default:
+              break
+          }
+        })
+        //* socket is listening on like event & will receive an obj
+        socket.on('like', data => {
+          //* obj contains postOwnerId, post_id, user_id, username
+          //* console.log('in like socket connection', data)
+          switch (data.action) {
+            case 'unlike':
+              //* invoke action creator unlikeComment & pass in msg obj
+              unlikeComment(data)
+              break
+            case 'like':
+              //* invoke action creator likeComment & pass in msg obj
+              likeComment(data)
+              break
+            default:
+              break
+          }
+        })
       }
     })
+    return () => {
+      socket.disconnect()
+    }
   }, [])
 
-  useInterval(() => {
-    //* fetches auth information every 5 minutes to reduce number of server requests
-    fetchAuth()
-  }, 300000)
-
-  if (isAuthOpen || isEditOpen) {
-    document.getElementById('body').setAttribute('style', 'overflow: hidden')
-  } else {
-    document.getElementById('body').setAttribute('style', 'overflow: auto')
-  }
+  const homePaths = ['/', '/feed', '/saved', '/locker']
   return (
     <Container>
       <GlobalStyle />
@@ -88,22 +106,8 @@ const App = ({
       >
         <Switch>
           // home HOC
-          <Route
-            exact
-            path={['/', '/feed', '/saved', '/locker']}
-            component={authentication(Home)}
-          />
-          <Route
-            path='/landing'
-            render={props => (
-              <LandingPage
-                {...props}
-                modalSignUp={modalSignUp}
-                modalLogin={modalLogin}
-                authModalToggle={authModalToggle}
-              />
-            )}
-          />
+          <Route exact path={homePaths} component={authentication(Home)} />
+          <Route path='/landing' component={LandingPage} />
           <Route path='/browse' component={index(Browse)} />
           <Route path='/social' component={index(Social)} />
           <Route path='/notifications' component={index(Notifications)} />
@@ -117,11 +121,10 @@ const App = ({
   )
 }
 
-const mapStateToProps = ({ modal, auth }) => ({ modal, auth })
-
+const mapStateToProps = ({ auth }) => ({ auth })
 export default connect(
   mapStateToProps,
-  { fetchAuth, fetchUser, authModalToggle, modalLogin, modalSignUp }
+  { ...appActions }
 )(App)
 
 const Container = styled.div`

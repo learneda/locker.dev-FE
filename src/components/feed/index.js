@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import openSocket from 'socket.io-client'
 import styled from 'styled-components'
 import { customWrapper } from '../mixins'
-import { baseURL } from 'services'
 import ContentLoader from 'react-content-loader'
 import HelpScreen from '../utils/screens/HelpScreen'
 import OnlineFriendsSVG from 'assets/svg/online_friends.svg'
@@ -10,6 +8,7 @@ import PostContainer from './posts/index'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { ReactComponent as Loading } from 'assets/svg/circles.svg'
 import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
+import socket from 'socket'
 
 const MyLoader = () => (
   <ContentLoader
@@ -27,66 +26,6 @@ const MyLoader = () => (
   </ContentLoader>
 )
 class Feed extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      commentValue: '',
-    }
-    // connect socket
-    this.socket = openSocket(baseURL)
-  }
-
-  componentDidMount() {
-    // on CDM socket will emit to all other sockets online that this user connected
-    this.socket.emit('join', { user_id: this.props.auth.id })
-
-    // join namespace contains all the current users who are online
-    this.socket.on('join', data => {
-      this.props.fetchNotifications(data)
-    })
-
-    // socket is listening on comments event & will receive an obj
-    this.socket.on('comments', msg => {
-      // msg obj contains properties of content, action, post_id, user_id, username, created_at, & updated_at
-
-      switch (msg.action) {
-        // when action type === destroy
-        case 'destroy':
-          // invoke action creator deleteComment & pass in msg obj
-          this.props.deleteComment(msg)
-          break
-        // when action type === create
-        case 'create':
-          // invoke action creator createComment & pass in msg obj
-          this.props.createComment(msg)
-          break
-        default:
-          break
-      }
-    })
-    // socket is listening on like event & will receive an obj
-    this.socket.on('like', data => {
-      // obj contains postOwnerId, post_id, user_id, username
-      // console.log('in like socket connection', data)
-      switch (data.action) {
-        case 'unlike':
-          // invoke action creator unlikeComment & pass in msg obj
-          this.props.unlikeComment(data)
-          break
-        case 'like':
-          // invoke action creator likeComment & pass in msg obj
-          this.props.likeComment(data)
-          break
-        default:
-          break
-      }
-    })
-  }
-
-  componentWillUnmount() {
-    this.socket.disconnect()
-  }
-
   handleSubmit = (event, post_id, comment, postOwnerId) => {
     const body = comment.trim()
     if (body) {
@@ -98,12 +37,12 @@ class Feed extends Component {
         username: this.props.user.username,
         postOwnerId,
       }
-      this.socket.emit('comments', comment)
+      socket.emit('comments', comment)
     }
   }
 
   handleDeleteComment = (comment_id, post_id) => {
-    this.socket.emit('comments', {
+    socket.emit('comments', {
       action: 'destroy',
       comment_id: comment_id,
       post_id: post_id,
@@ -111,7 +50,7 @@ class Feed extends Component {
   }
 
   handleClick = data => {
-    this.socket.emit('like', data)
+    socket.emit('like', data)
   }
 
   render() {
@@ -144,7 +83,7 @@ class Feed extends Component {
         username={this.props.user.username}
         profile_picture={this.props.user.profilePicture}
         handleDeleteComment={this.handleDeleteComment}
-        socketId={this.socket.id}
+        socketId={socket.id}
         createCollection={this.props.createCollection}
       />
     ))

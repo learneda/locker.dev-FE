@@ -1,10 +1,3 @@
-export const FETCH_AUTH = 'FETCH_AUTH'
-
-export const AUTH_MODAL_TOGGLE = 'AUTH_MODAL_TOGGLE'
-export const AUTH_MODAL_SIGNUP = 'AUTH_MODAL_SIGNUP'
-export const AUTH_MODAL_LOGIN = 'AUTH_MODAL_LOGIN'
-
-export const FETCH_USER = 'FETCH_USER'
 export const EDIT_USER = 'EDIT_USER'
 
 export const FETCH_COLLECTIONS = 'FETCH_COLLECTIONS'

@@ -163,19 +163,6 @@ export default connect(
   { ...searchActions }
 )(withRouter(Search))
 
-const theme = {
-  global: {
-    colors: {
-      brand: '#3f65f2',
-    },
-    focus: {
-      border: {
-        color: '#3f65f2',
-      },
-    },
-  },
-}
-
 const Wrapper = styled.div`
   input {
     width: 100% !important;

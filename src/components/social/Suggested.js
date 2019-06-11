@@ -8,7 +8,6 @@ const Suggested = props => {
     userId,
     suggested,
     followAUser,
-    fetchUser,
     fetchFollowing,
     fetchSuggested,
   } = props
@@ -17,7 +16,6 @@ const Suggested = props => {
     await followAUser({ user_id: userId, friend_id: friend_id })
     fetchSuggested(userId)
     fetchFollowing(userId)
-    fetchUser(userId)
   }
 
   return (

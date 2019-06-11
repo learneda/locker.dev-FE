@@ -34,21 +34,3 @@ export const fetchMoreFeed = offset => async dispatch => {
     dispatch({ type: type.TOGGLE_HAS_MORE, payload: false })
   }
 }
-
-export const createComment = commentData => async dispatch => {
-  // console.log(commentData)
-  dispatch({ type: type.CREATE_COMMENT, payload: commentData })
-}
-
-export const deleteComment = commentData => async dispatch => {
-  dispatch({ type: type.DELETE_COMMENT, payload: commentData })
-}
-
-export const likeComment = commentData => async dispatch => {
-  // console.log(commentData)
-  dispatch({ type: type.LIKE_COMMENT, payload: commentData })
-}
-
-export const unlikeComment = commentData => async dispatch => {
-  dispatch({ type: type.UNLIKE_COMMENT, payload: commentData })
-}

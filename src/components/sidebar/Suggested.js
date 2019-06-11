@@ -19,19 +19,11 @@ const MyLoader = () => (
 )
 
 const Suggested = props => {
-  const {
-    auth,
-    suggested,
-    fetchUser,
-    fetchFollowing,
-    fetchSuggested,
-    followAUser,
-  } = props
+  const { auth, suggested, fetchFollowing, fetchSuggested, followAUser } = props
 
   const followAUserHandler = async (e, friend_id) => {
     e.preventDefault()
     await followAUser({ user_id: auth.id, friend_id })
-    fetchUser(auth.id)
     fetchFollowing(auth.id)
     await fetchSuggested(auth.id)
   }

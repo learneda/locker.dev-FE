@@ -1,5 +1,6 @@
 import * as type from './homeTypes'
 import { ADD_TO_FEED } from 'actions/types'
+import * as appType from 'appTypes'
 const initialState = {
   posts: [],
   locker: [],
@@ -19,7 +20,7 @@ export const homeReducer = (state = initialState, action) => {
     case type.INCREMENT_OFFSET:
       return { ...state, offset: action.payload }
     // pushing comment obj into a single post's comment arr
-    case type.CREATE_COMMENT:
+    case appType.CREATE_COMMENT:
       // mapping thru each post in posts arr
       // payload will be the comment obj that contains which post it belongs to
       const updatedComments = state.posts.map(post => {
@@ -31,7 +32,7 @@ export const homeReducer = (state = initialState, action) => {
         return post
       })
       return { ...state, posts: updatedComments }
-    case type.DELETE_COMMENT:
+    case appType.DELETE_COMMENT:
       //  payload will be the comment obj that contains which post it belongs to
       const newPosts = state.posts.map(post => {
         // if a post id in our state arr matches the payload post id
@@ -44,7 +45,7 @@ export const homeReducer = (state = initialState, action) => {
         return post
       })
       return { ...state, posts: newPosts }
-    case type.LIKE_COMMENT:
+    case appType.LIKE_COMMENT:
       //  payload will be the comment obj that contains which post it belongs to & how many like it has
       const updateLikePosts = state.posts.map(post => {
         // if a post id in our state arr matches the payload post id
@@ -55,7 +56,7 @@ export const homeReducer = (state = initialState, action) => {
         return post
       })
       return { ...state, posts: updateLikePosts }
-    case type.UNLIKE_COMMENT:
+    case appType.UNLIKE_COMMENT:
       //  payload will be the comment obj that contains which post it belongs to & how many like it has
 
       const unlikeComment = state.posts.map(post => {
