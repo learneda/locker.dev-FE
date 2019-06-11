@@ -10,6 +10,7 @@ import { composedHomeRedirect as authentication } from 'components/hoc/homeRedir
 import { ReactComponent as Loading } from 'assets/svg/circles.svg'
 import Notifications from 'pages/Notifications'
 import { fetchAuth, fetchUser } from 'actions'
+import { fetchNotifications } from 'pages/Notifications/notificationActions'
 import socket from 'socket'
 //? Should we implement route-based code-splitting?
 //TODO: Need to make this DRY
@@ -30,18 +31,25 @@ const NoMatch = lazy(() => NoMatchPromise)
 const Profile = lazy(() => ProfilePromise)
 const SinglePost = lazy(() => SinglePostPromise)
 
-const App = ({ fetchAuth, fetchUser }) => {
+const App = ({ auth, fetchAuth, fetchUser, fetchNotifications }) => {
   //* initial fetchAuth and fetchUser on browser refresh
   useEffect(() => {
     fetchAuth().then(res => {
       if (res.id) {
         fetchUser(res.id)
+        // on CDM socket will emit to all other sockets online that this user connected
+
+        socket.emit('join', { user_id: res.id })
+        // join namespace contains all the current users who are online
+
+        socket.on('join', data => {
+          fetchNotifications(data)
+        })
       }
     })
-  }, [])
-  //* connect socket
-  useEffect(() => {
-    return () => {socket.disconnect()}
+    return () => {
+      socket.disconnect()
+    }
   }, [])
 
   const homePaths = ['/', '/feed', '/saved', '/locker']
@@ -80,9 +88,10 @@ const App = ({ fetchAuth, fetchUser }) => {
   )
 }
 
+const mapStateToProps = ({ auth }) => ({ auth })
 export default connect(
-  null,
-  { fetchAuth, fetchUser }
+  mapStateToProps,
+  { fetchAuth, fetchUser, fetchNotifications }
 )(App)
 
 const Container = styled.div`
