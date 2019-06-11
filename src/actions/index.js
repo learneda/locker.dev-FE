@@ -104,3 +104,9 @@ export const shareCollection = collection => async dispatch => {
     dispatch({ type: ADD_TO_FEED, payload: sharedCollection })
   }
 }
+
+export const postToFeed = post => async dispatch => {
+  console.log(post)
+  const newPost = await axios.post('/newsfeed', { post })
+  console.log('response :)', newPost)
+}
