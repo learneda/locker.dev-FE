@@ -29,13 +29,6 @@ const MyLoader = () => (
 class Feed extends Component {
   componentDidMount() {
     console.log(socket)
-    // on CDM socket will emit to all other sockets online that this user connected
-    socket.emit('join', { user_id: this.props.auth.id })
-
-    // join namespace contains all the current users who are online
-    socket.on('join', data => {
-      this.props.fetchNotifications(data)
-    })
 
     // socket is listening on comments event & will receive an obj
     socket.on('comments', msg => {
