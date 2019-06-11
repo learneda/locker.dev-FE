@@ -9,7 +9,7 @@ export const fetchLocker = () => async dispatch => {
 }
 // initial action creator to fetch newsfeed
 export const fetchFeed = () => async dispatch => {
-  const newsFeed = await axios.get(`/users/newsfeed?offset=0`)
+  const newsFeed = await axios.get(`/newsfeed?offset=0`)
   if (newsFeed.data.length) {
     dispatch({ type: type.FETCH_FEED, payload: newsFeed.data })
   }
