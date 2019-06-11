@@ -9,8 +9,8 @@ import { composedIndexRedirect as index } from 'components/hoc/indexRedirect'
 import { composedHomeRedirect as authentication } from 'components/hoc/homeRedirect'
 import { ReactComponent as Loading } from 'assets/svg/circles.svg'
 import Notifications from 'pages/Notifications'
-import Landing from 'pages/Landing/index'
 import { fetchAuth, fetchUser } from 'actions'
+import socket from 'socket'
 //? Should we implement route-based code-splitting?
 //TODO: Need to make this DRY
 const LandingPagePromise = import('pages/Landing')
@@ -39,7 +39,12 @@ const App = ({ fetchAuth, fetchUser }) => {
       }
     })
   }, [])
+  //* connect socket
+  useEffect(() => {
+    return () => {socket.disconnect()}
+  }, [])
 
+  const homePaths = ['/', '/feed', '/saved', '/locker']
   return (
     <Container>
       <GlobalStyle />
@@ -60,11 +65,7 @@ const App = ({ fetchAuth, fetchUser }) => {
       >
         <Switch>
           // home HOC
-          <Route
-            exact
-            path={['/', '/feed', '/saved', '/locker']}
-            component={authentication(Home)}
-          />
+          <Route exact path={homePaths} component={authentication(Home)} />
           <Route path='/landing' component={LandingPage} />
           <Route path='/browse' component={index(Browse)} />
           <Route path='/social' component={index(Social)} />
@@ -86,5 +87,4 @@ export default connect(
 
 const Container = styled.div`
   ${customContainer()};
-  border: 2px solid red;
 `
