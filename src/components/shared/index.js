@@ -42,6 +42,7 @@ const SharedButton = props => {
       post_url,
       user_thoughts,
       tags,
+      thumbnail_url: bookmark.thumbnail_url,
     }
     console.log(editedPost)
     props.postToFeed(editedPost).then(res => {
