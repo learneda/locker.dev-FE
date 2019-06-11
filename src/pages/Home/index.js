@@ -7,7 +7,6 @@ import Collections from 'components/collections'
 import Locker from 'components/locker/Locker'
 import Sidebar from 'components/sidebar/Sidebar'
 import Suggested from 'components/sidebar/Suggested'
-import Navbar from 'components/navigation/Navbar'
 import { customWrapper } from 'components/mixins'
 import { fetchCollections, deleteCollection, createCollection } from 'actions'
 import * as socialActions from 'actions/socialActions'
@@ -19,7 +18,6 @@ const Home = props => {
     searchTerm,
     locker,
     location,
-    match,
     feed,
     collections,
     following,
@@ -34,10 +32,6 @@ const Home = props => {
     fetchFeed,
     fetchLocker,
     fetchMoreFeed,
-    createComment,
-    deleteComment,
-    likeComment,
-    unlikeComment,
     createCollection,
   } = props
 

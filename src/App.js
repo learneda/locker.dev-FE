@@ -6,7 +6,6 @@ import GlobalStyle from 'components/mixins'
 import Navbar from 'components/navigation/Navbar'
 import { customContainer } from 'components/mixins'
 import { composedIndexRedirect as index } from 'components/hoc/indexRedirect'
-import { composedHomeRedirect as authentication } from 'components/hoc/homeRedirect'
 import { ReactComponent as Loading } from 'assets/svg/circles.svg'
 import * as appActions from 'appActions'
 import socket from 'socket'
@@ -20,16 +19,16 @@ const SinglePost = lazy(() => import('pages/SinglePost'))
 const Settings = lazy(() => import('pages/Settings'))
 const NoMatch = lazy(() => import('pages/NoMatch'))
 
-const App = ({
-  auth,
-  fetchAuth,
-  fetchUser,
-  fetchNotifications,
-  createComment,
-  deleteComment,
-  likeComment,
-  unlikeComment,
-}) => {
+const App = props => {
+  const {
+    fetchAuth,
+    fetchUser,
+    fetchNotifications,
+    createComment,
+    deleteComment,
+    likeComment,
+    unlikeComment,
+  } = props
   //* initial fetchAuth and fetchUser on browser refresh
   useEffect(() => {
     fetchAuth().then(res => {
@@ -105,8 +104,7 @@ const App = ({
         }
       >
         <Switch>
-          // home HOC
-          <Route exact path={homePaths} component={authentication(Home)} />
+          <Route exact path={homePaths} component={index(Home)} />
           <Route path='/landing' component={LandingPage} />
           <Route path='/browse' component={index(Browse)} />
           <Route path='/social' component={index(Social)} />
@@ -121,9 +119,8 @@ const App = ({
   )
 }
 
-const mapStateToProps = ({ auth }) => ({ auth })
 export default connect(
-  mapStateToProps,
+  null,
   { ...appActions }
 )(App)
 

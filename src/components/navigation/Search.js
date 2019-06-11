@@ -3,37 +3,10 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
-import SearchUsersDropDown from './SearchUsersDropDown'
 import * as searchActions from './searchActions'
 
 function Search(props) {
-  // const DropDownNode = useRef()
   const { searchTerm, setSearchTerm, resetSearchTerm } = props
-  // const [toggle, setToggle] = useState(false)
-  // const [search, setSearch] = useState('')
-  // const [visible, setVisible] = useState(false)
-
-  // const handleChange = useCallback(e => {
-  //   setToggle(e.target.checked)
-  //   setSearch('')
-  // }, [])
-
-  // const handleSearch = e => {
-  //   // toggle && setVisible(true)
-  //   toggle ? setSearch(e.target.value) : setSearchTerm(e)
-  // }
-
-  // const handleRefClick = e => {
-  //   if (DropDownNode.current) {
-  //     setVisible(false)
-  //   }
-  // }
-  // useEffect(() => {
-  //   document.addEventListener('click', handleRefClick)
-  //   return () => {
-  //     document.removeEventListener('click', handleRefClick)
-  //   }
-  // }, [])
 
   useEffect(() => {
     if (props.searchTerm) {
@@ -182,37 +155,4 @@ const Wrapper = styled.div`
 const Container = styled.div`
   position: relative;
   display: flex;
-`
-
-const Toggle = styled.div`
-  position: absolute;
-  right: 0px;
-  top: 10px;
-  z-index: 1;
-  @media (max-width: 760px) {
-    top: 6px;
-  }
-`
-
-const DropDown = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  font-weight: 500;
-  max-height: 500px;
-  position: absolute;
-  left: 34.5%;
-  overflow: auto;
-  top: 66px;
-  width: 31.5%;
-  @media (max-width: 759px) {
-    left: 6%;
-    top: 57px;
-    width: 61%;
-  }
-  @media (max-width: 500px) {
-    width: 70%;
-  }
 `

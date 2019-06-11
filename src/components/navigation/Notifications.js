@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import bellIcon from 'assets/svg/bell.svg'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -6,13 +6,7 @@ import * as notificationActions from 'pages/Notifications/notificationActions'
 import styled from 'styled-components'
 
 const Notifications = props => {
-  const {
-    user,
-    posts,
-    notifications,
-    readNotifications,
-    deleteNotifications,
-  } = props
+  const { user, posts, notifications, readNotifications } = props
   const [isModalOpen, setIsModalOpen] = useState(false)
   let count = props.notifications
   count = count.length
@@ -53,6 +47,7 @@ const Notifications = props => {
                     <img
                       className='notification-image'
                       src={user.profilePicture}
+                      alt='avatar'
                     />
                     <span className='text'>{`${obj.invoker} ${
                       obj.type
@@ -61,6 +56,7 @@ const Notifications = props => {
                   <img
                     className='notification-post-thumbnail'
                     src={selectThumbnail(obj.post_id)}
+                    alt='post-thumbnail'
                   />
                 </Link>
               )

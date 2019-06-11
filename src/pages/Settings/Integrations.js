@@ -11,7 +11,11 @@ const Integrations = props => {
           <div className='col-2'>
             <label>
               GoodReads Api
-              <a href={`${authURL}/goodreads`} target='_blank' rel='noopener'>
+              <a
+                href={`${authURL}/goodreads`}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
                 <button type='button'>connect</button>
               </a>
             </label>
@@ -32,7 +36,8 @@ const Integrations = props => {
 export default Integrations
 
 const Wrapper = styled.div`
-  ${customWrapper('80%', '0 auto')} @media (max-width: 768px) {
+  ${customWrapper('80%', '0 auto')};
+  @media (max-width: 768px) {
     ${customWrapper('90%', '0 auto')};
   }
   h2 {
@@ -45,25 +50,30 @@ const FormGroup = styled.form`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 5px;
   background: #fff;
-  ${customWrapper('100%', '0 auto')} padding: 20px;
+  ${customWrapper('100%', '0 auto')};
+  padding: 20px;
   @media (max-width: 768px) {
     padding: 0px;
   }
   .form-wrapper {
     padding: 10px;
-    ${customLayout()} ${customWrapper('80%', '0 auto')} flex-direction: column;
+    ${customLayout()};
+    ${customWrapper('80%', '0 auto')};
+    flex-direction: column;
     @media (max-width: 1100px) {
       ${customWrapper('100%', '0 auto')};
     }
     .row {
       padding: 10px;
-      ${customLayout('space-between')} @media (max-width: 650px) {
+      ${customLayout('space-between')};
+      @media (max-width: 650px) {
         flex-direction: column;
       }
       .col-2 {
         width: 50%;
         padding: 10px;
-        ${customLayout()} flex-wrap: wrap;
+        ${customLayout()};
+        flex-wrap: wrap;
         @media (max-width: 650px) {
           width: 100%;
         }
@@ -92,7 +102,8 @@ const FormGroup = styled.form`
       } // col-2
     } // row
     .btn-group {
-      ${customLayout('flex-end')} width: 100%;
+      ${customLayout('flex-end')};
+      width: 100%;
       padding: 20px;
       button {
         width: 15%;

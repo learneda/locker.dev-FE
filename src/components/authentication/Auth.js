@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import AuthForm from './AuthForm'
 import deleteIcon from 'assets/svg/delete-icon.svg'
 import styled from 'styled-components'
