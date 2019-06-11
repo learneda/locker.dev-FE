@@ -1,10 +1,21 @@
 import GlobalStyle from './cssReset.js'
 export default GlobalStyle
 //* variables
-export const bgColor = '#e6e9f3'
-export const hoverBg = '#d3d7e7'
+export const bgColor = '#E6ECF0'
+export const hoverBg = '#D3D7E7'
 export const buttonBg = '#4163f2'
+export const primary = '#29A3EF'
+export const secondary = '#2696DD'
+export const white = '#FFFFFF'
+export const black = '#141619'
+export const active = '#2999C5'
+export const menu = '#667785'
+export const navBottom = '#BFBFBF'
+export const subNavBottom = '#D3D3D3'
+export const btnBgHover = '#E8F4F9'
+export const heart = '#DE2960'
 
+export const bgDark = '#10171D'
 //* Flexbox custom layout
 export const customLayout = (justify = 'flex-start', align = 'flex-start') =>
   `display: flex;

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { customLayout, hoverBg } from 'components/mixins'
 
-const NavLanding = props => {
+const NavLanding = ({ authModalToggle, modalLogin, modalSignUp }) => {
   return (
     <Nav>
       <h1>
@@ -13,8 +13,8 @@ const NavLanding = props => {
         <li>
           <span
             onClick={() => {
-              props.authModalToggle()
-              props.modalLogin()
+              authModalToggle()
+              modalLogin()
             }}
           >
             Log In
@@ -23,8 +23,8 @@ const NavLanding = props => {
         <li>
           <span
             onClick={() => {
-              props.authModalToggle()
-              props.modalSignUp()
+              authModalToggle()
+              modalSignUp()
             }}
           >
             Sign Up
@@ -37,13 +37,13 @@ const NavLanding = props => {
 export default NavLanding
 
 const Nav = styled.nav`
+  border: 2px solid green;
   ${customLayout('space-between', 'center')}
   padding: 7.5px 0;
   margin: 20px 0;
-  @media (max-width: 1400px) {
-    width: 90%;
-  }
+
   h1 {
+    border: 2px solid blue;
     font-size: 3rem;
     font-weight: 700;
     @media (max-width: 768px) {
@@ -55,29 +55,29 @@ const Nav = styled.nav`
   }
 
   ul {
+    /* border: 2px solid orange; */
     ${customLayout('space-between')}
-
     li {
       margin-right: 1rem;
     }
-
     li:last-child {
       margin-right: 0;
+      /* border: 2px solid purple; */
     }
     @media (max-width: 900px) {
       li {
         margin-right: 0.5rem;
       }
-
       li:last-child {
         margin-right: 0;
       }
     }
 
     span {
+      border: 2px solid salmon;
       padding: 10px;
       font-weight: 700;
-      border: transparent;
+      /* border: transparent; */
       cursor: pointer;
       transition: 200ms ease-out;
       background: ${props => (props.auth ? null : '#fff')};
