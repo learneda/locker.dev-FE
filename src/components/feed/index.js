@@ -27,47 +27,6 @@ const MyLoader = () => (
   </ContentLoader>
 )
 class Feed extends Component {
-  componentDidMount() {
-    console.log(socket)
-
-    // socket is listening on comments event & will receive an obj
-    socket.on('comments', msg => {
-      // msg obj contains properties of content, action, post_id, user_id, username, created_at, & updated_at
-
-      switch (msg.action) {
-        // when action type === destroy
-        case 'destroy':
-          // invoke action creator deleteComment & pass in msg obj
-          this.props.deleteComment(msg)
-          break
-        // when action type === create
-        case 'create':
-          // invoke action creator createComment & pass in msg obj
-          this.props.createComment(msg)
-          break
-        default:
-          break
-      }
-    })
-    // socket is listening on like event & will receive an obj
-    socket.on('like', data => {
-      // obj contains postOwnerId, post_id, user_id, username
-      // console.log('in like socket connection', data)
-      switch (data.action) {
-        case 'unlike':
-          // invoke action creator unlikeComment & pass in msg obj
-          this.props.unlikeComment(data)
-          break
-        case 'like':
-          // invoke action creator likeComment & pass in msg obj
-          this.props.likeComment(data)
-          break
-        default:
-          break
-      }
-    })
-  }
-
   handleSubmit = (event, post_id, comment, postOwnerId) => {
     const body = comment.trim()
     if (body) {

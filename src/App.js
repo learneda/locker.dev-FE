@@ -8,35 +8,17 @@ import { customContainer } from 'components/mixins'
 import { composedIndexRedirect as index } from 'components/hoc/indexRedirect'
 import { composedHomeRedirect as authentication } from 'components/hoc/homeRedirect'
 import { ReactComponent as Loading } from 'assets/svg/circles.svg'
-import { fetchAuth, fetchUser } from 'actions'
-import { fetchNotifications } from 'pages/Notifications/notificationActions'
-import {
-  createComment,
-  deleteComment,
-  likeComment,
-  unlikeComment,
-} from 'pages/Home/homeActions'
+import * as appActions from 'appActions'
 import socket from 'socket'
-//? Should we implement route-based code-splitting?
-//TODO: Need to make this DRY
-const LandingPagePromise = import('pages/Landing')
-const HomePromise = import('pages/Home')
-const BrowsePromise = import('pages/Browse')
-const SocialPromise = import('pages/Social')
-const NotificationsPromise = import('pages/Notifications')
-const ProfilePromise = import('pages/Profile')
-const SinglePostPromise = import('pages/SinglePost')
-const SettingsPromise = import('pages/Settings')
-const NoMatchPromise = import('pages/NoMatch')
-const LandingPage = lazy(() => LandingPagePromise)
-const Home = lazy(() => HomePromise)
-const Browse = lazy(() => BrowsePromise)
-const Social = lazy(() => SocialPromise)
-const Notifications = lazy(() => NotificationsPromise)
-const Profile = lazy(() => ProfilePromise)
-const SinglePost = lazy(() => SinglePostPromise)
-const Settings = lazy(() => SettingsPromise)
-const NoMatch = lazy(() => NoMatchPromise)
+const LandingPage = lazy(() => import('pages/Landing'))
+const Home = lazy(() => import('pages/Home'))
+const Browse = lazy(() => import('pages/Browse'))
+const Social = lazy(() => import('pages/Social'))
+const Notifications = lazy(() => import('pages/Notifications'))
+const Profile = lazy(() => import('pages/Profile'))
+const SinglePost = lazy(() => import('pages/SinglePost'))
+const Settings = lazy(() => import('pages/Settings'))
+const NoMatch = lazy(() => import('pages/NoMatch'))
 
 const App = ({
   auth,
@@ -142,15 +124,7 @@ const App = ({
 const mapStateToProps = ({ auth }) => ({ auth })
 export default connect(
   mapStateToProps,
-  {
-    fetchAuth,
-    fetchUser,
-    fetchNotifications,
-    createComment,
-    deleteComment,
-    likeComment,
-    unlikeComment,
-  }
+  { ...appActions }
 )(App)
 
 const Container = styled.div`

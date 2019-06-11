@@ -1,6 +1,3 @@
-export const FETCH_AUTH = 'FETCH_AUTH'
-
-export const FETCH_USER = 'FETCH_USER'
 export const EDIT_USER = 'EDIT_USER'
 
 export const FETCH_COLLECTIONS = 'FETCH_COLLECTIONS'

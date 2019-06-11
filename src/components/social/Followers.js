@@ -9,7 +9,6 @@ const Followers = props => {
     following,
     followers,
     followAUser,
-    fetchUser,
     unfollowAUser,
     fetchFollowing,
   } = props
@@ -22,7 +21,6 @@ const Followers = props => {
     setLoadingIndex(index)
     await followAUser({ user_id: userId, friend_id: friend_id })
     fetchFollowing(userId).then(() => setIsLoading(false))
-    fetchUser(userId)
   }
 
   const handleUnfollow = async (friend_id, index) => {
@@ -30,7 +28,6 @@ const Followers = props => {
     setLoadingIndex(index)
     await unfollowAUser({ user_id: userId, friend_id: friend_id })
     fetchFollowing(userId).then(response => setIsLoading(false))
-    fetchUser(userId)
   }
 
   const handleClick = (id, index) => {

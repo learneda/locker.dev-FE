@@ -9,13 +9,7 @@ import Sidebar from 'components/sidebar/Sidebar'
 import Suggested from 'components/sidebar/Suggested'
 import Navbar from 'components/navigation/Navbar'
 import { customWrapper } from 'components/mixins'
-import {
-  fetchCollections,
-  deleteCollection,
-  createCollection,
-  fetchUser,
-} from 'actions'
-import { fetchNotifications } from '../Notifications/notificationActions'
+import { fetchCollections, deleteCollection, createCollection } from 'actions'
 import * as socialActions from 'actions/socialActions'
 import * as homeActions from './homeActions'
 const Home = props => {
@@ -31,12 +25,10 @@ const Home = props => {
     following,
     followers,
     suggested,
-    fetchUser,
     fetchCollections,
     fetchFollowing,
     fetchFollowers,
     fetchSuggested,
-    fetchNotifications,
     deleteCollection,
     followAUser,
     fetchFeed,
@@ -104,15 +96,10 @@ const Home = props => {
                   auth={auth}
                   user={user}
                   searchTerm={searchTerm}
-                  fetchNotifications={fetchNotifications}
                   posts={feed.posts}
                   hasmore={feed.hasmore}
                   fetchMoreFeed={fetchMoreFeed}
                   offset={feed.offset}
-                  createComment={createComment}
-                  deleteComment={deleteComment}
-                  likeComment={likeComment}
-                  unlikeComment={unlikeComment}
                   createCollection={createCollection}
                 />
               )}
@@ -137,7 +124,6 @@ const Home = props => {
                   {...props}
                   auth={auth}
                   locker={locker}
-                  fetchUser={fetchUser}
                   fetchLocker={fetchLocker}
                 />
               )}
@@ -148,7 +134,6 @@ const Home = props => {
       <Suggested
         auth={auth}
         suggested={suggested}
-        fetchUser={fetchUser}
         fetchSuggested={fetchSuggested}
         fetchFollowing={fetchFollowing}
         followAUser={followAUser}
@@ -176,12 +161,9 @@ const mapStateToProps = ({
 export default connect(
   mapStateToProps,
   {
-    fetchNotifications,
     fetchCollections,
     deleteCollection,
-    fetchUser,
     createCollection,
-    fetchUser,
     ...socialActions,
     ...homeActions,
   }

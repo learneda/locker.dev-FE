@@ -1,8 +1,6 @@
 import axiosAuth from 'apis/axiosAuth'
 import axios from 'apis/axiosAPI'
 import {
-  FETCH_AUTH,
-  FETCH_USER,
   EDIT_USER,
   FETCH_COLLECTIONS,
   CREATE_COLLECTION,
@@ -11,17 +9,6 @@ import {
   ADD_TO_FEED,
 } from './types'
 
-//* Fetches userID on App mount
-export const fetchAuth = () => async dispatch => {
-  const res = await axiosAuth.get(`/current_user`)
-  dispatch({ type: FETCH_AUTH, payload: res.data })
-  return res.data
-}
-//* Fetch user details
-export const fetchUser = id => async dispatch => {
-  const res = await axios.get(`/users/id/${id}`)
-  dispatch({ type: FETCH_USER, payload: res.data })
-}
 //* Edits user (profile) on user input
 export const editUser = (id, profile) => async dispatch => {
   const res = await axios.put(`/users/edit`, { id, ...profile })
