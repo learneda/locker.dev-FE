@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import ReusablePortal from '../utils/ModalPortal'
 import { connect } from 'react-redux'
-import { shareCollection } from 'actions/index'
+import { shareCollection, postToFeed } from 'actions/index'
 import { StyledAddLink } from '../utils/StyledAddLink.js'
 import styled from 'styled-components'
 import { ReactComponent as X } from 'assets/svg/x.svg'
@@ -17,6 +17,8 @@ const SharedButton = props => {
   const [post_url, setPostUrl] = useState(bookmark.post_url)
   const [user_thoughts, setUserThoughts] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [tags, setTags] = useState('')
+
   //* Locks scroll on body and hides overflow when modal is open
   useEffect(() => {
     if (isModalOpen) {
@@ -39,10 +41,10 @@ const SharedButton = props => {
       description,
       post_url,
       user_thoughts,
-      shared: true,
+      tags,
     }
-
-    props.shareCollection(editedPost).then(res => {
+    console.log(editedPost)
+    props.postToFeed(editedPost).then(res => {
       alert.success('Post shared to Feed')
       setIsModalOpen(false)
     })
@@ -93,10 +95,17 @@ const SharedButton = props => {
                   </label>
                   <textarea
                     name='userThoughts'
-                    id='post-description'
+                    id='userThoughts'
                     rows='7'
                     value={user_thoughts}
                     onChange={e => setUserThoughts(e.target.value)}
+                  />
+                  <label htmlFor='Post Description'>tags:</label>
+                  <input
+                    name='tags'
+                    id='tags'
+                    value={tags}
+                    onChange={e => setTags(e.target.value)}
                   />
                   <input type='submit' id='edit-submit' value='SHARE!' />
                 </form>
@@ -111,7 +120,7 @@ const SharedButton = props => {
 
 export default connect(
   null,
-  { shareCollection }
+  { shareCollection, postToFeed }
 )(SharedButton)
 
 const ModalWrapper = styled.div`
