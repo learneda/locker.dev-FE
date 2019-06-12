@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import MobileNav from './MobileNav'
 import NavLeft from './NavLeft'
@@ -80,7 +79,6 @@ const NavWrapper = styled.div`
 const Nav = styled.nav`
   ${customLayout('space-between', 'center')}
   padding: 7.5px 0;
-  margin: 20px 0;
   @media (max-width: 1400px) {
     width: 90%;
   }

@@ -1,15 +1,18 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
+import LandingPage from 'pages/Landing'
 
 const IndexRedirect = Component => ({ auth }) => {
   const renderContent = () => {
     switch (auth) {
       case null:
-        return
+        // loading
+        return null
+      // auth false (user not logged in)
       case false:
-        return <Redirect to='/' />
+        return <LandingPage />
+      // covered all cases only case left is if auth is True therefore render Index Component
       default:
         return <Component />
     }

@@ -1,4 +1,3 @@
-import axiosAuth from 'apis/axiosAuth'
 import axios from 'apis/axiosAPI'
 import {
   EDIT_USER,

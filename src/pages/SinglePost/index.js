@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import axios from 'apis/axiosAPI'
 import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
-import PostContainer from 'components/feed/posts'
 import Moment from 'react-moment'
 
 const SinglePost = props => {
@@ -15,7 +14,7 @@ const SinglePost = props => {
   return (
     <Container>
       <div className='post-header'>
-        <img className='profile_pic' src={post.profile_picture} />
+        <img className='profile_pic' src={post.profile_picture} alt='avatar' />
         <div className='post-info'>
           <div className='post-author'>
             <h2>{post.username}</h2>
@@ -30,6 +29,7 @@ const SinglePost = props => {
         <img
           style={{ objectFit: 'cover', width: '100%' }}
           src={post.thumbnail_url}
+          alt='post-thumbnail'
         />
       </div>
       <div className='post-content'>
