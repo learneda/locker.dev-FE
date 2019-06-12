@@ -44,6 +44,7 @@ const App = props => {
         //* socket is listening on comments event & will receive an obj
         socket.on('comments', msg => {
           //* msg obj contains properties of content, action, post_id, user_id, username, created_at, & updated_at
+          console.log('does the action exist', msg)
 
           switch (msg.action) {
             //* when action type === destroy

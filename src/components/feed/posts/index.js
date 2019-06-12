@@ -247,7 +247,7 @@ class PostContainer extends Component {
         </div>
         <CommentBox
           post_comments={post.comments}
-          post_id={post.post_id}
+          post_id={post.id}
           handleClick={handleClick}
           handleSubmit={handleSubmit}
           profile_picture={profile_picture}
