@@ -25,7 +25,7 @@ export const homeReducer = (state = initialState, action) => {
       // payload will be the comment obj that contains which post it belongs to
       const updatedComments = state.posts.map(post => {
         // if a post id in our state arr matches the payload post id
-        if (post.post_id === action.payload.post_id) {
+        if (post.id === action.payload.post_id) {
           // push the comment obj into that post's comment arr
           post.comments.push(action.payload)
         }
@@ -36,7 +36,7 @@ export const homeReducer = (state = initialState, action) => {
       //  payload will be the comment obj that contains which post it belongs to
       const newPosts = state.posts.map(post => {
         // if a post id in our state arr matches the payload post id
-        if (post.post_id === action.payload.post_id) {
+        if (post.id === action.payload.post_id) {
           // filter out that comment obj
           post.comments = post.comments.filter(
             comment => comment.id !== action.payload.id
