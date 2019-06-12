@@ -18,7 +18,7 @@ class PostContainer extends Component {
     if (this.props.post) {
       axiosAPI
         .post(`${apiURL}/posts/like/users`, {
-          post_id: this.props.post.post_id,
+          post_id: this.props.post.id,
         })
         .then(res => {
           res.data.forEach(post => {
@@ -40,19 +40,22 @@ class PostContainer extends Component {
     let result = e.target.classList.contains('heart-red')
     if (result) {
       const data = {
-        post_id,
+        id: post_id,
         user_id: this.props.user_id,
         action: 'unlike',
       }
+      console.log('this is the like data', data)
       this.props.handleClick(data)
     } else {
       const data = {
-        post_id,
+        id: post_id,
         user_id: this.props.user_id,
         action: 'like',
         postOwnerId,
         username: this.props.username,
       }
+      console.log('this is the like data', data)
+
       this.props.handleClick(data)
     }
   }
@@ -221,7 +224,7 @@ class PostContainer extends Component {
                 className='far fa-heart fa-lg'
                 ref={this.heartIcon}
                 onClick={e => {
-                  this.handleLikes(e, post.post_id, post)
+                  this.handleLikes(e, post.id, post)
                   e.target.classList.toggle('heart-red')
                 }}
               />
