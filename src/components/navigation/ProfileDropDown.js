@@ -54,7 +54,8 @@ const ProfileDropDown = ({ auth, user }) => {
             <a href={`${authURL}/logout`}>Logout</a>
           </li>
         </DropDown>
-      )}
+      )}{' '}
+      */}
     </div>
   )
 }

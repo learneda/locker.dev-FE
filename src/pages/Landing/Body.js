@@ -18,7 +18,7 @@ function Body(props) {
   return (
     <div>
       <CallToAction>
-        <div className='landing-content'>
+        {/* <div className='landing-content'>
           <h1>The exciting new way to learn.</h1>
           <button className='get-started' onClick={handleClick}>
             Find Out More
@@ -40,14 +40,16 @@ function Body(props) {
           className='down-arrow'
           alt='arrow facing downwards'
           onClick={handleClick}
-        />
+        /> */}
+        <StyledFeature textAlign='center' ref={scrollDown}>
+          <StyledFeatureTitle marginBottom='60px'>
+            See What your Friends Are Learning
+          </StyledFeatureTitle>
+          <img src={friendsSVG} alt='friends' />
+        </StyledFeature>
+        <button className='button-cta'>Get Started</button>
       </CallToAction>
-      <StyledFeature textAlign='center' ref={scrollDown}>
-        <StyledFeatureTitle marginBottom='60px'>
-          See What your Friends Are Learning
-        </StyledFeatureTitle>
-        <img src={friendsSVG} alt='friends' />
-      </StyledFeature>
+
       <StyledFeaturesContainer>
         <div className='feature-card'>
           <h4>Keep track of your favorite books</h4>
@@ -99,11 +101,14 @@ export default Body
 const StyledFeature = styled.div`
   text-align: ${props => props.textAlign};
   padding: 70px 0;
+
   img {
-    width: 80%;
+    width: 98%;
+    border: 1px solid blue;
   }
   @media (max-width: 500px) {
-    padding: 35px 0;
+    padding: 20px 0;
+    border: 1px solid red;
   }
 
   .try-learnlocker {
@@ -137,6 +142,8 @@ const StyledFeatureTitle = styled.h3`
   font-size: 5rem;
   font-weight: 500;
   line-height: 3.5rem;
+  border: 1px solid green;
+
   @media (max-width: 1015px) {
     line-height: 1.3;
   }
@@ -190,9 +197,15 @@ const StyledFeaturesContainer = styled.div`
 `
 
 const CallToAction = styled.div`
-  min-height: 82vh;
+  min-height: 100vh;
   padding: 0px 0;
   display: flex;
+  .button-cta {
+    height: 40px;
+    width: 70%;
+    margin: 50px auto 0;
+    border: 1px solid red;
+  }
   @media (max-width: 992px) {
     display: flex;
     flex-direction: column;

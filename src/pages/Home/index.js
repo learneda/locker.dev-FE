@@ -164,26 +164,20 @@ export default connect(
 )(withRouter(Home))
 
 const Container = styled.div`
-  ${customWrapper('80%', '0 auto')};
+  max-width: 1150px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  @media (max-width: 1400px) {
-    width: 90%;
-  }
-  @media (max-width: 768px) {
-    width: 100%;
-  }
+  border: 2px solid red;
+  width: 100vw;
 `
 const Wrapper = styled.div`
   max-width: 1440px;
   padding-left: 3%;
   width: 100%;
-  @media (max-width: 900px) {
-    width: 90%;
-    margin: 0 auto;
-    padding: 0;
-  }
+  border: 2px solid bloodorange;
 `
+
 const RouteWrapper = styled.div`
   position: relative;
 `
@@ -191,6 +185,7 @@ const Tabs = styled.ul`
   display: flex;
   align-items: flex-end;
   position: sticky;
+  border: 1px solid green;
   background: rgb(230, 233, 243);
   top: 59px;
   height: 100px;

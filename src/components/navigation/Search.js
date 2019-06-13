@@ -139,6 +139,8 @@ export default connect(
 const Wrapper = styled.div`
   input {
     width: 100% !important;
+    height: 35px;
+    padding: 0 15px 0;
   }
   width: 40%;
   @media (max-width: 760px) {

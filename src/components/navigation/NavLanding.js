@@ -7,7 +7,7 @@ const NavLanding = ({ authModalToggle, modalLogin, modalSignUp }) => {
   return (
     <Nav>
       <h1>
-        <Link to='/'>LearnLocker</Link>
+        <Link to='/'>locker.dev</Link>
       </h1>
       <ul>
         <li>
@@ -37,11 +37,10 @@ const NavLanding = ({ authModalToggle, modalLogin, modalSignUp }) => {
 export default NavLanding
 
 const Nav = styled.nav`
-  border: 2px solid green;
   ${customLayout('space-between', 'center')}
-  padding: 7.5px 0;
-  margin: 20px 0;
-
+  border: 2px solid green;
+  height: 50px;
+  padding: 0 10px;
   h1 {
     border: 2px solid blue;
     font-size: 3rem;
@@ -75,7 +74,7 @@ const Nav = styled.nav`
 
     span {
       border: 2px solid salmon;
-      padding: 10px;
+      padding: 5px 10px;
       font-weight: 700;
       /* border: transparent; */
       cursor: pointer;
