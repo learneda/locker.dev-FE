@@ -82,10 +82,13 @@ const Courses = props => {
               <Add
                 className='save-icon'
                 onClick={() => {
-                  createCollection(
-                    `https://www.udemy.com${course.url}`,
-                    'course'
-                  )
+                  createCollection({
+                    type: 'course',
+                    post_url: `https://www.udemy.com${course.url}`,
+                    title: course.title,
+                    description: course.headline,
+                    thumbnail_url: course.image_480x270,
+                  })
                   alert.success('Course added to Saved')
                 }}
               />

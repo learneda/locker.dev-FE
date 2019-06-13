@@ -84,7 +84,13 @@ const Articles = props => {
               <Add
                 className='save-icon'
                 onClick={() => {
-                  createCollection(article.url, 'article')
+                  createCollection({
+                    type: 'article',
+                    post_url: article.url,
+                    title: article.title,
+                    description: article.description,
+                    thumbnail_url: article.thumbnail,
+                  })
                   alert.success('Article added to Saved')
                 }}
               />
