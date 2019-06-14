@@ -81,9 +81,11 @@ export default Suggested
 
 const StyledCard = styled.div`
   margin: 0px 0px 0px 30px;
-  height: auto;
+  min-height: 100vh;
+  transition: opacity 0.8s ease;
+  opacity: 1;
   @media (max-width: 1200px) {
-    display: none;
+    opacity: 0;
   }
   .sticky-container {
     position: sticky;

@@ -25,12 +25,12 @@ const Navbar = props => {
           <Burger>
             <Search className='mobile-search' />
             <div className='mobile-right'>
-              <Notifications className='mobile-bell' />
-              <img
-                src={burgerIcon}
-                alt='burger'
-                className='burger-icon'
+              <Notifications className='bell' />
+              <ProfileDropDown
                 onClick={showBurgerMenu}
+                className='profile'
+                auth={auth}
+                user={user}
               />
             </div>
           </Burger>
@@ -61,11 +61,30 @@ export default connect(
 
 const NavWrapper = styled.div`
   background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23);
-  position: sticky;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23); */
+  position: fixed;
+  height: 60px;
+  display: flex;
+  width: 100%;
   top: 0;
+  left: 0;
   z-index: 3;
-
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  .auth-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 1px solid green;
+  }
+  .mobile-search {
+  }
+  .mobile-right {
+    .bell {
+    }
+    .burger-icon {
+    }
+  }
   @media (max-width: 760px) {
     .main-nav {
       display: none;
@@ -78,10 +97,11 @@ const NavWrapper = styled.div`
 
 const Nav = styled.nav`
   ${customLayout('space-between', 'center')}
-  padding: 7.5px 0;
-  @media (max-width: 1400px) {
-    width: 90%;
-  }
+  width: 100%;
+  max-width: 1150px;
+  margin: 0 auto;
+  border: 2px solid blue;
+  padding: 0 2rem;
   h1 {
     font-size: 3rem;
     font-weight: 700;
@@ -177,31 +197,45 @@ const Burger = styled.div`
 
   @media (max-width: 760px) {
     height: 50px;
-    margin: 0 auto;
-    padding: 5px;
+    width: 100%;
+    padding: 0 5px;
     ${customLayout('space-between', 'center')}
-    width: 90%;
   }
 
   input {
     width: 50%;
     height: 30px;
+    border: 1px solid blue;
   }
   .mobile-right {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    border: 1px solid green;
+  }
+  .bell {
+    margin: 0;
+    padding: 0;
+    border: 1px solid blue;
+  }
+  .profile {
+    border: 1px solid purple;
   }
   .burger-icon {
-    margin-left: 5px;
     width: 25px;
     height: 25px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid red;
     cursor: pointer;
     opacity: 0.7;
     transition: 200ms ease-in;
-
     &:hover {
       opacity: 1;
       transition: 200ms ease-in;
     }
+  }
+  .auth-icon {
+    border: 1px solid red;
   }
 `

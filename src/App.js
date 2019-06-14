@@ -126,5 +126,6 @@ export default connect(
 )(App)
 
 const Container = styled.div`
-  ${customContainer()};
+  width: 100%;
+  background-color: #fff;
 `

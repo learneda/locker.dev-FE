@@ -118,12 +118,17 @@ class Feed extends Component {
 export default Feed
 
 const Container = styled.div`
-  ${customWrapper('100%', '0 auto')}
+  max-width: 600px;
+  border: 1px solid red;
+  @media (max-width: 1200px) {
+    max-width: 750px;
+  }
   .post {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     margin: 0 1px 40px;
     border-radius: 8px;
     background: #fff;
+    max-width: 600px;
   }
   .post-user-info {
     display: flex;

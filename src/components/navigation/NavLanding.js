@@ -2,33 +2,36 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { customLayout, hoverBg } from 'components/mixins'
-
+import learnLocker from 'assets/img/learnlocker2.png'
+import brand from 'assets/svg/learnlockerbrand2.svg'
 const NavLanding = ({ authModalToggle, modalLogin, modalSignUp }) => {
   return (
     <Nav>
       <h1>
-        <Link to='/'>LearnLocker</Link>
+        <Link to='/'>locker.dev</Link>
       </h1>
+      <img src={brand} />
       <ul>
         <li>
-          <span
+          <button
             onClick={() => {
               authModalToggle()
               modalLogin()
             }}
           >
             Log In
-          </span>
+          </button>
         </li>
         <li>
-          <span
+          <button
+            className='signup'
             onClick={() => {
               authModalToggle()
               modalSignUp()
             }}
           >
             Sign Up
-          </span>
+          </button>
         </li>
       </ul>
     </Nav>
@@ -37,74 +40,61 @@ const NavLanding = ({ authModalToggle, modalLogin, modalSignUp }) => {
 export default NavLanding
 
 const Nav = styled.nav`
-  border: 2px solid green;
-  ${customLayout('space-between', 'center')}
-  padding: 7.5px 0;
-  margin: 20px 0;
-
-  h1 {
-    border: 2px solid blue;
-    font-size: 3rem;
-    font-weight: 700;
-    @media (max-width: 768px) {
-      font-size: 2.5rem;
-    }
-    @media (max-width: 500px) {
-      font-size: 2.1rem;
+  width: 100%;
+  .signup {
+    background: #1da1f2;
+    color: #fff;
+    transition: background 300ms ease-out;
+    &:hover {
+      background: #0071b2;
     }
   }
-
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #0071b2;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  height: 50px;
+  padding: 0 3.5%;
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    width: 200px;
+    a {
+      color: #14171a;
+      &:hover {
+        color: #0071b2;
+      }
+    }
+  }
+  img {
+    height: 35px;
+    width: 35px;
+  }
   ul {
-    /* border: 2px solid orange; */
-    ${customLayout('space-between')}
+    width: 200px;
+    display: flex;
+    justify-content: flex-end;
     li {
-      margin-right: 1rem;
+      margin-right: 2rem;
     }
     li:last-child {
       margin-right: 0;
-      /* border: 2px solid purple; */
-    }
-    @media (max-width: 900px) {
-      li {
-        margin-right: 0.5rem;
-      }
-      li:last-child {
-        margin-right: 0;
-      }
-    }
-
-    span {
-      border: 2px solid salmon;
-      padding: 10px;
-      font-weight: 700;
-      /* border: transparent; */
-      cursor: pointer;
-      transition: 200ms ease-out;
-      background: ${props => (props.auth ? null : '#fff')};
-      border-radius: 7px;
-
-      @media (max-width: 400px) {
-        font-size: 1.4rem;
-        padding: 7px;
-      }
-
-      &:hover {
-        border: 1px solid ${hoverBg} transparent;
-        border-radius: 5px;
-        background-color: ${hoverBg};
-      }
     }
   }
-  .active {
-    border: 1px solid ${hoverBg} transparent;
-    border-radius: 5px;
-    background-color: ${hoverBg};
-    padding: 10px 0;
-  }
-  .auth-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+
+  button {
+    border: 1px solid #1da1f2;
+    color: #1da1f2;
+    padding: 6px 12px;
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: 2rem;
     cursor: pointer;
+    transition: background 300ms ease-out;
+    border-radius: 100px;
+    &:hover {
+      background: #eaf5fd;
+    }
   }
 `

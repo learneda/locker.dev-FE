@@ -82,7 +82,6 @@ export default connect(
 const StyledNotifications = styled.div`
   display: flex;
   position: relative;
-  padding: 5px 10px;
   color: #333;
   .count {
     color: #3f65f2;
