@@ -1,16 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 import newsvg from 'assets/svg/new.svg'
 import developerSVG from 'assets/svg/developer.svg'
 import videosSVG from 'assets/svg/youtube2.svg'
 import shareSVG from 'assets/svg/sharenew.svg'
-import landingVideo from 'assets/video/landing.mp4'
-import browser from 'assets/img/browser.png'
-import downIcon from 'assets/svg/down-icon.svg'
 import learnLocker from 'assets/svg/brand45.svg'
-function Body(props) {
-  const { authModalToggle, modalSignUp } = props
+
+const Body = props => {
+  const { authModalOpen, modalSignUp } = props
 
   return (
     <CallToAction>
@@ -24,7 +21,7 @@ function Body(props) {
           <button
             className='button-cta'
             onClick={() => {
-              authModalToggle()
+              authModalOpen()
               modalSignUp()
             }}
           >
@@ -34,7 +31,7 @@ function Body(props) {
       </div>
       <Container>
         <div className='feature-card'>
-          <h4>Share the best resources with your friends</h4>
+          <h4>Share the best resources with your friends.</h4>
           <div className='svg-container'>
             <img src={shareSVG} alt='share' />
           </div>
@@ -149,9 +146,10 @@ const Title = styled.h3`
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: nowrap;
   padding: 0 3%;
+
   .feature-card {
     display: flex;
     flex-direction: column;
@@ -169,19 +167,15 @@ const Container = styled.div`
     @media (max-width: 1024px) {
       width: 220px;
     }
-    @media (max-width: 500px) {
-      width: 260px;
-      margin: 0 auto;
-    }
     &:nth-child(2) {
       @media (max-width: 767px) {
         display: none;
       }
     }
-    &:nth-child(3) {
+    /* &:nth-child(3) {
       @media (max-width: 500px) {
         display: none;
-      }
+      } */
     }
   }
   h4 {

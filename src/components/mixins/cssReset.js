@@ -31,7 +31,6 @@ footer, header, hgroup, menu, nav, section {
 html {
   font-family: 'Helvetica Nue', sans-serif;
   font-size: 62.5%;
-  color: #333;
   box-sizing: border-box;
 }
 *, *:before, *:after {

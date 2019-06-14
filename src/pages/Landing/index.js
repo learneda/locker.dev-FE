@@ -1,46 +1,24 @@
 import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { customWrapper } from 'components/mixins'
-import NavLanding from 'components/navigation/NavLanding'
-import Body from './Body'
-import Footer from './Footer'
-import Auth from 'components/authentication/Auth'
-import { authModalToggle, modalLogin, modalSignUp } from './authModalActions'
+import { Nav, Body, Footer, Auth } from './components'
+import * as authModalActions from './authModalActions'
 
-const Landing = ({ modal, authModalToggle, modalLogin, modalSignUp }) => {
-  const { isAuthOpen, isEditOpen } = modal
-
-  if (isAuthOpen || isEditOpen) {
-    document.getElementById('body').setAttribute('style', 'overflow: hidden')
-  } else {
-    document.getElementById('body').setAttribute('style', 'overflow: auto')
-  }
-
+const Landing = props => {
   return (
     <Wrapper>
-      <Auth
-        modal={modal}
-        authModalToggle={authModalToggle}
-        modalLogin={modalLogin}
-        modalSignUp={modalSignUp}
-      />
-      <NavLanding
-        authModalToggle={authModalToggle}
-        modalLogin={modalLogin}
-        modalSignUp={modalSignUp}
-      />
-      <Body authModalToggle={authModalToggle} modalSignUp={modalSignUp} />
-      <Footer/>
+      <Auth {...props} />
+      <Nav {...props} />
+      <Body {...props} />
+      <Footer />
     </Wrapper>
   )
 }
-
 const mapStateToProps = ({ modal }) => ({ modal })
 
 export default connect(
   mapStateToProps,
-  { authModalToggle, modalLogin, modalSignUp }
+  { ...authModalActions }
 )(Landing)
 
 const Wrapper = styled.div`

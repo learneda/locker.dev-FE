@@ -1,28 +1,21 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import AuthForm from './AuthForm'
-import deleteIcon from 'assets/svg/delete-icon.svg'
 import styled from 'styled-components'
-
+import useOnClickOutside from 'use-onclickoutside'
+import useLockBodyScroll from 'hooks/useLockBodyScroll'
 const Auth = props => {
-  const { authModalToggle, modalSignUp, modalLogin, modal } = props
+  const { authModalClose, modalSignUp, modalLogin, modal } = props
   const { isAuthOpen, isSignUp } = modal
-
+  const ref = useRef(null)
+  useOnClickOutside(ref, authModalClose)
+  useLockBodyScroll()
   return (
     <AuthModalContainer
       className='login'
       id='login'
       style={{ display: isAuthOpen ? 'flex' : 'none' }}
-      onClick={e => (e.target.className === 'login' ? authModalToggle() : null)}
     >
-      <div className='login-content'>
-        <div
-          className='close-modal'
-          onClick={() => {
-            authModalToggle()
-          }}
-        >
-          <img src={deleteIcon} alt='' />
-        </div>
+      <div className='login-content' ref={ref}>
         <span
           className={isSignUp ? null : 'not-current-view'}
           id='sign-up'

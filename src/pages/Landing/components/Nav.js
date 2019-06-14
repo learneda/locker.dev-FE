@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { customLayout, hoverBg } from 'components/mixins'
-import learnLocker from 'assets/img/learnlocker2.png'
 import brand from 'assets/svg/learnlockerbrand2.svg'
-const NavLanding = ({ authModalToggle, modalLogin, modalSignUp }) => {
-  const init = Boolean(Number(localStorage.getItem('isLight')))
-  const [isLightMode, setMode] = useState(init)
 
+const NavLanding = props => {
+  const { authModalOpen, modalLogin, modalSignUp } = props
+  //* Hackie DarkMode Logic
+  //TODO: Improve this logic and implement real DarkMode
+  const init = Boolean(Number(localStorage.getItem('isLightMode')))
+  const [isLightMode, setMode] = useState(init)
   useEffect(() => {
     if (isLightMode) {
       document.body.style.filter = 'invert(0%)'
@@ -16,14 +17,14 @@ const NavLanding = ({ authModalToggle, modalLogin, modalSignUp }) => {
     }
   }, [])
 
-  const toggleDarkMode = () => {
+  const toggleMode = () => {
     if (isLightMode) {
       document.body.style.filter = 'invert(92%)'
-      localStorage.setItem('isLight', '0')
+      localStorage.setItem('isLightMode', '0')
       setMode(false)
     } else {
       document.body.style.filter = 'invert(0%)'
-      localStorage.setItem('isLight', '1')
+      localStorage.setItem('isLightMode', '1')
       setMode(true)
     }
   }
@@ -32,12 +33,12 @@ const NavLanding = ({ authModalToggle, modalLogin, modalSignUp }) => {
       <h1>
         <Link to='/'>locker.dev</Link>
       </h1>
-      <img src={brand} onClick={toggleDarkMode} />
+      <img src={brand} onClick={toggleMode} />
       <ul>
         <li>
           <button
             onClick={() => {
-              authModalToggle()
+              authModalOpen()
               modalLogin()
             }}
           >
@@ -48,7 +49,7 @@ const NavLanding = ({ authModalToggle, modalLogin, modalSignUp }) => {
           <button
             className='signup'
             onClick={() => {
-              authModalToggle()
+              authModalOpen()
               modalSignUp()
             }}
           >

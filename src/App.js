@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import GlobalStyle from 'components/mixins'
 import Navbar from 'components/navigation/Navbar'
-import { customContainer } from 'components/mixins'
 import { composedIndexRedirect as index } from 'components/hoc/indexRedirect'
 import { ReactComponent as Loading } from 'assets/svg/circles.svg'
 import * as appActions from 'appActions'
@@ -127,5 +126,6 @@ export default connect(
 
 const Container = styled.div`
   width: 100%;
+  color: #141619;
   background-color: #fff;
 `
