@@ -42,16 +42,5 @@ export default connect(
 )(Landing)
 
 const Wrapper = styled.div`
-  max-width: 1024px;
-  margin: 0 auto;
   width: 100%;
-  border: 1px solid purple;
-  
-/*   
-  @media (max-width: 768px) {
-    ${customWrapper('90%', '0 auto')};
-  }
-  @media (max-width: 600px) {
-    ${customWrapper('95%', '0 auto')};
-  } */
 `

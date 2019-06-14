@@ -27,19 +27,22 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
 }
-* {
-  box-sizing: border-box;
-}
+
 html {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Helvetica Nue', sans-serif;
   font-size: 62.5%;
   color: #333;
+  box-sizing: border-box;
 }
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
   font-size: 1.6rem;
   line-height: 1;
-  background-color: rgb(230, 233, 243); 
 }
+
 ol, ul {
   list-style: none;
 }
@@ -56,7 +59,7 @@ table {
   border-spacing: 0;
 }
 a {
-  color: #333;
+  color: #14171a;
   text-decoration: none;
 }
 `

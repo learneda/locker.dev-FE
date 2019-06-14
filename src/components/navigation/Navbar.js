@@ -65,8 +65,7 @@ const NavWrapper = styled.div`
   position: fixed;
   height: 60px;
   display: flex;
-  border: 2px purple solid;
-  width: 100vw;
+  width: 100%;
   top: 0;
   left: 0;
   z-index: 3;
