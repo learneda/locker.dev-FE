@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { useAlert } from 'react-alert'
 import { editCollection } from 'actions'
-import useLockBodyScroll from 'components/hooks/useLockBodyScroll'
+import useLockBodyScroll from 'hooks/useLockBodyScroll'
 import deleteIcon from 'assets/svg/delete-icon.svg'
 import { StyledEditModal } from './StyledEditModal'
 
