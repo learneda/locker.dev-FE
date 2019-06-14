@@ -4,13 +4,7 @@ import styled from 'styled-components'
 import useOnClickOutside from 'use-onclickoutside'
 import useLockBodyScroll from 'hooks/useLockBodyScroll'
 const Auth = props => {
-  const {
-    authModalOpen,
-    authModalClose,
-    modalSignUp,
-    modalLogin,
-    modal,
-  } = props
+  const { authModalClose, modalSignUp, modalLogin, modal } = props
   const { isAuthOpen, isSignUp } = modal
   const ref = useRef(null)
   useOnClickOutside(ref, authModalClose)

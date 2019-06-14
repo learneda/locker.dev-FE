@@ -1,13 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 import newsvg from 'assets/svg/new.svg'
 import developerSVG from 'assets/svg/developer.svg'
 import videosSVG from 'assets/svg/youtube2.svg'
 import shareSVG from 'assets/svg/sharenew.svg'
-import landingVideo from 'assets/video/landing.mp4'
-import browser from 'assets/img/browser.png'
-import downIcon from 'assets/svg/down-icon.svg'
 import learnLocker from 'assets/svg/learnlockerbrand.svg'
 
 const Body = props => {
