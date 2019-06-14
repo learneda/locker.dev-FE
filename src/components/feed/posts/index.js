@@ -16,21 +16,12 @@ class PostContainer extends Component {
 
   componentDidMount() {
     if (this.props.post) {
-      axiosAPI
-        .post(`${apiURL}/posts/like/users`, {
-          post_id: this.props.post.id,
-        })
-        .then(res => {
-          res.data.forEach(post => {
-            if (post.user_id === this.props.user_id) {
-              this.heartIcon.current.setAttribute(
-                'class',
-                'far fa-heart fa-lg heart-red'
-              )
-            }
-          })
-        })
-        .catch(err => console.log(err))
+      if (this.props.post.hasLiked) {
+        this.heartIcon.current.setAttribute(
+          'class',
+          'far fa-heart fa-lg heart-red'
+        )
+      }
     }
   }
 
