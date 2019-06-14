@@ -8,7 +8,7 @@ import shareSVG from 'assets/svg/sharenew.svg'
 import landingVideo from 'assets/video/landing.mp4'
 import browser from 'assets/img/browser.png'
 import downIcon from 'assets/svg/down-icon.svg'
-import learnLocker from 'assets/svg/learnlocker.svg'
+import learnLocker from 'assets/svg/learnlockerbrand.svg'
 function Body(props) {
   const { authModalToggle, modalSignUp } = props
 
@@ -21,7 +21,15 @@ function Body(props) {
         <StyledFeature>
           <Title>See What your Friends Are Learning</Title>
           <img src={newsvg} alt='friends' />
-          <button className='button-cta'>Get Started!</button>
+          <button
+            className='button-cta'
+            onClick={() => {
+              authModalToggle()
+              modalSignUp()
+            }}
+          >
+            Get Started!
+          </button>
         </StyledFeature>
       </div>
       <Container>
@@ -177,8 +185,17 @@ const Container = styled.div`
     @media (max-width: 1024px) {
       width: 220px;
     }
+    @media (max-width: 500px) {
+      width: 260px;
+      margin: 0 auto;
+    }
     &:nth-child(2) {
       @media (max-width: 767px) {
+        display: none;
+      }
+    }
+    &:nth-child(3) {
+      @media (max-width: 500px) {
         display: none;
       }
     }

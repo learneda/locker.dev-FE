@@ -45,6 +45,9 @@ const Nav = styled.nav`
     background: #1da1f2;
     color: #fff;
     transition: background 300ms ease-out;
+    @media (max-width: 500px) {
+      display: none;
+    }
     &:hover {
       background: #0071b2;
     }
@@ -60,23 +63,38 @@ const Nav = styled.nav`
     font-size: 2.5rem;
     font-weight: 700;
     width: 200px;
+    letter-spacing: 0.8px;
+    @media (max-width: 500px) {
+      width: 150px;
+      font-size: 2rem;
+    }
     a {
       color: #14171a;
       &:hover {
-        color: #0071b2;
+        color: orangered;
       }
     }
   }
   img {
     height: 35px;
     width: 35px;
+    &:hover {
+      filter: invert(150%);
+      cursor: pointer;
+    }
   }
   ul {
     width: 200px;
     display: flex;
     justify-content: flex-end;
+    @media (max-width: 500px) {
+      width: 150px;
+    }
     li {
       margin-right: 2rem;
+      @media (max-width: 500px) {
+        margin-right: 0;
+      }
     }
     li:last-child {
       margin-right: 0;
@@ -90,6 +108,7 @@ const Nav = styled.nav`
     font-weight: 700;
     font-size: 1.4rem;
     line-height: 2rem;
+    letter-spacing: 0.5px;
     cursor: pointer;
     transition: background 300ms ease-out;
     border-radius: 100px;
