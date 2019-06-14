@@ -154,7 +154,6 @@ class PostContainer extends Component {
       user_id,
       handleDeleteComment,
     } = this.props
-    // console.log('HERE TAGS', this.props.post.tags)
     return (
       <div className='post'>
         <div className='post-user-info'>
@@ -220,11 +219,11 @@ class PostContainer extends Component {
                   e.target.classList.toggle('heart-red')
                 }}
               />
-              <span className='like_num'>{this.props.post.likes}</span>
+              <span className='like_num'>{post.likes}</span>
             </div>
 
-            {this.props.post.tags.length > 0 &&
-              this.props.post.tags.map(tag => {
+            {post.tags.length > 0 &&
+              post.tags.map(tag => {
                 return <div style={{ marginLeft: '5px' }}> #{tag.hashtag} </div>
               })}
 
