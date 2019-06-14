@@ -219,8 +219,13 @@ class PostContainer extends Component {
                   e.target.classList.toggle('heart-red')
                 }}
               />
-              <span className='like_num'>{this.props.post.likes}</span>
+              <span className='like_num'>{post.likes}</span>
             </div>
+
+            {post.tags.length > 0 &&
+              post.tags.map(tag => {
+                return <div style={{ marginLeft: '5px' }}> #{tag.hashtag} </div>
+              })}
 
             {this.props.user_id !== post.user_id && (
               <div
