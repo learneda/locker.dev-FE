@@ -4,10 +4,11 @@ import styled from 'styled-components'
 import { customLayout, hoverBg } from 'components/mixins'
 import learnLocker from 'assets/img/learnlocker2.png'
 import brand from 'assets/svg/learnlockerbrand2.svg'
-const NavLanding = ({ authModalToggle, modalLogin, modalSignUp }) => {
+const NavLanding = props => {
+  const { authModalOpen, modalLogin, modalSignUp } = props
   const init = Boolean(Number(localStorage.getItem('isLight')))
   const [isLightMode, setMode] = useState(init)
-
+  console.log(props, 'PROPS')
   useEffect(() => {
     if (isLightMode) {
       document.body.style.filter = 'invert(0%)'
@@ -37,7 +38,8 @@ const NavLanding = ({ authModalToggle, modalLogin, modalSignUp }) => {
         <li>
           <button
             onClick={() => {
-              authModalToggle()
+              console.log('FIRED')
+              authModalOpen()
               modalLogin()
             }}
           >
@@ -48,7 +50,7 @@ const NavLanding = ({ authModalToggle, modalLogin, modalSignUp }) => {
           <button
             className='signup'
             onClick={() => {
-              authModalToggle()
+              authModalOpen()
               modalSignUp()
             }}
           >

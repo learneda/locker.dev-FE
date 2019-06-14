@@ -8,7 +8,7 @@ const Footer = props => (
     <Link to='#'>Terms</Link>
     <Link to='#'>Cookies</Link>
     <Link to='#'>Help</Link>
-    <Link>&copy; 2019 locker.dev</Link>
+    <Link to='#'>&copy; 2019 locker.dev</Link>
   </Nav>
 )
 

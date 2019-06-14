@@ -1,5 +1,6 @@
 import {
-  AUTH_MODAL_TOGGLE,
+  AUTH_MODAL_OPEN,
+  AUTH_MODAL_CLOSE,
   AUTH_MODAL_SIGNUP,
   AUTH_MODAL_LOGIN,
 } from './authModalTypes'
@@ -11,10 +12,16 @@ const initialState = {
 
 export const authModalReducer = (state = initialState, action) => {
   switch (action.type) {
-    case AUTH_MODAL_TOGGLE: {
+    case AUTH_MODAL_OPEN: {
       return {
         ...state,
-        isAuthOpen: !state.isAuthOpen,
+        isAuthOpen: true,
+      }
+    }
+    case AUTH_MODAL_CLOSE: {
+      return {
+        ...state,
+        isAuthOpen: false,
       }
     }
     case AUTH_MODAL_SIGNUP: {

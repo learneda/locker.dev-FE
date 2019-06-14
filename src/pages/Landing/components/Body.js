@@ -9,8 +9,9 @@ import landingVideo from 'assets/video/landing.mp4'
 import browser from 'assets/img/browser.png'
 import downIcon from 'assets/svg/down-icon.svg'
 import learnLocker from 'assets/svg/learnlockerbrand.svg'
-function Body(props) {
-  const { authModalToggle, modalSignUp } = props
+
+const Body = props => {
+  const { authModalOpen, modalSignUp } = props
 
   return (
     <CallToAction>
@@ -24,7 +25,7 @@ function Body(props) {
           <button
             className='button-cta'
             onClick={() => {
-              authModalToggle()
+              authModalOpen()
               modalSignUp()
             }}
           >
