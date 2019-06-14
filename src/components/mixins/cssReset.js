@@ -38,8 +38,6 @@ html {
 }
 
 body {
-  color: #141619;
-  background-color: #fff;
   font-size: 1.6rem;
   line-height: 1;
 }

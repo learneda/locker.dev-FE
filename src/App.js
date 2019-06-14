@@ -126,4 +126,6 @@ export default connect(
 
 const Container = styled.div`
   width: 100%;
+  color: #141619;
+  background-color: #fff;
 `
