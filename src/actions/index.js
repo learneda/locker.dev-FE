@@ -87,8 +87,5 @@ export const postToFeed = post => async dispatch => {
   console.log(post)
   let newPost = await axios.post('/newsfeed', { post })
   newPost = newPost.data
-  newPost['comments'] = []
-  newPost['likes'] = 0
   dispatch({ type: ADD_TO_FEED, payload: newPost })
-  console.log('response :)', newPost)
 }
