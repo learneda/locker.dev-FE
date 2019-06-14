@@ -8,7 +8,7 @@ import shareSVG from 'assets/svg/sharenew.svg'
 import landingVideo from 'assets/video/landing.mp4'
 import browser from 'assets/img/browser.png'
 import downIcon from 'assets/svg/down-icon.svg'
-import learnLocker from 'assets/svg/learnlockerbrand.svg'
+import learnLocker from 'assets/svg/brand45.svg'
 function Body(props) {
   const { authModalToggle, modalSignUp } = props
 
@@ -76,22 +76,6 @@ const CallToAction = styled.div`
     transform-origin: center;
     @media (max-width: 650px) {
       display: none;
-    }
-    img {
-      position: absolute;
-      left: 100px;
-      top: -110px;
-      transform: scale(1) rotate(-45deg);
-      transition: all 0.6s ease-out;
-      @media (max-width: 1024px) {
-        top: -40px;
-        left: 70px;
-      }
-      @media (max-width: 768px) {
-        top: 20px;
-        left: 70px;
-        transform: scale(1.25) rotate(-45deg);
-      }
     }
   }
   max-width: 1440px;
