@@ -32,7 +32,7 @@ function Body(props) {
           </div>
         </div>
         <div className='feature-card'>
-          <h4>Keep it green.</h4>
+          <h4>Monitor progress.</h4>
           <div className='svg-container'>
             <img src={developerSVG} alt='developer' />
           </div>
@@ -55,7 +55,7 @@ const CallToAction = styled.div`
     display: flex;
   }
   .cta-left {
-    height: calc((100vh - 100px) / 1.8);
+    height: calc((100vh - 100px) / 1.7);
     width: 50%;
     display: flex;
     justify-content: center;
@@ -100,7 +100,7 @@ const CallToAction = styled.div`
     font-size: 1.8rem;
     color: white;
     border-radius: 20px;
-    letter-spacing: 4px;
+    letter-spacing: 3px;
     line-height: 20px;
     background: #1da1f2;
     transition: all 300ms ease-out;
@@ -136,7 +136,7 @@ const StyledFeature = styled.div`
   padding-left: 30px;
   margin: 0 auto;
   text-align: center;
-  height: calc((100vh - 100px) / 1.8);
+  height: calc((100vh - 100px) / 1.7);
   img {
     width: 90%;
   }
@@ -150,6 +150,7 @@ const Title = styled.h3`
   font-size: 2.4rem;
   font-weight: 500;
   line-height: 3.5rem;
+  letter-spacing: 1px;
   color: #14171a;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 `
@@ -188,9 +189,10 @@ const Container = styled.div`
     text-align: center;
     margin: 10px 0;
     color: #14171a;
+    letter-spacing: 1px;
   }
   .svg-container {
-    height: calc((100vh - 90px) / 6);
+    height: calc((100vh - 90px) / 7);
   }
   img {
     width: 100%;
