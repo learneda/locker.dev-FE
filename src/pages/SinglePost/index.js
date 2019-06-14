@@ -7,8 +7,10 @@ import Moment from 'react-moment'
 const SinglePost = props => {
   const [post, setPost] = useState('')
   useEffect(() => {
-    axios.get(`/posts/shared/${props.match.params.id}`).then(res => {
-      setPost(res.data[0])
+    console.log(props.match.params.id)
+    axios.get(`/newsfeed/${props.match.params.id}`).then(res => {
+      console.log('single post response', res.data)
+      setPost(res.data.post)
     })
   }, [])
   return (
