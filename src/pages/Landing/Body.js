@@ -34,18 +34,6 @@ function Body(props) {
             borderRadius: '50px 100px',
           }}
         >
-          {/* <p
-            style={{ color: 'dodgerblue', position: 'relative', zIndex: '10' }}
-          >
-            Learn with your friends.
-          </p>
-          <p style={{ position: 'relative', zIndex: '10' }}>
-            Best content bulbs up quickly!
-          </p>
-          <p style={{ position: 'relative', zIndex: '10' }}>
-            Share knowledge. Learn faster. Monitor progress. A nice place for
-            devs.
-          </p> */}
           <img
             style={{
               position: 'absolute',
@@ -113,7 +101,7 @@ export default Body
 
 const CallToAction = styled.div`
   .cta {
-    margin-top: 40px;
+    margin-top: 10px;
   }
   max-width: 1440px;
   margin: 0 auto;
@@ -186,7 +174,7 @@ const StyledFeaturesContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 325px;
-    padding: 20px 0;
+    padding: 5px 0;
     justify-content: center;
     align-items: center;
     background: #fff;
