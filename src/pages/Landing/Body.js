@@ -17,30 +17,25 @@ function Body(props) {
       <div className='cta' style={{ display: 'flex' }}>
         <div
           style={{
-            height: '500px',
+            height: `calc((100vh - 100px)/1.66)`,
             width: '50%',
             display: 'flex',
-            padding: '150px 100px',
-            lineHeight: '4rem',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
             alignItems: 'center',
-            flexDirection: 'column',
             backgroundColor: 'white',
             position: 'relative',
             overflow: 'hidden',
-            fontSize: '2.4rem',
-            fontWeight: 'bold',
-            color: 'white',
-            borderRadius: '50px 100px',
+            borderRadius: '50px 50px',
+            transformOrigin: 'center',
           }}
         >
           <img
             style={{
               position: 'absolute',
-              left: '110px',
-              top: '70px',
-              transform: `scale(1.4) rotate(-45deg)`,
-              objectFit: 'cover',
+              left: '100px',
+              top: '-90px',
+              transform: `scale(1.0) rotate(-45deg)`,
+            
             }}
             src={learnLocker}
             alt='logo'
@@ -49,9 +44,11 @@ function Body(props) {
         <StyledFeature
           style={{
             width: '50%',
+            height: `calc((100vh - 100px)/1.66)`,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            justifyContent: 'space-around',
             margin: '0 auto',
             textAlign: 'center ',
           }}
@@ -83,16 +80,6 @@ function Body(props) {
           </div>
         </div>
       </StyledFeaturesContainer>
-
-      <Footer>
-        <nav>
-          <Link to='#'>Privacy</Link>
-          <Link to='#'>Terms of Use</Link>
-          <Link to='#'>Cookies</Link>
-          <Link to='#'>Help</Link>
-          <Link>&copy; 2019 locker.dev</Link>
-        </nav>
-      </Footer>
     </CallToAction>
   )
 }
@@ -100,24 +87,22 @@ function Body(props) {
 export default Body
 
 const CallToAction = styled.div`
-  .cta {
-    margin-top: 10px;
-  }
   max-width: 1440px;
   margin: 0 auto;
   display: flex;
   position: relative;
   flex-direction: column;
   justify-content: space-between;
-  min-height: calc(100vh - 50px);
+  padding: 4vh 2vw;
+  min-height: calc(100vh - 100px);
   .button-cta {
-    height: 60px;
-    width: 70%;
-    margin: 70px auto 0;
+    height: 50px;
+    width: 56%;
     border: 1px solid #1da1f2;
     font-size: 1.8rem;
     color: white;
-    border-radius: 100px;
+    border-radius: 20px;
+    letter-spacing: 4px;
     line-height: 20px;
     background: #1da1f2;
     transition: all 300ms ease-out;
@@ -126,6 +111,8 @@ const CallToAction = styled.div`
       cursor: pointer;
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
       transform: translateY(-1px) scale(1.02);
+      border: 1px solid dodgerblue;
+
     }
   }
   h1 {
@@ -137,17 +124,16 @@ const CallToAction = styled.div`
 `
 
 const StyledFeature = styled.div`
-  padding: 40px 0;
+    width: 50%;
   display: flex;
-  align-items: center;
+flex-direction: colum;
+            align-items: center;
+            justify-content: space-around;
+            margin: 0 auto;
+            text-align: center ;
   img {
     width: 90%;
-  }
-  h2 {
-    margin-bottom: 40px;
-    font-size: 4rem;
-    font-weight: 700;
-    line-height: 50px;
+ 
   }
   .create-acct-btn {
     font-size: 2.5rem;
@@ -159,17 +145,15 @@ const StyledFeatureTitle = styled.h3`
   font-size: 2.4rem;
   font-weight: 500;
   line-height: 3.5rem;
-  margin-bottom: 50px;
   color: #14171a;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  margin-bottom: ${props => props.marginBottom};
 `
 
 const StyledFeaturesContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: nowrap;
-  padding: 0 3.5%;
+  padding: 0 3.0%;
   .feature-card {
     display: flex;
     flex-direction: column;
@@ -189,7 +173,7 @@ const StyledFeaturesContainer = styled.div`
     color: #14171a;
   }
   .svg-container {
-    height: 160px;
+    height: calc((100vh - 90px)/6);
   }
   img {
     width: 100%;
@@ -197,19 +181,3 @@ const StyledFeaturesContainer = styled.div`
   }
 `
 
-const Footer = styled.footer`
-  width: 100%;
-  border-top: 1px solid #e6ecf0;
-  font-size: 1.2rem;
-  background: #fefefe;
-  padding: 15px 0;
-  nav {
-    display: flex;
-    justify-content: center;
-    a {
-      color: #aab8c2;
-      cursor: pointer;
-      padding: 0 20px;
-    }
-  }
-`

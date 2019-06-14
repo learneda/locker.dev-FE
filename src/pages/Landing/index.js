@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { customWrapper } from 'components/mixins'
 import NavLanding from 'components/navigation/NavLanding'
 import Body from './Body'
+import Footer from './Footer'
 import Auth from 'components/authentication/Auth'
 import { authModalToggle, modalLogin, modalSignUp } from './authModalActions'
 
@@ -30,6 +31,7 @@ const Landing = ({ modal, authModalToggle, modalLogin, modalSignUp }) => {
         modalSignUp={modalSignUp}
       />
       <Body authModalToggle={authModalToggle} modalSignUp={modalSignUp} />
+      <Footer/>
     </Wrapper>
   )
 }
