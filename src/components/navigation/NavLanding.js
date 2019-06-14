@@ -1,16 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { customLayout, hoverBg } from 'components/mixins'
 import learnLocker from 'assets/img/learnlocker2.png'
 import brand from 'assets/svg/learnlockerbrand2.svg'
 const NavLanding = ({ authModalToggle, modalLogin, modalSignUp }) => {
+  const [isLightMode, setMode] = useState(true)
+
+  const toggleDarkMode = () => {
+    if (isLightMode) {
+      document.body.style.filter = 'invert(92%)'
+      setMode(false)
+    } else {
+      document.body.style.filter = 'invert(0%)'
+      setMode(true)
+    }
+  }
   return (
     <Nav>
       <h1>
         <Link to='/'>locker.dev</Link>
       </h1>
-      <img src={brand} />
+      <img src={brand} onClick={toggleDarkMode} />
       <ul>
         <li>
           <button
