@@ -59,6 +59,7 @@ function Body(props) {
 export default Body
 
 const CallToAction = styled.div`
+  min-height: calc(100vh - 93px);
   .cta {
     display: flex;
   }
@@ -100,7 +101,6 @@ const CallToAction = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding: 3vh 1vw;
-  min-height: calc(100vh - 100px);
   .button-cta {
     height: 45px;
     width: 70%;

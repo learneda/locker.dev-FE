@@ -1,18 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { customLayout, hoverBg } from 'components/mixins'
 import learnLocker from 'assets/img/learnlocker2.png'
 import brand from 'assets/svg/learnlockerbrand2.svg'
 const NavLanding = ({ authModalToggle, modalLogin, modalSignUp }) => {
-  const [isLightMode, setMode] = useState(true)
+  const init = Boolean(Number(localStorage.getItem('isLight')))
+  const [isLightMode, setMode] = useState(init)
+
+  useEffect(() => {
+    if (isLightMode) {
+      document.body.style.filter = 'invert(0%)'
+    } else {
+      document.body.style.filter = 'invert(92%)'
+    }
+  }, [])
 
   const toggleDarkMode = () => {
     if (isLightMode) {
       document.body.style.filter = 'invert(92%)'
+      localStorage.setItem('isLight', '0')
       setMode(false)
     } else {
       document.body.style.filter = 'invert(0%)'
+      localStorage.setItem('isLight', '1')
       setMode(true)
     }
   }
@@ -67,7 +78,6 @@ const Nav = styled.nav`
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #0071b2;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   height: 50px;
   padding: 0 3.5%;
   h1 {
