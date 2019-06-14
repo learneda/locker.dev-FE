@@ -17,7 +17,7 @@ function Body(props) {
       <div className='cta' style={{ display: 'flex' }}>
         <div
           style={{
-            height: '600px',
+            height: '500px',
             width: '50%',
             display: 'flex',
             padding: '150px 100px',
@@ -89,7 +89,7 @@ function Body(props) {
           </div>
         </div>
         <div className='feature-card'>
-          <h4>Keep track of your favorite videos</h4>
+          <h4>Save your favorites to your locker!</h4>
           <div className='svg-container'>
             <img src={videosSVG} alt='videos' />
           </div>
@@ -185,7 +185,7 @@ const StyledFeaturesContainer = styled.div`
   .feature-card {
     display: flex;
     flex-direction: column;
-    width: 350px;
+    width: 325px;
     padding: 20px 0;
     justify-content: center;
     align-items: center;
@@ -197,11 +197,11 @@ const StyledFeaturesContainer = styled.div`
     font-size: 2rem;
     max-width: 80%;
     text-align: center;
-    margin: 20px 0;
+    margin: 10px 0;
     color: #14171a;
   }
   .svg-container {
-    height: 200px;
+    height: 160px;
   }
   img {
     width: 100%;
@@ -214,7 +214,7 @@ const Footer = styled.footer`
   border-top: 1px solid #e6ecf0;
   font-size: 1.2rem;
   background: #fefefe;
-  padding: 20px 0;
+  padding: 15px 0;
   nav {
     display: flex;
     justify-content: center;
