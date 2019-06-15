@@ -1,4 +1,5 @@
 import GlobalStyle from './cssReset.js'
+import { css } from 'styled-components'
 export default GlobalStyle
 //* variables
 export const bgColor = '#E6ECF0'
@@ -29,6 +30,17 @@ export const customWrapper = (width = '100%', margin = 0) =>
 export const customContainer = (width = '100%', bg = bgColor) => `
   width: ${width};
   background-color: ${bg};
+`
+
+export const Flex = ({
+  direction = 'row',
+  justify = 'space-between',
+  align = 'center',
+}) => css`
+  display: flex;
+  flex-direction: ${direction};
+  justify-content: ${justify};
+  aline-items: ${align};
 `
 
 //* Word-based truncate

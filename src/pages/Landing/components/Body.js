@@ -4,7 +4,7 @@ import newsvg from 'assets/svg/new.svg'
 import developerSVG from 'assets/svg/developer.svg'
 import videosSVG from 'assets/svg/youtube2.svg'
 import shareSVG from 'assets/svg/sharenew.svg'
-import learnLocker from 'assets/svg/learnlockerbrand.svg'
+import learnLocker from 'assets/svg/brand45.svg'
 
 const Body = props => {
   const { authModalOpen, modalSignUp } = props
@@ -81,6 +81,7 @@ const CallToAction = styled.div`
     @media (max-width: 650px) {
       display: none;
     }
+<<<<<<< HEAD
     img {
       position: absolute;
       left: 100px;
@@ -96,6 +97,8 @@ const CallToAction = styled.div`
         transform: scale(1.25) rotate(-45deg);
       }
     }
+=======
+>>>>>>> 319874926b9faceecdb0e741ba1fcd35b8d70e6e
   }
 `
 
