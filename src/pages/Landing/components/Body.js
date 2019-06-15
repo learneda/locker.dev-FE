@@ -56,7 +56,14 @@ const Body = props => {
 export default Body
 
 const CallToAction = styled.div`
+  display: flex;
+  position: relative;
   min-height: calc(100vh - 93px);
+  max-width: 1440px;
+  margin: 0 auto;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3vh 1vw;
   .cta {
     display: flex;
   }
@@ -79,7 +86,6 @@ const CallToAction = styled.div`
       left: 100px;
       top: -110px;
       transform: scale(1) rotate(-45deg);
-      transition: all 0.6s ease-out;
       @media (max-width: 1024px) {
         top: -40px;
         left: 70px;
@@ -91,13 +97,28 @@ const CallToAction = styled.div`
       }
     }
   }
-  max-width: 1440px;
-  margin: 0 auto;
+`
+
+const StyledFeature = styled.div`
   display: flex;
-  position: relative;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 3vh 1vw;
+  align-items: center;
+  justify-content: space-around;
+  padding-left: 30px;
+  margin: 0 auto;
+  text-align: center;
+  height: calc((100vh - 100px) / 1.7);
+  width: 50%;
+  img {
+    width: 90%;
+  }
+  @media (max-width: 650px) {
+    width: 100%;
+    padding: 0;
+    img {
+      width: 100%;
+    }
+  }
   .button-cta {
     height: 45px;
     width: 70%;
@@ -116,38 +137,6 @@ const CallToAction = styled.div`
       transform: translateY(-1px) scale(1.02);
       border: 1px solid dodgerblue;
     }
-  }
-  h1 {
-    padding-bottom: 45px;
-    font-size: 8rem;
-    line-height: 8.5rem;
-    font-weight: 700;
-  }
-`
-
-const StyledFeature = styled.div`
-  @media (max-width: 650px) {
-    width: 100%;
-    padding: 0;
-    img {
-      width: 100%;
-    }
-  }
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  padding-left: 30px;
-  margin: 0 auto;
-  text-align: center;
-  height: calc((100vh - 100px) / 1.7);
-  img {
-    width: 90%;
-  }
-  .create-acct-btn {
-    font-size: 2.5rem;
-    cursor: pointer;
   }
 `
 
@@ -187,11 +176,6 @@ const Container = styled.div`
       @media (max-width: 767px) {
         display: none;
       }
-    }
-    /* &:nth-child(3) {
-      @media (max-width: 500px) {
-        display: none;
-      } */
     }
   }
   h4 {
