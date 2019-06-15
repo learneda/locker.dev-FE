@@ -1,19 +1,26 @@
 // import React, { useState, useCallback, useEffect, useRef } from 'react'
-import React, { useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
-import SearchUserDropDown from './SearchUsersDropDown'
+import SearchUsersDropDown from './SearchUsersDropDown'
 import * as searchActions from './searchActions'
 
 function Search(props) {
   const { searchTerm, setSearchTerm, resetSearchTerm } = props
+  const DropDownNode = useRef()
+  const [visible, setVisible] = useState(true)
 
-  useEffect(() => {
-    if (props.searchTerm) {
-      resetSearchTerm()
+  const handleSearch = e => {
+    setVisible(true)
+    setSearchTerm(e)
+  }
+
+  const handleRefClick = e => {
+    if (DropDownNode.current) {
+      setVisible(false)
     }
-  }, [props.location.pathname])
+  }
 
   //TODO: Make this DRY
   const displaySearch = () => {
@@ -113,9 +120,6 @@ function Search(props) {
     <>
       <Wrapper>
         <Container>{displaySearch()}</Container>
-        <DropDown>
-          <SearchUserDropDown search={searchTerm} />
-        </DropDown>
       </Wrapper>
     </>
   )
