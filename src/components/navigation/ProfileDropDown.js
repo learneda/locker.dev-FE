@@ -55,7 +55,6 @@ const ProfileDropDown = ({ auth, user }) => {
           </li>
         </DropDown>
       )}{' '}
-      */}
     </div>
   )
 }
