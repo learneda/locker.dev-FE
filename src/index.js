@@ -7,7 +7,6 @@ import AlertTemplate, { options } from './components/utils/AlertTemplate'
 import App from './App'
 import store from './store'
 import * as serviceWorker from './serviceWorker'
-import 'typeface-roboto'
 
 ReactDOM.render(
   <Provider store={store}>

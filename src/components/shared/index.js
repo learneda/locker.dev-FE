@@ -170,7 +170,7 @@ const ModalWrapper = styled.div`
       font-size: 1.6rem;
       border: 1px solid lightgrey;
       resize: none;
-      font-family: Roboto, sans-serif;
+      font-family: 'Helvetica Nue', sans-serif;
     }
     label {
       margin-bottom: 5px;

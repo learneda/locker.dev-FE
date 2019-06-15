@@ -242,7 +242,7 @@ const Container = styled.div`
     span {
       margin-left: 5px;
       height: 20px;
-      font-family: Roboto, sans-serif;
+      font-family: 'Helvetica Nue', sans-serif;
       font-size: 2rem;
     }
   }
