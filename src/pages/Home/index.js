@@ -168,25 +168,25 @@ const Container = styled.div`
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  border: 2px solid red;
+  /* border: 2px solid red; */
   width: 100vw;
 `
 const Wrapper = styled.div`
   max-width: 1440px;
   padding-left: 3%;
   width: 100%;
-  border: 2px solid bloodorange;
+  /* border: 2px solid bloodorange; */
 `
 
 const RouteWrapper = styled.div`
   position: relative;
+  top: 100px;
 `
 const Tabs = styled.ul`
   display: flex;
   align-items: flex-end;
   position: sticky;
-  border: 1px solid green;
-  background: rgb(230, 233, 243);
+  background: white;
   top: 59px;
   height: 100px;
   z-index: 1;

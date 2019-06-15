@@ -75,7 +75,6 @@ const NavWrapper = styled.div`
     height: 40px;
     border-radius: 50%;
     cursor: pointer;
-    border: 1px solid green;
   }
   .mobile-search {
   }
@@ -100,7 +99,7 @@ const Nav = styled.nav`
   width: 100%;
   max-width: 1150px;
   margin: 0 auto;
-  border: 2px solid blue;
+  /* border: 2px solid blue; */
   padding: 0 2rem;
   h1 {
     font-size: 3rem;
@@ -211,7 +210,7 @@ const Burger = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 1px solid green;
+    /* border: 1px solid green; */
   }
   .bell {
     margin: 0;
@@ -226,7 +225,7 @@ const Burger = styled.div`
     height: 25px;
     margin: 0;
     padding: 0;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     cursor: pointer;
     opacity: 0.7;
     transition: 200ms ease-in;

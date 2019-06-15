@@ -81,24 +81,6 @@ const CallToAction = styled.div`
     @media (max-width: 650px) {
       display: none;
     }
-<<<<<<< HEAD
-    img {
-      position: absolute;
-      left: 100px;
-      top: -110px;
-      transform: scale(1) rotate(-45deg);
-      @media (max-width: 1024px) {
-        top: -40px;
-        left: 70px;
-      }
-      @media (max-width: 768px) {
-        top: 20px;
-        left: 70px;
-        transform: scale(1.25) rotate(-45deg);
-      }
-    }
-=======
->>>>>>> 319874926b9faceecdb0e741ba1fcd35b8d70e6e
   }
 `
 

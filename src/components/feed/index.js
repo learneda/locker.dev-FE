@@ -119,7 +119,6 @@ export default Feed
 
 const Container = styled.div`
   max-width: 600px;
-  border: 1px solid red;
   @media (max-width: 1200px) {
     max-width: 750px;
   }
