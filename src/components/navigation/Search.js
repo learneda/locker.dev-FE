@@ -120,6 +120,11 @@ function Search(props) {
     <>
       <Wrapper>
         <Container>{displaySearch()}</Container>
+        <DropDown>
+          {searchTerm.length ? (
+            <SearchUsersDropDown search={searchTerm} />
+          ) : null}
+        </DropDown>
       </Wrapper>
     </>
   )
@@ -160,15 +165,15 @@ const DropDown = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
+  /* border: 1px solid red; */
   border-radius: 5px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   font-weight: 500;
   max-height: 500px;
   position: absolute;
-  left: 34.5%;
   overflow: auto;
-  top: 66px;
-  width: 31.5%;
+  top: 50px;
+  width: 440px;
   @media (max-width: 759px) {
     left: 6%;
     top: 57px;
