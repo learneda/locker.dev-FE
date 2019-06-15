@@ -24,6 +24,7 @@ const SearchUsersDropDown = ({ search }) => {
     <Fragment>
       {users.map(user => {
         return (
+          user.username &&
           user.username.toLowerCase().includes(search.toLowerCase()) && (
             <Link to={`/profile/${user.id}`} key={user.id}>
               <Card>

@@ -61,19 +61,10 @@ class Feed extends Component {
         </Container>
       )
     }
-    const search = this.props.searchTerm
-    const filteredPosts = this.props.posts.filter((post, index) => {
-      return (
-        post.title.toLowerCase().includes(search.toLowerCase()) ||
-        post.thumbnail_url.toLowerCase().includes(search.toLowerCase()) ||
-        post.description.toLowerCase().includes(search.toLowerCase()) ||
-        post.username.toLowerCase().includes(search.toLowerCase())
-      )
-    })
 
     let posts = []
 
-    posts = filteredPosts.map((post, index) => (
+    posts = this.props.posts.map((post, index) => (
       <PostContainer
         key={index}
         handleSubmit={this.handleSubmit}
