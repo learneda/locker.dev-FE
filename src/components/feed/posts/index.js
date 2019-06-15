@@ -224,7 +224,14 @@ class PostContainer extends Component {
 
             {post.tags.length > 0 &&
               post.tags.map(tag => {
-                return <div style={{ marginLeft: '5px' }}> #{tag.hashtag} </div>
+                return (
+                  <Link to={`tag/${tag.hashtag}`}>
+                    <div style={{ marginLeft: '5px' }} key={tag.id}>
+                      {' '}
+                      #{tag.hashtag}{' '}
+                    </div>
+                  </Link>
+                )
               })}
 
             {this.props.user_id !== post.user_id && (

@@ -1,0 +1,1 @@
+export const FETCH_TAG_POSTS = 'FETCH_TAG_POSTS'
