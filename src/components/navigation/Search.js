@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
+import SearchUserDropDown from './SearchUsersDropDown'
 import * as searchActions from './searchActions'
 
 function Search(props) {
@@ -28,16 +29,16 @@ function Search(props) {
 
     switch (path) {
       case '/':
-        placeholder = 'Feed'
+        placeholder = 'Users or Tags'
         break
       case '/feed':
-        placeholder = 'Feed'
+        placeholder = 'Users or Tags'
         break
       case '/saved':
-        placeholder = 'Saved'
+        placeholder = 'Users or Tags'
         break
       case '/locker':
-        placeholder = 'Locker'
+        placeholder = 'Users or Tags'
         break
       case '/browse':
         placeholder = 'Courses'
@@ -111,22 +112,15 @@ function Search(props) {
   return (
     <>
       <Wrapper>
-        <Container>
-          {/* <Toggle>
-              <CheckBox toggle checked={toggle} onChange={handleChange} />
-            </Toggle> */}
-          {displaySearch()}
-        </Container>
+        <Container>{displaySearch()}</Container>
+        <DropDown>
+          <SearchUserDropDown search={searchTerm} />
+        </DropDown>
       </Wrapper>
     </>
   )
 }
 
-// {visible && toggle && search.length > 0 && (
-//   <DropDown ref={DropDownNode}>
-//     <SearchUsersDropDown search={search} />
-//   </DropDown>
-// )}
 const mapStateToProps = ({ searchTerm }) => ({
   searchTerm,
 })
@@ -157,4 +151,26 @@ const Wrapper = styled.div`
 const Container = styled.div`
   position: relative;
   display: flex;
+`
+const DropDown = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  font-weight: 500;
+  max-height: 500px;
+  position: absolute;
+  left: 34.5%;
+  overflow: auto;
+  top: 66px;
+  width: 31.5%;
+  @media (max-width: 759px) {
+    left: 6%;
+    top: 57px;
+    width: 61%;
+  }
+  @media (max-width: 500px) {
+    width: 70%;
+  }
 `

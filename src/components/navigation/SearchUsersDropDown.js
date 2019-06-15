@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
 
-import { ReactComponent as Location } from '../../assets/svg/location.svg'
+import { ReactComponent as Location } from 'assets/svg/location.svg'
 import { apiURL } from 'services'
 
 const SearchUsersDropDown = ({ search }) => {
