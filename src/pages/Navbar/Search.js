@@ -3,8 +3,8 @@ import React, { useState, useRef, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
-import SearchUsersDropDown from './SearchUsersDropDown'
-import * as searchActions from './searchActions'
+import SearchUsersDropDown from 'pages/Navbar/components/SearchUsersDropDown'
+import * as searchActions from './store/searchActions'
 
 function Search(props) {
   const { searchTerm, setSearchTerm, resetSearchTerm } = props

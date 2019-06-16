@@ -72,7 +72,7 @@ class Feed extends Component {
         post={post}
         user_id={this.props.auth.id}
         username={this.props.user.username}
-        profile_picture={this.props.user.profilePicture}
+        profile_picture={this.props.user.profile_picture}
         handleDeleteComment={this.handleDeleteComment}
         socketId={socket.id}
         createCollection={this.props.createCollection}
@@ -109,22 +109,18 @@ class Feed extends Component {
 export default Feed
 
 const Container = styled.div`
-  max-width: 600px;
-  @media (max-width: 1200px) {
-    max-width: 750px;
-  }
+  width: 600px;
   .post {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    margin: 0 1px 40px;
+    margin-bottom: 10px;
     border-radius: 8px;
     background: #fff;
-    max-width: 600px;
   }
   .post-user-info {
     display: flex;
     align-items: center;
-    padding: 15px;
     border-bottom: 1px solid lightgray;
+    height: 80px;
     .post-user-pic {
       height: 60px;
       width: 60px;

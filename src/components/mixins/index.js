@@ -32,17 +32,6 @@ export const customContainer = (width = '100%', bg = bgColor) => `
   background-color: ${bg};
 `
 
-export const Flex = ({
-  direction = 'row',
-  justify = 'space-between',
-  align = 'center',
-}) => css`
-  display: flex;
-  flex-direction: ${direction};
-  justify-content: ${justify};
-  aline-items: ${align};
-`
-
 //* Word-based truncate
 export const truncateText = (content, limit = 10) => {
   if (content.split(' ').length < limit) {

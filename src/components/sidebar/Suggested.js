@@ -80,17 +80,17 @@ const Suggested = props => {
 export default Suggested
 
 const StyledCard = styled.div`
-  margin: 0px 0px 0px 30px;
   min-height: 100vh;
-  transition: opacity 0.8s ease;
+  transition: opacity 0.4s ease;
   opacity: 1;
-  @media (max-width: 1200px) {
+  width: 290px;
+  @media (max-width: 1210px) {
     opacity: 0;
+    display: none;
   }
   .sticky-container {
     position: sticky;
-    top: 160px;
-    margin-top: 27px;
+    top: 60px;
   }
   .recommended-follow-container {
     margin-bottom: 20px;
@@ -98,7 +98,6 @@ const StyledCard = styled.div`
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     padding: 10px;
     border-radius: 6px;
-    min-width: 180px;
     .recommended-follow-info {
       display: flex;
       align-items: center;

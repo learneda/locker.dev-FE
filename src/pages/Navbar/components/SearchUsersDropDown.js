@@ -8,13 +8,11 @@ import { apiURL } from 'services'
 
 const SearchUsersDropDown = ({ search }) => {
   const [users, setUsers] = useState([])
-  console.log('SEARC')
   const fetchUsers = async () => {
     const res = await axios.get(`${apiURL}/users/all`, {
       withCredentials: true,
     })
     setUsers(res.data)
-    console.log('LAUNCHING')
   }
 
   useEffect(() => {

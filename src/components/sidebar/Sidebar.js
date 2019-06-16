@@ -35,7 +35,7 @@ class Sidebar extends Component {
         {this.props.user && (
           <Profile>
             <div className='user'>
-              <img src={this.props.user.profilePicture} alt='avatar' />
+              <img src={this.props.user.profile_picture} alt='avatar' />
             </div>
             <div className='user-bio'>
               <h3>{this.props.user.displayName}</h3>
@@ -60,53 +60,6 @@ class Sidebar extends Component {
                   </ul>
                 </Link>
               </div>
-              <p>
-                {this.props.user.bio ? (
-                  this.props.user.bio
-                ) : (
-                  <Link to='/settings'>Add Bio</Link>
-                )}
-              </p>
-              <p>
-                <img src={locationSvg} alt='location-icon' />
-                {this.props.user.location ? (
-                  this.props.user.location
-                ) : (
-                  <Link to='/settings'>Add location</Link>
-                )}
-              </p>
-              <p>
-                <img src={linkSvg} alt='link-icon' />
-                {this.props.user.websiteUrl ? (
-                  this.props.user.websiteUrl.includes('http') ? (
-                    <a
-                      href={this.props.user.websiteUrl}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                    >
-                      {this.props.user.websiteUrl.replace(/^https?:\/\//, '')}
-                    </a>
-                  ) : (
-                    <a
-                      href={`https://${this.props.user.websiteUrl}`}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                    >
-                      {this.props.user.websiteUrl}
-                    </a>
-                  )
-                ) : (
-                  <Link to='/settings'>Add website URL</Link>
-                )}
-              </p>
-              <p>
-                <img src={calendarSvg} alt='calendar-icon' />
-                Joined{' '}
-                <Moment format='MMMM YYYY'>{this.props.user.createdAt}</Moment>
-              </p>
-              <div className='edit-profile-link'>
-                <Link to='/settings'>Edit Profile</Link>
-              </div>
             </div>
           </Profile>
         )}
@@ -118,19 +71,144 @@ class Sidebar extends Component {
 export default Sidebar
 
 const Wrapper = styled.div`
-  max-width: 300px;
   position: relative;
-  @media (max-width: 900px) {
+  width: 290px;
+
+  @media (max-width: 910px) {
     display: none;
   }
 `
 const Profile = styled.div`
-  margin-top: 47px;
-  ${StyledSidebar};
+  position: sticky;
+  top: 60px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 5px;
+  background: #fff;
+
   .user {
-    ${customLayout('center', 'center')}
+    position: relative;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    padding-left: 20px;
+    height: 80px;
+    margin-bottom: 50px;
+    background-color: #4064f2;
+
+    img {
+      position: absolute;
+      top: 30px;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      height: 100px;
+      width: 100px;
+      object-fit: cover;
+    }
   }
+
   .user-bio {
-    ${customLayout()}
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 15px 8%;
+    margin: 0 auto;
+    @media (max-width: 1350px) {
+      width: 100%;
+    }
+    h3 {
+      margin: 0 auto;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    p {
+      line-height: 25px;
+      margin-bottom: 15px;
+      img {
+        width: 18px;
+        height: 18px;
+        margin-right: 5px;
+        margin-bottom: -3px;
+      }
+    }
+
+    mark {
+      background-color: transparent;
+      color: #333;
+    }
+
+    .follow-btn-grp {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 20px;
+      button {
+        padding: 5px 10px;
+        font-weight: 700;
+        border: transparent;
+        border-radius: 5px;
+        background-color: #3f65f2;
+        color: white;
+        cursor: pointer;
+        transition: 200ms ease-out;
+        font-size: 1.4rem;
+      }
+    }
+
+    .edit-profile-link {
+      margin-bottom: 3.5px;
+      a {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #6d767e;
+        transition: 200ms ease-out;
+
+        &:hover {
+          color: #3f65f2;
+          transition: 200ms ease-in;
+        }
+      }
+    }
+  }
+
+  .profile-stats {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    @media (max-width: 1400px) {
+      /* flex-direction: column; */
+      flex-wrap: wrap;
+    }
+    a {
+      margin-right: 12px;
+      cursor: pointer;
+    }
+    ul {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: 200ms ease-out;
+      :not(:last-child) {
+        margin-right: 12px;
+      }
+
+      &:hover {
+        color: #3f65f2;
+        transition: 200ms ease-in;
+        li:nth-of-type(2) {
+          opacity: 1;
+        }
+      }
+      li {
+        font-size: 1.6rem;
+      }
+      li:nth-of-type(2) {
+        opacity: 0.7;
+        // text-align:center
+        transition: 200ms ease-out;
+      }
+    }
+    .sidebar-followers {
+      margin-right: 0px;
+    }
   }
 `

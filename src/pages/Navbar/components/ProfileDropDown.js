@@ -5,7 +5,7 @@ import { ReactComponent as Settings } from 'assets/svg/settings.svg'
 import { ReactComponent as Logout } from 'assets/svg/logout.svg'
 import { authURL } from 'services'
 
-const ProfileDropDown = ({ auth, user }) => {
+const ProfileDropDown = ({ user }) => {
   const [toggle, set] = useState(false)
   const node = useRef()
 
@@ -29,7 +29,7 @@ const ProfileDropDown = ({ auth, user }) => {
     <div ref={node}>
       {user && (
         <img
-          src={user.profilePicture}
+          src={user.profile_picture}
           className='auth-icon'
           alt='avatar'
           onClick={handleClick}

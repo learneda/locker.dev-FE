@@ -46,7 +46,7 @@ const Notifications = props => {
                   <div className='notification-left'>
                     <img
                       className='notification-image'
-                      src={user.profilePicture}
+                      src={user.profile_picture}
                       alt='avatar'
                     />
                     <span className='text'>{`${obj.invoker} ${

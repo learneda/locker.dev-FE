@@ -2,12 +2,12 @@ import React, { useEffect, lazy, Suspense } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import GlobalStyle from 'components/mixins'
-import Navbar from 'components/navigation/Navbar'
+import GlobalStyle, { bgColor } from 'components/mixins'
 import { composedIndexRedirect as index } from 'components/hoc/indexRedirect'
 import { ReactComponent as Loading } from 'assets/svg/circles.svg'
 import * as appActions from 'appActions'
 import socket from 'socket'
+import Navbar from 'pages/Navbar/'
 const LandingPage = lazy(() => import('pages/Landing'))
 const Home = lazy(() => import('pages/Home'))
 const Browse = lazy(() => import('pages/Browse'))
@@ -20,8 +20,8 @@ const NoMatch = lazy(() => import('pages/NoMatch'))
 
 const App = props => {
   const {
+    auth,
     fetchAuth,
-    fetchUser,
     fetchNotifications,
     createComment,
     deleteComment,
@@ -30,11 +30,10 @@ const App = props => {
   } = props
   //* initial fetchAuth and fetchUser on browser refresh
   useEffect(() => {
-    fetchAuth().then(res => {
-      if (res.id) {
-        fetchUser(res.id)
+    fetchAuth().then(user => {
+      if (user.id) {
         //* on CDM socket will emit to all other sockets online that this user connected
-        socket.emit('join', { user_id: res.id })
+        socket.emit('join', { user_id: user.id })
         //* join namespace contains all the current users who are online
 
         socket.on('join', data => {
@@ -88,21 +87,8 @@ const App = props => {
   return (
     <Container>
       <GlobalStyle />
-      <Navbar />
-      <Suspense
-        fallback={
-          <div
-            style={{
-              height: '200px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Loading />
-          </div>
-        }
-      >
+      {auth && <Navbar />}
+      <Suspense fallback={null}>
         <Switch>
           <Route exact path={homePaths} component={index(Home)} />
           <Route path='/landing' component={LandingPage} />
@@ -119,13 +105,15 @@ const App = props => {
   )
 }
 
+const mapStateToProps = ({ auth }) => ({ auth })
+
 export default connect(
-  null,
+  mapStateToProps,
   { ...appActions }
 )(App)
 
 const Container = styled.div`
   width: 100%;
   color: #141619;
-  background-color: #fff;
+  background-color: ${bgColor};
 `

@@ -15,8 +15,8 @@ const NavLeft = props => {
         </NavLink>
       </li>
       <li>
-        <NavLink to='/social'>
-          <span>Social</span>
+        <NavLink to='/notifications'>
+          <span>Notifications</span>
         </NavLink>
       </li>
     </ul>

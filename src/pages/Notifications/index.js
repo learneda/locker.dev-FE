@@ -1,64 +1,30 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import Sidebar from 'components/sidebar/Sidebar'
 import Notifications from './Notifications'
 import { customWrapper } from 'components/mixins'
-import * as socialActions from 'actions/socialActions'
 import * as notificationActions from './notificationActions'
 
 const NotificationsPage = props => {
-  const {
-    auth,
-    user,
-    collections,
-    notifications,
-    social,
-    following,
-    followers,
-    fetchFollowing,
-    fetchFollowers,
-    readNotifications,
-  } = props
+  const { notifications, readNotifications } = props
 
   useEffect(() => {
     readNotifications()
-    if (!social) {
-      fetchFollowing(auth.id)
-      fetchFollowers(auth.id)
-    }
   }, [])
 
   return (
     <Container>
-      <Sidebar
-        user={user}
-        collections={collections}
-        following={following}
-        followers={followers}
-      />
       <Notifications notifications={notifications} />
     </Container>
   )
 }
-const mapStateToProps = ({
-  auth,
-  user,
-  collections,
+const mapStateToProps = ({ notifications }) => ({
   notifications,
-  social,
-}) => ({
-  auth,
-  user,
-  collections,
-  notifications,
-  following: social.following,
-  followers: social.followers,
 })
 
 export default connect(
   mapStateToProps,
-  { ...socialActions, ...notificationActions }
+  { ...notificationActions }
 )(NotificationsPage)
 
 const Container = styled.div`
