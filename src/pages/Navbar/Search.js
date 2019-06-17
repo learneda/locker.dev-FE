@@ -8,7 +8,13 @@ import * as searchActions from './store/searchActions'
 import useOnClickOutside from 'use-onclickoutside'
 
 const Search = props => {
-  const { searchTerm, setSearchTerm, resetSearchTerm, setSearchOff } = props
+  const {
+    searchTerm,
+    setSearchTerm,
+    resetSearchTerm,
+    setSearchOff,
+    history,
+  } = props
   const ref = useRef()
   const [visible, setVisible] = useState(false)
   useOnClickOutside(ref, e => {
@@ -20,8 +26,13 @@ const Search = props => {
 
   const handleSearch = e => {
     setSearchTerm(e)
-    setVisible(true)
+    if (history.location.pathname === '/') {
+      setVisible(true)
+    }
   }
+  useEffect(() => {
+    resetSearchTerm()
+  }, [history.location.pathname])
 
   //TODO: Make this DRY
   const displaySearch = () => {
