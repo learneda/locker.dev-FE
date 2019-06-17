@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
-import bellIcon from 'assets/svg/bell.svg'
 import { connect } from 'react-redux'
+import BellSVG from './components/BellSVG'
 import { Link } from 'react-router-dom'
 import * as notificationActions from 'pages/Notifications/notificationActions'
 import styled from 'styled-components'
 
 const Notifications = props => {
-  const { user, posts, notifications, readNotifications } = props
+  const { user, posts, notifications, readNotifications, bellColor } = props
   const [isModalOpen, setIsModalOpen] = useState(false)
+
   let count = props.notifications
   count = count.length
 
@@ -17,16 +18,13 @@ const Notifications = props => {
       .map(post => post.thumbnail_url)
   }
   return (
-    <StyledNotifications>
-      <img
-        onClick={() => {
-          setIsModalOpen(prevState => !prevState)
-          readNotifications()
-        }}
-        src={bellIcon}
-        alt='bell-icon'
-        className='bell-icon'
-      />
+    <StyledNotifications
+      onClick={() => {
+        setIsModalOpen(prevState => !prevState)
+        readNotifications()
+      }}
+    >
+      <BellSVG bellColor={bellColor} />
       <p className='count'>{count ? count : null}</p>
       {isModalOpen && (
         <div className='modal-portal'>
@@ -45,6 +43,7 @@ const Notifications = props => {
                 >
                   <div className='notification-left'>
                     <img
+                      style={{ width: '100%' }}
                       className='notification-image'
                       src={user.profile_picture}
                       alt='avatar'
@@ -82,11 +81,21 @@ export default connect(
 const StyledNotifications = styled.div`
   display: flex;
   position: relative;
-  color: #333;
+  .bell {
+    position: relative;
+    top: 2.5px;
+    width: 20px;
+    height: 20px;
+    .bell-icon {
+      width: 100%;
+    }
+  }
+  /* border: 1px solid red; */
+
   .count {
     color: #3f65f2;
   }
-  .modal-portal {
+  /* .modal-portal {
     display: flex;
     position: absolute;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.0975);
@@ -141,5 +150,5 @@ const StyledNotifications = styled.div`
       height: 30px;
       width: 30px;
     }
-  }
+  } */
 `

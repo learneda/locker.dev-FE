@@ -15,7 +15,6 @@ export const navBottom = '#BFBFBF'
 export const subNavBottom = '#D3D3D3'
 export const btnBgHover = '#E8F4F9'
 export const heart = '#DE2960'
-
 export const bgDark = '#10171D'
 //* Flexbox custom layout
 export const customLayout = (justify = 'flex-start', align = 'flex-start') =>

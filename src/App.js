@@ -4,10 +4,11 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import GlobalStyle, { bgColor } from 'components/mixins'
 import { composedIndexRedirect as index } from 'components/hoc/indexRedirect'
-import { ReactComponent as Loading } from 'assets/svg/circles.svg'
 import * as appActions from 'appActions'
 import socket from 'socket'
-import Navbar from 'pages/Navbar/'
+import Navbar from 'pages/Navbar'
+import Locker from 'components/collections'
+
 const LandingPage = lazy(() => import('pages/Landing'))
 const Home = lazy(() => import('pages/Home'))
 const Browse = lazy(() => import('pages/Browse'))
@@ -83,14 +84,14 @@ const App = props => {
     }
   }, [])
 
-  const homePaths = ['/', '/feed', '/saved', '/locker']
   return (
     <Container>
       <GlobalStyle />
       {auth && <Navbar />}
       <Suspense fallback={null}>
         <Switch>
-          <Route exact path={homePaths} component={index(Home)} />
+          <Route exact path='/' component={index(Home)} />
+          <Route path='/saved' component={Locker} />
           <Route path='/landing' component={LandingPage} />
           <Route path='/browse' component={index(Browse)} />
           <Route path='/social' component={index(Social)} />
@@ -115,5 +116,5 @@ export default connect(
 const Container = styled.div`
   width: 100%;
   color: #141619;
-  background-color: ${bgColor};
+  background-color: #e6ecf0;
 `

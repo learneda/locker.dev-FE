@@ -2,7 +2,6 @@ import React, { Fragment, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
-
 import { ReactComponent as Location } from 'assets/svg/location.svg'
 import { apiURL } from 'services'
 
@@ -19,7 +18,7 @@ const SearchUsersDropDown = ({ search }) => {
     fetchUsers()
   }, [])
   return (
-    <Fragment>
+    <Container>
       {users.map(user => {
         return (
           user.username &&
@@ -39,12 +38,13 @@ const SearchUsersDropDown = ({ search }) => {
           )
         )
       })}
-    </Fragment>
+    </Container>
   )
 }
 
 export default SearchUsersDropDown
 
+const Container = styled.div``
 const Card = styled.div`
   display: flex;
   align-items: center;

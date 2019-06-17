@@ -1,15 +1,27 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { useMedia } from 'use-media'
 import { Sticky } from 'styles/elements'
 import NavMain from './components/NavMain'
 import NavMobile from './components/NavMobile'
 
 const Navbar = props => {
-  const isMobile = useMedia({ maxWidth: 760 })
+  let prevScrollY = window.pageYOffset
+  window.onscroll = function() {
+    let currentScrollY = window.pageYOffset
+
+    if (document.getElementById('navbar')) {
+      if (prevScrollY > currentScrollY) {
+        document.getElementById('navbar').style.top = '0'
+      } else {
+        document.getElementById('navbar').style.top = '-50px'
+      }
+    }
+    prevScrollY = currentScrollY
+  }
+
   return (
     <Sticky>
-      {isMobile ? <NavMobile {...props} /> : <NavMain {...props} />}
+      <NavMain {...props} id='navbar' />
     </Sticky>
   )
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import burgerIcon from 'assets/svg/burger.svg'
-import Notifications from '../Notifications'
+import Notifications from '../Bell'
 import Search from '../Search'
 import ProfileDropDown from './ProfileDropDown'
 import MobileNav from './MobileNav'
@@ -53,7 +53,7 @@ const Burger = styled.div`
   input {
     width: 50%;
     height: 30px;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
   }
   .mobile-right {
     display: flex;
@@ -64,7 +64,7 @@ const Burger = styled.div`
   .bell {
     margin: 0;
     padding: 0;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
   }
   .profile {
     border: 1px solid purple;

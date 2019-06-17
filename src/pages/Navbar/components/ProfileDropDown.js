@@ -7,76 +7,96 @@ import { authURL } from 'services'
 
 const ProfileDropDown = ({ user }) => {
   const [toggle, set] = useState(false)
-  const node = useRef()
-
-  const handleClick = useCallback(() => set(state => !state), [])
-
-  const handleRefClick = e => {
-    if (node.current.contains(e.target)) {
-      return
-    }
-    set(false)
-  }
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleRefClick)
-    return () => {
-      document.removeEventListener('mousedown', handleRefClick)
-    }
-  }, [])
 
   return (
-    <div ref={node}>
+    <Container>
       {user && (
         <img
+          style={
+            toggle
+              ? { border: '1px solid dodgerblue' }
+              : { border: '1px solid transparent' }
+          }
           src={user.profile_picture}
           className='auth-icon'
           alt='avatar'
-          onClick={handleClick}
+          onClick={() => {
+            set(prevToggle => !prevToggle)
+          }}
         />
       )}
       {toggle && (
-        <DropDown>
+        <DropDown
+          onClick={() => {
+            set(prevToggle => !prevToggle)
+          }}
+        >
           <li>
             <Link to='/settings'>
-              <Settings
-                style={{ width: '24px', height: '24px', paddingRight: '9px' }}
-              />
+              <Settings />
+              <span>Settings</span>
             </Link>
-            <Link to='/settings'>Settings</Link>
           </li>
           <li>
             <a href={`${authURL}/logout`}>
-              <Logout
-                style={{ width: '24px', height: '24px', paddingRight: '9px' }}
-              />
+              <Logout />
+              <span>Logout</span>
             </a>
-            <a href={`${authURL}/logout`}>Logout</a>
           </li>
         </DropDown>
       )}
-    </div>
+    </Container>
   )
 }
 
 export default ProfileDropDown
 
+const Container = styled.div`
+  position: relative;
+  img {
+    width: 35px;
+    height: 35px;
+    margin-left: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    /* &:hover {
+      border: 2px solid dodgerblue;
+    } */
+  }
+`
+
 const DropDown = styled.ul`
   display: flex;
+  position: absolute;
+  width: 150px;
+  top: 48px;
+  right: 0px;
   flex-direction: column;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   font-weight: 500;
-  padding: 10px 10px 0 10px;
-  position: absolute;
-  right: 10%;
-  top: 66px;
-  width: 110px;
-
+  border: 1px solid dodgerblue;
   li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+    height: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    &:hover {
+      background-color: #e8f4fb;
+    }
+    a {
+      letter-spacing: 1px;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+  }
+  svg {
+    width: 18px;
+    height: 18px;
+    margin: 0 10px;
   }
 `

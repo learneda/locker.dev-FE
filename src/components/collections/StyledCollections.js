@@ -63,7 +63,6 @@ a {
 
 img {
   border-radius: 6px 0 0px 6px;
-  width: 320px;
   height: 100%;
   object-fit: cover;
 

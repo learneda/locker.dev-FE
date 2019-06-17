@@ -1,131 +1,143 @@
-import React, { Component } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { StyledAddLink } from 'components/utils/StyledAddLink'
 import ReusablePortal from 'components/utils/ModalPortal'
-import { createCollection } from '../../actions'
-import { ReactComponent as X } from '../../assets/svg/x.svg'
-import { withAlert } from 'react-alert'
+import { createCollection } from 'actions'
+import { ReactComponent as X } from 'assets/svg/x.svg'
+import { useAlert } from 'react-alert'
+import AddLinkSVG from './components/AddLinkSVG'
 
-class AddLink extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      on: false,
-      inputValue: '',
-    }
-  }
+const AddLink = props => {
+  const { auth, createCollection } = props
+  const ref = useRef()
+  const alert = useAlert()
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [inputValue, setInputValue] = useState('')
 
-  handleChange = event => {
-    this.setState({ inputValue: event.target.value })
-  }
-
-  toggle = () => {
-    this.setState(
-      {
-        on: !this.state.on,
-      },
-      () => {
-        if (this.state.on) {
-          document.getElementById('form-key').focus()
-        }
-      }
-    )
-    document.querySelector('#root').classList.toggle('root-modal-open')
-  }
-
-  handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
-
-    if (this.props.auth) {
-      this.setState({ on: !this.state.on, inputValue: '' })
-
-      this.props
-        .createCollection({
-          post_url: this.state.inputValue,
-          type: 'link',
-        })
-        .then(res => {
-          // console.log('response from createCollection ==>', res)
-          if (res.msg === 'success') {
-            this.props.alert.success('Link added to Saved')
-          } else if (res.msg === 'whoops!') {
-            this.props.alert.error('whoops, unable to add')
-          }
-        })
+    setIsModalOpen(false)
+    const res = await props.createCollection({
+      post_url: inputValue,
+      type: 'link',
+    })
+    setInputValue('')
+    // console.log('response from createCollection ==>', res)
+    if (res.msg === 'success') {
+      alert.success('Link added to Saved')
+    } else if (res.msg === 'whoops!') {
+      alert.error('whoops, unable to add')
     }
   }
-  render() {
-    return (
-      <div onKeyDown={e => e.which === 27 && this.toggle()}>
-        <span onClick={() => this.toggle()}>
-          {this.props.buttonName ? this.props.buttonName : '+'}
-        </span>
-        {/* <img src={addSvg} alt="" onClick={() => this.toggle()} /> */}
-        {this.state.on && (
-          <ReusablePortal>
-            <ModalWrapper
-              className='modal-wrapper'
-              onClick={e =>
-                e.target.className === 'modal-wrapper' && this.toggle()
-              }
-            >
-              <div className='modal_'>
-                <div className='top'>
-                  <div className='modal_name'>Add a link</div>
-                  <div className='modal_close' onClick={() => this.toggle()}>
-                    <X />
-                  </div>
-                </div>
-                <div className='modal_group'>
-                  <form onSubmit={this.handleSubmit} className='add_link_form'>
-                    <input
-                      id='form-key'
-                      value={this.state.inputValue}
-                      onChange={this.handleChange}
-                      placeholder='www.example.com/article.html'
-                      type='input'
-                      required
-                    />
-                    <button className='add-btn'>Add</button>
-                  </form>
+
+  useEffect(() => {
+    if (isModalOpen) {
+      ref.current.focus()
+    }
+  }, [isModalOpen])
+
+  return (
+    <Container
+      isModalOpen={isModalOpen}
+      onKeyDownCapture={e => {
+        if (e.which === 27) {
+          setIsModalOpen(false)
+        }
+      }}
+    >
+      <span onClick={() => setIsModalOpen(prev => !prev)}>
+        <AddLinkSVG addLinkColor={isModalOpen ? 'dodgerblue' : 'black'} />
+      </span>
+      {isModalOpen && (
+        <ReusablePortal>
+          <ModalWrapper
+            className='modal-wrapper'
+            onClick={e =>
+              e.target.className === 'modal-wrapper' &&
+              setIsModalOpen(prev => !prev)
+            }
+          >
+            <div className='modal_'>
+              <div className='top'>
+                <div className='modal_name'>Add a link</div>
+                <div
+                  className='modal_close'
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  <X />
                 </div>
               </div>
-            </ModalWrapper>
-          </ReusablePortal>
-        )}
-      </div>
-    )
-  }
+              <div className='modal_group'>
+                <form onSubmit={handleSubmit} className='add_link_form'>
+                  <input
+                    ref={ref}
+                    id='form-key'
+                    value={inputValue}
+                    onChange={e => setInputValue(e.target.value)}
+                    placeholder='www.example.com/article.html'
+                    type='text'
+                    required
+                  />
+                  <button className='add-btn'>Add</button>
+                </form>
+              </div>
+            </div>
+          </ModalWrapper>
+        </ReusablePortal>
+      )}
+    </Container>
+  )
 }
 
 const mapStateToProps = ({ auth }) => ({ auth })
 
-const Alert = withAlert()(AddLink)
-
 export default connect(
   mapStateToProps,
   { createCollection }
-)(Alert)
+)(AddLink)
 
+const Container = styled.div`
+  margin-left: 20px;
+
+  span {
+    display: flex;
+    height: 30px;
+    width: 30px;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: 700;
+    border: 1px solid #bfc5c9;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 300ms ease;
+    &:hover {
+      border: 1px solid dodgerblue;
+    }
+    border: ${props =>
+      props.isModalOpen ? '1px solid dodgerblue' : ' 1px solid #bfc5c9'};
+  }
+`
 const ModalWrapper = styled.div`
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.88);
   z-index: 2;
 
   .modal_ {
-    /* border: 2px solid blue; */
     background-color: white;
+    position: absolute
     z-index: 1;
     text-align: center;
-    margin: 0 auto;
-    margin-top: 10%;
+    top: 30%;
+    left: 50%;
+    transform: translate(-250px,-70px);
     max-width: 500px;
     border-radius: 6px;
+    border: 3px solid dodgerblue;
   }
   .top {
     display: flex;
@@ -139,8 +151,8 @@ const ModalWrapper = styled.div`
   }
 
   .modal_name {
-    font-weight: 500;
-    font-size: larger;
+    letter-spacing: 1px;
+    font-size: 2rem;
   }
 
   .modal_group {
@@ -158,22 +170,25 @@ const ModalWrapper = styled.div`
     padding: 12px 8px;
     margin: 0;
     color: #000;
-    width: 365px;
+    width: 350px;
+    margin-right: 10px;
+    outline: none;
+    &:focus {
+      border: 1px solid dodgerblue;
+    }
   }
   .add-btn {
-    background-color: #3f65f2;
     padding: 5px 30px;
-    border: 1px solid transparent;
     border-radius: 5px;
-    color: white;
+    color: dodgerblue;
     font-size: 1.6rem;
-    font-weight: 700;
+    letter-spacing: 1px;
     transition: 200ms ease-out;
     cursor: pointer;
-  }
-
-  .add-btn:hover {
-    background-color: #3059f3;
+    &:hover {
+      background-color: #e8f4fb;
+      border: 1px solid dodgerblue;
+    }
   }
 
   .modal_close:hover {

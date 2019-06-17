@@ -5,21 +5,17 @@ import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import SearchUsersDropDown from 'pages/Navbar/components/SearchUsersDropDown'
 import * as searchActions from './store/searchActions'
+import useOnClickOutside from 'use-onclickoutside'
 
-function Search(props) {
+const Search = props => {
   const { searchTerm, setSearchTerm, resetSearchTerm } = props
-  const DropDownNode = useRef()
-  const [visible, setVisible] = useState(true)
+  const ref = useRef()
+  const [visible, setVisible] = useState(false)
+  useOnClickOutside(ref, () => setVisible(false))
 
   const handleSearch = e => {
-    setVisible(true)
     setSearchTerm(e)
-  }
-
-  const handleRefClick = e => {
-    if (DropDownNode.current) {
-      setVisible(false)
-    }
+    setVisible(true)
   }
 
   //TODO: Make this DRY
@@ -33,7 +29,6 @@ function Search(props) {
         path = path.split('/')[3]
       }
     }
-
     switch (path) {
       case '/':
         placeholder = 'Users or Tags'
@@ -110,7 +105,7 @@ function Search(props) {
         height='45px'
         placeholder={`Search ${placeholder}`}
         value={searchTerm}
-        onChange={setSearchTerm}
+        onChange={handleSearch}
         id='search-input'
       />
     )
@@ -120,8 +115,8 @@ function Search(props) {
     <>
       <Wrapper>
         <Container>{displaySearch()}</Container>
-        <DropDown>
-          {searchTerm.length ? (
+        <DropDown onClick={() => setVisible(false)}>
+          {searchTerm.length && visible ? (
             <SearchUsersDropDown search={searchTerm} />
           ) : null}
         </DropDown>
@@ -140,20 +135,31 @@ export default connect(
 )(withRouter(Search))
 
 const Wrapper = styled.div`
-  input {
-    width: 100% !important;
-    height: 35px;
-    padding: 0 15px 0;
-  }
-  width: 40%;
-  @media (max-width: 760px) {
-    width: 70%;
-    input {
-      height: 35px !important;
+  span {
+    &:hover {
+      border: 1px solid dodgerblue;
     }
   }
-  @media (max-width: 500px) {
-    width: 80%;
+  input {
+    width: 200px;
+    font-size: 12px;
+    letter-spacing: 0.8px;
+    height: 35px;
+    outline: none;
+    border-radius: 21px;
+    background-color: #f5f8fa;
+    border: 1px solid #e6ecf0;
+    transition: all 0.2s ease-in-out;
+    padding: 8px 32px 8px 12px;
+    color: #14171a;
+    &:hover {
+      border: 1px solid dodgerblue;
+    }
+    &:focus {
+      border: 1px solid dodgerblue;
+      background-color: #fff;
+      color: #14171a;
+    }
   }
 `
 
@@ -165,7 +171,6 @@ const DropDown = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
-  /* border: 1px solid red; */
   border-radius: 5px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   font-weight: 500;
@@ -173,7 +178,7 @@ const DropDown = styled.div`
   position: absolute;
   overflow: auto;
   top: 50px;
-  width: 440px;
+  width: 300px;
   @media (max-width: 759px) {
     left: 6%;
     top: 57px;
