@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import axiosAPI from '../../apis/axiosAPI'
 const Tagbar = props => {
+  useEffect(() => {
+    axiosAPI.get('/tags/top').then(result => {
+      console.log(result)
+    })
+  }, [])
   return <Container>Top Tags</Container>
 }
 

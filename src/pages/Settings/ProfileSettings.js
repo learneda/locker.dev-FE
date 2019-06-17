@@ -31,14 +31,9 @@ const ProfileSettings = props => {
       setWebsiteUrl(user.websiteUrl)
       setEmail(user.email)
       setSelectedFile(user.selectedFile)
-      setProfilePic(user.profilePicture)
-      setHeaderPic(user.headerPicture)
+      setProfilePic(user.profile_picture)
+      setHeaderPic(user.header_picture)
     }
-    // axios.get(`/images`).then(res => {
-    //   if (res.data.length > 0) {
-    //     setProfilePic(res.data[0].profile_picture)
-    //   }
-    // })
   }, [user])
 
   const handleFileUpload = () => {
@@ -62,9 +57,6 @@ const ProfileSettings = props => {
         if (res.data.success) {
           console.log(res.data)
           setHeaderPic(res.data.user.header_picture)
-          // editUser(auth.id, {
-          //   header_picture: res.data.user.header_picture,
-          // })
         }
       })
     }
