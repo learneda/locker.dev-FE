@@ -28,5 +28,7 @@ export default connect(
 )(NotificationsPage)
 
 const Container = styled.div`
-  ${customWrapper('80%', '0 auto')} display: flex;
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
 `

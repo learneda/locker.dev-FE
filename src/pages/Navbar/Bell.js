@@ -1,14 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { connect } from 'react-redux'
 import BellSVG from './components/BellSVG'
 import { Link } from 'react-router-dom'
 import * as notificationActions from 'pages/Notifications/notificationActions'
 import styled from 'styled-components'
+import useOnClickOutside from 'use-onclickoutside'
 
-const Notifications = props => {
+const Bell = props => {
   const { user, posts, notifications, readNotifications, bellColor } = props
+  const ref = useRef()
   const [isModalOpen, setIsModalOpen] = useState(false)
-
+  useOnClickOutside(ref, e => {
+    if (
+      typeof e.target.className === 'string' &&
+      e.target.className.includes('bell-modal')
+    ) {
+      return
+    }
+    setIsModalOpen(false)
+  })
   let count = props.notifications
   count = count.length
 
@@ -20,40 +30,40 @@ const Notifications = props => {
   return (
     <StyledNotifications
       onClick={() => {
-        setIsModalOpen(prevState => !prevState)
+        setIsModalOpen(prev => !prev)
         readNotifications()
       }}
     >
       <BellSVG bellColor={bellColor} />
       <p className='count'>{count ? count : null}</p>
       {isModalOpen && (
-        <div className='modal-portal'>
+        <div className='modal-portal bell-modal' ref={ref}>
           {!count ? (
-            <div className='notification-empty'>
+            <div className='notification-empty bell-modal'>
               You have no new notifications.
             </div>
           ) : (
             notifications.map((obj, i) => {
               return (
                 <Link
-                  className='notification'
+                  className='notification bell-modal'
                   key={i}
                   to={`/status/${obj.post_id}`}
                   onClick={() => setIsModalOpen(false)}
                 >
-                  <div className='notification-left'>
+                  <div className='notification-left bell-modal'>
                     <img
                       style={{ width: '100%' }}
-                      className='notification-image'
+                      className='notification-image bell-modal'
                       src={user.profile_picture}
                       alt='avatar'
                     />
-                    <span className='text'>{`${obj.invoker} ${
+                    <span className='text bell-modal'>{`${obj.invoker} ${
                       obj.type
                     } on your post`}</span>
                   </div>
                   <img
-                    className='notification-post-thumbnail'
+                    className='notification-post-thumbnail bell-modal'
                     src={selectThumbnail(obj.post_id)}
                     alt='post-thumbnail'
                   />
@@ -76,7 +86,7 @@ const mapStateToProps = ({ user, home, notifications }) => ({
 export default connect(
   mapStateToProps,
   { ...notificationActions }
-)(Notifications)
+)(Bell)
 
 const StyledNotifications = styled.div`
   display: flex;
@@ -90,33 +100,23 @@ const StyledNotifications = styled.div`
       width: 100%;
     }
   }
-  /* border: 1px solid red; */
-
   .count {
     color: #3f65f2;
   }
-  /* .modal-portal {
+  .modal-portal {
     display: flex;
-    position: absolute;
+    position: fixed;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.0975);
     flex-direction: column;
     max-height: 250px;
     width: 450px;
     overflow: auto;
-    border: 1px solid #e6e6e6;
+    border: 1px solid dodgerblue;
     background-color: rgba(255, 255, 255, 0.98);
     border-radius: 5px;
-    top: 40px;
-    right: -140px;
+    top: 52px;
+    left: calc(50% - 225px);
     z-index: 10;
-    @media (max-width: 760px) {
-      position: fixed;
-      max-height: 150px;
-      top: 50px;
-      right: 0;
-      width: 100%;
-      border-radius: 0px;
-    }
     .notification-empty {
       text-align: center;
       margin: 50px 0;
@@ -145,10 +145,9 @@ const StyledNotifications = styled.div`
       border-radius: 50%;
       margin-right: 10px;
     }
-
     .notification-post-thumbnail {
       height: 30px;
       width: 30px;
     }
-  } */
+  }
 `

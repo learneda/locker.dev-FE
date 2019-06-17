@@ -164,8 +164,8 @@ const Browse = props => {
   )
 }
 
-const mapStateToProps = ({ searchTerm, browse }) => ({
-  searchTerm,
+const mapStateToProps = ({ search, browse }) => ({
+  searchTerm: search.searchTerm,
   ...browse,
 })
 

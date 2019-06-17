@@ -8,10 +8,15 @@ import * as searchActions from './store/searchActions'
 import useOnClickOutside from 'use-onclickoutside'
 
 const Search = props => {
-  const { searchTerm, setSearchTerm, resetSearchTerm } = props
+  const { searchTerm, setSearchTerm, resetSearchTerm, setSearchOff } = props
   const ref = useRef()
   const [visible, setVisible] = useState(false)
-  useOnClickOutside(ref, () => setVisible(false))
+  useOnClickOutside(ref, e => {
+    if (e.target.id === 'search-input') {
+      return
+    }
+    setVisible(false)
+  })
 
   const handleSearch = e => {
     setSearchTerm(e)
@@ -112,21 +117,24 @@ const Search = props => {
   }
   //todo: DRY-UP and CLEAN-UP SEARCH COMPONENT SELECTION
   return (
-    <>
-      <Wrapper>
-        <Container>{displaySearch()}</Container>
-        <DropDown onClick={() => setVisible(false)}>
-          {searchTerm.length && visible ? (
-            <SearchUsersDropDown search={searchTerm} />
-          ) : null}
-        </DropDown>
-      </Wrapper>
-    </>
+    <Wrapper>
+      <Container>{displaySearch()}</Container>
+      <DropDown
+        ref={ref}
+        onClick={() => {
+          setVisible(false)
+        }}
+      >
+        {searchTerm.length && visible ? (
+          <SearchUsersDropDown searchTerm={searchTerm} />
+        ) : null}
+      </DropDown>
+    </Wrapper>
   )
 }
 
-const mapStateToProps = ({ searchTerm }) => ({
-  searchTerm,
+const mapStateToProps = ({ search }) => ({
+  searchTerm: search.searchTerm,
 })
 
 export default connect(
@@ -134,15 +142,14 @@ export default connect(
   { ...searchActions }
 )(withRouter(Search))
 
-const Wrapper = styled.div`
-  span {
-    &:hover {
-      border: 1px solid dodgerblue;
-    }
-  }
-  input {
-    width: 200px;
-    font-size: 12px;
+const Wrapper = styled.div``
+
+const Container = styled.div`
+  position: relative;
+  display: flex;
+  #search-input {
+    width: 190px;
+    font-size: 1.2rem;
     letter-spacing: 0.8px;
     height: 35px;
     outline: none;
@@ -162,29 +169,16 @@ const Wrapper = styled.div`
     }
   }
 `
-
-const Container = styled.div`
-  position: relative;
-  display: flex;
-`
 const DropDown = styled.div`
   display: flex;
   flex-direction: column;
+  position: absolute;
+  top: 50px;
+  width: 250px;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   font-weight: 500;
   max-height: 500px;
-  position: absolute;
   overflow: auto;
-  top: 50px;
-  width: 300px;
-  @media (max-width: 759px) {
-    left: 6%;
-    top: 57px;
-    width: 61%;
-  }
-  @media (max-width: 500px) {
-    width: 70%;
-  }
 `

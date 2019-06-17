@@ -7,7 +7,7 @@ import { browseReducer as browse } from 'pages/Browse/browseReducer'
 import { socialReducer as social } from './socialReducer'
 import { collectionReducer as collections } from './collectionReducer'
 import { notificationsReducer as notifications } from './notificationsReducer'
-import { searchReducer as searchTerm } from 'pages/Navbar/store/searchReducer'
+import { searchReducer as search } from 'pages/Navbar/store/searchReducer'
 import { authModalReducer as modal } from 'pages/Landing/authModalReducer'
 
 export default combineReducers({
@@ -19,6 +19,6 @@ export default combineReducers({
   social,
   collections,
   notifications,
-  searchTerm,
+  search,
   modal,
 })

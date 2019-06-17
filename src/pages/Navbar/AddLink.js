@@ -6,14 +6,21 @@ import { createCollection } from 'actions'
 import { ReactComponent as X } from 'assets/svg/x.svg'
 import { useAlert } from 'react-alert'
 import AddLinkSVG from './components/AddLinkSVG'
+import useOnClickOutside from 'use-onclickoutside'
 
 const AddLink = props => {
   const { auth, createCollection } = props
-  const ref = useRef()
+  const inputRef = useRef()
+  const modalRef = useRef()
   const alert = useAlert()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [inputValue, setInputValue] = useState('')
-
+  useOnClickOutside(modalRef, e => {
+    if (e.target.id == 'svg-addlink') {
+      return
+    }
+    setIsModalOpen(false)
+  })
   const handleSubmit = async e => {
     e.preventDefault()
     setIsModalOpen(false)
@@ -32,7 +39,7 @@ const AddLink = props => {
 
   useEffect(() => {
     if (isModalOpen) {
-      ref.current.focus()
+      inputRef.current.focus()
     }
   }, [isModalOpen])
 
@@ -57,7 +64,7 @@ const AddLink = props => {
               setIsModalOpen(prev => !prev)
             }
           >
-            <div className='modal_'>
+            <div className='modal_' ref={modalRef}>
               <div className='top'>
                 <div className='modal_name'>Add a link</div>
                 <div
@@ -70,7 +77,7 @@ const AddLink = props => {
               <div className='modal_group'>
                 <form onSubmit={handleSubmit} className='add_link_form'>
                   <input
-                    ref={ref}
+                    ref={inputRef}
                     id='form-key'
                     value={inputValue}
                     onChange={e => setInputValue(e.target.value)}

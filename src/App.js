@@ -91,7 +91,7 @@ const App = props => {
       <Suspense fallback={null}>
         <Switch>
           <Route exact path='/' component={index(Home)} />
-          <Route path='/saved' component={Locker} />
+          <Route path='/locker' component={index(Locker)} />
           <Route path='/landing' component={LandingPage} />
           <Route path='/browse' component={index(Browse)} />
           <Route path='/social' component={index(Social)} />
@@ -117,4 +117,5 @@ const Container = styled.div`
   width: 100%;
   color: #141619;
   background-color: #e6ecf0;
+  min-height: 100vh;
 `

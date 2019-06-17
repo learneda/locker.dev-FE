@@ -3,17 +3,23 @@ import styled from 'styled-components'
 import NavLeft from './NavLeft'
 import NavRight from './NavRight'
 import Brand from './Brand'
+import Search from '../Search'
 
 import { customLayout, hoverBg } from 'components/mixins'
 import PropTypes from 'prop-types'
 
 const NavMain = props => {
-  const { user } = props
+  const { user, search, toggleSearch, setSearchOff, resetSearchTerm } = props
   return (
     <Nav>
       <NavLeft />
-      <Brand />
-      <NavRight user={user} />
+      {search.isSearch ? <Search /> : <Brand />}
+      <NavRight
+        user={user}
+        toggleSearch={toggleSearch}
+        setSearchOff={setSearchOff}
+        resetSearchTerm={resetSearchTerm}
+      />
     </Nav>
   )
 }

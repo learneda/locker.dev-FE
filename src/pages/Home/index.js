@@ -7,6 +7,8 @@ import Collections from 'components/collections'
 import Locker from 'components/locker/Locker'
 import Sidebar from 'components/sidebar/Sidebar'
 import Suggested from 'components/sidebar/Suggested'
+import Tagbar from 'components/sidebar/Tagbar'
+import Footer from 'components/sidebar/Footer'
 import { customWrapper } from 'components/mixins'
 import { fetchCollections, deleteCollection, createCollection } from 'actions'
 import * as socialActions from 'actions/socialActions'
@@ -52,12 +54,16 @@ const Home = props => {
 
   return (
     <Container>
-      <Sidebar
-        user={user}
-        collections={collections}
-        followers={followers}
-        following={following}
-      />
+      <div>
+        <Sidebar
+          user={user}
+          collections={collections}
+          followers={followers}
+          following={following}
+        />
+        <Tagbar />
+      </div>
+
       <Feed
         {...props}
         auth={auth}
@@ -69,27 +75,30 @@ const Home = props => {
         offset={feed.offset}
         createCollection={createCollection}
       />
-      <Suggested
-        auth={auth}
-        suggested={suggested}
-        fetchSuggested={fetchSuggested}
-        fetchFollowing={fetchFollowing}
-        followAUser={followAUser}
-      />
+      <div>
+        <Suggested
+          auth={auth}
+          suggested={suggested}
+          fetchSuggested={fetchSuggested}
+          fetchFollowing={fetchFollowing}
+          followAUser={followAUser}
+        />
+        <Footer />
+      </div>
     </Container>
   )
 }
 const mapStateToProps = ({
   auth,
   user,
-  searchTerm,
+  search,
   collections,
   home,
   social,
 }) => ({
   auth,
   user,
-  searchTerm,
+  searchTerm: search.searchTerm,
   collections,
   feed: home,
   locker: home.locker,

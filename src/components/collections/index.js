@@ -7,7 +7,10 @@ import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 
 const Collections = props => {
   const { searchTerm: search, collections } = useSelector(
-    ({ searchTerm, collections }) => ({ searchTerm, collections })
+    ({ search, collections }) => ({
+      searchTerm: search.searchTerm,
+      collections,
+    })
   )
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isEditPost, setIsEditPost] = useState(null)

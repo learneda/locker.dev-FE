@@ -4,9 +4,16 @@ import styled from 'styled-components'
 import { ReactComponent as Settings } from 'assets/svg/settings.svg'
 import { ReactComponent as Logout } from 'assets/svg/logout.svg'
 import { authURL } from 'services'
-
+import useOnClickOutside from 'use-onclickoutside'
 const ProfileDropDown = ({ user }) => {
+  const ref = useRef()
   const [toggle, set] = useState(false)
+  useOnClickOutside(ref, e => {
+    if (e.target.className === 'auth-icon') {
+      return
+    }
+    set(!toggle)
+  })
 
   return (
     <Container>
@@ -27,6 +34,7 @@ const ProfileDropDown = ({ user }) => {
       )}
       {toggle && (
         <DropDown
+          ref={ref}
           onClick={() => {
             set(prevToggle => !prevToggle)
           }}
