@@ -131,7 +131,7 @@ class OtherCollections extends Component {
 const mapStateToProps = state => {
   return {
     posts: state.posts,
-    searchTerm: state.searchTerm,
+    searchTerm: state.search.searchTerm,
     modalOpen: state.modal.isEditOpen,
     editFormData: state.modal.editFormData,
     auth: state.auth,

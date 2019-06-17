@@ -7,6 +7,8 @@ import Collections from 'components/collections'
 import Locker from 'components/locker/Locker'
 import Sidebar from 'components/sidebar/Sidebar'
 import Suggested from 'components/sidebar/Suggested'
+import Tagbar from 'components/sidebar/Tagbar'
+import Footer from 'components/sidebar/Footer'
 import { customWrapper } from 'components/mixins'
 import { fetchCollections, deleteCollection, createCollection } from 'actions'
 import * as socialActions from 'actions/socialActions'
@@ -41,9 +43,6 @@ const Home = props => {
       fetchFollowers(auth.id)
       fetchSuggested(auth.id)
     }
-    if (!locker.length) {
-      fetchLocker()
-    }
     if (!collections.length) {
       fetchCollections()
     }
@@ -55,97 +54,51 @@ const Home = props => {
 
   return (
     <Container>
-      <Sidebar
+      <Wrapper>
+        <Sidebar
+          user={user}
+          collections={collections}
+          followers={followers}
+          following={following}
+        />
+        <Tagbar />
+      </Wrapper>
+
+      <Feed
+        {...props}
+        auth={auth}
         user={user}
-        collections={collections}
-        followers={followers}
-        following={following}
+        searchTerm={searchTerm}
+        posts={feed.posts}
+        hasmore={feed.hasmore}
+        fetchMoreFeed={fetchMoreFeed}
+        offset={feed.offset}
+        createCollection={createCollection}
       />
       <Wrapper>
-        <Tabs>
-          <Tab>
-            <NavLink
-              exact
-              to={`/feed`}
-              className={location.pathname === '/' ? 'active' : null}
-            >
-              Feed
-            </NavLink>
-          </Tab>
-          <Tab>
-            <NavLink to={`/saved`}>Saved</NavLink>
-          </Tab>
-          <Tab>
-            <NavLink to={`/locker`}>Locker(βeta)</NavLink>
-          </Tab>
-        </Tabs>
-        <RouteWrapper>
-          <Switch>
-            <Route
-              exact
-              path={[`/`, `/feed`]}
-              render={props => (
-                <Feed
-                  {...props}
-                  auth={auth}
-                  user={user}
-                  searchTerm={searchTerm}
-                  posts={feed.posts}
-                  hasmore={feed.hasmore}
-                  fetchMoreFeed={fetchMoreFeed}
-                  offset={feed.offset}
-                  createCollection={createCollection}
-                />
-              )}
-            />
-            <Route
-              path={`/saved`}
-              render={props => (
-                <Collections
-                  {...props}
-                  userId={auth.id}
-                  searchTerm={searchTerm}
-                  collections={collections}
-                  deleteCollection={deleteCollection}
-                  fetchCollections={fetchCollections}
-                />
-              )}
-            />
-            <Route
-              path={`/locker`}
-              render={props => (
-                <Locker
-                  {...props}
-                  auth={auth}
-                  locker={locker}
-                  fetchLocker={fetchLocker}
-                />
-              )}
-            />
-          </Switch>
-        </RouteWrapper>
+        <Suggested
+          auth={auth}
+          suggested={suggested}
+          fetchSuggested={fetchSuggested}
+          fetchFollowing={fetchFollowing}
+          followAUser={followAUser}
+        />
+        <Footer />
       </Wrapper>
-      <Suggested
-        auth={auth}
-        suggested={suggested}
-        fetchSuggested={fetchSuggested}
-        fetchFollowing={fetchFollowing}
-        followAUser={followAUser}
-      />
     </Container>
   )
 }
 const mapStateToProps = ({
   auth,
   user,
-  searchTerm,
+  search,
   collections,
   home,
   social,
 }) => ({
   auth,
   user,
-  searchTerm,
+  searchTerm: search.searchTerm,
   collections,
   feed: home,
   locker: home.locker,
@@ -164,66 +117,19 @@ export default connect(
 )(withRouter(Home))
 
 const Container = styled.div`
-  max-width: 1150px;
-  margin: 0 auto;
   display: flex;
+  postion: relative;
   justify-content: space-between;
-  /* border: 2px solid red; */
-  width: 100vw;
+  max-width: 1200px;
+  margin: 10px auto 30px;
+  @media (max-width: 1210px) {
+    max-width: 900px;
+  }
+  @media (max-width: 910px) {
+    max-width: 600px;
+  }
 `
 const Wrapper = styled.div`
-  max-width: 1440px;
-  padding-left: 3%;
-  width: 100%;
-  /* border: 2px solid bloodorange; */
-`
-
-const RouteWrapper = styled.div`
   position: relative;
-  top: 100px;
-`
-const Tabs = styled.ul`
-  display: flex;
-  align-items: flex-end;
-  position: sticky;
-  background: white;
-  top: 59px;
-  height: 100px;
-  z-index: 1;
-  width: 100%;
-  padding-bottom: 25px;
-  .active {
-    border-bottom: 3px solid #4064f2;
-    font-weight: 900;
-    color: #4064f2;
-  }
-  @media (max-width: 900px) {
-    top: 59px;
-    height: 80px;
-  }
-  @media (max-width: 760px) {
-    top: 50px;
-    height: 80px;
-  }
-`
-const Tab = styled.li`
-  margin-right: 2rem;
-  font-size: 2rem;
-  margin-left: 10px;
-  a {
-    transition: 100ms ease-out;
-    &:hover {
-      color: #4064f2;
-      transition: 100ms ease-in;
-    }
-  }
-  @media (max-width: 500px) {
-    font-size: 1.5rem;
-  }
-  @media (max-width: 400px) {
-    font-size: 1.2rem;
-  }
-  @media (max-width: 350px) {
-    font-size: 1rem;
-  }
+  /* border: 1px solid red; */
 `

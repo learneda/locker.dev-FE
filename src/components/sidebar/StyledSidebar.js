@@ -24,14 +24,14 @@ width: 300px;
     border: 3px solid #fff;
     border-radius: 50%;
     height: 100px;
-    object-fit: cover;
     width: 100px;
+    object-fit: cover;
   }
 }
 
 .user-bio {
   flex-direction: column;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   padding: 15px 8%;
   margin: 0 auto;
   @media (max-width: 1350px) {

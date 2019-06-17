@@ -1,15 +1,26 @@
-<?xml version="1.0" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
- "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
- width="374.000000pt" height="406.000000pt" viewBox="0 0 374.000000 406.000000"
- preserveAspectRatio="xMidYMid meet">
-<metadata>
-Created by potrace 1.15, written by Peter Selinger 2001-2017
-</metadata>
-<g transform="translate(0.000000,406.000000) scale(0.100000,-0.100000)"
-fill="#000000" stroke="none">
-<path d="M1811 3909 c-68 -21 -161 -100 -161 -137 0 -6 -17 -14 -37 -17 -195
+import React from 'react'
+import PropTypes from 'prop-types'
+
+const BellSVG = ({ bellColor }) => {
+  return (
+    <svg
+      version='1.0'
+      xmlns='http://www.w3.org/2000/svg'
+      width='18.000000pt'
+      height='18.000000pt'
+      viewBox='0 0 374.000000 406.000000'
+      preserveAspectRatio='xMidYMid meet'
+    >
+      <metadata>
+        Created by potrace 1.15, written by Peter Selinger 2001-2017
+      </metadata>
+      <g
+        transform='translate(0.000000,406.000000) scale(0.100000,-0.100000)'
+        fill={bellColor}
+        stroke='none'
+      >
+        <path
+          d='M1811 3909 c-68 -21 -161 -100 -161 -137 0 -6 -17 -14 -37 -17 -195
 -31 -272 -54 -419 -125 -55 -27 -136 -75 -180 -108 -90 -67 -236 -216 -293
 -300 -84 -125 -160 -305 -190 -452 -9 -45 -191 -1501 -191 -1528 0 -5 -26 -16
 -57 -26 -77 -25 -162 -108 -188 -185 -22 -67 -17 -189 9 -240 33 -63 104 -129
@@ -27,6 +38,13 @@ fill="#000000" stroke="none">
 0 21 c0 20 146 1216 175 1439 70 522 431 910 930 1000 136 25 504 27 648 4z
 m97 -3034 c0 -27 -44 -138 -71 -176 -39 -57 -103 -111 -169 -143 -49 -23 -67
 -26 -170 -26 -103 0 -121 3 -170 26 -66 32 -130 86 -169 143 -27 38 -71 149
--71 176 0 7 135 10 410 10 275 0 410 -3 410 -10z"/>
-</g>
-</svg>
+-71 176 0 7 135 10 410 10 275 0 410 -3 410 -10z'
+        />
+      </g>
+    </svg>
+  )
+}
+
+BellSVG.propTypes = {}
+
+export default BellSVG

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { authURL } from 'services'
 import styled from 'styled-components'
 import closeIcon from 'assets/svg/close.svg'
-import { customLayout } from '../mixins'
+import { customLayout } from 'components/mixins'
 
 const MobileNav = ({ handleClose, show }) => {
   const showHideClassName = show
@@ -115,13 +115,5 @@ const BurgerMenu = styled.div`
         background-color: #e6e8f3;
       }
     }
-  }
-
-  .display-block {
-    display: block;
-  }
-
-  .display-none {
-    display: none;
   }
 `

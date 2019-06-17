@@ -5,9 +5,13 @@ import { Nav, Body, Footer, Auth } from './components'
 import * as authModalActions from './authModalActions'
 
 const Landing = props => {
+  const {
+    modal: { isAuthOpen },
+  } = props
+
   return (
     <Wrapper>
-      <Auth {...props} />
+      {isAuthOpen && <Auth {...props} />}
       <Nav {...props} />
       <Body {...props} />
       <Footer />
@@ -23,4 +27,5 @@ export default connect(
 
 const Wrapper = styled.div`
   width: 100%;
+  background: white;
 `

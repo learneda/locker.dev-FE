@@ -2,38 +2,43 @@ import React, { Fragment, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
-
 import { ReactComponent as Location } from 'assets/svg/location.svg'
 import { apiURL } from 'services'
 
-const SearchUsersDropDown = ({ search }) => {
+const SearchUsersDropDown = ({ searchTerm }) => {
   const [users, setUsers] = useState([])
-  console.log('SEARC')
   const fetchUsers = async () => {
     const res = await axios.get(`${apiURL}/users/all`, {
       withCredentials: true,
     })
     setUsers(res.data)
-    console.log('LAUNCHING')
   }
 
   useEffect(() => {
     fetchUsers()
   }, [])
   return (
-    <Fragment>
+    <Container className='dd-search'>
       {users.map(user => {
         return (
           user.username &&
-          user.username.toLowerCase().includes(search.toLowerCase()) && (
-            <Link to={`/profile/${user.id}`} key={user.id}>
-              <Card>
-                <img src={user.profile_picture} alt='avatar' />
-                <User>
-                  <div className='username'>{user.username}</div>
-                  <div className='bottom'>
-                    <Location />
-                    <span>{user.location}</span>
+          user.username.toLowerCase().includes(searchTerm.toLowerCase()) && (
+            <Link
+              to={`/profile/${user.id}`}
+              key={user.id}
+              className='dd-search'
+            >
+              <Card className='dd-search'>
+                <img
+                  src={user.profile_picture}
+                  alt='avatar'
+                  className=' dd-search'
+                />
+                <User className='dd-user dd-search'>
+                  <div className='username dd-search'>{user.username}</div>
+                  <div className='bottom dd-search'>
+                    <Location className='dd-search' />
+                    <span className='dd-search'>{user.location}</span>
                   </div>
                 </User>
               </Card>
@@ -41,12 +46,13 @@ const SearchUsersDropDown = ({ search }) => {
           )
         )
       })}
-    </Fragment>
+    </Container>
   )
 }
 
 export default SearchUsersDropDown
 
+const Container = styled.div``
 const Card = styled.div`
   display: flex;
   align-items: center;
@@ -60,7 +66,7 @@ const Card = styled.div`
     width: 50px;
   }
   &:hover {
-    background-color: #f2f5f7;
+    background-color: #e8f4fb;
   }
 `
 

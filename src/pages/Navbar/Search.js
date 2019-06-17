@@ -3,23 +3,24 @@ import React, { useState, useRef, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
-import SearchUsersDropDown from './SearchUsersDropDown'
-import * as searchActions from './searchActions'
+import SearchUsersDropDown from 'pages/Navbar/components/SearchUsersDropDown'
+import * as searchActions from './store/searchActions'
+import useOnClickOutside from 'use-onclickoutside'
 
-function Search(props) {
-  const { searchTerm, setSearchTerm, resetSearchTerm } = props
-  const DropDownNode = useRef()
-  const [visible, setVisible] = useState(true)
+const Search = props => {
+  const { searchTerm, setSearchTerm, resetSearchTerm, setSearchOff } = props
+  const ref = useRef()
+  const [visible, setVisible] = useState(false)
+  useOnClickOutside(ref, e => {
+    if (e.target.id === 'search-input') {
+      return
+    }
+    setVisible(false)
+  })
 
   const handleSearch = e => {
-    setVisible(true)
     setSearchTerm(e)
-  }
-
-  const handleRefClick = e => {
-    if (DropDownNode.current) {
-      setVisible(false)
-    }
+    setVisible(true)
   }
 
   //TODO: Make this DRY
@@ -33,7 +34,6 @@ function Search(props) {
         path = path.split('/')[3]
       }
     }
-
     switch (path) {
       case '/':
         placeholder = 'Users or Tags'
@@ -110,28 +110,31 @@ function Search(props) {
         height='45px'
         placeholder={`Search ${placeholder}`}
         value={searchTerm}
-        onChange={setSearchTerm}
+        onChange={handleSearch}
         id='search-input'
       />
     )
   }
   //todo: DRY-UP and CLEAN-UP SEARCH COMPONENT SELECTION
   return (
-    <>
-      <Wrapper>
-        <Container>{displaySearch()}</Container>
-        <DropDown>
-          {searchTerm.length ? (
-            <SearchUsersDropDown search={searchTerm} />
-          ) : null}
-        </DropDown>
-      </Wrapper>
-    </>
+    <Wrapper>
+      <Container>{displaySearch()}</Container>
+      <DropDown
+        ref={ref}
+        onClick={() => {
+          setVisible(false)
+        }}
+      >
+        {searchTerm.length && visible ? (
+          <SearchUsersDropDown searchTerm={searchTerm} />
+        ) : null}
+      </DropDown>
+    </Wrapper>
   )
 }
 
-const mapStateToProps = ({ searchTerm }) => ({
-  searchTerm,
+const mapStateToProps = ({ search }) => ({
+  searchTerm: search.searchTerm,
 })
 
 export default connect(
@@ -139,47 +142,43 @@ export default connect(
   { ...searchActions }
 )(withRouter(Search))
 
-const Wrapper = styled.div`
-  input {
-    width: 100% !important;
-    height: 35px;
-    padding: 0 15px 0;
-  }
-  width: 40%;
-  @media (max-width: 760px) {
-    width: 70%;
-    input {
-      height: 35px !important;
-    }
-  }
-  @media (max-width: 500px) {
-    width: 80%;
-  }
-`
+const Wrapper = styled.div``
 
 const Container = styled.div`
   position: relative;
   display: flex;
+  #search-input {
+    width: 190px;
+    font-size: 1.2rem;
+    letter-spacing: 0.8px;
+    height: 35px;
+    outline: none;
+    border-radius: 21px;
+    background-color: #f5f8fa;
+    border: 1px solid #e6ecf0;
+    transition: all 0.2s ease-in-out;
+    padding: 8px 32px 8px 12px;
+    color: #14171a;
+    &:hover {
+      border: 1px solid dodgerblue;
+    }
+    &:focus {
+      border: 1px solid dodgerblue;
+      background-color: #fff;
+      color: #14171a;
+    }
+  }
 `
 const DropDown = styled.div`
   display: flex;
   flex-direction: column;
+  position: absolute;
+  top: 50px;
+  width: 250px;
   background-color: white;
-  /* border: 1px solid red; */
   border-radius: 5px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   font-weight: 500;
   max-height: 500px;
-  position: absolute;
   overflow: auto;
-  top: 50px;
-  width: 440px;
-  @media (max-width: 759px) {
-    left: 6%;
-    top: 57px;
-    width: 61%;
-  }
-  @media (max-width: 500px) {
-    width: 70%;
-  }
 `

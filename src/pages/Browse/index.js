@@ -7,7 +7,6 @@ import Articles from 'components/browse/Articles'
 import Videos from 'components/browse/Videos'
 import Books from 'components/browse/Books'
 import Podcasts from 'components/browse/Podcasts'
-import { withLayout } from 'components/hoc/withLayout'
 import { createCollection } from 'actions'
 import * as browseActions from './browseActions'
 
@@ -59,7 +58,7 @@ const Browse = props => {
   }, [])
 
   return (
-    <>
+    <Container>
       <Tabs>
         <Tab>
           <NavLink
@@ -160,16 +159,14 @@ const Browse = props => {
           />
         </Switch>
       </RouteWrapper>
-    </>
+    </Container>
   )
 }
 
-const mapStateToProps = ({ searchTerm, browse }) => ({
-  searchTerm,
+const mapStateToProps = ({ search, browse }) => ({
+  searchTerm: search.searchTerm,
   ...browse,
 })
-
-const BrowseWithLayout = withLayout(Browse)
 
 export default connect(
   mapStateToProps,
@@ -177,12 +174,17 @@ export default connect(
     ...browseActions,
     createCollection,
   }
-)(withRouter(BrowseWithLayout))
+)(withRouter(Browse))
+
+const Container = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+`
 
 const Tabs = styled.ul`
   display: flex;
   position: sticky;
-  top: 59px;
+  top: 50px;
   height: 80px;
   width: 100%;
   z-index: 1;
