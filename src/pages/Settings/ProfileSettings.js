@@ -9,6 +9,7 @@ const ProfileSettings = props => {
   const { auth, user, editUser } = props
   const alert = useAlert()
   const image = useRef()
+  const header = useRef()
   const [displayName, setDisplayName] = useState('')
   const [username, setUsername] = useState('')
   const [bio, setBio] = useState('')
@@ -16,6 +17,7 @@ const ProfileSettings = props => {
   const [websiteUrl, setWebsiteUrl] = useState('')
   const [email, setEmail] = useState('')
   const [selectedFile, setSelectedFile] = useState('')
+  const [selectedHeader, setSelectedHeader] = useState('')
   const [profile_pic, setProfilePic] = useState('')
   const [header_pic, setHeaderPic] = useState('')
 
@@ -53,6 +55,19 @@ const ProfileSettings = props => {
         }
       })
     }
+    if (selectedHeader) {
+      const fd = new FormData()
+      fd.append('profile_pic', selectedHeader, selectedHeader.name)
+      axios.post(`/images/header`, fd).then(res => {
+        if (res.data.success) {
+          console.log(res.data)
+          setHeaderPic(res.data.user.header_picture)
+          // editUser(auth.id, {
+          //   header_picture: res.data.user.header_picture,
+          // })
+        }
+      })
+    }
   }
 
   //* launches onSubmitting of page form
@@ -68,31 +83,44 @@ const ProfileSettings = props => {
     })
     // calls func to handle profile change if a new file has been selected
     // selectedFile default value is falsey until user selects file
-    if (selectedFile) {
+    if (selectedFile || selectedHeader) {
       handleFileUpload()
     }
   }
 
   // invokes when user selects picture NOT thru dropzone
-  const handleFileSelection = e => {
+  const handleFileSelection = (e, type) => {
     e.preventDefault()
     if (e.target.files[0]) {
       const file = e.target.files[0].type
 
       if (file.startsWith('image/')) {
-        // set state on selected file
-        setSelectedFile(e.target.files[0])
-        // read more on =>
-        // https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Showing_thumbnails_of_user-selected_images
-        const reader = new FileReader()
+        if (type === 'profile') {
+          // set state on selected file
+          setSelectedFile(e.target.files[0])
+          // read more on =>
+          // https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Showing_thumbnails_of_user-selected_images
+          const reader = new FileReader()
 
-        reader.onload = (function(aImg) {
-          return function(e) {
-            aImg.src = e.target.result
-          }
-        })(image.current)
+          reader.onload = (function(aImg) {
+            return function(e) {
+              aImg.src = e.target.result
+            }
+          })(image.current)
 
-        reader.readAsDataURL(e.target.files[0])
+          reader.readAsDataURL(e.target.files[0])
+        } else {
+          setSelectedHeader(e.target.files[0])
+          const reader = new FileReader()
+
+          reader.onload = (function(aImg) {
+            return function(e) {
+              aImg.src = e.target.result
+            }
+          })(header.current)
+
+          reader.readAsDataURL(e.target.files[0])
+        }
 
         // console.log(this.image.current.src)
       } else {
@@ -101,19 +129,32 @@ const ProfileSettings = props => {
     }
   }
   // invokes when user drops a file on dropzone
-  const handleDropZone = file => {
+  const handleDropZone = (file, type) => {
     if (file.type.startsWith('image/')) {
       // set state on selected file
-      setSelectedFile(file)
-      const reader = new FileReader()
+      if (type === 'profile') {
+        setSelectedFile(file)
+        const reader = new FileReader()
 
-      reader.onload = (function(aImg) {
-        return function(e) {
-          aImg.src = e.target.result
-        }
-      })(image.current)
+        reader.onload = (function(aImg) {
+          return function(e) {
+            aImg.src = e.target.result
+          }
+        })(image.current)
 
-      reader.readAsDataURL(file)
+        reader.readAsDataURL(file)
+      } else {
+        setSelectedHeader(file)
+        const reader = new FileReader()
+
+        reader.onload = (function(aImg) {
+          return function(e) {
+            aImg.src = e.target.result
+          }
+        })(header.current)
+
+        reader.readAsDataURL(file)
+      }
     } else {
       window.alert('Only JPEG, PNG, or GIF file types allowed')
     }
@@ -124,7 +165,7 @@ const ProfileSettings = props => {
     e.preventDefault()
   }
 
-  const handleDrop = e => {
+  const handleDrop = (e, type) => {
     // read more on
     // https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Showing_thumbnails_of_user-selected_images
     e.stopPropagation()
@@ -133,7 +174,7 @@ const ProfileSettings = props => {
     const dt = e.dataTransfer
     const files = dt.files
 
-    handleDropZone(files[0])
+    handleDropZone(files[0], type)
   }
   return (
     <Wrapper>
@@ -220,13 +261,35 @@ const ProfileSettings = props => {
                   src={profile_pic}
                   onDragEnter={handleDragEvent}
                   onDragOver={handleDragEvent}
-                  onDrop={handleDrop}
+                  onDrop={e => handleDrop(e, 'profile')}
                   alt='user_upload_picture'
                 />
                 <input
-                  onChange={e => handleFileSelection(e)}
+                  onChange={e => handleFileSelection(e, 'profile')}
                   type='file'
                   name='profile_pic'
+                />
+              </label>
+              {/* ========== */}
+              <label>
+                Header Picture
+                <img
+                  style={{
+                    width: '200px',
+                    display: 'block',
+                    margin: '10px auto',
+                  }}
+                  ref={header}
+                  src={header_pic}
+                  onDragEnter={handleDragEvent}
+                  onDragOver={handleDragEvent}
+                  onDrop={e => handleDrop(e, 'header')}
+                  alt='user_upload_picture'
+                />
+                <input
+                  onChange={e => handleFileSelection(e, 'header')}
+                  type='file'
+                  name='header_pic'
                 />
               </label>
             </div>
