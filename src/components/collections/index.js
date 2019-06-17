@@ -2,10 +2,16 @@ import React, { useState } from 'react'
 import HelpScreen from '../utils/screens/HelpScreen'
 import BookmarkSVG from 'assets/svg/bookmark-drawing.svg'
 import Collection from './Collection'
+import { useSelector } from 'react-redux'
 import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 
 const Collections = props => {
-  const { searchTerm: search } = props
+  const { searchTerm: search, collections } = useSelector(
+    ({ search, collections }) => ({
+      searchTerm: search.searchTerm,
+      collections,
+    })
+  )
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isEditPost, setIsEditPost] = useState(null)
 
@@ -18,8 +24,8 @@ const Collections = props => {
     props.deleteCollection(postId)
   }
 
-  if (props.collections.length) {
-    const filteredCollections = props.collections.filter(post => {
+  if (collections.length) {
+    const filteredCollections = collections.filter(post => {
       return (
         (post.title &&
           post.title.toLowerCase().includes(search.toLowerCase())) ||
@@ -43,7 +49,7 @@ const Collections = props => {
     )
   }
 
-  if (props.collections.length === 0) {
+  if (collections.length === 0) {
     return (
       <HelpScreen
         imgSource={BookmarkSVG}

@@ -47,21 +47,37 @@ const Suggested = props => {
       return suggested.map((ele, index) => (
         <div className='recommended-follow-container' key={index}>
           <div className='recommended-follow-info'>
-            <Link to={`/profile/${ele.recommended_follow_id}`}>
-              <img src={ele.image} alt='suggested' />
-              <h2>{ele.username}</h2>
-            </Link>
-          </div>
-          <div className='follow-button'>
-            <button
-              type='button'
-              onClick={e => followAUserHandler(e, ele.recommended_follow_id)}
-            >
-              Follow
-            </button>
+            <div className='suggested-wrap'>
+              <Link
+                className='left-suggested'
+                to={`/profile/${ele.recommended_follow_id}`}
+              >
+                <img src={ele.image} alt='suggested' />
+              </Link>
+              <div className='right-suggested'>
+                <Link to={`/profile/${ele.recommended_follow_id}`}>
+                  <h2>{ele.username}</h2>
+                </Link>
+                <div className='follow-button'>
+                  <button
+                    type='button'
+                    onClick={e =>
+                      followAUserHandler(e, ele.recommended_follow_id)
+                    }
+                  >
+                    Follow
+                  </button>
+                </div>
+              </div>
+            </div>
             {ele.followed_by_username && (
-              <Link to={`/profile/${ele.followed_by_id}`}>
-                <p>Followed by {ele.followed_by_username}</p>
+              <Link
+                className='followed-by'
+                to={`/profile/${ele.followed_by_id}`}
+              >
+                <p className='followed-by-p'>
+                  Followed by {ele.followed_by_username}
+                </p>
               </Link>
             )}
           </div>
@@ -72,6 +88,9 @@ const Suggested = props => {
 
   return (
     <StyledCard>
+      <div className='sticky-container-too recommended-follow-container'>
+        <h2 className='suggested-heading'>Suggested Friends</h2>
+      </div>
       <div className='sticky-container'>{renderRecommended()}</div>
     </StyledCard>
   )
@@ -80,36 +99,82 @@ const Suggested = props => {
 export default Suggested
 
 const StyledCard = styled.div`
-  margin: 0px 0px 0px 30px;
-  min-height: 100vh;
-  transition: opacity 0.8s ease;
-  opacity: 1;
-  @media (max-width: 1200px) {
+  position: sticky;
+  top: 60px;
+  @media (max-width: 1210px) {
     opacity: 0;
+    display: none;
+  }
+  .followed-by {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .followed-by-p {
+      display: flex;
+      padding-left: 40px;
+    }
+  }
+  .suggested-wrap {
+    display: flex;
+    width: 100%;
+    height: 100px;
+    padding: 0px 15px;
+  }
+  .left-suggested {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .right-suggested {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 20px;
+    justify-content: space-evenly;
+  }
+  .suggested-heading {
+    font-weight: bold;
+    font-size: 1.8rem;
+    letter-spacing: 1.2px;
+    text-align: center;
+    color: dodgerblue;
+  }
+  transition: opacity 0.4s ease;
+  opacity: 1;
+  width: 290px;
+ 
+  /* .sticky-container-too {
+    position: sticky;
+    top: 60px;
   }
   .sticky-container {
     position: sticky;
-    top: 160px;
-    margin-top: 27px;
-  }
+    top: 108px;
+  } */
   .recommended-follow-container {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     background: #fff;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     padding: 10px;
     border-radius: 6px;
-    min-width: 180px;
+  
+  }
     .recommended-follow-info {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      align-items: flex-start;
       justify-content: center;
       h2 {
         /* margin-left: 10px; */
-        margin: 8px auto;
+        font-size: 1.6rem;
+        font-weight: 600;
+        letter-spacing: 1px;
       }
       img {
-        width: 50px;
-        height: 50px;
+        width: 70px;
+        height: 70px;
         border-radius: 50%;
         display: block;
         margin: auto;
@@ -118,15 +183,20 @@ const StyledCard = styled.div`
     .follow-button {
       text-align: center;
       button {
-        padding: 5px 10px;
+        padding: 10px 20px;
         font-weight: 700;
         border: transparent;
-        border-radius: 5px;
-        background-color: #3f65f2;
-        color: white;
+        border-radius: 50px;
+        background-color: white;
+        border: 1px solid dodgerblue;
+        color: #3f65f2;
         cursor: pointer;
         transition: 200ms ease-out;
         font-size: 1.4rem;
+        letter-spacing: 0.9;
+        &:hover {
+          background-color: #e8f4fb;
+        }
       }
       p {
         font-size: 1.2rem;
