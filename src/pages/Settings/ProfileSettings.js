@@ -96,7 +96,7 @@ const ProfileSettings = props => {
 
         // console.log(this.image.current.src)
       } else {
-        alert('Only JPEG, PNG, or GIF file types allowed')
+        window.alert('Only JPEG, PNG, or GIF file types allowed')
       }
     }
   }
@@ -115,7 +115,7 @@ const ProfileSettings = props => {
 
       reader.readAsDataURL(file)
     } else {
-      alert('Only JPEG, PNG, or GIF file types allowed')
+      window.alert('Only JPEG, PNG, or GIF file types allowed')
     }
   }
 
