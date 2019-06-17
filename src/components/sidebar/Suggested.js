@@ -136,8 +136,8 @@ const StyledCard = styled.div`
   }
   .suggested-heading {
     font-weight: bold;
-    font-size: 1.8rem;
-    letter-spacing: 1.2px;
+    font-size: 1.6rem;
+    letter-spacing: 1px;
     text-align: center;
     color: dodgerblue;
   }

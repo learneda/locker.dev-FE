@@ -26,7 +26,10 @@ const Search = props => {
 
   const handleSearch = e => {
     setSearchTerm(e)
-    if (history.location.pathname === '/') {
+    if (
+      history.location.pathname === '/' ||
+      history.location.pathname.includes('profile')
+    ) {
       setVisible(true)
     }
   }
