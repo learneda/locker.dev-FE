@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import GlobalStyle, { bgColor } from 'components/mixins'
-import { composedIndexRedirect as index } from 'components/hoc/indexRedirect'
+import { composedIndexRedirect as index } from 'hoc/indexRedirect'
 import * as appActions from 'appActions'
 import socket from 'socket'
 import Navbar from 'pages/Navbar'
@@ -120,4 +120,5 @@ const Container = styled.div`
   color: #141619;
   background-color: #e6ecf0;
   min-height: 100vh;
+  height: 100%;
 `

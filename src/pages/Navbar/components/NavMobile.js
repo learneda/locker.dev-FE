@@ -84,6 +84,6 @@ const Burger = styled.div`
     }
   }
   .auth-icon {
-    border: 1px solid red;
+    /* border: 1px solid red; */
   }
 `

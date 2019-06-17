@@ -72,7 +72,7 @@ const StyledNavRight = styled.div`
   justify-content: flex-end;
   width: 330px;
   .search-wrap {
-    border: 1px solid red;
+    /* border: 1px solid red; */
     border-radius: 50%;
     &:hover {
       border: 1px solid dodgerblue;

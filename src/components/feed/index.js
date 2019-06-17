@@ -124,7 +124,7 @@ const Container = styled.div`
     .post-user-pic {
       height: 60px;
       width: 60px;
-      margin-right: 15px;
+      margin: 0 15px;
       img {
         width: 60px;
         height: 60px;

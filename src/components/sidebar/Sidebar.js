@@ -40,23 +40,23 @@ class Sidebar extends Component {
             <div className='user-bio'>
               <h3>{this.props.user.displayName}</h3>
               <div className='profile-stats'>
-                <Link to='/saved'>
+                <Link to='/locker'>
                   <ul>
-                    <li>Saved</li>
-                    <li>{this.props.collections.length}</li>
+                    <li className='count-label'>Posts</li>
+                    <li className='count'>{this.props.collections.length}</li>
                   </ul>
                 </Link>
 
                 <Link to='/social/following'>
                   <ul>
-                    <li>Following</li>
-                    <li>{this.props.following.length}</li>
+                    <li className='count-label'>Following</li>
+                    <li className='count'>{this.props.following.length}</li>
                   </ul>
                 </Link>
                 <Link to='/social/followers' className='sidebar-followers'>
                   <ul>
-                    <li>Followers</li>
-                    <li>{this.props.followers.length}</li>
+                    <li className='count-label'>Followers</li>
+                    <li className='count'>{this.props.followers.length}</li>
                   </ul>
                 </Link>
               </div>
@@ -71,7 +71,8 @@ class Sidebar extends Component {
 export default Sidebar
 
 const Wrapper = styled.div`
-  position: relative;
+  position: sticky;
+  top: 60px;
   width: 290px;
 
   @media (max-width: 910px) {
@@ -79,12 +80,23 @@ const Wrapper = styled.div`
   }
 `
 const Profile = styled.div`
-  position: sticky;
-  top: 60px;
+  .count-label {
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #657786;
+  }
+  .count {
+    margin: 10px 0;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: dodgerblue;
+  }
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 5px;
   background: #fff;
-
+  @media (max-width: 910px) {
+    display: none;
+  }
   .user {
     position: relative;
     border-top-right-radius: 5px;
@@ -198,9 +210,7 @@ const Profile = styled.div`
           opacity: 1;
         }
       }
-      li {
-        font-size: 1.6rem;
-      }
+
       li:nth-of-type(2) {
         opacity: 0.7;
         // text-align:center

@@ -54,7 +54,7 @@ const Home = props => {
 
   return (
     <Container>
-      <div>
+      <Wrapper>
         <Sidebar
           user={user}
           collections={collections}
@@ -62,7 +62,7 @@ const Home = props => {
           following={following}
         />
         <Tagbar />
-      </div>
+      </Wrapper>
 
       <Feed
         {...props}
@@ -75,7 +75,7 @@ const Home = props => {
         offset={feed.offset}
         createCollection={createCollection}
       />
-      <div>
+      <Wrapper>
         <Suggested
           auth={auth}
           suggested={suggested}
@@ -84,7 +84,7 @@ const Home = props => {
           followAUser={followAUser}
         />
         <Footer />
-      </div>
+      </Wrapper>
     </Container>
   )
 }
@@ -128,4 +128,8 @@ const Container = styled.div`
   @media (max-width: 910px) {
     max-width: 600px;
   }
+`
+const Wrapper = styled.div`
+  position: relative;
+  /* border: 1px solid red; */
 `

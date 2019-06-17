@@ -99,6 +99,12 @@ const Suggested = props => {
 export default Suggested
 
 const StyledCard = styled.div`
+  position: sticky;
+  top: 60px;
+  @media (max-width: 1210px) {
+    opacity: 0;
+    display: none;
+  }
   .followed-by {
     height: 30px;
     display: flex;
@@ -135,28 +141,26 @@ const StyledCard = styled.div`
     text-align: center;
     color: dodgerblue;
   }
-  min-height: 100vh;
   transition: opacity 0.4s ease;
   opacity: 1;
   width: 290px;
-  @media (max-width: 1210px) {
-    opacity: 0;
-    display: none;
-  }
-  .sticky-container-too {
+ 
+  /* .sticky-container-too {
     position: sticky;
     top: 60px;
   }
   .sticky-container {
     position: sticky;
     top: 108px;
-  }
+  } */
   .recommended-follow-container {
     margin-bottom: 10px;
     background: #fff;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     padding: 10px;
     border-radius: 6px;
+  
+  }
     .recommended-follow-info {
       display: flex;
       flex-direction: column;

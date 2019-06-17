@@ -10,9 +10,13 @@ Tagbar.propTypes = {}
 export default Tagbar
 
 const Container = styled.section`
-  height: 450px;
+  height: 420px;
   width: 290px;
   border: 1px solid dodgerblue;
-  position: fixed;
-  top: 290px;
+  position: sticky;
+  top: 310px;
+  z-index: 1;
+  @media (max-width: 910px) {
+    display: none;
+  }
 `

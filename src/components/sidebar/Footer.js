@@ -10,9 +10,15 @@ Footer.propTypes = {}
 export default Footer
 
 const Container = styled.section`
+  position: sticky;
+  top: 590px;
+  left: 0px;
   height: 150px;
   width: 290px;
   border: 1px solid dodgerblue;
-  position: fixed;
-  top: 590px;
+  z-index: 1;
+  @media (max-width: 1210px) {
+    opacity: 0;
+    display: none;
+  }
 `

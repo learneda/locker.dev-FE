@@ -7,7 +7,7 @@ import Articles from 'components/browse/Articles'
 import Videos from 'components/browse/Videos'
 import Books from 'components/browse/Books'
 import Podcasts from 'components/browse/Podcasts'
-import { withLayout } from 'components/hoc/withLayout'
+import { withLayout } from 'hoc/withLayout'
 import { createCollection } from 'actions'
 import * as browseActions from './browseActions'
 
