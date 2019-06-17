@@ -53,6 +53,10 @@ class Feed extends Component {
     socket.emit('like', data)
   }
 
+  handlePony = data => {
+    socket.emit('pony', data)
+  }
+
   render() {
     while (!this.props.user) {
       return (
@@ -76,6 +80,7 @@ class Feed extends Component {
         handleDeleteComment={this.handleDeleteComment}
         socketId={socket.id}
         createCollection={this.props.createCollection}
+        handlePony={this.handlePony}
       />
     ))
 

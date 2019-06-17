@@ -42,3 +42,11 @@ export const likeComment = commentData => async dispatch => {
 export const unlikeComment = commentData => async dispatch => {
   dispatch({ type: type.UNLIKE_COMMENT, payload: commentData })
 }
+
+export const ponyUp = data => dispatch => {
+  dispatch({ type: type.PONY_UP, payload: data })
+}
+
+export const ponyDown = data => dispatch => {
+  dispatch({ type: type.PONY_DOWN, payload: data })
+}
