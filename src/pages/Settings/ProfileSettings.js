@@ -17,9 +17,11 @@ const ProfileSettings = props => {
   const [email, setEmail] = useState('')
   const [selectedFile, setSelectedFile] = useState('')
   const [profile_pic, setProfilePic] = useState('')
+  const [header_pic, setHeaderPic] = useState('')
 
   useEffect(() => {
     if (user) {
+      console.log('does this exist??', user)
       setDisplayName(user.displayName)
       setUsername(user.username)
       setBio(user.bio)
@@ -27,13 +29,14 @@ const ProfileSettings = props => {
       setWebsiteUrl(user.websiteUrl)
       setEmail(user.email)
       setSelectedFile(user.selectedFile)
-      setProfilePic(user.profile_pic)
+      setProfilePic(user.profilePicture)
+      setHeaderPic(user.headerPicture)
     }
-    axios.get(`/images`).then(res => {
-      if (res.data.length > 0) {
-        setProfilePic(res.data[0].profile_picture)
-      }
-    })
+    // axios.get(`/images`).then(res => {
+    //   if (res.data.length > 0) {
+    //     setProfilePic(res.data[0].profile_picture)
+    //   }
+    // })
   }, [user])
 
   const handleFileUpload = () => {
@@ -42,13 +45,10 @@ const ProfileSettings = props => {
       fd.append('profile_pic', selectedFile, selectedFile.name)
       axios.post(`/images`, fd).then(res => {
         if (res.data.success) {
-          axios.get(`/images`).then(res => {
-            if (res.data.length > 0) {
-              setProfilePic(res.data[0].profile_picture)
-              editUser(auth.id, {
-                profile_picture: res.data[0].profile_picture,
-              })
-            }
+          console.log(res.data)
+          setProfilePic(res.data.user.profile_picture)
+          editUser(auth.id, {
+            profile_picture: res.data.user.profile_picture,
           })
         }
       })
