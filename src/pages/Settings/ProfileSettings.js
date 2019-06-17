@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { useAlert } from 'react-alert'
 import { customLayout, customWrapper } from 'components/mixins'
 import axios from 'apis/axiosAPI'
+import store from '../../store'
+import * as type from '../../appTypes'
 
 const ProfileSettings = props => {
   const { auth, user, editUser } = props
@@ -23,7 +25,6 @@ const ProfileSettings = props => {
 
   useEffect(() => {
     if (user) {
-      console.log('does this exist??', user)
       setDisplayName(user.displayName)
       setUsername(user.username)
       setBio(user.bio)
@@ -41,11 +42,12 @@ const ProfileSettings = props => {
       const fd = new FormData()
       fd.append('profile_pic', selectedFile, selectedFile.name)
       axios.post(`/images`, fd).then(res => {
+        console.log('profile is okay i think', res.data)
         if (res.data.success) {
-          console.log(res.data)
-          setProfilePic(res.data.user.profile_picture)
-          editUser(auth.id, {
-            profile_picture: res.data.user.profile_picture,
+          // update redux store here
+          store.dispatch({
+            type: type.UPDATE_PROFILE_PICTURE,
+            payload: res.data.user.profile_picture,
           })
         }
       })
@@ -55,8 +57,14 @@ const ProfileSettings = props => {
       fd.append('profile_pic', selectedHeader, selectedHeader.name)
       axios.post(`/images/header`, fd).then(res => {
         if (res.data.success) {
-          console.log(res.data)
-          setHeaderPic(res.data.user.header_picture)
+          console.log('wtf is this ?', res.data.user.header_picture)
+          if (res.data.user.header_picture) {
+            // update redux store here
+            store.dispatch({
+              type: type.UPDATE_HEADER_PICTURE,
+              payload: res.data.user.header_picture,
+            })
+          }
         }
       })
     }
@@ -72,12 +80,13 @@ const ProfileSettings = props => {
       location,
       websiteUrl,
       email,
+    }).then(() => {
+      // calls func to handle profile change if a new file has been selected
+      // selectedFile default value is falsey until user selects file
+      if (selectedFile || selectedHeader) {
+        handleFileUpload()
+      }
     })
-    // calls func to handle profile change if a new file has been selected
-    // selectedFile default value is falsey until user selects file
-    if (selectedFile || selectedHeader) {
-      handleFileUpload()
-    }
   }
 
   // invokes when user selects picture NOT thru dropzone
