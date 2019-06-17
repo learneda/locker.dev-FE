@@ -8,6 +8,7 @@ import * as appActions from 'appActions'
 import socket from 'socket'
 import Navbar from 'pages/Navbar'
 import Locker from 'components/collections'
+import HashTag from './pages/HashTag/'
 
 const LandingPage = lazy(() => import('pages/Landing'))
 const Home = lazy(() => import('pages/Home'))
@@ -99,6 +100,7 @@ const App = props => {
           <Route path='/profile/:id' component={index(Profile)} />
           <Route path='/status/:id' component={index(SinglePost)} />
           <Route path='/settings' component={index(Settings)} />
+          <Route path='/tag/:tag' component={HashTag} />
           <Route component={NoMatch} />
         </Switch>
       </Suspense>
