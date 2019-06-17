@@ -8,7 +8,13 @@ import * as searchActions from './store/searchActions'
 import useOnClickOutside from 'use-onclickoutside'
 
 const Search = props => {
-  const { searchTerm, setSearchTerm, resetSearchTerm, setSearchOff } = props
+  const {
+    searchTerm,
+    setSearchTerm,
+    resetSearchTerm,
+    setSearchOff,
+    history,
+  } = props
   const ref = useRef()
   const [visible, setVisible] = useState(false)
   useOnClickOutside(ref, e => {
@@ -20,8 +26,17 @@ const Search = props => {
 
   const handleSearch = e => {
     setSearchTerm(e)
-    setVisible(true)
+    if (
+      history.location.pathname === '/' ||
+      history.location.pathname.includes('profile') ||
+      history.location.pathname.includes('notifications')
+    ) {
+      setVisible(true)
+    }
   }
+  useEffect(() => {
+    resetSearchTerm()
+  }, [history.location.pathname])
 
   //TODO: Make this DRY
   const displaySearch = () => {
@@ -36,16 +51,16 @@ const Search = props => {
     }
     switch (path) {
       case '/':
-        placeholder = 'Users or Tags'
+        placeholder = 'Users'
         break
       case '/feed':
-        placeholder = 'Users or Tags'
+        placeholder = 'Users'
         break
       case '/saved':
-        placeholder = 'Users or Tags'
+        placeholder = 'Users'
         break
       case '/locker':
-        placeholder = 'Users or Tags'
+        placeholder = 'Users'
         break
       case '/browse':
         placeholder = 'Courses'
@@ -64,6 +79,9 @@ const Search = props => {
         break
       case '/browse/podcasts':
         placeholder = 'Podcasts'
+        break
+      case '/notifications':
+        placeholder = 'Users'
         break
       case '/social':
         placeholder = 'Following'

@@ -30,7 +30,6 @@ class Sidebar extends Component {
         </Wrapper>
       )
     }
-    console.log('PROPS', this.props)
     return (
       <Wrapper>
         {this.props.user && (
