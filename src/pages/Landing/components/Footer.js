@@ -6,7 +6,13 @@ const Footer = props => (
   <Nav>
     <Link to='#'>Privacy</Link>
     <Link to='#'>Terms</Link>
-    <Link to='#'>Cookies</Link>
+    <a
+      href='https://www.websitepolicies.com/policies/view/LSlW4YXe'
+      target='_blank'
+      rel='noopener noreferrer'
+    >
+      Cookies
+    </a>
     <Link to='#'>Help</Link>
     <Link to='#'>&copy; 2019 locker.dev</Link>
   </Nav>
