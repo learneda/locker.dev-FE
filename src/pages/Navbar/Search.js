@@ -28,7 +28,8 @@ const Search = props => {
     setSearchTerm(e)
     if (
       history.location.pathname === '/' ||
-      history.location.pathname.includes('profile')
+      history.location.pathname.includes('profile') ||
+      history.location.pathname.includes('notifications')
     ) {
       setVisible(true)
     }
@@ -50,16 +51,16 @@ const Search = props => {
     }
     switch (path) {
       case '/':
-        placeholder = 'Users or Tags'
+        placeholder = 'Users'
         break
       case '/feed':
-        placeholder = 'Users or Tags'
+        placeholder = 'Users'
         break
       case '/saved':
-        placeholder = 'Users or Tags'
+        placeholder = 'Users'
         break
       case '/locker':
-        placeholder = 'Users or Tags'
+        placeholder = 'Users'
         break
       case '/browse':
         placeholder = 'Courses'
@@ -78,6 +79,9 @@ const Search = props => {
         break
       case '/browse/podcasts':
         placeholder = 'Podcasts'
+        break
+      case '/notifications':
+        placeholder = 'Users'
         break
       case '/social':
         placeholder = 'Following'
