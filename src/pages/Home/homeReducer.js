@@ -68,6 +68,22 @@ export const homeReducer = (state = initialState, action) => {
         return post
       })
       return { ...state, posts: unlikeComment }
+    case appType.PONY_UP:
+      const ponyUp = state.posts.map(post => {
+        if (post.post_id === action.payload.post_id) {
+          post.ponyCount = post.ponyCount + 1
+        }
+        return post
+      })
+      return { ...state, posts: ponyUp }
+    case appType.PONY_DOWN:
+      const ponyDown = state.posts.map(post => {
+        if (post.post_id === action.payload.post_id) {
+          post.ponyCount = post.ponyCount - 1
+        }
+        return post
+      })
+      return { ...state, posts: ponyDown }
     case type.FETCH_LOCKER:
       return { ...state, locker: action.payload }
     case ADD_TO_FEED:

@@ -29,6 +29,8 @@ const App = props => {
     deleteComment,
     likeComment,
     unlikeComment,
+    ponyUp,
+    ponyDown,
   } = props
   //* initial fetchAuth and fetchUser on browser refresh
   useEffect(() => {
@@ -74,6 +76,22 @@ const App = props => {
             case 'like':
               //* invoke action creator likeComment & pass in msg obj
               likeComment(data)
+              break
+            default:
+              break
+          }
+        })
+        socket.on('pony', data => {
+          //* obj contains postOwnerId, post_id, user_id, username
+          //* console.log('in like socket connection', data)
+          switch (data.action) {
+            case 'pony_down':
+              //* invoke action creator unlikeComment & pass in msg obj
+              ponyDown(data)
+              break
+            case 'pony_up':
+              //* invoke action creator likeComment & pass in msg obj
+              ponyUp(data)
               break
             default:
               break

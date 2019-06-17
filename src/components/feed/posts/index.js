@@ -12,6 +12,7 @@ class PostContainer extends Component {
   constructor(props) {
     super(props)
     this.heartIcon = React.createRef()
+    this.pony = React.createRef()
   }
 
   componentDidMount() {
@@ -21,6 +22,9 @@ class PostContainer extends Component {
           'class',
           'far fa-heart fa-lg heart-red'
         )
+      }
+      if (this.props.post.hasPony) {
+        this.pony.current.setAttribute('class', 'heart-red')
       }
     }
   }
@@ -50,6 +54,29 @@ class PostContainer extends Component {
       this.props.handleClick(data)
     }
   }
+
+  handlePonyClick = (e, post_id, post) => {
+    const postOwnerId = post.user_id
+    let hasClassName = e.target.classList.contains('heart-red')
+    if (hasClassName) {
+      const data = {
+        id: post_id,
+        user_id: this.props.user_id,
+        action: 'pony_down',
+      }
+      this.props.handlePony(data)
+    } else {
+      const data = {
+        id: post_id,
+        user_id: this.props.user_id,
+        action: 'pony_up',
+        postOwnerId,
+        username: this.props.username,
+      }
+      this.props.handlePony(data)
+    }
+  }
+
   handleSaveToProfile = url => {
     this.props.createCollection({ url: url })
   }
@@ -220,6 +247,16 @@ class PostContainer extends Component {
                 }}
               />
               <span className='like_num'>{post.likes}</span>
+            </div>
+            <div
+              ref={this.pony}
+              onClick={e => {
+                this.handlePonyClick(e, post.id, post)
+                e.target.classList.toggle('heart-red')
+              }}
+            >
+              🦄
+              <span>{post.ponyCount}</span>
             </div>
 
             {post.tags.length > 0 &&
