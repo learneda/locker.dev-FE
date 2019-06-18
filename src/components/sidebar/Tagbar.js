@@ -1,14 +1,24 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import axiosAPI from '../../apis/axiosAPI'
-const Tagbar = props => {
-  useEffect(() => {
-    axiosAPI.get('/tags/top').then(result => {
-      console.log(result)
-    })
-  }, [])
-  return <Container>Top Tags</Container>
+import { Link } from 'react-router-dom'
+
+const Tagbar = ({ topTags }) => {
+  return (
+    <Container>
+      <h3>Top Tags</h3>
+      {topTags.map((tag, i) => {
+        return (
+          <div>
+            <Link to={`tag/${tag.hashtag}`} key={i}>
+              #{tag.hashtag}
+            </Link>
+            <br />
+          </div>
+        )
+      })}
+    </Container>
+  )
 }
 
 Tagbar.propTypes = {}

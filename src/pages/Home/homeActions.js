@@ -34,3 +34,10 @@ export const fetchMoreFeed = offset => async dispatch => {
     dispatch({ type: type.TOGGLE_HAS_MORE, payload: false })
   }
 }
+
+export const fetchTopTags = () => async dispatch => {
+  const tags = await axios.get('/tags/top')
+  if (tags.data.length) {
+    dispatch({ type: type.FETCH_TOP_TAGS, payload: tags.data })
+  }
+}

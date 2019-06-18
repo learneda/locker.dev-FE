@@ -6,6 +6,7 @@ const initialState = {
   locker: [],
   hasmore: true,
   offset: 5,
+  topTags: [],
 }
 export const homeReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -89,6 +90,8 @@ export const homeReducer = (state = initialState, action) => {
     case ADD_TO_FEED:
       const new_posts = [action.payload, ...state.posts]
       return { ...state, posts: new_posts }
+    case type.FETCH_TOP_TAGS:
+      return { ...state, topTags: action.payload }
     default:
       return state
   }
