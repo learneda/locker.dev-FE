@@ -100,7 +100,10 @@ const Card = props => {
   const handleShareClick = async () => {
     setShareText('Saving')
     setShareActive(prev => !prev)
+    console.log('before share')
     await shareToFeed()
+    console.log('after share')
+
     if (shareActive) {
       setShareText('Save')
     } else {
