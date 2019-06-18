@@ -3,12 +3,12 @@ import { connect } from 'react-redux'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import NavBrowse from './components/NavBrowse'
 import styled from 'styled-components'
-import Courses from './components/Courses'
-import Articles from './components/Articles'
 import Videos from './components/Videos'
 import Books from './components/Books'
 import Podcasts from './components/Podcasts'
-import { createCollection } from 'actions'
+import Items from './components/Items'
+
+import { createCollection, postToFeed } from 'actions'
 import * as browseActions from './store/browseActions'
 
 const Browse = props => {
@@ -37,6 +37,7 @@ const Browse = props => {
     showIframe,
     resetIframe,
     createCollection,
+    postToFeed,
     match,
   } = props
 
@@ -67,28 +68,32 @@ const Browse = props => {
             exact
             path={[`${match.path}`, `${match.path}/articles`]}
             render={props => (
-              <Articles
+              <Items
                 {...props}
-                articles={articles}
+                type='article'
+                items={articles}
                 searchTerm={searchTerm}
-                articleOffset={articleOffset}
-                searchArticles={searchArticles}
-                fetchArticles={fetchArticles}
-                createCollection={createCollection}
+                offset={articleOffset}
+                search={searchArticles}
+                fetch={fetchArticles}
+                save={createCollection}
+                share={postToFeed}
               />
             )}
           />
           <Route
             path={`${match.path}/courses`}
             render={props => (
-              <Courses
+              <Items
                 {...props}
-                courses={courses}
+                type='course'
+                items={courses}
                 searchTerm={searchTerm}
-                coursePage={coursePage}
-                searchCourses={searchCourses}
-                fetchCourses={fetchCourses}
-                createCollection={createCollection}
+                offset={coursePage}
+                search={searchCourses}
+                fetch={fetchCourses}
+                save={createCollection}
+                share={postToFeed}
               />
             )}
           />
@@ -104,6 +109,7 @@ const Browse = props => {
                 searchVideos={searchVideos}
                 fetchVideos={fetchVideos}
                 createCollection={createCollection}
+                postToFeed={postToFeed}
                 showIframe={showIframe}
                 resetIframe={resetIframe}
               />
@@ -120,6 +126,7 @@ const Browse = props => {
                 searchPodcasts={searchPodcasts}
                 fetchPodcasts={fetchPodcasts}
                 createCollection={createCollection}
+                postToFeed={postToFeed}
               />
             )}
           />
@@ -134,6 +141,7 @@ const Browse = props => {
                 searchBooks={searchBooks}
                 fetchBooks={fetchBooks}
                 createCollection={createCollection}
+                postToFeed={postToFeed}
               />
             )}
           />
@@ -153,6 +161,7 @@ export default connect(
   {
     ...browseActions,
     createCollection,
+    postToFeed,
   }
 )(withRouter(Browse))
 
