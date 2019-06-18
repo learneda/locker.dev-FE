@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import { fetchTagPosts } from './tagActions'
+import { fetchTagPosts } from './store/tagActions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
-const HashTag = props => {
+const HashTagFeed = props => {
   useEffect(() => {
     props.fetchTagPosts(props.match.params.tag)
   }, [])
@@ -17,4 +17,4 @@ export default connect(
   {
     fetchTagPosts,
   }
-)(withRouter(HashTag))
+)(withRouter(HashTagFeed))
