@@ -28,24 +28,21 @@ const Suggested = props => {
     await fetchSuggested(auth.id)
   }
 
+  console.log('props')
   const renderRecommended = () => {
     if (!suggested.length) {
       return (
         <>
-          <div className='recommended-follow-container'>
+          <div>
             <MyLoader />
-          </div>
-          <div className='recommended-follow-container'>
             <MyLoader />
-          </div>
-          <div className='recommended-follow-container'>
             <MyLoader />
           </div>
         </>
       )
     } else {
       return suggested.map((ele, index) => (
-        <div className='recommended-follow-container' key={index}>
+        <div key={index}>
           <div className='recommended-follow-info'>
             <div className='suggested-wrap'>
               <Link
@@ -88,10 +85,10 @@ const Suggested = props => {
 
   return (
     <StyledCard>
-      <div className='sticky-container-too recommended-follow-container'>
+      <div className='recommended-follow-container'>
         <h2 className='suggested-heading'>Suggested Friends</h2>
+        <div>{renderRecommended()}</div>
       </div>
-      <div className='sticky-container'>{renderRecommended()}</div>
     </StyledCard>
   )
 }
@@ -101,6 +98,9 @@ export default Suggested
 const StyledCard = styled.div`
   position: sticky;
   top: 60px;
+  transition: opacity 0.4s ease;
+  opacity: 1;
+  width: 290px;
   @media (max-width: 1210px) {
     opacity: 0;
     display: none;
@@ -141,18 +141,7 @@ const StyledCard = styled.div`
     text-align: center;
     color: dodgerblue;
   }
-  transition: opacity 0.4s ease;
-  opacity: 1;
-  width: 290px;
- 
-  /* .sticky-container-too {
-    position: sticky;
-    top: 60px;
-  }
-  .sticky-container {
-    position: sticky;
-    top: 108px;
-  } */
+
   .recommended-follow-container {
     margin-bottom: 10px;
     background: #fff;

@@ -9,17 +9,12 @@ import { customLayout, hoverBg } from 'components/mixins'
 import PropTypes from 'prop-types'
 
 const NavMain = props => {
-  const { user, search, toggleSearch, setSearchOff, resetSearchTerm } = props
+  const { search } = props
   return (
     <Nav>
       <NavLeft />
       {search.isSearch ? <Search /> : <Brand />}
-      <NavRight
-        user={user}
-        toggleSearch={toggleSearch}
-        setSearchOff={setSearchOff}
-        resetSearchTerm={resetSearchTerm}
-      />
+      <NavRight {...props} />
     </Nav>
   )
 }

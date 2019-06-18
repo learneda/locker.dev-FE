@@ -8,13 +8,7 @@ import * as searchActions from './store/searchActions'
 import useOnClickOutside from 'use-onclickoutside'
 
 const Search = props => {
-  const {
-    searchTerm,
-    setSearchTerm,
-    resetSearchTerm,
-    setSearchOff,
-    history,
-  } = props
+  const { searchTerm, setSearchTerm, resetSearchTerm, history } = props
   const ref = useRef()
   const [visible, setVisible] = useState(false)
   useOnClickOutside(ref, e => {
@@ -35,7 +29,9 @@ const Search = props => {
     }
   }
   useEffect(() => {
-    resetSearchTerm()
+    if (searchTerm.length) {
+      resetSearchTerm()
+    }
   }, [history.location.pathname])
 
   //TODO: Make this DRY
@@ -166,7 +162,7 @@ const Container = styled.div`
   position: relative;
   display: flex;
   #search-input {
-    width: 190px;
+    width: 150px;
     font-size: 1.2rem;
     letter-spacing: 0.8px;
     height: 35px;

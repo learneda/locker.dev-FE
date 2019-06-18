@@ -9,7 +9,13 @@ import SearchSVG from './SearchSVG'
 import useOnClickOutside from 'use-onclickoutside'
 
 const NavRight = props => {
-  const { user, toggleSearch, setSearchOff, resetSearchTerm } = props
+  const {
+    user,
+    search: { searchTerm, isSearch },
+    toggleSearch,
+    setSearchOff,
+    resetSearchTerm,
+  } = props
   const ref = useRef()
   const isSmall = useMedia({ maxWidth: 900 })
   const [active, setActive] = useState(false)
@@ -23,17 +29,25 @@ const NavRight = props => {
     if (e.target.className || e.target.className.includes('dd-search')) {
       return
     }
-    console.dir(e.target)
-    setActive(false)
-    setSearchOff()
+    if (isSearch) {
+      setActive(false)
+      setSearchOff()
+    }
   })
+
   useEffect(() => {
     if (!isSmall) {
-      setSearchOff()
-      setActive(false)
+      if (isSearch) {
+        setSearchOff()
+        setActive(false)
+      }
+      if (searchTerm.length) {
+        resetSearchTerm()
+      }
+    }
+    if (searchTerm.length) {
       resetSearchTerm()
     }
-    resetSearchTerm()
   }, [isSmall])
   return (
     <StyledNavRight>
