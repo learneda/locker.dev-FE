@@ -64,7 +64,7 @@ class SidebarById extends Component {
       location,
       websiteUrl,
       created_at,
-      profilePicture,
+      profile_picture,
     } = this.props.other
 
     const profileId = Number(this.props.match.params.id)
@@ -74,7 +74,7 @@ class SidebarById extends Component {
         <Profile>
           <div className='user'>
             <img
-              src={profilePicture}
+              src={profile_picture}
               style={
                 this.state.imageLoaded
                   ? { opacity: '1', visibility: 'visible' }
