@@ -3,3 +3,5 @@ export const INCREMENT_OFFSET = 'INCREMENT_OFFSET'
 export const TOGGLE_HAS_MORE = 'TOGGLE_HAS_MORE'
 
 export const FETCH_LOCKER = 'FETCH_LOCKER'
+
+export const FETCH_TOP_TAGS = 'FETCH_TOP_TAGS'

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import ReusablePortal from '../utils/ModalPortal'
 import { connect } from 'react-redux'
-import { shareCollection, postToFeed } from 'actions/index'
+import { postToFeed } from 'actions/index'
 import { StyledAddLink } from '../utils/StyledAddLink.js'
 import styled from 'styled-components'
 import { ReactComponent as X } from 'assets/svg/x.svg'
@@ -121,7 +121,7 @@ const SharedButton = props => {
 
 export default connect(
   null,
-  { shareCollection, postToFeed }
+  { postToFeed }
 )(SharedButton)
 
 const ModalWrapper = styled.div`

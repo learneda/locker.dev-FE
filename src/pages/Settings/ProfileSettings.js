@@ -25,13 +25,12 @@ const ProfileSettings = props => {
 
   useEffect(() => {
     if (user) {
-      setDisplayName(user.displayName)
+      setDisplayName(user.display_name)
       setUsername(user.username)
       setBio(user.bio)
       setLocation(user.location)
-      setWebsiteUrl(user.websiteUrl)
+      setWebsiteUrl(user.website_url)
       setEmail(user.email)
-      setSelectedFile(user.selectedFile)
       setProfilePic(user.profile_picture)
       setHeaderPic(user.header_picture)
     }
@@ -378,9 +377,9 @@ const FormGroup = styled.form`
           textarea {
             height: 100px;
           }
-        } // label
-      } // col-2
-    } // row
+        }
+      }
+    }
     .btn-group {
       ${customLayout('flex-end')};
       width: 100%;

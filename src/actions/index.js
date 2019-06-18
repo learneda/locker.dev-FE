@@ -63,25 +63,6 @@ export const editCollection = editedCollection => async dispatch => {
     dispatch({ type: EDIT_COLLECTION, payload: collection.data })
   }
 }
-export const shareCollection = collection => async dispatch => {
-  // edit collection
-  const editCollection = await axios.put(`/posts/${collection.id}`, collection)
-  if (editCollection) {
-    dispatch({ type: EDIT_COLLECTION, payload: editCollection.data })
-    // insert new record to newfeed table
-    await axios.post(`/posts/share`, {
-      id: collection.id,
-      user_id: editCollection.data.user_id,
-    })
-
-    const sharedCollection = editCollection.data
-
-    //* Feed post's are expecting to have these to properties on them
-    sharedCollection['comments'] = []
-    sharedCollection['likes'] = 0
-    dispatch({ type: ADD_TO_FEED, payload: sharedCollection })
-  }
-}
 
 export const postToFeed = post => async dispatch => {
   console.log(post)

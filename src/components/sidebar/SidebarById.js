@@ -62,9 +62,9 @@ class SidebarById extends Component {
       username,
       bio,
       location,
-      websiteUrl,
+      website_url,
       created_at,
-      profilePicture,
+      profile_picture,
     } = this.props.other
 
     const profileId = Number(this.props.match.params.id)
@@ -74,7 +74,7 @@ class SidebarById extends Component {
         <Profile>
           <div className='user'>
             <img
-              src={profilePicture}
+              src={profile_picture}
               style={
                 this.state.imageLoaded
                   ? { opacity: '1', visibility: 'visible' }
@@ -127,22 +127,22 @@ class SidebarById extends Component {
             </p>
             <p>
               <img src={linkSvg} alt='link-icon' />
-              {websiteUrl ? (
-                websiteUrl.includes('http') ? (
+              {website_url ? (
+                website_url.includes('http') ? (
                   <a
-                    href={websiteUrl}
+                    href={website_url}
                     target='_blank'
                     rel='noopener noreferrer'
                   >
-                    {websiteUrl.replace(/^https?:\/\//, '')}
+                    {website_url.replace(/^https?:\/\//, '')}
                   </a>
                 ) : (
                   <a
-                    href={`https://${websiteUrl}`}
+                    href={`https://${website_url}`}
                     target='_blank'
                     rel='noopener noreferrer'
                   >
-                    {websiteUrl}
+                    {website_url}
                   </a>
                 )
               ) : (

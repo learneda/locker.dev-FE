@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import Notifications from './Notifications'
+import Notifications from './components/Notifications'
 import { customWrapper } from 'components/mixins'
-import * as notificationActions from './notificationActions'
+import * as notificationActions from './store/notificationActions'
 
 const NotificationsPage = props => {
-  const { notifications, readNotifications } = props
+  const { notifications, readNotifications, getNotifications } = props
 
   useEffect(() => {
-    readNotifications()
+    getNotifications()
   }, [])
 
   return (
