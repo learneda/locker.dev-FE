@@ -377,9 +377,9 @@ const FormGroup = styled.form`
           textarea {
             height: 100px;
           }
-        } // label
-      } // col-2
-    } // row
+        }
+      }
+    }
     .btn-group {
       ${customLayout('flex-end')};
       width: 100%;

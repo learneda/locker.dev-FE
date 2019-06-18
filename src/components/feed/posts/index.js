@@ -262,11 +262,8 @@ class PostContainer extends Component {
             {post.tags.length > 0 &&
               post.tags.map(tag => {
                 return (
-                  <Link to={`tag/${tag.hashtag}`}>
-                    <div style={{ marginLeft: '5px' }} key={tag.id}>
-                      {' '}
-                      #{tag.hashtag}{' '}
-                    </div>
+                  <Link to={`tag/${tag.hashtag}`} key={tag.id}>
+                    <div style={{ marginLeft: '5px' }}> #{tag.hashtag} </div>
                   </Link>
                 )
               })}

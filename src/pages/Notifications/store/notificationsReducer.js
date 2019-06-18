@@ -1,8 +1,7 @@
-import * as type from 'pages/Notifications/notificationTypes'
-import { FETCH_NOTIFICATIONS } from 'appTypes'
+import * as type from './notificationTypes'
 export const notificationsReducer = (state = [], action) => {
   switch (action.type) {
-    case FETCH_NOTIFICATIONS:
+    case type.FETCH_NOTIFICATIONS:
       return action.payload
     case type.DELETE_NOTIFICATIONS:
       return []

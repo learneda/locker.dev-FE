@@ -28,7 +28,6 @@ const Suggested = props => {
     await fetchSuggested(auth.id)
   }
 
-  console.log('props')
   const renderRecommended = () => {
     if (!suggested.length) {
       return (

@@ -7,12 +7,10 @@ const Tagbar = ({ topTags }) => {
   return (
     <Container>
       <h3>Top Tags</h3>
-      {topTags.map((tag, i) => {
+      {topTags.map(tag => {
         return (
-          <div>
-            <Link to={`tag/${tag.hashtag}`} key={i}>
-              #{tag.hashtag}
-            </Link>
+          <div key={tag.id}>
+            <Link to={`tag/${tag.hashtag}`}>#{tag.hashtag}</Link>
             <br />
           </div>
         )

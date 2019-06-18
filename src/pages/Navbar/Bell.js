@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import { connect } from 'react-redux'
 import BellSVG from './components/BellSVG'
 import { Link } from 'react-router-dom'
-import * as notificationActions from 'pages/Notifications/notificationActions'
+import * as notificationActions from 'pages/Notifications/store/notificationActions'
 import styled from 'styled-components'
 import useOnClickOutside from 'use-onclickoutside'
 
