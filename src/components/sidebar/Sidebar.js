@@ -38,7 +38,7 @@ class Sidebar extends Component {
               <img src={this.props.user.profile_picture} alt='avatar' />
             </div>
             <div className='user-bio'>
-              <h3>{this.props.user.displayName}</h3>
+              <h3>{this.props.user.display_name}</h3>
               <div className='profile-stats'>
                 <Link to='/locker'>
                   <ul>
