@@ -6,6 +6,7 @@ import Card from './Card'
 import Loader from './Loader'
 import EndMessage from './EndMessage'
 import styled from 'styled-components'
+import he from 'he'
 
 const Items = props => {
   const { type, items, searchTerm, offset, fetch, search, save, share } = props
@@ -27,6 +28,9 @@ const Items = props => {
         case 'book':
           offset = 0
           break
+        case 'podcast':
+          offset = 0
+          break
         default:
           return
       }
@@ -39,6 +43,7 @@ const Items = props => {
     }
     setDidMount(true)
   }, [throttledSearch])
+
   // hasMore false only when searchQuery returns no matches
   const hasMore = !Boolean(searchTerm) || Boolean(items.length)
   const next = () => fetch(searchTerm, offset)

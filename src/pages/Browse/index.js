@@ -4,7 +4,6 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 import NavBrowse from './components/NavBrowse'
 import styled from 'styled-components'
 import Videos from './components/Videos'
-import Books from './components/Books'
 import Podcasts from './components/Podcasts'
 import Items from './components/Items'
 
@@ -118,15 +117,16 @@ const Browse = props => {
           <Route
             path={`${match.path}/podcasts`}
             render={props => (
-              <Podcasts
+              <Items
                 {...props}
-                podcasts={podcasts}
+                type='podcast'
+                items={podcasts}
                 searchTerm={searchTerm}
-                podcastOffset={podcastOffset}
-                searchPodcasts={searchPodcasts}
-                fetchPodcasts={fetchPodcasts}
-                createCollection={createCollection}
-                postToFeed={postToFeed}
+                offset={podcastOffset}
+                search={searchPodcasts}
+                fetch={fetchPodcasts}
+                save={createCollection}
+                share={postToFeed}
               />
             )}
           />

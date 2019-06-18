@@ -3,6 +3,9 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const CoverBook = ({ item }) => {
+  if (!item.thumbnail) {
+    item.thumbnail = 'https://source.unsplash.com/random/128x190'
+  }
   return (
     <Container url={item.thumbnail}>
       <div className='cover-blur' />
@@ -40,7 +43,7 @@ const Container = styled.div`
     background-size: cover;
     background-position: center;
     background-image: url(${props => props.url});
-    filter: blur(1rem);
+    filter: blur(1.5rem);
     @media (max-width: 820px) {
       height: 260px;
     }
