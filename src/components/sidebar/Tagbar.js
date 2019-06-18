@@ -32,6 +32,11 @@ const Container = styled.section`
   position: sticky;
   top: 310px;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  h3 {
+    align-self: center;
+  }
   @media (max-width: 910px) {
     display: none;
   }
