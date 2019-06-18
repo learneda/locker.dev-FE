@@ -7,6 +7,9 @@ import * as notificationActions from './store/notificationActions'
 
 const NotificationsPage = props => {
   const { notifications, getNotifications } = props
+  if (!notifications.length) {
+    getNotifications()
+  }
 
   return (
     <Container>
