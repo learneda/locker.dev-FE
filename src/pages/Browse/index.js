@@ -4,8 +4,6 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 import NavBrowse from './components/NavBrowse'
 import styled from 'styled-components'
 import Videos from './components/Videos'
-import Books from './components/Books'
-import Podcasts from './components/Podcasts'
 import Items from './components/Items'
 
 import { createCollection, postToFeed } from 'actions'
@@ -118,30 +116,32 @@ const Browse = props => {
           <Route
             path={`${match.path}/podcasts`}
             render={props => (
-              <Podcasts
+              <Items
                 {...props}
-                podcasts={podcasts}
+                type='podcast'
+                items={podcasts}
                 searchTerm={searchTerm}
-                podcastOffset={podcastOffset}
-                searchPodcasts={searchPodcasts}
-                fetchPodcasts={fetchPodcasts}
-                createCollection={createCollection}
-                postToFeed={postToFeed}
+                offset={podcastOffset}
+                search={searchPodcasts}
+                fetch={fetchPodcasts}
+                save={createCollection}
+                share={postToFeed}
               />
             )}
           />
           <Route
             path={`${match.path}/books`}
             render={props => (
-              <Books
+              <Items
                 {...props}
-                books={books}
+                type='book'
+                items={books}
                 searchTerm={searchTerm}
-                bookOffset={bookOffset}
-                searchBooks={searchBooks}
-                fetchBooks={fetchBooks}
-                createCollection={createCollection}
-                postToFeed={postToFeed}
+                offset={bookOffset}
+                search={searchBooks}
+                fetch={fetchBooks}
+                save={createCollection}
+                share={postToFeed}
               />
             )}
           />
