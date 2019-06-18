@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useAlert } from 'react-alert'
-import { ReactComponent as Add } from 'assets/svg/add-icon.svg'
+import LockerSVG from './Locker01SVG'
 import { smartTruncate } from 'components/mixins'
 import { useMedia } from 'use-media'
 import styled from 'styled-components'
@@ -10,15 +10,31 @@ const Card = props => {
   const { item, type, createCollection } = props
   const alert = useAlert()
   const isSingle = useMedia({ maxWidth: 820 })
-  const saveToLocker = () => {
-    createCollection({
+  const [saveActive, setSaveActive] = useState(false)
+  const [saveText, setSaveText] = useState('Save')
+  const saveToLocker = async () => {
+    await createCollection({
       type,
       post_url: item.url,
       title: item.title,
       description: item.description,
       thumbnail_url: item.thumbnail,
     })
-    alert.success(`${type[0].toUpperCase + type.slice(1)} added to Locker`)
+    alert.success(
+      `${type.slice(0, 1).toUpperCase() + type.slice(1)} added to Locker`
+    )
+  }
+
+  //TODO: Clean logic
+  const handleClick = async () => {
+    setSaveText('Saving')
+    setSaveActive(prev => !prev)
+    await saveToLocker()
+    if (saveActive) {
+      setSaveText('Save')
+    } else {
+      setSaveText('Saved')
+    }
   }
   const cropTitle = isSingle ? 100 : 80
   const cropDesc = isSingle ? 190 : 135
@@ -40,8 +56,9 @@ const Card = props => {
       <div className='card-bar'>
         <div className='card-info-bar'>InfoBar</div>
         <div className='card-action-bar'>
-          <div className='wrap-save' onClick={saveToLocker}>
-            <Add className='save-icon' />
+          <div className='wrap-save' onClick={handleClick}>
+            <LockerSVG className='save-icon' active={saveActive} />
+            <span className='save-label'>{saveText}</span>
           </div>
         </div>
       </div>
@@ -58,7 +75,7 @@ const Container = styled.div`
   position: relative;
   flex-direction: column;
   width: 358px;
-  height: 350px;
+  height: 360px;
   margin: 15px 20px;
   border-radius: 6px;
   background-color: #fff;
@@ -111,15 +128,24 @@ const Container = styled.div`
     align-items: center;
     position: absolute;
     bottom: 0px;
-    height: 40px;
+    height: 50px;
     width: 100%;
     .card-info-bar {
       padding: 0 10px;
     }
     .card-action-bar {
       .wrap-save {
+        border: 1px solid red;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         padding: 0 10px;
         cursor: pointer;
+        width: 70px;
+      }
+      .save-label {
+        padding-top: 2px;
       }
     }
   }
