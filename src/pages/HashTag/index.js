@@ -13,7 +13,7 @@ const HashTagFeed = props => {
   useEffect(() => {
     props.fetchTagPosts(props.match.params.tag)
     return () => dispatch({ type: RESET_TAG_POSTS })
-  }, [])
+  }, [props.history.location.pathname])
   return (
     <div>
       <div>
