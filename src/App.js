@@ -32,48 +32,48 @@ const App = props => {
     ponyUp,
     ponyDown,
   } = props
-  //* initial fetchAuth and fetchUser on browser refresh
+  // initial fetchAuth and fetchUser on browser refresh
   useEffect(() => {
     fetchAuth().then(user => {
       if (user.id) {
-        //* on CDM socket will emit to all other sockets online that this user connected
+        // on CDM socket will emit to all other sockets online that this user connected
         socket.emit('join', { user_id: user.id })
-        //* join namespace contains all the current users who are online
+        // join namespace contains all the current users who are online
 
         socket.on('join', data => {
           fetchNotifications(data)
         })
-        //* socket is listening on comments event & will receive an obj
+        // socket is listening on comments event & will receive an obj
         socket.on('comments', msg => {
-          //* msg obj contains properties of content, action, post_id, user_id, username, created_at, & updated_at
+          // msg obj contains properties of content, action, post_id, user_id, username, created_at, & updated_at
           console.log('does the action exist', msg)
 
           switch (msg.action) {
-            //* when action type === destroy
+            // when action type === destroy
             case 'destroy':
-              //* invoke action creator deleteComment & pass in msg obj
+              // invoke action creator deleteComment & pass in msg obj
               deleteComment(msg)
               break
-            //* when action type === create
+            // when action type === create
             case 'create':
-              //* invoke action creator createComment & pass in msg obj
+              // invoke action creator createComment & pass in msg obj
               createComment(msg)
               break
             default:
               break
           }
         })
-        //* socket is listening on like event & will receive an obj
+        // socket is listening on like event & will receive an obj
         socket.on('like', data => {
-          //* obj contains postOwnerId, post_id, user_id, username
-          //* console.log('in like socket connection', data)
+          // obj contains postOwnerId, post_id, user_id, username
+          // console.log('in like socket connection', data)
           switch (data.action) {
             case 'unlike':
-              //* invoke action creator unlikeComment & pass in msg obj
+              // invoke action creator unlikeComment & pass in msg obj
               unlikeComment(data)
               break
             case 'like':
-              //* invoke action creator likeComment & pass in msg obj
+              // invoke action creator likeComment & pass in msg obj
               likeComment(data)
               break
             default:
@@ -81,15 +81,15 @@ const App = props => {
           }
         })
         socket.on('pony', data => {
-          //* obj contains postOwnerId, post_id, user_id, username
-          //* console.log('in like socket connection', data)
+          // obj contains postOwnerId, post_id, user_id, username
+          // console.log('in like socket connection', data)
           switch (data.action) {
             case 'pony_down':
-              //* invoke action creator unlikeComment & pass in msg obj
+              // invoke action creator unlikeComment & pass in msg obj
               ponyDown(data)
               break
             case 'pony_up':
-              //* invoke action creator likeComment & pass in msg obj
+              // invoke action creator likeComment & pass in msg obj
               ponyUp(data)
               break
             default:

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import styled from 'styled-components'
-import { ReactComponent as Add } from 'assets/svg/add-icon.svg'
+import { ReactComponent as Add } from 'assets/svg/locker01.svg'
 import { ReactComponent as Loading } from 'assets/svg/circles.svg'
 import { useAlert } from 'react-alert'
 import { useThrottle } from 'use-throttle'

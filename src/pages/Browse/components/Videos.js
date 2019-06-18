@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { ReactComponent as Loading } from '../../assets/svg/circles.svg'
-import { ReactComponent as Add } from '../../assets/svg/add-icon.svg'
+import { ReactComponent as Loading } from 'assets/svg/circles.svg'
+import { ReactComponent as Add } from 'assets/svg/add-icon.svg'
 import { useAlert } from 'react-alert'
 import { useThrottle } from 'use-throttle'
-import { customLayout, smartTruncate } from '../mixins'
+import { customLayout, smartTruncate } from 'components/mixins'
 import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 
 const Videos = props => {
