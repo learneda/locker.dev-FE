@@ -6,7 +6,7 @@ import { customWrapper } from 'components/mixins'
 import * as notificationActions from './store/notificationActions'
 
 const NotificationsPage = props => {
-  const { notifications, readNotifications, getNotifications } = props
+  const { notifications, getNotifications } = props
 
   useEffect(() => {
     getNotifications()
@@ -14,7 +14,7 @@ const NotificationsPage = props => {
 
   return (
     <Container>
-      <Notifications notifications={notifications} />
+      <Notifications notifications={notifications} {...props} />
     </Container>
   )
 }

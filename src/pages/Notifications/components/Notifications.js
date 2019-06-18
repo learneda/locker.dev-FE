@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const Notifications = props => {
-  const { notifications } = props
-  console.log('is there any here ??', notifications)
+  const { notifications, readNotifications } = props
+  useEffect(() => {
+    readNotifications()
+  }, [])
   const displayNotifications = notifications.map(notification => {
     return (
       <div key={notification.id}>

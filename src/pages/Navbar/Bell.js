@@ -19,8 +19,10 @@ const Bell = props => {
     }
     setIsModalOpen(false)
   })
-  let count = props.notifications
-  count = count.length
+
+  const count = notifications.filter(notification =>
+    Boolean(!notification.read)
+  ).length
 
   const selectThumbnail = postId => {
     return posts

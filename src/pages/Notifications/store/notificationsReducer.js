@@ -5,6 +5,11 @@ export const notificationsReducer = (state = [], action) => {
       return action.payload
     case type.DELETE_NOTIFICATIONS:
       return []
+    case type.READ_NOTIFICATIONS:
+      return state.map(notification => {
+        notification.read = true
+        return notification
+      })
     default:
       return state
   }
