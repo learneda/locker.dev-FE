@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react'
-
+import { Link } from 'react-router-dom'
 const Notifications = props => {
   const { notifications, readNotifications } = props
   useEffect(() => {
-    readNotifications()
+    return () => readNotifications()
   }, [])
-  const displayNotifications = notifications.map(notification => {
+  const displayNotifications = notifications.map(n => {
     return (
-      <div key={notification.id}>
-        <h1>{notification.invoker}</h1>
-        <p>{notification.type}</p>
+      <div style={{ border: '2px solid red' }}>
+        <Link to={`/status/${n.post_id}`} key={n.id}>
+          <h1>
+            {n.invoker} {n.type} on your post
+          </h1>
+        </Link>
       </div>
     )
   })
