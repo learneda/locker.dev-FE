@@ -24,12 +24,14 @@ class PostContainer extends Component {
         )
       }
       if (this.props.post.hasPony) {
-        this.pony.current.setAttribute('class', 'heart-red')
+        this.pony.current.setAttribute('class', 'on')
       }
     }
   }
 
   handleLikes = (e, post_id, post) => {
+    e.preventDefault()
+
     const postOwnerId = post.user_id
 
     let result = e.target.classList.contains('heart-red')
@@ -56,8 +58,9 @@ class PostContainer extends Component {
   }
 
   handlePonyClick = (e, post_id, post) => {
+    e.preventDefault()
     const postOwnerId = post.user_id
-    let hasClassName = e.target.classList.contains('heart-red')
+    let hasClassName = e.target.classList.contains('on')
     if (hasClassName) {
       const data = {
         id: post_id,
@@ -249,20 +252,24 @@ class PostContainer extends Component {
                 className='far fa-heart fa-lg'
                 ref={this.heartIcon}
                 onClick={e => {
+                  e.preventDefault()
                   this.handleLikes(e, post.id, post)
                   e.target.classList.toggle('heart-red')
                 }}
               />
               <span className='like_num'>{post.likes}</span>
             </div>
-            <div
-              ref={this.pony}
-              onClick={e => {
-                this.handlePonyClick(e, post.id, post)
-                e.target.classList.toggle('heart-red')
-              }}
-            >
-              🦄
+            <div>
+              <span
+                ref={this.pony}
+                onClick={e => {
+                  e.preventDefault()
+                  this.handlePonyClick(e, post.id, post)
+                  e.target.classList.toggle('on')
+                }}
+              >
+                🦄
+              </span>
               <span>{post.ponyCount}</span>
             </div>
 
