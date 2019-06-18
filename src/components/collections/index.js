@@ -1,11 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import HelpScreen from '../utils/screens/HelpScreen'
 import BookmarkSVG from 'assets/svg/bookmark-drawing.svg'
 import Collection from './Collection'
-import { useSelector } from 'react-redux'
 import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
+import { deleteCollection } from '../../actions'
 
 const Collections = props => {
+  const dispatch = useDispatch()
+  const deleteCollections = useCallback(
+    postId => dispatch(deleteCollection(postId)),
+    [dispatch]
+  )
+
   const { searchTerm: search, collections } = useSelector(
     ({ search, collections }) => ({
       searchTerm: search.searchTerm,
@@ -21,7 +29,7 @@ const Collections = props => {
   }
 
   const handleDelete = postId => {
-    props.deleteCollection(postId)
+    deleteCollections(postId)
   }
 
   if (collections.length) {
