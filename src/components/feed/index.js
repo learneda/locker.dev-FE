@@ -165,7 +165,6 @@ const Container = styled.div`
       }
     }
     .post-date::before {
-      content: '-';
       margin-right: 5px;
     }
     .post-thoughts {
