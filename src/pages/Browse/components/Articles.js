@@ -19,10 +19,10 @@ const Articles = props => {
   const [isLoading, setIsLoading] = useState(false)
   const [didMount, setDidMount] = useState(false)
   const throttledSearch = useThrottle(searchTerm, 1000)
-  //* Performs throttled search and prevents search on initial mount
+  // Performs throttled search and prevents search on initial mount
   useEffect(() => {
     const asyncSearchArticles = async () => {
-      //* Search resets offset=0
+      // Search resets offset=0
       const offset = 0
       await searchArticles(searchTerm, offset)
       setIsLoading(false)
@@ -33,7 +33,7 @@ const Articles = props => {
     }
     setDidMount(true)
   }, [throttledSearch])
-  //* hasMore false only when searchQuery returns no matches
+  // hasMore false only when searchQuery returns no matches
   const hasMore = !Boolean(searchTerm) || Boolean(articles.length)
   const next = () => fetchArticles(searchTerm, articleOffset)
 

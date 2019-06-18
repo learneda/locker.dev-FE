@@ -58,7 +58,12 @@ const Card = props => {
         <div className='card-action-bar'>
           <div className='wrap-save' onClick={handleClick}>
             <LockerSVG className='save-icon' active={saveActive} />
-            <span className='save-label'>{saveText}</span>
+            <span
+              style={{ color: saveActive ? 'dodgerblue' : 'black' }}
+              className='save-label'
+            >
+              {saveText}
+            </span>
           </div>
         </div>
       </div>
@@ -134,17 +139,18 @@ const Container = styled.div`
       padding: 0 10px;
     }
     .card-action-bar {
+      font-size: 1.2rem;
       .wrap-save {
-        border: 1px solid red;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 0 10px;
         cursor: pointer;
         width: 70px;
+        transition: 1s ease-in-out;
       }
       .save-label {
+        font-weight: 600;
         padding-top: 2px;
       }
     }
