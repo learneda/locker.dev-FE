@@ -24,6 +24,9 @@ const Items = props => {
         case 'course':
           offset = 1
           break
+        case 'book':
+          offset = 0
+          break
         default:
           return
       }

@@ -6,7 +6,7 @@ import ShareSVG from './ShareSVG'
 import { smartTruncate } from 'components/mixins'
 import { useMedia } from 'use-media'
 import styled from 'styled-components'
-
+import CoverBook from './CoverBook'
 const Card = props => {
   const { item, type, save, share } = props
   const alert = useAlert()
@@ -39,6 +39,16 @@ const Card = props => {
         description: item.headline,
         post_url: `https://www.udemy.com${item.url}`,
         thumbnail_url: item.image_480x270,
+      }
+      break
+    case 'book':
+      item.url = item.link
+      insertItem = {
+        type,
+        title: item.title,
+        description: item.description,
+        post_url: item.link,
+        thumbnail_url: item.thumbnail,
       }
       break
     default:
@@ -86,14 +96,20 @@ const Card = props => {
 
   return (
     <Container saveActive={saveActive} shareActive={shareActive}>
-      <div className='card-cover'>
-        <a href={item.url} target='_blank' rel='noopener noreferrer'>
-          <img
-            src={item.thumbnail || 'https://source.unsplash.com/random/345x180'}
-            alt={`${type}-thumbnail`}
-          />
-        </a>
-      </div>
+      {type === 'book' ? (
+        <CoverBook item={item} />
+      ) : (
+        <div className='card-cover'>
+          <a href={item.url} target='_blank' rel='noopener noreferrer'>
+            <img
+              src={
+                item.thumbnail || 'https://source.unsplash.com/random/345x180'
+              }
+              alt={`${type}-thumbnail`}
+            />
+          </a>
+        </div>
+      )}
       <div className='card-content'>
         <h3>{smartTruncate(item.title, cropTitle)}</h3>
         <p>{smartTruncate(item.description, cropDesc)}</p>

@@ -133,15 +133,16 @@ const Browse = props => {
           <Route
             path={`${match.path}/books`}
             render={props => (
-              <Books
+              <Items
                 {...props}
-                books={books}
+                type='book'
+                items={books}
                 searchTerm={searchTerm}
-                bookOffset={bookOffset}
-                searchBooks={searchBooks}
-                fetchBooks={fetchBooks}
-                createCollection={createCollection}
-                postToFeed={postToFeed}
+                offset={bookOffset}
+                search={searchBooks}
+                fetch={fetchBooks}
+                save={createCollection}
+                share={postToFeed}
               />
             )}
           />
