@@ -76,6 +76,10 @@ export const tagReducer = (state = initialState, action) => {
       return { ...state, posts: ponyDown }
     case type.RESET_TAG_POSTS:
       return initialState
+    case type.FOLLOW_TAG:
+      return { ...state, isFollowing: action.payload }
+    case type.UNFOLLOW_TAG:
+      return { ...state, isFollowing: action.payload }
     default:
       return state
   }

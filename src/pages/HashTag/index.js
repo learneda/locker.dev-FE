@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { fetchTagPosts } from './store/tagActions'
+import * as tagActions from './store/tagActions'
 import { RESET_TAG_POSTS } from './store/tagActionTypes'
 import { createCollection } from '../../actions'
 import { connect } from 'react-redux'
@@ -16,7 +16,20 @@ const HashTagFeed = props => {
   }, [])
   return (
     <div>
-      <h1>{props.match.params.tag}</h1>
+      <div>
+        <h1>{props.match.params.tag}</h1>
+        <div
+          onClick={() => {
+            if (props.posts.isFollowing) {
+              props.unfollowTag(props.match.params.tag)
+            } else {
+              props.followTag(props.match.params.tag)
+            }
+          }}
+        >
+          {props.posts.isFollowing ? '✔ following' : '+ follow'}
+        </div>
+      </div>
       <Feed
         user={props.user}
         posts={props.posts.posts}
@@ -36,7 +49,7 @@ const mapStateToProps = ({ tagPosts, user, auth }) => ({
 export default connect(
   mapStateToProps,
   {
-    fetchTagPosts,
+    ...tagActions,
     createCollection,
   }
 )(withRouter(HashTagFeed))
