@@ -1,1 +1,2 @@
 export const FETCH_TAG_POSTS = 'FETCH_TAG_POSTS'
+export const RESET_TAG_POSTS = 'RESET_TAG_POSTS'

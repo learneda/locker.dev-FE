@@ -74,6 +74,8 @@ export const tagReducer = (state = initialState, action) => {
         return post
       })
       return { ...state, posts: ponyDown }
+    case type.RESET_TAG_POSTS:
+      return initialState
     default:
       return state
   }
