@@ -38,7 +38,6 @@ const Container = styled.div`
     width: 100%;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
-    background-color: blue;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

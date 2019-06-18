@@ -93,7 +93,7 @@ class PostContainer extends Component {
 
   displayMedia = post => {
     const { url, thumbnail_url } = post
-    if (url.includes('youtube.com/watch')) {
+    if (url && url.includes('youtube.com/watch')) {
       const videoId = url.split('=')[1]
       return (
         <div
@@ -235,10 +235,12 @@ class PostContainer extends Component {
               >
                 {selectLogo(post.url)}
                 <span style={{ marginLeft: '5px' }}>
-                  {post.url.includes('book') ? 'google.com' : null}
+                  {post.url && post.url.includes('book') ? 'google.com' : null}
                 </span>
                 <span style={{ marginLeft: '5px' }}>
-                  {post.url.includes('youtube') ? 'youtube.com' : null}
+                  {post.url && post.url.includes('youtube')
+                    ? 'youtube.com'
+                    : null}
                 </span>
                 {post.root_url === 'youtube.com' ? null : (
                   <span style={{ marginLeft: '-5px' }}>{post.root_url}</span>

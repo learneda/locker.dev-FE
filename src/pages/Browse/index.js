@@ -4,7 +4,6 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 import NavBrowse from './components/NavBrowse'
 import styled from 'styled-components'
 import Videos from './components/Videos'
-import Podcasts from './components/Podcasts'
 import Items from './components/Items'
 
 import { createCollection, postToFeed } from 'actions'
