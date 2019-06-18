@@ -21,11 +21,11 @@ export const fetchFeed = () => async dispatch => {
 // InfiniteScroll component will call this func with offset to get next posts
 export const fetchMoreFeed = offset => async dispatch => {
   // offset flow => 0, 5, 10 . offset will be incremented by +5 for everytime it is called
-  const newsFeed = await axios.get(`/users/newsfeed?offset=${offset}`)
+  const newsFeed = await axios.get(`/newsfeed?offset=${offset}`)
   // if the response's data array is populated ?
   if (newsFeed.data.length) {
     // set the array with new posts as payload
-    dispatch({ type: type.FETCH_FEED, payload: newsFeed.data })
+    dispatch({ type: type.FETCH_MORE_FEED, payload: newsFeed.data })
     // increment the offset by 5
     dispatch({ type: type.INCREMENT_OFFSET, payload: offset + 5 })
   } else {

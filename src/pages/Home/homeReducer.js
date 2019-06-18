@@ -13,6 +13,8 @@ export const homeReducer = (state = initialState, action) => {
     case type.FETCH_FEED:
       // payload === an array of posts
       // creating new state obj & merging previous post state with new incoming post state
+      return { ...state, posts: [...action.payload] }
+    case type.FETCH_MORE_FEED:
       return { ...state, posts: [...state.posts, ...action.payload] }
     // hasmore boolean will switch to false so infinite scroll component will stop fetching newsfeed post
     case type.TOGGLE_HAS_MORE:
