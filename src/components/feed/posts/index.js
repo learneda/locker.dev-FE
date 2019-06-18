@@ -77,8 +77,15 @@ class PostContainer extends Component {
     }
   }
 
-  handleSaveToProfile = url => {
-    this.props.createCollection({ url: url })
+  handleSaveToProfile = post => {
+    const { title, url, description, thumbnail_url } = post
+    this.props.createCollection({
+      title,
+      description,
+      thumbnail_url,
+      post_url: url,
+      type: 'link',
+    })
   }
 
   displayMedia = post => {
@@ -272,7 +279,7 @@ class PostContainer extends Component {
               <div
                 className='save'
                 onClick={() => {
-                  this.handleSaveToProfile(post.url)
+                  this.handleSaveToProfile(post)
                   this.props.alert.success('Post added to Saved')
                 }}
               >
