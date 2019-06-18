@@ -197,7 +197,6 @@ const Container = styled.div`
     h2 {
       margin-bottom: 10px;
       font-size: 2.6rem;
-      // font-weight: 500;
       opacity: 0.8;
       transition: 100ms ease-out;
       line-height: 1.3;

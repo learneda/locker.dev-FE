@@ -1,17 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import HelpScreen from '../utils/screens/HelpScreen'
 import BookmarkSVG from 'assets/svg/bookmark-drawing.svg'
 import Collection from './Collection'
-import { useSelector } from 'react-redux'
 import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
+import { deleteCollection, fetchCollections } from '../../actions'
 
 const Collections = props => {
+  const dispatch = useDispatch()
+
   const { searchTerm: search, collections } = useSelector(
     ({ search, collections }) => ({
       searchTerm: search.searchTerm,
       collections,
     })
   )
+
+  useEffect(() => {
+    console.log(collections)
+    if (!collections.length) {
+      dispatch(fetchCollections())
+    }
+  }, [])
+
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isEditPost, setIsEditPost] = useState(null)
 
@@ -21,7 +33,7 @@ const Collections = props => {
   }
 
   const handleDelete = postId => {
-    props.deleteCollection(postId)
+    dispatch(deleteCollection(postId))
   }
 
   if (collections.length) {

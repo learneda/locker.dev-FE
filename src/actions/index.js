@@ -48,7 +48,7 @@ export const deleteCollection = id => async dispatch => {
     const res = await axios.delete(`/posts/${id}`)
     dispatch({ type: DELETE_COLLECTION, payload: res.data })
     // deleting record from saved_post_id tbl
-    await axios.delete(`/users/saved-post-ids/${id}`)
+    // await axios.delete(`/users/saved-post-ids/${id}`)
   } catch (err) {
     // if this error is hit its probably bc id wasn't found on save_post_id
     console.log('sorry 4 that err')

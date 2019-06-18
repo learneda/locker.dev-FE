@@ -1,28 +1,15 @@
-import * as type from './homeTypes'
-import { ADD_TO_FEED } from 'actions/types'
-import * as appType from 'appTypes'
+import * as type from './tagActionTypes'
+import * as appType from '../../../appTypes'
+
 const initialState = {
   posts: [],
-  locker: [],
-  hasmore: true,
-  offset: 5,
-  topTags: [],
+  isFollowing: null,
 }
-export const homeReducer = (state = initialState, action) => {
+
+export const tagReducer = (state = initialState, action) => {
   switch (action.type) {
-    case type.FETCH_FEED:
-      // payload === an array of posts
-      // creating new state obj & merging previous post state with new incoming post state
-      return { ...state, posts: [...action.payload] }
-    case type.FETCH_MORE_FEED:
-      return { ...state, posts: [...state.posts, ...action.payload] }
-    // hasmore boolean will switch to false so infinite scroll component will stop fetching newsfeed post
-    case type.TOGGLE_HAS_MORE:
-      return { ...state, hasmore: action.payload }
-    // incrementing offset by +5
-    case type.INCREMENT_OFFSET:
-      return { ...state, offset: action.payload }
-    // pushing comment obj into a single post's comment arr
+    case type.FETCH_TAG_POSTS:
+      return { ...action.payload }
     case appType.CREATE_COMMENT:
       // mapping thru each post in posts arr
       // payload will be the comment obj that contains which post it belongs to
@@ -87,13 +74,12 @@ export const homeReducer = (state = initialState, action) => {
         return post
       })
       return { ...state, posts: ponyDown }
-    case type.FETCH_LOCKER:
-      return { ...state, locker: action.payload }
-    case ADD_TO_FEED:
-      const new_posts = [action.payload, ...state.posts]
-      return { ...state, posts: new_posts }
-    case type.FETCH_TOP_TAGS:
-      return { ...state, topTags: action.payload }
+    case type.RESET_TAG_POSTS:
+      return initialState
+    case type.FOLLOW_TAG:
+      return { ...state, isFollowing: action.payload }
+    case type.UNFOLLOW_TAG:
+      return { ...state, isFollowing: action.payload }
     default:
       return state
   }
