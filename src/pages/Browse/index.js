@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
+import NavBrowse from './components/NavBrowse'
 import styled from 'styled-components'
 import Courses from 'components/browse/Courses'
-import Articles from 'components/browse/Articles'
+import Articles from './components/Articles'
 import Videos from 'components/browse/Videos'
 import Books from 'components/browse/Books'
 import Podcasts from 'components/browse/Podcasts'
 import { createCollection } from 'actions'
-import * as browseActions from './browseActions'
+import * as browseActions from './store/browseActions'
 
 const Browse = props => {
   const {
@@ -58,49 +59,13 @@ const Browse = props => {
   }, [])
 
   return (
-    <Container>
-      <Tabs>
-        <Tab>
-          <NavLink
-            exact
-            to={`${match.url}/courses`}
-            className={props.location.pathname === '/browse' ? 'active' : null}
-          >
-            Course
-          </NavLink>
-        </Tab>
-        <Tab>
-          <NavLink to={`${match.url}/articles`}>Article</NavLink>
-        </Tab>
-        <Tab>
-          <NavLink to={`${match.url}/videos`}>Video</NavLink>
-        </Tab>
-        <Tab>
-          <NavLink to={`${match.url}/books`}>Book</NavLink>
-        </Tab>
-        <Tab>
-          <NavLink to={`${match.url}/podcasts`}>Podcast</NavLink>
-        </Tab>
-      </Tabs>
-      <RouteWrapper>
+    <Wrapper>
+      <NavBrowse />
+      <Container>
         <Switch>
           <Route
             exact
-            path={[`${match.path}`, `${match.path}/courses`]}
-            render={props => (
-              <Courses
-                {...props}
-                courses={courses}
-                searchTerm={searchTerm}
-                coursePage={coursePage}
-                searchCourses={searchCourses}
-                fetchCourses={fetchCourses}
-                createCollection={createCollection}
-              />
-            )}
-          />
-          <Route
-            path={`${match.path}/articles`}
+            path={[`${match.path}`, `${match.path}/articles`]}
             render={props => (
               <Articles
                 {...props}
@@ -113,6 +78,21 @@ const Browse = props => {
               />
             )}
           />
+          <Route
+            path={`${match.path}/courses`}
+            render={props => (
+              <Courses
+                {...props}
+                courses={courses}
+                searchTerm={searchTerm}
+                coursePage={coursePage}
+                searchCourses={searchCourses}
+                fetchCourses={fetchCourses}
+                createCollection={createCollection}
+              />
+            )}
+          />
+
           <Route
             path={`${match.path}/videos`}
             render={props => (
@@ -130,20 +110,6 @@ const Browse = props => {
             )}
           />
           <Route
-            path={`${match.path}/books`}
-            render={props => (
-              <Books
-                {...props}
-                books={books}
-                searchTerm={searchTerm}
-                bookOffset={bookOffset}
-                searchBooks={searchBooks}
-                fetchBooks={fetchBooks}
-                createCollection={createCollection}
-              />
-            )}
-          />
-          <Route
             path={`${match.path}/podcasts`}
             render={props => (
               <Podcasts
@@ -157,9 +123,23 @@ const Browse = props => {
               />
             )}
           />
+          <Route
+            path={`${match.path}/books`}
+            render={props => (
+              <Books
+                {...props}
+                books={books}
+                searchTerm={searchTerm}
+                bookOffset={bookOffset}
+                searchBooks={searchBooks}
+                fetchBooks={fetchBooks}
+                createCollection={createCollection}
+              />
+            )}
+          />
         </Switch>
-      </RouteWrapper>
-    </Container>
+      </Container>
+    </Wrapper>
   )
 }
 
@@ -176,54 +156,12 @@ export default connect(
   }
 )(withRouter(Browse))
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-`
-
-const Tabs = styled.ul`
   display: flex;
-  position: sticky;
-  top: 50px;
-  height: 80px;
-  width: 100%;
-  z-index: 1;
-  align-items: flex-end;
-  background: rgb(230, 233, 243);
-  padding-bottom: 25px;
-  border-bottom: 3px solid transparent;
-  &:hover {
-    color: #4064f2;
-  }
-  .active {
-    border-bottom: 3px solid #4064f2;
-    font-weight: 900;
-    color: #4064f2;
-  }
-  @media (max-width: 900px) {
-    top: 50px;
-  }
-`
-const Tab = styled.li`
-  margin: 0 2rem 0 1rem;
-  font-size: 2rem;
-  a {
-    transition: 100ms ease-out;
-    &:hover {
-      color: #4064f2;
-      transition: 100ms ease-in;
-    }
-  }
-  @media (max-width: 500px) {
-    font-size: 1.5rem;
-  }
-  @media (max-width: 400px) {
-    font-size: 1.2rem;
-  }
-  @media (max-width: 350px) {
-    font-size: 1rem;
-  }
-`
-const RouteWrapper = styled.div`
-  padding-top: 20px;
 `

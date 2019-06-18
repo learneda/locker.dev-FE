@@ -5,7 +5,8 @@ export const Sticky = styled.div`
   height: 50px;
   width: 100%;
   background-color: #ffffff;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-bottom: 1px solid #bfbfbf;
+  /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); */
   padding: 0 2rem;
   top: 0;
   left: 0;
