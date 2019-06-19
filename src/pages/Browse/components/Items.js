@@ -55,9 +55,6 @@ const Items = props => {
       }
     }
     setDidMount(true)
-    return () => {
-      window.scroll(0, 0)
-    }
   }, [throttledSearch])
 
   // hasMore false only when searchQuery returns no matches
