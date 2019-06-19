@@ -32,6 +32,7 @@ class PostContainer extends Component {
         )
       }
       if (this.props.post.hasPony) {
+        console.log('inside did mount has Pony')
         this.pony.current.setAttribute('class', 'on')
         this.setState({ active: true })
       }
@@ -39,8 +40,6 @@ class PostContainer extends Component {
   }
 
   handleLikes = (e, post_id, post) => {
-    e.preventDefault()
-
     const postOwnerId = post.user_id
 
     let result = e.target.classList.contains('heart-red')
@@ -67,7 +66,6 @@ class PostContainer extends Component {
   }
 
   handlePonyClick = (e, post_id, post) => {
-    e.preventDefault()
     const postOwnerId = post.user_id
     let hasClassName = this.state.active
     if (!hasClassName) {
@@ -246,7 +244,6 @@ class PostContainer extends Component {
                 className='far fa-heart fa-lg'
                 ref={this.heartIcon}
                 onClick={e => {
-                  e.preventDefault()
                   this.handleLikes(e, post.id, post)
                   e.target.classList.toggle('heart-red')
                 }}
@@ -257,7 +254,6 @@ class PostContainer extends Component {
               <span
                 ref={this.pony}
                 onClick={e => {
-                  e.preventDefault()
                   this.setState(
                     prev => ({ active: !prev.active }),
                     () => this.handlePonyClick(e, post.id, post)

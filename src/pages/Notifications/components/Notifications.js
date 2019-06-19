@@ -5,21 +5,52 @@ const Notifications = props => {
   useEffect(() => {
     return () => readNotifications()
   }, [])
-  const displayNotifications = notifications.map(n => {
-    return (
-      <div style={{ border: '2px solid red' }}>
-        <Link to={`/status/${n.post_id}`} key={n.id}>
-          <h1>
-            {n.invoker} {n.type} on your post
-          </h1>
-        </Link>
-      </div>
-    )
-  })
+  const displayNotifications = notifications
+    .map(n => {
+      if (n.read === false) {
+        return (
+          <div
+            key={n.id}
+            style={{
+              border: '2px solid dodgerblue',
+              marginBottom: '50px',
+              padding: '30px',
+            }}
+          >
+            <Link to={`/status/${n.post_id}`}>
+              <h1 style={{ fontSize: '30px' }}>
+                {n.invoker} {n.type} on your post
+              </h1>
+            </Link>
+          </div>
+        )
+      }
+      return (
+        <div
+          key={n.id}
+          style={{
+            border: '2px solid black',
+            marginBottom: '50px',
+            padding: '30px',
+          }}
+        >
+          <Link to={`/status/${n.post_id}`}>
+            <h1 style={{ fontSize: '30px' }}>
+              {n.invoker} {n.type} on your post
+            </h1>
+          </Link>
+        </div>
+      )
+    })
+    .reverse()
 
   return (
-    <div>
-      <h1>Notifications</h1>
+    <div style={{ margin: '0 auto' }}>
+      <h1
+        style={{ fontSize: '35px', fontWeight: 'bold', marginBottom: '50px' }}
+      >
+        Notifications
+      </h1>
       {displayNotifications}
     </div>
   )
