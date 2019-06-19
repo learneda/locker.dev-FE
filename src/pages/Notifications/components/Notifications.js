@@ -7,8 +7,8 @@ const Notifications = props => {
   }, [])
   const displayNotifications = notifications.map(n => {
     return (
-      <div style={{ border: '2px solid red' }}>
-        <Link to={`/status/${n.post_id}`} key={n.id}>
+      <div key={n.id} style={{ border: '2px solid red' }}>
+        <Link to={`/status/${n.post_id}`}>
           <h1>
             {n.invoker} {n.type} on your post
           </h1>

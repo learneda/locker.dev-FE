@@ -27,8 +27,8 @@ const App = props => {
     fetchNotifications,
     createComment,
     deleteComment,
-    likeComment,
-    unlikeComment,
+    likePost,
+    unlikePost,
     ponyUp,
     ponyDown,
   } = props
@@ -69,12 +69,12 @@ const App = props => {
           // console.log('in like socket connection', data)
           switch (data.action) {
             case 'unlike':
-              // invoke action creator unlikeComment & pass in msg obj
-              unlikeComment(data)
+              // invoke action creator unlikePost & pass in msg obj
+              unlikePost(data)
               break
             case 'like':
-              // invoke action creator likeComment & pass in msg obj
-              likeComment(data)
+              // invoke action creator likePost & pass in msg obj
+              likePost(data)
               break
             default:
               break
@@ -85,11 +85,11 @@ const App = props => {
           // console.log('in like socket connection', data)
           switch (data.action) {
             case 'pony_down':
-              // invoke action creator unlikeComment & pass in msg obj
+              // invoke action creator ponyDown & pass in msg obj
               ponyDown(data)
               break
             case 'pony_up':
-              // invoke action creator likeComment & pass in msg obj
+              // invoke action creator ponyUp & pass in msg obj
               ponyUp(data)
               break
             default:

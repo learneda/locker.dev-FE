@@ -34,13 +34,13 @@ export const deleteComment = commentData => async dispatch => {
   dispatch({ type: type.DELETE_COMMENT, payload: commentData })
 }
 
-export const likeComment = commentData => async dispatch => {
+export const likePost = postData => async dispatch => {
   // console.log(commentData)
-  dispatch({ type: type.LIKE_COMMENT, payload: commentData })
+  dispatch({ type: type.LIKE_POST, payload: postData })
 }
 
-export const unlikeComment = commentData => async dispatch => {
-  dispatch({ type: type.UNLIKE_COMMENT, payload: commentData })
+export const unlikePost = postData => async dispatch => {
+  dispatch({ type: type.UNLIKE_POST, payload: postData })
 }
 
 export const ponyUp = data => dispatch => {
