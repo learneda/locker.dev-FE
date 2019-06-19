@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import Notifications from './components/Notifications'
@@ -7,9 +7,9 @@ import * as notificationActions from './store/notificationActions'
 
 const NotificationsPage = props => {
   const { notifications, getNotifications } = props
-  if (!notifications.length) {
+  useEffect(() => {
     getNotifications()
-  }
+  }, [])
 
   return (
     <Container>

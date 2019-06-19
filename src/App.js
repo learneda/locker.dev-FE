@@ -9,7 +9,7 @@ import socket from 'socket'
 import Navbar from 'pages/Navbar'
 import Locker from 'components/collections'
 import HashTagFeed from './pages/HashTag/'
-
+import { receivingNotifications } from './pages/Notifications/store/notificationActions'
 const LandingPage = lazy(() => import('pages/Landing'))
 const Home = lazy(() => import('pages/Home'))
 const Browse = lazy(() => import('pages/Browse'))
@@ -24,11 +24,11 @@ const App = props => {
   const {
     auth,
     fetchAuth,
-    fetchNotifications,
+    receivingNotifications,
     createComment,
     deleteComment,
-    likeComment,
-    unlikeComment,
+    likePost,
+    unlikePost,
     ponyUp,
     ponyDown,
   } = props
@@ -41,7 +41,7 @@ const App = props => {
         // join namespace contains all the current users who are online
 
         socket.on('join', data => {
-          fetchNotifications(data)
+          receivingNotifications(data)
         })
         // socket is listening on comments event & will receive an obj
         socket.on('comments', msg => {
@@ -69,12 +69,12 @@ const App = props => {
           // console.log('in like socket connection', data)
           switch (data.action) {
             case 'unlike':
-              // invoke action creator unlikeComment & pass in msg obj
-              unlikeComment(data)
+              // invoke action creator unlikePost & pass in msg obj
+              unlikePost(data)
               break
             case 'like':
-              // invoke action creator likeComment & pass in msg obj
-              likeComment(data)
+              // invoke action creator likePost & pass in msg obj
+              likePost(data)
               break
             default:
               break
@@ -85,11 +85,11 @@ const App = props => {
           // console.log('in like socket connection', data)
           switch (data.action) {
             case 'pony_down':
-              // invoke action creator unlikeComment & pass in msg obj
+              // invoke action creator ponyDown & pass in msg obj
               ponyDown(data)
               break
             case 'pony_up':
-              // invoke action creator likeComment & pass in msg obj
+              // invoke action creator ponyUp & pass in msg obj
               ponyUp(data)
               break
             default:
@@ -130,7 +130,7 @@ const mapStateToProps = ({ auth }) => ({ auth })
 
 export default connect(
   mapStateToProps,
-  { ...appActions }
+  { ...appActions, receivingNotifications }
 )(App)
 
 const Container = styled.div`

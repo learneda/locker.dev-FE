@@ -35,11 +35,10 @@ export const tagReducer = (state = initialState, action) => {
         return post
       })
       return { ...state, posts: newPosts }
-    case appType.LIKE_COMMENT:
+    case appType.LIKE_POST:
       //  payload will be the comment obj that contains which post it belongs to & how many like it has
       const updateLikePosts = state.posts.map(post => {
         // if a post id in our state arr matches the payload post id
-        console.log(post.id, action.payload.id)
         if (post.id === action.payload.id) {
           // increment post likes
           post.likes = post.likes + 1
@@ -47,10 +46,9 @@ export const tagReducer = (state = initialState, action) => {
         return post
       })
       return { ...state, posts: updateLikePosts }
-    case appType.UNLIKE_COMMENT:
+    case appType.UNLIKE_POST:
       //  payload will be the comment obj that contains which post it belongs to & how many like it has
-
-      const unlikeComment = state.posts.map(post => {
+      const unlikePost = state.posts.map(post => {
         // if a post id in our state arr matches the payload post id
         if (post.id === action.payload.id) {
           // decrement post likes
@@ -58,7 +56,7 @@ export const tagReducer = (state = initialState, action) => {
         }
         return post
       })
-      return { ...state, posts: unlikeComment }
+      return { ...state, posts: unlikePost }
     case appType.PONY_UP:
       const ponyUp = state.posts.map(post => {
         if (post.id === action.payload.id) {
