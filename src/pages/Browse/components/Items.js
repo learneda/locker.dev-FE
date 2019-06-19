@@ -6,36 +6,47 @@ import Card from './Card'
 import Loader from './Loader'
 import EndMessage from './EndMessage'
 import styled from 'styled-components'
+import he from 'he'
 
-const Articles = props => {
-  const {
-    articles,
-    searchTerm,
-    articleOffset,
-    fetchArticles,
-    searchArticles,
-    createCollection,
-  } = props
+const Items = props => {
+  const { type, items, searchTerm, offset, fetch, search, save, share } = props
   const [isLoading, setIsLoading] = useState(false)
   const [didMount, setDidMount] = useState(false)
   const throttledSearch = useThrottle(searchTerm, 1000)
   // Performs throttled search and prevents search on initial mount
   useEffect(() => {
-    const asyncSearchArticles = async () => {
+    const asyncSearchItems = async () => {
       // Search resets offset=0
-      const offset = 0
-      await searchArticles(searchTerm, offset)
+      let offset
+      switch (type) {
+        case 'article':
+          offset = 0
+          break
+        case 'course':
+          offset = 1
+          break
+        case 'book':
+          offset = 0
+          break
+        case 'podcast':
+          offset = 0
+          break
+        default:
+          return
+      }
+      await search(searchTerm, offset)
       setIsLoading(false)
     }
     if (didMount) {
       setIsLoading(true)
-      asyncSearchArticles()
+      asyncSearchItems()
     }
     setDidMount(true)
   }, [throttledSearch])
+
   // hasMore false only when searchQuery returns no matches
-  const hasMore = !Boolean(searchTerm) || Boolean(articles.length)
-  const next = () => fetchArticles(searchTerm, articleOffset)
+  const hasMore = !Boolean(searchTerm) || Boolean(items.length)
+  const next = () => fetch(searchTerm, offset)
 
   return (
     <Cards>
@@ -45,18 +56,19 @@ const Articles = props => {
         <>
           <ScrollToTopOnMount />
           <InfiniteScroll
-            dataLength={articles.length}
+            dataLength={items.length}
             next={next}
             hasMore={hasMore}
             className='infinite-scroll'
             endMessage={<EndMessage />}
           >
-            {articles.map((article, index) => (
+            {items.map((item, index) => (
               <Card
-                type='article'
-                key={article.id}
-                item={article}
-                createCollection={createCollection}
+                type={type}
+                key={item.id}
+                item={item}
+                save={save}
+                share={share}
               />
             ))}
           </InfiniteScroll>
@@ -66,7 +78,7 @@ const Articles = props => {
   )
 }
 
-export default Articles
+export default Items
 
 const Cards = styled.div`
   margin: 0 auto;

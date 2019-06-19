@@ -2,31 +2,91 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useAlert } from 'react-alert'
 import LockerSVG from './Locker01SVG'
+import ShareSVG from './ShareSVG'
 import { smartTruncate } from 'components/mixins'
 import { useMedia } from 'use-media'
 import styled from 'styled-components'
+import CoverBook from './CoverBook'
+import CoverPodcast from './CoverPodcast'
+import he from 'he'
 
 const Card = props => {
-  const { item, type, createCollection } = props
+  const { item, type, save, share } = props
   const alert = useAlert()
   const isSingle = useMedia({ maxWidth: 820 })
   const [saveActive, setSaveActive] = useState(false)
+  const [shareActive, setShareActive] = useState(false)
+  const [shareText, setShareText] = useState('Save')
   const [saveText, setSaveText] = useState('Save')
+
+  let insertItem
+
+  switch (type) {
+    case 'article':
+      insertItem = {
+        type,
+        title: item.title,
+        description: item.description,
+        post_url: item.url,
+        thumbnail_url: item.thumbnail,
+      }
+      break
+    case 'course':
+      item.url = `https://www.udemy.com${item.url}`
+      item.thumbnail = item.image_480x270
+      item.description = item.headline
+
+      insertItem = {
+        type,
+        title: item.title,
+        description: item.headline,
+        post_url: `https://www.udemy.com${item.url}`,
+        thumbnail_url: item.image_480x270,
+      }
+      break
+    case 'book':
+      item.url = item.link
+      insertItem = {
+        type,
+        title: item.title,
+        description: item.description,
+        post_url: item.link,
+        thumbnail_url: item.thumbnail,
+      }
+      break
+    case 'podcast':
+      item.title = item.title_original
+      item.description = he.decode(item.description_original)
+      item.url = item.link
+      item.thumbnail = item.image
+      insertItem = {
+        type,
+        title: item.title_original,
+        description: item.description,
+        post_url: item.link,
+        thumbnail_url: item.thumbnail,
+      }
+      break
+    default:
+      return
+  }
+
   const saveToLocker = async () => {
-    await createCollection({
-      type,
-      post_url: item.url,
-      title: item.title,
-      description: item.description,
-      thumbnail_url: item.thumbnail,
-    })
+    await save(insertItem)
     alert.success(
       `${type.slice(0, 1).toUpperCase() + type.slice(1)} added to Locker`
     )
   }
 
+  const shareToFeed = async () => {
+    await share(insertItem)
+    alert.success(
+      `${type.slice(0, 1).toUpperCase() + type.slice(1)} shared to Feed`
+    )
+  }
+
   //TODO: Clean logic
-  const handleClick = async () => {
+  const handleSaveClick = async () => {
     setSaveText('Saving')
     setSaveActive(prev => !prev)
     await saveToLocker()
@@ -36,19 +96,41 @@ const Card = props => {
       setSaveText('Saved')
     }
   }
+
+  const handleShareClick = async () => {
+    setShareText('Saving')
+    setShareActive(prev => !prev)
+    console.log('before share')
+    await shareToFeed()
+    console.log('after share')
+
+    if (shareActive) {
+      setShareText('Save')
+    } else {
+      setShareText('Saved')
+    }
+  }
   const cropTitle = isSingle ? 100 : 80
   const cropDesc = isSingle ? 190 : 135
 
   return (
-    <Container>
-      <div className='card-cover'>
-        <a href={item.url} target='_blank' rel='noopener noreferrer'>
-          <img
-            src={item.thumbnail || 'https://source.unsplash.com/random/345x180'}
-            alt={`${type}-thumbnail`}
-          />
-        </a>
-      </div>
+    <Container saveActive={saveActive} shareActive={shareActive}>
+      {type === 'book' ? (
+        <CoverBook item={item} />
+      ) : type === 'podcast' ? (
+        <CoverPodcast item={item} />
+      ) : (
+        <div className='card-cover'>
+          <a href={item.url} target='_blank' rel='noopener noreferrer'>
+            <img
+              src={
+                item.thumbnail || 'https://source.unsplash.com/random/345x180'
+              }
+              alt={`${type}-thumbnail`}
+            />
+          </a>
+        </div>
+      )}
       <div className='card-content'>
         <h3>{smartTruncate(item.title, cropTitle)}</h3>
         <p>{smartTruncate(item.description, cropDesc)}</p>
@@ -56,14 +138,13 @@ const Card = props => {
       <div className='card-bar'>
         <div className='card-info-bar'>InfoBar</div>
         <div className='card-action-bar'>
-          <div className='wrap-save' onClick={handleClick}>
-            <LockerSVG className='save-icon' active={saveActive} />
-            <span
-              style={{ color: saveActive ? 'dodgerblue' : 'black' }}
-              className='save-label'
-            >
-              {saveText}
-            </span>
+          <div className='wrap-svg share' onClick={handleShareClick}>
+            <ShareSVG className='icon' active={shareActive} />
+            <span className='label'>{shareText}</span>
+          </div>
+          <div className='wrap-svg save' onClick={handleSaveClick}>
+            <LockerSVG className='icon' active={saveActive} />
+            <span className='label'>{saveText}</span>
           </div>
         </div>
       </div>
@@ -140,16 +221,26 @@ const Container = styled.div`
     }
     .card-action-bar {
       font-size: 1.2rem;
-      .wrap-save {
+      display: flex;
+      .wrap-svg {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         cursor: pointer;
         width: 70px;
-        transition: 1s ease-in-out;
+        transition: 0.3s ease-in-out;
+        &:hover {
+          color: dodgerblue;
+        }
       }
-      .save-label {
+      .save {
+        color: ${props => (props.saveActive ? 'dodgerblue' : 'black')};
+      }
+      .share {
+        color: ${props => (props.shareActive ? 'dodgerblue' : 'black')};
+      }
+      .label {
         font-weight: 600;
         padding-top: 2px;
       }

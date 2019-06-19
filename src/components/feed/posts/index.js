@@ -5,14 +5,18 @@ import CommentBox from '../comments'
 import { apiURL } from 'services'
 import addIcon from 'assets/svg/add-icon.svg'
 import { withAlert } from 'react-alert'
-import { smartTruncate } from '../../mixins/'
+import { smartTruncate } from 'components/mixins/'
 import { selectLogo } from 'helpers'
-import axiosAPI from '../../../apis/axiosAPI'
+import axiosAPI from 'apis/axiosAPI'
+import PonySVG from './PonySVG'
 class PostContainer extends Component {
   constructor(props) {
     super(props)
     this.heartIcon = React.createRef()
     this.pony = React.createRef()
+    this.state = {
+      active: false,
+    }
   }
 
   componentDidMount() {
@@ -93,7 +97,7 @@ class PostContainer extends Component {
 
   displayMedia = post => {
     const { url, thumbnail_url } = post
-    if (url.includes('youtube.com/watch')) {
+    if (url && url.includes('youtube.com/watch')) {
       const videoId = url.split('=')[1]
       return (
         <div
@@ -235,10 +239,12 @@ class PostContainer extends Component {
               >
                 {selectLogo(post.url)}
                 <span style={{ marginLeft: '5px' }}>
-                  {post.url.includes('book') ? 'google.com' : null}
+                  {post.url && post.url.includes('book') ? 'google.com' : null}
                 </span>
                 <span style={{ marginLeft: '5px' }}>
-                  {post.url.includes('youtube') ? 'youtube.com' : null}
+                  {post.url && post.url.includes('youtube')
+                    ? 'youtube.com'
+                    : null}
                 </span>
                 {post.root_url === 'youtube.com' ? null : (
                   <span style={{ marginLeft: '-5px' }}>{post.root_url}</span>
@@ -265,12 +271,20 @@ class PostContainer extends Component {
                 onClick={e => {
                   e.preventDefault()
                   this.handlePonyClick(e, post.id, post)
+                  this.setState(
+                    prev => ({ active: !prev.active }),
+                    () => console.log(this.state.active)
+                  )
+
                   e.target.classList.toggle('on')
                 }}
               >
-                🦄
+                <PonySVG active={this.state.active} />
               </span>
-              <span>{post.ponyCount}</span>
+              <span>
+                {'  '}
+                {post.ponyCount}
+              </span>
             </div>
 
             {post.tags.length > 0 &&
