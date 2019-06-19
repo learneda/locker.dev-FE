@@ -14,6 +14,7 @@ const Items = props => {
   const [isLoading, setIsLoading] = useState(false)
   const [didMount, setDidMount] = useState(false)
   const throttledSearch = useThrottle(searchTerm, 1000)
+
   // Performs throttled search and prevents search on initial mount
   useEffect(() => {
     const asyncSearchItems = async () => {
@@ -54,6 +55,9 @@ const Items = props => {
       }
     }
     setDidMount(true)
+    return () => {
+      window.scroll(0, 0)
+    }
   }, [throttledSearch])
 
   // hasMore false only when searchQuery returns no matches
@@ -65,27 +69,24 @@ const Items = props => {
       {isLoading ? (
         <Loader />
       ) : (
-        <>
-          <ScrollToTopOnMount />
-          <InfiniteScroll
-            dataLength={items.length}
-            next={next}
-            hasMore={hasMore}
-            className='infinite-scroll'
-            endMessage={<EndMessage />}
-          >
-            {items.map((item, index) => (
-              <Card
-                type={type}
-                key={type === 'video' ? index : item.id}
-                item={item}
-                save={save}
-                share={share}
-                showIframe={showIframe}
-              />
-            ))}
-          </InfiniteScroll>
-        </>
+        <InfiniteScroll
+          dataLength={items.length}
+          next={next}
+          hasMore={hasMore}
+          className='infinite-scroll'
+          endMessage={<EndMessage />}
+        >
+          {items.map((item, index) => (
+            <Card
+              type={type}
+              key={type === 'video' ? index : item.id}
+              item={item}
+              save={save}
+              share={share}
+              showIframe={showIframe}
+            />
+          ))}
+        </InfiniteScroll>
       )}
     </Cards>
   )

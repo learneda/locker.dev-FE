@@ -12,6 +12,7 @@ import PonySVG from './PonySVG'
 import CommentSVG from 'assets/SVGs/CommentSVG'
 import MoreSVG from 'assets/SVGs/MoreSVG'
 import CardActionBar from 'pages/Browse/components/CardActionBar'
+import CardAttributionBar from 'pages/Browse/components/CardAttributionBar'
 class PostContainer extends Component {
   constructor(props) {
     super(props)
@@ -217,7 +218,14 @@ class PostContainer extends Component {
             <p className='post-thoughts'>{this.props.post.user_thoughts}</p>
           </div>
           <div style={{ position: 'absolute', top: '20px', right: '30px' }}>
-            <MoreSVG />
+            <a
+              className='post-root-url'
+              href={post.url}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <CardAttributionBar url={post.url} />
+            </a>
           </div>
         </div>
         <div className='post-content'>
@@ -231,33 +239,6 @@ class PostContainer extends Component {
               <h2>{post.title}</h2>
             </a>
             <p>{smartTruncate(post.description, 210)}</p>
-            <a
-              className='post-root-url'
-              href={post.url}
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  marginTop: '5px',
-                  alignItems: 'center',
-                }}
-              >
-                {selectLogo(post.url)}
-                <span style={{ marginLeft: '5px' }}>
-                  {post.url && post.url.includes('book') ? 'google.com' : null}
-                </span>
-                <span style={{ marginLeft: '5px' }}>
-                  {post.url && post.url.includes('youtube')
-                    ? 'youtube.com'
-                    : null}
-                </span>
-                {post.root_url === 'youtube.com' ? null : (
-                  <span style={{ marginLeft: '-5px' }}>{post.root_url}</span>
-                )}
-              </div>
-            </a>
           </div>
           <div className='likes-and-save'>
             <div>

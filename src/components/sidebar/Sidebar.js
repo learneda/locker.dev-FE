@@ -72,7 +72,7 @@ export default Sidebar
 
 const Wrapper = styled.div`
   position: sticky;
-  top: 60px;
+  top: 66px;
   width: 100%;
 `
 const Profile = styled.div`

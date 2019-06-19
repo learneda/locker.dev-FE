@@ -97,6 +97,7 @@ export default Suggested
 const StyledCard = styled.div`
   position: sticky;
   top: 60px;
+  height: 340px;
   width: 100%;
   .followed-by {
     height: 30px;
@@ -112,7 +113,7 @@ const StyledCard = styled.div`
     display: flex;
     width: 100%;
     height: 100px;
-    padding: 0px 15px;
+    padding: 0px 0px 0 15px;
   }
   .left-suggested {
     display: flex;
@@ -124,7 +125,7 @@ const StyledCard = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 0 20px;
+    padding: 0 0 0 15px;
     justify-content: space-evenly;
   }
   .suggested-heading {
@@ -147,16 +148,15 @@ const StyledCard = styled.div`
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      justify-content: center;
       h2 {
         /* margin-left: 10px; */
-        font-size: 1.6rem;
+        font-size: 1.5rem;
         font-weight: 600;
         letter-spacing: 1px;
       }
       img {
-        width: 70px;
-        height: 70px;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
         display: block;
         margin: auto;
@@ -165,16 +165,16 @@ const StyledCard = styled.div`
     .follow-button {
       text-align: center;
       button {
-        padding: 10px 20px;
+        padding: 5px 15px;
         font-weight: 700;
         border: transparent;
         border-radius: 50px;
         background-color: white;
         border: 1px solid dodgerblue;
-        color: #3f65f2;
+        color: dodgerblue;
         cursor: pointer;
         transition: 200ms ease-out;
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         letter-spacing: 0.9;
         &:hover {
           background-color: #e8f4fb;

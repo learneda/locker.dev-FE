@@ -55,6 +55,7 @@ const Card = props => {
       item.title = he.decode(item.snippet.title)
       item.description = item.snippet.description
       item.post_url = `https://www.youtube.com/watch?v=${item.id.videoId}`
+      item.url = item.post_url
       item.thumbnail_url = item.snippet.thumbnails.medium.url
       insertItem = {
         type,

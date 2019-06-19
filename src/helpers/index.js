@@ -68,13 +68,19 @@ export const printRootUrl = url => {
 
   const newUrl = url.includes('http') ? url : `http://${url}`
 
-  let rootUrl = new URL(newUrl)
-  rootUrl = rootUrl.hostname
-    .replace(/^(?:https?:\/\/)?(?:www\.)?/i, '')
-    .split('/')[0]
+  let rootUrl
+  try {
+    rootUrl = new URL(newUrl)
+  } catch (error) {
+    console.log(error)
+  }
+
+  rootUrl =
+    rootUrl &&
+    rootUrl.hostname.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '').split('/')[0]
   //! FixMeLater
-  const fixedUrl = rootUrl.replace('https', '')
-  return rootUrl.includes('listen') ? null : (
+  const fixedUrl = rootUrl && rootUrl.replace('https', '')
+  return rootUrl && rootUrl.includes('listen') ? null : (
     <a href={`https://${fixedUrl}`} target='_blank' rel='noopener noreferrer'>
       <span className='attribution-url'>{fixedUrl}</span>
     </a>

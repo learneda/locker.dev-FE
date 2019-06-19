@@ -133,7 +133,7 @@ const Container = styled.div`
   @media (max-width: 620px) {
     padding: 0;
   }
-  border: 1px solid dodgerblue;
+  /* border: 1px solid dodgerblue; */
 `
 const WrapperLeft = styled.div`
   position: relative;
