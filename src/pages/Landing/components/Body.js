@@ -31,7 +31,7 @@ const Body = props => {
       </div>
       <Container>
         <div className='feature-card'>
-          <h4>Share the best resources with your friends.</h4>
+          <h4>Share the best resources in your feed.</h4>
           <div className='svg-container'>
             <img src={shareSVG} alt='share' />
           </div>

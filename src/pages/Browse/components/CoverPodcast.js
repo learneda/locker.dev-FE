@@ -42,6 +42,13 @@ const Container = styled.div`
   flex-direction: column;
   overflow: hidden;
   min-height: 180px;
+  @media (max-width: 820px) {
+    min-height: 260px;
+    width: 500px;
+  }
+  @media (max-width: 570px) {
+    width: 100%;
+  }
   .cover-blur {
     height: 180px;
     position: relative;
@@ -50,6 +57,9 @@ const Container = styled.div`
     background-size: cover;
     background-position: center;
     filter: blur(1.5rem);
+    @media (max-width: 820px) {
+      height: 260px;
+    }
   }
   .cover-image {
     position: absolute;

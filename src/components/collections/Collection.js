@@ -6,7 +6,7 @@ import EditModal from 'components/utils/EditModal/EditModal'
 import deleteIcon from 'assets/svg/delete-icon.svg'
 import editSvg from 'assets/svg/edit.svg'
 import SharedButton from '../shared'
-import { selectLogo, printRootDomain } from 'helpers'
+import { selectLogo, printRootUrl } from 'helpers'
 import { smartTruncate } from '../mixins'
 import { StyledCollections } from './StyledCollections'
 
@@ -47,7 +47,7 @@ const Collection = props => {
                 }}
               >
                 {selectLogo(collection.post_url)}
-                {printRootDomain(collection.root_url)}
+                {printRootUrl(collection.root_url)}
               </div>
             </a>
           </div>
