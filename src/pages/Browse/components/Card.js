@@ -16,7 +16,7 @@ const Card = props => {
   const isSingle = useMedia({ maxWidth: 820 })
   const [saveActive, setSaveActive] = useState(false)
   const [shareActive, setShareActive] = useState(false)
-  const [shareText, setShareText] = useState('Save')
+  const [shareText, setShareText] = useState('Share')
   const [saveText, setSaveText] = useState('Save')
 
   let insertItem
@@ -98,16 +98,14 @@ const Card = props => {
   }
 
   const handleShareClick = async () => {
-    setShareText('Saving')
+    setShareText('Sharing')
     setShareActive(prev => !prev)
-    console.log('before share')
     await shareToFeed()
-    console.log('after share')
 
     if (shareActive) {
-      setShareText('Save')
+      setShareText('Share')
     } else {
-      setShareText('Saved')
+      setShareText('Shared')
     }
   }
   const cropTitle = isSingle ? 100 : 80
