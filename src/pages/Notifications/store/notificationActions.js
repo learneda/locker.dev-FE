@@ -14,3 +14,7 @@ export const getNotifications = () => async dispatch => {
   const notifications = await axios.get('/notifications')
   dispatch({ type: type.FETCH_NOTIFICATIONS, payload: notifications.data })
 }
+
+export const receivingNotifications = data => async dispatch => {
+  dispatch({ type: type.RECEIVING_NOTIFICATION, payload: data })
+}

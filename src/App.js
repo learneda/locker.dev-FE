@@ -9,7 +9,7 @@ import socket from 'socket'
 import Navbar from 'pages/Navbar'
 import Locker from 'components/collections'
 import HashTagFeed from './pages/HashTag/'
-
+import { receivingNotifications } from './pages/Notifications/store/notificationActions'
 const LandingPage = lazy(() => import('pages/Landing'))
 const Home = lazy(() => import('pages/Home'))
 const Browse = lazy(() => import('pages/Browse'))
@@ -24,7 +24,7 @@ const App = props => {
   const {
     auth,
     fetchAuth,
-    fetchNotifications,
+    receivingNotifications,
     createComment,
     deleteComment,
     likePost,
@@ -41,7 +41,7 @@ const App = props => {
         // join namespace contains all the current users who are online
 
         socket.on('join', data => {
-          fetchNotifications(data)
+          receivingNotifications(data)
         })
         // socket is listening on comments event & will receive an obj
         socket.on('comments', msg => {
@@ -130,7 +130,7 @@ const mapStateToProps = ({ auth }) => ({ auth })
 
 export default connect(
   mapStateToProps,
-  { ...appActions }
+  { ...appActions, receivingNotifications }
 )(App)
 
 const Container = styled.div`

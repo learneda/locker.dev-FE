@@ -10,6 +10,8 @@ export const notificationsReducer = (state = [], action) => {
         notification.read = true
         return notification
       })
+    case type.RECEIVING_NOTIFICATION:
+      return [...state, ...action.payload]
     default:
       return state
   }
