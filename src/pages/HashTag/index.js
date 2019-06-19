@@ -13,7 +13,6 @@ const HashTagFeed = props => {
   useEffect(() => {
     props.fetchTagPosts(props.match.params.tag)
     window.scrollTo(0, 0)
-    // return () => dispatch({ type: RESET_TAG_POSTS })
   }, [props.history.location.pathname])
   return (
     <div>

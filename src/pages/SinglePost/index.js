@@ -3,72 +3,37 @@ import axios from 'apis/axiosAPI'
 import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 import Moment from 'react-moment'
+import Feed from '../../components/feed'
+import { createCollection } from '../../actions'
+import { connect } from 'react-redux'
 
 const SinglePost = props => {
-  const [post, setPost] = useState('')
+  const [post, setPost] = useState([])
   useEffect(() => {
     console.log(props.match.params.id)
     axios.get(`/newsfeed/${props.match.params.id}`).then(res => {
       console.log('single post response', res.data)
-      setPost(res.data.post)
+      setPost([res.data.post])
     })
   }, [])
   return (
-    <Container>
-      <div className='post-header'>
-        <img className='profile_pic' src={post.profile_picture} alt='avatar' />
-        <div className='post-info'>
-          <div className='post-author'>
-            <h2>{post.username}</h2>
-            <span>
-              <Moment fromNow>{post.created_at}</Moment>
-            </span>
-          </div>
-          <div className='post-thoughts'>{post.user_thoughts}</div>
-        </div>
-      </div>
-      <div className='post-image'>
-        <img
-          style={{ objectFit: 'cover', width: '100%' }}
-          src={post.thumbnail_url}
-          alt='post-thumbnail'
-        />
-      </div>
-      <div className='post-content'>
-        <h2>{post.title}</h2>
-        <p>{post.description}</p>
-        <div className='root-url'>{post.root_url}</div>
-        <div className='post-actionbar'>
-          <span>Likes {post.likes}</span>
-          <span>Add to Saved</span>
-        </div>
-      </div>
-      <div className='post-comments'>
-        {post.comments &&
-          post.comments
-            .map((comment, index) => {
-              return (
-                <div className='post-comment' key={index}>
-                  <div>
-                    <div className='comment-author'>
-                      <span>{comment.username}</span>
-                      <span>
-                        <Moment fromNow>{comment.created_at}</Moment>
-                      </span>
-                    </div>
-                    <div>{comment.content}</div>
-                  </div>
-                  <div className='comment-delete'>delete</div>
-                </div>
-              )
-            })
-            .reverse()}
-      </div>
-    </Container>
+    <Feed
+      posts={post}
+      user={props.user}
+      auth={props.auth}
+      createCollection={props.createCollection}
+    />
   )
 }
+const mapStateToProps = ({ user, auth }) => ({
+  user: { ...auth, ...user },
+  auth,
+})
 
-export default withRouter(SinglePost)
+export default connect(
+  mapStateToProps,
+  { createCollection }
+)(withRouter(SinglePost))
 
 const Container = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
