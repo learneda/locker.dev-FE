@@ -10,6 +10,7 @@ import he from 'he'
 
 const Items = props => {
   const { type, items, searchTerm, offset, fetch, search, save, share } = props
+  const { showIframe, resetIframe } = props
   const [isLoading, setIsLoading] = useState(false)
   const [didMount, setDidMount] = useState(false)
   const throttledSearch = useThrottle(searchTerm, 1000)
@@ -31,15 +32,26 @@ const Items = props => {
         case 'podcast':
           offset = 0
           break
+        case 'video':
+          offset = null
+          break
         default:
           return
       }
-      await search(searchTerm, offset)
+      if (type === 'video') {
+        await search(searchTerm)
+      } else {
+        await search(searchTerm, offset)
+      }
       setIsLoading(false)
     }
     if (didMount) {
       setIsLoading(true)
       asyncSearchItems()
+    } else {
+      if (type === 'video') {
+        resetIframe()
+      }
     }
     setDidMount(true)
   }, [throttledSearch])
@@ -65,10 +77,11 @@ const Items = props => {
             {items.map((item, index) => (
               <Card
                 type={type}
-                key={item.id}
+                key={type === 'video' ? index : item.id}
                 item={item}
                 save={save}
                 share={share}
+                showIframe={showIframe}
               />
             ))}
           </InfiniteScroll>
@@ -81,8 +94,10 @@ const Items = props => {
 export default Items
 
 const Cards = styled.div`
+  /* border: 1px solid magenta; */
   margin: 0 auto;
   .infinite-scroll {
+    /* border: 1px solid green; */
     display: flex;
     flex-wrap: wrap;
     width: 100%;

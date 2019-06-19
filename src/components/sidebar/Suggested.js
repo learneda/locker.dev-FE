@@ -97,13 +97,7 @@ export default Suggested
 const StyledCard = styled.div`
   position: sticky;
   top: 60px;
-  transition: opacity 0.4s ease;
-  opacity: 1;
-  width: 290px;
-  @media (max-width: 1210px) {
-    opacity: 0;
-    display: none;
-  }
+  width: 100%;
   .followed-by {
     height: 30px;
     display: flex;

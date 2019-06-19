@@ -9,6 +9,9 @@ import { smartTruncate } from 'components/mixins/'
 import { selectLogo } from 'helpers'
 import axiosAPI from 'apis/axiosAPI'
 import PonySVG from './PonySVG'
+import CommentSVG from 'assets/SVGs/CommentSVG'
+import MoreSVG from 'assets/SVGs/MoreSVG'
+import CardActionBar from 'pages/Browse/components/CardActionBar'
 class PostContainer extends Component {
   constructor(props) {
     super(props)
@@ -179,7 +182,7 @@ class PostContainer extends Component {
             position: 'relative',
             backgroundImage: `url(${thumbnail_url})`,
             backgroundRepeat: 'no-repeat',
-            backgroundSize: 'contain',
+            backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
         />
@@ -212,6 +215,9 @@ class PostContainer extends Component {
               </h2>
             </Link>
             <p className='post-thoughts'>{this.props.post.user_thoughts}</p>
+          </div>
+          <div style={{ position: 'absolute', top: '20px', right: '30px' }}>
+            <MoreSVG />
           </div>
         </div>
         <div className='post-content'>
@@ -286,6 +292,16 @@ class PostContainer extends Component {
                 {post.ponyCount}
               </span>
             </div>
+            <div>
+              <span>
+                <CommentSVG active={this.state.active} />
+              </span>
+              <span>
+                {'  '}
+                {post.ponyCount}
+              </span>
+            </div>
+            <CardActionBar />
 
             {post.tags.length > 0 &&
               post.tags.map(tag => {

@@ -59,7 +59,7 @@ const Home = props => {
 
   return (
     <Container>
-      <Wrapper>
+      <WrapperLeft>
         <Sidebar
           user={user}
           collections={collections}
@@ -67,8 +67,7 @@ const Home = props => {
           following={following}
         />
         <Tagbar topTags={topTags} />
-      </Wrapper>
-
+      </WrapperLeft>
       <Feed
         {...props}
         auth={auth}
@@ -80,7 +79,7 @@ const Home = props => {
         offset={feed.offset}
         createCollection={createCollection}
       />
-      <Wrapper>
+      <WrapperRight>
         <Suggested
           auth={auth}
           suggested={suggested}
@@ -89,7 +88,7 @@ const Home = props => {
           followAUser={followAUser}
         />
         <Footer />
-      </Wrapper>
+      </WrapperRight>
     </Container>
   )
 }
@@ -124,18 +123,37 @@ export default connect(
 
 const Container = styled.div`
   display: flex;
-  postion: relative;
   justify-content: space-between;
   max-width: 1200px;
-  margin: 10px auto 30px;
-  @media (max-width: 1210px) {
-    max-width: 900px;
+  margin: 15px auto 30px;
+  padding: 0 20px;
+  @media (max-width: 1200px) {
+    justify-content: space-around;
   }
-  @media (max-width: 910px) {
-    max-width: 600px;
+  @media (max-width: 620px) {
+    padding: 0;
   }
+  border: 1px solid dodgerblue;
 `
-const Wrapper = styled.div`
+const WrapperLeft = styled.div`
   position: relative;
+  width: 260px;
+  transition: opacity 100ms ease;
+  @media (max-width: 900px) {
+    opacity: 0;
+    display: none;
+  }
+
   /* border: 1px solid red; */
+`
+
+const WrapperRight = styled.div`
+  position: relative;
+  width: 260px;
+  opacity: 1;
+  transition: opacity 100ms ease;
+  @media (max-width: 1200px) {
+    opacity: 0;
+    display: none;
+  }
 `

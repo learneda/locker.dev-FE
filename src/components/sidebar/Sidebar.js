@@ -73,11 +73,7 @@ export default Sidebar
 const Wrapper = styled.div`
   position: sticky;
   top: 60px;
-  width: 290px;
-
-  @media (max-width: 910px) {
-    display: none;
-  }
+  width: 100%;
 `
 const Profile = styled.div`
   .count-label {
@@ -94,9 +90,7 @@ const Profile = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 5px;
   background: #fff;
-  @media (max-width: 910px) {
-    display: none;
-  }
+
   .user {
     position: relative;
     border-top-right-radius: 5px;

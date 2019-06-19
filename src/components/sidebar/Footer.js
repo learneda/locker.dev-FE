@@ -17,7 +17,7 @@ const Container = styled.section`
   width: 290px;
   border: 1px solid dodgerblue;
   z-index: 1;
-  @media (max-width: 1210px) {
+  @media (max-width: 1200px) {
     opacity: 0;
     display: none;
   }

@@ -66,7 +66,7 @@ export const fetchVideos = (q, pageToken) => async dispatch => {
       part: 'snippet',
       maxResults: 12,
       type: 'video',
-      key: 'AIzaSyAoF6NXzpfSKGKw_lf0M-_eZ8359cDE0bE',
+      key: 'AIzaSyAox9SoXZEVF2JjbJ9lRsCE_Fpw_6sXKO0',
     },
   })
   //* Adds isThumbnail property to each video; default to true
@@ -84,7 +84,7 @@ export const searchVideos = q => async dispatch => {
       part: 'snippet',
       maxResults: 12,
       type: 'video',
-      key: 'AIzaSyAoF6NXzpfSKGKw_lf0M-_eZ8359cDE0bE',
+      key: 'AIzaSyAox9SoXZEVF2JjbJ9lRsCE_Fpw_6sXKO0',
     },
   })
   const videosWithThumbnailState = res.data.items.map(video => {

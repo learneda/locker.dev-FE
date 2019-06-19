@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const CommentSVG = ({ active }) => {
-  const color = active ? 'darkmagenta' : 'black'
+  const color = active ? 'dodgerblue' : 'black'
   return (
     <svg
       version='1.0'

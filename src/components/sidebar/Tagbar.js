@@ -25,7 +25,7 @@ export default Tagbar
 
 const Container = styled.section`
   height: 420px;
-  width: 290px;
+  width: 100%;
   border: 1px solid dodgerblue;
   position: sticky;
   top: 310px;
@@ -34,8 +34,5 @@ const Container = styled.section`
   flex-direction: column;
   h3 {
     align-self: center;
-  }
-  @media (max-width: 910px) {
-    display: none;
   }
 `

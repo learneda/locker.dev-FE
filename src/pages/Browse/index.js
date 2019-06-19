@@ -99,15 +99,16 @@ const Browse = props => {
           <Route
             path={`${match.path}/videos`}
             render={props => (
-              <Videos
+              <Items
                 {...props}
-                videos={videos}
+                type='video'
+                items={videos}
                 searchTerm={searchTerm}
-                videoPageToken={videoPageToken}
-                searchVideos={searchVideos}
-                fetchVideos={fetchVideos}
-                createCollection={createCollection}
-                postToFeed={postToFeed}
+                offset={videoPageToken}
+                search={searchVideos}
+                fetch={fetchVideos}
+                save={createCollection}
+                share={postToFeed}
                 showIframe={showIframe}
                 resetIframe={resetIframe}
               />
@@ -168,9 +169,11 @@ export default connect(
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  /* border: 1px solid red; */
 `
 const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
+  /* border: 1px solid dodgerblue; */
 `

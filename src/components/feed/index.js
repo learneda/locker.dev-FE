@@ -114,7 +114,10 @@ class Feed extends Component {
 export default Feed
 
 const Container = styled.div`
-  width: 600px;
+  width: 580px;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
   .post {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     margin-bottom: 10px;
@@ -122,6 +125,7 @@ const Container = styled.div`
     background: #fff;
   }
   .post-user-info {
+    position: relative;
     display: flex;
     align-items: center;
     border-bottom: 1px solid lightgray;
