@@ -39,7 +39,8 @@ export const tagReducer = (state = initialState, action) => {
       //  payload will be the comment obj that contains which post it belongs to & how many like it has
       const updateLikePosts = state.posts.map(post => {
         // if a post id in our state arr matches the payload post id
-        if (post.post_id === action.payload.post_id) {
+        console.log(post.id, action.payload.id)
+        if (post.id === action.payload.id) {
           // increment post likes
           post.likes = post.likes + 1
         }
@@ -51,7 +52,7 @@ export const tagReducer = (state = initialState, action) => {
 
       const unlikeComment = state.posts.map(post => {
         // if a post id in our state arr matches the payload post id
-        if (post.post_id === action.payload.post_id) {
+        if (post.id === action.payload.id) {
           // decrement post likes
           post.likes = post.likes - 1
         }
@@ -60,7 +61,7 @@ export const tagReducer = (state = initialState, action) => {
       return { ...state, posts: unlikeComment }
     case appType.PONY_UP:
       const ponyUp = state.posts.map(post => {
-        if (post.post_id === action.payload.post_id) {
+        if (post.id === action.payload.id) {
           post.ponyCount = post.ponyCount + 1
         }
         return post
@@ -68,11 +69,12 @@ export const tagReducer = (state = initialState, action) => {
       return { ...state, posts: ponyUp }
     case appType.PONY_DOWN:
       const ponyDown = state.posts.map(post => {
-        if (post.post_id === action.payload.post_id) {
+        if (post.id === action.payload.id) {
           post.ponyCount = post.ponyCount - 1
         }
         return post
       })
+      return { ...state, posts: ponyDown }
       return { ...state, posts: ponyDown }
     case type.RESET_TAG_POSTS:
       return initialState
