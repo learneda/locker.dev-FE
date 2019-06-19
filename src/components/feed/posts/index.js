@@ -29,6 +29,7 @@ class PostContainer extends Component {
       }
       if (this.props.post.hasPony) {
         this.pony.current.setAttribute('class', 'on')
+        this.setState({ active: true })
       }
     }
   }
@@ -64,8 +65,8 @@ class PostContainer extends Component {
   handlePonyClick = (e, post_id, post) => {
     e.preventDefault()
     const postOwnerId = post.user_id
-    let hasClassName = e.target.classList.contains('on')
-    if (hasClassName) {
+    let hasClassName = this.state.active
+    if (!hasClassName) {
       const data = {
         id: post_id,
         user_id: this.props.user_id,
@@ -270,10 +271,9 @@ class PostContainer extends Component {
                 ref={this.pony}
                 onClick={e => {
                   e.preventDefault()
-                  this.handlePonyClick(e, post.id, post)
                   this.setState(
                     prev => ({ active: !prev.active }),
-                    () => console.log(this.state.active)
+                    () => this.handlePonyClick(e, post.id, post)
                   )
 
                   e.target.classList.toggle('on')
