@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useAlert } from 'react-alert'
-import LockerSVG from './Locker01SVG'
-import ShareSVG from './ShareSVG'
 import { smartTruncate } from 'components/mixins'
 import { useMedia } from 'use-media'
 import styled from 'styled-components'
 import CoverBook from './CoverBook'
 import CoverPodcast from './CoverPodcast'
+import CoverVideo from './CoverVideo'
+import CardAttributionBar from './CardAttributionBar'
+import CardActionBar from './CardActionBar'
+
 import he from 'he'
 
 const Card = props => {
   const { item, type, save, share } = props
-  const alert = useAlert()
+  const { showIframe } = props
   const isSingle = useMedia({ maxWidth: 820 })
-  const [saveActive, setSaveActive] = useState(false)
-  const [shareActive, setShareActive] = useState(false)
-  const [shareText, setShareText] = useState('Save')
-  const [saveText, setSaveText] = useState('Save')
 
   let insertItem
 
@@ -40,7 +37,7 @@ const Card = props => {
         type,
         title: item.title,
         description: item.headline,
-        post_url: `https://www.udemy.com${item.url}`,
+        post_url: item.url,
         thumbnail_url: item.image_480x270,
       }
       break
@@ -54,16 +51,30 @@ const Card = props => {
         thumbnail_url: item.thumbnail,
       }
       break
+    case 'video':
+      item.title = he.decode(item.snippet.title)
+      item.description = item.snippet.description
+      item.post_url = `https://www.youtube.com/watch?v=${item.id.videoId}`
+      item.url = item.post_url
+      item.thumbnail_url = item.snippet.thumbnails.medium.url
+      insertItem = {
+        type,
+        title: item.title,
+        description: item.description,
+        post_url: item.post_url,
+        thumbnail_url: item.thumbnail_url,
+      }
+      break
     case 'podcast':
       item.title = item.title_original
       item.description = he.decode(item.description_original)
-      item.url = item.link
+      item.url = item.audio
       item.thumbnail = item.image
       insertItem = {
         type,
         title: item.title_original,
         description: item.description,
-        post_url: item.link,
+        post_url: item.audio,
         thumbnail_url: item.thumbnail,
       }
       break
@@ -71,54 +82,17 @@ const Card = props => {
       return
   }
 
-  const saveToLocker = async () => {
-    await save(insertItem)
-    alert.success(
-      `${type.slice(0, 1).toUpperCase() + type.slice(1)} added to Locker`
-    )
-  }
-
-  const shareToFeed = async () => {
-    await share(insertItem)
-    alert.success(
-      `${type.slice(0, 1).toUpperCase() + type.slice(1)} shared to Feed`
-    )
-  }
-
-  //TODO: Clean logic
-  const handleSaveClick = async () => {
-    setSaveText('Saving')
-    setSaveActive(prev => !prev)
-    await saveToLocker()
-    if (saveActive) {
-      setSaveText('Save')
-    } else {
-      setSaveText('Saved')
-    }
-  }
-
-  const handleShareClick = async () => {
-    setShareText('Saving')
-    setShareActive(prev => !prev)
-    console.log('before share')
-    await shareToFeed()
-    console.log('after share')
-
-    if (shareActive) {
-      setShareText('Save')
-    } else {
-      setShareText('Saved')
-    }
-  }
   const cropTitle = isSingle ? 100 : 80
   const cropDesc = isSingle ? 190 : 135
 
   return (
-    <Container saveActive={saveActive} shareActive={shareActive}>
+    <Container>
       {type === 'book' ? (
         <CoverBook item={item} />
       ) : type === 'podcast' ? (
         <CoverPodcast item={item} />
+      ) : type === 'video' ? (
+        <CoverVideo item={item} showIframe={showIframe} />
       ) : (
         <div className='card-cover'>
           <a href={item.url} target='_blank' rel='noopener noreferrer'>
@@ -136,17 +110,14 @@ const Card = props => {
         <p>{smartTruncate(item.description, cropDesc)}</p>
       </div>
       <div className='card-bar'>
-        <div className='card-info-bar'>InfoBar</div>
-        <div className='card-action-bar'>
-          <div className='wrap-svg share' onClick={handleShareClick}>
-            <ShareSVG className='icon' active={shareActive} />
-            <span className='label'>{shareText}</span>
-          </div>
-          <div className='wrap-svg save' onClick={handleSaveClick}>
-            <LockerSVG className='icon' active={saveActive} />
-            <span className='label'>{saveText}</span>
-          </div>
-        </div>
+        <CardAttributionBar url={item.url} />
+        <CardActionBar
+          type={type}
+          item={item}
+          save={save}
+          share={share}
+          insertItem={insertItem}
+        />
       </div>
     </Container>
   )
@@ -157,6 +128,7 @@ Card.propTypes = {}
 export default Card
 
 const Container = styled.div`
+  /* border: 1px solid black; */
   display: flex;
   position: relative;
   flex-direction: column;
@@ -201,8 +173,8 @@ const Container = styled.div`
     p {
       padding: 10px 10px 5px;
       font-size: 1.4rem;
-      line-height: 20px;
-      max-height: 72px;
+      line-height: 2rem;
+      max-height: 7.2rem;
       overflow: hidden;
       letter-spacing: 1px;
       color: #6d767e;
@@ -211,39 +183,14 @@ const Container = styled.div`
   .card-bar {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     position: absolute;
     bottom: 0px;
     height: 50px;
     width: 100%;
-    .card-info-bar {
+    margin-bottom: 4px;
+    .card-attribution-bar {
       padding: 0 10px;
-    }
-    .card-action-bar {
-      font-size: 1.2rem;
-      display: flex;
-      .wrap-svg {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        width: 70px;
-        transition: 0.3s ease-in-out;
-        &:hover {
-          color: dodgerblue;
-        }
-      }
-      .save {
-        color: ${props => (props.saveActive ? 'dodgerblue' : 'black')};
-      }
-      .share {
-        color: ${props => (props.shareActive ? 'dodgerblue' : 'black')};
-      }
-      .label {
-        font-weight: 600;
-        padding-top: 2px;
-      }
     }
   }
 `

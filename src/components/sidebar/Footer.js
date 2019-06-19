@@ -11,13 +11,13 @@ export default Footer
 
 const Container = styled.section`
   position: sticky;
-  top: 590px;
+  top: 440px;
   left: 0px;
   height: 150px;
-  width: 290px;
+  width: 100%;
   border: 1px solid dodgerblue;
   z-index: 1;
-  @media (max-width: 1210px) {
+  @media (max-width: 1200px) {
     opacity: 0;
     display: none;
   }
