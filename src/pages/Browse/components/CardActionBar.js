@@ -3,7 +3,7 @@ import styled from 'styled-components'
 // import { useAlert } from 'react-alert'
 import LockerSVG from './Locker01SVG'
 import ShareSVG from './ShareSVG'
-import MoreSVG from 'assets/SVGs/MoreSVG'
+import MoreSVG from 'assets/react-svg/MoreSVG'
 import PropTypes from 'prop-types'
 
 const CardActionBar = props => {
