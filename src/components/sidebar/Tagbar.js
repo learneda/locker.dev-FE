@@ -32,6 +32,7 @@ const Container = styled.section`
   z-index: 1;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   h3 {
     align-self: center;
   }
