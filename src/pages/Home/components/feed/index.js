@@ -97,15 +97,15 @@ const Feed = props => {
 export default Feed
 
 const Container = styled.div`
-  border: 1px solid red;
+  /* border: 1px solid red; */
   max-width: 580px;
   width: 100%;
   overflow: hidden;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   margin-bottom: 10px;
   border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   background: #fff;
   .infinite-scroll {
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
   }
 `
