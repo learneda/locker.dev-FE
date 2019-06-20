@@ -26,6 +26,7 @@ const Home = props => {
     followers,
     suggested,
     topTags,
+    myTags,
     fetchCollections,
     fetchFollowing,
     fetchFollowers,
@@ -37,6 +38,7 @@ const Home = props => {
     fetchMoreFeed,
     createCollection,
     fetchTopTags,
+    fetchMyTags,
   } = props
 
   useEffect(() => {
@@ -55,6 +57,7 @@ const Home = props => {
     if (!topTags.length) {
       fetchTopTags()
     }
+    fetchMyTags()
   }, [])
 
   return (
@@ -66,7 +69,7 @@ const Home = props => {
           followers={followers}
           following={following}
         />
-        <Tagbar topTags={topTags} />
+        <Tagbar topTags={topTags} myTags={myTags} />
       </WrapperLeft>
       <Feed
         {...props}
@@ -107,6 +110,7 @@ const mapStateToProps = ({
   feed: home,
   locker: home.locker,
   topTags: home.topTags,
+  myTags: home.myTags,
   ...social,
 })
 

@@ -7,6 +7,7 @@ const initialState = {
   hasmore: true,
   offset: 5,
   topTags: [],
+  myTags: [],
 }
 export const homeReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -93,6 +94,15 @@ export const homeReducer = (state = initialState, action) => {
       return { ...state, posts: new_posts }
     case type.FETCH_TOP_TAGS:
       return { ...state, topTags: action.payload }
+    case type.FETCH_MY_TAGS:
+      return { ...state, myTags: action.payload }
+    case type.ADD_TO_MY_TAGS:
+      return { ...state, myTags: [...state.myTags, action.payload] }
+    case type.REMOVE_FROM_MY_TAGS:
+      const filteredTags = state.myTags.filter(
+        tag => tag.hashtag != action.payload
+      )
+      return { ...state, myTags: filteredTags }
     default:
       return state
   }

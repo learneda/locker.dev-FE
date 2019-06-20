@@ -16,11 +16,13 @@ import CardAttributionBar from 'pages/Browse/components/CardAttributionBar'
 class PostContainer extends Component {
   constructor(props) {
     super(props)
-    this.heartIcon = React.createRef()
-    this.pony = React.createRef()
     this.state = {
       active: false,
+      activeComment: false,
     }
+    this.heartIcon = React.createRef()
+    this.pony = React.createRef()
+    this.inputCommentRef = React.createRef()
   }
 
   componentDidMount() {
@@ -98,6 +100,10 @@ class PostContainer extends Component {
     })
   }
 
+  handleCommentClick = ref => {
+    ref.current.focus()
+    this.setState({ activeComment: true })
+  }
   displayMedia = post => {
     const { url, thumbnail_url } = post
     if (url && url.includes('youtube.com/watch')) {
@@ -270,12 +276,14 @@ class PostContainer extends Component {
               </span>
             </div>
             <div>
-              <span>
-                <CommentSVG active={this.state.active} />
+              <span
+                onClick={() => this.handleCommentClick(this.inputCommentRef)}
+              >
+                <CommentSVG active={this.state.activeComment} />
               </span>
               <span>
                 {'  '}
-                {post.ponyCount}
+                {post.comments.length}
               </span>
             </div>
             <CardActionBar />
@@ -312,6 +320,7 @@ class PostContainer extends Component {
           handleDeleteComment={handleDeleteComment}
           user_id={user_id}
           postOwnerId={post.user_id}
+          inputCommentRef={this.inputCommentRef}
         />
       </div>
     )

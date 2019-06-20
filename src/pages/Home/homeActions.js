@@ -41,3 +41,10 @@ export const fetchTopTags = () => async dispatch => {
     dispatch({ type: type.FETCH_TOP_TAGS, payload: tags.data })
   }
 }
+
+export const fetchMyTags = () => async dispatch => {
+  const myTags = await axios.get('/tags')
+  if (myTags.data) {
+    dispatch({ type: type.FETCH_MY_TAGS, payload: myTags.data })
+  }
+}
