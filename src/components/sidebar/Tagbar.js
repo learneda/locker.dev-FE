@@ -41,8 +41,9 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  border-radius: 5px;
+  border: 1px solid powderblue;
+  /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); */
+  /* border-radius: 5px; */
   background: #fff;
   h3 {
     background: #b8c1c8;

@@ -89,9 +89,11 @@ const Profile = styled.div`
   position: sticky;
   top: 66px;
   width: 100%;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  border-radius: 5px;
+  /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 5px; */
   background: #fff;
+  border: 1px solid powderblue;
+
   .count {
     margin: 10px 0;
     font-size: 2rem;
@@ -106,8 +108,6 @@ const Profile = styled.div`
   }
   .user {
     position: relative;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
     padding-left: 10px;
     height: 80px;
     /* margin-bottom: 50px; */

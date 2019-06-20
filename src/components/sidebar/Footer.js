@@ -5,8 +5,8 @@ const Footer = props => {
   return (
     <Container>
       <div className='top'>
-        <div className='a'>&copy;2019 Locker About Help Center Terms</div>
-        <div className='a'>Privacy policy CookiesAds info Brand</div>
+        <div className='a'>&copy;2019 Locker About Help Terms</div>
+        <div className='a'>Privacy Policy Cookies Ads Info Brand</div>
         <div className='a'>Blog Status Apps Jobs Marketing</div>
         <div>Businesses Developers</div>
       </div>
@@ -21,11 +21,11 @@ export default Footer
 
 const Container = styled.section`
   position: sticky;
-  top: 440px;
+  top: 485px;
   left: 0px;
   height: 150px;
   width: 100%;
-  border: 1px solid dodgerblue;
+  border: 1px solid powderblue;
   z-index: 1;
   font-size: 12px;
   display: flex;
