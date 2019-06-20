@@ -29,7 +29,7 @@ const Card = props => {
       }
       break
     case 'course':
-      item.url = `https://www.udemy.com${item.url}`
+      const tempUrl = `https://www.udemy.com${item.url}`
       item.thumbnail = item.image_480x270
       item.description = item.headline
 
@@ -37,7 +37,7 @@ const Card = props => {
         type,
         title: item.title,
         description: item.headline,
-        post_url: item.url,
+        post_url: tempUrl,
         thumbnail_url: item.image_480x270,
       }
       break
@@ -72,9 +72,9 @@ const Card = props => {
       item.thumbnail = item.image
       insertItem = {
         type,
-        title: item.title_original,
+        title: item.title,
         description: item.description,
-        post_url: item.audio,
+        post_url: item.url,
         thumbnail_url: item.thumbnail,
       }
       break

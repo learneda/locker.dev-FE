@@ -33,10 +33,10 @@ Tagbar.propTypes = {}
 export default Tagbar
 
 const Container = styled.section`
-  height: 330px;
+  height: 350px;
   width: 100%;
   position: sticky;
-  top: 360px;
+  top: 300px;
   z-index: 1;
   display: flex;
   flex-direction: column;

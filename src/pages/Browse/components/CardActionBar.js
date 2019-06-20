@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-// import { useAlert } from 'react-alert'
 import LockerSVG from 'assets/react-svg/Locker01SVG'
 import ShareSVG from 'assets/react-svg/ShareSVG'
 import MoreSVG from 'assets/react-svg/MoreSVG'
 import PropTypes from 'prop-types'
 
 const CardActionBar = props => {
-  const { type, item, insertItem, save, share } = props
-  // const alert = useAlert()
+  const { type, item, insertItem, save, share, className } = props
   const [saveActive, setSaveActive] = useState(false)
   const [shareActive, setShareActive] = useState(false)
   const [moreActive, setMoreActive] = useState(false)
@@ -17,16 +15,10 @@ const CardActionBar = props => {
 
   const saveToLocker = async () => {
     await save(insertItem)
-    // alert.success(
-    //   `${type.slice(0, 1).toUpperCase() + type.slice(1)} added to Locker`
-    // )
   }
 
   const shareToFeed = async () => {
     await share(insertItem)
-    // alert.success(
-    //   `${type.slice(0, 1).toUpperCase() + type.slice(1)} shared to Feed`
-    // )
   }
 
   //TODO: Clean logic
@@ -58,7 +50,11 @@ const CardActionBar = props => {
   }
 
   return (
-    <StyledActionBar saveActive={saveActive} shareActive={shareActive}>
+    <StyledActionBar
+      className={className}
+      saveActive={saveActive}
+      shareActive={shareActive}
+    >
       <div className='wrap-svg share' onClick={handleShareClick}>
         <ShareSVG className='icon' active={shareActive} />
         <span className='label'>{shareText}</span>

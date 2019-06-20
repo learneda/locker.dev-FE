@@ -34,11 +34,17 @@ class Sidebar extends Component {
       <Wrapper>
         {this.props.user && (
           <Profile>
-            <div className='user'>
+            <div
+              className='user'
+              style={{
+                backgroundImage: `url(${this.props.user.header_picture})`,
+              }}
+            >
               <img src={this.props.user.profile_picture} alt='avatar' />
             </div>
             <div className='user-bio'>
               <h3>{this.props.user.display_name}</h3>
+              <h4>{`@${this.props.user.username}`}</h4>
               <div className='profile-stats'>
                 <Link to='/locker'>
                   <ul>
@@ -74,10 +80,10 @@ const Wrapper = styled.div`
   position: sticky;
   top: 66px;
   width: 100%;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 `
 const Profile = styled.div`
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   position: sticky;
   top: 66px;
   width: 100%;
@@ -86,22 +92,23 @@ const Profile = styled.div`
   background: #fff;
   .count {
     margin: 10px 0;
-    font-size: 1.6rem;
+    font-size: 2rem;
     font-weight: bold;
     color: dodgerblue;
   }
   .count-label {
     font-weight: bold;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+    letter-spacing: 0.6px;
     color: #657786;
   }
   .user {
     position: relative;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
-    padding-left: 20px;
+    padding-left: 10px;
     height: 80px;
-    margin-bottom: 50px;
+    /* margin-bottom: 50px; */
     background-color: #4064f2;
 
     img {
@@ -116,17 +123,26 @@ const Profile = styled.div`
   }
 
   .user-bio {
+    position: relative;
     flex-direction: column;
     flex-wrap: nowrap;
-    padding: 15px 8%;
+    padding: 5px 8% 10px;
     margin: 0 auto;
-    @media (max-width: 1350px) {
-      width: 100%;
-    }
+    overflow: hidden;
     h3 {
-      margin: 0 auto;
-      font-size: 2.5rem;
-      margin-bottom: 15px;
+      font-size: 1.6rem;
+      width: 100%;
+      position: relative;
+      padding-left: 95px;
+      letter-spacing: 0.5px;
+    }
+    h4 {
+      margin-bottom: 30px;
+      font-size: 1.3rem;
+      font-weight: 100px;
+      margin-top: 5px;
+      padding-left: 95px;
+      color: #6d767e;
     }
 
     p {
@@ -183,10 +199,7 @@ const Profile = styled.div`
     display: flex;
     width: 100%;
     justify-content: space-between;
-    @media (max-width: 1400px) {
-      /* flex-direction: column; */
-      flex-wrap: wrap;
-    }
+
     a {
       margin-right: 12px;
       cursor: pointer;
@@ -194,7 +207,6 @@ const Profile = styled.div`
     ul {
       display: flex;
       flex-direction: column;
-      margin-bottom: 15px;
       cursor: pointer;
       transition: 200ms ease-out;
       :not(:last-child) {
@@ -210,7 +222,7 @@ const Profile = styled.div`
       }
 
       li:nth-of-type(2) {
-        opacity: 0.7;
+        opacity: 0.9;
         transition: 200ms ease-out;
       }
     }

@@ -9,6 +9,7 @@ import SharedButton from '../shared'
 import { selectLogo, printRootUrl } from 'helpers'
 import { smartTruncate } from '../mixins'
 import { StyledCollections } from './StyledCollections'
+import CardAttributionBar from 'pages/Browse/components/CardAttributionBar'
 
 const Collection = props => {
   const collections = props.collections
@@ -39,16 +40,7 @@ const Collection = props => {
               target='_blank'
               rel='noopener noreferrer'
             >
-              <div
-                style={{
-                  display: 'flex',
-                  marginTop: '5px',
-                  alignItems: 'center',
-                }}
-              >
-                {selectLogo(collection.post_url)}
-                {printRootUrl(collection.root_url)}
-              </div>
+              <CardAttributionBar url={collection.post_url} />
             </a>
           </div>
           <div className='date-like-heart'>
