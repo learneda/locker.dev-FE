@@ -117,6 +117,7 @@ class CommentBox extends Component {
                   name='commentInput'
                   value={this.state.commentInput}
                   onChange={this.handleChange}
+                  ref={this.props.inputCommentRef}
                 />
               </div>
               <button>Post!</button>
