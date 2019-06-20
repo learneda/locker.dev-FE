@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 // import { useAlert } from 'react-alert'
-import LockerSVG from './Locker01SVG'
-import ShareSVG from './ShareSVG'
+import LockerSVG from 'assets/react-svg/Locker01SVG'
+import ShareSVG from 'assets/react-svg/ShareSVG'
 import MoreSVG from 'assets/react-svg/MoreSVG'
 import PropTypes from 'prop-types'
 
