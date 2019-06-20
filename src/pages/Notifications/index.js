@@ -28,6 +28,7 @@ export default connect(
 
 const Container = styled.div`
   display: flex;
-  width: 100%;
+  justify-content: center;
   min-height: 100vh;
+  margin: 30px auto;
 `

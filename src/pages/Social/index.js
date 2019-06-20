@@ -62,9 +62,6 @@ const Social = props => {
           <Tab>
             <NavLink to={`${match.url}/suggested`}>Suggested</NavLink>
           </Tab>
-          <Tab>
-            <NavLink to={`${match.url}/meetups`}>Meetups</NavLink>
-          </Tab>
         </Tabs>
         <TabWrapper>
           <Switch>
@@ -139,22 +136,11 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   position: relative;
-  @media (max-width: 1400px) {
-    width: 90%;
-  }
-  @media (max-width: 768px) {
-    width: 100%;
-  }
 `
 const Wrapper = styled.div`
   max-width: 1600px;
   padding-left: 3%;
   width: 100%;
-  @media (max-width: 900px) {
-    width: 90%;
-    margin: 0 auto;
-    padding: 0;
-  }
 `
 
 const TabWrapper = styled.div`
@@ -176,14 +162,6 @@ const Tabs = styled.ul`
     font-weight: 900;
     color: #4064f2;
   }
-  @media (max-width: 900px) {
-    top: 59px;
-    height: 80px;
-  }
-  @media (max-width: 760px) {
-    top: 50px;
-    height: 80px;
-  }
 `
 
 const Tab = styled.li`
@@ -196,14 +174,5 @@ const Tab = styled.li`
       color: #4064f2;
       transition: 100ms ease-in;
     }
-  }
-  @media (max-width: 500px) {
-    font-size: 1.5rem;
-  }
-  @media (max-width: 400px) {
-    font-size: 1.2rem;
-  }
-  @media (max-width: 350px) {
-    font-size: 1rem;
   }
 `

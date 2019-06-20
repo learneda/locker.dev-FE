@@ -126,12 +126,13 @@ export default connect(
 )(withRouter(Home))
 
 const Container = styled.div`
+  border: 1px solid dodgerblue;
   display: flex;
   justify-content: space-between;
   max-width: 1200px;
   margin: 15px auto 30px;
-  padding: 0 20px;
-  @media (max-width: 1200px) {
+  padding: 0 15px;
+  @media (max-width: 1180px) {
     justify-content: space-around;
   }
   @media (max-width: 620px) {
@@ -156,7 +157,7 @@ const WrapperRight = styled.div`
   width: 260px;
   opacity: 1;
   transition: opacity 100ms ease;
-  @media (max-width: 1200px) {
+  @media (max-width: 1180px) {
     opacity: 0;
     display: none;
   }
