@@ -1,6 +1,4 @@
 import axios from 'apis/axiosAPI'
-import youtube from 'apis/youtube'
-import listen from 'apis/listen'
 import * as type from './browseTypes'
 import { selectRandom } from 'helpers'
 
@@ -59,17 +57,9 @@ export const fetchVideos = (q, pageToken) => async dispatch => {
   if (!q) {
     q = selectRandom(topics)
   }
-  const res = await youtube.get(`/search`, {
-    params: {
-      q,
-      pageToken,
-      part: 'snippet',
-      maxResults: 12,
-      type: 'video',
-      key: 'AIzaSyAox9SoXZEVF2JjbJ9lRsCE_Fpw_6sXKO0',
-    },
-  })
-  //* Adds isThumbnail property to each video; default to true
+  const res = await axios.post('/youtube', { q, pageToken })
+
+  // //* Adds isThumbnail property to each video; default to true
   const videosWithThumbnailState = res.data.items.map(video => {
     video.isThumbnail = true
     return video
@@ -78,15 +68,7 @@ export const fetchVideos = (q, pageToken) => async dispatch => {
   dispatch({ type: type.SET_VIDEO_PAGETOKEN, payload: res.data.nextPageToken })
 }
 export const searchVideos = q => async dispatch => {
-  const res = await youtube.get('/search', {
-    params: {
-      q,
-      part: 'snippet',
-      maxResults: 12,
-      type: 'video',
-      key: 'AIzaSyAox9SoXZEVF2JjbJ9lRsCE_Fpw_6sXKO0',
-    },
-  })
+  const res = await axios.post('/youtube', { q })
   const videosWithThumbnailState = res.data.items.map(video => {
     video.isThumbnail = true
     return video
@@ -133,22 +115,14 @@ export const fetchPodcasts = (q, offset) => async dispatch => {
   if (!q) {
     q = selectRandom(topics)
   }
-  const res = await listen.get('/search', {
-    params: {
-      q,
-      offset,
-    },
-  })
+  const res = await axios.post('/listen', { q, offset })
+
   dispatch({ type: type.FETCH_PODCASTS, payload: res.data.results })
   dispatch({ type: type.SET_PODCAST_OFFSET, payload: res.data.next_offset })
 }
 export const searchPodcasts = (q, offset) => async dispatch => {
-  const res = await listen.get('/search', {
-    params: {
-      q,
-      offset,
-    },
-  })
+  const res = await axios.post('/listen', { q, offset })
+
   dispatch({ type: type.SEARCH_PODCASTS, payload: res.data.results })
   dispatch({ type: type.SET_PODCAST_OFFSET, payload: res.data.next_offset })
 }
