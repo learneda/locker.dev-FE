@@ -138,10 +138,6 @@ const Container = styled.div`
     .add-comment {
       display: flex;
       align-items: center;
-
-      @media (max-width: 600px) {
-        flex-wrap: wrap;
-      }
       .pic-and-form {
         display: flex;
         align-items: center;
@@ -155,13 +151,15 @@ const Container = styled.div`
       }
 
       input {
-        resize: none;
         padding: 10px;
         width: 100%;
         border-radius: 3px;
         border: 1px solid lightgrey;
         height: 40px;
         font-size: 1.4rem;
+        @media (max-width: 600px) {
+          width: 90%;
+        }
         ::placeholder {
           /* border-bottom: 1px solid lightgrey; */
         }
@@ -181,11 +179,7 @@ const Container = styled.div`
         padding: 8px 25px;
         font-size: 1.5rem;
         cursor: pointer;
-        @media (max-width: 600px) {
-          width: 150px;
-          margin-top: 10px;
-          margin-left: auto;
-        }
+
         @media (max-width: 400px) {
           width: 120px;
         }

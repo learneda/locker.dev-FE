@@ -34,7 +34,12 @@ class Sidebar extends Component {
       <Wrapper>
         {this.props.user && (
           <Profile>
-            <div className='user'>
+            <div
+              className='user'
+              style={{
+                backgroundImage: `url(${this.props.user.header_picture})`,
+              }}
+            >
               <img src={this.props.user.profile_picture} alt='avatar' />
             </div>
             <div className='user-bio'>
