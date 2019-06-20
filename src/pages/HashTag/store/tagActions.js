@@ -11,9 +11,11 @@ export const fetchTagPosts = hashtag => async dispatch => {
 
 export const followTag = hashtag => async dispatch => {
   const status = await axios.post(`/tags/follow/${hashtag}`)
+
   if (status.data.msg === 'success') {
+    console.log(status.data.hashtag)
     dispatch({ type: type.FOLLOW_TAG, payload: true })
-    dispatch({ type: type.ADD_TO_MY_TAGS, payload: { hashtag } })
+    dispatch({ type: type.ADD_TO_MY_TAGS, payload: status.data.hashtag })
   }
 }
 
@@ -21,6 +23,6 @@ export const unfollowTag = hashtag => async dispatch => {
   const status = await axios.delete(`/tags/unfollow/${hashtag}`)
   if (status.data.msg === 'success') {
     dispatch({ type: type.UNFOLLOW_TAG, payload: false })
-    dispatch({ type: type.REMOVE_FROM_MY_TAGS, payload: hashtag })
+    dispatch({ type: type.REMOVE_FROM_MY_TAGS, payload: status.data.hashtag })
   }
 }
