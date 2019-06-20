@@ -38,6 +38,8 @@ class Sidebar extends Component {
               className='user'
               style={{
                 backgroundImage: `url(${this.props.user.header_picture})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
               }}
             >
               <img src={this.props.user.profile_picture} alt='avatar' />

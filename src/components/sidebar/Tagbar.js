@@ -40,25 +40,27 @@ const Container = styled.section`
   z-index: 1;
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow: hidden;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 5px;
-
+  background: #fff;
   h3 {
     background: #b8c1c8;
     border-bottom: 1px solid #989ea4;
     color: #fff;
-    font: bold 18px/21px Helvetica, Arial, sans-serif;
     margin: 0;
     padding: 2px 0 0 12px;
-    position: -webkit-sticky;
     position: sticky;
-    top: -1px;
+    color: #14171a;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    line-height: 2.4rem;
   }
   .tag {
-    padding: 0 0 0 12px;
-    font: bold 20px/45px Helvetica, Arial, sans-serif;
+    padding: 10px 15px;
     margin: 0;
+    font-size: 1.6rem;
+    letter-spacing: 0.8px;
+    font-weight: normal;
   }
 `
