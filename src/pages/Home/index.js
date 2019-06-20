@@ -137,7 +137,7 @@ const Container = styled.div`
 `
 const WrapperLeft = styled.div`
   position: relative;
-  width: 260px;
+  width: 280px;
   transition: opacity 3000ms ease;
   opacity: 1;
   @media (max-width: 900px) {
