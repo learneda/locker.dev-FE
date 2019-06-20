@@ -5,7 +5,7 @@ import PostContent from './PostContent'
 import CommentBox from '../comments'
 import FeedBar from './FeedBar'
 import CardActionBar from 'pages/Browse/components/CardActionBar'
-import CardAttributionBar from '../../../../Browse/components/CardAttributionBar'
+import CardAttributionBar from 'pages/Browse/components/CardAttributionBar'
 
 class PostContainer extends Component {
   handleSaveToProfile = post => {

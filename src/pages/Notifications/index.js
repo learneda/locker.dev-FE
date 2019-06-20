@@ -1,17 +1,38 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import Notifications from './components/Notifications'
 import { customWrapper } from 'components/mixins'
 import * as notificationActions from './store/notificationActions'
+import NotificationsPlaceHolder from './components/NotificationsPlaceHolder'
 
 const NotificationsPage = props => {
   const { notifications, getNotifications } = props
-  useEffect(() => {
-    getNotifications()
-  }, [])
+  const [loading, setLoading] = useState(true)
 
-  return (
+  useEffect(() => {
+    const asyncGetNotifications = async () => {
+      await getNotifications()
+      setLoading(false)
+    }
+    asyncGetNotifications()
+  }, [])
+  return loading ? (
+    <Container>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <h1
+          style={{ fontSize: '35px', fontWeight: 'bold', marginBottom: '50px' }}
+        >
+          Notifications
+        </h1>
+        <NotificationsPlaceHolder />
+        <br />
+        <NotificationsPlaceHolder />
+        <br />
+        <NotificationsPlaceHolder />
+      </div>
+    </Container>
+  ) : (
     <Container>
       <Notifications notifications={notifications} {...props} />
     </Container>

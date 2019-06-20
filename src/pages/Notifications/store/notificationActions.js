@@ -12,7 +12,9 @@ export const deleteNotifications = () => async dispatch => {
 
 export const getNotifications = () => async dispatch => {
   const notifications = await axios.get('/notifications')
-  dispatch({ type: type.FETCH_NOTIFICATIONS, payload: notifications.data })
+  if (notifications.data.length) {
+    dispatch({ type: type.FETCH_NOTIFICATIONS, payload: notifications.data })
+  }
 }
 
 export const receivingNotifications = data => async dispatch => {
