@@ -74,23 +74,27 @@ const Wrapper = styled.div`
   position: sticky;
   top: 66px;
   width: 100%;
+  border: 1px solid red;
 `
 const Profile = styled.div`
-  .count-label {
-    font-weight: bold;
-    font-size: 1.4rem;
-    color: #657786;
-  }
+  border: 1px solid blue;
+  position: sticky;
+  top: 66px;
+  width: 100%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 5px;
+  background: #fff;
   .count {
     margin: 10px 0;
     font-size: 1.6rem;
     font-weight: bold;
     color: dodgerblue;
   }
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  border-radius: 5px;
-  background: #fff;
-
+  .count-label {
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #657786;
+  }
   .user {
     position: relative;
     border-top-right-radius: 5px;

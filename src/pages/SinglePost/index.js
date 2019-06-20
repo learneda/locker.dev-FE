@@ -3,8 +3,8 @@ import axios from 'apis/axiosAPI'
 import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 import Moment from 'react-moment'
-import Feed from '../../components/feed'
-import { createCollection } from '../../actions'
+import Feed from 'pages/Home/components/feed/'
+import { createCollection } from 'actions'
 import { connect } from 'react-redux'
 
 const SinglePost = props => {

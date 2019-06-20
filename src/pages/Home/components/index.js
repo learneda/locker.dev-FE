@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { customWrapper } from '../mixins'
+import { customWrapper } from 'components/mixins'
 import ContentLoader from 'react-content-loader'
-import HelpScreen from '../utils/screens/HelpScreen'
+import HelpScreen from 'components/utils/screens/HelpScreen'
 import OnlineFriendsSVG from 'assets/svg/online_friends.svg'
 import PostContainer from './posts/index'
 import InfiniteScroll from 'react-infinite-scroll-component'
@@ -10,21 +10,6 @@ import { ReactComponent as Loading } from 'assets/svg/circles.svg'
 import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 import socket from 'socket'
 
-const MyLoader = () => (
-  <ContentLoader
-    height={475}
-    width={400}
-    speed={2}
-    primaryColor='#c2c2c2'
-    secondaryColor='#ecebeb'
-    style={{ minWidth: '100%', maxWidth: '700px', width: '100%' }}
-  >
-    <circle cx='30' cy='30' r='30' />
-    <rect x='75' y='13' rx='4' ry='4' width='100' height='13' />
-    <rect x='75' y='37' rx='4' ry='4' width='50' height='8' />
-    <rect x='3' y='68' rx='5' ry='5' width='400' height='400' />
-  </ContentLoader>
-)
 class Feed extends Component {
   handleSubmit = (event, post_id, comment, postOwnerId) => {
     const body = comment.trim()
@@ -61,14 +46,23 @@ class Feed extends Component {
     while (!this.props.user) {
       return (
         <Container>
-          <MyLoader />
+          <FeedPlaceholder />
         </Container>
       )
     }
 
-    let posts = []
 
-    posts = this.props.posts.map((post, index) => (
+    if (this.props.posts.length) {
+      return (
+        <Container>
+          <ScrollToTopOnMount />
+          <InfiniteScroll
+            dataLength={this.props.posts.length}
+            next={() => this.props.fetchMoreFeed(this.props.offset)}
+            hasMore={this.props.hasmore}
+            loader={<Loading style={{ margin: 'auto', display: 'block' }} />}
+          >
+          {this.props.posts.map((post, index) => (
       <PostContainer
         key={index}
         handleSubmit={this.handleSubmit}
@@ -82,19 +76,7 @@ class Feed extends Component {
         createCollection={this.props.createCollection}
         handlePony={this.handlePony}
       />
-    ))
-
-    if (this.props.posts.length) {
-      return (
-        <Container>
-          <ScrollToTopOnMount />
-          <InfiniteScroll
-            dataLength={this.props.posts.length}
-            next={() => this.props.fetchMoreFeed(this.props.offset)}
-            hasMore={this.props.hasmore}
-            loader={<Loading style={{ margin: 'auto', display: 'block' }} />}
-          >
-            {posts}
+    ))}
           </InfiniteScroll>
         </Container>
       )
@@ -118,7 +100,7 @@ const Container = styled.div`
   @media (max-width: 600px) {
     width: 100%;
   }
-  .post {
+  /* .post {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     margin-bottom: 10px;
     border-radius: 8px;
@@ -289,4 +271,4 @@ const Container = styled.div`
     width: 15.99px;
     /* border-radius: 9px; */
   }
-`
+` */

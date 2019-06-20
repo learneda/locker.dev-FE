@@ -2,17 +2,16 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import CommentBox from '../comments'
-import { apiURL } from 'services'
+import styled from 'styled-components'
 import addIcon from 'assets/svg/add-icon.svg'
 import { withAlert } from 'react-alert'
 import { smartTruncate } from 'components/mixins/'
-import { selectLogo } from 'helpers'
-import axiosAPI from 'apis/axiosAPI'
-import PonySVG from './PonySVG'
+import PonySVG from 'assets/react-svg/PonySVG'
 import CommentSVG from 'assets/react-svg/CommentSVG'
 import MoreSVG from 'assets/react-svg/MoreSVG'
 import CardActionBar from 'pages/Browse/components/CardActionBar'
 import CardAttributionBar from 'pages/Browse/components/CardAttributionBar'
+
 class PostContainer extends Component {
   constructor(props) {
     super(props)
@@ -197,6 +196,7 @@ class PostContainer extends Component {
 
   render() {
     const {
+      className,
       post,
       handleSubmit,
       handleClick,
@@ -205,113 +205,38 @@ class PostContainer extends Component {
       handleDeleteComment,
     } = this.props
     return (
-      <div className='post'>
-        <div className='post-user-info'>
-          <Link to={`/profile/${post.user_id}`} className='post-user-pic'>
-            <img src={`${post.profile_picture}`} alt='user_profile_pic' />
+      <Container className='post'>
+        <div className='post-header'>
+          <Link to={`/profile/${post.user_id}`} className='post-header-left'>
+            <img
+              className='post-avatar'
+              src={`${post.profile_picture}`}
+              alt='user-avatar'
+            />
           </Link>
-          <div>
-            <Link to={`/profile/${post.user_id}`}>
-              <h2>
-                {post.username}
-                <Moment className='post-date' fromNow>
-                  {post.posted_at_date}
-                </Moment>
-              </h2>
+          <div className='post-header-middle'>
+            <Link to={`/profile/${post.user_id}`} className='post-user-info'>
+              <span className='post-display-name'>{post.display_name}</span>
+              <span className='post-username'>@Username</span>
+              <Moment className='post-date' fromNow>
+                {post.posted_at_date}
+              </Moment>
             </Link>
-            <p className='post-thoughts'>{this.props.post.user_thoughts}</p>
+            <p className='post-thought'>{this.props.post.user_thoughts}</p>
           </div>
-          <div style={{ position: 'absolute', top: '20px', right: '30px' }}>
+          <div className='post-header-right'>
             <a
               className='post-root-url'
               href={post.url}
               target='_blank'
               rel='noopener noreferrer'
             >
-              <CardAttributionBar url={post.url} />
+              <AttributionBar className={className} url={post.url} />
             </a>
           </div>
         </div>
-        <div className='post-content'>
-          {post.thumbnail_url ? (
-            <a href={post.url} target='_blank' rel='noopener noreferrer'>
-              {this.displayMedia(post)}
-            </a>
-          ) : null}
-          <div className='title-and-description'>
-            <a href={post.url} target='_blank' rel='noopener noreferrer'>
-              <h2>{post.title}</h2>
-            </a>
-            <p>{smartTruncate(post.description, 210)}</p>
-          </div>
-          <div className='likes-and-save'>
-            <div>
-              <i
-                className='far fa-heart fa-lg'
-                ref={this.heartIcon}
-                onClick={e => {
-                  this.handleLikes(e, post.id, post)
-                  e.target.classList.toggle('heart-red')
-                }}
-              />
-              <span className='like_num'>{post.likes}</span>
-            </div>
-            <div>
-              <span
-                ref={this.pony}
-                onClick={e => {
-                  this.setState(
-                    prev => ({ active: !prev.active }),
-                    () => this.handlePonyClick(e, post.id, post)
-                  )
 
-                  e.target.classList.toggle('on')
-                }}
-              >
-                <PonySVG active={this.state.active} />
-              </span>
-              <span>
-                {'  '}
-                {post.ponyCount}
-              </span>
-            </div>
-            <div>
-              <span
-                onClick={() => this.handleCommentClick(this.inputCommentRef)}
-              >
-                <CommentSVG active={this.state.activeComment} />
-              </span>
-              <span>
-                {'  '}
-                {post.comments.length}
-              </span>
-            </div>
-            <CardActionBar />
-
-            {post.tags.length > 0 &&
-              post.tags.map(tag => {
-                return (
-                  <Link to={`/tag/${tag.hashtag}`} key={tag.id}>
-                    <div style={{ marginLeft: '5px' }}> #{tag.hashtag} </div>
-                  </Link>
-                )
-              })}
-
-            {this.props.user_id !== post.user_id && (
-              <div
-                className='save'
-                onClick={() => {
-                  this.handleSaveToProfile(post)
-                  this.props.alert.success('Post added to Saved')
-                }}
-              >
-                <img src={addIcon} alt='' />
-                <h3>Add to Saved</h3>
-              </div>
-            )}
-          </div>
-        </div>
-        <CommentBox
+        {/* <CommentBox
           post_comments={post.comments}
           post_id={post.id}
           handleClick={handleClick}
@@ -320,13 +245,85 @@ class PostContainer extends Component {
           handleDeleteComment={handleDeleteComment}
           user_id={user_id}
           postOwnerId={post.user_id}
-          inputCommentRef={this.inputCommentRef}
-        />
-      </div>
+        /> */}
+      </Container>
     )
   }
 }
 
-const Alert = withAlert()(PostContainer)
+const Post = withAlert()(PostContainer)
 
-export default Alert
+export default Post
+
+const Container = styled.div`
+  position: relative;
+  overflow: hidden;
+  .post-header {
+    display: flex;
+    align-items: center;
+    /* border: 1px solid blue; */
+    height: 90px;
+  }
+  .post-header-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    /* border: 1px solid red; */
+
+    .post-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+  }
+  .post-header-middle {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 340px;
+    /* border: 1px solid dodgerblue; */
+    .post-user-info {
+      font-size: 1.3rem;
+      /* border: 1px solid green; */
+      padding: 5px 0px 5px;
+      .post-display-name {
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+      .post-username {
+        font-size: 1.2rem;
+        margin-left: 6px;
+        color: #657786;
+      }
+      .post-date {
+        font-size: 1.2rem;
+        margin-left: 6px;
+        color: #657786;
+      }
+    }
+    .post-thought {
+      font-size: 1.6rem;
+      letter-spacing: 0.8px;
+      line-height: 1.8rem;
+    }
+  }
+  .post-header-right {
+    height: 100%;
+    justify-self: flex-end;
+    /* border: 1px rebeccapurple solid; */
+    flex-grow: 1;
+  }
+`
+
+const AttributionBar = styled(CardAttributionBar)`
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin: 0;
+  padding-right: 5px;
+  height: 30px;
+`

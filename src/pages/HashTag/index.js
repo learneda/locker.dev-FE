@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import * as tagActions from './store/tagActions'
-import { createCollection } from '../../actions'
+import { createCollection } from 'actions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
-import Feed from '../../components/feed'
+import Feed from 'pages/Home/components/feed/'
 
 const HashTagFeed = props => {
   useEffect(() => {
