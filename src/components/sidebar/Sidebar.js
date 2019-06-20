@@ -74,10 +74,10 @@ const Wrapper = styled.div`
   position: sticky;
   top: 66px;
   width: 100%;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 `
 const Profile = styled.div`
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   position: sticky;
   top: 66px;
   width: 100%;

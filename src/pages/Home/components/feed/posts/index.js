@@ -1,90 +1,13 @@
 import React, { Component } from 'react'
-import CommentBox from '../comments'
 import styled from 'styled-components'
-import addIcon from 'assets/svg/add-icon.svg'
-import { withAlert } from 'react-alert'
-import { smartTruncate } from 'components/mixins/'
-import PonySVG from 'assets/react-svg/PonySVG'
-import CommentSVG from 'assets/react-svg/CommentSVG'
-import MoreSVG from 'assets/react-svg/MoreSVG'
-import CardActionBar from 'pages/Browse/components/CardActionBar'
 import PostHeader from './PostHeader'
+import PostContent from './PostContent'
+import CommentBox from '../comments'
+import FeedBar from './FeedBar'
+import CardActionBar from 'pages/Browse/components/CardActionBar'
+import CardAttributionBar from '../../../../Browse/components/CardAttributionBar'
+
 class PostContainer extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      active: false,
-      activeComment: false,
-    }
-    this.heartIcon = React.createRef()
-    this.pony = React.createRef()
-    this.inputCommentRef = React.createRef()
-  }
-
-  componentDidMount() {
-    if (this.props.post) {
-      if (this.props.post.hasLiked) {
-        this.heartIcon.current.setAttribute(
-          'class',
-          'far fa-heart fa-lg heart-red'
-        )
-      }
-      if (this.props.post.hasPony) {
-        console.log('inside did mount has Pony')
-        this.pony.current.setAttribute('class', 'on')
-        this.setState({ active: true })
-      }
-    }
-  }
-
-  handleLikes = (e, post_id, post) => {
-    const postOwnerId = post.user_id
-
-    let result = e.target.classList.contains('heart-red')
-    if (result) {
-      const data = {
-        id: post_id,
-        user_id: this.props.user_id,
-        action: 'unlike',
-      }
-      console.log('this is the like data', data)
-      this.props.handleClick(data)
-    } else {
-      const data = {
-        id: post_id,
-        user_id: this.props.user_id,
-        action: 'like',
-        postOwnerId,
-        username: this.props.username,
-      }
-      console.log('this is the like data', data)
-
-      this.props.handleClick(data)
-    }
-  }
-
-  handlePonyClick = (e, post_id, post) => {
-    const postOwnerId = post.user_id
-    let hasClassName = this.state.active
-    if (!hasClassName) {
-      const data = {
-        id: post_id,
-        user_id: this.props.user_id,
-        action: 'pony_down',
-      }
-      this.props.handlePony(data)
-    } else {
-      const data = {
-        id: post_id,
-        user_id: this.props.user_id,
-        action: 'pony_up',
-        postOwnerId,
-        username: this.props.username,
-      }
-      this.props.handlePony(data)
-    }
-  }
-
   handleSaveToProfile = post => {
     const { title, url, description, thumbnail_url } = post
     this.props.createCollection({
@@ -96,10 +19,6 @@ class PostContainer extends Component {
     })
   }
 
-  handleCommentClick = ref => {
-    ref.current.focus()
-    this.setState({ activeComment: true })
-  }
   displayMedia = post => {
     const { url, thumbnail_url } = post
     if (url && url.includes('youtube.com/watch')) {
@@ -193,13 +112,15 @@ class PostContainer extends Component {
 
   render() {
     const {
-      className,
       post,
+      user_id,
+      username,
       handleSubmit,
       handleClick,
+      handlePony,
       profile_picture,
-      user_id,
       handleDeleteComment,
+      className,
     } = this.props
     return (
       <Container>
@@ -211,7 +132,18 @@ class PostContainer extends Component {
             </a>
           ) : null}
         </div>
-        {/* <CommentBox
+        <PostContent post={post} />
+        <div className='post-bar'>
+          <FeedBar
+            user_id={user_id}
+            username={username}
+            post={post}
+            handleClick={handleClick}
+            handlePony={handlePony}
+          />
+          <ActionBar className={className} />
+        </div>
+        <CommentBox
           post_comments={post.comments}
           post_id={post.id}
           handleClick={handleClick}
@@ -220,17 +152,30 @@ class PostContainer extends Component {
           handleDeleteComment={handleDeleteComment}
           user_id={user_id}
           postOwnerId={post.user_id}
-        /> */}
+        />
       </Container>
     )
   }
 }
 
-const Post = withAlert()(PostContainer)
-
-export default Post
+export default PostContainer
 
 const Container = styled.div`
   position: relative;
-  overflow: hidden;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  background: #fff;
+
+  .post-bar {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e6ecf0;
+    padding-bottom: 8px;
+  }
+`
+
+const ActionBar = styled(CardActionBar)`
+  position: relative;
+  bottom: 4px;
 `

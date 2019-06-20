@@ -17,7 +17,9 @@ export const selectLogo = url => {
       'hackernoon',
       'listen',
     ]
-    const logo = logos.filter(logo => url.includes(logo))[0]
+    const newUrl = url.includes('http') ? url : `http://www.udemy.com${url}`
+
+    const logo = logos.filter(logo => newUrl.includes(logo))[0]
     switch (logo) {
       case 'youtube':
         return (
@@ -65,8 +67,8 @@ export const printRootUrl = url => {
   if (!url) {
     return
   }
-
-  const newUrl = url.includes('http') ? url : `http://${url}`
+  //TODO: FIX UDEMY HACK
+  const newUrl = url.includes('http') ? url : `http://www.udemy.com${url}`
 
   let rootUrl
   try {
@@ -78,11 +80,10 @@ export const printRootUrl = url => {
   rootUrl =
     rootUrl &&
     rootUrl.hostname.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '').split('/')[0]
-  //! FixMeLater
-  const fixedUrl = rootUrl && rootUrl.replace('https', '')
+
   return rootUrl && rootUrl.includes('listen') ? null : (
-    <a href={`https://${fixedUrl}`} target='_blank' rel='noopener noreferrer'>
-      <span className='attribution-url'>{fixedUrl}</span>
+    <a href={`https://${rootUrl}`} target='_blank' rel='noopener noreferrer'>
+      <span className='attribution-url'>{rootUrl}</span>
     </a>
   )
 }

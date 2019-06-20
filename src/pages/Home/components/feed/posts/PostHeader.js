@@ -19,7 +19,7 @@ const PostHeader = ({ post, className }) => {
         <Link to={`/profile/${post.user_id}`} className='post-user-info'>
           <span className='post-display-name'>{post.display_name}</span>
           <span className='post-username'>{`@${post.username}`}</span>
-          <span> &#183;</span>
+          <span>&#183;</span>
           <Moment className='post-date' fromNow>
             {post.posted_at_date}
           </Moment>
@@ -48,7 +48,8 @@ const Container = styled.div`
   /* border: 1px solid blue; */
   display: flex;
   height: 90px;
-
+  border-bottom: 1px solid #e6ecf0;
+  position: relative;
   .post-header-left {
     /* border: 1px solid red; */
     display: flex;
@@ -57,6 +58,8 @@ const Container = styled.div`
     width: 80px;
     height: 80px;
     .post-avatar {
+      position: relative;
+      top: 4px;
       width: 60px;
       height: 60px;
       border-radius: 50%;
@@ -66,6 +69,8 @@ const Container = styled.div`
   .post-header-middle {
     /* border: 1px solid dodgerblue; */
     display: flex;
+    position: relative;
+    top: 5px;
     height: 100%;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -81,7 +86,7 @@ const Container = styled.div`
         color: #14171a;
       }
       .post-username {
-        margin-left: 6px;
+        margin: 0px 6px;
       }
       .post-date {
         margin-left: 6px;
@@ -96,6 +101,9 @@ const Container = styled.div`
 
   .post-header-right {
     /* border: 1px rebeccapurple solid; */
+    position: relative;
+    top: 5px;
+    right: 10px;
     height: 100%;
     justify-self: flex-end;
     flex-grow: 1;
@@ -108,6 +116,6 @@ const AttributionBar = styled(CardAttributionBar)`
   justify-content: flex-end;
   width: 100%;
   margin: 0;
-  padding-right: 5px;
+  padding-right: 8px;
   height: 30px;
 `

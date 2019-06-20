@@ -61,17 +61,17 @@ const Feed = props => {
         next={next}
         hasMore={hasmore}
         loader={
-          <Container>
+          <Wrapper>
             <FeedPlaceholder />
-          </Container>
+          </Wrapper>
         }
         endMessage={
-          <Container>
+          <Wrapper>
             <HelpScreen
               headerText='We reached the end of your feed!'
               imgSource={OnlineFriendsSVG}
             />
-          </Container>
+          </Wrapper>
         }
       >
         {posts.map((post, index) => (
@@ -101,11 +101,13 @@ const Container = styled.div`
   max-width: 580px;
   width: 100%;
   overflow: hidden;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  background: #fff;
+
   .infinite-scroll {
     /* border: 1px solid blue; */
   }
+`
+const Wrapper = styled.div`
+  max-width: 580px;
+  width: 100%;
+  overflow: hidden;
 `

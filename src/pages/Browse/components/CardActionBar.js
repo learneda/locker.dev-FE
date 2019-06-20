@@ -7,7 +7,7 @@ import MoreSVG from 'assets/react-svg/MoreSVG'
 import PropTypes from 'prop-types'
 
 const CardActionBar = props => {
-  const { type, item, insertItem, save, share } = props
+  const { type, item, insertItem, save, share, className } = props
   // const alert = useAlert()
   const [saveActive, setSaveActive] = useState(false)
   const [shareActive, setShareActive] = useState(false)
@@ -58,7 +58,11 @@ const CardActionBar = props => {
   }
 
   return (
-    <StyledActionBar saveActive={saveActive} shareActive={shareActive}>
+    <StyledActionBar
+      className={className}
+      saveActive={saveActive}
+      shareActive={shareActive}
+    >
       <div className='wrap-svg share' onClick={handleShareClick}>
         <ShareSVG className='icon' active={shareActive} />
         <span className='label'>{shareText}</span>

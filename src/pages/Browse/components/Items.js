@@ -63,28 +63,24 @@ const Items = props => {
 
   return (
     <Cards>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <InfiniteScroll
-          dataLength={items.length}
-          next={next}
-          hasMore={hasMore}
-          className='infinite-scroll'
-          endMessage={<EndMessage />}
-        >
-          {items.map((item, index) => (
-            <Card
-              type={type}
-              key={type === 'video' ? index : item.id}
-              item={item}
-              save={save}
-              share={share}
-              showIframe={showIframe}
-            />
-          ))}
-        </InfiniteScroll>
-      )}
+      <InfiniteScroll
+        className='infinite-scroll'
+        dataLength={items.length}
+        next={next}
+        hasMore={hasMore}
+        endMessage={<EndMessage />}
+      >
+        {items.map((item, index) => (
+          <Card
+            type={type}
+            key={type === 'video' ? index : item.id}
+            item={item}
+            save={save}
+            share={share}
+            showIframe={showIframe}
+          />
+        ))}
+      </InfiniteScroll>
     </Cards>
   )
 }
