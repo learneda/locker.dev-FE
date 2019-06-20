@@ -21,21 +21,21 @@ class PostContainer extends Component {
     this.inputCommentRef = React.createRef()
   }
 
-  componentDidMount() {
-    if (this.props.post) {
-      if (this.props.post.hasLiked) {
-        this.heartIcon.current.setAttribute(
-          'class',
-          'far fa-heart fa-lg heart-red'
-        )
-      }
-      if (this.props.post.hasPony) {
-        console.log('inside did mount has Pony')
-        this.pony.current.setAttribute('class', 'on')
-        this.setState({ active: true })
-      }
-    }
-  }
+  // componentDidMount() {
+  //   if (this.props.post) {
+  //     if (this.props.post.hasLiked) {
+  //       this.heartIcon.current.setAttribute(
+  //         'class',
+  //         'far fa-heart fa-lg heart-red'
+  //       )
+  //     }
+  //     if (this.props.post.hasPony) {
+  //       console.log('inside did mount has Pony')
+  //       this.pony.current.setAttribute('class', 'on')
+  //       this.setState({ active: true })
+  //     }
+  //   }
+  // }
 
   handleLikes = (e, post_id, post) => {
     const postOwnerId = post.user_id
