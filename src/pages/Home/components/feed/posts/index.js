@@ -162,11 +162,15 @@ export default PostContainer
 
 const Container = styled.div`
   position: relative;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   background: #fff;
-
+  border: 1px solid powderblue;
+  border-bottom: none;
+  /* border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); */
+  @media (max-width: 580px) {
+    border: none;
+    border-top: 1px solid powderblue;
+  }
   .post-bar {
     display: flex;
     justify-content: space-between;

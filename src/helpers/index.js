@@ -110,13 +110,13 @@ export function createPopup(
   const dualScreenTop =
     window.screenTop != undefined ? window.screenTop : window.screenY
 
-  const width = window.innerWidth
-  const height = window.innerHeight
+  const width = window.outerWidth
+  const height = window.outerHeight
 
   // Centers popup on screen
   const left = (width - w) / 2 + dualScreenLeft
   const top = (height - h) / 2 + dualScreenTop
-
+  console.log(dualScreenLeft, dualScreenTop, width, height, w, h, left, top)
   // Creates and opens auth popup.
   const newWindow = window.open(
     url,

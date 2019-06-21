@@ -32,6 +32,7 @@ export const Container = styled.div`
   position: relative;
   /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 5px; */
+  border: 1px solid powderblue;
   padding: 20px 0;
   background-color: white;
   text-align: center;

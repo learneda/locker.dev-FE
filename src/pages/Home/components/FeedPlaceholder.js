@@ -50,6 +50,6 @@ FeedPlaceholder.propTypes = {}
 export default styled(FeedPlaceholder)`
   width: 580px;
   height: 600px;
-  background: white;
-  border-radius: 6px;
+  background: #fff;
+  border: 1px solid powderblue;
 `

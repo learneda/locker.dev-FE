@@ -96,16 +96,13 @@ const Feed = props => {
 
 export default Feed
 
+// Controls Feed dimensions
 const Container = styled.div`
-  /* border: 1px solid red; */
   max-width: 580px;
   width: 100%;
   overflow: hidden;
-
-  .infinite-scroll {
-    /* border: 1px solid blue; */
-  }
 `
+// Controls loader and endMessage dimension
 const Wrapper = styled.div`
   max-width: 580px;
   width: 100%;
