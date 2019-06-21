@@ -134,7 +134,7 @@ const Container = styled.div`
   }
   /* SidebarLeft vanished */
   @media (max-width: 920px) {
-    margin: 0 auto;
+    margin: -1px auto;
   }
   /* Mobile-Feed 100% width */
   @media (max-width: 620px) {
