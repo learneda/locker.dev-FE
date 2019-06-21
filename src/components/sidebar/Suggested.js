@@ -41,7 +41,7 @@ const Suggested = props => {
       )
     } else {
       return suggested.map((ele, index) => (
-        <div key={index}>
+        <div key={index} className='suggested-item'>
           <div className='recommended-follow-info'>
             <div className='suggested-wrap'>
               <Link
@@ -97,16 +97,22 @@ export default Suggested
 const StyledCard = styled.div`
   position: sticky;
   top: 60px;
-  height: 340px;
+  height: 420px;
+  overflow: hidden;
   width: 100%;
   .followed-by {
-    height: 30px;
+    height: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    padding-bottom: 20px;
     .followed-by-p {
       display: flex;
-      padding-left: 40px;
+      justify-content: center;
+      font-size: 1.2rem;
+      letter-spacing: .8px;
+      color:#657786;
     }
   }
   .suggested-wrap {
@@ -129,44 +135,51 @@ const StyledCard = styled.div`
     justify-content: space-evenly;
   }
   .suggested-heading {
-    font-weight: bold;
     font-size: 1.6rem;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     text-align: center;
-    color: dodgerblue;
+    color: #14171A;
+    padding: 10px 0;
+  }
+
+  .suggested-item {
+    border-top: 1px solid powderblue;
   }
 
   .recommended-follow-container {
     margin-bottom: 10px;
     background: #fff;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    padding: 10px;
-    border-radius: 6px;
-  
+    /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border-radius: 6px; */
+    border: 1px solid powderblue;
+
   }
     .recommended-follow-info {
       display: flex;
+      position: relative;
       flex-direction: column;
       align-items: flex-start;
       h2 {
         /* margin-left: 10px; */
-        font-size: 1.5rem;
-        font-weight: 600;
-        letter-spacing: 1px;
+        font-size: 1.6rem;
+        letter-spacing: 1.5px;
       }
       img {
-        width: 50px;
-        height: 50px;
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
+        border: 1px solid powderblue;
         display: block;
         margin: auto;
+        bottom: 20px;
       }
     }
     .follow-button {
       text-align: center;
+      position: relative;
       button {
         padding: 5px 15px;
-        font-weight: 700;
+        position: relative;
         border: transparent;
         border-radius: 50px;
         background-color: white;
@@ -176,6 +189,7 @@ const StyledCard = styled.div`
         transition: 200ms ease-out;
         font-size: 1.3rem;
         letter-spacing: 0.9;
+        bottom: 2px;
         &:hover {
           background-color: #e8f4fb;
         }

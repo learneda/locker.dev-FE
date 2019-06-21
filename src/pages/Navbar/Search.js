@@ -162,14 +162,14 @@ const Container = styled.div`
   position: relative;
   display: flex;
   #search-input {
-    width: 150px;
+    width: 170px;
     font-size: 1.2rem;
     letter-spacing: 0.8px;
     height: 35px;
     outline: none;
     border-radius: 21px;
     background-color: #f5f8fa;
-    border: 1px solid #e6ecf0;
+    border: 1px solid powderblue;
     transition: all 0.2s ease-in-out;
     padding: 8px 32px 8px 12px;
     color: #14171a;
