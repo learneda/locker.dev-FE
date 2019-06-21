@@ -18,6 +18,7 @@ const Notifications = lazy(() => import('pages/Notifications'))
 const Profile = lazy(() => import('pages/Profile'))
 const SinglePost = lazy(() => import('pages/SinglePost'))
 const Settings = lazy(() => import('pages/Settings'))
+const Success = lazy(() => import('pages/Success'))
 const NoMatch = lazy(() => import('pages/NoMatch'))
 
 const App = props => {
@@ -46,7 +47,6 @@ const App = props => {
         // socket is listening on comments event & will receive an obj
         socket.on('comments', msg => {
           // msg obj contains properties of content, action, post_id, user_id, username, created_at, & updated_at
-          console.log('does the action exist', msg)
 
           switch (msg.action) {
             // when action type === destroy
@@ -118,6 +118,7 @@ const App = props => {
           <Route path='/profile/:id' component={index(Profile)} />
           <Route path='/status/:id' component={index(SinglePost)} />
           <Route path='/settings' component={index(Settings)} />
+          <Route path='/success' component={index(Success)} />
           <Route path='/tag/:tag' component={HashTagFeed} />
           <Route component={NoMatch} />
         </Switch>

@@ -134,9 +134,9 @@ const Container = styled.div`
 const WrapperLeft = styled.div`
   position: relative;
   width: 280px;
-  transition: opacity 3000ms ease;
+  transition: opacity 300ms ease;
   opacity: 1;
-  @media (max-width: 900px) {
+  @media (max-width: 920px) {
     opacity: 0;
     display: none;
   }
@@ -146,7 +146,7 @@ const WrapperRight = styled.div`
   position: relative;
   width: 260px;
   opacity: 1;
-  transition: opacity 3000ms ease;
+  transition: opacity 300ms ease;
   @media (max-width: 1180px) {
     opacity: 0;
     display: none;
