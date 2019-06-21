@@ -63,6 +63,7 @@ export const selectLogo = url => {
   }
 }
 
+//* Returns a link to rootUrl
 export const printRootUrl = url => {
   if (!url) {
     return
@@ -93,4 +94,45 @@ export const selectRandom = arr => {
   if (arr && arr.length) {
     return arr[Math.floor(Math.random() * arr.length)]
   }
+}
+
+//* Creates a popup to url and on close redirects parent to redirectUrl
+export const createPopup = (
+  url,
+  title = '',
+  redirectUrl = '/',
+  w = 460,
+  h = 560
+) => {
+  //* Extra OStack trickier, to handel dual screens. Sets x (left) and y (top) position of window on screen.
+  const dualScreenLeft =
+    window.screenLeft != undefined ? window.screenLeft : window.screenX
+  const dualScreenTop =
+    window.screenTop != undefined ? window.screenTop : window.screenY
+
+  const width = window.innerWidth
+  const height = window.innerHeight
+
+  // Centers popup on screen
+  const left = (width - w) / 2 + dualScreenLeft
+  const top = (height - h) / 2 + dualScreenTop
+
+  // Creates and opens auth popup.
+  const newWindow = window.open(
+    url,
+    title,
+    `resizable=no,titlebar=yes,menubar=no,dependent=yes,scrollbars=no,width=${w},height=${h},top=${top},left=${left}`
+  )
+
+  // Sets focus on the auth popup if window exist
+  if (window.focus && !newWindow) newWindow.focus()
+
+  // Check to see if auth popup has closed every 0.5s. If so, clear interval interval
+  // and force refresh to root to check if user has successfully authenticated.
+  const timer = setInterval(() => {
+    if (newWindow.closed) {
+      clearInterval(timer)
+      window.history.go(redirectUrl)
+    }
+  }, 500)
 }
