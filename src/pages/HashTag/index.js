@@ -27,12 +27,7 @@ const HashTagFeed = props => {
           {props.posts.isFollowing ? '✔ Following' : '+ Follow'}
         </div>
       </Flex>
-      <Feed
-        user={props.user}
-        posts={props.posts.posts}
-        auth={props.auth}
-        createCollection={props.createCollection}
-      />
+      <Feed posts={props.posts.posts} />
     </Container>
   )
 }

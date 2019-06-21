@@ -141,7 +141,7 @@ class PostContainer extends Component {
             handleClick={handleClick}
             handlePony={handlePony}
           />
-          <ActionBar className={className} />
+          <ActionBar insertItem={post} className={className} />
         </div>
         <CommentBox
           post_comments={post.comments}

@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { createCollection } from 'actions'
+import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import LockerSVG from 'assets/react-svg/Locker01SVG'
 import ShareSVG from 'assets/react-svg/ShareSVG'
@@ -6,7 +9,15 @@ import MoreSVG from 'assets/react-svg/MoreSVG'
 import PropTypes from 'prop-types'
 
 const CardActionBar = props => {
-  const { type, item, insertItem, save, share, className } = props
+  const {
+    type,
+    item,
+    insertItem,
+    save,
+    share,
+    className,
+    createCollection,
+  } = props
   const [saveActive, setSaveActive] = useState(false)
   const [shareActive, setShareActive] = useState(false)
   const [moreActive, setMoreActive] = useState(false)
@@ -14,7 +25,10 @@ const CardActionBar = props => {
   const [saveText, setSaveText] = useState('Save')
 
   const saveToLocker = async () => {
-    await save(insertItem)
+    if (!insertItem.post_url) {
+      insertItem.post_url = insertItem.url
+    }
+    await createCollection(insertItem)
   }
 
   const shareToFeed = async () => {
@@ -77,7 +91,11 @@ const CardActionBar = props => {
 
 CardActionBar.propTypes = {}
 
-export default CardActionBar
+// export default CardActionBar
+export default connect(
+  null,
+  { createCollection }
+)(withRouter(CardActionBar))
 
 const StyledActionBar = styled.div`
   font-size: 1.2rem;

@@ -70,14 +70,10 @@ const Home = props => {
       </WrapperLeft>
       <Feed
         {...props}
-        auth={auth}
-        user={user}
-        searchTerm={searchTerm}
         posts={feed.posts}
         hasmore={feed.hasmore}
         fetchMoreFeed={fetchMoreFeed}
         offset={feed.offset}
-        createCollection={createCollection}
       />
       <WrapperRight>
         <Suggested
