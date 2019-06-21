@@ -1,5 +1,5 @@
 import React from 'react'
-import { authURL } from 'services'
+import { authURL, clientUrl } from 'services'
 import googleSvg from 'assets/svg/google.svg'
 import githubSvg from 'assets/svg/github.svg'
 import { createPopup } from 'helpers'
@@ -13,9 +13,10 @@ const AuthForm = props => {
     <Form id='signup-form'>
       <div className='form-oauth-providers'>
         <button
-          onClick={() =>
-            createPopup(`${authURL}/google`, 'Google OAuth2 Authentication')
-          }
+          onClick={e => {
+            e.preventDefault()
+            createPopup(`${authURL}/google`, clientUrl)
+          }}
         >
           <img src={googleSvg} alt='google signup' />
           <p>Sign up with Google</p>
@@ -23,9 +24,10 @@ const AuthForm = props => {
       </div>
       <div className='form-oauth-providers'>
         <button
-          onClick={() =>
-            createPopup(`${authURL}/github`, 'GitHub OAuth2 Authentication')
-          }
+          onClick={e => {
+            e.preventDefault()
+            createPopup(`${authURL}/github`, clientUrl)
+          }}
         >
           <img src={githubSvg} alt='github signup' />
           <p>Sign up with GitHub</p>
@@ -36,9 +38,10 @@ const AuthForm = props => {
     <Form id='login-form'>
       <div className='form-oauth-providers'>
         <button
-          onClick={() =>
-            createPopup(`${authURL}/google`, 'Google OAuth2 Authentication')
-          }
+          onClick={e => {
+            e.preventDefault()
+            createPopup(`${authURL}/google`, clientUrl)
+          }}
         >
           <img src={googleSvg} alt='google-login' />
           <p>Login with Google</p>
@@ -46,9 +49,10 @@ const AuthForm = props => {
       </div>
       <div className='form-oauth-providers'>
         <button
-          onClick={() =>
-            createPopup(`${authURL}/github`, 'GitHub OAuth2 Authentication')
-          }
+          onClick={e => {
+            e.preventDefault()
+            createPopup(`${authURL}/github`, clientUrl)
+          }}
         >
           <img src={githubSvg} alt='github-login' />
           <p>Login with GitHub</p>
