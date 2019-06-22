@@ -32,6 +32,9 @@ const ActionBar = props => {
   }
 
   const shareToFeed = async () => {
+    if (type === 'locker') {
+      return await share(item)
+    }
     await share(insertItem)
   }
 
