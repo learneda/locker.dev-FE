@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom'
 import Moment from 'react-moment'
 import axios from 'apis/axiosAPI'
 import styled from 'styled-components'
-import { StyledCollections } from '../collections/StyledCollections'
 import { customWrapper, truncateText } from '../mixins'
 import NoPostScreen from '../utils/screens/NoPostScreen'
 import { apiURL } from 'services'
@@ -154,7 +153,6 @@ const Wrapper = styled.div`
 
 const Post = styled.div`
   ${customWrapper('100%', 'auto')};
-  ${StyledCollections};
   min-height: 200px;
   max-height: 250px;
 `

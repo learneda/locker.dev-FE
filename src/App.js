@@ -106,7 +106,7 @@ const App = props => {
   return (
     <Container>
       <GlobalStyle />
-      {auth && <Navbar />}
+      {auth && window.location.pathname !== '/success' && <Navbar />}
       <Suspense fallback={null}>
         <Switch>
           <Route exact path='/' component={index(Home)} />

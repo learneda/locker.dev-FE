@@ -78,6 +78,10 @@ const Card = props => {
         thumbnail_url: item.thumbnail,
       }
       break
+    case 'locker':
+      item.thumbnail = item.thumbnail_url
+      item.url = item.post_url
+      break
     default:
       return
   }

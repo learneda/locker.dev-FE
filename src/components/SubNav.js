@@ -10,7 +10,11 @@ const SubNav = ({ match, location }) => {
         <Tab>
           <NavLink
             to={`${match.url}/articles`}
-            className={location.pathname === '/browse' ? 'active' : null}
+            className={
+              location.pathname === '/browse' || location.pathname === '/locker'
+                ? 'active'
+                : null
+            }
           >
             Article
           </NavLink>
