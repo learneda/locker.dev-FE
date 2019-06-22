@@ -9,10 +9,7 @@ const SubNav = ({ match, location }) => {
       <Tabs>
         <Tab>
           {location.pathname.includes('/locker') && (
-            <NavLink
-              to={match.url}
-              className={location.pathname === '/locker' ? 'active' : null}
-            >
+            <NavLink exact to={match.url}>
               All
             </NavLink>
           )}
@@ -26,9 +23,7 @@ const SubNav = ({ match, location }) => {
           </NavLink>
         </Tab>
         <Tab>
-          <NavLink exact to={`${match.url}/courses`}>
-            Course
-          </NavLink>
+          <NavLink to={`${match.url}/courses`}>Course</NavLink>
         </Tab>
         <Tab>
           <NavLink to={`${match.url}/videos`}>Video</NavLink>
