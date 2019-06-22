@@ -1,20 +1,18 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import HelpScreen from 'components/utils/screens/HelpScreen'
 import BookmarkSVG from 'assets/svg/bookmark-drawing.svg'
-import Collection from './components/Collection'
 import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 import SubNav from 'components/SubNav'
+import Card from 'components/Card/index'
 import {
   deleteCollection,
   fetchCollections,
   createCollection,
   postToFeed,
 } from 'actions'
-import Items from 'pages/Browse/components/Items'
-import Card from 'pages/Browse/components/Card'
 
 const Collections = props => {
   const { location } = props
@@ -91,8 +89,9 @@ const Collections = props => {
                 key={index}
                 item={post}
                 type='locker'
-                save={() => dispatch(createCollection)}
-                share={() => dispatch(postToFeed)}
+                save={item => dispatch(createCollection(item))}
+                share={item => dispatch(postToFeed(item))}
+                delete={id => dispatch(deleteCollection(id))}
               />
             )
           })}

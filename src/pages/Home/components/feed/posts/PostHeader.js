@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
-import CardAttributionBar from 'pages/Browse/components/CardAttributionBar'
+import CardAttributionBar from 'components/Bars/AttributionBar'
 import styled from 'styled-components'
 
 const PostHeader = ({ post, className }) => {

@@ -71,7 +71,7 @@ const Tab = styled.li`
   height: 100%;
   transition: 300ms ease;
   .active {
-    font-weight: 900;
+    font-weight: bold;
     color: dodgerblue;
     border-bottom: 2px solid dodgerblue;
   }

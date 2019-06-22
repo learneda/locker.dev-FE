@@ -4,8 +4,8 @@ import PostHeader from './PostHeader'
 import PostContent from './PostContent'
 import CommentBox from '../comments'
 import FeedBar from './FeedBar'
-import CardActionBar from 'pages/Browse/components/CardActionBar'
-import CardAttributionBar from 'pages/Browse/components/CardAttributionBar'
+import ActionBar from 'containers/ActionBar'
+import AttributionBar from 'components/Bars/AttributionBar'
 
 class PostContainer extends Component {
   handleSaveToProfile = post => {
@@ -141,7 +141,7 @@ class PostContainer extends Component {
             handleClick={handleClick}
             handlePony={handlePony}
           />
-          <ActionBar insertItem={post} className={className} />
+          <StyledActionBar insertItem={post} className={className} />
         </div>
         <CommentBox
           post_comments={post.comments}
@@ -165,8 +165,6 @@ const Container = styled.div`
   background: #fff;
   border: 1px solid powderblue;
   border-bottom: none;
-  /* border-radius: 8px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); */
   @media (max-width: 580px) {
     border: none;
     border-top: 1px solid powderblue;
@@ -179,7 +177,7 @@ const Container = styled.div`
   }
 `
 
-const ActionBar = styled(CardActionBar)`
+const StyledActionBar = styled(ActionBar)`
   position: relative;
   bottom: 4px;
 `

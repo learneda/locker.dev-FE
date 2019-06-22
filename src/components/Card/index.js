@@ -6,8 +6,8 @@ import styled from 'styled-components'
 import CoverBook from './CoverBook'
 import CoverPodcast from './CoverPodcast'
 import CoverVideo from './CoverVideo'
-import CardAttributionBar from './CardAttributionBar'
-import CardActionBar from './CardActionBar'
+import AttributionBar from 'components/Bars/AttributionBar'
+import ActionBar from 'containers/ActionBar'
 
 import he from 'he'
 
@@ -114,8 +114,8 @@ const Card = props => {
         <p>{smartTruncate(item.description, cropDesc)}</p>
       </div>
       <div className='card-bar'>
-        <CardAttributionBar url={item.url} />
-        <CardActionBar
+        <AttributionBar url={item.url} />
+        <ActionBar
           type={type}
           item={item}
           save={save}

@@ -2,20 +2,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { selectLogo, printRootUrl } from 'helpers'
-const CardAttributionBar = ({ url, className }) => {
+const AttributionBar = ({ url, className }) => {
   return (
-    <AttributionBar className={className}>
+    <Container className={className}>
       {selectLogo(url)}
       {printRootUrl(url)}
-    </AttributionBar>
+    </Container>
   )
 }
 
-CardAttributionBar.propTypes = {}
+AttributionBar.propTypes = {}
 
-export default CardAttributionBar
+export default AttributionBar
 
-const AttributionBar = styled.div`
+const Container = styled.div`
   display: flex;
   flex-wrap: nowrap;
   align-items: center;

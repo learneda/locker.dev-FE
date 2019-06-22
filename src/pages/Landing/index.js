@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { Nav, Body, Footer, Auth } from './components'
-import * as authModalActions from './authModalActions'
+import * as authModalActions from './store/authModalActions'
 
 const Landing = props => {
   const {

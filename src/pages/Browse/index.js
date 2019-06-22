@@ -4,7 +4,6 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 import SubNav from 'components/SubNav'
 import styled from 'styled-components'
 import Items from './components/Items'
-
 import { createCollection, postToFeed } from 'actions'
 import * as browseActions from './store/browseActions'
 
