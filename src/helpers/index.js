@@ -13,13 +13,13 @@ export const selectLogo = url => {
       'youtube',
       'udemy',
       'freecodecamp',
-      'book',
       'hackernoon',
       'listen',
+      'book',
     ]
     const newUrl = url.includes('http') ? url : `http://www.udemy.com${url}`
 
-    const logo = logos.filter(logo => newUrl.includes(logo))[0]
+    const logo = logos.find(logo => newUrl.includes(logo))
     switch (logo) {
       case 'youtube':
         return (
@@ -35,10 +35,7 @@ export const selectLogo = url => {
             width='20px'
           />
         )
-      case 'book':
-        return (
-          <Google className='attribution-logo' height='20px' width='20px' />
-        )
+
       case 'hackernoon':
         return (
           <Hackernoon className='attribution-logo' height='20px' width='20px' />
@@ -56,6 +53,10 @@ export const selectLogo = url => {
               width='120px'
             />
           </a>
+        )
+      case 'book':
+        return (
+          <Google className='attribution-logo' height='20px' width='20px' />
         )
       default:
         return
