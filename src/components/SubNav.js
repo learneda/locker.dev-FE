@@ -34,6 +34,13 @@ const SubNav = ({ match, location }) => {
         <Tab>
           <NavLink to={`${match.url}/books`}>Book</NavLink>
         </Tab>
+        <Tab>
+          {location.pathname.includes('/locker') && (
+            <NavLink exact to={`${match.url}/links`}>
+              Link
+            </NavLink>
+          )}
+        </Tab>
       </Tabs>
     </Container>
   )

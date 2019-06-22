@@ -52,8 +52,11 @@ const Collections = props => {
       case '/locker/podcasts':
         setTypeFilter('5')
         break
+      case '/locker/links':
+        setTypeFilter('8')
+        break
       default:
-        setTypeFilter('1')
+        setTypeFilter('0')
         return
     }
   }, [location.pathname])
