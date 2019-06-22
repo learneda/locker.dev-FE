@@ -8,3 +8,5 @@ export const FETCH_TOP_TAGS = 'FETCH_TOP_TAGS'
 export const FETCH_MY_TAGS = 'FETCH_MY_TAGS'
 export const ADD_TO_MY_TAGS = 'ADD_TO_MY_TAGS'
 export const REMOVE_FROM_MY_TAGS = 'REMOVE_FROM_MY_TAGS'
+
+export const RESET_POSTS = 'RESET_POSTS'
