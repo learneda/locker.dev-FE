@@ -136,14 +136,17 @@ const StyledCard = styled.div`
   }
   .suggested-heading {
     font-size: 1.6rem;
+    line-height: 2.4rem;
     letter-spacing: 2px;
     text-align: center;
     color: #14171A;
-    padding: 10px 0;
+    padding: 4px 0;
+    background:  #e8f4fb;
+    border-bottom: 1px solid #989ea4;
   }
 
   .suggested-item {
-    border-top: 1px solid powderblue;
+    border-bottom: 1px solid powderblue;
   }
 
   .recommended-follow-container {
@@ -152,6 +155,7 @@ const StyledCard = styled.div`
     /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     border-radius: 6px; */
     border: 1px solid powderblue;
+    border-bottom: none;
 
   }
     .recommended-follow-info {
@@ -178,8 +182,10 @@ const StyledCard = styled.div`
       text-align: center;
       position: relative;
       button {
-        padding: 5px 15px;
+        height: 25px;
+        width: 75px;
         position: relative;
+        bottom: 5px;
         border: transparent;
         border-radius: 50px;
         background-color: white;
@@ -189,7 +195,6 @@ const StyledCard = styled.div`
         transition: 200ms ease-out;
         font-size: 1.3rem;
         letter-spacing: 0.9;
-        bottom: 2px;
         &:hover {
           background-color: #e8f4fb;
         }
