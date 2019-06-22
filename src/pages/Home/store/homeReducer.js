@@ -5,7 +5,7 @@ const initialState = {
   posts: [],
   locker: [],
   hasmore: true,
-  offset: 5,
+  offset: 0,
   topTags: [],
   myTags: [],
 }
@@ -17,6 +17,8 @@ export const homeReducer = (state = initialState, action) => {
       return { ...state, posts: [...action.payload] }
     case type.FETCH_MORE_FEED:
       return { ...state, posts: [...state.posts, ...action.payload] }
+    case type.RESET_POSTS:
+      return { ...state, posts: [], offset: 5, hasmore: true }
     // hasmore boolean will switch to false so infinite scroll component will stop fetching newsfeed post
     case type.TOGGLE_HAS_MORE:
       return { ...state, hasmore: action.payload }
@@ -100,7 +102,7 @@ export const homeReducer = (state = initialState, action) => {
       return { ...state, myTags: [...state.myTags, action.payload] }
     case type.REMOVE_FROM_MY_TAGS:
       const filteredTags = state.myTags.filter(
-        tag => tag.hashtag != action.payload
+        tag => tag.id != action.payload.id
       )
       return { ...state, myTags: filteredTags }
     default:

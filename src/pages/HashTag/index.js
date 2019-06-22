@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import * as tagActions from './store/tagActions'
 import { createCollection } from 'actions'
 import { connect } from 'react-redux'
@@ -7,9 +8,14 @@ import styled from 'styled-components'
 import Feed from 'pages/Home/components/feed/'
 
 const HashTagFeed = props => {
+  const dispatch = useDispatch()
   useEffect(() => {
-    props.fetchTagPosts(props.match.params.tag)
+    props.fetchTagPosts(props.match.params.tag, 0)
     window.scrollTo(0, 0)
+    return () => {
+      dispatch({ type: 'RESET_POSTS' })
+      dispatch({ type: ' RESET_TAG_POSTS' })
+    }
   }, [props.history.location.pathname])
   return (
     <Container>
@@ -27,15 +33,22 @@ const HashTagFeed = props => {
           {props.posts.isFollowing ? '✔ Following' : '+ Follow'}
         </div>
       </Flex>
-      <Feed posts={props.posts.posts} />
+      <Feed
+        fetchMoreTagFeed={props.fetchTagPosts}
+        offset={props.home.offset}
+        hasmore={props.home.hasmore}
+        posts={props.home.posts}
+        tag={props.match.params.tag}
+      />
     </Container>
   )
 }
 
-const mapStateToProps = ({ tagPosts, user, auth }) => ({
+const mapStateToProps = ({ tagPosts, user, auth, home }) => ({
   posts: tagPosts,
   user: { ...auth, ...user },
   auth,
+  home,
 })
 
 export default connect(

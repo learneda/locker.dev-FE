@@ -20,6 +20,8 @@ const Feed = props => {
     hasmore,
     fetchMoreFeed,
     createCollection,
+    fetchMoreTagFeed,
+    tag,
   } = props
 
   const handleSubmit = (event, post_id, comment, postOwnerId) => {
@@ -53,7 +55,8 @@ const Feed = props => {
     socket.emit('pony', data)
   }
 
-  const next = () => fetchMoreFeed(offset)
+  const next = () =>
+    fetchMoreFeed ? fetchMoreFeed(offset) : fetchMoreTagFeed(tag, offset)
 
   return (
     <Container>

@@ -10,6 +10,8 @@ import Footer from 'components/sidebar/Footer'
 import { fetchCollections, deleteCollection, createCollection } from 'actions'
 import * as socialActions from 'actions/socialActions'
 import * as homeActions from './store/homeActions'
+import { useDispatch } from 'react-redux'
+
 const Home = props => {
   const {
     auth,
@@ -37,6 +39,7 @@ const Home = props => {
     fetchTopTags,
     fetchMyTags,
   } = props
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (!following.length) {
@@ -47,14 +50,13 @@ const Home = props => {
     if (!collections.length) {
       fetchCollections()
     }
-    // only fetch if feed post arr is length of zero
-    if (!feed.posts.length) {
-      fetchFeed()
-    }
     if (!topTags.length) {
       fetchTopTags()
+      fetchMyTags()
     }
-    fetchMyTags()
+    fetchFeed()
+
+    return () => dispatch({ type: 'RESET_POSTS' })
   }, [])
 
   return (
