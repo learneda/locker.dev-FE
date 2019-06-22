@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import socket from 'socket'
 import styled from 'styled-components'
 import HelpScreen from 'components/utils/screens/HelpScreen'
@@ -6,7 +8,8 @@ import OnlineFriendsSVG from 'assets/svg/online_friends.svg'
 import PostContainer from './posts/index'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
-import FeedPlaceholder from '../FeedPlaceholder'
+import FeedPlaceholder from './FeedPlaceholder'
+import { createCollection } from 'actions'
 
 const Feed = props => {
   const {
@@ -17,6 +20,8 @@ const Feed = props => {
     hasmore,
     fetchMoreFeed,
     createCollection,
+    fetchMoreTagFeed,
+    tag,
   } = props
 
   const handleSubmit = (event, post_id, comment, postOwnerId) => {
@@ -50,7 +55,8 @@ const Feed = props => {
     socket.emit('pony', data)
   }
 
-  const next = () => fetchMoreFeed(offset)
+  const next = () =>
+    fetchMoreFeed ? fetchMoreFeed(offset) : fetchMoreTagFeed(tag, offset)
 
   return (
     <Container>
@@ -94,7 +100,17 @@ const Feed = props => {
   )
 }
 
-export default Feed
+// export default Feed
+const mapStateToProps = ({ auth, user, search, home }) => ({
+  auth,
+  user,
+  searchTerm: search.searchTerm,
+})
+
+export default connect(
+  mapStateToProps,
+  { createCollection }
+)(withRouter(Feed))
 
 // Controls Feed dimensions
 const Container = styled.div`

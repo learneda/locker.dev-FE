@@ -1,11 +1,17 @@
 import * as type from './tagActionTypes'
 import axios from 'apis/axiosAPI'
 
-export const fetchTagPosts = hashtag => async dispatch => {
-  const posts = await axios.get(`/tags/${hashtag}`)
-  if (posts.data.response) {
-    console.log('fetchTagPosts response', posts)
-    dispatch({ type: type.FETCH_TAG_POSTS, payload: posts.data.response })
+export const fetchTagPosts = (hashtag, offset) => async dispatch => {
+  const posts = await axios.get(`/tags/${hashtag}?offset=${offset}`)
+  dispatch({
+    type: 'SET_IS_FOLLOWING',
+    payload: posts.data.response.isFollowing,
+  })
+  if (posts.data.response.posts.length === 5) {
+    dispatch({ type: 'FETCH_MORE_FEED', payload: posts.data.response.posts })
+    dispatch({ type: 'INCREMENT_OFFSET', payload: offset + 5 })
+  } else {
+    dispatch({ type: 'TOGGLE_HAS_MORE', payload: false })
   }
 }
 
@@ -23,6 +29,7 @@ export const unfollowTag = hashtag => async dispatch => {
   const status = await axios.delete(`/tags/unfollow/${hashtag}`)
   if (status.data.msg === 'success') {
     dispatch({ type: type.UNFOLLOW_TAG, payload: false })
+    console.log(status.data.hashtag)
     dispatch({ type: type.REMOVE_FROM_MY_TAGS, payload: status.data.hashtag })
   }
 }
