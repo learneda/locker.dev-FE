@@ -42,26 +42,28 @@ const Container = styled.section`
   flex-direction: column;
   overflow: hidden;
   border: 1px solid powderblue;
-  /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); */
-  /* border-radius: 5px; */
   background: #fff;
   h3 {
-    background: #b8c1c8;
+    background: #e8f4fb;
     border-bottom: 1px solid #989ea4;
     color: #fff;
-    margin: 0;
-    padding: 2px 0 0 12px;
-    position: sticky;
+    padding: 4px 12px;
     color: #14171a;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     letter-spacing: 2px;
     line-height: 2.4rem;
   }
   .tag {
-    padding: 10px 15px;
-    margin: 0;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     letter-spacing: 0.8px;
+    padding: 10px 15px;
     font-weight: normal;
+    transition: color 300ms ease;
+    a {
+      cursor: pointer;
+      &:hover {
+        color: dodgerblue;
+      }
+    }
   }
 `

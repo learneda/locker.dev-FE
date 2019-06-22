@@ -126,9 +126,15 @@ const Container = styled.div`
   max-width: 1200px;
   margin: 15px auto 0px;
   padding: 0 15px 30px;
+  /* SidebarRight vanishes */
   @media (max-width: 1180px) {
     justify-content: space-around;
   }
+  /* SidebarLeft vanished */
+  @media (max-width: 920px) {
+    margin: -1px auto;
+  }
+  /* Mobile-Feed 100% width */
   @media (max-width: 620px) {
     padding: 0;
   }
