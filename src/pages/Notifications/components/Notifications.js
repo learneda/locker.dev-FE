@@ -121,7 +121,7 @@ const Notifications = props => {
   }
 
   return (
-    <div style={{ margin: '0 auto' }}>
+    <div style={{ margin: '0 auto', border: '1px solid red' }}>
       <h1
         style={{ fontSize: '35px', fontWeight: 'bold', marginBottom: '50px' }}
       >
