@@ -58,10 +58,12 @@ const Container = styled.div`
   z-index: 1;
   background: #ffffff;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+  scrollbar-width: none;
 `
 
 const Tabs = styled.ul`
   display: flex;
+  position: relative;
   max-width: 1200px;
   margin: 0 auto;
   height: 100%;
@@ -92,6 +94,9 @@ const Tab = styled.li`
     &:hover {
       cursor: pointer;
       border-bottom: 2px solid dodgerblue;
+    }
+    @media (max-width: 620px) {
+      padding: 0 1.1rem;
     }
   }
 `

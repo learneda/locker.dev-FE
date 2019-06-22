@@ -8,7 +8,6 @@ import { ReactComponent as ListenApi } from 'assets/svg/listenapi.svg'
 
 //* Selects proper logo to display based on url
 export const selectLogo = url => {
-  console.log('URL', url)
   if (url) {
     const logos = [
       'youtube',

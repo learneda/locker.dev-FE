@@ -34,7 +34,7 @@ const Notifications = props => {
                   width: '30px',
                   height: '30px',
                   marginLeft: '5px',
-                  borderRadius: '5px',
+                  borderRadius: '50%',
                   marginRight: '10px',
                 }}
               />

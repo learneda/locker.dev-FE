@@ -56,10 +56,28 @@ const Search = props => {
         placeholder = 'Users'
         break
       case '/locker':
-        placeholder = 'Users'
+        placeholder = 'Locker'
+        break
+      case '/locker/articles':
+        placeholder = 'Articles'
+        break
+      case '/locker/courses':
+        placeholder = 'Courses'
+        break
+      case '/locker/videos':
+        placeholder = 'Videos'
+        break
+      case '/locker/podcasts':
+        placeholder = 'Podcasts'
+        break
+      case '/locker/books':
+        placeholder = 'Books'
+        break
+      case '/locker/links':
+        placeholder = 'Links'
         break
       case '/browse':
-        placeholder = 'Courses'
+        placeholder = 'Articles'
         break
       case '/browse/courses':
         placeholder = 'Courses'
@@ -95,28 +113,28 @@ const Search = props => {
         placeholder = 'Meetups'
         break
       case '/settings':
-        placeholder = 'Profile'
+        placeholder = 'Users'
         break
       case '/settings/profile':
-        placeholder = 'Profile'
+        placeholder = 'Users'
         break
       case '/settings/integrations':
-        placeholder = 'Integrations'
+        placeholder = 'Users'
         break
       case '/profile':
-        placeholder = 'Saved'
+        placeholder = 'Users'
         break
       case '/profile/saved':
-        placeholder = 'Saved'
+        placeholder = 'Users'
         break
       case '/profile/following':
-        placeholder = 'Following'
+        placeholder = 'Users'
         break
       case '/profile/followers':
-        placeholder = 'Followers'
+        placeholder = 'Users'
         break
       default:
-        placeholder = 'Default'
+        placeholder = 'Users'
     }
     return (
       <input

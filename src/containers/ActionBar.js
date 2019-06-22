@@ -48,6 +48,8 @@ const ActionBar = props => {
   }
 
   const handleShareClick = async () => {
+    console.log('LAUNCHED SHARE')
+    console.table(insertItem)
     setShareText('Sharing')
     setShareActive(prev => !prev)
     await shareToFeed()
