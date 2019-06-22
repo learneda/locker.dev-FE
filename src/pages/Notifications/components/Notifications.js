@@ -21,6 +21,7 @@ const Notifications = props => {
                 marginBottom: '50px',
                 padding: '30px',
                 display: 'flex',
+                justifyContent: 'space-around',
                 borderRadius: '5px',
                 backgroundColor: 'white',
                 boxShadow:
