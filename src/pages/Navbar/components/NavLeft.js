@@ -92,10 +92,10 @@ const StyledNavLeft = styled.div`
     }
   }
   @media (max-width: 900px) {
-    width: 150px !important;
+    width: 150px;
     a {
-      width: 50px !important;
-      padding: 0 !important;
+      width: 50px;
+      padding: 0;
     }
     span {
       display: none;

@@ -19,7 +19,7 @@ const Navbar = props => {
         {search.isSearch ? (
           <Search />
         ) : (
-          <NavLink activeClassName='locker' to='/locker/articles'>
+          <NavLink activeClassName='locker' to='/locker'>
             <BrandSVG />
           </NavLink>
         )}

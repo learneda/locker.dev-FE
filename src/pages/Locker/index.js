@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import styled from 'styled-components'
 import HelpScreen from 'components/utils/screens/HelpScreen'
 import BookmarkSVG from 'assets/svg/bookmark-drawing.svg'
 import Collection from './components/Collection'
@@ -34,7 +35,7 @@ const Collections = props => {
     }
     switch (location.pathname) {
       case '/locker':
-        setTypeFilter('1')
+        setTypeFilter('0')
         break
       case '/locker/articles':
         setTypeFilter('1')
@@ -69,20 +70,18 @@ const Collections = props => {
       )
     })
 
-    const filterTypeCollections = collections.filter(
-      post => post.type_id === typeFilter
-    )
+    const filterTypeCollections = collections.filter(post => {
+      if (typeFilter === '0') {
+        return true
+      } else {
+        return post.type_id === typeFilter
+      }
+    })
     return (
       <>
         <ScrollToTopOnMount />
         <SubNav />
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-start',
-            flexWrap: 'wrap',
-          }}
-        >
+        <Container>
           {filterTypeCollections.map((post, index) => {
             return (
               <Card
@@ -94,7 +93,7 @@ const Collections = props => {
               />
             )
           })}
-        </div>
+        </Container>
       </>
     )
   }
@@ -110,3 +109,14 @@ const Collections = props => {
 }
 
 export default withRouter(Collections)
+
+const Container = styled.div`
+  display: flex;
+  margin: 0 auto;
+  max-width: 1200px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  @media (max-width: 1218px) {
+    justify-content: space-evenly;
+  }
+`
