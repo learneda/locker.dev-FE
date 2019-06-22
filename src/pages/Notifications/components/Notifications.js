@@ -21,7 +21,7 @@ const Notifications = props => {
                 marginBottom: '50px',
                 padding: '30px',
                 display: 'flex',
-                justifyContent: 'space-around',
+                justifyContent: 'space-between',
                 borderRadius: '5px',
                 backgroundColor: 'white',
                 boxShadow:
@@ -63,6 +63,7 @@ const Notifications = props => {
                 marginBottom: '50px',
                 padding: '30px',
                 display: 'flex',
+                justifyContent: 'space-between',
                 borderRadius: '5px',
                 backgroundColor: 'white',
                 boxShadow:
@@ -121,9 +122,14 @@ const Notifications = props => {
   }
 
   return (
-    <div style={{ margin: '0 auto', border: '1px solid red' }}>
+    <div style={{ margin: '0 auto' }}>
       <h1
-        style={{ fontSize: '35px', fontWeight: 'bold', marginBottom: '50px' }}
+        style={{
+          fontSize: '35px',
+          fontWeight: 'bold',
+          marginBottom: '50px',
+          textAlign: 'center',
+        }}
       >
         Notifications
       </h1>
