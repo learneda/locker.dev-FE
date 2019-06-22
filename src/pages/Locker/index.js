@@ -1,13 +1,15 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux'
-import HelpScreen from '../utils/screens/HelpScreen'
+import { withRouter } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import HelpScreen from 'components/utils/screens/HelpScreen'
 import BookmarkSVG from 'assets/svg/bookmark-drawing.svg'
-import Collection from './Collection'
+import Collection from './components/Collection'
 import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
-import { deleteCollection, fetchCollections } from '../../actions'
+import SubNav from 'components/SubNav'
+import { deleteCollection, fetchCollections } from 'actions'
 
 const Collections = props => {
+  const { location } = props
   const dispatch = useDispatch()
 
   const { searchTerm: search, collections } = useSelector(
@@ -18,26 +20,24 @@ const Collections = props => {
   )
 
   useEffect(() => {
-    console.log(collections)
     if (!collections.length) {
       dispatch(fetchCollections())
     }
   }, [])
 
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isEditPost, setIsEditPost] = useState(null)
 
   const handleModalOpen = editPost => {
     setIsModalOpen(prevIsModalOpen => !prevIsModalOpen)
-    setIsEditPost(editPost)
   }
 
   const handleDelete = postId => {
     dispatch(deleteCollection(postId))
   }
 
+  console.log(location.pathname)
   if (collections.length) {
-    const filteredCollections = collections.filter(post => {
+    const searchedCollections = collections.filter(post => {
       return (
         (post.title &&
           post.title.toLowerCase().includes(search.toLowerCase())) ||
@@ -47,15 +47,19 @@ const Collections = props => {
           post.description.toLowerCase().includes(search.toLowerCase()))
       )
     })
+
+    const filterTypeCollections = collections.filter(
+      post => post.type_id === '1'
+    )
     return (
       <>
         <ScrollToTopOnMount />
+        <SubNav />
         <Collection
-          handleDelete={handleDelete}
-          collections={filteredCollections}
-          handleModalOpen={handleModalOpen}
+          collections={filterTypeCollections}
           modalOpen={isModalOpen}
-          editPost={isEditPost}
+          handleModalOpen={handleModalOpen}
+          handleDelete={handleDelete}
         />
       </>
     )
@@ -71,4 +75,4 @@ const Collections = props => {
   }
 }
 
-export default Collections
+export default withRouter(Collections)

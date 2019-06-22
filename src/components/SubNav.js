@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { NavLink, withRouter } from 'react-router-dom'
 import { elevations } from 'styles/utils'
-const NavBrowse = ({ match, location }) => {
+const SubNav = ({ match, location }) => {
   return (
     <Container>
       <Tabs>
@@ -34,9 +34,9 @@ const NavBrowse = ({ match, location }) => {
   )
 }
 
-NavBrowse.propTypes = {}
+SubNav.propTypes = {}
 
-export default withRouter(NavBrowse)
+export default withRouter(SubNav)
 
 const Container = styled.div`
   position: sticky;

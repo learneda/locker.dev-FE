@@ -2,17 +2,17 @@ import React, { useEffect, lazy, Suspense } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import GlobalStyle, { bgColor } from 'components/mixins'
+import GlobalStyle from 'components/mixins'
 import { composedIndexRedirect as index } from 'hoc/indexRedirect'
-import * as appActions from 'appActions'
 import socket from 'socket'
-import Navbar from 'pages/Navbar'
-import Locker from 'components/collections'
-import HashTagFeed from './pages/HashTag/'
+import * as appActions from 'appActions'
 import { receivingNotifications } from './pages/Notifications/store/notificationActions'
+import Navbar from 'pages/Navbar'
 const LandingPage = lazy(() => import('pages/Landing'))
 const Home = lazy(() => import('pages/Home'))
 const Browse = lazy(() => import('pages/Browse'))
+const Locker = lazy(() => import('pages/Locker'))
+const HashTag = lazy(() => import('pages/HashTag'))
 const Social = lazy(() => import('pages/Social'))
 const Notifications = lazy(() => import('pages/Notifications'))
 const Profile = lazy(() => import('pages/Profile'))
@@ -110,16 +110,16 @@ const App = props => {
       <Suspense fallback={null}>
         <Switch>
           <Route exact path='/' component={index(Home)} />
-          <Route path='/locker' component={index(Locker)} />
-          <Route path='/landing' component={LandingPage} />
           <Route path='/browse' component={index(Browse)} />
+          <Route path='/locker' component={index(Locker)} />
+          <Route path='/tag/:tag' component={index(HashTag)} />
           <Route path='/social' component={index(Social)} />
           <Route path='/notifications' component={index(Notifications)} />
           <Route path='/profile/:id' component={index(Profile)} />
           <Route path='/status/:id' component={index(SinglePost)} />
           <Route path='/settings' component={index(Settings)} />
           <Route path='/success' component={index(Success)} />
-          <Route path='/tag/:tag' component={HashTagFeed} />
+          <Route path='/landing' component={LandingPage} />
           <Route component={NoMatch} />
         </Switch>
       </Suspense>

@@ -27,14 +27,9 @@ const PostHeader = ({ post, className }) => {
         <p className='post-thought'>{post.user_thoughts}</p>
       </div>
       <div className='post-header-right'>
-        <a
-          className='post-root-url'
-          href={post.url}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
+        <div className='post-root-url'>
           <AttributionBar className={className} url={post.url} />
-        </a>
+        </div>
       </div>
     </Container>
   )

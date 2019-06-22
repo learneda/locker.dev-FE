@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Sticky } from 'styles/elements'
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import NavLeft from './components/NavLeft'
+import BrandSVG from 'assets/react-svg/BrandSVG'
 import NavRight from './components/NavRight'
-import Brand from './components/Brand'
 import Search from './Search'
 import { customLayout, hoverBg } from 'components/mixins'
-
 import * as searchActions from './store/searchActions'
 
 const Navbar = props => {
@@ -16,7 +16,13 @@ const Navbar = props => {
     <Sticky>
       <Nav>
         <NavLeft />
-        {search.isSearch ? <Search /> : <Brand />}
+        {search.isSearch ? (
+          <Search />
+        ) : (
+          <NavLink activeClassName='locker' to='/locker'>
+            <BrandSVG />
+          </NavLink>
+        )}
         <NavRight {...props} />
       </Nav>
     </Sticky>
@@ -35,7 +41,23 @@ export default connect(
 
 const Nav = styled.nav`
   ${customLayout('space-between', 'center')}
+  position: relative;
   max-width: 1200px;
   margin: 0 auto;
   height: 50px;
+  a {
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: 1px;
+    height: 100%;
+    border-bottom: 3px solid transparent;
+    transition: border-bottom 300ms ease;
+    &:hover {
+      border-bottom: 3px solid dodgerblue;
+    }
+  }
+  .locker {
+    border-bottom: 3px solid dodgerblue;
+  }
 `

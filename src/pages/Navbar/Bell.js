@@ -30,12 +30,7 @@ const Bell = props => {
       .map(post => post.thumbnail_url)
   }
   return (
-    <StyledNotifications
-      onClick={() => {
-        setIsModalOpen(prev => !prev)
-        readNotifications()
-      }}
-    >
+    <StyledNotifications>
       <BellSVG bellColor={bellColor} />
       <p className='count'>{count ? count : null}</p>
       {isModalOpen && (

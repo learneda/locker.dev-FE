@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Route, Switch, withRouter } from 'react-router-dom'
-import NavBrowse from './components/NavBrowse'
+import SubNav from 'components/SubNav'
 import styled from 'styled-components'
 import Items from './components/Items'
 
@@ -58,7 +58,7 @@ const Browse = props => {
 
   return (
     <Wrapper>
-      <NavBrowse />
+      <SubNav />
       <Container>
         <Switch>
           <Route

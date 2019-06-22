@@ -12,7 +12,7 @@ const HelpScreen = ({ headerText, bodyText, imgSource }) => {
       <img src={imgSource ? imgSource : NotFoundSVG} alt='Drawing' />
       <div className='prompt-text'>
         <h2>{headerText}</h2>
-        <p>
+        <div>
           To get started, go to{' '}
           <Link to='/browse'>
             <span className='browse-btn'>Browse</span>
@@ -22,7 +22,7 @@ const HelpScreen = ({ headerText, bodyText, imgSource }) => {
           <div className='add-link-wrapper'>
             <AddLink />
           </div>
-        </p>
+        </div>
       </div>
     </Container>
   )
@@ -52,7 +52,7 @@ export const Container = styled.div`
       letter-spacing: 1.2px;
     }
 
-    p {
+    div {
       display: inline-block;
       font-size: 1.6rem;
       text-align: left;
