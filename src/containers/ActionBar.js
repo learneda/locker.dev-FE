@@ -8,7 +8,7 @@ import ShareSVG from 'assets/react-svg/ShareSVG'
 import MoreSVG from 'assets/react-svg/MoreSVG'
 import PropTypes from 'prop-types'
 
-const CardActionBar = props => {
+const ActionBar = props => {
   const {
     type,
     item,
@@ -89,13 +89,13 @@ const CardActionBar = props => {
   )
 }
 
-CardActionBar.propTypes = {}
+ActionBar.propTypes = {}
 
-// export default CardActionBar
+// export default ActionBar
 export default connect(
   null,
   { createCollection }
-)(withRouter(CardActionBar))
+)(withRouter(ActionBar))
 
 const StyledActionBar = styled.div`
   font-size: 1.2rem;

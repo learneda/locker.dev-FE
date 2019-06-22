@@ -8,6 +8,7 @@ import { ReactComponent as ListenApi } from 'assets/svg/listenapi.svg'
 
 //* Selects proper logo to display based on url
 export const selectLogo = url => {
+  console.log('URL', url)
   if (url) {
     const logos = [
       'youtube',
@@ -16,6 +17,12 @@ export const selectLogo = url => {
       'hackernoon',
       'listen',
       'book',
+      'daveceddia',
+      'overreacted',
+      'ryanflorence',
+      'robinwieruch',
+      'alligator',
+      'leighhalliday',
     ]
     const newUrl = url.includes('http') ? url : `http://www.udemy.com${url}`
 
@@ -51,6 +58,90 @@ export const selectLogo = url => {
               className='attribution-logo'
               height='20px'
               width='120px'
+            />
+          </a>
+        )
+      case 'daveceddia':
+        return (
+          <a
+            href='https://daveceddia.com/'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <img
+              src='https://daveceddia.com/images/logo@2x.png'
+              className='attribution-logo'
+              height='25px'
+            />
+          </a>
+        )
+      case 'overreacted':
+        return (
+          <a
+            href='https://overreacted.io/'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <img
+              src='https://overreacted.io/static/profile-pic-c715447ce38098828758e525a1128b87.jpg'
+              className='attribution-logo'
+              height='25px'
+            />
+          </a>
+        )
+      case 'ryanflorence':
+        return (
+          <a
+            href='https://medium.com/@ryanflorence'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <img
+              src='https://miro.medium.com/fit/c/256/256/1*zL-dNpRSeVDW6m-4f8NgUA.jpeg'
+              className='attribution-logo'
+              height='25px'
+            />
+          </a>
+        )
+      case 'robinwieruch':
+        return (
+          <a
+            href='https://www.robinwieruch.de/'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <img
+              src='https://www.robinwieruch.de/img/page/profile.jpg'
+              className='attribution-logo'
+              height='25px'
+            />
+          </a>
+        )
+      case 'alligator':
+        return (
+          <a
+            href='https://alligator.io/'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <img
+              src='https://d33wubrfki0l68.cloudfront.net/4e5626a0b7db6b84c0b51f1c0cfd56490fc19b74/7a5ad/images/logo-fancy.svg'
+              className='attribution-logo'
+              height='25px'
+            />
+          </a>
+        )
+      case 'leighhalliday':
+        return (
+          <a
+            href='https://www.leighhalliday.com/'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <img
+              src='https://www.leighhalliday.com/static/5a244d4c0a078786d713ad9307f8f400/3a627/leigh.jpg'
+              className='attribution-logo'
+              height='25px'
             />
           </a>
         )
@@ -117,14 +208,12 @@ export function createPopup(
   // Centers popup on screen
   const left = (width - w) / 2 + dualScreenLeft
   const top = (height - h) / 2 + dualScreenTop
-  console.log(dualScreenLeft, dualScreenTop, width, height, w, h, left, top)
   // Creates and opens auth popup.
   const newWindow = window.open(
     url,
     title,
     `resizable=no,titlebar=yes,menubar=no,dependent=no,scrollbars=no,width=${w},height=${h},top=${top},left=${left}`
   )
-  console.log('newWindow:', newWindow)
 
   // Sets focus on the auth popup if window exist
   if (window.focus && !newWindow) newWindow.focus()

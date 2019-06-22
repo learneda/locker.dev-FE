@@ -78,6 +78,7 @@ const Collections = props => {
         return post.type_id === typeFilter
       }
     })
+
     return (
       <>
         <ScrollToTopOnMount />
