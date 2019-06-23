@@ -1,9 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import AddLink from 'pages/Navbar/AddLink'
-
-import { customWrapper } from 'styles'
+import AddLink from 'containers/AddLink'
 import NotFoundSVG from 'assets/svg/not-found-drawing.svg'
 
 const HelpScreen = ({ headerText, bodyText, imgSource }) => {

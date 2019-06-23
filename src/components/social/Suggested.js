@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyledFollow } from './StyledFollow'
 import { Link } from 'react-router-dom'
-import ScrollToTopOnMount from '../utils/ScrollToTopOnMount'
+import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 
 const Suggested = props => {
   const {

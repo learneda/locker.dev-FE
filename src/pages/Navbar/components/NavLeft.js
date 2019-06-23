@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
-import BrowseSVG from './BrowseSVG'
-import HomeSVG from './HomeSVG'
-import Bell from '../Bell'
+import BrowseSVG from 'assets/react-svg/BrowseSVG'
+import HomeSVG from 'assets/react-svg/HomeSVG'
+import Bell from 'containers/Bell'
 
 const NavLeft = props => {
   const [homeColor, setHomeColor] = useState('black')

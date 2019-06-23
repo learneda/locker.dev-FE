@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { ReactComponent as Settings } from 'assets/svg/settings.svg'
 import { ReactComponent as Logout } from 'assets/svg/logout.svg'
 import { authURL } from 'services'
 import useOnClickOutside from 'use-onclickoutside'
+
 const ProfileDropDown = ({ user }) => {
   const ref = useRef()
   const [toggle, set] = useState(false)
@@ -68,10 +69,6 @@ const Container = styled.div`
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
-
-    /* &:hover {
-      border: 2px solid dodgerblue;
-    } */
   }
 `
 

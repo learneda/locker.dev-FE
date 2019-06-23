@@ -1,5 +1,4 @@
 import * as type from './tagActionTypes'
-import * as appType from 'App/appTypes'
 
 const initialState = {
   isFollowing: null,

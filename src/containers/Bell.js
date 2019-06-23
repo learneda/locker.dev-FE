@@ -1,13 +1,14 @@
 import React, { useState, useRef } from 'react'
 import { connect } from 'react-redux'
-import BellSVG from './components/BellSVG'
+import BellSVG from 'assets/react-svg/BellSVG'
 import { Link } from 'react-router-dom'
 import * as notificationActions from 'pages/Notifications/store/notificationActions'
 import styled from 'styled-components'
 import useOnClickOutside from 'use-onclickoutside'
 
+//Only an SVG atm ... disabled popup notification (readNotifications)
 const Bell = props => {
-  const { user, posts, notifications, readNotifications, bellColor } = props
+  const { user, posts, notifications, bellColor } = props
   const ref = useRef()
   const [isModalOpen, setIsModalOpen] = useState(false)
   useOnClickOutside(ref, e => {

@@ -1,12 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Moment from 'react-moment'
 import ContentLoader from 'react-content-loader'
 import styled from 'styled-components'
-import { customLayout } from 'styles'
-import locationSvg from 'assets/svg/location.svg'
-import linkSvg from 'assets/svg/link-symbol.svg'
-import calendarSvg from 'assets/svg/calendar.svg'
 
 const MyLoader = () => (
   <ContentLoader
@@ -21,7 +16,7 @@ const MyLoader = () => (
   </ContentLoader>
 )
 const Sidebar = props => {
-  const { user, collections, following, followers } = props
+  const { user, posts, following, followers } = props
   if (!user) {
     return (
       <Wrapper>
@@ -50,7 +45,7 @@ const Sidebar = props => {
               <Link to='/locker'>
                 <ul>
                   <li className='count-label'>Posts</li>
-                  <li className='count'>{collections.length}</li>
+                  <li className='count'>{posts.length}</li>
                 </ul>
               </Link>
 

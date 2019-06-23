@@ -5,8 +5,8 @@ import { createCollection } from 'actions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
-import Feed from 'pages/Home/components/feed/'
-import TagPageViewHeader from './components/tagHeader'
+import Feed from 'containers/Feed'
+import TagPageViewHeader from './components/TagHeader'
 
 const HashTagFeed = props => {
   const dispatch = useDispatch()

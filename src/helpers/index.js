@@ -71,6 +71,7 @@ export const selectLogo = url => {
               src='https://daveceddia.com/images/logo@2x.png'
               className='attribution-logo'
               height='25px'
+              alt='logo'
             />
           </a>
         )
@@ -85,6 +86,7 @@ export const selectLogo = url => {
               src='https://overreacted.io/static/profile-pic-c715447ce38098828758e525a1128b87.jpg'
               className='attribution-logo'
               height='25px'
+              alt='logo'
             />
           </a>
         )
@@ -99,6 +101,7 @@ export const selectLogo = url => {
               src='https://miro.medium.com/fit/c/256/256/1*zL-dNpRSeVDW6m-4f8NgUA.jpeg'
               className='attribution-logo'
               height='25px'
+              alt='logo'
             />
           </a>
         )
@@ -113,6 +116,7 @@ export const selectLogo = url => {
               src='https://www.robinwieruch.de/img/page/profile.jpg'
               className='attribution-logo'
               height='25px'
+              alt='logo'
             />
           </a>
         )
@@ -127,6 +131,7 @@ export const selectLogo = url => {
               src='https://d33wubrfki0l68.cloudfront.net/4e5626a0b7db6b84c0b51f1c0cfd56490fc19b74/7a5ad/images/logo-fancy.svg'
               className='attribution-logo'
               height='25px'
+              alt='logo'
             />
           </a>
         )
@@ -141,6 +146,7 @@ export const selectLogo = url => {
               src='https://www.leighhalliday.com/static/5a244d4c0a078786d713ad9307f8f400/3a627/leigh.jpg'
               className='attribution-logo'
               height='25px'
+              alt='logo'
             />
           </a>
         )

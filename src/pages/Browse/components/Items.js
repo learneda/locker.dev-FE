@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useThrottle } from 'use-throttle'
-import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 import Card from 'components/Card/index'
 import EndMessage from './EndMessage'
 import styled from 'styled-components'
-import he from 'he'
 
 const Items = props => {
   const { type, items, searchTerm, offset, fetch, search, save, share } = props

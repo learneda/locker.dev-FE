@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ContentLoader from 'react-content-loader'
-import styled from 'styled-components'
 
-const isFollowingPlaceHolder = props => {
+const FollowingPlaceHolder = props => {
   const { className } = props
   return (
     <ContentLoader
@@ -19,6 +18,6 @@ const isFollowingPlaceHolder = props => {
   )
 }
 
-isFollowingPlaceHolder.propTypes = {}
+FollowingPlaceHolder.propTypes = {}
 
-export default isFollowingPlaceHolder
+export default FollowingPlaceHolder

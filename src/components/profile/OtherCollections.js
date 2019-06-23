@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import Moment from 'react-moment'
@@ -18,14 +18,11 @@ const OtherCollections = props => {
     searchTerm,
     auth,
     match,
-    posts,
     collections,
     createCollection,
     fetchProfileCollections,
   } = props
   const alert = useAlert()
-  const [modalOpen, setModal] = useState(false)
-  const [savedIds, setSavedIds] = useState([])
 
   const handleSave = async (url, postId) => {
     // saves user's post to your collection
@@ -130,7 +127,6 @@ const OtherCollections = props => {
 
 const mapStateToProps = state => {
   return {
-    posts: state.posts,
     searchTerm: state.search.searchTerm,
     modalOpen: state.modal.isEditOpen,
     editFormData: state.modal.editFormData,
