@@ -1,6 +1,6 @@
 import * as type from './homeTypes'
 import { ADD_TO_FEED } from 'actions/types'
-import * as appType from 'appTypes'
+import * as appType from 'App/appTypes'
 const initialState = {
   posts: [],
   locker: [],

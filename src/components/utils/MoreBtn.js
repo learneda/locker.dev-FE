@@ -1,14 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { ReactComponent as Trash } from '../../assets/svg/trash-2.svg'
+import { ReactComponent as Trash } from 'assets/svg/trash-2.svg'
 
-const TrashContainer = styled.div`
-  svg {
-    cursor: pointer;
-  }
-`
-
-export default function MoreBtn(props) {
+const DeleteComment = props => {
   return (
     <TrashContainer>
       <Trash
@@ -19,3 +13,10 @@ export default function MoreBtn(props) {
     </TrashContainer>
   )
 }
+
+export default DeleteComment
+const TrashContainer = styled.div`
+  svg {
+    cursor: pointer;
+  }
+`
