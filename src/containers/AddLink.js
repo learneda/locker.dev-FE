@@ -134,12 +134,12 @@ const ModalWrapper = styled.div`
 
   .modal_ {
     background-color: white;
-    position: absolute
+    position: absolute;
     z-index: 1;
     text-align: center;
     top: 30%;
     left: 50%;
-    transform: translate(-250px,-70px);
+    transform: translate(-250px, -70px);
     max-width: 500px;
     border-radius: 6px;
     border: 3px solid dodgerblue;

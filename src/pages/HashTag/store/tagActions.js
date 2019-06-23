@@ -7,7 +7,7 @@ export const fetchTagPosts = (hashtag, offset) => async dispatch => {
     type: 'SET_IS_FOLLOWING',
     payload: posts.data.response.isFollowing,
   })
-  if (posts.data.response.posts.length === 5) {
+  if (posts.data.response.posts.length) {
     dispatch({ type: 'FETCH_MORE_FEED', payload: posts.data.response.posts })
     dispatch({ type: 'INCREMENT_OFFSET', payload: offset + 5 })
   } else {
