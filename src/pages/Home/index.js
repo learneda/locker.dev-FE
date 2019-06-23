@@ -53,7 +53,7 @@ const Home = props => {
       <WrapperLeft>
         <Sidebar
           user={user}
-          posts={feed.ports}
+          posts={feed.posts}
           followers={followers}
           following={following}
         />
