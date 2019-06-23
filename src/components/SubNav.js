@@ -11,7 +11,12 @@ const SubNav = ({ match, location }) => {
       <Tabs>
         <Tab>
           {showLockerLink() && (
-            <NavLink className='locker' exact to={match.url}>
+            <NavLink
+              className='locker'
+              activeClassName='locker-active'
+              exact
+              to={match.url}
+            >
               Locker
             </NavLink>
           )}
@@ -79,10 +84,11 @@ const Tab = styled.li`
     color: dodgerblue;
     border-bottom: 2px solid dodgerblue;
   }
-
   .locker {
-    font-weight: bold;
     color: orangered;
+  }
+  .locker-active {
+    border-bottom: 2xp solid orangered;
   }
   a {
     border-bottom: 2px solid transparent;

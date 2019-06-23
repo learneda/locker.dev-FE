@@ -1,4 +1,4 @@
-import React , {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Sticky } from 'styles/elements'
 import { NavLink, withRouter } from 'react-router-dom'
@@ -11,12 +11,14 @@ import { customLayout } from 'styles'
 import * as searchActions from './store/searchActions'
 
 const Navbar = props => {
-  const { search , location} = props
+  const { search, location } = props
   const [active, setActive] = useState(false)
-  useEffect(()=>{
+  useEffect(() => {
     setActive(location.pathname.includes('/locker'))
-    return () => {setActive(false)}
-  },[location])
+    return () => {
+      setActive(false)
+    }
+  }, [location])
 
   return (
     <Sticky>
@@ -26,7 +28,7 @@ const Navbar = props => {
           <Search />
         ) : (
           <NavLink activeClassName='locker' to='/locker'>
-            <BrandSVG active={active}/>
+            <BrandSVG active={active} />
           </NavLink>
         )}
         <NavRight {...props} />
@@ -64,9 +66,6 @@ const Nav = styled.nav`
     }
   }
   .locker {
-    border-bottom: 3px solid orangered;
-
+    border-bottom: 3px solid dodgerblue;
   }
-
-
 `
