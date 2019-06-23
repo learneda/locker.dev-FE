@@ -1,132 +1,123 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import MoreBtn from 'components/utils/MoreBtn'
 import styled from 'styled-components'
 import { customLayout } from 'styles'
 import Moment from 'react-moment'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
-class CommentBox extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      commentsToRender: -2,
-      commentInput: '',
-    }
-  }
+const CommentBox = props => {
+  const {
+    post_comments,
+    user_id,
+    post_id,
+    postOwnerId,
+    handleDeleteComment,
+    handleSubmit,
+    profile_picture,
+    inputCommentRef,
+  } = props
+  const [itemsToRender, setRender] = useState(-2)
+  const [commentInput, setCommentInput] = useState('')
 
-  handleMoreComments = e => {
+  const handleMoreComments = e => {
     e.preventDefault()
-    this.setState({
-      commentsToRender: this.state.commentsToRender - 3,
-    })
+
+    setRender(prev => prev - 3)
   }
 
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value })
+  const handleChange = e => {
+    setCommentInput(e.target.value)
   }
 
-  render() {
-    return (
-      <Container>
-        <div className='comments-container'>
-          <div className='comment-box'>
-            {this.props.post_comments.length - 1 <
-            Math.abs(this.state.commentsToRender) ? null : (
-              <button
-                className='show-more-btn'
-                onClick={this.handleMoreComments}
-              >
-                show more comments
-              </button>
-            )}
-            {this.props.post_comments
-              .slice(this.state.commentsToRender)
-              .map((comment, index) => {
-                if (comment.user_id === this.props.user_id) {
-                  return (
-                    <div key={comment.id} className='comment'>
-                      <div className='comment-text'>
-                        <h2>
-                          <Link to={`/profile/${comment.user_id}`}>
-                            {comment.username}{' '}
-                            <span className='comment-date'>
-                              <Moment fromNow>
-                                {moment(comment.created_at).subtract(
-                                  '30',
-                                  'seconds'
-                                )}
-                              </Moment>
-                              :
-                            </span>
-                          </Link>
-                        </h2>
-                        <span>{comment.content}</span>
-                      </div>
-                      <MoreBtn
-                        handleDeleteComment={this.props.handleDeleteComment}
-                        comment_id={comment.id}
-                        post_id={this.props.post_id}
-                      />
-                    </div>
-                  )
-                } else {
-                  return (
-                    <div key={comment.id} className='comment'>
-                      <div className='comment-text'>
-                        <h2>
-                          <Link to={`/profile/${comment.user_id}`}>
-                            {comment.username}{' '}
-                            <span className='comment-date'>
-                              <Moment fromNow>
-                                {moment(comment.created_at).subtract(
-                                  '30',
-                                  'seconds'
-                                )}
-                              </Moment>
-                              :
-                            </span>
-                          </Link>
-                        </h2>
-                        <span>{comment.content}</span>
-                      </div>
-                    </div>
-                  )
-                }
-              })}
-          </div>
-
-          <div>
-            <form
-              onSubmit={e => {
-                e.preventDefault()
-                this.props.handleSubmit(
-                  e,
-                  this.props.post_id,
-                  this.state.commentInput,
-                  this.props.postOwnerId
-                )
-                this.setState({ commentInput: '' })
-              }}
-              className='add-comment'
-            >
-              <div className='pic-and-form'>
-                <img src={this.props.profile_picture} alt='' />
-                <input
-                  placeholder='Add a comment...'
-                  type='text'
-                  name='commentInput'
-                  value={this.state.commentInput}
-                  onChange={this.handleChange}
-                  ref={this.props.inputCommentRef}
-                />
-              </div>
-              <button>Post!</button>
-            </form>
-          </div>
+  return (
+    <Container>
+      <div className='comments-container'>
+        <div className='comment-box'>
+          {post_comments.length - 1 < Math.abs(itemsToRender) ? null : (
+            <button className='show-more-btn' onClick={handleMoreComments}>
+              show more comments
+            </button>
+          )}
+          {post_comments.slice(itemsToRender).map((comment, index) => {
+            if (comment.user_id === user_id) {
+              return (
+                <div key={comment.id} className='comment'>
+                  <div className='comment-text'>
+                    <h2>
+                      <Link to={`/profile/${comment.user_id}`}>
+                        {comment.username}{' '}
+                        <span className='comment-date'>
+                          <Moment fromNow>
+                            {moment(comment.created_at).subtract(
+                              '30',
+                              'seconds'
+                            )}
+                          </Moment>
+                          :
+                        </span>
+                      </Link>
+                    </h2>
+                    <span>{comment.content}</span>
+                  </div>
+                  <MoreBtn
+                    handleDeleteComment={handleDeleteComment}
+                    comment_id={comment.id}
+                    post_id={post_id}
+                  />
+                </div>
+              )
+            } else {
+              return (
+                <div key={comment.id} className='comment'>
+                  <div className='comment-text'>
+                    <h2>
+                      <Link to={`/profile/${comment.user_id}`}>
+                        {comment.username}{' '}
+                        <span className='comment-date'>
+                          <Moment fromNow>
+                            {moment(comment.created_at).subtract(
+                              '30',
+                              'seconds'
+                            )}
+                          </Moment>
+                          :
+                        </span>
+                      </Link>
+                    </h2>
+                    <span>{comment.content}</span>
+                  </div>
+                </div>
+              )
+            }
+          })}
         </div>
-      </Container>
-    )
-  }
+
+        <div>
+          <form
+            onSubmit={e => {
+              e.preventDefault()
+              handleSubmit(e, post_id, commentInput, postOwnerId)
+              setCommentInput('')
+            }}
+            className='add-comment'
+          >
+            <div className='pic-and-form'>
+              <img src={profile_picture} alt='' />
+              <input
+                placeholder='Add a comment...'
+                type='text'
+                name='commentInput'
+                value={commentInput}
+                onChange={handleChange}
+                ref={inputCommentRef}
+              />
+            </div>
+            <button>Post!</button>
+          </form>
+        </div>
+      </div>
+    </Container>
+  )
 }
 
 export default CommentBox

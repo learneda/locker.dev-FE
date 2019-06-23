@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import Moment from 'react-moment'
@@ -25,138 +25,134 @@ const MyLoader = () => (
   </ContentLoader>
 )
 
-class SidebarById extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      imageLoaded: false,
-    }
-  }
+const SidebarById = props => {
+  const {
+    auth,
+    match,
+    followAUser,
+    unfollowAUser,
+    fetchProfileFollowers,
+    other,
+    follow,
+    collectionsCount,
+    followingCount,
+    followersCount,
+  } = props
 
-  followAUserHandler = async e => {
+  const profileId = Number(match.params.id)
+
+  const [imageLoaded, setImageLoaded] = useState('false')
+
+  const followAUserHandler = async e => {
     e.preventDefault()
-    const friend_id = Number(this.props.match.params.id)
-    await this.props.followAUser({ user_id: this.props.auth.id, friend_id })
-    await this.props.fetchProfileFollowers(this.props.match.params.id)
+    const friend_id = profileId
+    await followAUser({ user_id: auth.id, friend_id })
+    await fetchProfileFollowers(match.params.id)
   }
 
-  unfollowAUserHandler = async e => {
+  const unfollowAUserHandler = async e => {
     e.preventDefault()
-    const friend_id = this.props.match.params.id
-    await this.props.unfollowAUser({ user_id: this.props.auth.id, friend_id })
-    await this.props.fetchProfileFollowers(this.props.match.params.id)
+    const friend_id = match.params.id
+    await unfollowAUser({ user_id: auth.id, friend_id })
+    await fetchProfileFollowers(match.params.id)
   }
 
-  imageLoaded = async () => {
-    this.setState({
-      imageLoaded: true,
-    })
+  if (!other) {
+    return <MyLoader />
   }
+  const {
+    username,
+    bio,
+    location,
+    website_url,
+    created_at,
+    profile_picture,
+  } = other
 
-  render() {
-    if (!this.props.other) {
-      return <MyLoader />
-    }
-    const {
-      username,
-      bio,
-      location,
-      website_url,
-      created_at,
-      profile_picture,
-    } = this.props.other
-
-    const profileId = Number(this.props.match.params.id)
-
-    return (
-      <Wrapper>
-        <Profile>
-          <div className='user'>
-            <img
-              src={profile_picture}
-              style={
-                this.state.imageLoaded
-                  ? { opacity: '1', visibility: 'visible' }
-                  : { visibility: 'hidden', opacity: '0' }
-              }
-              onLoad={() => this.setState({ imageLoaded: true })}
-              alt='avatar'
-            />
-            {/* <ImageLoading /> */}
+  return (
+    <Wrapper>
+      <Profile>
+        <div className='user'>
+          <img
+            src={profile_picture}
+            style={
+              imageLoaded
+                ? { opacity: '1', visibility: 'visible' }
+                : { visibility: 'hidden', opacity: '0' }
+            }
+            onLoad={() => setImageLoaded(true)}
+            alt='avatar'
+          />
+          {/* <ImageLoading /> */}
+        </div>
+        <div className='user-bio'>
+          <h3>{username}</h3>
+          <div className='follow-btn-grp'>
+            {follow ? (
+              <button type='button' onClick={unfollowAUserHandler}>
+                Unfollow
+              </button>
+            ) : (
+              <button type='button' onClick={followAUserHandler}>
+                Follow
+              </button>
+            )}
           </div>
-          <div className='user-bio'>
-            <h3>{username}</h3>
-            <div className='follow-btn-grp'>
-              {this.props.follow ? (
-                <button type='button' onClick={this.unfollowAUserHandler}>
-                  Unfollow
-                </button>
-              ) : (
-                <button type='button' onClick={this.followAUserHandler}>
-                  Follow
-                </button>
-              )}
-            </div>
 
-            <div className='profile-stats'>
-              <Link to={`/profile/${profileId}`}>
-                <ul>
-                  <li>Saved</li>
-                  <li>{this.props.collectionsCount}</li>
-                </ul>
-              </Link>
-              <Link to={`/profile/${profileId}/following`}>
-                <ul>
-                  <li>Following</li>
-                  <li>{this.props.followingCount}</li>
-                </ul>
-              </Link>
-              <Link to={`/profile/${profileId}/followers`}>
-                <ul>
-                  <li>Followers</li>
-                  <li>{this.props.followersCount}</li>
-                </ul>
-              </Link>
-            </div>
-
-            <p>{bio ? bio : 'User has no bio.'}</p>
-            <p>
-              <img src={locationSvg} alt='location-icon' />
-              {location ? location : 'No location specified.'}
-            </p>
-            <p>
-              <img src={linkSvg} alt='link-icon' />
-              {website_url ? (
-                website_url.includes('http') ? (
-                  <a
-                    href={website_url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    {website_url.replace(/^https?:\/\//, '')}
-                  </a>
-                ) : (
-                  <a
-                    href={`https://${website_url}`}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    {website_url}
-                  </a>
-                )
-              ) : (
-                'No URL provided'
-              )}
-            </p>
-            <p>
-              <img src={calendarSvg} alt='calendar-icon' />
-              Joined <Moment format='MMMM YYYY'>{created_at}</Moment>
-            </p>
+          <div className='profile-stats'>
+            <Link to={`/profile/${profileId}`}>
+              <ul>
+                <li>Saved</li>
+                <li>{collectionsCount}</li>
+              </ul>
+            </Link>
+            <Link to={`/profile/${profileId}/following`}>
+              <ul>
+                <li>Following</li>
+                <li>{followingCount}</li>
+              </ul>
+            </Link>
+            <Link to={`/profile/${profileId}/followers`}>
+              <ul>
+                <li>Followers</li>
+                <li>{followersCount}</li>
+              </ul>
+            </Link>
           </div>
-        </Profile>
-      </Wrapper>
-    )
-  }
+
+          <p>{bio ? bio : 'User has no bio.'}</p>
+          <p>
+            <img src={locationSvg} alt='location-icon' />
+            {location ? location : 'No location specified.'}
+          </p>
+          <p>
+            <img src={linkSvg} alt='link-icon' />
+            {website_url ? (
+              website_url.includes('http') ? (
+                <a href={website_url} target='_blank' rel='noopener noreferrer'>
+                  {website_url.replace(/^https?:\/\//, '')}
+                </a>
+              ) : (
+                <a
+                  href={`https://${website_url}`}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  {website_url}
+                </a>
+              )
+            ) : (
+              'No URL provided'
+            )}
+          </p>
+          <p>
+            <img src={calendarSvg} alt='calendar-icon' />
+            Joined <Moment format='MMMM YYYY'>{created_at}</Moment>
+          </p>
+        </div>
+      </Profile>
+    </Wrapper>
+  )
 }
 
 const mapStateToProps = ({ auth, social }) => {

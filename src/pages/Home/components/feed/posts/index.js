@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import PostHeader from './PostHeader'
 import PostContent from './PostContent'
@@ -7,10 +7,23 @@ import FeedBar from './FeedBar'
 import ActionBar from 'containers/ActionBar'
 import AttributionBar from 'components/Bars/AttributionBar'
 
-class PostContainer extends Component {
-  handleSaveToProfile = post => {
+const PostContainer = props => {
+  const {
+    post,
+    user_id,
+    username,
+    handleSubmit,
+    handleClick,
+    handlePony,
+    profile_picture,
+    handleDeleteComment,
+    className,
+    createCollection,
+  } = props
+
+  const handleSaveToProfile = post => {
     const { title, url, description, thumbnail_url } = post
-    this.props.createCollection({
+    createCollection({
       title,
       description,
       thumbnail_url,
@@ -19,7 +32,7 @@ class PostContainer extends Component {
     })
   }
 
-  displayMedia = post => {
+  const displayMedia = post => {
     const { url, thumbnail_url } = post
     if (url && url.includes('youtube.com/watch')) {
       const videoId = url.split('=')[1]
@@ -110,52 +123,39 @@ class PostContainer extends Component {
     }
   }
 
-  render() {
-    const {
-      post,
-      user_id,
-      username,
-      handleSubmit,
-      handleClick,
-      handlePony,
-      profile_picture,
-      handleDeleteComment,
-      className,
-    } = this.props
-    return (
-      <Container>
-        <PostHeader post={post} />
-        <div className='post-cover'>
-          {post.thumbnail_url ? (
-            <a href={post.url} target='_blank' rel='noopener noreferrer'>
-              {this.displayMedia(post)}
-            </a>
-          ) : null}
-        </div>
-        <PostContent post={post} />
-        <div className='post-bar'>
-          <FeedBar
-            user_id={user_id}
-            username={username}
-            post={post}
-            handleClick={handleClick}
-            handlePony={handlePony}
-          />
-          <StyledActionBar insertItem={post} className={className} />
-        </div>
-        <CommentBox
-          post_comments={post.comments}
-          post_id={post.id}
-          handleClick={handleClick}
-          handleSubmit={handleSubmit}
-          profile_picture={profile_picture}
-          handleDeleteComment={handleDeleteComment}
+  return (
+    <Container>
+      <PostHeader post={post} />
+      <div className='post-cover'>
+        {post.thumbnail_url ? (
+          <a href={post.url} target='_blank' rel='noopener noreferrer'>
+            {displayMedia(post)}
+          </a>
+        ) : null}
+      </div>
+      <PostContent post={post} />
+      <div className='post-bar'>
+        <FeedBar
           user_id={user_id}
-          postOwnerId={post.user_id}
+          username={username}
+          post={post}
+          handleClick={handleClick}
+          handlePony={handlePony}
         />
-      </Container>
-    )
-  }
+        <StyledActionBar insertItem={post} className={className} />
+      </div>
+      <CommentBox
+        post_comments={post.comments}
+        post_id={post.id}
+        handleClick={handleClick}
+        handleSubmit={handleSubmit}
+        profile_picture={profile_picture}
+        handleDeleteComment={handleDeleteComment}
+        user_id={user_id}
+        postOwnerId={post.user_id}
+      />
+    </Container>
+  )
 }
 
 export default PostContainer

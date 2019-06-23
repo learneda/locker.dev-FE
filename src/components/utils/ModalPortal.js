@@ -1,26 +1,21 @@
-import { Component } from 'react'
+import { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
-const portalRoot = document.getElementById('modalPortal')
+const ReusablePortal = props => {
+  const { children } = props
+  const portalRoot = document.getElementById('modalPortal')
+  const el = document.createElement('div')
 
-export default class ReusablePortal extends Component {
-  constructor(props) {
-    super(props)
-    this.el = document.createElement('div')
-  }
+  useEffect(() => {
+    portalRoot.appendChild(el)
+    return () => {
+      // portalRoot.remove(this.el)
+      // document.getElementById('body').setAttribute('style', 'overflow: auto');
+    }
+  })
 
-  componentDidMount() {
-    portalRoot.appendChild(this.el)
-  }
-
-  componentWillUnmount() {
-    // portalRoot.remove(this.el)
-    // document.getElementById('body').setAttribute('style', 'overflow: auto');
-  }
-
-  render() {
-    // document.getElementById('body').setAttribute('style', 'overflow: hidden');
-    const { children } = this.props
-    return ReactDOM.createPortal(children, this.el)
-  }
+  // document.getElementById('body').setAttribute('style', 'overflow: hidden');
+  return ReactDOM.createPortal(children, el)
 }
+
+export default ReusablePortal

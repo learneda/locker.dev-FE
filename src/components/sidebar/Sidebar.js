@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import ContentLoader from 'react-content-loader'
@@ -20,59 +20,58 @@ const MyLoader = () => (
     <rect x='0' y='134' rx='0' ry='0' width='266' height='317' />
   </ContentLoader>
 )
-class Sidebar extends Component {
-  render() {
-    if (!this.props.user) {
-      return (
-        <Wrapper>
-          <MyLoader />
-        </Wrapper>
-      )
-    }
+const Sidebar = props => {
+  const { user, collections, following, followers } = props
+  if (!user) {
     return (
       <Wrapper>
-        {this.props.user && (
-          <Profile>
-            <div
-              className='user'
-              style={{
-                backgroundImage: `url(${this.props.user.header_picture})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            >
-              <img src={this.props.user.profile_picture} alt='avatar' />
-            </div>
-            <div className='user-bio'>
-              <h3>{this.props.user.display_name}</h3>
-              <h4>{`@${this.props.user.username}`}</h4>
-              <div className='profile-stats'>
-                <Link to='/locker'>
-                  <ul>
-                    <li className='count-label'>Posts</li>
-                    <li className='count'>{this.props.collections.length}</li>
-                  </ul>
-                </Link>
-
-                <Link to='/social/following'>
-                  <ul>
-                    <li className='count-label'>Following</li>
-                    <li className='count'>{this.props.following.length}</li>
-                  </ul>
-                </Link>
-                <Link to='/social/followers' className='sidebar-followers'>
-                  <ul>
-                    <li className='count-label'>Followers</li>
-                    <li className='count'>{this.props.followers.length}</li>
-                  </ul>
-                </Link>
-              </div>
-            </div>
-          </Profile>
-        )}
+        <MyLoader />
       </Wrapper>
     )
   }
+  return (
+    <Wrapper>
+      {user && (
+        <Profile>
+          <div
+            className='user'
+            style={{
+              backgroundImage: `url(${user.header_picture})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          >
+            <img src={user.profile_picture} alt='avatar' />
+          </div>
+          <div className='user-bio'>
+            <h3>{user.display_name}</h3>
+            <h4>{`@${user.username}`}</h4>
+            <div className='profile-stats'>
+              <Link to='/locker'>
+                <ul>
+                  <li className='count-label'>Posts</li>
+                  <li className='count'>{collections.length}</li>
+                </ul>
+              </Link>
+
+              <Link to='/social/following'>
+                <ul>
+                  <li className='count-label'>Following</li>
+                  <li className='count'>{following.length}</li>
+                </ul>
+              </Link>
+              <Link to='/social/followers' className='sidebar-followers'>
+                <ul>
+                  <li className='count-label'>Followers</li>
+                  <li className='count'>{followers.length}</li>
+                </ul>
+              </Link>
+            </div>
+          </div>
+        </Profile>
+      )}
+    </Wrapper>
+  )
 }
 
 export default Sidebar
