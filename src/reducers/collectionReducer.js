@@ -10,7 +10,7 @@ export const collectionReducer = (state = [], action) => {
     case FETCH_COLLECTIONS:
       return action.payload
     case CREATE_COLLECTION:
-      return [...state, action.payload]
+      return [action.payload, ...state]
     case DELETE_COLLECTION:
       return state.filter(
         collection => collection.id !== action.payload.deletedRecord.id
