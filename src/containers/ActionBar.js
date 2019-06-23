@@ -17,6 +17,7 @@ const ActionBar = props => {
     share,
     className,
     createCollection,
+    authId,
   } = props
   const [saveActive, setSaveActive] = useState(false)
   const [shareActive, setShareActive] = useState(false)
@@ -32,9 +33,11 @@ const ActionBar = props => {
   }
 
   const shareToFeed = async () => {
+    // Locker component passes obj as item
     if (type === 'locker') {
       return await share(item)
     }
+    // browse component passes obj as insertItem
     await share(insertItem)
   }
 
@@ -71,6 +74,21 @@ const ActionBar = props => {
     setMoreActive(prev => !prev)
   }
 
+  const handleSaveSvg = () => {
+    // do not render saveSvg on locker route
+    if (window.location.pathname.includes('locker')) return
+    // on feed only render saveSvg when the post is not yours
+    // on Browse user_id is undefined therefore condition is true & will render
+    return (
+      insertItem.user_id !== authId && (
+        <div className='wrap-svg save' onClick={handleSaveClick}>
+          <LockerSVG className='icon' active={saveActive} />
+          <span className='label'>{saveText}</span>
+        </div>
+      )
+    )
+  }
+
   return (
     <StyledActionBar
       className={className}
@@ -81,10 +99,7 @@ const ActionBar = props => {
         <ShareSVG className='icon' active={shareActive} />
         <span className='label'>{shareText}</span>
       </div>
-      <div className='wrap-svg save' onClick={handleSaveClick}>
-        <LockerSVG className='icon' active={saveActive} />
-        <span className='label'>{saveText}</span>
-      </div>
+      {handleSaveSvg()}
       <div
         className='wrap-svg more'
         onMouseEnter={handleMore}
@@ -99,9 +114,12 @@ const ActionBar = props => {
 
 ActionBar.propTypes = {}
 
-// export default ActionBar
+const mapStateToProps = ({ auth }) => ({
+  authId: auth.id,
+})
+
 export default connect(
-  null,
+  mapStateToProps,
   { createCollection }
 )(withRouter(ActionBar))
 
