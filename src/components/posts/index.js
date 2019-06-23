@@ -120,7 +120,7 @@ const PostContainer = props => {
           </a>
         ) : null}
       </div>
-      <PostContent post={post} />
+      <PostContent post={post}/>
       <div className='post-bar'>
         <FeedBar
           user_id={user_id}

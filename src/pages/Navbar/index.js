@@ -1,7 +1,7 @@
-import React from 'react'
+import React , {useState, useEffect} from 'react'
 import { connect } from 'react-redux'
 import { Sticky } from 'styles/elements'
-import { NavLink } from 'react-router-dom'
+import { NavLink, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import NavLeft from './components/NavLeft'
 import BrandSVG from 'assets/react-svg/BrandSVG'
@@ -11,7 +11,13 @@ import { customLayout } from 'styles'
 import * as searchActions from './store/searchActions'
 
 const Navbar = props => {
-  const { search } = props
+  const { search , location} = props
+  const [active, setActive] = useState(false)
+  useEffect(()=>{
+    setActive(location.pathname.includes('/locker'))
+    return () => {setActive(false)}
+  },[location])
+
   return (
     <Sticky>
       <Nav>
@@ -20,7 +26,7 @@ const Navbar = props => {
           <Search />
         ) : (
           <NavLink activeClassName='locker' to='/locker'>
-            <BrandSVG />
+            <BrandSVG active={active}/>
           </NavLink>
         )}
         <NavRight {...props} />
@@ -37,7 +43,7 @@ const mapStateToProps = ({ auth, user, search }) => ({
 export default connect(
   mapStateToProps,
   { ...searchActions }
-)(Navbar)
+)(withRouter(Navbar))
 
 const Nav = styled.nav`
   ${customLayout('space-between', 'center')}
@@ -58,6 +64,9 @@ const Nav = styled.nav`
     }
   }
   .locker {
-    border-bottom: 3px solid dodgerblue;
+    border-bottom: 3px solid orangered;
+
   }
+
+
 `

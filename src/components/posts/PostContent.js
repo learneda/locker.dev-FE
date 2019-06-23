@@ -27,7 +27,9 @@ const PostContent = ({ post }) => {
   )
 }
 
-PostContent.propTypes = {}
+PostContent.propTypes = {
+  posts: PropTypes.arrayOf(PropTypes.object)
+}
 
 export default PostContent
 

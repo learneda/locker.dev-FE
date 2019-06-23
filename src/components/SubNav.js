@@ -3,13 +3,16 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { NavLink, withRouter } from 'react-router-dom'
 const SubNav = ({ match, location }) => {
+  const showLockerLink = () => {
+    return location.pathname.includes('/locker')
+  }
   return (
     <Container>
       <Tabs>
         <Tab>
-          {location.pathname.includes('/locker') && (
-            <NavLink exact to={match.url}>
-              All
+          {showLockerLink() && (
+            <NavLink className='locker' exact to={match.url}>
+              Locker
             </NavLink>
           )}
         </Tab>
@@ -75,6 +78,11 @@ const Tab = styled.li`
     font-weight: bold;
     color: dodgerblue;
     border-bottom: 2px solid dodgerblue;
+  }
+
+  .locker {
+    font-weight: bold;
+    color: orangered;
   }
   a {
     border-bottom: 2px solid transparent;
