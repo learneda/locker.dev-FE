@@ -40,6 +40,9 @@ const ActionBar = props => {
 
   //TODO: Clean logic
   const handleSaveClick = async () => {
+    if (saveActive) {
+      return
+    }
     setSaveText('Saving')
     setSaveActive(prev => !prev)
     await saveToLocker()
@@ -112,7 +115,7 @@ const StyledActionBar = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
+    cursor: ${props => (props.saveActive ? 'default' : 'pointer')};
     width: 60px;
     transition: 0.1s ease-in-out;
     &:hover {
