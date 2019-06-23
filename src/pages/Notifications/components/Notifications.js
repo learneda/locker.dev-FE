@@ -37,6 +37,7 @@ const Notifications = props => {
                   borderRadius: '50%',
                   marginRight: '10px',
                 }}
+                alt='sender-thumbnail'
               />
               <Link to={`/status/${n.post_id}`}>
                 <h1 style={{ fontSize: '30px' }}>
@@ -51,6 +52,7 @@ const Notifications = props => {
                   borderRadius: '5px',
                 }}
                 src={n.thumbnail_url}
+                alt='post-thumbnail'
               />
             </div>
           )
@@ -79,6 +81,7 @@ const Notifications = props => {
                   borderRadius: '50%',
                   marginRight: '10px',
                 }}
+                alt='sender-thumbnail'
               />
               <Link to={`/status/${n.post_id}`}>
                 <h1 style={{ fontSize: '30px' }}>
@@ -93,6 +96,7 @@ const Notifications = props => {
                   marginLeft: '5px',
                   borderRadius: '5px',
                 }}
+                alt='post-thumbnail'
               />
             </div>
           )

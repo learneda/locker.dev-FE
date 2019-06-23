@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import isFollowingPlaceHolder from './isFollowingPlaceHolder'
+import FollowingPlaceHolder from './FollowingPlaceholder'
 
 const TagPageViewHeader = ({ isFollowing, unfollowTag, followTag, tag }) => {
-  return isFollowing != null ? (
+  return isFollowing !== null ? (
     <Flex>
       <h1>{tag}</h1>
       <div
@@ -20,7 +20,7 @@ const TagPageViewHeader = ({ isFollowing, unfollowTag, followTag, tag }) => {
     </Flex>
   ) : (
     <Flex>
-      <isFollowingPlaceHolder />
+      <FollowingPlaceHolder />
     </Flex>
   )
 }

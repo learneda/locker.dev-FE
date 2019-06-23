@@ -102,7 +102,7 @@ export const homeReducer = (state = initialState, action) => {
       return { ...state, myTags: [...state.myTags, action.payload] }
     case type.REMOVE_FROM_MY_TAGS:
       const filteredTags = state.myTags.filter(
-        tag => tag.id != action.payload.id
+        tag => tag.id !== action.payload.id
       )
       return { ...state, myTags: filteredTags }
     default:

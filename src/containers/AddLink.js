@@ -9,14 +9,14 @@ import AddLinkSVG from 'assets/react-svg/AddLinkSVG'
 import useOnClickOutside from 'use-onclickoutside'
 
 const AddLink = props => {
-  const { auth, createCollection } = props
+  const { createCollection } = props
   const inputRef = useRef()
   const modalRef = useRef()
   const alert = useAlert()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [inputValue, setInputValue] = useState('')
   useOnClickOutside(modalRef, e => {
-    if (e.target.id == 'svg-addlink') {
+    if (e.target.id === 'svg-addlink') {
       return
     }
     setIsModalOpen(false)
@@ -24,7 +24,7 @@ const AddLink = props => {
   const handleSubmit = async e => {
     e.preventDefault()
     setIsModalOpen(false)
-    const res = await props.createCollection({
+    const res = await createCollection({
       post_url: inputValue,
       type: 'link',
     })
@@ -96,10 +96,8 @@ const AddLink = props => {
   )
 }
 
-const mapStateToProps = ({ auth }) => ({ auth })
-
 export default connect(
-  mapStateToProps,
+  null,
   { createCollection }
 )(AddLink)
 

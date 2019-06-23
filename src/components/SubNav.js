@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { NavLink, withRouter } from 'react-router-dom'
-import { elevations } from 'styles/utils'
 const SubNav = ({ match, location }) => {
   return (
     <Container>

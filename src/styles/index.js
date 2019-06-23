@@ -1,5 +1,4 @@
 import GlobalStyle from './utils/cssReset.js'
-import { css } from 'styled-components'
 export default GlobalStyle
 //* variables
 export const bgColor = '#E6ECF0'

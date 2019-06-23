@@ -5,7 +5,6 @@ import PostContent from './PostContent'
 import CommentBox from 'components/comments'
 import FeedBar from './FeedBar'
 import ActionBar from 'containers/ActionBar'
-import AttributionBar from 'components/Bars/AttributionBar'
 
 const PostContainer = props => {
   const {
@@ -18,19 +17,7 @@ const PostContainer = props => {
     profile_picture,
     handleDeleteComment,
     className,
-    createCollection,
   } = props
-
-  const handleSaveToProfile = post => {
-    const { title, url, description, thumbnail_url } = post
-    createCollection({
-      title,
-      description,
-      thumbnail_url,
-      post_url: url,
-      type: 'link',
-    })
-  }
 
   const displayMedia = post => {
     const { url, thumbnail_url } = post

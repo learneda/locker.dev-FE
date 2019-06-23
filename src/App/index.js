@@ -1,3 +1,4 @@
+// eslint-disable-line react-hooks/exhaustive-deps
 import React, { useEffect, lazy, Suspense } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'

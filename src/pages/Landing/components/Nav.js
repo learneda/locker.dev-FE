@@ -33,7 +33,7 @@ const NavLanding = props => {
       <h1>
         <Link to='/'>locker.dev</Link>
       </h1>
-      <img src={brand} onClick={toggleMode} />
+      <img src={brand} onClick={toggleMode} alt='brand' />
       <ul>
         <li>
           <button

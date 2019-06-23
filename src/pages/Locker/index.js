@@ -71,7 +71,7 @@ const Collections = props => {
       )
     })
 
-    const filterTypeCollections = collections.filter(post => {
+    const filterTypeCollections = searchedCollections.filter(post => {
       if (typeFilter === '0') {
         return true
       } else {

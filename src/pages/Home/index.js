@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import Sidebar from 'components/sidebar/Sidebar'
 import Tagbar from 'components/sidebar/Tagbar'
@@ -16,26 +16,18 @@ const Home = props => {
   const {
     auth,
     user,
-    searchTerm,
-    locker,
-    location,
     feed,
-    collections,
     following,
     followers,
     suggested,
     topTags,
     myTags,
-    fetchCollections,
     fetchFollowing,
     fetchFollowers,
     fetchSuggested,
-    deleteCollection,
     followAUser,
     fetchFeed,
-    fetchLocker,
     fetchMoreFeed,
-    createCollection,
     fetchTopTags,
     fetchMyTags,
   } = props
@@ -46,9 +38,6 @@ const Home = props => {
       fetchFollowing(auth.id)
       fetchFollowers(auth.id)
       fetchSuggested(auth.id)
-    }
-    if (!collections.length) {
-      fetchCollections()
     }
     if (!topTags.length) {
       fetchTopTags()
@@ -64,7 +53,7 @@ const Home = props => {
       <WrapperLeft>
         <Sidebar
           user={user}
-          collections={collections}
+          posts={feed.ports}
           followers={followers}
           following={following}
         />
@@ -90,20 +79,10 @@ const Home = props => {
     </Container>
   )
 }
-const mapStateToProps = ({
+const mapStateToProps = ({ auth, user, home, social }) => ({
   auth,
   user,
-  search,
-  collections,
-  home,
-  social,
-}) => ({
-  auth,
-  user,
-  searchTerm: search.searchTerm,
-  collections,
   feed: home,
-  locker: home.locker,
   topTags: home.topTags,
   myTags: home.myTags,
   ...social,
@@ -112,9 +91,6 @@ const mapStateToProps = ({
 export default connect(
   mapStateToProps,
   {
-    fetchCollections,
-    deleteCollection,
-    createCollection,
     ...socialActions,
     ...homeActions,
   }

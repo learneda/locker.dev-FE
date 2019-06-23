@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import Feed from 'containers/Feed'
-import TagPageViewHeader from './components/tagHeader'
+import TagPageViewHeader from './components/TagHeader'
 
 const HashTagFeed = props => {
   const dispatch = useDispatch()
