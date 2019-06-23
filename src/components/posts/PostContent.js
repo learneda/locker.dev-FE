@@ -52,13 +52,14 @@ const Container = styled.div`
 `
 
 const TagBar = styled.div`
+  padding: 15px;
   display: flex;
   align-items: center;
   overflow: hidden;
   .tag {
     font-size: 1.6rem;
     letter-spacing: 1.5px;
-    padding: 0px 15px 10px;
+    padding-right: 10px;
     transition: color 0.2s ease;
     &:hover {
       color: dodgerblue;

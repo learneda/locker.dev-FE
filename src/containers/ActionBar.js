@@ -6,6 +6,8 @@ import styled from 'styled-components'
 import LockerSVG from 'assets/react-svg/Locker01SVG'
 import ShareSVG from 'assets/react-svg/ShareSVG'
 import MoreSVG from 'assets/react-svg/MoreSVG'
+import DeleteSVG from 'assets/react-svg/DeleteSVG'
+
 import PropTypes from 'prop-types'
 import ShareModal from './ActionBarModal'
 import DropDown from './DropDown'
@@ -32,9 +34,6 @@ const ActionBar = props => {
   const [saveText, setSaveText] = useState('Save')
   const [dropDownActive, setDropDownActive] = useState(false)
 
-  useEffect(() => {
-    console.log('\n modal', isSharingModal)
-  }, [isSharingModal])
   const saveToLocker = async () => {
     if (!insertItem.post_url) {
       insertItem.post_url = insertItem.url
@@ -115,6 +114,10 @@ const ActionBar = props => {
     return location.pathname === '/' || location.pathname.includes('/tag')
   }
 
+  const showDelete = () => {
+    return location.pathname.includes('/locker')
+  }
+
   return (
     <StyledActionBar
       className={className}
@@ -158,6 +161,12 @@ const ActionBar = props => {
           />
         </div>
       )}
+      {showDelete() && (
+        <div className='wrap-svg delete'>
+          <DeleteSVG className='icon' />
+          <span className='label'>Delete</span>
+        </div>
+      )}
     </StyledActionBar>
   )
 }
@@ -190,7 +199,14 @@ const StyledActionBar = styled.div`
       color: dodgerblue;
     }
   }
-
+  .delete {
+    &:hover {
+      color: red;
+    }
+    #delete-svg {
+      fill: currentColor;
+    }
+  }
   .save {
     color: ${props => (props.saveActive ? 'dodgerblue' : 'black')};
   }
