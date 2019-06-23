@@ -28,9 +28,8 @@ const Collections = props => {
   )
 
   useEffect(() => {
-    if (!collections.length) {
-      dispatch(fetchCollections())
-    }
+    dispatch(fetchCollections())
+
     switch (location.pathname) {
       case '/locker':
         setTypeFilter('0')

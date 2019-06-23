@@ -9,7 +9,6 @@ const ShareModal = props => {
 
   const [tags, setTags] = useState('')
   const [textArea, setTextArea] = useState('')
-  console.log('IS ACTIVE', props.isActive)
   return props.isActive ? (
     <div>
       <ReuseablePortal>
@@ -17,14 +16,17 @@ const ShareModal = props => {
           <div className='modal_'>
             <div className='top'>
               <div className='modal_name'>Share to Feed</div>
-              <div className='modal_close'>
+              <div className='modal_close' onClick={props.setIsActive}>
                 <X />
               </div>
             </div>
             <div className='modal_group'>
               <form
                 className='add_link_form'
-                onSubmit={() => props.handleSubmit(textArea, tags)}
+                onSubmit={e => {
+                  e.preventDefault()
+                  props.handleSubmit(textArea, tags)
+                }}
               >
                 <textarea
                   id='form-key'

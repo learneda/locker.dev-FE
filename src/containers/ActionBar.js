@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { createCollection } from 'actions'
+import { createCollection, postToFeed } from 'actions'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import LockerSVG from 'assets/react-svg/Locker01SVG'
@@ -8,6 +8,7 @@ import ShareSVG from 'assets/react-svg/ShareSVG'
 import MoreSVG from 'assets/react-svg/MoreSVG'
 import PropTypes from 'prop-types'
 import ShareModal from './ActionBarModal'
+import DropDown from './DropDown'
 
 const ActionBar = props => {
   const {
@@ -19,6 +20,7 @@ const ActionBar = props => {
     className,
     createCollection,
     authId,
+    postToFeed,
   } = props
   const [saveActive, setSaveActive] = useState(false)
   const [shareActive, setShareActive] = useState(false)
@@ -26,6 +28,7 @@ const ActionBar = props => {
   const [isSharingModal, setIsSharingModal] = useState(false)
   const [shareText, setShareText] = useState('Share')
   const [saveText, setSaveText] = useState('Save')
+  const [dropDownActive, setDropDownActive] = useState(false)
 
   useEffect(() => {
     console.log('\n modal', isSharingModal)
@@ -43,6 +46,7 @@ const ActionBar = props => {
     if (type === 'locker') {
       item.tags = tags
       item.user_thoughts = thoughts
+
       return await share(item)
     }
     // browse component passes obj as insertItem
@@ -73,7 +77,8 @@ const ActionBar = props => {
 
   const handleSubmit = async (thoughts, tags) => {
     console.log('LAUNCHED SHARE')
-    console.table(insertItem)
+    console.log(insertItem)
+    setIsSharingModal(false)
     setShareText('Sharing')
     setShareActive(prev => !prev)
     await shareToFeed(thoughts, tags)
@@ -103,32 +108,38 @@ const ActionBar = props => {
       )
     )
   }
-  console.log('modal status', isSharingModal)
-
   return (
     <StyledActionBar
       className={className}
       saveActive={saveActive}
       shareActive={shareActive}
     >
-      <div className='wrap-svg share' onClick={handleShareClick}>
-        <ShareSVG className='icon' active={shareActive} />
-        {/* modal should be placed here :) */}
-        <span className='label'>{shareText}</span>
-      </div>
+      {window.location.pathname !== '/' && (
+        <div className='wrap-svg share' onClick={handleShareClick}>
+          <ShareSVG className='icon' active={shareActive} />
+          {/* modal should be placed here :) */}
+          <span className='label'>{shareText}</span>
+        </div>
+      )}
       <ShareModal
         handleSubmit={handleSubmit}
         setIsActive={handleShareClick}
         isActive={isSharingModal}
       />
       {handleSaveSvg()}
+
       <div
         className='wrap-svg more'
         onMouseEnter={handleMore}
         onMouseLeave={handleMore}
+        onClick={e => {
+          e.stopPropagation()
+          setDropDownActive(prev => !prev)
+        }}
       >
         <MoreSVG className='icon' active={moreActive} />
         <span className='label'>Menu</span>
+        <DropDown className='DropDown' isActive={dropDownActive} />
       </div>
     </StyledActionBar>
   )
@@ -142,7 +153,7 @@ const mapStateToProps = ({ auth }) => ({
 
 export default connect(
   mapStateToProps,
-  { createCollection }
+  { createCollection, postToFeed }
 )(withRouter(ActionBar))
 
 const StyledActionBar = styled.div`
@@ -162,6 +173,7 @@ const StyledActionBar = styled.div`
       color: dodgerblue;
     }
   }
+
   .save {
     color: ${props => (props.saveActive ? 'dodgerblue' : 'black')};
   }
