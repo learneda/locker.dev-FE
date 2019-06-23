@@ -21,7 +21,9 @@ const ActionBar = props => {
     createCollection,
     authId,
     postToFeed,
+    location,
   } = props
+  console.log(props, 'PROPS')
   const [saveActive, setSaveActive] = useState(false)
   const [shareActive, setShareActive] = useState(false)
   const [moreActive, setMoreActive] = useState(false)
@@ -108,6 +110,11 @@ const ActionBar = props => {
       )
     )
   }
+
+  const showMore = () => {
+    return location.pathname === '/' || location.pathname.includes('/tag')
+  }
+
   return (
     <StyledActionBar
       className={className}
@@ -128,19 +135,29 @@ const ActionBar = props => {
       />
       {handleSaveSvg()}
 
-      <div
-        className='wrap-svg more'
-        onMouseEnter={handleMore}
-        onMouseLeave={handleMore}
-        onClick={e => {
-          e.stopPropagation()
-          setDropDownActive(prev => !prev)
-        }}
-      >
-        <MoreSVG className='icon' active={moreActive} />
-        <span className='label'>Menu</span>
-        <DropDown className='DropDown' isActive={dropDownActive} />
-      </div>
+      {showMore() && (
+        <div
+          className='wrap-svg more'
+          onMouseEnter={() => {
+            handleMore()
+            setDropDownActive(prev => !prev)
+          }}
+          onMouseLeave={() => {
+            handleMore()
+            setDropDownActive(prev => !prev)
+          }}
+        >
+          <MoreSVG className='icon' active={moreActive} />
+          <span className='label'>Menu</span>
+          <DropDown
+            className='DropDown'
+            isActive={dropDownActive}
+            authId={authId}
+            userId={insertItem.user_id}
+            username={insertItem.username}
+          />
+        </div>
+      )}
     </StyledActionBar>
   )
 }
@@ -159,12 +176,12 @@ export default connect(
 const StyledActionBar = styled.div`
   font-size: 1.2rem;
   display: flex;
-  height: 40px;
-  overflow: hidden;
+  height: 46px;
   .wrap-svg {
     display: flex;
+    position: relative;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     cursor: ${props => (props.saveActive ? 'default' : 'pointer')};
     width: 60px;
