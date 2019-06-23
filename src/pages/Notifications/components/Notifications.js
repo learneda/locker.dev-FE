@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import HelpScreen from 'components/utils/screens/HelpScreen'
+import HelpScreen from 'components/screens/HelpScreen'
 import OnlineFriendsSVG from 'assets/svg/online_friends.svg'
 
 const Notifications = props => {

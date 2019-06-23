@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Container } from './HelpScreen'
-import EmptyBoxSVG from '../../../assets/svg/empty-box-drawing.svg'
+import EmptyBoxSVG from 'assets/svg/empty-box-drawing.svg'
 
 const NoPostScreen = ({ textDescription }) => {
   return (

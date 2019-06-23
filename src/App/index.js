@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import GlobalStyle from 'styles/utils/cssReset'
 import { composedIndexRedirect as index } from 'hoc/indexRedirect'
-import socket from 'socket'
-import * as appActions from 'appActions'
-import { receivingNotifications } from './pages/Notifications/store/notificationActions'
+import socket from './socket'
+import * as appActions from './appActions'
+import { receivingNotifications } from 'pages/Notifications/store/notificationActions'
 import Navbar from 'pages/Navbar'
 const LandingPage = lazy(() => import('pages/Landing'))
 const Home = lazy(() => import('pages/Home'))

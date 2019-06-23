@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 import { useAlert } from 'react-alert'
 import { customLayout, customWrapper } from 'styles'
 import axios from 'apis/axiosAPI'
-import store from 'store'
-import * as type from 'appTypes'
+import store from 'App/store'
+import * as type from 'App/appTypes'
 
 const ProfileSettings = props => {
   const { auth, user, editUser } = props

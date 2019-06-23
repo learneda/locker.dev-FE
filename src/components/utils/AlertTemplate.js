@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { positions } from 'react-alert'
-import { ReactComponent as X } from '../../assets/svg/x.svg'
+import { ReactComponent as X } from 'assets/svg/x.svg'
 
 export const options = {
   position: positions.BOTTOM_CENTER,
