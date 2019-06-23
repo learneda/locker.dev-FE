@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import NavLeft from './NavLeft'
 import NavRight from './NavRight'
 import Brand from './Brand'
-import Search from '../Search'
+import Search from 'containers/Search'
 
 import { customLayout } from 'styles'
 import PropTypes from 'prop-types'

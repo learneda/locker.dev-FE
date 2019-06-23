@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { applyStyleModifiers } from 'styled-components-modifiers'
-import { teal, elevations } from '../utils'
+import { teal, elevations } from 'styles/utils'
 
 const BUTTON_MODIFIERS = {
   small: props => `

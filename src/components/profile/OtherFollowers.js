@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { StyledFollow } from '../social/StyledFollow'
+import { StyledFollow } from 'components/social/StyledFollow'
 import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 
 const OtherFollowers = props => {

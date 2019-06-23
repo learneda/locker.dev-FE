@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import SearchUsersDropDown from 'pages/Navbar/components/SearchUsersDropDown'
-import * as searchActions from './store/searchActions'
+import * as searchActions from 'pages/Navbar/store/searchActions'
 import useOnClickOutside from 'use-onclickoutside'
 
 const Search = props => {

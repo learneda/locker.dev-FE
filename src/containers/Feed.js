@@ -5,10 +5,10 @@ import socket from 'App/socket'
 import styled from 'styled-components'
 import HelpScreen from 'components/screens/HelpScreen'
 import OnlineFriendsSVG from 'assets/svg/online_friends.svg'
-import PostContainer from './posts/index'
+import PostContainer from 'components/posts/index'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
-import FeedPlaceholder from './FeedPlaceholder'
+import FeedPlaceholder from 'components/posts/FeedPlaceholder'
 import { createCollection } from 'actions'
 
 const Feed = props => {

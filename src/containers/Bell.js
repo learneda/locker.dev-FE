@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { connect } from 'react-redux'
-import BellSVG from './components/BellSVG'
+import BellSVG from 'assets/react-svg/BellSVG'
 import { Link } from 'react-router-dom'
 import * as notificationActions from 'pages/Notifications/store/notificationActions'
 import styled from 'styled-components'

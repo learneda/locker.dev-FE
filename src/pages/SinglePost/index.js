@@ -3,7 +3,7 @@ import axios from 'apis/axiosAPI'
 import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 import Moment from 'react-moment'
-import Feed from 'pages/Home/components/feed/'
+import Feed from 'containers/Feed'
 import { createCollection } from 'actions'
 import { connect } from 'react-redux'
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { Button } from './Buttons'
-import { elevations } from '../utils'
+import { elevations } from 'styles/utils'
 
 export const Card = styled.div`
   border-radius: 6px;

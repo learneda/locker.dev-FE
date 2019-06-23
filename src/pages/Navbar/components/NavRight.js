@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ProfileDropDown from './ProfileDropDown'
 import styled from 'styled-components'
-import AddLink from '../AddLink'
-import Search from '../Search'
+import AddLink from 'containers/AddLink'
+import Search from 'containers/Search'
 import { useMedia } from 'use-media'
-import SearchSVG from './SearchSVG'
+import SearchSVG from 'assets/react-svg/SearchSVG'
 import useOnClickOutside from 'use-onclickoutside'
 
 const NavRight = props => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import AddLink from 'pages/Navbar/AddLink'
+import AddLink from 'containers/AddLink'
 
 import { customWrapper } from 'styles'
 import NotFoundSVG from 'assets/svg/not-found-drawing.svg'

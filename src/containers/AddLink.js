@@ -5,7 +5,7 @@ import ReusablePortal from 'components/utils/ModalPortal'
 import { createCollection } from 'actions'
 import { ReactComponent as X } from 'assets/svg/x.svg'
 import { useAlert } from 'react-alert'
-import AddLinkSVG from './components/AddLinkSVG'
+import AddLinkSVG from 'assets/react-svg/AddLinkSVG'
 import useOnClickOutside from 'use-onclickoutside'
 
 const AddLink = props => {
