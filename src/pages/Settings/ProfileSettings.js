@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useAlert } from 'react-alert'
-import { customLayout, customWrapper } from 'components/mixins'
+import { customLayout, customWrapper } from 'styles'
 import axios from 'apis/axiosAPI'
-import store from '../../store'
-import * as type from '../../appTypes'
+import store from 'store'
+import * as type from 'appTypes'
 
 const ProfileSettings = props => {
   const { auth, user, editUser } = props

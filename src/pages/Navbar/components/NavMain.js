@@ -5,7 +5,7 @@ import NavRight from './NavRight'
 import Brand from './Brand'
 import Search from '../Search'
 
-import { customLayout, hoverBg } from 'components/mixins'
+import { customLayout } from 'styles'
 import PropTypes from 'prop-types'
 
 const NavMain = props => {

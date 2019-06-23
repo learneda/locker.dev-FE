@@ -1,4 +1,4 @@
-import GlobalStyle from './cssReset.js'
+import GlobalStyle from './utils/cssReset.js'
 import { css } from 'styled-components'
 export default GlobalStyle
 //* variables

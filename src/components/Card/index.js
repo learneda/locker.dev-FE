@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { smartTruncate } from 'components/mixins'
+import { smartTruncate } from 'styles'
 import { useMedia } from 'use-media'
 import styled from 'styled-components'
 import CoverBook from './CoverBook'

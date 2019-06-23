@@ -6,7 +6,7 @@ import Notifications from '../Bell'
 import Search from '../Search'
 import ProfileDropDown from './ProfileDropDown'
 import MobileNav from './MobileNav'
-import { customLayout, hoverBg } from 'components/mixins'
+import { customLayout } from 'styles'
 
 const NavMobile = props => {
   const { user } = props

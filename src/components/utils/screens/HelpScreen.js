@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import AddLink from 'pages/Navbar/AddLink'
 
-import { customWrapper } from 'components/mixins'
+import { customWrapper } from 'styles'
 import NotFoundSVG from 'assets/svg/not-found-drawing.svg'
 
 const HelpScreen = ({ headerText, bodyText, imgSource }) => {

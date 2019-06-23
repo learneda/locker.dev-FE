@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import ContentLoader from 'react-content-loader'
 import styled from 'styled-components'
-import { customLayout } from '../mixins'
+import { customLayout } from 'styles'
 import locationSvg from 'assets/svg/location.svg'
 import linkSvg from 'assets/svg/link-symbol.svg'
 import calendarSvg from 'assets/svg/calendar.svg'
-import { StyledSidebar } from './StyledSidebar'
 
 const MyLoader = () => (
   <ContentLoader
@@ -82,15 +81,11 @@ const Wrapper = styled.div`
   position: sticky;
   top: 66px;
   width: 100%;
-  /* border: 1px solid red; */
 `
 const Profile = styled.div`
-  /* border: 1px solid blue; */
   position: sticky;
   top: 66px;
   width: 100%;
-  /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  border-radius: 5px; */
   background: #fff;
   border: 1px solid powderblue;
 
@@ -110,8 +105,7 @@ const Profile = styled.div`
     position: relative;
     padding-left: 10px;
     height: 80px;
-    /* margin-bottom: 50px; */
-    background-color: #4064f2;
+    background-color: dodgerblue;
 
     img {
       position: absolute;
@@ -173,26 +167,11 @@ const Profile = styled.div`
         font-weight: 700;
         border: transparent;
         border-radius: 5px;
-        background-color: #3f65f2;
+        background-color: dodgerblue;
         color: white;
         cursor: pointer;
         transition: 200ms ease-out;
         font-size: 1.4rem;
-      }
-    }
-
-    .edit-profile-link {
-      margin-bottom: 3.5px;
-      a {
-        font-size: 1.4rem;
-        font-weight: 700;
-        color: #6d767e;
-        transition: 200ms ease-out;
-
-        &:hover {
-          color: #3f65f2;
-          transition: 200ms ease-in;
-        }
       }
     }
   }

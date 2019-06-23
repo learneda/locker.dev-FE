@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { customLayout, customWrapper } from 'components/mixins'
+import { customLayout, customWrapper } from 'styles'
 import { apiURL, authURL } from 'services'
 
 const Integrations = props => {

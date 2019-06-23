@@ -2,7 +2,7 @@ import React, { useEffect, lazy, Suspense } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import GlobalStyle from 'components/mixins'
+import GlobalStyle from 'styles/utils/cssReset'
 import { composedIndexRedirect as index } from 'hoc/indexRedirect'
 import socket from 'socket'
 import * as appActions from 'appActions'
@@ -13,7 +13,6 @@ const Home = lazy(() => import('pages/Home'))
 const Browse = lazy(() => import('pages/Browse'))
 const Locker = lazy(() => import('pages/Locker'))
 const HashTag = lazy(() => import('pages/HashTag'))
-const Social = lazy(() => import('pages/Social'))
 const Notifications = lazy(() => import('pages/Notifications'))
 const Profile = lazy(() => import('pages/Profile'))
 const SinglePost = lazy(() => import('pages/SinglePost'))
@@ -106,6 +105,7 @@ const App = props => {
   return (
     <Container>
       <GlobalStyle />
+      {/* Only show Navbar if logged in and not inside popup modal */}
       {auth && window.location.pathname !== '/success' && <Navbar />}
       <Suspense fallback={null}>
         <Switch>
@@ -113,7 +113,6 @@ const App = props => {
           <Route path='/browse' component={index(Browse)} />
           <Route path='/locker' component={index(Locker)} />
           <Route path='/tag/:tag' component={index(HashTag)} />
-          <Route path='/social' component={index(Social)} />
           <Route path='/notifications' component={index(Notifications)} />
           <Route path='/profile/:id' component={index(Profile)} />
           <Route path='/status/:id' component={index(SinglePost)} />

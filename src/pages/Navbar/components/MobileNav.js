@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { authURL } from 'services'
 import styled from 'styled-components'
 import closeIcon from 'assets/svg/close.svg'
-import { customLayout } from 'components/mixins'
+import { customLayout } from 'styles'
 
 const MobileNav = ({ handleClose, show }) => {
   const showHideClassName = show

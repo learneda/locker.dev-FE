@@ -7,7 +7,7 @@ import NavLeft from './components/NavLeft'
 import BrandSVG from 'assets/react-svg/BrandSVG'
 import NavRight from './components/NavRight'
 import Search from './Search'
-import { customLayout, hoverBg } from 'components/mixins'
+import { customLayout } from 'styles'
 import * as searchActions from './store/searchActions'
 
 const Navbar = props => {

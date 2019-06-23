@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import Notifications from './components/Notifications'
-import { customWrapper } from 'components/mixins'
 import * as notificationActions from './store/notificationActions'
 import NotificationsPlaceHolder from './components/NotificationsPlaceHolder'
 
