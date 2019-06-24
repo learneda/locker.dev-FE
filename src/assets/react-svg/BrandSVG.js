@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import styled from 'styled-components'
 const BrandSVG = ({ active }) => {
-  const color = active ? '#0071B2' : 'dodgerblue'
+  const color = active ? 'dodgerblue' : 'dodgerblue'
   return (
     <svg
       version='1.1'
@@ -48,6 +48,8 @@ const BrandSVG = ({ active }) => {
   )
 }
 
-BrandSVG.propTypes = {}
+BrandSVG.propTypes = {
+  active: PropTypes.bool,
+}
 
 export default BrandSVG

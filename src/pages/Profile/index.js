@@ -8,7 +8,7 @@ import SidebarById from 'components/sidebar/SidebarById'
 import OtherCollections from 'components/profile/OtherCollections'
 import OtherFollowing from 'components/profile/OtherFollowing'
 import OtherFollowers from 'components/profile/OtherFollowers'
-import * as profileActions from './profileActions'
+import * as profileActions from './store/profileActions'
 import { createCollection, fetchCollections } from 'actions'
 import {
   followAUser,

@@ -79,6 +79,8 @@ const AddLinkSVG = ({ addLinkColor }) => {
   )
 }
 
-AddLinkSVG.propTypes = {}
+AddLinkSVG.propTypes = {
+	addLinkColor: PropTypes.string.isRequired
+}
 
 export default AddLinkSVG

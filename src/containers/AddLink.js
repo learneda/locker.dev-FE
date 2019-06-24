@@ -53,7 +53,7 @@ const AddLink = props => {
       }}
     >
       <span onClick={() => setIsModalOpen(prev => !prev)}>
-        <AddLinkSVG addLinkColor={isModalOpen ? 'dodgerblue' : 'black'} />
+        <AddLinkSVG />
       </span>
       {isModalOpen && (
         <ReusablePortal>

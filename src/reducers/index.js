@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { authReducer as auth } from './authReducer'
 import { userReducer as user } from './userReducer'
-import { profileReducer as profile } from 'pages/Profile/profileReducer'
+import { profileReducer as profile } from 'pages/Profile/store/profileReducer'
 import { homeReducer as home } from 'pages/Home/store/homeReducer'
 import { browseReducer as browse } from 'pages/Browse/store/browseReducer'
 import { socialReducer as social } from './socialReducer'
