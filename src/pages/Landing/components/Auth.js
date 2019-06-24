@@ -14,7 +14,7 @@ const Auth = props => {
     <AuthModalContainer
       className='login'
       id='login'
-      style={{ display: isAuthOpen ? 'flex' : 'none' }}
+      style={{ display: 'flex' }}
     >
       <div className='login-content' ref={ref}>
         <span
@@ -49,10 +49,10 @@ const AuthModalContainer = styled.div`
   right: 0;
   z-index: 10;
   background: rgba(0, 0, 0, 0.9);
-  display: none;
+  /* display: none; */
   justify-content: center;
   align-items: flex-start;
-  animation: 400ms fadeIn;
+  /* animation: 400ms fadeIn; */
 
   @keyframes fadeIn {
     from {
