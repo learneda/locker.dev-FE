@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useThrottle } from 'use-throttle'
+import { withRouter } from 'react-router-dom'
 import Card from 'components/Card/index'
 import EndMessage from './EndMessage'
 import styled from 'styled-components'
 
 const Items = props => {
-  const { type, items, searchTerm, offset, fetch, search, save, share } = props
+  const { type, items, searchTerm, offset, fetch, search, location } = props
   const { showIframe, resetIframe } = props
   const [isLoading, setIsLoading] = useState(false)
   const [didMount, setDidMount] = useState(false)
@@ -18,7 +19,7 @@ const Items = props => {
     return () => {
       window.scrollTo(0, 0)
     }
-  }, [])
+  }, [location.pathname])
 
   // Performs throttled search and prevents search on initial mount
   useEffect(() => {
@@ -76,21 +77,14 @@ const Items = props => {
         endMessage={<EndMessage />}
       >
         {items.map((item, index) => (
-          <Card
-            type={type}
-            key={index}
-            item={item}
-            save={save}
-            share={share}
-            showIframe={showIframe}
-          />
+          <Card type={type} key={index} item={item} showIframe={showIframe} />
         ))}
       </InfiniteScroll>
     </Cards>
   )
 }
 
-export default Items
+export default withRouter(Items)
 
 const Cards = styled.div`
   /* border: 1px solid magenta; */

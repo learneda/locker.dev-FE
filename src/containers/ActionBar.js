@@ -17,8 +17,6 @@ const ActionBar = props => {
     type,
     item,
     insertItem,
-    save,
-    share,
     className,
     createCollection,
     authId,
@@ -48,12 +46,12 @@ const ActionBar = props => {
       item.tags = tags
       item.user_thoughts = thoughts
 
-      return await share(item)
+      return await postToFeed(item)
     }
     // browse component passes obj as insertItem
     insertItem.tags = tags
     insertItem.user_thoughts = thoughts
-    await share(insertItem)
+    await postToFeed(insertItem)
   }
 
   //TODO: Clean logic

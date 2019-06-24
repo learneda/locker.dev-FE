@@ -6,7 +6,6 @@ import useOnClickOutside from 'use-onclickoutside'
 
 const ShareModal = props => {
   const modalRef = useRef()
-
   const [tags, setTags] = useState('')
   const [textArea, setTextArea] = useState('')
   return props.isActive ? (

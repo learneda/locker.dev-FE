@@ -12,7 +12,8 @@ import ActionBar from 'containers/ActionBar'
 import he from 'he'
 
 const Card = props => {
-  const { item, type, save, share } = props
+  const { item, type } = props
+  // showIframe only needed for videos
   const { showIframe } = props
   const isSingle = useMedia({ maxWidth: 820 })
 
@@ -115,13 +116,7 @@ const Card = props => {
       </div>
       <div className='card-bar'>
         <AttributionBar url={item.url} />
-        <ActionBar
-          type={type}
-          item={item}
-          save={save}
-          share={share}
-          insertItem={insertItem}
-        />
+        <ActionBar type={type} item={item} insertItem={insertItem} />
       </div>
     </Container>
   )

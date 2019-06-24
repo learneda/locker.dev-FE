@@ -171,9 +171,7 @@ export const printRootUrl = url => {
   let rootUrl
   try {
     rootUrl = new URL(newUrl)
-  } catch (error) {
-    console.log(error)
-  }
+  } catch (error) {}
 
   rootUrl =
     rootUrl &&
