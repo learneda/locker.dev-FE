@@ -9,9 +9,7 @@ import { connect } from 'react-redux'
 const SinglePost = props => {
   const [post, setPost] = useState([])
   useEffect(() => {
-    console.log(props.match.params.id)
     axios.get(`/newsfeed/${props.match.params.id}`).then(res => {
-      console.log('single post response', res.data)
       setPost([res.data.post])
     })
   }, [])

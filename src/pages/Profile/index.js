@@ -1,217 +1,318 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, NavLink, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
-import { customWrapper } from 'styles'
+import Moment from 'react-moment'
 import Sidebar from 'components/sidebar/Sidebar'
 import SidebarById from 'components/sidebar/SidebarById'
-import OtherCollections from 'components/profile/OtherCollections'
+import Suggested from 'components/sidebar/Suggested'
 import OtherFollowing from 'components/profile/OtherFollowing'
 import OtherFollowers from 'components/profile/OtherFollowers'
-import * as profileActions from './store/profileActions'
-import { createCollection, fetchCollections } from 'actions'
-import {
-  followAUser,
-  unfollowAUser,
-  fetchFollowing,
-} from 'actions/socialActions'
+import ProfileHeader from './components/ProfileHeader'
+import ProfileNav from './components/ProfileNav'
+import Feed from 'containers/Feed'
+import locationSvg from 'assets/svg/location.svg'
+import linkSvg from 'assets/svg/link-symbol.svg'
+import calendarSvg from 'assets/svg/calendar.svg'
+import * as socialActions from 'actions/socialActions'
+import * as profileActions from 'pages/Profile/store/profileActions'
+import * as homeActions from 'pages/Home/store/homeActions'
+import { useDispatch } from 'react-redux'
+
 const ProfilePage = props => {
   const {
     auth,
     user,
     match,
+    location,
     profile,
     social,
-    collections,
-    fetchProfileCollections,
-    fetchProfileFollowing,
+    feed,
+    fetchFeed,
+    fetchMoreFeed,
     fetchProfileFollowers,
-    fetchProfileDetails,
-    resetProfile,
-    createCollection,
-    fetchCollections,
     followAUser,
     unfollowAUser,
     fetchFollowing,
+    fetchProfileCollections,
+    fetchProfileFollowing,
+    fetchProfileDetails,
+    resetProfile,
+    fetchSuggested,
+    fetchFollowers,
+    className,
   } = props
   const id = Number(match.params.id)
+  const dispatch = useDispatch()
 
   useEffect(() => {
+    fetchFeed()
     // fetching other collections
-    fetchCollections()
     fetchProfileCollections(id)
     fetchProfileFollowing(id)
     fetchProfileFollowers(id)
     fetchProfileDetails(id)
-
+    fetchSuggested(auth.id)
+    fetchFollowing(auth.id)
+    fetchFollowers(auth.id)
     return () => {
       resetProfile()
     }
   }, [id])
 
+  const isFollowed = () => {
+    const followingIds = social.following.map(ele => ele.id)
+    console.log('followingIds', followingIds)
+    return followingIds.includes(profile.other.id)
+  }
+
+  const followAUserHandler = async e => {
+    e.preventDefault()
+    const friend_id = Number(match.params.id)
+    await followAUser({ user_id: auth.id, friend_id })
+    await fetchProfileFollowers(match.params.id)
+  }
+
+  const unfollowAUserHandler = async e => {
+    e.preventDefault()
+    const friend_id = Number(match.params.id)
+    await unfollowAUser({ user_id: auth.id, friend_id })
+    await fetchProfileFollowers(match.params.id)
+  }
+
   return (
-    <Container>
-      {auth.id === id ? (
-        <Sidebar
-          user={user}
-          collections={collections}
-          followers={social.followers}
-          following={social.following}
-        />
-      ) : (
-        <SidebarById
-          collectionsCount={profile.collections.length}
-          followingCount={profile.following.length}
-          followersCount={profile.followers.length}
-          other={profile.other}
-          myFollowing={social.following}
-          follow={social.following.map(ele => ele.id).includes(id)}
-          fetchProfileFollowers={fetchProfileFollowers}
-        />
+    <Wrapper>
+      {profile.other && (
+        <>
+          <ProfileHeader auth={auth} user={profile.other} />
+          <ProfileNav auth={auth} user={profile.other} posts={feed.posts} />
+          <Container>
+            <main className='profile-main'>
+              <div className='profile-left'>
+                {auth.id !== profile.other.id && (
+                  <div className='follow-btn-grp'>
+                    {isFollowed() ? (
+                      <button type='button' onClick={unfollowAUserHandler}>
+                        Unfollow
+                      </button>
+                    ) : (
+                      <button type='button' onClick={followAUserHandler}>
+                        Follow
+                      </button>
+                    )}
+                  </div>
+                )}
+                <div
+                  style={{
+                    fontSize: '2rem',
+                    fontWeight: 'bold',
+                    letterSpacing: '1px',
+                    padding: '10px 0 0px',
+                  }}
+                >
+                  {profile.other.display_name}
+                </div>
+                <div
+                  style={{
+                    fontSize: '1.6rem',
+                    fontWeight: 'bold',
+                    color: 'rgb(102,117,127)',
+                    padding: '10px 0',
+                  }}
+                >{`@${profile.other.username}`}</div>
+                <p
+                  style={{
+                    fontSize: '1.6rem',
+                    fontWeight: 'bold',
+                    padding: '10px 0',
+                  }}
+                >
+                  {profile.other.bio ? profile.other.bio : 'User has no bio.'}
+                </p>
+                <p
+                  style={{
+                    fontSize: '1.6rem',
+                    padding: '10px 0',
+                  }}
+                >
+                  <img src={locationSvg} alt='location-icon' />
+                  {profile.other.location
+                    ? profile.other.location
+                    : ' No location specified.'}
+                </p>
+                <p
+                  style={{
+                    fontSize: '1.6rem',
+                    padding: '10px 0',
+                  }}
+                >
+                  <img src={linkSvg} alt='link-icon' />
+                  {profile.other.website_url ? (
+                    profile.other.website_url.includes('http') ? (
+                      <a
+                        href={profile.other.website_url}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        {profile.other.website_url.replace(/^https?:\/\//, '')}
+                      </a>
+                    ) : (
+                      <a
+                        href={`https://${profile.other.website_url}`}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        {profile.other.website_url}
+                      </a>
+                    )
+                  ) : (
+                    ' No URL provided'
+                  )}
+                </p>
+                <p
+                  style={{
+                    fontSize: '1.6rem',
+                    padding: '10px 0',
+                  }}
+                >
+                  <img src={calendarSvg} alt='calendar-icon' /> Joined{' '}
+                  <Moment format='MMMM YYYY'>{profile.other.created_at}</Moment>
+                </p>
+              </div>
+              <div className='profile-center'>
+                <Switch>
+                  <Route
+                    exact
+                    path={[`${match.path}`, `${match.path}/posts`]}
+                    render={props => (
+                      <Feed
+                        {...props}
+                        posts={feed.posts}
+                        hasmore={feed.hasmore}
+                        fetchMoreFeed={fetchMoreFeed}
+                        offset={feed.offset}
+                      />
+                    )}
+                  />
+                  <Route
+                    exact
+                    path={`${match.path}/following`}
+                    render={props => (
+                      <OtherFollowing
+                        {...props}
+                        userId={auth.id}
+                        following={profile.following}
+                        userFollowing={social.following}
+                        followAUser={followAUser}
+                        unfollowAUser={unfollowAUser}
+                        fetchFollowing={fetchFollowing}
+                      />
+                    )}
+                  />
+                  <Route
+                    exact
+                    path={`${match.path}/followers`}
+                    render={props => (
+                      <OtherFollowers
+                        {...props}
+                        userId={auth.id}
+                        following={social.following}
+                        followers={profile.followers}
+                        followAUser={followAUser}
+                        unfollowAUser={unfollowAUser}
+                        fetchFollowing={fetchFollowing}
+                      />
+                    )}
+                  />
+                </Switch>
+              </div>
+              <div className='profile-right'>
+                <StyledSuggested
+                  auth={auth}
+                  suggested={social.suggested}
+                  fetchSuggested={fetchSuggested}
+                  fetchFollowing={fetchFollowing}
+                  followAUser={followAUser}
+                  className={className}
+                />
+              </div>
+            </main>
+          </Container>
+        </>
       )}
-      <Wrapper>
-        <Tabs>
-          <Tab>
-            <NavLink
-              exact
-              to={`${match.url}/saved`}
-              className={
-                props.location.pathname === `/profile/${id}` ? 'active' : null
-              }
-            >
-              Saved
-            </NavLink>
-          </Tab>
-          <Tab>
-            <NavLink to={`${match.url}/following`}>Following</NavLink>
-          </Tab>
-          <Tab>
-            <NavLink to={`${match.url}/followers`}>Followers</NavLink>
-          </Tab>
-        </Tabs>
-        <TabWrapper>
-          <Switch>
-            <Route
-              exact
-              path={[`${match.path}`, `${match.path}/saved`]}
-              render={props => (
-                <OtherCollections
-                  {...props}
-                  createCollection={createCollection}
-                  fetchProfileCollections={fetchProfileCollections}
-                  collections={profile.collections}
-                />
-              )}
-            />
-            <Route
-              exact
-              path={`${match.path}/following`}
-              render={props => (
-                <OtherFollowing
-                  {...props}
-                  userId={auth.id}
-                  following={profile.following}
-                  userFollowing={social.following}
-                  followAUser={followAUser}
-                  unfollowAUser={unfollowAUser}
-                  fetchFollowing={fetchFollowing}
-                />
-              )}
-            />
-            <Route
-              exact
-              path={`${match.path}/followers`}
-              render={props => (
-                <OtherFollowers
-                  {...props}
-                  userId={auth.id}
-                  following={social.following}
-                  followers={profile.followers}
-                  followAUser={followAUser}
-                  unfollowAUser={unfollowAUser}
-                  fetchFollowing={fetchFollowing}
-                />
-              )}
-            />
-          </Switch>
-        </TabWrapper>
-      </Wrapper>
-    </Container>
+    </Wrapper>
   )
 }
-const mapStateToProps = ({ auth, user, profile, social, collections }) => {
-  return { auth, user, profile, social, collections }
+const mapStateToProps = ({ auth, user, profile, social, home }) => {
+  return { auth, user, profile, social, feed: home }
 }
 export default connect(
   mapStateToProps,
   {
+    ...homeActions,
     ...profileActions,
-    fetchCollections,
-    createCollection,
-    followAUser,
-    unfollowAUser,
-    fetchFollowing,
+    ...socialActions,
   }
 )(withRouter(ProfilePage))
 
-const Container = styled.div`
-  ${customWrapper('80%', '0 auto')}
-  display: flex;
-  @media (max-width: 1100px) {
-    width: 90%;
-  }
-`
-
 const Wrapper = styled.div`
-  ${customWrapper('75%')}
-  padding-left: 2%;
-  @media (max-width: 900px) {
-    width: 100%;
-    padding: 0;
-  }
-`
-
-const Tabs = styled.ul`
+  min-height: calc(100vh - 50px);
   display: flex;
-  align-items: flex-end;
-  position: sticky;
-  background: rgb(230, 233, 243);
-  top: 59px;
-  font-size: 2rem;
-  height: 100px;
-  z-index: 1;
+  flex-direction: column;
+  position: relative;
+`
+const Container = styled.div`
+  max-width: 1200px;
+  min-width: 900px;
   width: 100%;
-  padding-bottom: 25px;
-  .active {
-    border-bottom: 3px solid #4064f2;
-    font-weight: 900;
-    color: #4064f2;
-  }
-  @media (max-width: 900px) {
-    top: 59px;
-    height: 80px;
-  }
-  @media (max-width: 760px) {
-    top: 50px;
-    height: 80px;
-  }
-`
-
-const TabWrapper = styled.div`
-  margin-bottom: 40px;
-  padding: 0 5px;
-`
-
-const Tab = styled.li`
-  margin-right: 2rem;
-  font-size: 2rem;
-  margin-left: 10px;
-
-  a {
-    transition: 100ms ease-out;
-    &:hover {
-      color: #4064f2;
-      transition: 100ms ease-in;
+  margin: 50px auto;
+  .profile-main {
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+    @media (max-width: 1200px) {
+      justify-content: space-evenly;
+    }
+    .profile-left {
+      width: 260px;
+      img {
+        width: 18px;
+        height: 18px;
+        margin-right: 5px;
+        margin-bottom: -3px;
+      }
+      .follow-btn-grp {
+        button {
+          font-weight: 700;
+          border-radius: 5px;
+          border: transparent;
+          border-radius: 50px;
+          background-color: white;
+          border: 1px solid dodgerblue;
+          color: dodgerblue;
+          cursor: pointer;
+          transition: 200ms ease-out;
+          font-size: 1.3rem;
+          letter-spacing: 0.9;
+          padding: 8px 15px;
+          &:hover {
+            background-color: #e8f4fb;
+          }
+        }
+      }
+    }
+    .profile-center {
+      width: 580px;
+    }
+    .profile-right {
+      width: 260px;
+      @media (max-width: 1200px) {
+        display: none;
+      }
     }
   }
+`
+
+const StyledSuggested = styled(Suggested)`
+  position: static;
 `

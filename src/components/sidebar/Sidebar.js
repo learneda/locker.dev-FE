@@ -16,7 +16,7 @@ const MyLoader = () => (
   </ContentLoader>
 )
 const Sidebar = props => {
-  const { user, posts, following, followers } = props
+  const { auth, user, posts, following, followers } = props
   if (!user) {
     return (
       <Wrapper>
@@ -36,26 +36,31 @@ const Sidebar = props => {
               backgroundPosition: 'center',
             }}
           >
-            <img src={user.profile_picture} alt='avatar' />
+            <Link to={`/profile/${auth.id}`} style={{ cursor: 'pointer' }}>
+              <img src={user.profile_picture} alt='avatar' />
+            </Link>
           </div>
           <div className='user-bio'>
             <h3>{user.display_name}</h3>
             <h4>{`@${user.username}`}</h4>
             <div className='profile-stats'>
-              <Link to='/locker'>
+              <Link to={`/profile/${auth.id}`}>
                 <ul>
                   <li className='count-label'>Posts</li>
                   <li className='count'>{posts.length}</li>
                 </ul>
               </Link>
 
-              <Link to='/social/following'>
+              <Link to={`/profile/${auth.id}/following`}>
                 <ul>
                   <li className='count-label'>Following</li>
                   <li className='count'>{following.length}</li>
                 </ul>
               </Link>
-              <Link to='/social/followers' className='sidebar-followers'>
+              <Link
+                to={`/profile/${auth.id}/followers`}
+                className='sidebar-followers'
+              >
                 <ul>
                   <li className='count-label'>Followers</li>
                   <li className='count'>{followers.length}</li>

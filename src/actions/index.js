@@ -58,7 +58,6 @@ export const editCollection = editedCollection => async dispatch => {
 }
 
 export const postToFeed = post => async dispatch => {
-  console.log(post)
   let newPost = await axios.post('/newsfeed', { post })
   newPost = newPost.data
   dispatch({ type: types.ADD_TO_FEED, payload: newPost })

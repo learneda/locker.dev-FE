@@ -51,6 +51,7 @@ const Home = props => {
     <Container>
       <WrapperLeft>
         <Sidebar
+          auth={auth}
           user={user}
           posts={feed.posts}
           followers={followers}

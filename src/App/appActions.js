@@ -26,7 +26,6 @@ export const fetchNotifications = notifications => ({
 })
 
 export const createComment = commentData => async dispatch => {
-  console.log(commentData)
   dispatch({ type: type.CREATE_COMMENT, payload: commentData })
 }
 
