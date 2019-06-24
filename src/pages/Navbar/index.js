@@ -53,18 +53,6 @@ const Nav = styled.nav`
   max-width: 1200px;
   margin: 0 auto;
   height: 50px;
-  a {
-    display: flex;
-    align-items: center;
-    position: relative;
-    top: 1px;
-    height: 100%;
-    border-bottom: 3px solid transparent;
-    transition: border-bottom 300ms ease;
-    &:hover {
-      border-bottom: 3px solid dodgerblue;
-    }
-  }
   .locker {
     border-bottom: 3px solid dodgerblue;
   }
