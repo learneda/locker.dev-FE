@@ -6,3 +6,4 @@ export const EDIT_COLLECTION = 'EDIT_COLLECTION'
 export const DELETE_COLLECTION = 'DELETE_COLLECTION'
 
 export const ADD_TO_FEED = 'ADD_TO_FEED'
+export const DELETE_POST = 'DELETE_POST'

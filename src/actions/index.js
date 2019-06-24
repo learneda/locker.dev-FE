@@ -1,23 +1,16 @@
 import axios from 'apis/axiosAPI'
-import {
-  EDIT_USER,
-  FETCH_COLLECTIONS,
-  CREATE_COLLECTION,
-  EDIT_COLLECTION,
-  DELETE_COLLECTION,
-  ADD_TO_FEED,
-} from './types'
+import * as types from './types'
 
 //* Edits user (profile) on user input
 export const editUser = (id, profile) => async dispatch => {
   const res = await axios.put(`/users/edit`, { id, ...profile })
-  dispatch({ type: EDIT_USER, payload: res.data })
+  dispatch({ type: types.EDIT_USER, payload: res.data })
 }
 
 //* Get all user collections
 export const fetchCollections = () => async dispatch => {
   const res = await axios.get(`/posts`)
-  dispatch({ type: FETCH_COLLECTIONS, payload: res.data })
+  dispatch({ type: types.FETCH_COLLECTIONS, payload: res.data })
 }
 export const createCollection = post => async dispatch => {
   // response object returned by this function
@@ -26,7 +19,7 @@ export const createCollection = post => async dispatch => {
     // requesting to insert new record to posts tbl
     const res = await axios.post(`/posts`, post)
     // dispatching the new created record from the response
-    dispatch({ type: CREATE_COLLECTION, payload: res.data })
+    dispatch({ type: types.CREATE_COLLECTION, payload: res.data })
     // attaching the id of the new created record on to the response obj
     responseObj['post_id'] = res.data.id
     // attaching the status of the response if no error is thrown
@@ -46,7 +39,7 @@ export const deleteCollection = id => async dispatch => {
   try {
     // deleting record from posts tbl where id equals <id>
     const res = await axios.delete(`/posts/${id}`)
-    dispatch({ type: DELETE_COLLECTION, payload: res.data })
+    dispatch({ type: types.DELETE_COLLECTION, payload: res.data })
     // deleting record from saved_post_id tbl
     // await axios.delete(`/users/saved-post-ids/${id}`)
   } catch (err) {
@@ -60,7 +53,7 @@ export const editCollection = editedCollection => async dispatch => {
     editedCollection
   )
   if (collection) {
-    dispatch({ type: EDIT_COLLECTION, payload: collection.data })
+    dispatch({ type: types.EDIT_COLLECTION, payload: collection.data })
   }
 }
 
@@ -68,5 +61,15 @@ export const postToFeed = post => async dispatch => {
   console.log(post)
   let newPost = await axios.post('/newsfeed', { post })
   newPost = newPost.data
-  dispatch({ type: ADD_TO_FEED, payload: newPost })
+  dispatch({ type: types.ADD_TO_FEED, payload: newPost })
+}
+
+export const deletePostFromFeed = post => async dispatch => {
+  const deletedPost = await axios.delete(`/newsfeed/${post}`)
+  if (deletedPost) {
+    dispatch({
+      type: types.DELETE_POST,
+      payload: deletedPost.data.deletedPost.id,
+    })
+  }
 }

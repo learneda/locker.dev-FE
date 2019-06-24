@@ -5,7 +5,14 @@ import { withRouter } from 'react-router-dom'
 import { smartTruncate } from 'styles/index'
 
 const DropDown = props => {
-  const { location, authId, userId, username } = props
+  const {
+    location,
+    authId,
+    userId,
+    username,
+    deletePostFromFeed,
+    postId,
+  } = props
 
   const [isActive] = useState(
     location.pathname === '/' || location.pathname.includes('/tag')
@@ -24,7 +31,14 @@ const DropDown = props => {
             Block {smartTruncate(`@${username}`, 15)}
           </li>
         )}
-        {authId === userId && <li className='dropdown-item'>Delete Post</li>}
+        {authId === userId && (
+          <li
+            className='dropdown-item'
+            onClick={() => deletePostFromFeed(postId)}
+          >
+            Delete Post
+          </li>
+        )}
       </ul>
     </StyledDropDown>
   ) : null

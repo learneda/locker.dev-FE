@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { createCollection, postToFeed, deleteCollection } from 'actions'
+import * as actions from 'actions'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import LockerSVG from 'assets/react-svg/Locker01SVG'
@@ -23,6 +23,7 @@ const ActionBar = props => {
     postToFeed,
     location,
     deleteCollection,
+    deletePostFromFeed,
   } = props
   const [saveActive, setSaveActive] = useState(false)
   const [shareActive, setShareActive] = useState(false)
@@ -70,13 +71,10 @@ const ActionBar = props => {
   }
 
   const handleShareClick = async () => {
-    console.log('seting state ???', isSharingModal)
     setIsSharingModal(prev => !prev)
   }
 
   const handleSubmit = async (thoughts, tags) => {
-    console.log('LAUNCHED SHARE')
-    console.log(insertItem)
     setIsSharingModal(false)
     setShareText('Sharing')
     setShareActive(prev => !prev)
@@ -125,7 +123,6 @@ const ActionBar = props => {
       {window.location.pathname !== '/' && (
         <div className='wrap-svg share' onClick={handleShareClick}>
           <ShareSVG className='icon' active={shareActive} />
-          {/* modal should be placed here :) */}
           <span className='label'>{shareText}</span>
         </div>
       )}
@@ -155,7 +152,9 @@ const ActionBar = props => {
             isActive={dropDownActive}
             authId={authId}
             userId={insertItem.user_id}
+            postId={insertItem.id}
             username={insertItem.username}
+            deletePostFromFeed={deletePostFromFeed}
           />
         </div>
       )}
@@ -180,7 +179,7 @@ const mapStateToProps = ({ auth }) => ({
 
 export default connect(
   mapStateToProps,
-  { createCollection, postToFeed, deleteCollection }
+  { ...actions }
 )(withRouter(ActionBar))
 
 const StyledActionBar = styled.div`
