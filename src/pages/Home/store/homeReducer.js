@@ -22,7 +22,11 @@ export const homeReducer = (state = initialState, action) => {
     // hasmore boolean will switch to false so infinite scroll component will stop fetching newsfeed post
     case type.TOGGLE_HAS_MORE:
       return { ...state, hasmore: action.payload }
-    // incrementing offset by +5
+    case 'DELETE_POST':
+      return {
+        ...state,
+        posts: state.posts.filter(post => post.id !== action.payload),
+      }
     case type.INCREMENT_OFFSET:
       return { ...state, offset: action.payload }
     // pushing comment obj into a single post's comment arr
