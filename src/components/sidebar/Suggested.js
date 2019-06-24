@@ -19,7 +19,14 @@ const MyLoader = () => (
 )
 
 const Suggested = props => {
-  const { auth, suggested, fetchFollowing, fetchSuggested, followAUser } = props
+  const {
+    auth,
+    suggested,
+    fetchFollowing,
+    fetchSuggested,
+    followAUser,
+    className,
+  } = props
 
   const followAUserHandler = async (e, friend_id) => {
     e.preventDefault()
@@ -83,7 +90,7 @@ const Suggested = props => {
   }
 
   return (
-    <StyledCard>
+    <StyledCard className={className}>
       <div className='recommended-follow-container'>
         <h2 className='suggested-heading'>Suggested Friends</h2>
         <div>{renderRecommended()}</div>
@@ -96,7 +103,7 @@ export default Suggested
 
 const StyledCard = styled.div`
   position: sticky;
-  top: 60px;
+  top: 66px;
   height: 420px;
   overflow: hidden;
   width: 100%;

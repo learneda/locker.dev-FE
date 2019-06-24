@@ -14,7 +14,6 @@ const Items = props => {
   const throttledSearch = useThrottle(searchTerm, 1000)
 
   useEffect(() => {
-    console.log('scrolling to top')
     window.scrollTo(0, 0)
     return () => {
       window.scrollTo(0, 0)

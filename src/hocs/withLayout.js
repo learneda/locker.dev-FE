@@ -2,9 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 export const withLayout = Component => {
-  console.log(Component)
   return props => {
-    console.log(props)
     return (
       <>
         <StyledContainer>

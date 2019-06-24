@@ -19,7 +19,6 @@ export const followTag = hashtag => async dispatch => {
   const status = await axios.post(`/tags/follow/${hashtag}`)
 
   if (status.data.msg === 'success') {
-    console.log(status.data.hashtag)
     dispatch({ type: type.FOLLOW_TAG, payload: true })
     dispatch({ type: type.ADD_TO_MY_TAGS, payload: status.data.hashtag })
   }

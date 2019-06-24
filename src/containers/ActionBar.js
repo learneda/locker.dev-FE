@@ -70,13 +70,10 @@ const ActionBar = props => {
   }
 
   const handleShareClick = async () => {
-    console.log('seting state ???', isSharingModal)
     setIsSharingModal(prev => !prev)
   }
 
   const handleSubmit = async (thoughts, tags) => {
-    console.log('LAUNCHED SHARE')
-    console.log(insertItem)
     setIsSharingModal(false)
     setShareText('Sharing')
     setShareActive(prev => !prev)
