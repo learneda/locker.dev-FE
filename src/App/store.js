@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware, compose } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension/logOnly'
+import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction'
 import rootReducer from 'reducers'
 import thunk from 'redux-thunk'
 
