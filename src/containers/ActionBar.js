@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { createCollection, postToFeed } from 'actions'
+import { createCollection, postToFeed, deleteCollection } from 'actions'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import LockerSVG from 'assets/react-svg/Locker01SVG'
@@ -24,6 +24,7 @@ const ActionBar = props => {
     authId,
     postToFeed,
     location,
+    deleteCollection,
   } = props
   console.log(props, 'PROPS')
   const [saveActive, setSaveActive] = useState(false)
@@ -162,7 +163,10 @@ const ActionBar = props => {
         </div>
       )}
       {showDelete() && (
-        <div className='wrap-svg delete'>
+        <div
+          onClick={() => deleteCollection(item.id)}
+          className='wrap-svg delete'
+        >
           <DeleteSVG className='icon' />
           <span className='label'>Delete</span>
         </div>
@@ -179,7 +183,7 @@ const mapStateToProps = ({ auth }) => ({
 
 export default connect(
   mapStateToProps,
-  { createCollection, postToFeed }
+  { createCollection, postToFeed, deleteCollection }
 )(withRouter(ActionBar))
 
 const StyledActionBar = styled.div`
