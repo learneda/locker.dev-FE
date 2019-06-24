@@ -36,7 +36,9 @@ const Sidebar = props => {
               backgroundPosition: 'center',
             }}
           >
-            <img src={user.profile_picture} alt='avatar' />
+            <Link to={`/profile/${auth.id}`} style={{ cursor: 'pointer' }}>
+              <img src={user.profile_picture} alt='avatar' />
+            </Link>
           </div>
           <div className='user-bio'>
             <h3>{user.display_name}</h3>
