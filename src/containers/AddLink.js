@@ -53,7 +53,7 @@ const AddLink = props => {
       }}
     >
       <span onClick={() => setIsModalOpen(prev => !prev)}>
-        <AddLinkSVG />
+        <AddLinkSVG active={isModalOpen} />
       </span>
       {isModalOpen && (
         <ReusablePortal>

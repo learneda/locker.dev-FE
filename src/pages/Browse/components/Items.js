@@ -12,6 +12,14 @@ const Items = props => {
   const [didMount, setDidMount] = useState(false)
   const throttledSearch = useThrottle(searchTerm, 1000)
 
+  useEffect(() => {
+    console.log('scrolling to top')
+    window.scrollTo(0, 0)
+    return () => {
+      window.scrollTo(0, 0)
+    }
+  }, [])
+
   // Performs throttled search and prevents search on initial mount
   useEffect(() => {
     const asyncSearchItems = async () => {
@@ -70,7 +78,7 @@ const Items = props => {
         {items.map((item, index) => (
           <Card
             type={type}
-            key={type === 'video' ? index : item.id}
+            key={index}
             item={item}
             save={save}
             share={share}

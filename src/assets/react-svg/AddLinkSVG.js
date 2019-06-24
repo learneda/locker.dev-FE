@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const AddLinkSVG = ({ addLinkColor }) => {
+const AddLinkSVG = ({ active }) => {
+  const color = active ? 'dodgerblue' : 'black'
   return (
     <svg
       version='1.1'
@@ -11,7 +12,7 @@ const AddLinkSVG = ({ addLinkColor }) => {
       height='14.000000pt'
       viewBox='0 0 484.051 484.051'
     >
-      <g fill={addLinkColor}>
+      <g fill={color}>
         <path
           d='M275.078,246.706c10.765,5.13,22.701,7.801,34.665,7.801c3.776,0,7.557-0.265,11.301-0.803
 		c17.229-2.472,32.858-10.301,45.198-22.641l94.348-94.349c15.129-15.128,23.461-35.241,23.461-56.636
@@ -80,7 +81,7 @@ const AddLinkSVG = ({ addLinkColor }) => {
 }
 
 AddLinkSVG.propTypes = {
-	addLinkColor: PropTypes.string.isRequired
+  active: PropTypes.bool.isRequired,
 }
 
 export default AddLinkSVG

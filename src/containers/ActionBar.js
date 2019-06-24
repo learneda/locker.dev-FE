@@ -26,7 +26,6 @@ const ActionBar = props => {
     location,
     deleteCollection,
   } = props
-  console.log(props, 'PROPS')
   const [saveActive, setSaveActive] = useState(false)
   const [shareActive, setShareActive] = useState(false)
   const [moreActive, setMoreActive] = useState(false)
