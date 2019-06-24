@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { Nav, Body, Footer, Auth } from './components'
 import * as authModalActions from './store/authModalActions'
+import { CSSTransition } from 'react-transition-group'
+import { transitionClasses } from 'helpers/transitionClasses'
 
 const Landing = props => {
   const {
@@ -11,7 +13,14 @@ const Landing = props => {
 
   return (
     <Wrapper>
-      {isAuthOpen && <Auth {...props} />}
+      <CSSTransition
+        timeout={300}
+        classNames='auth'
+        in={isAuthOpen}
+        unmountOnExit
+      >
+        <Auth {...props} />
+      </CSSTransition>
       <Nav {...props} />
       <Body {...props} />
       <Footer />
@@ -26,6 +35,7 @@ export default connect(
 )(Landing)
 
 const Wrapper = styled.div`
+  ${transitionClasses('auth', 300)}
   width: 100%;
   background: white;
 `
