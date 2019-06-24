@@ -23,6 +23,7 @@
     "react-tooltip": "^3.10.0",
     "react-transition-group": "^4.1.1",
     "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "socket.io-client": "^2.2.0",
     "styled-components": "^5.0.0-beta.0-0",

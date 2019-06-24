@@ -1,11 +1,12 @@
 import { createStore, applyMiddleware, compose } from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension/logOnly'
 import rootReducer from 'reducers'
 import thunk from 'redux-thunk'
 
 let store
 
 if (process.env.NODE_ENV === 'production') {
-  store = createStore(rootReducer, applyMiddleware(thunk))
+  store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 } else {
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
