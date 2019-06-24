@@ -51,7 +51,7 @@ export const deleteCollection = id => async dispatch => {
     // await axios.delete(`/users/saved-post-ids/${id}`)
   } catch (err) {
     // if this error is hit its probably bc id wasn't found on save_post_id
-    console.log('sorry 4 that err')
+    // console.log('sorry 4 that err')
   }
 }
 export const editCollection = editedCollection => async dispatch => {

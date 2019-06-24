@@ -41,7 +41,7 @@ const ProfileSettings = props => {
       const fd = new FormData()
       fd.append('profile_pic', selectedFile, selectedFile.name)
       axios.post(`/images`, fd).then(res => {
-        console.log('profile is okay i think', res.data)
+        // console.log('profile is okay i think', res.data)
         if (res.data.success) {
           // update redux store here
           store.dispatch({
@@ -56,7 +56,7 @@ const ProfileSettings = props => {
       fd.append('profile_pic', selectedHeader, selectedHeader.name)
       axios.post(`/images/header`, fd).then(res => {
         if (res.data.success) {
-          console.log('wtf is this ?', res.data.user.header_picture)
+          // console.log('wtf is this ?', res.data.user.header_picture)
           if (res.data.user.header_picture) {
             // update redux store here
             store.dispatch({
