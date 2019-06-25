@@ -40,6 +40,7 @@ html {
 body {
   font-size: 1.6rem;
   line-height: 1;
+  background-color: #e6ecf0;
 }
 
 ol, ul {

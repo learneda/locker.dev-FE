@@ -1,20 +1,40 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import ReuseablePortal from 'components/utils/ModalPortal'
+import useOnClickOutside from 'use-onclickoutside'
 import { ReactComponent as X } from 'assets/svg/x.svg'
 
 const ShareModal = props => {
+  const textareaRef = useRef()
   const modalRef = useRef()
   const [tags, setTags] = useState('')
   const [textArea, setTextArea] = useState('')
-  return props.isActive ? (
+  const { isActive, setIsActive, handleSubmit } = props
+
+  // detect clicks outside of modalRef
+  useOnClickOutside(modalRef, setIsActive)
+
+  useEffect(() => {
+    if (isActive) {
+      textareaRef.current.focus()
+    }
+  }, [isActive])
+
+  return isActive ? (
     <div>
       <ReuseablePortal>
-        <ModalWrapper className='modal-wrapper' ref={modalRef}>
-          <div className='modal_'>
+        <ModalWrapper
+          className='modal-wrapper'
+          onKeyDownCapture={e => {
+            if (e.which === 27) {
+              setIsActive()
+            }
+          }}
+        >
+          <div ref={modalRef} className='modal_'>
             <div className='top'>
               <div className='modal_name'>Share to Feed</div>
-              <div className='modal_close' onClick={props.setIsActive}>
+              <div className='modal_close' onClick={setIsActive}>
                 <X />
               </div>
             </div>
@@ -23,15 +43,16 @@ const ShareModal = props => {
                 className='add_link_form'
                 onSubmit={e => {
                   e.preventDefault()
-                  props.handleSubmit(textArea, tags)
+                  handleSubmit(textArea, tags)
                 }}
               >
                 <textarea
                   id='form-key'
-                  placeholder='... add comment'
+                  placeholder='... add thought'
                   value={textArea}
                   type='text'
                   onChange={e => setTextArea(e.target.value)}
+                  ref={textareaRef}
                   required
                 />
                 <label>Attach Tags</label>
