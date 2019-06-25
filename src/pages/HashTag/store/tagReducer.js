@@ -1,4 +1,4 @@
-import * as type from './tagActionTypes'
+import * as types from './tagTypes'
 
 const initialState = {
   isFollowing: null,
@@ -6,15 +6,15 @@ const initialState = {
 
 export const tagReducer = (state = initialState, action) => {
   switch (action.type) {
-    case type.RESET_TAG_POSTS:
+    case types.RESET_TAG_POSTS:
       return { isFollowing: null }
-    case 'RESET_POSTS':
+    case types.RESET_POSTS:
       return { isFollowing: null }
-    case type.FOLLOW_TAG:
+    case types.FOLLOW_TAG:
       return { ...state, isFollowing: action.payload }
-    case type.UNFOLLOW_TAG:
+    case types.UNFOLLOW_TAG:
       return { ...state, isFollowing: action.payload }
-    case 'SET_IS_FOLLOWING':
+    case types.SET_IS_FOLLOWING:
       return { ...state, isFollowing: action.payload }
     default:
       return state

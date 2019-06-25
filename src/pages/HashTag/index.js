@@ -1,59 +1,73 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import * as tagActions from './store/tagActions'
-import { createCollection } from 'actions'
-import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 import styled from 'styled-components'
 import Feed from 'containers/Feed'
-import TagPageViewHeader from './components/TagHeader'
+import HashTagHeader from './components/TagHeader'
+import * as tagActions from './store/tagActions'
 
 const HashTagFeed = props => {
+  const {
+    match,
+    location,
+    home,
+    posts,
+    followTag,
+    unfollowTag,
+    fetchTagPosts,
+  } = props
+  const { isFollowing } = posts
   const dispatch = useDispatch()
+
   useEffect(() => {
-    props.fetchTagPosts(props.match.params.tag, 0)
+    fetchTagPosts(match.params.tag, 0)
     window.scrollTo(0, 0)
     return () => dispatch({ type: 'RESET_POSTS' })
-  }, [props.history.location.pathname])
+  }, [location.pathname])
 
-  const { isFollowing } = props.posts
-  const { unfollowTag, followTag } = props
   return (
     <Container>
-      <TagPageViewHeader
-        tag={props.match.params.tag}
+      <HashTagHeader
+        tag={match.params.tag}
         isFollowing={isFollowing}
         unfollowTag={unfollowTag}
         followTag={followTag}
       />
       <Feed
-        fetchMoreTagFeed={props.fetchTagPosts}
-        offset={props.home.offset}
-        hasmore={props.home.hasmore}
-        posts={props.home.posts}
-        tag={props.match.params.tag}
+        fetchMoreTagFeed={fetchTagPosts}
+        offset={home.offset}
+        hasmore={home.hasmore}
+        posts={home.posts}
+        tag={match.params.tag}
       />
     </Container>
   )
 }
 
-const mapStateToProps = ({ tagPosts, user, auth, home }) => ({
-  posts: tagPosts,
-  user: { ...auth, ...user },
-  auth,
+const mapStateToProps = ({ home, tagPosts }) => ({
   home,
+  posts: tagPosts,
 })
 
 export default connect(
   mapStateToProps,
-  {
-    ...tagActions,
-    createCollection,
-  }
+  { ...tagActions }
 )(withRouter(HashTagFeed))
 
+HashTagFeed.propTypes = {
+  match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  home: PropTypes.object.isRequired,
+  posts: PropTypes.object.isRequired,
+  followTag: PropTypes.func.isRequired,
+  unfollowTag: PropTypes.func.isRequired,
+  fetchTagPosts: PropTypes.func.isRequired,
+}
+
 const Container = styled.div`
-  max-width: 580px;
-  margin: 0 auto;
   position: relative;
+  margin: 0 auto;
+  max-width: 580px;
 `
