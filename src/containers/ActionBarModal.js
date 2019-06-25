@@ -17,7 +17,14 @@ const ShareModal = props => {
   return isActive ? (
     <div>
       <ReuseablePortal>
-        <ModalWrapper className='modal-wrapper'>
+        <ModalWrapper
+          className='modal-wrapper'
+          onKeyDownCapture={e => {
+            if (e.which === 27) {
+              setIsActive()
+            }
+          }}
+        >
           <div className='modal_'>
             <div className='top'>
               <div className='modal_name'>Share to Feed</div>
@@ -79,8 +86,6 @@ const Container = styled.div`
     &:hover {
       border: 1px solid dodgerblue;
     }
-    border: ${props =>
-      props.isModalOpen ? '1px solid dodgerblue' : ' 1px solid #bfc5c9'};
   }
 `
 const ModalWrapper = styled.div`
