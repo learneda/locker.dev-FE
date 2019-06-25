@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { NavLink, withRouter } from 'react-router-dom'
-const SubNav = ({ match, location }) => {
+const SubNav = props => {
+  const { match, location } = props
   const isLocker = () => {
     return location.pathname.includes('/locker')
   }
@@ -53,7 +54,10 @@ const SubNav = ({ match, location }) => {
   )
 }
 
-SubNav.propTypes = {}
+SubNav.propTypes = {
+  match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+}
 
 export default withRouter(SubNav)
 

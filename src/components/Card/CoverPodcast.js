@@ -32,7 +32,12 @@ const CoverPodcast = ({ item }) => {
   )
 }
 
-CoverPodcast.propTypes = {}
+CoverPodcast.propTypes = {
+  item: PropTypes.shape({
+    image: PropTypes.string.isRequired,
+    audio: PropTypes.string.isRequired,
+  }).isRequired,
+}
 
 export default CoverPodcast
 

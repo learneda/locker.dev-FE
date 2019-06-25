@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { customLayout, customWrapper } from 'styles'
 import { apiURL, authURL } from 'services'
 
-const Integrations = props => {
+const Integrations = () => {
   return (
     <Wrapper>
       <FormGroup>

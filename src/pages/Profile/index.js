@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { withRouter, NavLink, Route, Switch } from 'react-router-dom'
+import { withRouter, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
 import Moment from 'react-moment'
-import Sidebar from 'components/sidebar/Sidebar'
-import SidebarById from 'components/sidebar/SidebarById'
 import Suggested from 'components/sidebar/Suggested'
 import OtherFollowing from 'components/profile/OtherFollowing'
 import OtherFollowers from 'components/profile/OtherFollowers'
@@ -19,17 +18,14 @@ import * as profileActions from 'pages/Profile/store/profileActions'
 import * as homeActions from 'pages/Home/store/homeActions'
 import { useDispatch } from 'react-redux'
 
-const ProfilePage = props => {
+const Profile = props => {
   const {
+    className,
     auth,
-    user,
     match,
-    location,
     profile,
     social,
     feed,
-    fetchFeed,
-    fetchMoreFeed,
     fetchProfileFollowers,
     followAUser,
     unfollowAUser,
@@ -40,7 +36,6 @@ const ProfilePage = props => {
     resetProfile,
     fetchSuggested,
     fetchFollowers,
-    className,
   } = props
   const id = Number(match.params.id)
   const dispatch = useDispatch()
@@ -68,21 +63,21 @@ const ProfilePage = props => {
 
   const followAUserHandler = async e => {
     e.preventDefault()
-    const friend_id = Number(match.params.id)
+    const friend_id = id
     await followAUser({ user_id: auth.id, friend_id })
-    await fetchProfileFollowers(match.params.id)
+    await fetchProfileFollowers(friend_id)
   }
 
   const unfollowAUserHandler = async e => {
     e.preventDefault()
-    const friend_id = Number(match.params.id)
+    const friend_id = id
     await unfollowAUser({ user_id: auth.id, friend_id })
-    await fetchProfileFollowers(match.params.id)
+    await fetchProfileFollowers(friend_id)
   }
 
   return (
     <Wrapper>
-      {profile.other && (
+      {profile.other.id && (
         <>
           <ProfileHeader auth={auth} user={profile.other} />
           <ProfileNav auth={auth} user={profile.other} posts={feed.posts} />
@@ -244,8 +239,8 @@ const ProfilePage = props => {
     </Wrapper>
   )
 }
-const mapStateToProps = ({ auth, user, profile, social, home }) => {
-  return { auth, user, profile, social, feed: home }
+const mapStateToProps = ({ auth, profile, social, home }) => {
+  return { auth, profile, social, feed: home }
 }
 export default connect(
   mapStateToProps,
@@ -254,7 +249,26 @@ export default connect(
     ...profileActions,
     ...socialActions,
   }
-)(withRouter(ProfilePage))
+)(withRouter(Profile))
+
+Profile.propTypes = {
+  className: PropTypes.string.isRequired,
+  auth: PropTypes.any,
+  match: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
+  social: PropTypes.object.isRequired,
+  feed: PropTypes.object.isRequired,
+  fetchProfileFollowers: PropTypes.func.isRequired,
+  followAUser: PropTypes.func.isRequired,
+  unfollowAUer: PropTypes.func.isRequired,
+  fetchFollowing: PropTypes.func.isRequired,
+  fetchProfileColletions: PropTypes.func.isRequired,
+  fetchProfileFollowing: PropTypes.func.isRequired,
+  fetchProfileDetails: PropTypes.func.isRequired,
+  resetProfile: PropTypes.func.isRequired,
+  fetchSuggested: PropTypes.func.isRequired,
+  fetchFollowers: PropTypes.func.isRequired,
+}
 
 const Wrapper = styled.div`
   min-height: calc(100vh - 50px);

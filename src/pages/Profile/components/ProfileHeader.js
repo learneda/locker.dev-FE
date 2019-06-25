@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-const ProfileHeader = ({ user }) => {
+const ProfileHeader = props => {
+  const { user } = props
   return (
     <Container className='profile-header'>
       {user.header_picture && (
@@ -15,7 +16,11 @@ const ProfileHeader = ({ user }) => {
   )
 }
 
-ProfileHeader.propTypes = {}
+ProfileHeader.propTypes = {
+  user: PropTypes.shape({
+    header_picture: PropTypes.string.isRequired,
+  }).isRequired,
+}
 
 export default ProfileHeader
 

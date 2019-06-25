@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { selectLogo, printRootUrl } from 'helpers'
-const AttributionBar = ({ url, className }) => {
+const AttributionBar = props => {
+  const { url, className } = props
   return (
     <Container className={className}>
       {selectLogo(url)}
@@ -11,7 +12,10 @@ const AttributionBar = ({ url, className }) => {
   )
 }
 
-AttributionBar.propTypes = {}
+AttributionBar.propTypes = {
+  url: PropTypes.string.isRequired,
+  className: PropTypes.string,
+}
 
 export default AttributionBar
 

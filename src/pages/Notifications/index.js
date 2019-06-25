@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import Notifications from './components/Notifications'
-import * as notificationActions from './store/notificationActions'
 import NotificationsPlaceHolder from './components/NotificationsPlaceHolder'
+import * as notificationActions from './store/notificationActions'
 
 const NotificationsPage = props => {
   const { notifications, getNotifications } = props

@@ -8,11 +8,10 @@ import CoverPodcast from './CoverPodcast'
 import CoverVideo from './CoverVideo'
 import AttributionBar from 'components/Bars/AttributionBar'
 import ActionBar from 'containers/ActionBar'
-
 import he from 'he'
 
 const Card = props => {
-  const { item, type } = props
+  const { type, item } = props
   // showIframe only needed for videos
   const { showIframe } = props
   const isSingle = useMedia({ maxWidth: 820 })
@@ -33,7 +32,6 @@ const Card = props => {
       const tempUrl = `https://www.udemy.com${item.url}`
       item.thumbnail = item.image_480x270
       item.description = item.headline
-
       insertItem = {
         type,
         title: item.title,
@@ -122,12 +120,20 @@ const Card = props => {
   )
 }
 
-Card.propTypes = {}
+Card.propTypes = {
+  type: PropTypes.string.isRequired,
+  item: PropTypes.shape({
+    url: PropTypes.string,
+    thumbnail: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+  }),
+  showIframe: PropTypes.func,
+}
 
 export default Card
 
 const Container = styled.div`
-  /* border: 1px solid black; */
   display: flex;
   position: relative;
   flex-direction: column;

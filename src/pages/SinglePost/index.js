@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 import axios from 'apis/axiosAPI'
 import styled from 'styled-components'
-import { withRouter } from 'react-router-dom'
 import Feed from 'containers/Feed'
 import { createCollection } from 'actions'
-import { connect } from 'react-redux'
 
 const SinglePost = props => {
+  const { match, user, auth, createCollection } = props
   const [post, setPost] = useState([])
   useEffect(() => {
-    axios.get(`/newsfeed/${props.match.params.id}`).then(res => {
+    axios.get(`/newsfeed/${match.params.id}`).then(res => {
       setPost([res.data.post])
     })
   }, [])
@@ -17,9 +19,9 @@ const SinglePost = props => {
     <Container>
       <Feed
         posts={post}
-        user={props.user}
-        auth={props.auth}
-        createCollection={props.createCollection}
+        user={user}
+        auth={auth}
+        createCollection={createCollection}
       />
     </Container>
   )
@@ -33,6 +35,13 @@ export default connect(
   mapStateToProps,
   { createCollection }
 )(withRouter(SinglePost))
+
+SinglePost.propTypes = {
+  match: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  auth: PropTypes.any,
+  createCollection: PropTypes.func.isRequired,
+}
 
 const Container = styled.div`
   display: flex;

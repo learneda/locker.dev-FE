@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import HelpScreen from 'components/screens/HelpScreen'
 import OnlineFriendsSVG from 'assets/svg/online_friends.svg'
@@ -143,3 +144,8 @@ const Notifications = props => {
 }
 
 export default Notifications
+
+Notifications.propTypes = {
+  notifications: PropTypes.arrayOf(PropTypes.object).isRequired,
+  readNotifications: PropTypes.func.isRequired,
+}

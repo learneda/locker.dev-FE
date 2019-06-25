@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import img from 'assets/img/bumble-bee-man-ay-yi-no-me-gusta.jpg'
 
-export default function NoMatch() {
+const NoMatch = () => {
   return (
     <StyledNoMatch>
       <div className='no_match_content'>
@@ -11,6 +11,9 @@ export default function NoMatch() {
     </StyledNoMatch>
   )
 }
+
+export default NoMatch
+
 const StyledNoMatch = styled.div`
   background-image: url(${img});
   height: 100vh;

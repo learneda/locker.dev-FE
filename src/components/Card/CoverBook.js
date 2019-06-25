@@ -14,7 +14,12 @@ const CoverBook = ({ item }) => {
   )
 }
 
-CoverBook.propTypes = {}
+CoverBook.propTypes = {
+  item: PropTypes.shape({
+    thumbnail: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+  }).isRequired,
+}
 
 export default CoverBook
 const Container = styled.div`

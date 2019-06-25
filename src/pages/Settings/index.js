@@ -1,10 +1,11 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import { customWrapper } from 'styles'
-import ProfileSettings from './ProfileSettings'
-import Integrations from './Integrations'
+import ProfileSettings from './components/ProfileSettings'
+import Integrations from './components/Integrations'
 import { editUser } from 'actions'
 
 const Settings = props => {
@@ -57,6 +58,13 @@ export default connect(
   { editUser }
 )(withRouter(Settings))
 
+Settings.propTypes = {
+  auth: PropTypes.any,
+  user: PropTypes.object.isRequired,
+  editUser: PropTypes.func.isRequired,
+  location: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
+}
 const BrowseContainer = styled.div`
   h2 {
     font-size: 3.5rem;

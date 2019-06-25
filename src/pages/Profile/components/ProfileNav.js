@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 import { NavLink, Link, withRouter } from 'react-router-dom'
+import styled from 'styled-components'
 import { smartTruncate } from 'styles'
 
 const ProfileNav = ({ auth, user, match, location }) => {
@@ -87,7 +87,17 @@ const ProfileNav = ({ auth, user, match, location }) => {
   )
 }
 
-ProfileNav.propTypes = {}
+ProfileNav.propTypes = {
+  auth: PropTypes.any,
+  user: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    profile_picture: PropTypes.string.isRequired,
+    display_name: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+  }).isRequired,
+}
 
 export default withRouter(ProfileNav)
 

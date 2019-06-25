@@ -2,10 +2,9 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Route, Switch, withRouter } from 'react-router-dom'
-import SubNav from 'components/SubNav'
+import SubNav from 'components/Bars/SubNav'
 import styled from 'styled-components'
 import Items from './components/Items'
-import { createCollection, postToFeed } from 'actions'
 import * as browseActions from './store/browseActions'
 
 const Browse = props => {

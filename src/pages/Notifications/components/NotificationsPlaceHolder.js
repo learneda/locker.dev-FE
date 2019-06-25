@@ -22,7 +22,9 @@ const NotificationsPlaceHolder = props => {
   )
 }
 
-NotificationsPlaceHolder.propTypes = {}
+NotificationsPlaceHolder.propTypes = {
+  className: PropTypes.string.isRequired,
+}
 
 export default styled(NotificationsPlaceHolder)`
   width: 500px;

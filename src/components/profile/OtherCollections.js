@@ -11,7 +11,6 @@ import { fetchCollections, deleteCollection } from 'actions'
 import plusIcon from 'assets/svg/add-icon.svg'
 import check from 'assets/svg/check.svg'
 import { useAlert } from 'react-alert'
-import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 
 const OtherCollections = props => {
   const {
@@ -116,12 +115,7 @@ const OtherCollections = props => {
       <NoPostScreen textDescription='No courses or articles have been bookmarked yet.' />
     )
   } else {
-    return (
-      <Wrapper>
-        <ScrollToTopOnMount />
-        {displayPosts}
-      </Wrapper>
-    )
+    return <Wrapper>{displayPosts}</Wrapper>
   }
 }
 

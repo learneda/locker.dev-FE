@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useAlert } from 'react-alert'
@@ -314,6 +315,19 @@ const ProfileSettings = props => {
 
 export default ProfileSettings
 
+ProfileSettings.propTypes = {
+  auth: PropTypes.any,
+  user: PropTypes.shape({
+    display_name: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+    bio: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+    website_url: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    profile_picture: PropTypes.string.isRequired,
+    header_picture: PropTypes.string.isRequired,
+  }).isRequired,
+}
 const Wrapper = styled.div`
   ${customWrapper('80%', '0 auto')};
   @media (max-width: 768px) {

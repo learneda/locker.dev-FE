@@ -4,7 +4,7 @@ const initialState = {
   posts: [],
   following: [],
   followers: [],
-  other: null,
+  other: {},
 }
 
 export const profileReducer = (state = initialState, action) => {

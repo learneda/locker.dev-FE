@@ -100,7 +100,19 @@ const FeedBar = props => {
   )
 }
 
-FeedBar.propTypes = {}
+FeedBar.propTypes = {
+  user_id: PropTypes.number.isRequired,
+  user_name: PropTypes.string,
+  post: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    hasLiked: PropTypes.bool.isRequired,
+    hasPony: PropTypes.bool.isRequired,
+    user_id: PropTypes.number.isRequired,
+    comments: PropTypes.arrayOf(PropTypes.object).isRequired,
+    likes: PropTypes.number.isRequired,
+    ponyCount: PropTypes.number.isRequired,
+  }),
+}
 
 export default FeedBar
 

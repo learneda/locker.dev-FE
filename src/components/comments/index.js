@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import MoreBtn from 'components/utils/MoreBtn'
 import styled from 'styled-components'
 import { customLayout } from 'styles'
@@ -11,9 +12,9 @@ const CommentBox = props => {
     user_id,
     post_id,
     postOwnerId,
+    profile_picture,
     handleDeleteComment,
     handleSubmit,
-    profile_picture,
     inputCommentRef,
   } = props
   const [itemsToRender, setRender] = useState(-2)
@@ -122,6 +123,16 @@ const CommentBox = props => {
 
 export default CommentBox
 
+CommentBox.propTypes = {
+  post_comments: PropTypes.arrayOf(PropTypes.object).isRequired,
+  user_id: PropTypes.number.isRequired,
+  post_id: PropTypes.number.isRequired,
+  postOwnerId: PropTypes.number.isRequired,
+  profile_picture: PropTypes.string.isRequired,
+  handleDeleteComment: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  inputCommentRef: PropTypes.node,
+}
 const Container = styled.div`
   .comments-container {
     padding: 13px 15px;

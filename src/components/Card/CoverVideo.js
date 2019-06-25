@@ -26,7 +26,15 @@ const CoverVideo = ({ item, showIframe }) => {
   )
 }
 
-CoverVideo.propTypes = {}
+CoverVideo.propTypes = {
+  item: PropTypes.shape({
+    isThumbnail: PropTypes.bool.isRequired,
+    title: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    audio: PropTypes.string.isRequired,
+  }).isRequired,
+  showIframe: PropTypes.func.isRequired,
+}
 
 export default CoverVideo
 
@@ -34,7 +42,6 @@ const Container = styled.div`
   position: relative;
   min-height: 180px;
   width: 358px;
-  /* border: 1px solid red; */
   overflow: hidden;
   @media (max-width: 820px) {
     min-height: 260px;
@@ -46,7 +53,6 @@ const Container = styled.div`
   .video-image {
     width: 100%;
     height: 100%;
-    /* border: 1px solid blue; */
   }
   .i-frame {
     width: 100%;
