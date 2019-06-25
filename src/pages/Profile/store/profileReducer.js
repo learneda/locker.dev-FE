@@ -1,7 +1,7 @@
 import * as type from './profileTypes'
 
 const initialState = {
-  collections: [],
+  posts: [],
   following: [],
   followers: [],
   other: null,
@@ -9,8 +9,8 @@ const initialState = {
 
 export const profileReducer = (state = initialState, action) => {
   switch (action.type) {
-    case type.FETCH_PROFILE_COLLECTION:
-      return { ...state, collections: action.payload }
+    case type.FETCH_PROFILE_POSTS:
+      return { ...state, posts: action.payload }
     case type.FETCH_PROFILE_FOLLOWING:
       return { ...state, following: action.payload }
     case type.FETCH_PROFILE_FOLLOWERS:

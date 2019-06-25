@@ -1,14 +1,17 @@
 import * as type from './profileTypes'
 import axios from 'apis/axiosAPI'
 
-export const fetchProfileCollections = id => async dispatch => {
+export const fetchProfileCollections = (id, offset) => async dispatch => {
   try {
-    const collections = await axios.get(`/posts/all/${id}`)
-    if (collections) {
+    const posts = await axios.get(`/newsfeed/profile/${id}?offset=${offset}`)
+    if (posts.data.newsFeed.length) {
       dispatch({
-        type: type.FETCH_PROFILE_COLLECTION,
-        payload: collections.data,
+        type: 'FETCH_MORE_FEED',
+        payload: posts.data.newsFeed,
       })
+      dispatch({ type: 'INCREMENT_OFFSET', payload: Number(offset) + 5 })
+    } else {
+      dispatch({ type: 'TOGGLE_HAS_MORE', payload: false })
     }
   } catch (err) {
     console.log(err)
