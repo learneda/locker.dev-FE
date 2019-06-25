@@ -5,7 +5,7 @@ import { useAlert } from 'react-alert'
 import { customLayout, customWrapper } from 'styles'
 import axios from 'apis/axiosAPI'
 import store from 'App/store'
-import * as type from 'App/appTypes'
+import * as type from 'App/store/appTypes'
 
 const ProfileSettings = props => {
   const { auth, user, editUser } = props

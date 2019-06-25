@@ -1,4 +1,3 @@
-// eslint-disable-line react-hooks/exhaustive-deps
 import React, { useEffect, lazy, Suspense } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -6,7 +5,7 @@ import styled from 'styled-components'
 import GlobalStyle from 'styles/utils/cssReset'
 import { composedIndexRedirect as index } from 'hocs/indexRedirect'
 import socket from './socket'
-import * as appActions from './appActions'
+import * as appActions from './store/appActions'
 import { receivingNotifications } from 'pages/Notifications/store/notificationActions'
 import Navbar from 'pages/Navbar'
 const LandingPage = lazy(() => import('pages/Landing'))

@@ -5,35 +5,13 @@ import brand from 'assets/svg/learnlockerbrand2.svg'
 
 const NavLanding = props => {
   const { authModalOpen, modalLogin, modalSignUp } = props
-  //* Hackie DarkMode Logic
-  //TODO: Improve this logic and implement real DarkMode
-  const init = Boolean(Number(localStorage.getItem('isLightMode')))
-  const [isLightMode, setMode] = useState(init)
-  useEffect(() => {
-    if (isLightMode) {
-      document.body.style.filter = 'invert(0%)'
-    } else {
-      document.body.style.filter = 'invert(92%)'
-    }
-  }, [])
 
-  const toggleMode = () => {
-    if (isLightMode) {
-      document.body.style.filter = 'invert(92%)'
-      localStorage.setItem('isLightMode', '0')
-      setMode(false)
-    } else {
-      document.body.style.filter = 'invert(0%)'
-      localStorage.setItem('isLightMode', '1')
-      setMode(true)
-    }
-  }
   return (
     <Nav>
       <h1>
         <Link to='/'>locker.dev</Link>
       </h1>
-      <img src={brand} onClick={toggleMode} alt='brand' />
+      <img src={brand} alt='brand' />
       <ul>
         <li>
           <button

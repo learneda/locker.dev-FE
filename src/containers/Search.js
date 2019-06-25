@@ -1,4 +1,3 @@
-// import React, { useState, useCallback, useEffect, useRef } from 'react'
 import React, { useState, useRef, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'

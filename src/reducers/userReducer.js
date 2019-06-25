@@ -3,7 +3,7 @@ import {
   FETCH_USER,
   UPDATE_HEADER_PICTURE,
   UPDATE_PROFILE_PICTURE,
-} from 'App/appTypes'
+} from 'App/store/appTypes'
 export const userReducer = (state = null, action) => {
   switch (action.type) {
     case FETCH_USER:
