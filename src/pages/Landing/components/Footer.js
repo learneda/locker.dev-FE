@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-const Footer = props => (
+const Footer = () => (
   <Nav>
     <Link to='#'>Privacy</Link>
     <Link to='#'>Terms</Link>

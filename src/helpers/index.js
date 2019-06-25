@@ -247,3 +247,25 @@ export const setOffset = type => {
       return
   }
 }
+
+//* Determine type number for filter logic on Locker
+export const pickType = location => {
+  switch (location.pathname) {
+    case '/locker':
+      return '0'
+    case '/locker/articles':
+      return '1'
+    case '/locker/courses':
+      return '2'
+    case '/locker/books':
+      return '3'
+    case '/locker/videos':
+      return '4'
+    case '/locker/podcasts':
+      return '5'
+    case '/locker/links':
+      return '8'
+    default:
+      return '0'
+  }
+}

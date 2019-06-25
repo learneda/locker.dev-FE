@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
@@ -7,20 +8,15 @@ import BookmarkSVG from 'assets/svg/bookmark-drawing.svg'
 import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 import SubNav from 'components/SubNav'
 import Card from 'components/Card/index'
-import {
-  deleteCollection,
-  fetchCollections,
-  createCollection,
-  postToFeed,
-} from 'actions'
+import { pickType } from 'helpers'
+import { fetchCollections } from 'actions'
 
-const Collections = props => {
+const Locker = props => {
   const { location } = props
   const [typeFilter, setTypeFilter] = useState('')
 
   const dispatch = useDispatch()
-
-  const { searchTerm: search, collections } = useSelector(
+  const { searchTerm, collections } = useSelector(
     ({ search, collections }) => ({
       searchTerm: search.searchTerm,
       collections,
@@ -29,47 +25,24 @@ const Collections = props => {
 
   useEffect(() => {
     dispatch(fetchCollections())
-
-    switch (location.pathname) {
-      case '/locker':
-        setTypeFilter('0')
-        break
-      case '/locker/articles':
-        setTypeFilter('1')
-        break
-      case '/locker/courses':
-        setTypeFilter('2')
-        break
-      case '/locker/books':
-        setTypeFilter('3')
-        break
-      case '/locker/videos':
-        setTypeFilter('4')
-        break
-      case '/locker/podcasts':
-        setTypeFilter('5')
-        break
-      case '/locker/links':
-        setTypeFilter('8')
-        break
-      default:
-        setTypeFilter('0')
-        return
-    }
+    setTypeFilter(pickType(location))
   }, [location.pathname])
 
+  // Filters based on searchTerm
   if (collections.length) {
     const searchedCollections = collections.filter(post => {
       return (
         (post.title &&
-          post.title.toLowerCase().includes(search.toLowerCase())) ||
+          post.title.toLowerCase().includes(searchTerm.toLowerCase())) ||
         (post.thumbnail_url &&
-          post.thumbnail_url.toLowerCase().includes(search.toLowerCase())) ||
+          post.thumbnail_url
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())) ||
         (post.description &&
-          post.description.toLowerCase().includes(search.toLowerCase()))
+          post.description.toLowerCase().includes(searchTerm.toLowerCase()))
       )
     })
-
+    // Filters based on type
     const filterTypeCollections = searchedCollections.filter(post => {
       if (typeFilter === '0') {
         return true
@@ -84,16 +57,7 @@ const Collections = props => {
         <SubNav />
         <Container>
           {filterTypeCollections.map((post, index) => {
-            return (
-              <Card
-                key={index}
-                item={post}
-                type='locker'
-                save={item => dispatch(createCollection(item))}
-                share={item => dispatch(postToFeed(item))}
-                delete={id => dispatch(deleteCollection(id))}
-              />
-            )
+            return <Card type='locker' key={index} item={post} />
           })}
         </Container>
       </>
@@ -110,7 +74,11 @@ const Collections = props => {
   }
 }
 
-export default withRouter(Collections)
+export default withRouter(Locker)
+
+Locker.propTypes = {
+  location: PropTypes.object.isRequired,
+}
 
 const Container = styled.div`
   display: flex;

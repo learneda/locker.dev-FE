@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import brand from 'assets/svg/learnlockerbrand2.svg'
@@ -40,6 +41,11 @@ const NavLanding = props => {
 }
 export default NavLanding
 
+NavLanding.propTypes = {
+  authModalOpen: PropTypes.func.isRequired,
+  modalLogin: PropTypes.func.isRequired,
+  modalSignUp: PropTypes.func.isRequired,
+}
 const Nav = styled.nav`
   width: 100%;
   .signup {

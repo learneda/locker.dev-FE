@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { authURL, clientUrl } from 'services'
 import googleSvg from 'assets/svg/google.svg'
 import githubSvg from 'assets/svg/github.svg'
@@ -63,6 +64,10 @@ const AuthForm = props => {
 }
 
 export default AuthForm
+
+AuthForm.propTypes = {
+  isSignUp: PropTypes.bool.isRequired,
+}
 
 const Form = styled.form`
   display: flex;
