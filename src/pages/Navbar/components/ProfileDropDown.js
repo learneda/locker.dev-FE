@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { ReactComponent as Settings } from 'assets/svg/settings.svg'
@@ -6,7 +7,8 @@ import { ReactComponent as Logout } from 'assets/svg/logout.svg'
 import { authURL } from 'services'
 import useOnClickOutside from 'use-onclickoutside'
 
-const ProfileDropDown = ({ user }) => {
+const ProfileDropDown = props => {
+  const { user } = props
   const ref = useRef()
   const [toggle, set] = useState(false)
   useOnClickOutside(ref, e => {
@@ -60,6 +62,9 @@ const ProfileDropDown = ({ user }) => {
 
 export default ProfileDropDown
 
+ProfileDropDown.propTypes = {
+  users: PropTypes.object.isRequired,
+}
 const Container = styled.div`
   position: relative;
   img {

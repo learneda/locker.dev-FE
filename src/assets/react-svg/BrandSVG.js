@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 const BrandSVG = ({ active }) => {
-  const color = active ? 'dodgerblue' : 'dodgerblue'
+  const color = active ? 'orangered' : 'dodgerblue'
   return (
     <svg
       version='1.1'

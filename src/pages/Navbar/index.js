@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Sticky } from 'styles/elements'
 import { NavLink, withRouter } from 'react-router-dom'
@@ -47,6 +48,13 @@ export default connect(
   { ...searchActions }
 )(withRouter(Navbar))
 
+Navbar.propTypes = {
+  search: PropTypes.shape({
+    isSearch: PropTypes.bool.isRequired,
+  }).isRequired,
+  location: PropTypes.object.isRequired,
+}
+
 const Nav = styled.nav`
   ${customLayout('space-between', 'center')}
   position: relative;
@@ -54,6 +62,6 @@ const Nav = styled.nav`
   margin: 0 auto;
   height: 50px;
   .locker {
-    border-bottom: 3px solid dodgerblue;
+    border-bottom: 3px solid orangered;
   }
 `
