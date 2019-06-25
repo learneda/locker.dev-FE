@@ -32,6 +32,11 @@ const Search = props => {
     if (searchTerm.length) {
       resetSearchTerm()
     }
+    return () => {
+      if (searchTerm.length) {
+        resetSearchTerm()
+      }
+    }
   }, [history.location.pathname])
 
   //TODO: Make this DRY

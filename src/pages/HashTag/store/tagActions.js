@@ -28,7 +28,7 @@ export const unfollowTag = hashtag => async dispatch => {
   const status = await axios.delete(`/tags/unfollow/${hashtag}`)
   if (status.data.msg === 'success') {
     dispatch({ type: type.UNFOLLOW_TAG, payload: false })
-    console.log(status.data.hashtag)
+    // console.log(status.data.hashtag)
     dispatch({ type: type.REMOVE_FROM_MY_TAGS, payload: status.data.hashtag })
   }
 }
