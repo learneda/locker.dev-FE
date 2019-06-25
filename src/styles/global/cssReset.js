@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
+import { bg, black } from 'styles/utils/'
 
 export default createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -40,7 +41,7 @@ html {
 body {
   font-size: 1.6rem;
   line-height: 1;
-  background-color: #e6ecf0;
+  background-color: ${bg};
 }
 
 ol, ul {
@@ -59,7 +60,7 @@ table {
   border-spacing: 0;
 }
 a {
-  color: #14171a;
+  color: ${black};
   text-decoration: none;
 }
 `

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { useThrottle } from 'use-throttle'
 import { withRouter } from 'react-router-dom'
+import { useThrottle } from 'use-throttle'
 import Card from 'components/Card/index'
 import EndMessage from './EndMessage'
 import styled from 'styled-components'
@@ -13,6 +13,7 @@ const Items = props => {
   const [didMount, setDidMount] = useState(false)
   const throttledSearch = useThrottle(searchTerm, 1000)
 
+  // Reset scroll position on tab switch
   useEffect(() => {
     window.scrollTo(0, 0)
     return () => {
@@ -76,7 +77,13 @@ const Items = props => {
         endMessage={<EndMessage />}
       >
         {items.map((item, index) => (
-          <Card type={type} key={index} item={item} showIframe={showIframe} />
+          <Card
+            type={type}
+            key={index}
+            item={item}
+            showIframe={showIframe}
+            resetIframe={resetIframe}
+          />
         ))}
       </InfiniteScroll>
     </Cards>
@@ -86,10 +93,7 @@ const Items = props => {
 export default withRouter(Items)
 
 const Cards = styled.div`
-  /* border: 1px solid magenta; */
-  margin: 0 auto;
   .infinite-scroll {
-    /* border: 1px solid green; */
     display: flex;
     flex-wrap: wrap;
     width: 100%;

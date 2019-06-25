@@ -1,17 +1,18 @@
 import axios from 'apis/axiosAPI'
 import * as types from './types'
 
-//* Edits user (profile) on user input
+// Edits user (profile) on user input
 export const editUser = (id, profile) => async dispatch => {
   const res = await axios.put(`/users/edit`, { id, ...profile })
   dispatch({ type: types.EDIT_USER, payload: res.data })
 }
 
-//* Get all user collections
+// Fetch user locker
 export const fetchCollections = () => async dispatch => {
   const res = await axios.get(`/posts`)
   dispatch({ type: types.FETCH_COLLECTIONS, payload: res.data })
 }
+// Save to user locker
 export const createCollection = post => async dispatch => {
   // response object returned by this function
   let responseObj = {}
@@ -35,6 +36,8 @@ export const createCollection = post => async dispatch => {
     })
   }
 }
+
+// Delete from user locker
 export const deleteCollection = id => async dispatch => {
   try {
     // deleting record from posts tbl where id equals <id>
@@ -47,6 +50,8 @@ export const deleteCollection = id => async dispatch => {
     // console.log('sorry 4 that err')
   }
 }
+
+//? Edit from user locker (DEPRECATED?!)
 export const editCollection = editedCollection => async dispatch => {
   const collection = await axios.put(
     `/posts/${editedCollection.id}`,
@@ -57,12 +62,14 @@ export const editCollection = editedCollection => async dispatch => {
   }
 }
 
+// Share post to Feed
 export const postToFeed = post => async dispatch => {
   let newPost = await axios.post('/newsfeed', { post })
   newPost = newPost.data
   dispatch({ type: types.ADD_TO_FEED, payload: newPost })
 }
 
+// Delete post from Feed
 export const deletePostFromFeed = post => async dispatch => {
   const deletedPost = await axios.delete(`/newsfeed/${post}`)
   if (deletedPost) {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import GlobalStyle from 'styles/utils/cssReset'
+import GlobalStyle from 'styles/global/cssReset'
 import { composedIndexRedirect as index } from 'hocs/indexRedirect'
 import socket from './socket'
 import * as appActions from './store/appActions'
@@ -33,11 +33,11 @@ const App = props => {
     ponyUp,
     ponyDown,
   } = props
-  // initial fetchAuth and fetchUser on browser refresh
+  // initial fetchAuth on browser refresh
   useEffect(() => {
     fetchAuth().then(user => {
       if (user.id) {
-        // on CDM socket will emit to all other sockets online that this user connected
+        // on mount socket will emit to all other sockets online that this user connected
         socket.emit('join', { user_id: user.id })
         // join namespace contains all the current users who are online
 
@@ -103,11 +103,14 @@ const App = props => {
     }
   }, [])
 
+  // Only show Navbar if logged in and not within popup modal
+  const showNavbar = () => {
+    return auth && window.location.pathname !== '/success'
+  }
   return (
     <Container>
       <GlobalStyle />
-      {/* Only show Navbar if logged in and not inside popup modal */}
-      {auth && window.location.pathname !== '/success' && <Navbar />}
+      {showNavbar() && <Navbar />}
       <Suspense fallback={null}>
         <Switch>
           <Route exact path='/' component={index(Home)} />
@@ -144,6 +147,7 @@ App.propTypes = {
   ponyUp: PropTypes.func.isRequired,
   ponyDown: PropTypes.func.isRequired,
 }
+
 const Container = styled.div`
   width: 100%;
   color: #141619;

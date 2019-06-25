@@ -1,4 +1,4 @@
-import GlobalStyle from './utils/cssReset.js'
+import GlobalStyle from './global/cssReset.js'
 export default GlobalStyle
 //* variables
 export const bgColor = '#E6ECF0'
@@ -15,6 +15,7 @@ export const subNavBottom = '#D3D3D3'
 export const btnBgHover = '#E8F4F9'
 export const heart = '#DE2960'
 export const bgDark = '#10171D'
+//TODO: Rename/Delete this later
 //* Flexbox custom layout
 export const customLayout = (justify = 'flex-start', align = 'flex-start') =>
   `display: flex;
@@ -29,7 +30,7 @@ export const customContainer = (width = '100%', bg = bgColor) => `
   width: ${width};
   background-color: ${bg};
 `
-
+//TODO: Move this to helpers
 //* Word-based truncate
 export const truncateText = (content, limit = 10) => {
   if (content.split(' ').length < limit) {
@@ -40,7 +41,7 @@ export const truncateText = (content, limit = 10) => {
     return content + '...'
   }
 }
-
+//TODO: Move this to helpers
 //* Character-based truncate
 //* Regex: multiple whitespace replaced with single space
 //* Motivation: multiple whitespace screws with limit check

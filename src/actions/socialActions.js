@@ -1,11 +1,11 @@
-import * as type from './socialTypes'
 import axios from 'apis/axiosAPI'
-//* Create a following on user input
+import * as types from './socialTypes'
+// Create a following on user input
 export const followAUser = payload => async dispatch => {
   const res = await axios.post(`/users/subscribe`, payload)
-  dispatch({ type: type.FOLLOW_A_USER, payload: res.data })
+  dispatch({ type: types.FOLLOW_A_USER, payload: res.data })
 }
-//* Delete a following on user input
+// Delete a following on user input
 export const unfollowAUser = payload => async dispatch => {
   const res = await axios.delete(`/users/unsubscribe`, {
     data: {
@@ -13,21 +13,21 @@ export const unfollowAUser = payload => async dispatch => {
       friend_id: Number(payload.friend_id),
     },
   })
-  dispatch({ type: type.UNFOLLOW_A_USER, payload: res.data })
+  dispatch({ type: types.UNFOLLOW_A_USER, payload: res.data })
 }
-//* Fetch suggested on Home mount/user input
+// Fetch Suggested on Home mount/user input
 //TODO: Consider fixing the logic here
 export const fetchSuggested = id => async dispatch => {
   const res = await axios.get(`/users/recommendedFollow?id=${id}`)
-  dispatch({ type: type.FETCH_SUGGESTED, payload: res.data })
+  dispatch({ type: types.FETCH_SUGGESTED, payload: res.data })
 }
-// fetch a userIds following list
+// fetch a Users following list
 export const fetchFollowing = id => async dispatch => {
   const following = await axios.get(`/users/following?id=${id}`)
-  dispatch({ type: type.FETCH_FOLLOWING, payload: following.data })
+  dispatch({ type: types.FETCH_FOLLOWING, payload: following.data })
 }
-// fetch a userIds followers list
+// fetch a Users followers list
 export const fetchFollowers = id => async dispatch => {
   const followers = await axios.get(`/users/followers?id=${id}`)
-  dispatch({ type: type.FETCH_FOLLOWERS, payload: followers.data })
+  dispatch({ type: types.FETCH_FOLLOWERS, payload: followers.data })
 }
