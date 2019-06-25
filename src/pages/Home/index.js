@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import Feed from 'containers/Feed'
 import Sidebar from 'components/sidebar/Sidebar'
 import Tagbar from 'components/sidebar/Tagbar'
-import Feed from 'containers/Feed'
 import Suggested from 'components/sidebar/Suggested'
 import Footer from 'components/sidebar/Footer'
 import * as socialActions from 'actions/socialActions'
 import * as homeActions from './store/homeActions'
-import { useDispatch } from 'react-redux'
 
 const Home = props => {
   const {
@@ -60,11 +61,10 @@ const Home = props => {
         <Tagbar topTags={topTags} myTags={myTags} />
       </WrapperLeft>
       <Feed
-        {...props}
         posts={feed.posts}
+        offset={feed.offset}
         hasmore={feed.hasmore}
         fetchMoreFeed={fetchMoreFeed}
-        offset={feed.offset}
       />
       <WrapperRight>
         <Suggested
@@ -96,6 +96,25 @@ export default connect(
   }
 )(withRouter(Home))
 
+Home.propTypes = {
+  auth: PropTypes.any,
+  user: PropTypes.object.isRequired,
+  feed: PropTypes.object.isRequired,
+  following: PropTypes.arrayOf(PropTypes.object).isRequired,
+  followers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  suggested: PropTypes.arrayOf(PropTypes.object).isRequired,
+  topTags: PropTypes.arrayOf(PropTypes.object).isRequired,
+  myTags: PropTypes.arrayOf(PropTypes.object).isRequired,
+  fetchFollowing: PropTypes.func.isRequired,
+  fetchFollowers: PropTypes.func.isRequired,
+  fetchSuggested: PropTypes.func.isRequired,
+  followAUser: PropTypes.func.isRequired,
+  fetchFeed: PropTypes.func.isRequired,
+  fetchMoreFeed: PropTypes.func.isRequired,
+  fetchTopTags: PropTypes.func.isRequired,
+  fetchMyTags: PropTypes.func.isRequired,
+}
+
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
@@ -118,8 +137,8 @@ const Container = styled.div`
 const WrapperLeft = styled.div`
   position: relative;
   width: 280px;
-  transition: opacity 300ms ease;
   opacity: 1;
+  transition: opacity 300ms ease;
   @media (max-width: 920px) {
     opacity: 0;
     display: none;

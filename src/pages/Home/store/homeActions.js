@@ -1,20 +1,20 @@
-import * as type from './homeTypes'
 import axios from 'apis/axiosAPI'
+import * as types from './homeTypes'
 
 export const fetchLocker = () => async dispatch => {
   const lockerData = await axios.get(`/locker`)
   if (lockerData.data.length) {
-    dispatch({ type: type.FETCH_LOCKER, payload: lockerData.data })
+    dispatch({ type: types.FETCH_LOCKER, payload: lockerData.data })
   }
 }
 // initial action creator to fetch newsfeed
 export const fetchFeed = () => async dispatch => {
   const newsFeed = await axios.get(`/newsfeed?offset=0`)
   if (newsFeed.data.length) {
-    dispatch({ type: type.FETCH_FEED, payload: newsFeed.data })
+    dispatch({ type: types.FETCH_FEED, payload: newsFeed.data })
   }
   if (newsFeed.data.length < 5) {
-    dispatch({ type: type.TOGGLE_HAS_MORE, payload: false })
+    dispatch({ type: types.TOGGLE_HAS_MORE, payload: false })
   }
 }
 
@@ -25,26 +25,26 @@ export const fetchMoreFeed = offset => async dispatch => {
   // if the response's data array is populated ?
   if (newsFeed.data.length) {
     // set the array with new posts as payload
-    dispatch({ type: type.FETCH_MORE_FEED, payload: newsFeed.data })
+    dispatch({ type: types.FETCH_MORE_FEED, payload: newsFeed.data })
     // increment the offset by 5
-    dispatch({ type: type.INCREMENT_OFFSET, payload: offset + 5 })
+    dispatch({ type: types.INCREMENT_OFFSET, payload: offset + 5 })
   } else {
     // else toggle hasMore state to false so InfiniteScroll can stop calling fetchMoreFeed
     // InfiniteScroll will unmount Loading component when hasMore boolean is false
-    dispatch({ type: type.TOGGLE_HAS_MORE, payload: false })
+    dispatch({ type: types.TOGGLE_HAS_MORE, payload: false })
   }
 }
 
 export const fetchTopTags = () => async dispatch => {
   const tags = await axios.get('/tags/top')
   if (tags.data.length) {
-    dispatch({ type: type.FETCH_TOP_TAGS, payload: tags.data })
+    dispatch({ type: types.FETCH_TOP_TAGS, payload: tags.data })
   }
 }
 
 export const fetchMyTags = () => async dispatch => {
   const myTags = await axios.get('/tags')
   if (myTags.data) {
-    dispatch({ type: type.FETCH_MY_TAGS, payload: myTags.data })
+    dispatch({ type: types.FETCH_MY_TAGS, payload: myTags.data })
   }
 }
