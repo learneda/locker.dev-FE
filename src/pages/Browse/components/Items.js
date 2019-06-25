@@ -11,7 +11,6 @@ import { setOffset } from 'helpers'
 const Items = props => {
   const { type, items, searchTerm, offset, fetch, search, location } = props
   const { showIframe, resetIframe } = props
-  const [isLoading, setIsLoading] = useState(false)
   const [didMount, setDidMount] = useState(false)
   const throttledSearch = useThrottle(searchTerm, 2000)
 
@@ -35,11 +34,9 @@ const Items = props => {
       } else {
         await search(searchTerm, offset)
       }
-      setIsLoading(false)
     }
     // Prevents search on initial mount
     if (didMount) {
-      setIsLoading(true)
       asyncSearchItems()
     } else {
       // If type is video, resets iFrame on initial mount
