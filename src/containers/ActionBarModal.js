@@ -6,14 +6,20 @@ import useOnClickOutside from 'use-onclickoutside'
 
 const ShareModal = props => {
   const textareaRef = useRef()
+  const modalRef = useRef()
   const [tags, setTags] = useState('')
   const [textArea, setTextArea] = useState('')
   const { isActive, setIsActive, handleSubmit } = props
+
+  // detect clicks outside of modalRef
+  useOnClickOutside(modalRef, setIsActive)
+
   useEffect(() => {
     if (isActive) {
       textareaRef.current.focus()
     }
   }, [isActive])
+
   return isActive ? (
     <div>
       <ReuseablePortal>
@@ -25,7 +31,7 @@ const ShareModal = props => {
             }
           }}
         >
-          <div className='modal_'>
+          <div ref={modalRef} className='modal_'>
             <div className='top'>
               <div className='modal_name'>Share to Feed</div>
               <div className='modal_close' onClick={setIsActive}>
