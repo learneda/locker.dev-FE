@@ -229,3 +229,21 @@ export function createPopup(
     }
   }, 500)
 }
+
+//* Determine offset in Items component based on type using a switch statement
+export const setOffset = type => {
+  switch (type) {
+    case 'article':
+      return 0
+    case 'course':
+      return 1
+    case 'book':
+      return 0
+    case 'podcast':
+      return
+    case 'video':
+      return ''
+    default:
+      return
+  }
+}
