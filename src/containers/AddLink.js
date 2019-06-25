@@ -7,6 +7,8 @@ import { ReactComponent as X } from 'assets/svg/x.svg'
 import { useAlert } from 'react-alert'
 import AddLinkSVG from 'assets/react-svg/AddLinkSVG'
 import useOnClickOutside from 'use-onclickoutside'
+import { transitionClasses } from 'helpers/transitionClasses'
+import { CSSTransition } from 'react-transition-group'
 
 const AddLink = props => {
   const { createCollection } = props
@@ -55,7 +57,12 @@ const AddLink = props => {
       <span onClick={() => setIsModalOpen(prev => !prev)}>
         <AddLinkSVG active={isModalOpen} />
       </span>
-      {isModalOpen && (
+      <CSSTransition
+        timeout={300}
+        classNames='add-link'
+        in={isModalOpen}
+        unmountOnExit
+      >
         <ReusablePortal>
           <ModalWrapper
             className='modal-wrapper'
@@ -91,7 +98,7 @@ const AddLink = props => {
             </div>
           </ModalWrapper>
         </ReusablePortal>
-      )}
+      </CSSTransition>
     </Container>
   )
 }
@@ -103,7 +110,8 @@ export default connect(
 
 const Container = styled.div`
   margin-left: 20px;
-
+  color: red;
+  ${transitionClasses('add-link', 400)}
   span {
     display: flex;
     height: 30px;
