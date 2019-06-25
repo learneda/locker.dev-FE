@@ -46,9 +46,8 @@ const ProfilePage = props => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    fetchFeed()
     // fetching other collections
-    fetchProfileCollections(id)
+    fetchProfileCollections(id, feed.offset)
     fetchProfileFollowing(id)
     fetchProfileFollowers(id)
     fetchProfileDetails(id)
@@ -56,6 +55,7 @@ const ProfilePage = props => {
     fetchFollowing(auth.id)
     fetchFollowers(auth.id)
     return () => {
+      dispatch({ type: 'RESET_POSTS' })
       resetProfile()
     }
   }, [id])
@@ -189,8 +189,9 @@ const ProfilePage = props => {
                         {...props}
                         posts={feed.posts}
                         hasmore={feed.hasmore}
-                        fetchMoreFeed={fetchMoreFeed}
+                        fetchMoreTagFeed={fetchProfileCollections}
                         offset={feed.offset}
+                        tag={id}
                       />
                     )}
                   />
