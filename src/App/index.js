@@ -1,12 +1,12 @@
-// eslint-disable-line react-hooks/exhaustive-deps
 import React, { useEffect, lazy, Suspense } from 'react'
+import PropTypes from 'prop-types'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import GlobalStyle from 'styles/utils/cssReset'
+import GlobalStyle from 'styles/global/cssReset'
 import { composedIndexRedirect as index } from 'hocs/indexRedirect'
 import socket from './socket'
-import * as appActions from './appActions'
+import * as appActions from './store/appActions'
 import { receivingNotifications } from 'pages/Notifications/store/notificationActions'
 import Navbar from 'pages/Navbar'
 const LandingPage = lazy(() => import('pages/Landing'))
@@ -33,11 +33,11 @@ const App = props => {
     ponyUp,
     ponyDown,
   } = props
-  // initial fetchAuth and fetchUser on browser refresh
+  // initial fetchAuth on browser refresh
   useEffect(() => {
     fetchAuth().then(user => {
       if (user.id) {
-        // on CDM socket will emit to all other sockets online that this user connected
+        // on mount socket will emit to all other sockets online that this user connected
         socket.emit('join', { user_id: user.id })
         // join namespace contains all the current users who are online
 
@@ -103,11 +103,14 @@ const App = props => {
     }
   }, [])
 
+  // Only show Navbar if logged in and not within popup modal
+  const showNavbar = () => {
+    return auth && window.location.pathname !== '/success'
+  }
   return (
     <Container>
       <GlobalStyle />
-      {/* Only show Navbar if logged in and not inside popup modal */}
-      {auth && window.location.pathname !== '/success' && <Navbar />}
+      {showNavbar() && <Navbar />}
       <Suspense fallback={null}>
         <Switch>
           <Route exact path='/' component={index(Home)} />
@@ -133,6 +136,17 @@ export default connect(
   mapStateToProps,
   { ...appActions, receivingNotifications }
 )(App)
+
+App.propTypes = {
+  auth: PropTypes.any,
+  fetchAuth: PropTypes.func.isRequired,
+  receivingNotifications: PropTypes.func.isRequired,
+  createComment: PropTypes.func.isRequired,
+  likePost: PropTypes.func.isRequired,
+  unlikePost: PropTypes.func.isRequired,
+  ponyUp: PropTypes.func.isRequired,
+  ponyDown: PropTypes.func.isRequired,
+}
 
 const Container = styled.div`
   width: 100%;

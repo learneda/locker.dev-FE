@@ -1,12 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import ContentLoader from 'react-content-loader'
 
-const FollowingPlaceHolder = props => {
-  const { className } = props
+const FollowingPlaceHolder = () => {
   return (
     <ContentLoader
-      className={className}
       height={160}
       width={270}
       speed={3}
@@ -17,7 +14,5 @@ const FollowingPlaceHolder = props => {
     </ContentLoader>
   )
 }
-
-FollowingPlaceHolder.propTypes = {}
 
 export default FollowingPlaceHolder

@@ -1,4 +1,4 @@
-import * as type from './searchTypes'
+import * as types from './searchTypes'
 
 const initialState = {
   searchTerm: '',
@@ -7,15 +7,15 @@ const initialState = {
 
 export const searchReducer = (state = initialState, action) => {
   switch (action.type) {
-    case type.SET_SEARCH_TERM:
+    case types.SET_SEARCH_TERM:
       return { ...state, searchTerm: action.payload }
-    case type.RESET_SEARCH_TERM:
+    case types.RESET_SEARCH_TERM:
       return { ...state, searchTerm: action.payload }
-    case type.SET_SEARCH_OFF:
+    case types.SET_SEARCH_OFF:
       return { ...state, isSearch: false }
-    case type.SET_SEARCH_ON:
+    case types.SET_SEARCH_ON:
       return { ...state, isSearch: true }
-    case type.TOGGLE_SEARCH:
+    case types.TOGGLE_SEARCH:
       return { ...state, isSearch: !state.isSearch }
     default:
       return state

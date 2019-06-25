@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import ReuseablePortal from 'components/utils/ModalPortal'
-import { ReactComponent as X } from 'assets/svg/x.svg'
 import useOnClickOutside from 'use-onclickoutside'
+import { ReactComponent as X } from 'assets/svg/x.svg'
 
 const ShareModal = props => {
   const textareaRef = useRef()
@@ -74,26 +74,6 @@ const ShareModal = props => {
 
 export default ShareModal
 
-const Container = styled.div`
-  margin-left: 20px;
-
-  span {
-    display: flex;
-    height: 30px;
-    width: 30px;
-    justify-content: center;
-    align-items: center;
-    font-size: 3rem;
-    font-weight: 700;
-    border: 1px solid #bfc5c9;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: 300ms ease;
-    &:hover {
-      border: 1px solid dodgerblue;
-    }
-  }
-`
 const ModalWrapper = styled.div`
   position: fixed;
   top: 0;

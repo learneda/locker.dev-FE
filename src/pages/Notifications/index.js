@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import Notifications from './components/Notifications'
@@ -45,6 +46,11 @@ export default connect(
   mapStateToProps,
   { ...notificationActions }
 )(NotificationsPage)
+
+NotificationsPage.propTypes = {
+  notifications: PropTypes.arrayOf(PropTypes.object).isRequired,
+  getNotifications: PropTypes.func.isRequired,
+}
 
 const Container = styled.div`
   display: flex;

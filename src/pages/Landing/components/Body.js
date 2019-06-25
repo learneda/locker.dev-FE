@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import newsvg from 'assets/svg/new.svg'
 import developerSVG from 'assets/svg/developer.svg'
@@ -54,6 +55,11 @@ const Body = props => {
 }
 
 export default Body
+
+Body.propTypes = {
+  authModalOpen: PropTypes.func.isRequired,
+  modalSignUp: PropTypes.func.isRequired,
+}
 
 const CallToAction = styled.div`
   display: flex;

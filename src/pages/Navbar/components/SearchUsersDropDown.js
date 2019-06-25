@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+import axios from 'apis/axiosAuth'
 import styled from 'styled-components'
 import { ReactComponent as Location } from 'assets/svg/location.svg'
-import { apiURL } from 'services'
 
-const SearchUsersDropDown = ({ searchTerm }) => {
+const SearchUsersDropDown = props => {
+  const { searchTerm } = props
   const [users, setUsers] = useState([])
+
   const fetchUsers = async () => {
-    const res = await axios.get(`${apiURL}/users/all`, {
-      withCredentials: true,
-    })
+    const res = await axios.get('/users/all')
     setUsers(res.data)
   }
 
   useEffect(() => {
     fetchUsers()
   }, [])
+
   return (
     <Container className='dd-search'>
       {users.map(user => {
@@ -51,6 +52,10 @@ const SearchUsersDropDown = ({ searchTerm }) => {
 }
 
 export default SearchUsersDropDown
+
+SearchUsersDropDown.propTypes = {
+  searchTerm: PropTypes.string.isRequired,
+}
 
 const Container = styled.div``
 const Card = styled.div`

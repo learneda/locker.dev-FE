@@ -1,5 +1,8 @@
-export const purple = '#524763'
-export const teal = '#82D8D8'
+export const primary = '#1E90FF'
+export const black = '#141619'
+
+export const bg = '#E6ECF0'
+export const bgHover = '#E8F4FB'
 
 export const social = {
   twitter: '#00aced',

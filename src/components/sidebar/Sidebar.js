@@ -26,7 +26,7 @@ const Sidebar = props => {
   }
   return (
     <Wrapper>
-      {user && (
+      {user.username && (
         <Profile>
           <div
             className='user'

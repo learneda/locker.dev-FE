@@ -1,12 +1,15 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import FollowingPlaceHolder from './FollowingPlaceholder'
 
-const TagPageViewHeader = ({ isFollowing, unfollowTag, followTag, tag }) => {
+const HashTagHeader = props => {
+  const { isFollowing, tag, followTag, unfollowTag } = props
   return isFollowing !== null ? (
-    <Flex>
-      <h1>{tag}</h1>
+    <Flex isFollowing={isFollowing}>
+      <h1 className='tag-heading'>{tag}</h1>
       <div
+        className='tag-choice'
         onClick={() => {
           if (isFollowing) {
             unfollowTag(tag)
@@ -25,29 +28,42 @@ const TagPageViewHeader = ({ isFollowing, unfollowTag, followTag, tag }) => {
   )
 }
 
-export default TagPageViewHeader
+export default HashTagHeader
+
+HashTagHeader.propTypes = {
+  isFollowing: PropTypes.oneOfType([PropTypes.bool, PropTypes.any]),
+  tag: PropTypes.string.isRequired,
+  followTag: PropTypes.func.isRequired,
+  unfollowTag: PropTypes.func.isRequired,
+}
 
 const Flex = styled.div`
   display: flex;
   position: sticky;
   top: 50px;
-  background: white;
+  background: #fff;
   justify-content: center;
   align-items: center;
   height: 70px;
   z-index: 1;
   border: 1px solid dodgerblue;
   margin-bottom: 20px;
-  h1 {
+  .tag-heading {
     font-size: 1.8rem;
+    letter-spacing: 0.5px;
     font-weight: bold;
     margin: 0 20px;
   }
-  div {
+  .tag-choice {
     font-size: 1.6rem;
+    letter-spacing: 0.8px;
     margin: 0 20px;
     width: 100px;
     display: flex;
     justify-content: center;
+    cursor: pointer;
+    &:hover {
+      color: ${props => (props.isFollowing ? 'crimson' : 'dodgerblue')};
+    }
   }
 `

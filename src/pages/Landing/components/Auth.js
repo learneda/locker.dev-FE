@@ -1,12 +1,13 @@
 import React, { useRef } from 'react'
+import PropTypes from 'prop-types'
 import AuthForm from './AuthForm'
 import styled from 'styled-components'
 import useOnClickOutside from 'use-onclickoutside'
 import useLockBodyScroll from 'hooks/useLockBodyScroll'
 
 const Auth = props => {
-  const { authModalClose, modalSignUp, modalLogin, modal } = props
-  const { isAuthOpen, isSignUp } = modal
+  const { modal, authModalClose, modalSignUp, modalLogin } = props
+  const { isSignUp } = modal
   const ref = useRef(null)
   useOnClickOutside(ref, authModalClose)
   useLockBodyScroll()
@@ -38,6 +39,13 @@ const Auth = props => {
 }
 
 export default Auth
+
+Auth.propTypes = {
+  modal: PropTypes.shape({ isSignUp: PropTypes.bool.isRequired }).isRequired,
+  authModalClose: PropTypes.func.isRequired,
+  modalSignUp: PropTypes.func.isRequired,
+  modalLogin: PropTypes.func.isRequired,
+}
 
 const AuthModalContainer = styled.div`
   position: fixed;

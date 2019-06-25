@@ -1,6 +1,6 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 import socket from 'App/socket'
 import styled from 'styled-components'
 import HelpScreen from 'components/screens/HelpScreen'
@@ -15,13 +15,13 @@ const Feed = props => {
   const {
     auth,
     user,
+    tag,
     posts,
     offset,
     hasmore,
     fetchMoreFeed,
     createCollection,
     fetchMoreTagFeed,
-    tag,
   } = props
 
   const handleSubmit = (event, post_id, comment, postOwnerId) => {
@@ -101,11 +101,7 @@ const Feed = props => {
 }
 
 // export default Feed
-const mapStateToProps = ({ auth, user, search, home }) => ({
-  auth,
-  user,
-  searchTerm: search.searchTerm,
-})
+const mapStateToProps = ({ auth, user }) => ({ auth, user })
 
 export default connect(
   mapStateToProps,

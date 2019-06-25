@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { applyStyleModifiers } from 'styled-components-modifiers'
-import { teal, elevations } from 'styles/utils'
+import { primary, elevations } from 'styles/utils'
 
 const BUTTON_MODIFIERS = {
   small: props => `
@@ -17,7 +17,7 @@ export const Button = styled.button`
   color: white;
   font-size: 2rem;
   border: none;
-  background: ${teal};
+  background: ${primary};
   transition: 0.3s ease box-shadow;
   ${elevations[1]};
   &:hover {

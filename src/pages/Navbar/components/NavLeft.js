@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { NavLink, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import BrowseSVG from 'assets/react-svg/BrowseSVG'
@@ -6,12 +7,13 @@ import HomeSVG from 'assets/react-svg/HomeSVG'
 import Bell from 'containers/Bell'
 
 const NavLeft = props => {
+  const { location } = props
   const [homeColor, setHomeColor] = useState('black')
   const [browseColor, setBrowseColor] = useState('black')
   const [bellColor, setBellColor] = useState('black')
 
   useEffect(() => {
-    switch (props.location.pathname) {
+    switch (location.pathname) {
       case '/':
         setHomeColor('dodgerblue')
         setBrowseColor('black')
@@ -32,7 +34,7 @@ const NavLeft = props => {
         setBrowseColor('black')
         setBellColor('black')
     }
-  })
+  }, [location.pathname])
 
   return (
     <StyledNavLeft>
@@ -61,6 +63,10 @@ const NavLeft = props => {
 }
 
 export default withRouter(NavLeft)
+
+NavLeft.propTypes = {
+  location: PropTypes.object.isRequired,
+}
 
 const StyledNavLeft = styled.div`
   width: 330px;

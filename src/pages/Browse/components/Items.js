@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { useThrottle } from 'use-throttle'
 import { withRouter } from 'react-router-dom'
+import { useThrottle } from 'use-throttle'
 import Card from 'components/Card/index'
 import EndMessage from './EndMessage'
 import styled from 'styled-components'
+import { setOffset } from 'helpers'
 
 const Items = props => {
   const { type, items, searchTerm, offset, fetch, search, location } = props
   const { showIframe, resetIframe } = props
-  const [isLoading, setIsLoading] = useState(false)
   const [didMount, setDidMount] = useState(false)
-  const throttledSearch = useThrottle(searchTerm, 1000)
+  const throttledSearch = useThrottle(searchTerm, 2000)
 
+  // Reset scroll position on tab switch
   useEffect(() => {
     window.scrollTo(0, 0)
     return () => {
@@ -23,47 +25,32 @@ const Items = props => {
   // Performs throttled search and prevents search on initial mount
   useEffect(() => {
     const asyncSearchItems = async () => {
-      // Search resets offset=0
-      let offset
-      switch (type) {
-        case 'article':
-          offset = 0
-          break
-        case 'course':
-          offset = 1
-          break
-        case 'book':
-          offset = 0
-          break
-        case 'podcast':
-          offset = 0
-          break
-        case 'video':
-          offset = null
-          break
-        default:
-          return
-      }
+      // Resets offset on search change
+      const offset = setOffset(type)
+
+      // Video (YouTube) is unique; Initial offset not defined
       if (type === 'video') {
         await search(searchTerm)
       } else {
         await search(searchTerm, offset)
       }
-      setIsLoading(false)
     }
+    // Prevents search on initial mount
     if (didMount) {
-      setIsLoading(true)
       asyncSearchItems()
     } else {
+      // If type is video, resets iFrame on initial mount
       if (type === 'video') {
         resetIframe()
       }
     }
+    // After mount, didMount is true
     setDidMount(true)
   }, [throttledSearch])
 
   // hasMore false only when searchQuery returns no matches
   const hasMore = !Boolean(searchTerm) || Boolean(items.length)
+  // fetchMore logic
   const next = () => fetch(searchTerm, offset)
 
   return (
@@ -76,7 +63,13 @@ const Items = props => {
         endMessage={<EndMessage />}
       >
         {items.map((item, index) => (
-          <Card type={type} key={index} item={item} showIframe={showIframe} />
+          <Card
+            type={type}
+            key={index}
+            item={item}
+            showIframe={showIframe}
+            resetIframe={resetIframe}
+          />
         ))}
       </InfiniteScroll>
     </Cards>
@@ -85,11 +78,18 @@ const Items = props => {
 
 export default withRouter(Items)
 
+Items.propTypes = {
+  type: PropTypes.string.isRequired,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  searchTerm: PropTypes.string.isRequired,
+  offset: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  fetch: PropTypes.func.isRequired,
+  search: PropTypes.func.isRequired,
+  location: PropTypes.object.isRequired,
+}
+
 const Cards = styled.div`
-  /* border: 1px solid magenta; */
-  margin: 0 auto;
   .infinite-scroll {
-    /* border: 1px solid green; */
     display: flex;
     flex-wrap: wrap;
     width: 100%;

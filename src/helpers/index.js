@@ -229,3 +229,43 @@ export function createPopup(
     }
   }, 500)
 }
+
+//* Determine offset in Items component based on type using a switch statement
+export const setOffset = type => {
+  switch (type) {
+    case 'article':
+      return 0
+    case 'course':
+      return 1
+    case 'book':
+      return 0
+    case 'podcast':
+      return
+    case 'video':
+      return ''
+    default:
+      return
+  }
+}
+
+//* Determine type number for filter logic on Locker
+export const pickType = location => {
+  switch (location.pathname) {
+    case '/locker':
+      return '0'
+    case '/locker/articles':
+      return '1'
+    case '/locker/courses':
+      return '2'
+    case '/locker/books':
+      return '3'
+    case '/locker/videos':
+      return '4'
+    case '/locker/podcasts':
+      return '5'
+    case '/locker/links':
+      return '8'
+    default:
+      return '0'
+  }
+}

@@ -1,4 +1,4 @@
-import * as type from './profileTypes'
+import * as types from './profileTypes'
 
 const initialState = {
   posts: [],
@@ -9,15 +9,15 @@ const initialState = {
 
 export const profileReducer = (state = initialState, action) => {
   switch (action.type) {
-    case type.FETCH_PROFILE_POSTS:
+    case types.FETCH_PROFILE_POSTS:
       return { ...state, posts: action.payload }
-    case type.FETCH_PROFILE_FOLLOWING:
+    case types.FETCH_PROFILE_FOLLOWING:
       return { ...state, following: action.payload }
-    case type.FETCH_PROFILE_FOLLOWERS:
+    case types.FETCH_PROFILE_FOLLOWERS:
       return { ...state, followers: action.payload }
-    case type.FETCH_PROFILE_DETAILS:
+    case types.FETCH_PROFILE_DETAILS:
       return { ...state, other: action.payload }
-    case type.RESET_PROFILE:
+    case types.RESET_PROFILE:
       return initialState
     default:
       return state

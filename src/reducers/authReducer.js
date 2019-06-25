@@ -1,4 +1,4 @@
-import { FETCH_AUTH } from 'App/appTypes'
+import { FETCH_AUTH } from 'App/store/appTypes'
 
 export const authReducer = (state = null, action) => {
   switch (action.type) {

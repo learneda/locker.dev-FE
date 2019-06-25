@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import SubNav from 'components/SubNav'
@@ -13,27 +14,25 @@ const Browse = props => {
     articles,
     courses,
     videos,
-    books,
     podcasts,
-    coursePage,
+    books,
     articleOffset,
+    coursePage,
     videoPageToken,
     podcastOffset,
     bookOffset,
-    fetchCourses,
     fetchArticles,
+    fetchCourses,
     fetchVideos,
-    fetchBooks,
     fetchPodcasts,
-    searchCourses,
+    fetchBooks,
     searchArticles,
+    searchCourses,
     searchVideos,
-    searchBooks,
     searchPodcasts,
+    searchBooks,
     showIframe,
     resetIframe,
-    createCollection,
-    postToFeed,
     match,
   } = props
 
@@ -72,8 +71,6 @@ const Browse = props => {
                 offset={articleOffset}
                 search={searchArticles}
                 fetch={fetchArticles}
-                save={createCollection}
-                share={postToFeed}
               />
             )}
           />
@@ -88,8 +85,6 @@ const Browse = props => {
                 offset={coursePage}
                 search={searchCourses}
                 fetch={fetchCourses}
-                save={createCollection}
-                share={postToFeed}
               />
             )}
           />
@@ -105,8 +100,6 @@ const Browse = props => {
                 offset={videoPageToken}
                 search={searchVideos}
                 fetch={fetchVideos}
-                save={createCollection}
-                share={postToFeed}
                 showIframe={showIframe}
                 resetIframe={resetIframe}
               />
@@ -123,8 +116,6 @@ const Browse = props => {
                 offset={podcastOffset}
                 search={searchPodcasts}
                 fetch={fetchPodcasts}
-                save={createCollection}
-                share={postToFeed}
               />
             )}
           />
@@ -139,8 +130,6 @@ const Browse = props => {
                 offset={bookOffset}
                 search={searchBooks}
                 fetch={fetchBooks}
-                save={createCollection}
-                share={postToFeed}
               />
             )}
           />
@@ -157,20 +146,41 @@ const mapStateToProps = ({ search, browse }) => ({
 
 export default connect(
   mapStateToProps,
-  {
-    ...browseActions,
-    createCollection,
-    postToFeed,
-  }
+  { ...browseActions }
 )(withRouter(Browse))
+
+Browse.propTypes = {
+  searchTerm: PropTypes.string.isRequired,
+  articles: PropTypes.arrayOf(PropTypes.object).isRequired,
+  courses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  videos: PropTypes.arrayOf(PropTypes.object).isRequired,
+  podcasts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  books: PropTypes.arrayOf(PropTypes.object).isRequired,
+  articleOffset: PropTypes.number.isRequired,
+  coursePage: PropTypes.number.isRequired,
+  videoPageToken: PropTypes.string.isRequired,
+  podcastOffset: PropTypes.number.isRequired,
+  bookOffset: PropTypes.number.isRequired,
+  fetchArticles: PropTypes.func.isRequired,
+  fetchCourses: PropTypes.func.isRequired,
+  fetchVideos: PropTypes.func.isRequired,
+  fetchPodcasts: PropTypes.func.isRequired,
+  fetchBooks: PropTypes.func.isRequired,
+  searchArticles: PropTypes.func.isRequired,
+  searchCourses: PropTypes.func.isRequired,
+  searchVideos: PropTypes.func.isRequired,
+  searchPodcasts: PropTypes.func.isRequired,
+  searchBooks: PropTypes.func.isRequired,
+  showIframe: PropTypes.func.isRequired,
+  resetIframe: PropTypes.func.isRequired,
+}
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  /* border: 1px solid red; */
 `
 const Container = styled.div`
+  display: flex;
   max-width: 1200px;
   margin: 0 auto;
-  display: flex;
 `
