@@ -6,7 +6,7 @@ import useLockBodyScroll from 'hooks/useLockBodyScroll'
 
 const Auth = props => {
   const { authModalClose, modalSignUp, modalLogin, modal } = props
-  const { isAuthOpen, isSignUp } = modal
+  const { isSignUp } = modal
   const ref = useRef(null)
   useOnClickOutside(ref, authModalClose)
   useLockBodyScroll()

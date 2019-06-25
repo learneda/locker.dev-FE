@@ -1,4 +1,5 @@
 import React, { useEffect, lazy, Suspense } from 'react'
+import PropTypes from 'prop-types'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
@@ -133,6 +134,16 @@ export default connect(
   { ...appActions, receivingNotifications }
 )(App)
 
+App.propTypes = {
+  auth: PropTypes.any,
+  fetchAuth: PropTypes.func.isRequired,
+  receivingNotifications: PropTypes.func.isRequired,
+  createComment: PropTypes.func.isRequired,
+  likePost: PropTypes.func.isRequired,
+  unlikePost: PropTypes.func.isRequired,
+  ponyUp: PropTypes.func.isRequired,
+  ponyDown: PropTypes.func.isRequired,
+}
 const Container = styled.div`
   width: 100%;
   color: #141619;

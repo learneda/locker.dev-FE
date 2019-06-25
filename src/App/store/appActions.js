@@ -2,7 +2,7 @@ import * as type from './appTypes'
 import axiosAuth from 'apis/axiosAuth'
 import axios from 'apis/axiosAPI'
 
-//* Fetches userID on App mount
+// Fetches userID on App mount
 export const fetchAuth = () => async dispatch => {
   const res = await axiosAuth.get(`/current_user`)
   const { id, ...user } = res.data
@@ -14,7 +14,7 @@ export const fetchAuth = () => async dispatch => {
   }
   return res.data
 }
-//* Fetch user details
+// Fetch user details
 export const fetchUser = id => async dispatch => {
   const res = await axios.get(`/users/id/${id}`)
   dispatch({ type: type.FETCH_USER, payload: res.data })
