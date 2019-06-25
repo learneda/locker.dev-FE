@@ -58,11 +58,7 @@ const ProfilePage = props => {
       dispatch({ type: 'RESET_POSTS' })
       resetProfile()
     }
-<<<<<<< HEAD
   }, [props.location.pathname])
-=======
-  }, [])
->>>>>>> 29b1ebf826a21764681ef8f444b5215f5e0e212a
 
   const isFollowed = () => {
     const followingIds = social.following.map(ele => ele.id)
