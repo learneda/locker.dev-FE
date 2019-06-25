@@ -7,6 +7,7 @@ import AlertTemplate, { options } from 'components/utils/AlertTemplate'
 import App from 'App/index'
 import store from 'App/store'
 import * as serviceWorker from 'serviceWorker'
+import './index.css'
 
 ReactDOM.render(
   <Provider store={store}>
