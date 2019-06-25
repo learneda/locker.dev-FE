@@ -18,7 +18,7 @@ export const homeReducer = (state = initialState, action) => {
     case types.FETCH_MORE_FEED:
       return { ...state, posts: [...state.posts, ...action.payload] }
     case types.RESET_POSTS:
-      return { ...state, posts: [], offset: 5, hasmore: true }
+      return { ...state, posts: [], offset: 0, hasmore: true }
     // hasmore boolean will switch to false so infinite scroll component will stop fetching newsfeed post
     case types.TOGGLE_HAS_MORE:
       return { ...state, hasmore: action.payload }
