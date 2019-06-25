@@ -1,5 +1,5 @@
-import * as types from './notificationTypes'
 import axios from 'apis/axiosAPI'
+import * as types from './notificationTypes'
 
 export const readNotifications = () => async dispatch => {
   await axios.post(`/notifications/read`)

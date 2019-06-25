@@ -20,7 +20,7 @@ const ProfileDropDown = props => {
 
   return (
     <Container>
-      {user && (
+      {user.username && (
         <img
           style={
             toggle
@@ -63,7 +63,7 @@ const ProfileDropDown = props => {
 export default ProfileDropDown
 
 ProfileDropDown.propTypes = {
-  users: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 }
 const Container = styled.div`
   position: relative;

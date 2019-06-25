@@ -4,7 +4,7 @@ import {
   UPDATE_HEADER_PICTURE,
   UPDATE_PROFILE_PICTURE,
 } from 'App/store/appTypes'
-export const userReducer = (state = null, action) => {
+export const userReducer = (state = {}, action) => {
   switch (action.type) {
     case FETCH_USER:
       return action.payload

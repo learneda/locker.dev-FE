@@ -81,10 +81,10 @@ NavRight.propTypes = {
   search: PropTypes.shape({
     searchTerm: PropTypes.string.isRequired,
     isSearch: PropTypes.bool.isRequired,
-    toggleSearch: PropTypes.bool.isRequired,
-    setSearchOff: PropTypes.func.isRequired,
-    resetSearchTerm: PropTypes.func.isRequired,
-  }),
+  }).isRequired,
+  toggleSearch: PropTypes.func.isRequired,
+  setSearchOff: PropTypes.func.isRequired,
+  resetSearchTerm: PropTypes.func.isRequired,
 }
 
 export default NavRight

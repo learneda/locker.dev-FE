@@ -12,7 +12,7 @@ import { customLayout } from 'styles'
 import * as searchActions from './store/searchActions'
 
 const Navbar = props => {
-  const { search, location } = props
+  const { user, search, location } = props
   const [active, setActive] = useState(false)
   useEffect(() => {
     setActive(location.pathname.includes('/locker'))
@@ -32,13 +32,12 @@ const Navbar = props => {
             <BrandSVG active={active} />
           </NavLink>
         )}
-        <NavRight {...props} />
+        <NavRight user={user} {...props} />
       </Nav>
     </Sticky>
   )
 }
-const mapStateToProps = ({ auth, user, search }) => ({
-  auth,
+const mapStateToProps = ({ user, search }) => ({
   user,
   search,
 })
@@ -49,6 +48,7 @@ export default connect(
 )(withRouter(Navbar))
 
 Navbar.propTypes = {
+  user: PropTypes.object.isRequired,
   search: PropTypes.shape({
     isSearch: PropTypes.bool.isRequired,
   }).isRequired,

@@ -5,7 +5,7 @@ import { useAlert } from 'react-alert'
 import { customLayout, customWrapper } from 'styles'
 import axios from 'apis/axiosAPI'
 import store from 'App/store'
-import * as type from 'App/store/appTypes'
+import * as types from 'App/store/appTypes'
 
 const ProfileSettings = props => {
   const { auth, user, editUser } = props
@@ -45,7 +45,7 @@ const ProfileSettings = props => {
         if (res.data.success) {
           // update redux store here
           store.dispatch({
-            type: type.UPDATE_PROFILE_PICTURE,
+            type: types.UPDATE_PROFILE_PICTURE,
             payload: res.data.user.profile_picture,
           })
         }
@@ -60,7 +60,7 @@ const ProfileSettings = props => {
           if (res.data.user.header_picture) {
             // update redux store here
             store.dispatch({
-              type: type.UPDATE_HEADER_PICTURE,
+              type: types.UPDATE_HEADER_PICTURE,
               payload: res.data.user.header_picture,
             })
           }
@@ -130,7 +130,7 @@ const ProfileSettings = props => {
   }
   // invokes when user drops a file on dropzone
   const handleDropZone = (file, type) => {
-    if (file.type.startsWith('image/')) {
+    if (file.types.startsWith('image/')) {
       // set state on selected file
       if (type === 'profile') {
         setSelectedFile(file)
