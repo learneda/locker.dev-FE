@@ -62,15 +62,16 @@ const Items = props => {
         hasMore={hasMore}
         endMessage={<EndMessage />}
       >
-        {items.map((item, index) => (
-          <Card
-            type={type}
-            key={index}
-            item={item}
-            showIframe={showIframe}
-            resetIframe={resetIframe}
-          />
-        ))}
+        {Array.isArray(items) &&
+          items.map((item, index) => (
+            <Card
+              type={type}
+              key={index}
+              item={item}
+              showIframe={showIframe}
+              resetIframe={resetIframe}
+            />
+          ))}
       </InfiniteScroll>
     </Cards>
   )

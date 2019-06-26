@@ -101,6 +101,9 @@ export const fetchBooks = (q, offset) => async dispatch => {
 }
 export const searchBooks = (q, offset) => async dispatch => {
   const offsetStep = 12
+  if (!q) {
+    q = selectRandom(topics)
+  }
   const res = await axios.get(`/books/search`, {
     params: {
       q,
