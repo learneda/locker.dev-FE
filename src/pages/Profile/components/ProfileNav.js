@@ -92,11 +92,11 @@ ProfileNav.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.number.isRequired,
     profile_picture: PropTypes.string.isRequired,
-    display_name: PropTypes.string.isRequired,
+    display_name: PropTypes.string,
     username: PropTypes.string.isRequired,
-    match: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
   }).isRequired,
+  match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
 }
 
 export default withRouter(ProfileNav)

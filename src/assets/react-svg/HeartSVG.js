@@ -70,6 +70,8 @@ const HeartSVG = ({ active }) => {
   )
 }
 
-HeartSVG.propTypes = {}
+HeartSVG.propTypes = {
+  active: PropTypes.bool.isRequired,
+}
 
 export default HeartSVG

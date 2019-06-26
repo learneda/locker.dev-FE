@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import PostHeader from './PostHeader'
 import PostContent from './PostContent'
@@ -9,14 +10,14 @@ import ActionBar from 'containers/ActionBar'
 const PostContainer = props => {
   const {
     post,
+    className,
     user_id,
     username,
+    profile_picture,
     handleSubmit,
     handleClick,
     handlePony,
-    profile_picture,
     handleDeleteComment,
-    className,
   } = props
 
   const displayMedia = post => {
@@ -120,7 +121,7 @@ const PostContainer = props => {
           </a>
         ) : null}
       </div>
-      <PostContent post={post}/>
+      <PostContent post={post} />
       <div className='post-bar'>
         <FeedBar
           user_id={user_id}
@@ -147,6 +148,23 @@ const PostContainer = props => {
 
 export default PostContainer
 
+PostContainer.propTypes = {
+  post: PropTypes.shape({
+    thumbnail_url: PropTypes.string,
+    url: PropTypes.string.isRequired,
+    comments: PropTypes.arrayOf(PropTypes.object),
+    id: PropTypes.number.isRequired,
+    user_id: PropTypes.number.isRequired,
+  }).isRequired,
+  className: PropTypes.string,
+  user_id: PropTypes.number.isRequired,
+  username: PropTypes.string.isRequired,
+  profile_picture: PropTypes.string.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  handlePony: PropTypes.func.isRequired,
+  handleDeleteComment: PropTypes.func.isRequired,
+}
 const Container = styled.div`
   position: relative;
   background: #fff;

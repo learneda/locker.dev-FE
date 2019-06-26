@@ -48,7 +48,7 @@ const BrandSVG = ({ active }) => {
 }
 
 BrandSVG.propTypes = {
-  active: PropTypes.bool,
+  active: PropTypes.bool.isRequired,
 }
 
 export default BrandSVG

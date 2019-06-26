@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import ContentLoader from 'react-content-loader'
 import styled from 'styled-components'
@@ -75,6 +76,19 @@ const Sidebar = props => {
 }
 
 export default Sidebar
+
+Sidebar.propTypes = {
+  auth: PropTypes.any,
+  user: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    header_picture: PropTypes.string,
+    profile_picture: PropTypes.string.isRequired,
+    display_name: PropTypes.string.isRequired,
+  }).isRequired,
+  posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  following: PropTypes.arrayOf(PropTypes.object).isRequired,
+  followers: PropTypes.arrayOf(PropTypes.object).isRequired,
+}
 
 const Wrapper = styled.div`
   position: sticky;

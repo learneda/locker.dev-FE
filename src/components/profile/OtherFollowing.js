@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { StyledFollow } from 'components/social/StyledFollow'
 
@@ -77,3 +78,23 @@ const OtherFollowing = props => {
 }
 
 export default OtherFollowing
+
+OtherFollowing.propTypes = {
+  userId: PropTypes.number.isRequired,
+  following: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      username: PropTypes.string.isRequired,
+      profile_picture: PropTypes.string.isRequired,
+      bio: PropTypes.string,
+    })
+  ).isRequired,
+  userFollowing: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+  followAUser: PropTypes.func.isRequired,
+  unfollowAUser: PropTypes.func.isRequired,
+  fetchFollowing: PropTypes.func.isRequired,
+}

@@ -81,6 +81,8 @@ l24 -48 0 -2190 0 -2190 -1085 0 -1085 0 -3 2285 c-1 1257 0 2291 3 2298 4 10
   )
 }
 
-Locker03SVG.propTypes = {}
+Locker03SVG.propTypes = {
+  active: PropTypes.bool.isRequired,
+}
 
 export default Locker03SVG

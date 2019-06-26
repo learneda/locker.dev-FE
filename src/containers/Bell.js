@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import BellSVG from 'assets/react-svg/BellSVG'
 import { Link } from 'react-router-dom'
@@ -32,6 +33,7 @@ const Bell = props => {
   }
   return (
     <StyledNotifications>
+      {/* Removed onClick modal */}
       <BellSVG bellColor={bellColor} />
       <p className='count'>{count ? count : null}</p>
       {isModalOpen && (
@@ -86,6 +88,26 @@ export default connect(
   { ...notificationActions }
 )(Bell)
 
+Bell.propTypes = {
+  user: PropTypes.shape({
+    profile_picture: PropTypes.string,
+  }).isRequired,
+  posts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      thumbnail_url: PropTypes.string,
+    })
+  ).isRequired,
+  notifications: PropTypes.arrayOf(
+    PropTypes.shape({
+      read: PropTypes.bool.isRequired,
+      post_id: PropTypes.number.isRequired,
+      invoker: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  bellColor: PropTypes.string.isRequired,
+}
 const StyledNotifications = styled.div`
   display: flex;
   position: relative;

@@ -30,8 +30,8 @@ CoverVideo.propTypes = {
   item: PropTypes.shape({
     isThumbnail: PropTypes.bool.isRequired,
     title: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    audio: PropTypes.string.isRequired,
+    image: PropTypes.string,
+    audio: PropTypes.string,
   }).isRequired,
   showIframe: PropTypes.func.isRequired,
 }

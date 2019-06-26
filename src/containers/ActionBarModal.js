@@ -1,15 +1,16 @@
 import React, { useRef, useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import ReuseablePortal from 'components/utils/ModalPortal'
 import useOnClickOutside from 'use-onclickoutside'
 import { ReactComponent as X } from 'assets/svg/x.svg'
 
 const ShareModal = props => {
+  const { isActive, setIsActive, handleSubmit } = props
   const textareaRef = useRef()
   const modalRef = useRef()
   const [tags, setTags] = useState('')
   const [textArea, setTextArea] = useState('')
-  const { isActive, setIsActive, handleSubmit } = props
 
   // detect clicks outside of modalRef
   useOnClickOutside(modalRef, setIsActive)
@@ -73,6 +74,12 @@ const ShareModal = props => {
 }
 
 export default ShareModal
+
+ShareModal.propTypes = {
+  isActive: PropTypes.bool.isRequired,
+  setIsActive: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+}
 
 const ModalWrapper = styled.div`
   position: fixed;

@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import ReusablePortal from 'components/utils/ModalPortal'
@@ -107,6 +108,10 @@ export default connect(
   null,
   { createCollection }
 )(AddLink)
+
+AddLink.propTypes = {
+  createCollection: PropTypes.func.isRequired,
+}
 
 const Container = styled.div`
   margin-left: 20px;

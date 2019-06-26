@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { elevations } from 'styles/utils'
 import { withRouter } from 'react-router-dom'
@@ -10,8 +11,8 @@ const DropDown = props => {
     authId,
     userId,
     username,
-    deletePostFromFeed,
     postId,
+    deletePostFromFeed,
   } = props
 
   const [isActive] = useState(
@@ -46,6 +47,14 @@ const DropDown = props => {
 
 export default withRouter(DropDown)
 
+DropDown.propTypes = {
+  location: PropTypes.object.isRequired,
+  authId: PropTypes.number.isRequired,
+  userId: PropTypes.number.isRequired,
+  username: PropTypes.string.isRequired,
+  postId: PropTypes.number.isRequired,
+  deletePostFromFeed: PropTypes.func.isRequired,
+}
 const StyledDropDown = styled.div`
   position: absolute;
   width: 180px;
