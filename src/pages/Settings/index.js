@@ -88,7 +88,7 @@ const Tabs = styled.ul`
   display: flex;
   position: sticky;
   background: rgb(230, 233, 243);
-  top: 60px;
+  top: 40px;
   height: 60px;
   align-items: flex-end;
   padding-bottom: 15px;
