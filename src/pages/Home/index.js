@@ -46,7 +46,7 @@ const Home = props => {
       fetchMyTags()
     }
     fetchFeed()
-    fetchPostCount()
+    fetchPostCount(auth.id)
     return () => dispatch({ type: 'RESET_POSTS' })
   }, [])
 
