@@ -1,8 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
-const FooterSvg = ({ active }) => {
-  const color = active ? 'magenta' : 'black'
+const FooterSvg = props => {
+  const color = 'black'
   return (
     <svg
       version='1.0'
@@ -40,7 +39,5 @@ const FooterSvg = ({ active }) => {
     </svg>
   )
 }
-
-FooterSvg.propTypes = {}
 
 export default FooterSvg

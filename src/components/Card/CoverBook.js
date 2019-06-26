@@ -16,7 +16,7 @@ const CoverBook = ({ item }) => {
 
 CoverBook.propTypes = {
   item: PropTypes.shape({
-    thumbnail: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string,
     title: PropTypes.string.isRequired,
   }).isRequired,
 }

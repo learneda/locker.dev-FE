@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const FooterSvg = ({ active }) => {
+const DeleteSVG = ({ active }) => {
   const color = active ? 'magenta' : 'black'
   return (
     <svg
@@ -81,6 +81,8 @@ l-220 220 211 210 c116 116 215 218 220 228 15 27 -14 67 -49 67 -22 0 -67
   )
 }
 
-FooterSvg.propTypes = {}
+DeleteSVG.propTypes = {
+  active: PropTypes.bool,
+}
 
-export default FooterSvg
+export default DeleteSVG

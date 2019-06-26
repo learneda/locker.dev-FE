@@ -1,10 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import AddLink from 'containers/AddLink'
 import NotFoundSVG from 'assets/svg/not-found-drawing.svg'
 
-const HelpScreen = ({ headerText, bodyText, imgSource }) => {
+const HelpScreen = props => {
+  const { headerText, imgSource } = props
   return (
     <Container>
       <img src={imgSource ? imgSource : NotFoundSVG} alt='Drawing' />
@@ -24,6 +26,13 @@ const HelpScreen = ({ headerText, bodyText, imgSource }) => {
       </div>
     </Container>
   )
+}
+
+export default HelpScreen
+
+HelpScreen.propTypes = {
+  headerText: PropTypes.string.isRequired,
+  imgSource: PropTypes.string,
 }
 
 export const Container = styled.div`
@@ -84,5 +93,3 @@ export const Container = styled.div`
     left: -15px;
   }
 `
-
-export default HelpScreen

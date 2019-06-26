@@ -235,7 +235,7 @@ const ProfileSettings = props => {
                   type='text'
                   onChange={e => setLocation(e.target.value)}
                   placeholder='Add location'
-                  value={location}
+                  value={location || ''}
                   name='location'
                 />
               </label>
@@ -246,7 +246,7 @@ const ProfileSettings = props => {
                   type='text'
                   onChange={e => setWebsiteUrl(e.target.value)}
                   placeholder='Add website URL'
-                  value={websiteUrl}
+                  value={websiteUrl || ''}
                   name='websiteUrl'
                 />
               </label>
@@ -321,8 +321,8 @@ ProfileSettings.propTypes = {
     display_name: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
     bio: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    website_url: PropTypes.string.isRequired,
+    location: PropTypes.any,
+    website_url: PropTypes.any,
     email: PropTypes.string.isRequired,
     profile_picture: PropTypes.string.isRequired,
     header_picture: PropTypes.string.isRequired,

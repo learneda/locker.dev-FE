@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import GlobalStyle from 'styles/global/cssReset'
+import CSSReset from 'styles/global/cssReset'
+import CSSTransitions from 'styles/global/cssTransitions'
 import { composedIndexRedirect as index } from 'hocs/indexRedirect'
 import socket from './socket'
 import * as appActions from './store/appActions'
@@ -109,7 +110,8 @@ const App = props => {
   }
   return (
     <Container>
-      <GlobalStyle />
+      <CSSReset />
+      <CSSTransitions />
       {showNavbar() && <Navbar />}
       <Suspense fallback={null}>
         <Switch>

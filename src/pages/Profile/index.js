@@ -252,7 +252,7 @@ export default connect(
 )(withRouter(Profile))
 
 Profile.propTypes = {
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   auth: PropTypes.any,
   match: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
@@ -260,9 +260,9 @@ Profile.propTypes = {
   feed: PropTypes.object.isRequired,
   fetchProfileFollowers: PropTypes.func.isRequired,
   followAUser: PropTypes.func.isRequired,
-  unfollowAUer: PropTypes.func.isRequired,
+  unfollowAUser: PropTypes.func.isRequired,
   fetchFollowing: PropTypes.func.isRequired,
-  fetchProfileColletions: PropTypes.func.isRequired,
+  fetchProfileCollections: PropTypes.func.isRequired,
   fetchProfileFollowing: PropTypes.func.isRequired,
   fetchProfileDetails: PropTypes.func.isRequired,
   resetProfile: PropTypes.func.isRequired,

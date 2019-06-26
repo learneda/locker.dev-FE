@@ -1,3 +1,6 @@
+import { createGlobalStyle } from 'styled-components'
+
+const CSSTransitions = createGlobalStyle`
 .add-link-appear {
   opacity: 0;
   z-index: 1;
@@ -24,4 +27,6 @@
 .add-link-exit-done {
   opacity: 0;
 }
+`
 
+export default CSSTransitions

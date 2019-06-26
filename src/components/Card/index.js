@@ -125,8 +125,8 @@ Card.propTypes = {
   item: PropTypes.shape({
     url: PropTypes.string,
     thumbnail: PropTypes.string,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    title: PropTypes.string,
+    description: PropTypes.string,
   }),
   showIframe: PropTypes.func,
 }

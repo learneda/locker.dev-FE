@@ -5,7 +5,8 @@ import { smartTruncate } from 'styles'
 
 import styled from 'styled-components'
 
-const PostContent = ({ post }) => {
+const PostContent = props => {
+  const { post } = props
   return (
     <>
       <Container>
@@ -27,11 +28,20 @@ const PostContent = ({ post }) => {
   )
 }
 
-PostContent.propTypes = {
-  posts: PropTypes.arrayOf(PropTypes.object)
-}
-
 export default PostContent
+
+PostContent.propTypes = {
+  posts: PropTypes.shape({
+    url: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    tags: PropTypes.arrayOf(
+      PropTypes.shape({
+        hashtag: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+  }),
+}
 
 const Container = styled.div`
   padding: 15px;

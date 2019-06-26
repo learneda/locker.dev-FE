@@ -18,7 +18,7 @@ const ProfileHeader = props => {
 
 ProfileHeader.propTypes = {
   user: PropTypes.shape({
-    header_picture: PropTypes.string.isRequired,
+    header_picture: PropTypes.string,
   }).isRequired,
 }
 

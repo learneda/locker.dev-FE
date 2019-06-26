@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-const Tagbar = ({ topTags, myTags }) => {
+const Tagbar = props => {
+  const { topTags, myTags } = props
   return (
     <Container>
       <h3>My Tags</h3>
@@ -28,9 +29,22 @@ const Tagbar = ({ topTags, myTags }) => {
   )
 }
 
-Tagbar.propTypes = {}
-
 export default Tagbar
+
+Tagbar.propTypes = {
+  topTags: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      hashtag: PropTypes.string,
+    })
+  ).isRequired,
+  myTags: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      hashtag: PropTypes.string,
+    })
+  ).isRequired,
+}
 
 const Container = styled.section`
   height: 350px;

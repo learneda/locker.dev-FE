@@ -51,6 +51,8 @@ const ShareSVG = ({ active }) => {
   )
 }
 
-ShareSVG.propTypes = {}
+ShareSVG.propTypes = {
+  active: PropTypes.bool.isRequired,
+}
 
 export default ShareSVG

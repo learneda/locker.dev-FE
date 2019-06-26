@@ -92,6 +92,8 @@ const Locker01SVG = ({ active }) => {
   )
 }
 
-Locker01SVG.propTypes = {}
+Locker01SVG.propTypes = {
+  active: PropTypes.bool.isRequired,
+}
 
 export default Locker01SVG

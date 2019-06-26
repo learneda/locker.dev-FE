@@ -119,6 +119,8 @@ const PonySVG = ({ active }) => {
   )
 }
 
-PonySVG.propTypes = {}
+PonySVG.propTypes = {
+  active: PropTypes.bool.isRequired,
+}
 
 export default PonySVG

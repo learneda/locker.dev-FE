@@ -47,6 +47,8 @@ m246 -191 c226 -42 377 -283 313 -501 -39 -130 -112 -217 -228 -269 -248 -112
   )
 }
 
-MoreSVG.propTypes = {}
+MoreSVG.propTypes = {
+  active: PropTypes.bool.isRequired,
+}
 
 export default MoreSVG

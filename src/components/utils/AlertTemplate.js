@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { positions } from 'react-alert'
 import { ReactComponent as X } from 'assets/svg/x.svg'
@@ -9,7 +10,8 @@ export const options = {
   offset: '0',
 }
 
-const AlertTemplate = ({ message, options, close }) => {
+const AlertTemplate = props => {
+  const { message, options, close } = props
   return (
     <Container onClick={close} options={options}>
       <div />
@@ -22,6 +24,12 @@ const AlertTemplate = ({ message, options, close }) => {
 }
 
 export default AlertTemplate
+
+AlertTemplate.propTypes = {
+  message: PropTypes.string.isRequired,
+  options: PropTypes.object.isRequired,
+  close: PropTypes.func.isRequired,
+}
 
 const errorColor = `rgba(237, 23, 23, 0.85)`
 const successColor = `rgba(3, 177, 45, 0.85)`

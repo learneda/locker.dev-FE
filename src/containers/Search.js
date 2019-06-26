@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
@@ -7,7 +8,7 @@ import * as searchActions from 'pages/Navbar/store/searchActions'
 import useOnClickOutside from 'use-onclickoutside'
 
 const Search = props => {
-  const { searchTerm, setSearchTerm, resetSearchTerm, history } = props
+  const { searchTerm, location, setSearchTerm, resetSearchTerm } = props
   const ref = useRef()
   const [visible, setVisible] = useState(false)
   useOnClickOutside(ref, e => {
@@ -20,9 +21,9 @@ const Search = props => {
   const handleSearch = e => {
     setSearchTerm(e)
     if (
-      history.location.pathname === '/' ||
-      history.location.pathname.includes('profile') ||
-      history.location.pathname.includes('notifications')
+      location.pathname === '/' ||
+      location.pathname.includes('profile') ||
+      location.pathname.includes('notifications')
     ) {
       setVisible(true)
     }
@@ -36,12 +37,12 @@ const Search = props => {
         resetSearchTerm()
       }
     }
-  }, [history.location.pathname])
+  }, [location.pathname])
 
   //TODO: Make this DRY
   const displaySearch = () => {
     let placeholder
-    let path = props.location.pathname
+    let path = location.pathname
     if (path.split('/')[1] === 'profile') {
       if (path.split('/').length === 3) {
         path = '/profile'
@@ -178,6 +179,12 @@ export default connect(
   { ...searchActions }
 )(withRouter(Search))
 
+Search.propTypes = {
+  searchTerm: PropTypes.string.isRequired,
+  location: PropTypes.object.isRequired,
+  setSearchTerm: PropTypes.func.isRequired,
+  resetSearchTerm: PropTypes.func.isRequired,
+}
 const Wrapper = styled.div``
 
 const Container = styled.div`

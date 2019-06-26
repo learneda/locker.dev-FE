@@ -1,4 +1,4 @@
-import React  from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
@@ -47,7 +47,9 @@ const SearchSVG = props => {
   )
 }
 
-SearchSVG.propTypes = {}
+SearchSVG.propTypes = {
+  active: PropTypes.bool.isRequired,
+}
 
 export default SearchSVG
 
