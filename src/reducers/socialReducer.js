@@ -4,6 +4,7 @@ const initialState = {
   following: [],
   followers: [],
   suggested: [],
+  postCount: null,
 }
 
 export const socialReducer = (state = initialState, action) => {
@@ -26,6 +27,8 @@ export const socialReducer = (state = initialState, action) => {
       return { ...state, followers: action.payload }
     case types.FETCH_FOLLOWING:
       return { ...state, following: action.payload }
+    case types.FETCH_POSTS_COUNT:
+      return { ...state, postCount: action.payload }
     default:
       return state
   }

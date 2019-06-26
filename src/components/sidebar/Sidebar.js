@@ -48,7 +48,7 @@ const Sidebar = props => {
               <Link to={`/profile/${auth.id}`}>
                 <ul>
                   <li className='count-label'>Posts</li>
-                  <li className='count'>{posts.length}</li>
+                  <li className='count'>{posts}</li>
                 </ul>
               </Link>
 
