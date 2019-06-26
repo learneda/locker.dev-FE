@@ -45,6 +45,8 @@ l0 -1805 28 -27 28 -27 2296 0 2296 0 26 31 26 31 0 1792 c0 2010 7 1843 -76
   )
 }
 
-BrowseSVG.propTypes = {}
+BrowseSVG.propTypes = {
+  browseColor: PropTypes.string.isRequired,
+}
 
 export default BrowseSVG

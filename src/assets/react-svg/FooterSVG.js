@@ -41,6 +41,8 @@ const FooterSvg = ({ active }) => {
   )
 }
 
-FooterSvg.propTypes = {}
+FooterSvg.propTypes = {
+  active: PropTypes.bool.isRequired,
+}
 
 export default FooterSvg

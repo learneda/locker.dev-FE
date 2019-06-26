@@ -94,9 +94,9 @@ ProfileNav.propTypes = {
     profile_picture: PropTypes.string.isRequired,
     display_name: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
-    match: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
   }).isRequired,
+  match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
 }
 
 export default withRouter(ProfileNav)

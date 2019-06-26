@@ -15,13 +15,13 @@ import DropDown from './DropDown'
 const ActionBar = props => {
   const {
     type,
+    authId,
+    className,
+    location,
     item,
     insertItem,
-    className,
     createCollection,
-    authId,
     postToFeed,
-    location,
     deleteCollection,
     deletePostFromFeed,
   } = props
@@ -120,7 +120,7 @@ const ActionBar = props => {
       saveActive={saveActive}
       shareActive={shareActive}
     >
-      {window.location.pathname !== '/' && (
+      {location.pathname !== '/' && (
         <div className='wrap-svg share' onClick={handleShareClick}>
           <ShareSVG className='icon' active={shareActive} />
           <span className='label'>{shareText}</span>
@@ -171,7 +171,23 @@ const ActionBar = props => {
   )
 }
 
-ActionBar.propTypes = {}
+ActionBar.propTypes = {
+  type: PropTypes.any,
+  authId: PropTypes.number.isRequired,
+  className: PropTypes.string,
+  location: PropTypes.object.isRequired,
+  //! Weird type shit item; fix later
+  item: PropTypes.object,
+  insertItem: PropTypes.shape({
+    url: PropTypes.string,
+    user_id: PropTypes.number,
+    username: PropTypes.string,
+  }),
+  createCollection: PropTypes.func.isRequired,
+  postToFeed: PropTypes.func.isRequired,
+  deleteCollection: PropTypes.func.isRequired,
+  deletePostFromFeed: PropTypes.func.isRequired,
+}
 
 const mapStateToProps = ({ auth }) => ({
   authId: auth.id,

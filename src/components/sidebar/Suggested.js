@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import ContentLoader from 'react-content-loader'
 import styled from 'styled-components'
@@ -21,11 +22,11 @@ const MyLoader = () => (
 const Suggested = props => {
   const {
     auth,
+    className,
     suggested,
     fetchFollowing,
     fetchSuggested,
     followAUser,
-    className,
   } = props
 
   const followAUserHandler = async (e, friend_id) => {
@@ -100,6 +101,22 @@ const Suggested = props => {
 }
 
 export default Suggested
+
+Suggested.propTypes = {
+  auth: PropTypes.any,
+  className: PropTypes.string,
+  suggested: PropTypes.arrayOf(
+    PropTypes.shape({
+      recommended_follow_id: PropTypes.number.isRequired,
+      image: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
+      followed_by_username: PropTypes.string,
+    })
+  ).isRequired,
+  fetchFollowing: PropTypes.func.isRequired,
+  fetchSuggested: PropTypes.func.isRequired,
+  followAUser: PropTypes.func.isRequired,
+}
 
 const StyledCard = styled.div`
   position: sticky;

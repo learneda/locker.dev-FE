@@ -45,6 +45,8 @@ m97 -3034 c0 -27 -44 -138 -71 -176 -39 -57 -103 -111 -169 -143 -49 -23 -67
   )
 }
 
-BellSVG.propTypes = {}
+BellSVG.propTypes = {
+  bellColor: PropTypes.string.isRequired,
+}
 
 export default BellSVG

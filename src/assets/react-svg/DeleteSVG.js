@@ -81,6 +81,8 @@ l-220 220 211 210 c116 116 215 218 220 228 15 27 -14 67 -49 67 -22 0 -67
   )
 }
 
-FooterSvg.propTypes = {}
+FooterSvg.propTypes = {
+  active: PropTypes.bool.isRequired,
+}
 
 export default FooterSvg

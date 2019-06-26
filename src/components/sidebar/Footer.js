@@ -1,9 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import FooterSvg from 'assets/react-svg/FooterSVG'
 
-const Footer = props => {
+const Footer = () => {
   return (
     <Container>
       <div className='top'>
@@ -18,8 +17,6 @@ const Footer = props => {
     </Container>
   )
 }
-
-Footer.propTypes = {}
 
 export default Footer
 

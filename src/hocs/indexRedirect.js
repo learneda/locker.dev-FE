@@ -12,7 +12,7 @@ const IndexRedirect = Component => ({ auth }) => {
       // auth false (user not logged in)
       case false:
         return <LandingPage />
-      // covered all cases only case left is if auth is True therefore render Index Component
+      // covered all cases; only case left is if auth is true therefore render Component
       default:
         return <Component />
     }

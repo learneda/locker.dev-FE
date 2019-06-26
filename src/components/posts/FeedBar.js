@@ -111,7 +111,9 @@ FeedBar.propTypes = {
     comments: PropTypes.arrayOf(PropTypes.object).isRequired,
     likes: PropTypes.number.isRequired,
     ponyCount: PropTypes.number.isRequired,
-  }),
+  }).isRequired,
+  handleClick: PropTypes.func.isRequired,
+  handlePony: PropTypes.func.isRequired,
 }
 
 export default FeedBar

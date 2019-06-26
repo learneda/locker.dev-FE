@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import socket from 'App/socket'
@@ -9,7 +10,6 @@ import PostContainer from 'components/posts/index'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 import FeedPlaceholder from 'components/posts/FeedPlaceholder'
-import { createCollection } from 'actions'
 
 const Feed = props => {
   const {
@@ -20,7 +20,6 @@ const Feed = props => {
     offset,
     hasmore,
     fetchMoreFeed,
-    createCollection,
     fetchMoreTagFeed,
   } = props
 
@@ -90,8 +89,6 @@ const Feed = props => {
             username={user.username}
             profile_picture={user.profile_picture}
             handleDeleteComment={handleDeleteComment}
-            socketId={socket.id}
-            createCollection={createCollection}
             handlePony={handlePony}
           />
         ))}
@@ -105,9 +102,22 @@ const mapStateToProps = ({ auth, user }) => ({ auth, user })
 
 export default connect(
   mapStateToProps,
-  { createCollection }
+  null
 )(withRouter(Feed))
 
+Feed.propTypes = {
+  auth: PropTypes.any,
+  user: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    profile_picture: PropTypes.string.isRequired,
+  }).isRequired,
+  tag: PropTypes.number,
+  posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  offset: PropTypes.number.isRequired,
+  hasmore: PropTypes.bool.isRequired,
+  fetchMoreFeed: PropTypes.func,
+  fetchMoreTagFeed: PropTypes.func,
+}
 // Controls Feed dimensions
 const Container = styled.div`
   max-width: 580px;

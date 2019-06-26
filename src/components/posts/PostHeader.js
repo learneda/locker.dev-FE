@@ -5,7 +5,8 @@ import Moment from 'react-moment'
 import CardAttributionBar from 'components/Bars/AttributionBar'
 import styled from 'styled-components'
 
-const PostHeader = ({ post, className }) => {
+const PostHeader = props => {
+  const { className, post } = props
   return (
     <Container>
       <Link to={`/profile/${post.user_id}`} className='post-header-left'>
@@ -35,18 +36,28 @@ const PostHeader = ({ post, className }) => {
   )
 }
 
-PostHeader.propTypes = {}
+PostHeader.propTypes = {
+  className: PropTypes.string,
+  post: PropTypes.shape({
+    user_id: PropTypes.number.isRequired,
+    profile_picture: PropTypes.string.isRequired,
+    display_name: PropTypes.string,
+    username: PropTypes.string.isRequired,
+    //? Why is posted_at_date a string
+    posted_at_date: PropTypes.string.isRequired,
+    user_thoughts: PropTypes.string,
+    url: PropTypes.string.isRequired,
+  }),
+}
 
 export default PostHeader
 
 const Container = styled.div`
-  /* border: 1px solid blue; */
   display: flex;
   height: 90px;
   border-bottom: 1px solid #e6ecf0;
   position: relative;
   .post-header-left {
-    /* border: 1px solid red; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,7 +73,6 @@ const Container = styled.div`
   }
 
   .post-header-middle {
-    /* border: 1px solid dodgerblue; */
     display: flex;
     position: relative;
     top: 5px;
@@ -95,7 +105,6 @@ const Container = styled.div`
   }
 
   .post-header-right {
-    /* border: 1px rebeccapurple solid; */
     position: relative;
     top: 5px;
     right: 10px;
@@ -106,7 +115,6 @@ const Container = styled.div`
 `
 
 const AttributionBar = styled(CardAttributionBar)`
-  /* border: 1px solid red; */
   display: flex;
   justify-content: flex-end;
   width: 100%;

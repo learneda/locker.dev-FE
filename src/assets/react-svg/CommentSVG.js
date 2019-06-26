@@ -79,6 +79,8 @@ c83 -49 117 -125 100 -221 -10 -51 -89 -129 -147 -144 -69 -19 -127 -14 -188
   )
 }
 
-CommentSVG.propTypes = {}
+CommentSVG.propTypes = {
+  active: PropTypes.bool.isRequired,
+}
 
 export default CommentSVG

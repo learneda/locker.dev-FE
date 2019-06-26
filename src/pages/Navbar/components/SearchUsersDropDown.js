@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import axios from 'apis/axiosAuth'
+import axios from 'apis/axiosAPI'
 import styled from 'styled-components'
 import { ReactComponent as Location } from 'assets/svg/location.svg'
 

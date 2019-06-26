@@ -200,10 +200,8 @@ export function createPopup(
   h = 560
 ) {
   //* Extra OStack trickier, to handel dual screens. Sets x (left) and y (top) position of window on screen.
-  const dualScreenLeft =
-    window.screenLeft != undefined ? window.screenLeft : window.screenX
-  const dualScreenTop =
-    window.screenTop != undefined ? window.screenTop : window.screenY
+  const dualScreenLeft = window.screenLeft ? window.screenLeft : window.screenX
+  const dualScreenTop = window.screenTop ? window.screenTop : window.screenY
 
   const width = window.outerWidth
   const height = window.outerHeight

@@ -50,6 +50,8 @@ c0 429 -4 657 -10 670 -10 18 -27 19 -510 19 -483 0 -500 -1 -510 -19 -6 -13
   )
 }
 
-HomeSVG.propTypes = {}
+HomeSVG.propTypes = {
+  active: PropTypes.bool.isRequired,
+}
 
 export default HomeSVG
