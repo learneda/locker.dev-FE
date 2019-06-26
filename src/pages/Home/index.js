@@ -30,6 +30,8 @@ const Home = props => {
     fetchMoreFeed,
     fetchTopTags,
     fetchMyTags,
+    fetchPostCount,
+    postCount,
   } = props
   const dispatch = useDispatch()
 
@@ -44,7 +46,7 @@ const Home = props => {
       fetchMyTags()
     }
     fetchFeed()
-
+    fetchPostCount()
     return () => dispatch({ type: 'RESET_POSTS' })
   }, [])
 
@@ -54,7 +56,7 @@ const Home = props => {
         <Sidebar
           auth={auth}
           user={user}
-          posts={feed.posts}
+          posts={postCount}
           followers={followers}
           following={following}
         />
