@@ -28,10 +28,10 @@ const ProfileSettings = props => {
     if (user) {
       setDisplayName(user.display_name)
       setUsername(user.username)
-      setBio(user.bio)
-      setLocation(user.location)
-      setWebsiteUrl(user.website_url)
-      setEmail(user.email)
+      setBio(user.bio || '')
+      setLocation(user.location || '')
+      setWebsiteUrl(user.website_url || '')
+      setEmail(user.email || '')
       setProfilePic(user.profile_picture)
       setHeaderPic(user.header_picture)
     }
@@ -320,12 +320,12 @@ ProfileSettings.propTypes = {
   user: PropTypes.shape({
     display_name: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
-    bio: PropTypes.string.isRequired,
+    bio: PropTypes.string,
     location: PropTypes.any,
     website_url: PropTypes.any,
-    email: PropTypes.string.isRequired,
-    profile_picture: PropTypes.string.isRequired,
-    header_picture: PropTypes.string.isRequired,
+    email: PropTypes.string,
+    profile_picture: PropTypes.string,
+    header_picture: PropTypes.string,
   }).isRequired,
 }
 const Wrapper = styled.div`
