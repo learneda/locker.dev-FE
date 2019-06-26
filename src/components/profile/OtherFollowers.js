@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { StyledFollow } from 'components/social/StyledFollow'
+import { StyledFollow } from 'components/profile/StyledFollow'
 
 const OtherFollowers = props => {
   const {
