@@ -17,6 +17,11 @@ const Items = props => {
   // Reset scroll position on tab switch
   useEffect(() => {
     window.scrollTo(0, 0)
+    // If type is video, resets iFrame on initial mount
+    if (type === 'video') {
+      console.log('trying to reset iframe')
+      resetIframe()
+    }
     return () => {
       window.scrollTo(0, 0)
     }
@@ -38,11 +43,6 @@ const Items = props => {
     // Prevents search on initial mount
     if (didMount) {
       asyncSearchItems()
-    } else {
-      // If type is video, resets iFrame on initial mount
-      if (type === 'video') {
-        resetIframe()
-      }
     }
     // After mount, didMount is true
     setDidMount(true)
