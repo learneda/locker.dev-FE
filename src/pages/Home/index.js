@@ -56,7 +56,7 @@ const Home = props => {
         <Sidebar
           auth={auth}
           user={user}
-          posts={postCount}
+          postCount={postCount}
           followers={followers}
           following={following}
         />

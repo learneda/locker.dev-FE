@@ -34,5 +34,5 @@ export const fetchFollowers = id => async dispatch => {
 
 export const fetchPostCount = id => async dispatch => {
   const res = await axios.get(`users/posts/${id}`)
-  dispatch({ type: types.FETCH_POSTS_COUNT, payload: res.data.count })
+  dispatch({ type: types.FETCH_POSTS_COUNT, payload: Number(res.data.count) })
 }

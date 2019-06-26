@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import ContentLoader from 'react-content-loader'
 import styled from 'styled-components'
+import { smartTruncate } from 'styles'
 
 const MyLoader = () => (
   <ContentLoader
@@ -60,7 +61,7 @@ const Suggested = props => {
               </Link>
               <div className='right-suggested'>
                 <Link to={`/profile/${ele.recommended_follow_id}`}>
-                  <h2>{ele.username}</h2>
+                  <h2>{smartTruncate(ele.username, 16)}</h2>
                 </Link>
                 <div className='follow-button'>
                   <button
@@ -190,7 +191,7 @@ const StyledCard = styled.div`
       h2 {
         /* margin-left: 10px; */
         font-size: 1.6rem;
-        letter-spacing: 1.5px;
+        letter-spacing: 1.0px;
       }
       img {
         width: 60px;

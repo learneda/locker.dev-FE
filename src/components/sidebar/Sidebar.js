@@ -17,7 +17,7 @@ const MyLoader = () => (
   </ContentLoader>
 )
 const Sidebar = props => {
-  const { auth, user, posts, following, followers } = props
+  const { auth, user, postCount, following, followers } = props
   if (!user) {
     return (
       <Wrapper>
@@ -36,11 +36,14 @@ const Sidebar = props => {
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
+          />
+          <Link
+            className='sidebar-avatar'
+            to={`/profile/${auth.id}`}
+            style={{ cursor: 'pointer' }}
           >
-            <Link to={`/profile/${auth.id}`} style={{ cursor: 'pointer' }}>
-              <img src={user.profile_picture} alt='avatar' />
-            </Link>
-          </div>
+            <img src={user.profile_picture} alt='avatar' />
+          </Link>
           <div className='user-bio'>
             <h3>{smartTruncate(user.display_name, 18)}</h3>
             <h4>{smartTruncate(`@${user.username}`, 22)}</h4>
@@ -49,7 +52,7 @@ const Sidebar = props => {
               <Link to={`/profile/${auth.id}`}>
                 <ul>
                   <li className='count-label'>Posts</li>
-                  <li className='count'>{posts}</li>
+                  <li className='count'>{postCount}</li>
                 </ul>
               </Link>
 
@@ -86,7 +89,7 @@ Sidebar.propTypes = {
     profile_picture: PropTypes.string.isRequired,
     display_name: PropTypes.string.isRequired,
   }).isRequired,
-  posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  postCount: PropTypes.number.isRequired,
   following: PropTypes.arrayOf(PropTypes.object).isRequired,
   followers: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
@@ -120,10 +123,13 @@ const Profile = styled.div`
     padding-left: 10px;
     height: 80px;
     background-color: dodgerblue;
-
+  }
+  .sidebar-avatar {
+    position: absolute;
+    top: 25px;
+    left: 10px;
+    z-index: 2;
     img {
-      position: absolute;
-      top: 30px;
       border: 3px solid #fff;
       border-radius: 50%;
       height: 100px;
@@ -131,7 +137,6 @@ const Profile = styled.div`
       object-fit: cover;
     }
   }
-
   .user-bio {
     position: relative;
     flex-direction: column;
@@ -152,7 +157,7 @@ const Profile = styled.div`
       margin-top: 5px;
       padding-left: 95px;
       color: #6d767e;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
     .bio {
       display: flex;
