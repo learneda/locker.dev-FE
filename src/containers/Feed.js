@@ -111,7 +111,8 @@ Feed.propTypes = {
     username: PropTypes.string.isRequired,
     profile_picture: PropTypes.string.isRequired,
   }).isRequired,
-  tag: PropTypes.number,
+  //? WTF this is sometimes a number ... sometimes a string
+  tag: PropTypes.any,
   posts: PropTypes.arrayOf(PropTypes.object).isRequired,
   offset: PropTypes.number.isRequired,
   hasmore: PropTypes.bool.isRequired,

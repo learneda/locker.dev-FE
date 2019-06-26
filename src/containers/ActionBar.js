@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as actions from 'actions'
 import { withRouter } from 'react-router-dom'
@@ -7,8 +8,6 @@ import LockerSVG from 'assets/react-svg/Locker01SVG'
 import ShareSVG from 'assets/react-svg/ShareSVG'
 import MoreSVG from 'assets/react-svg/MoreSVG'
 import DeleteSVG from 'assets/react-svg/DeleteSVG'
-
-import PropTypes from 'prop-types'
 import ShareModal from './ActionBarModal'
 import DropDown from './DropDown'
 
