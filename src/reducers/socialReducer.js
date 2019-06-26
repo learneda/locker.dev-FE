@@ -4,7 +4,7 @@ const initialState = {
   following: [],
   followers: [],
   suggested: [],
-  postCount: null,
+  postCount: 0,
 }
 
 export const socialReducer = (state = initialState, action) => {

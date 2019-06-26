@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import ContentLoader from 'react-content-loader'
 import styled from 'styled-components'
-
+import { smartTruncate } from 'styles'
 const MyLoader = () => (
   <ContentLoader
     height={451}
@@ -17,7 +17,7 @@ const MyLoader = () => (
   </ContentLoader>
 )
 const Sidebar = props => {
-  const { auth, user, posts, following, followers } = props
+  const { auth, user, postCount, following, followers } = props
   if (!user) {
     return (
       <Wrapper>
@@ -36,19 +36,23 @@ const Sidebar = props => {
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
+          />
+          <Link
+            className='sidebar-avatar'
+            to={`/profile/${auth.id}`}
+            style={{ cursor: 'pointer' }}
           >
-            <Link to={`/profile/${auth.id}`} style={{ cursor: 'pointer' }}>
-              <img src={user.profile_picture} alt='avatar' />
-            </Link>
-          </div>
+            <img src={user.profile_picture} alt='avatar' />
+          </Link>
           <div className='user-bio'>
-            <h3>{user.display_name}</h3>
-            <h4>{`@${user.username}`}</h4>
+            <h3>{smartTruncate(user.display_name, 18)}</h3>
+            <h4>{smartTruncate(`@${user.username}`, 22)}</h4>
+            {/* <div className='bio'>{smartTruncate(user.bio, 22)}</div> */}
             <div className='profile-stats'>
               <Link to={`/profile/${auth.id}`}>
                 <ul>
                   <li className='count-label'>Posts</li>
-                  <li className='count'>{posts}</li>
+                  <li className='count'>{postCount}</li>
                 </ul>
               </Link>
 
@@ -85,7 +89,7 @@ Sidebar.propTypes = {
     profile_picture: PropTypes.string.isRequired,
     display_name: PropTypes.string.isRequired,
   }).isRequired,
-  posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  postCount: PropTypes.number.isRequired,
   following: PropTypes.arrayOf(PropTypes.object).isRequired,
   followers: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
@@ -119,10 +123,13 @@ const Profile = styled.div`
     padding-left: 10px;
     height: 80px;
     background-color: dodgerblue;
-
+  }
+  .sidebar-avatar {
+    position: absolute;
+    top: 25px;
+    left: 10px;
+    z-index: 2;
     img {
-      position: absolute;
-      top: 30px;
       border: 3px solid #fff;
       border-radius: 50%;
       height: 100px;
@@ -130,7 +137,6 @@ const Profile = styled.div`
       object-fit: cover;
     }
   }
-
   .user-bio {
     position: relative;
     flex-direction: column;
@@ -146,46 +152,16 @@ const Profile = styled.div`
       letter-spacing: 0.5px;
     }
     h4 {
-      margin-bottom: 30px;
       font-size: 1.3rem;
       font-weight: 100px;
       margin-top: 5px;
       padding-left: 95px;
       color: #6d767e;
+      margin-bottom: 25px;
     }
-
-    p {
-      line-height: 25px;
-      margin-bottom: 15px;
-      img {
-        width: 18px;
-        height: 18px;
-        margin-right: 5px;
-        margin-bottom: -3px;
-      }
-    }
-
-    mark {
-      background-color: transparent;
-      color: #333;
-    }
-
-    .follow-btn-grp {
+    .bio {
       display: flex;
-      justify-content: center;
-      width: 100%;
-      margin-bottom: 20px;
-      button {
-        padding: 5px 10px;
-        font-weight: 700;
-        border: transparent;
-        border-radius: 5px;
-        background-color: dodgerblue;
-        color: white;
-        cursor: pointer;
-        transition: 200ms ease-out;
-        font-size: 1.4rem;
-      }
+      margin-bottom: 10px;
     }
   }
 
