@@ -157,7 +157,7 @@ const Profile = styled.div`
       margin-top: 5px;
       padding-left: 95px;
       color: #6d767e;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
     .bio {
       display: flex;
