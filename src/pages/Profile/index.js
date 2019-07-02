@@ -36,6 +36,8 @@ const Profile = props => {
     resetProfile,
     fetchSuggested,
     fetchFollowers,
+    fetchPostCount,
+    postCount,
   } = props
   const id = Number(match.params.id)
   const dispatch = useDispatch()
@@ -49,6 +51,7 @@ const Profile = props => {
     fetchSuggested(auth.id)
     fetchFollowing(auth.id)
     fetchFollowers(auth.id)
+    fetchPostCount(id)
     return () => {
       dispatch({ type: 'RESET_POSTS' })
       resetProfile()
@@ -80,7 +83,14 @@ const Profile = props => {
       {profile.other.id && (
         <>
           <ProfileHeader auth={auth} user={profile.other} />
-          <ProfileNav auth={auth} user={profile.other} posts={feed.posts} />
+          <ProfileNav
+            auth={auth}
+            user={profile.other}
+            posts={feed.posts}
+            postCount={social.postCount}
+            followingCount={profile.following.length}
+            followerCount={profile.followers.length}
+          />
           <Container>
             <main className='profile-main'>
               <div className='profile-left'>
@@ -280,7 +290,7 @@ const Container = styled.div`
   max-width: 1200px;
   min-width: 900px;
   width: 100%;
-  margin: 50px auto;
+  margin: 30px auto;
   .profile-main {
     display: flex;
     height: 100%;
