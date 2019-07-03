@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
@@ -11,36 +11,54 @@ import * as types from 'App/store/appTypes'
 const ProfileSettings = props => {
   const { auth, user, editUser } = props
   const alert = useAlert()
-  const image = useRef()
-  const header = useRef()
-  const [displayName, setDisplayName] = useState('')
-  const [username, setUsername] = useState('')
-  const [bio, setBio] = useState('')
-  const [location, setLocation] = useState('')
-  const [websiteUrl, setWebsiteUrl] = useState('')
-  const [email, setEmail] = useState('')
-  const [selectedFile, setSelectedFile] = useState('')
-  const [selectedHeader, setSelectedHeader] = useState('')
-  const [profile_pic, setProfilePic] = useState('')
-  const [header_pic, setHeaderPic] = useState('')
+  const [profile, setProfile] = useState({
+    displayName: '',
+    username: '',
+    bio: '',
+    location: '',
+    websiteUrl: '',
+    email: '',
+    profile_picture: '',
+    header_picture: '',
+  })
+  const [photo, setPhoto] = useState({
+    avatar: '',
+    avatarSrc: '',
+    header: '',
+    headerSrc: '',
+  })
+  const {
+    displayName,
+    email,
+    username,
+    bio,
+    location,
+    websiteUrl,
+    profile_picture,
+    header_picture,
+  } = profile
 
+  //? Can this be done within useState
   useEffect(() => {
-    if (user) {
-      setDisplayName(user.display_name)
-      setUsername(user.username)
-      setBio(user.bio || '')
-      setLocation(user.location || '')
-      setWebsiteUrl(user.website_url || '')
-      setEmail(user.email || '')
-      setProfilePic(user.profile_picture)
-      setHeaderPic(user.header_picture)
-    }
+    //! Is it necessary to protect?
+    setProfile(user)
+    setPhoto({
+      ...photo,
+      avatarSrc: user.profile_picture,
+      headerSrc: user.header_picture,
+    })
   }, [user])
 
+  const handleChange = e => {
+    setProfile({ ...profile, [e.target.name]: e.target.value })
+  }
+
   const handleFileUpload = () => {
-    if (selectedFile) {
+    const { avatar, header } = photo
+    //TODO: clean up this logic
+    if (avatar) {
       const fd = new FormData()
-      fd.append('profile_pic', selectedFile, selectedFile.name)
+      fd.append('profile_pic', avatar)
       axios.post(`/images`, fd).then(res => {
         if (res.data.success) {
           // update redux store here
@@ -51,9 +69,9 @@ const ProfileSettings = props => {
         }
       })
     }
-    if (selectedHeader) {
+    if (header) {
       const fd = new FormData()
-      fd.append('profile_pic', selectedHeader, selectedHeader.name)
+      fd.append('profile_pic', header)
       axios.post(`/images/header`, fd).then(res => {
         if (res.data.success) {
           if (res.data.user.header_picture) {
@@ -69,90 +87,66 @@ const ProfileSettings = props => {
   }
 
   //* launches onSubmitting of page form
-  const editProfileHandler = (e, id) => {
+  const editProfileHandler = e => {
+    const { avatar, header } = photo
     e.preventDefault()
-    editUser(id, {
-      displayName,
-      username,
-      bio,
-      location,
-      websiteUrl,
-      email,
-    }).then(() => {
+    editUser(auth.id, profile).then(() => {
       // calls func to handle profile change if a new file has been selected
       // selectedFile default value is falsey until user selects file
-      if (selectedFile || selectedHeader) {
+      if (avatar || header) {
         handleFileUpload()
       }
     })
   }
 
   // invokes when user selects picture NOT thru dropzone
-  const handleFileSelection = (e, type) => {
+  const handleFileSelection = e => {
     e.preventDefault()
-    if (e.target.files[0]) {
-      const file = e.target.files[0].type
-
-      if (file.startsWith('image/')) {
-        if (type === 'profile') {
-          // set state on selected file
-          setSelectedFile(e.target.files[0])
-          // https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Showing_thumbnails_of_user-selected_images
-          const reader = new FileReader()
-
-          reader.onload = (function(aImg) {
-            return function(e) {
-              aImg.src = e.target.result
-            }
-          })(image.current)
-
-          reader.readAsDataURL(e.target.files[0])
-        } else {
-          setSelectedHeader(e.target.files[0])
-          const reader = new FileReader()
-
-          reader.onload = (function(aImg) {
-            return function(e) {
-              aImg.src = e.target.result
-            }
-          })(header.current)
-
-          reader.readAsDataURL(e.target.files[0])
-        }
-      } else {
-        window.alert('Only JPEG, PNG, or GIF file types allowed')
-      }
-    }
-  }
-  // invokes when user drops a file on dropzone
-  const handleDropZone = (file, type) => {
-    if (file.types.startsWith('image/')) {
-      // set state on selected file
-      if (type === 'profile') {
-        setSelectedFile(file)
+    const file = e.target.files[0]
+    const { name } = e.target
+    if (file) {
+      if (name === 'profile_pic') {
+        // set state on selected file
+        setPhoto({ ...photo, avatar: file })
+        // https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Showing_thumbnails_of_user-selected_images
         const reader = new FileReader()
-
-        reader.onload = (function(aImg) {
-          return function(e) {
-            aImg.src = e.target.result
-          }
-        })(image.current)
-
+        reader.onload = e => {
+          setPhoto({ ...photo, avatarSrc: e.target.result })
+        }
         reader.readAsDataURL(file)
       } else {
-        setSelectedHeader(file)
+        setPhoto({ ...photo, header: file })
         const reader = new FileReader()
-
-        reader.onload = (function(aImg) {
-          return function(e) {
-            aImg.src = e.target.result
-          }
-        })(header.current)
-
+        reader.onload = e => {
+          setPhoto({ ...photo, headerSrc: e.target.result })
+        }
         reader.readAsDataURL(file)
       }
     } else {
+      //! window.alert is the mark of a desperate coder
       window.alert('Only JPEG, PNG, or GIF file types allowed')
+    }
+  }
+
+  // invokes when user drops a file on dropzone
+  const handleDropZone = (file, type) => {
+    // set state on selected file
+    if (type === 'profile') {
+      setPhoto({ ...photo, avatar: file })
+      const reader = new FileReader()
+
+      reader.onload = e => {
+        setPhoto({ ...photo, avatarSrc: e.target.result })
+      }
+
+      reader.readAsDataURL(file)
+    } else {
+      setPhoto({ ...photo, header: file })
+      const reader = new FileReader()
+      reader.onload = e => {
+        setPhoto({ ...photo, headerSrc: e.target.result })
+      }
+      reader.readAsDataURL(file)
     }
   }
 
@@ -172,9 +166,10 @@ const ProfileSettings = props => {
 
     handleDropZone(files[0], type)
   }
+
   return (
     <Wrapper>
-      <FormGroup onSubmit={e => editProfileHandler(e, auth.id)}>
+      <FormGroup onSubmit={editProfileHandler}>
         <div className='form-wrapper'>
           <div className='row'>
             <div className='col-2'>
@@ -182,8 +177,8 @@ const ProfileSettings = props => {
                 Name
                 <input
                   type='text'
-                  onChange={e => setDisplayName(e.target.value)}
-                  placeholder='Add full name'
+                  onChange={handleChange}
+                  placeholder='Add a name'
                   value={displayName}
                   name='displayName'
                   required
@@ -193,7 +188,7 @@ const ProfileSettings = props => {
                 Email Address
                 <input
                   type='text'
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={handleChange}
                   placeholder='email address'
                   value={email}
                   name='email'
@@ -203,7 +198,7 @@ const ProfileSettings = props => {
                 Username
                 <input
                   type='text'
-                  onChange={e => setUsername(e.target.value)}
+                  onChange={handleChange}
                   placeholder='Add username'
                   value={username}
                   name='username'
@@ -215,7 +210,7 @@ const ProfileSettings = props => {
                 Bio
                 <textarea
                   type='text'
-                  onChange={e => setBio(e.target.value)}
+                  onChange={handleChange}
                   placeholder='Add bio'
                   value={bio}
                   name='bio'
@@ -228,7 +223,7 @@ const ProfileSettings = props => {
                 Location
                 <input
                   type='text'
-                  onChange={e => setLocation(e.target.value)}
+                  onChange={handleChange}
                   placeholder='Add location'
                   value={location || ''}
                   name='location'
@@ -239,7 +234,7 @@ const ProfileSettings = props => {
                 Website URL
                 <input
                   type='text'
-                  onChange={e => setWebsiteUrl(e.target.value)}
+                  onChange={handleChange}
                   placeholder='Add website URL'
                   value={websiteUrl || ''}
                   name='websiteUrl'
@@ -253,17 +248,17 @@ const ProfileSettings = props => {
                     display: 'block',
                     margin: '10px auto',
                   }}
-                  ref={image}
-                  src={profile_pic}
+                  src={photo.avatarSrc}
                   onDragEnter={handleDragEvent}
                   onDragOver={handleDragEvent}
                   onDrop={e => handleDrop(e, 'profile')}
                   alt='user_upload_picture'
                 />
                 <input
-                  onChange={e => handleFileSelection(e, 'profile')}
+                  onChange={handleFileSelection}
                   type='file'
                   name='profile_pic'
+                  accept='.png,.jpg,.gif'
                 />
               </label>
               {/* ========== */}
@@ -275,17 +270,17 @@ const ProfileSettings = props => {
                     display: 'block',
                     margin: '10px auto',
                   }}
-                  ref={header}
-                  src={header_pic}
+                  src={photo.headerSrc}
                   onDragEnter={handleDragEvent}
                   onDragOver={handleDragEvent}
                   onDrop={e => handleDrop(e, 'header')}
                   alt='user_upload_picture'
                 />
                 <input
-                  onChange={e => handleFileSelection(e, 'header')}
+                  onChange={handleFileSelection}
                   type='file'
                   name='header_pic'
+                  accept='.png,.jpg,.gif'
                 />
               </label>
             </div>
