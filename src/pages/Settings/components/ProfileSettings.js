@@ -11,92 +11,69 @@ import * as types from 'App/store/appTypes'
 const ProfileSettings = props => {
   const { auth, user, editUser } = props
   const alert = useAlert()
-  const [profile, setProfile] = useState({
-    displayName: '',
-    username: '',
-    bio: '',
-    location: '',
-    websiteUrl: '',
-    email: '',
-    profile_picture: '',
-    header_picture: '',
-  })
+  const [profile, setProfile] = useState(user)
   const [photo, setPhoto] = useState({
     avatar: '',
-    avatarSrc: '',
+    avatarSrc: user.profile_picture,
     header: '',
-    headerSrc: '',
+    headerSrc: user.header_picture,
   })
   const {
-    displayName,
+    display_name,
     email,
     username,
     bio,
     location,
-    websiteUrl,
+    website_url,
     profile_picture,
     header_picture,
   } = profile
-
-  //? Can this be done within useState
-  useEffect(() => {
-    //! Is it necessary to protect?
-    setProfile(user)
-    setPhoto({
-      ...photo,
-      avatarSrc: user.profile_picture,
-      headerSrc: user.header_picture,
-    })
-  }, [user])
 
   const handleChange = e => {
     setProfile({ ...profile, [e.target.name]: e.target.value })
   }
 
-  const handleFileUpload = () => {
+  const handleFileUpload = async () => {
     const { avatar, header } = photo
     //TODO: clean up this logic
     if (avatar) {
       const fd = new FormData()
       fd.append('profile_pic', avatar)
-      axios.post(`/images`, fd).then(res => {
-        if (res.data.success) {
-          // update redux store here
-          store.dispatch({
-            type: types.UPDATE_PROFILE_PICTURE,
-            payload: res.data.user.profile_picture,
-          })
-        }
-      })
+      const res = await axios.post(`/images`, fd)
+      if (res.data.success) {
+        // update redux store here
+        store.dispatch({
+          type: types.UPDATE_PROFILE_PICTURE,
+          payload: res.data.user.profile_picture,
+        })
+      }
     }
     if (header) {
       const fd = new FormData()
       fd.append('profile_pic', header)
-      axios.post(`/images/header`, fd).then(res => {
-        if (res.data.success) {
-          if (res.data.user.header_picture) {
-            // update redux store here
-            store.dispatch({
-              type: types.UPDATE_HEADER_PICTURE,
-              payload: res.data.user.header_picture,
-            })
-          }
+      const res = axios.post(`/images/header`, fd)
+      if (res.data.success) {
+        if (res.data.user.header_picture) {
+          // update redux store here
+          store.dispatch({
+            type: types.UPDATE_HEADER_PICTURE,
+            payload: res.data.user.header_picture,
+          })
         }
-      })
+      }
     }
   }
 
-  //* launches onSubmitting of page form
-  const editProfileHandler = e => {
-    const { avatar, header } = photo
+  // launches onSubmitting of page form
+  const editProfileHandler = async e => {
     e.preventDefault()
-    editUser(auth.id, profile).then(() => {
-      // calls func to handle profile change if a new file has been selected
-      // selectedFile default value is falsey until user selects file
-      if (avatar || header) {
-        handleFileUpload()
-      }
-    })
+    const { avatar, header } = photo
+    await editUser(auth.id, profile)
+    // calls func to handle profile change if a new file has been selected
+    // selectedFile default value is falsey until user selects file
+    if (avatar || header) {
+      handleFileUpload()
+    }
   }
 
   // invokes when user selects picture NOT thru dropzone
@@ -179,8 +156,8 @@ const ProfileSettings = props => {
                   type='text'
                   onChange={handleChange}
                   placeholder='Add a name'
-                  value={displayName}
-                  name='displayName'
+                  value={display_name}
+                  name='display_name'
                   required
                 />
               </label>
@@ -236,8 +213,8 @@ const ProfileSettings = props => {
                   type='text'
                   onChange={handleChange}
                   placeholder='Add website URL'
-                  value={websiteUrl || ''}
-                  name='websiteUrl'
+                  value={website_url || ''}
+                  name='website_url'
                 />
               </label>
               <label>
