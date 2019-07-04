@@ -213,7 +213,5 @@ const ModalWrapper = styled.div`
     cursor: pointer;
   }
 
-  .root-modal-open {
-    filter: blur(7px);
-  }
+ 
 `
