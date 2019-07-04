@@ -18,16 +18,6 @@ const ProfileSettings = props => {
     header: '',
     headerSrc: user.header_picture,
   })
-  const {
-    display_name,
-    email,
-    username,
-    bio,
-    location,
-    website_url,
-    profile_picture,
-    header_picture,
-  } = profile
 
   const handleChange = e => {
     setProfile({ ...profile, [e.target.name]: e.target.value })
@@ -46,12 +36,14 @@ const ProfileSettings = props => {
           type: types.UPDATE_PROFILE_PICTURE,
           payload: res.data.user.profile_picture,
         })
+      } else {
+        store.dispatch({ type: 'JUST_CHECKING' })
       }
     }
     if (header) {
       const fd = new FormData()
       fd.append('profile_pic', header)
-      const res = axios.post(`/images/header`, fd)
+      const res = await axios.post(`/images/header`, fd)
       if (res.data.success) {
         if (res.data.user.header_picture) {
           // update redux store here
@@ -115,7 +107,6 @@ const ProfileSettings = props => {
       reader.onload = e => {
         setPhoto({ ...photo, avatarSrc: e.target.result })
       }
-
       reader.readAsDataURL(file)
     } else {
       setPhoto({ ...photo, header: file })
@@ -137,10 +128,8 @@ const ProfileSettings = props => {
     // https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Showing_thumbnails_of_user-selected_images
     e.stopPropagation()
     e.preventDefault()
-
     const dt = e.dataTransfer
     const files = dt.files
-
     handleDropZone(files[0], type)
   }
 
@@ -156,7 +145,7 @@ const ProfileSettings = props => {
                   type='text'
                   onChange={handleChange}
                   placeholder='Add a name'
-                  value={display_name}
+                  value={profile.display_name}
                   name='display_name'
                   required
                 />
@@ -167,7 +156,7 @@ const ProfileSettings = props => {
                   type='text'
                   onChange={handleChange}
                   placeholder='email address'
-                  value={email}
+                  value={profile.email}
                   name='email'
                 />
               </label>
@@ -177,7 +166,7 @@ const ProfileSettings = props => {
                   type='text'
                   onChange={handleChange}
                   placeholder='Add username'
-                  value={username}
+                  value={profile.username}
                   name='username'
                   required
                 />
@@ -189,7 +178,7 @@ const ProfileSettings = props => {
                   type='text'
                   onChange={handleChange}
                   placeholder='Add bio'
-                  value={bio}
+                  value={profile.bio}
                   name='bio'
                 />
               </label>
@@ -202,7 +191,7 @@ const ProfileSettings = props => {
                   type='text'
                   onChange={handleChange}
                   placeholder='Add location'
-                  value={location || ''}
+                  value={profile.location || ''}
                   name='location'
                 />
               </label>
@@ -213,7 +202,7 @@ const ProfileSettings = props => {
                   type='text'
                   onChange={handleChange}
                   placeholder='Add website URL'
-                  value={website_url || ''}
+                  value={profile.website_url || ''}
                   name='website_url'
                 />
               </label>
