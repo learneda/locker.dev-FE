@@ -17,7 +17,6 @@ const LikeModal = props => {
   useEffect(() => {
     axios.post('/posts/like/users', { post_id: postId }).then(res => {
       setLikes(res.data)
-      console.log('RES', res.data)
     })
   }, [])
 
@@ -32,19 +31,30 @@ const LikeModal = props => {
             }
           }}
         >
-          <div ref={modalRef} className='modal_'>
+          <div ref={modalRef} className='modal'>
             <div className='top'>
-              <div className='modal_name'>Likes</div>
-              <div className='modal_close' onClick={() => setActive(false)}>
+              <div className='modal-name'>Likes</div>
+              <div className='modal-close' onClick={() => setActive(false)}>
                 <X />
               </div>
             </div>
-            <div className='modal_group'>
-              <div>
-                {likes.map((like, index) => (
-                  <li key={index}>{like.username}</li>
-                ))}
-              </div>
+            <div className='modal-group'>
+              {likes.map((like, index) => (
+                <li key={index} className='like-item'>
+                  <div className='like-avatar'>
+                    <img
+                      className='like-img'
+                      src={like.profile_picture}
+                      alt='avatar'
+                    />
+                  </div>
+                  <div className='like-info'>
+                    <span className='like-username'>{like.username}</span>
+                    <span className='like-name'>{like.display_name}</span>
+                  </div>
+                  <button className='like-button'>Follow</button>
+                </li>
+              ))}
             </div>
           </div>
         </ModalWrapper>
@@ -66,30 +76,24 @@ const ModalWrapper = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 2;
-
-  .modal_ {
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 20;
+  .modal {
     background-color: white;
     position: absolute;
-    z-index: 1;
-    text-align: center;
-    top: 30%;
+    z-index: 3;
+    top: 20%;
     left: 50%;
-    transform: translate(-250px, -70px);
-    width: 500px;
+    transform: translate(-200px, 0);
+    width: 400px;
     height: 400px;
     border-radius: 6px;
     border: 2px solid powderblue;
   }
-  .tags {
-    height: 30px;
-    padding: 5px;
-  }
+
   .top {
     display: flex;
     justify-content: center;
-    padding: 13px 18px 13px 25px;
     border-bottom: 1px solid #ddd;
     font-size: 1.6rem;
     margin-bottom: 14px;
@@ -97,64 +101,84 @@ const ModalWrapper = styled.div`
     align-items: center;
   }
 
-  .modal_name {
+  .modal-name {
     letter-spacing: 1px;
     font-size: 2rem;
-    text-align: center;
   }
 
-  .modal_close {
+  .modal-close {
     position: absolute;
     top: 13px;
     right: 18px;
+    &:hover {
+      cursor: pointer;
+    }
   }
 
-  .modal_group {
+  .modal-group {
     position: relative;
-  }
-  .add_link_form {
     display: flex;
     flex-direction: column;
+  }
+  .like-item {
+    display: flex;
     justify-content: space-between;
-    padding: 0 13px 13px 13px;
-    height: 280px;
+    align-items: center;
+    list-style: none;
+    height: 60px;
   }
-  #form-key {
-    font-size: 16px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    padding: 12px 8px;
-    margin: 0;
-    color: #000;
-    width: 350px;
-    margin-right: 10px;
-    outline: none;
-    height: 165px;
+  .like-avatar {
+    margin-left: 10px;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 60px;
+  }
+  .like-img {
+    border-radius: 50%;
+    border: 1px solid powderblue;
+    width: 45px;
+    height: 45px;
+  }
+  .like-info {
+    display: flex;
     width: 100%;
-    resize: none;
-    &:focus {
-      border: 1px solid dodgerblue;
-    }
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-left: 10px;
   }
-  .add-btn {
-    padding: 5px 30px;
-    border-radius: 5px;
-    color: dodgerblue;
-    font-size: 1.6rem;
+  .like-username {
+    font-size: 1.4rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    padding-top: 8px;
+  }
+  .like-name {
+    font-size: 1.4rem;
+    font-weight: thin;
     letter-spacing: 1px;
-    transition: 200ms ease-out;
+    padding-bottom: 8px;
+    color: #657786;
+  }
+
+  .like-button {
+    height: 30px;
+    width: 90px;
+    border: transparent;
+    border-radius: 50px;
+    background-color: white;
+    border: 1px solid dodgerblue;
+    color: dodgerblue;
     cursor: pointer;
+    margin-right: 15px;
+    transition: 200ms ease-out;
+    font-size: 1.3rem;
+    letter-spacing: 0.9;
     &:hover {
       background-color: #e8f4fb;
-      border: 1px solid dodgerblue;
     }
-  }
-
-  .modal_close:hover {
-    cursor: pointer;
-  }
-
-  .root-modal-open {
-    filter: blur(7px);
   }
 `

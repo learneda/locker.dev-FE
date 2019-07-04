@@ -167,8 +167,4 @@ const ModalWrapper = styled.div`
   .modal_close:hover {
     cursor: pointer;
   }
-
-  .root-modal-open {
-    filter: blur(7px);
-  }
 `
