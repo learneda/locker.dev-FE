@@ -76,18 +76,16 @@ const ProfileSettings = props => {
     if (file) {
       if (name === 'profile_pic') {
         // set state on selected file
-        setPhoto({ ...photo, avatar: file })
         // https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Showing_thumbnails_of_user-selected_images
         const reader = new FileReader()
         reader.onload = e => {
-          setPhoto({ ...photo, avatarSrc: e.target.result })
+          setPhoto({ ...photo, avatar: file, avatarSrc: e.target.result })
         }
         reader.readAsDataURL(file)
       } else {
-        setPhoto({ ...photo, header: file })
         const reader = new FileReader()
         reader.onload = e => {
-          setPhoto({ ...photo, headerSrc: e.target.result })
+          setPhoto({ ...photo, header: file, headerSrc: e.target.result })
         }
         reader.readAsDataURL(file)
       }
@@ -101,18 +99,15 @@ const ProfileSettings = props => {
   const handleDropZone = (file, type) => {
     // set state on selected file
     if (type === 'profile') {
-      setPhoto({ ...photo, avatar: file })
       const reader = new FileReader()
-
       reader.onload = e => {
-        setPhoto({ ...photo, avatarSrc: e.target.result })
+        setPhoto({ ...photo, avatar: file, avatarSrc: e.target.result })
       }
       reader.readAsDataURL(file)
     } else {
-      setPhoto({ ...photo, header: file })
       const reader = new FileReader()
       reader.onload = e => {
-        setPhoto({ ...photo, headerSrc: e.target.result })
+        setPhoto({ ...photo, header: file, headerSrc: e.target.result })
       }
       reader.readAsDataURL(file)
     }
