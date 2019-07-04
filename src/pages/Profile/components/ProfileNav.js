@@ -4,7 +4,15 @@ import { NavLink, Link, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import { smartTruncate } from 'styles'
 
-const ProfileNav = ({ auth, user, match, location }) => {
+const ProfileNav = ({
+  auth,
+  user,
+  match,
+  location,
+  postCount,
+  followingCount,
+  followerCount,
+}) => {
   const [isSmallAvatar, setIsSmallAvatar] = useState(false)
 
   const shrinkAvatar = e => {
@@ -59,14 +67,27 @@ const ProfileNav = ({ auth, user, match, location }) => {
                 location.pathname === `/profile/${user.id}` ? 'active' : null
               }
             >
-              Posts
+              <div className='navlink-item'>
+                <div>Posts</div>
+                <span className='count'>{postCount}</span>
+              </div>
             </NavLink>
           </Tab>
           <Tab>
-            <NavLink to={`${match.url}/following`}>Following</NavLink>
+            <NavLink to={`${match.url}/following`}>
+              <div className='navlink-item'>
+                <div>Following</div>
+                <span className='count'>{followingCount}</span>
+              </div>
+            </NavLink>
           </Tab>
           <Tab>
-            <NavLink to={`${match.url}/followers`}>Followers</NavLink>
+            <NavLink to={`${match.url}/followers`}>
+              <div className='navlink-item'>
+                <div>Followers</div>
+                <span className='count'>{followerCount}</span>
+              </div>
+            </NavLink>
           </Tab>
           {/* <Tab>
             <NavLink to={`${match.url}/likes`}>Likes</NavLink>
@@ -108,6 +129,15 @@ const Nav = styled.nav`
   border-bottom: 1px solid #bfbfbf;
   top: 50px;
   z-index: 4;
+  .navlink-item{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .count {
+    align-self: center;
+    font-size: 17px;
+    }
   .nav-container {
     max-width: 1200px;
     width: 100%;

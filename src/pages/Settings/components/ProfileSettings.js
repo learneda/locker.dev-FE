@@ -42,7 +42,6 @@ const ProfileSettings = props => {
       const fd = new FormData()
       fd.append('profile_pic', selectedFile, selectedFile.name)
       axios.post(`/images`, fd).then(res => {
-        // console.log('profile is okay i think', res.data)
         if (res.data.success) {
           // update redux store here
           store.dispatch({
@@ -57,7 +56,6 @@ const ProfileSettings = props => {
       fd.append('profile_pic', selectedHeader, selectedHeader.name)
       axios.post(`/images/header`, fd).then(res => {
         if (res.data.success) {
-          // console.log('wtf is this ?', res.data.user.header_picture)
           if (res.data.user.header_picture) {
             // update redux store here
             store.dispatch({
@@ -99,7 +97,6 @@ const ProfileSettings = props => {
         if (type === 'profile') {
           // set state on selected file
           setSelectedFile(e.target.files[0])
-          // read more on =>
           // https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Showing_thumbnails_of_user-selected_images
           const reader = new FileReader()
 
@@ -122,8 +119,6 @@ const ProfileSettings = props => {
 
           reader.readAsDataURL(e.target.files[0])
         }
-
-        // console.log(this.image.current.src)
       } else {
         window.alert('Only JPEG, PNG, or GIF file types allowed')
       }
