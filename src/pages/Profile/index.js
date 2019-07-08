@@ -60,7 +60,6 @@ const Profile = props => {
 
   const isFollowed = () => {
     const followingIds = social.following.map(ele => ele.id)
-    // console.log('followingIds', followingIds)
     return followingIds.includes(profile.other.id)
   }
 

@@ -19,7 +19,6 @@ const Items = props => {
     window.scrollTo(0, 0)
     // If type is video, resets iFrame on initial mount
     if (type === 'video') {
-      console.log('trying to reset iframe')
       resetIframe()
     }
     return () => {
@@ -33,7 +32,7 @@ const Items = props => {
       // Resets offset on search change
       const offset = setOffset(type)
 
-      // Video (YouTube) is unique; Initial offset not defined
+      // Video (YouTube) is unique => its initial offset not defined
       if (type === 'video') {
         await search(searchTerm)
       } else {
@@ -41,15 +40,18 @@ const Items = props => {
       }
     }
     // Prevents search on initial mount
+    //? There must be a better way.
     if (didMount) {
       asyncSearchItems()
     }
-    // After mount, didMount is true
+    // After mount, didMount is true and stays true.
     setDidMount(true)
   }, [throttledSearch])
 
   // hasMore false only when searchQuery returns no matches
   const hasMore = !Boolean(searchTerm) || Boolean(items.length)
+  // const hasMore = Boolean(items.length)
+
   // fetchMore logic
   const next = () => fetch(searchTerm, offset)
 

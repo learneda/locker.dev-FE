@@ -109,7 +109,9 @@ const Card = props => {
         </div>
       )}
       <div className='card-content'>
-        <h3>{smartTruncate(item.title, cropTitle)}</h3>
+        <a href={item.url} target='_blank' rel='noopener noreferrer'>
+          <h3>{smartTruncate(item.title, cropTitle)}</h3>
+        </a>
         <p>{smartTruncate(item.description, cropDesc)}</p>
       </div>
       <div className='card-bar'>
@@ -174,6 +176,7 @@ const Container = styled.div`
       overflow: hidden;
       word-break: break-word;
       padding: 6px 10px 0px;
+      cursor: pointer;
     }
     p {
       padding: 10px 10px 5px;
