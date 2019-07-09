@@ -85,8 +85,8 @@ const Card = props => {
       return
   }
 
-  const cropTitle = isSingle ? 100 : 80
-  const cropDesc = isSingle ? 190 : 135
+  const cropTitle = isSingle ? 100 : 73
+  const cropDesc = isSingle ? 190 : 150
 
   return (
     <Container>
@@ -140,7 +140,7 @@ const Container = styled.div`
   position: relative;
   flex-direction: column;
   width: 358px;
-  height: 360px;
+  height: 365px;
   margin: 15px 20px;
   border-radius: 6px;
   background-color: #fff;
@@ -170,8 +170,9 @@ const Container = styled.div`
     h3 {
       color: rgb(51, 51, 51);
       font-size: 1.6rem;
-      font-weight: 600;
-      line-height: 25px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      line-height: 21px;
       max-height: 50px;
       overflow: hidden;
       word-break: break-word;
@@ -187,7 +188,7 @@ const Container = styled.div`
       line-height: 2rem;
       max-height: 7.2rem;
       overflow: hidden;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       color: #6d767e;
     }
   }
@@ -199,7 +200,7 @@ const Container = styled.div`
     bottom: 0px;
     height: 50px;
     width: 100%;
-    margin-bottom: 4px;
+    margin-bottom: 10px;
     .card-attribution-bar {
       padding: 0 10px;
     }
