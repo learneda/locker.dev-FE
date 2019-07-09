@@ -6,17 +6,17 @@ import useOnClickOutside from 'use-onclickoutside'
 import { ReactComponent as X } from 'assets/svg/x.svg'
 import axios from 'apis/axiosAPI'
 
-const LikeModal = props => {
-  const { setActive, postId } = props
+const FeedModal = props => {
+  const { setActive, postId, type } = props
   const modalRef = useRef()
-  const [likes, setLikes] = useState([])
+  const [items, setItems] = useState([])
 
   // detect clicks outside of modalRef
   useOnClickOutside(modalRef, () => setActive(false))
 
   useEffect(() => {
-    axios.post('/posts/like/users', { post_id: postId }).then(res => {
-      setLikes(res.data)
+    axios.post(`/posts/${type}/users`, { post_id: postId }).then(res => {
+      setItems(res.data)
     })
   }, [])
 
@@ -33,26 +33,28 @@ const LikeModal = props => {
         >
           <div ref={modalRef} className='modal'>
             <div className='top'>
-              <div className='modal-name'>Likes</div>
+              <div className='modal-name'>
+                {type[0].toUpperCase() + type.slice(1)}
+              </div>
               <div className='modal-close' onClick={() => setActive(false)}>
                 <X />
               </div>
             </div>
             <div className='modal-group'>
-              {likes.map((like, index) => (
-                <li key={index} className='like-item'>
-                  <div className='like-avatar'>
+              {items.map((item, index) => (
+                <li key={index} className='type-item'>
+                  <div className='type-avatar'>
                     <img
-                      className='like-img'
-                      src={like.profile_picture}
+                      className='type-img'
+                      src={item.profile_picture}
                       alt='avatar'
                     />
                   </div>
-                  <div className='like-info'>
-                    <span className='like-username'>{like.username}</span>
-                    <span className='like-name'>{like.display_name}</span>
+                  <div className='type-info'>
+                    <span className='type-username'>{item.username}</span>
+                    <span className='type-name'>{item.display_name}</span>
                   </div>
-                  <button className='like-button'>Follow</button>
+                  <button className='type-button'>Follow</button>
                 </li>
               ))}
             </div>
@@ -63,9 +65,9 @@ const LikeModal = props => {
   )
 }
 
-export default LikeModal
+export default FeedModal
 
-LikeModal.propTypes = {
+FeedModal.propTypes = {
   setActive: PropTypes.func.isRequired,
   postId: PropTypes.number.isRequired,
 }
@@ -120,14 +122,14 @@ const ModalWrapper = styled.div`
     display: flex;
     flex-direction: column;
   }
-  .like-item {
+  .type-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     list-style: none;
     height: 60px;
   }
-  .like-avatar {
+  .type-avatar {
     margin-left: 10px;
     overflow: hidden;
     height: 100%;
@@ -136,13 +138,13 @@ const ModalWrapper = styled.div`
     align-items: center;
     min-width: 60px;
   }
-  .like-img {
+  .type-img {
     border-radius: 50%;
     border: 1px solid powderblue;
     width: 45px;
     height: 45px;
   }
-  .like-info {
+  .type-info {
     display: flex;
     width: 100%;
     height: 100%;
@@ -150,13 +152,13 @@ const ModalWrapper = styled.div`
     justify-content: space-evenly;
     margin-left: 10px;
   }
-  .like-username {
+  .type-username {
     font-size: 1.4rem;
     font-weight: bold;
     letter-spacing: 1.5px;
     padding-top: 8px;
   }
-  .like-name {
+  .type-name {
     font-size: 1.4rem;
     font-weight: thin;
     letter-spacing: 1px;
@@ -164,7 +166,7 @@ const ModalWrapper = styled.div`
     color: #657786;
   }
 
-  .like-button {
+  .type-button {
     height: 30px;
     width: 90px;
     border: transparent;

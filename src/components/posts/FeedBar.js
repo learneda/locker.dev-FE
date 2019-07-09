@@ -4,13 +4,14 @@ import CommentSVG from 'assets/react-svg/CommentSVG'
 import HeartSVG from 'assets/react-svg/HeartSVG'
 import PonySVG from 'assets/react-svg/PonySVG'
 import styled from 'styled-components'
-import LikeModal from './LikeModal'
+import FeedModal from './FeedModal'
 
 const FeedBar = props => {
   const { user_id, username, post, handleClick, handlePony } = props
   const [heart, setHeart] = useState(false)
   const [pony, setPony] = useState(false)
   const [isLikeModal, setLikeModal] = useState(false)
+  const [isPonyModal, setPonyModal] = useState(false)
 
   useEffect(() => {
     if (post) {
@@ -70,7 +71,12 @@ const FeedBar = props => {
 
   return (
     <Container>
-      {isLikeModal && <LikeModal setActive={setLikeModal} postId={post.id} />}
+      {isLikeModal && (
+        <FeedModal type='likes' setActive={setLikeModal} postId={post.id} />
+      )}
+      {isPonyModal && (
+        <FeedModal type='ponies' setActive={setPonyModal} postId={post.id} />
+      )}
       <div className='wrap'>
         <span className='svg'>
           <CommentSVG active={post.comments.length} />
@@ -86,7 +92,12 @@ const FeedBar = props => {
         >
           <HeartSVG active={heart} />
         </span>
-        <span className='count' onClick={() => setLikeModal(true)}>
+        <span
+          className='count'
+          onClick={() => {
+            if (!!post.likes) setLikeModal(true)
+          }}
+        >
           {post.likes}
         </span>
       </div>
@@ -99,7 +110,14 @@ const FeedBar = props => {
         >
           <PonySVG active={pony} />
         </span>
-        <span className='count'>{post.ponyCount}</span>
+        <span
+          className='count'
+          onClick={() => {
+            if (!!post.ponyCount) setPonyModal(true)
+          }}
+        >
+          {post.ponyCount}
+        </span>
       </div>
     </Container>
   )

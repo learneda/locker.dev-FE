@@ -51,7 +51,7 @@ const Container = styled.div`
     font-size: 2.2rem;
     line-height: 2.6rem;
     letter-spacing: 0.5px;
-    transition: 100ms ease;
+    transition: color 300ms ease;
     &:hover {
       color: dodgerblue;
     }
@@ -72,7 +72,7 @@ const TagBar = styled.div`
     font-size: 1.6rem;
     letter-spacing: 1.5px;
     padding-right: 10px;
-    transition: color 0.2s ease;
+    transition: color 0.3s ease;
     &:hover {
       color: dodgerblue;
     }

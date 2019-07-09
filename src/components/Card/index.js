@@ -177,6 +177,9 @@ const Container = styled.div`
       word-break: break-word;
       padding: 6px 10px 0px;
       cursor: pointer;
+      &:hover {
+        color: dodgerblue;
+      }
     }
     p {
       padding: 10px 10px 5px;
