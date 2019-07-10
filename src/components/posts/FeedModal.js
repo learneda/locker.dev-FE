@@ -20,43 +20,42 @@ const FeedModal = props => {
     })
   }, [])
 
+  const closeOnEsc = e => {
+    if (e.which === 27) {
+      setActive(false)
+    }
+  }
+
+  const printTitle = type => {
+    return type[0].toUpperCase() + type.slice(1)
+  }
+
+  const renderItemList = items => {
+    return items.map((item, index) => (
+      <li key={index} className='type-item'>
+        <div className='type-avatar'>
+          <img className='type-img' src={item.profile_picture} alt='avatar' />
+        </div>
+        <div className='type-info'>
+          <span className='type-username'>{item.username}</span>
+          <span className='type-name'>{item.display_name}</span>
+        </div>
+        <button className='type-button'>Follow</button>
+      </li>
+    ))
+  }
+
   return (
     <ReuseablePortal>
-      <ModalWrapper
-        className='modal-wrapper'
-        onKeyDownCapture={e => {
-          if (e.which === 27) {
-            setActive(false)
-          }
-        }}
-      >
-        <div ref={modalRef} className='modal'>
-          <div className='top'>
-            <div className='modal-name'>
-              {type[0].toUpperCase() + type.slice(1)}
-            </div>
+      <ModalWrapper className='modal-wrapper' onKeyDownCapture={closeOnEsc}>
+        <div ref={modalRef} className='modal-main'>
+          <div className='modal-top'>
+            <div className='modal-title'>{printTitle(type)}</div>
             <div className='modal-close' onClick={() => setActive(false)}>
               <X />
             </div>
           </div>
-          <div className='modal-group'>
-            {items.map((item, index) => (
-              <li key={index} className='type-item'>
-                <div className='type-avatar'>
-                  <img
-                    className='type-img'
-                    src={item.profile_picture}
-                    alt='avatar'
-                  />
-                </div>
-                <div className='type-info'>
-                  <span className='type-username'>{item.username}</span>
-                  <span className='type-name'>{item.display_name}</span>
-                </div>
-                <button className='type-button'>Follow</button>
-              </li>
-            ))}
-          </div>
+          <div className='modal-content'>{renderItemList(items)}</div>
         </div>
       </ModalWrapper>
     </ReuseablePortal>
@@ -66,6 +65,7 @@ const FeedModal = props => {
 export default FeedModal
 
 FeedModal.propTypes = {
+  type: PropTypes.string.isRequired,
   setActive: PropTypes.func.isRequired,
   postId: PropTypes.number.isRequired,
 }
@@ -78,7 +78,7 @@ const ModalWrapper = styled.div`
   left: 0;
   background: rgba(0, 0, 0, 0.75);
   z-index: 20;
-  .modal {
+  .modal-main {
     background-color: white;
     position: absolute;
     z-index: 3;
@@ -91,7 +91,7 @@ const ModalWrapper = styled.div`
     border: 2px solid powderblue;
   }
 
-  .top {
+  .modal-top {
     display: flex;
     justify-content: center;
     border-bottom: 1px solid #ddd;
@@ -101,7 +101,7 @@ const ModalWrapper = styled.div`
     align-items: center;
   }
 
-  .modal-name {
+  .modal-title {
     letter-spacing: 1px;
     font-size: 2rem;
   }
@@ -115,7 +115,7 @@ const ModalWrapper = styled.div`
     }
   }
 
-  .modal-group {
+  .modal-content {
     position: relative;
     display: flex;
     flex-direction: column;
