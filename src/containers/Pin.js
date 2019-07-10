@@ -21,6 +21,11 @@ const Pin = props => {
       setPinned(false)
     }
   }, [props.location.pathname, searchTerm])
+  const handleClick = e => {
+    const text = e.target.innerText
+    const num = text === 'tommorrow' ? 1 : text === 'one week' ? 2 : 3
+    // this.function(num)
+  }
   return (
     <>
       {isDropdown ? (
@@ -39,6 +44,7 @@ const Pin = props => {
               { text: 'one week' },
               { text: 'this.month' },
             ]}
+            handleClick={handleClick}
           />
         </Container>
       ) : (

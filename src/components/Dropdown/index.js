@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const Dropdown = ({ items }) => {
+const Dropdown = ({ items, handleClick }) => {
   const renderItems = items => {
     return items.map((item, index) => <li key={index}>{item.text}</li>)
   }
-  return <List>{renderItems(items)}</List>
+  return <List onClick={handleClick}>{renderItems(items)}</List>
 }
 
 Dropdown.propTypes = {

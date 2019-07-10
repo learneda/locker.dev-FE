@@ -77,7 +77,16 @@ const Items = props => {
                 resetIframe={resetIframe}
               />
             ))
-            .concat(mod === 2 ? <EmptyCard key={items.length} /> : null)}
+            .concat(
+              mod === 2 ? (
+                <EmptyCard key={items.length} />
+              ) : mod === 1 ? (
+                [
+                  <EmptyCard key={items.length} />,
+                  <EmptyCard key={items.length + 1} />,
+                ]
+              ) : null
+            )}
       </InfiniteScroll>
     </Cards>
   )
