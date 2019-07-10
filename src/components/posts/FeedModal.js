@@ -21,47 +21,45 @@ const FeedModal = props => {
   }, [])
 
   return (
-    <div>
-      <ReuseablePortal>
-        <ModalWrapper
-          className='modal-wrapper'
-          onKeyDownCapture={e => {
-            if (e.which === 27) {
-              setActive(false)
-            }
-          }}
-        >
-          <div ref={modalRef} className='modal'>
-            <div className='top'>
-              <div className='modal-name'>
-                {type[0].toUpperCase() + type.slice(1)}
-              </div>
-              <div className='modal-close' onClick={() => setActive(false)}>
-                <X />
-              </div>
+    <ReuseablePortal>
+      <ModalWrapper
+        className='modal-wrapper'
+        onKeyDownCapture={e => {
+          if (e.which === 27) {
+            setActive(false)
+          }
+        }}
+      >
+        <div ref={modalRef} className='modal'>
+          <div className='top'>
+            <div className='modal-name'>
+              {type[0].toUpperCase() + type.slice(1)}
             </div>
-            <div className='modal-group'>
-              {items.map((item, index) => (
-                <li key={index} className='type-item'>
-                  <div className='type-avatar'>
-                    <img
-                      className='type-img'
-                      src={item.profile_picture}
-                      alt='avatar'
-                    />
-                  </div>
-                  <div className='type-info'>
-                    <span className='type-username'>{item.username}</span>
-                    <span className='type-name'>{item.display_name}</span>
-                  </div>
-                  <button className='type-button'>Follow</button>
-                </li>
-              ))}
+            <div className='modal-close' onClick={() => setActive(false)}>
+              <X />
             </div>
           </div>
-        </ModalWrapper>
-      </ReuseablePortal>
-    </div>
+          <div className='modal-group'>
+            {items.map((item, index) => (
+              <li key={index} className='type-item'>
+                <div className='type-avatar'>
+                  <img
+                    className='type-img'
+                    src={item.profile_picture}
+                    alt='avatar'
+                  />
+                </div>
+                <div className='type-info'>
+                  <span className='type-username'>{item.username}</span>
+                  <span className='type-name'>{item.display_name}</span>
+                </div>
+                <button className='type-button'>Follow</button>
+              </li>
+            ))}
+          </div>
+        </div>
+      </ModalWrapper>
+    </ReuseablePortal>
   )
 }
 

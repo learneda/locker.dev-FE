@@ -22,54 +22,52 @@ const ShareModal = props => {
   }, [isActive])
 
   return isActive ? (
-    <div>
-      <ReuseablePortal>
-        <ModalWrapper
-          className='modal-wrapper'
-          onKeyDownCapture={e => {
-            if (e.which === 27) {
-              setIsActive()
-            }
-          }}
-        >
-          <div ref={modalRef} className='modal_'>
-            <div className='top'>
-              <div className='modal_name'>Share to Feed</div>
-              <div className='modal_close' onClick={setIsActive}>
-                <X />
-              </div>
-            </div>
-            <div className='modal_group'>
-              <form
-                className='add_link_form'
-                onSubmit={e => {
-                  e.preventDefault()
-                  handleSubmit(textArea, tags)
-                }}
-              >
-                <textarea
-                  id='form-key'
-                  placeholder='... add thought'
-                  value={textArea}
-                  type='text'
-                  onChange={e => setTextArea(e.target.value)}
-                  ref={textareaRef}
-                  required
-                />
-                <label>Attach Tags</label>
-                <input
-                  value={tags}
-                  className='tags'
-                  placeholder='#tag #locker'
-                  onChange={e => setTags(e.target.value)}
-                />
-                <button className='add-btn'>Add</button>
-              </form>
+    <ReuseablePortal>
+      <ModalWrapper
+        className='modal-wrapper'
+        onKeyDownCapture={e => {
+          if (e.which === 27) {
+            setIsActive()
+          }
+        }}
+      >
+        <div ref={modalRef} className='modal_'>
+          <div className='top'>
+            <div className='modal_name'>Share to Feed</div>
+            <div className='modal_close' onClick={setIsActive}>
+              <X />
             </div>
           </div>
-        </ModalWrapper>
-      </ReuseablePortal>
-    </div>
+          <div className='modal_group'>
+            <form
+              className='add_link_form'
+              onSubmit={e => {
+                e.preventDefault()
+                handleSubmit(textArea, tags)
+              }}
+            >
+              <textarea
+                id='form-key'
+                placeholder='... add thought'
+                value={textArea}
+                type='text'
+                onChange={e => setTextArea(e.target.value)}
+                ref={textareaRef}
+                required
+              />
+              <label>Attach Tags</label>
+              <input
+                value={tags}
+                className='tags'
+                placeholder='#tag #locker'
+                onChange={e => setTags(e.target.value)}
+              />
+              <button className='add-btn'>Add</button>
+            </form>
+          </div>
+        </div>
+      </ModalWrapper>
+    </ReuseablePortal>
   ) : null
 }
 

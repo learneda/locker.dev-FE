@@ -1,8 +1,8 @@
-import React, { Component, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
 function usePortal() {
-  const rootElemRef = React.useRef(null)
+  const rootElemRef = useRef(null)
 
   const getRef = () => {
     // avoids re-creating useRef's initial value when not being used
