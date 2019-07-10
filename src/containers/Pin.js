@@ -7,13 +7,18 @@ import Dropdown from 'components/Dropdown'
 
 const Pin = props => {
   const [isDropdown, setDropdown] = useState(false)
+  const [isPinned, setPinned] = useState(false)
+
   return (
     <div>
       {isDropdown ? (
         <Container
           className='dropdown-wrapper'
           onMouseLeave={() => setDropdown(false)}
-          onClick={() => setDropdown(false)}
+          onClick={() => {
+            setDropdown(false)
+            setPinned(true)
+          }}
         >
           <Dropdown
             items={[
@@ -25,7 +30,7 @@ const Pin = props => {
         </Container>
       ) : (
         <Wrapper isDropdown={isDropdown} onClick={() => setDropdown(true)}>
-          <PinSVG active={true} />
+          <PinSVG active={isPinned} />
         </Wrapper>
       )}
     </div>
@@ -36,7 +41,11 @@ Pin.propTypes = {}
 
 export default Pin
 const Container = styled.div`
-  height: 100%;
+  opacity: 0;
+  transition: all 400ms ease;
+  &:hover {
+    opacity: 1;
+  }
 `
 
 const Wrapper = styled.div`
