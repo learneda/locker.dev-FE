@@ -29,7 +29,11 @@ const Pin = props => {
           />
         </Container>
       ) : (
-        <Wrapper isDropdown={isDropdown} onClick={() => setDropdown(true)}>
+        <Wrapper
+          isDropdown={isDropdown}
+          isPinned={isPinned}
+          onClick={() => setDropdown(true)}
+        >
           <PinSVG active={isPinned} />
         </Wrapper>
       )}
@@ -46,11 +50,17 @@ const Container = styled.div`
   right: 0px;
   z-index: 1;
   background-color: white;
-  opacity: 0;
-  transition: all 400ms ease;
   border: 1px solid powderblue;
-  &:hover {
-    opacity: 1;
+  animation: grow 300ms ease;
+  @keyframes grow {
+    0% {
+      opacity: 0.6;
+      transform: scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 `
 
@@ -62,13 +72,14 @@ const Wrapper = styled.div`
   padding: 10px;
   border-radius: 50%;
   overflow: hidden;
-  /* border: 2px solid powderblue; */
+  opacity: ${({ isPinned }) => (isPinned ? '1' : '0.65')};
   background-color: #fdfdfd;
   ${elevations[1]};
-  transition: all 300ms ease;
+  transition: all 250ms ease;
   cursor: pointer;
   &:hover {
-    transform: scale(1.1);
+    opacity: 1;
+    transform: scale(1.05);
     ${elevations[2]};
   }
 `
