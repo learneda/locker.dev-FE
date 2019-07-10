@@ -108,11 +108,13 @@ const App = props => {
   const showNavbar = () => {
     return auth && window.location.pathname !== '/success'
   }
+
   return (
     <Container>
       <CSSReset />
       <CSSTransitions />
       {showNavbar() && <Navbar />}
+
       <Suspense fallback={null}>
         <Switch>
           <Route exact path='/' component={index(Home)} />
@@ -151,6 +153,7 @@ App.propTypes = {
 }
 
 const Container = styled.div`
+  position: relative;
   width: 100%;
   color: #141619;
   background-color: #e6ecf0;

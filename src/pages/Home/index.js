@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { useDispatch } from 'react-redux'
+import CookieBanner from 'react-cookie-banner'
 import styled from 'styled-components'
 import Feed from 'containers/Feed'
 import Sidebar from 'components/sidebar/Sidebar'
@@ -50,8 +51,60 @@ const Home = props => {
     return () => dispatch({ type: 'RESET_POSTS' })
   }, [])
 
+  const message =
+    'This site uses cookies to provide you with a great user experience. By using LearnLocker, you accept our use of cookies.'
+
+  const styles = {
+    banner: {
+      height: 60,
+      position: 'fixed',
+      left: '0px',
+      bottom: '0px',
+      background: '#e8f4fb  20px 50% no-repeat',
+      fontSize: '1.4rem',
+      fontWeight: 'thin',
+      display: 'flex',
+      alignItems: 'center',
+      borderTop: '1px solid powderblue',
+    },
+    button: {
+      border: '1px solid dodgerblue',
+      borderRadius: 4,
+      width: 66,
+      height: 32,
+      lineHeight: '32px',
+      background: 'transparent',
+      color: 'dodgerblue',
+      fontSize: '14px',
+      fontWeight: 600,
+      opacity: 1,
+      right: 20,
+      marginTop: -18,
+    },
+    message: {
+      display: 'block',
+      padding: '9px 67px',
+      lineHeight: 1.5,
+      textAlign: 'left',
+      marginRight: 244,
+      color: '#141619',
+    },
+    link: {
+      textDecoration: 'none',
+      fontWeight: 'bold',
+      color: 'orangered',
+      fontSize: '1.2rem',
+    },
+  }
   return (
     <Container>
+      <CookieBanner
+        dismissOnScrollThreshold={10}
+        message={message}
+        styles={styles}
+        dismissOnScrollThreshold={10}
+        link={<a href='#'>Cookie Policy</a>}
+      />
       <WrapperLeft>
         <Sidebar
           auth={auth}
