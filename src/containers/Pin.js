@@ -41,8 +41,13 @@ Pin.propTypes = {}
 
 export default Pin
 const Container = styled.div`
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: white;
   opacity: 0;
   transition: all 400ms ease;
+  border: 1px solid powderblue;
   &:hover {
     opacity: 1;
   }
@@ -55,7 +60,6 @@ const Wrapper = styled.div`
   padding: 10px;
   border-radius: 50%;
   overflow: hidden;
-  /* border: 1px solid cornflowerblue; */
   /* border: 2px solid powderblue; */
   background-color: #fdfdfd;
   ${elevations[1]};

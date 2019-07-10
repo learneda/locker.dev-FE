@@ -16,10 +16,6 @@ Dropdown.propTypes = {
 export default Dropdown
 
 const List = styled.ul`
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  background-color: white;
   li {
     font-size: 1.4rem;
     font-weight: thin;
