@@ -66,6 +66,11 @@ const Locker = props => {
             .concat(
               mod === 2 ? (
                 <EmptyCard key={filterTypeCollections.length} />
+              ) : mod === 1 ? (
+                [
+                  <EmptyCard key={filterTypeCollections.length} />,
+                  <EmptyCard key={filterTypeCollections.length + 1} />,
+                ]
               ) : null
             )}
         </Container>
