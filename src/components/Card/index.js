@@ -8,6 +8,7 @@ import CoverPodcast from './CoverPodcast'
 import CoverVideo from './CoverVideo'
 import AttributionBar from 'components/Bars/AttributionBar'
 import ActionBar from 'containers/ActionBar'
+import Pin from 'containers/Pin'
 import he from 'he'
 
 const Card = props => {
@@ -90,6 +91,7 @@ const Card = props => {
 
   return (
     <Container>
+      <Pin />
       {type === 'book' ? (
         <CoverBook item={item} />
       ) : type === 'podcast' ? (
