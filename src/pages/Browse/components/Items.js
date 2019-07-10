@@ -4,11 +4,13 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { withRouter } from 'react-router-dom'
 import { useThrottle } from 'use-throttle'
 import Card from 'components/Card/index'
+import EmptyCard from 'components/Card/EmptyCard'
 import EndMessage from './EndMessage'
 import styled from 'styled-components'
 import { setOffset } from 'helpers'
 
 const Items = props => {
+  const columns = 3
   const { type, items, searchTerm, offset, fetch, search, location } = props
   const { showIframe, resetIframe } = props
   const [didMount, setDidMount] = useState(false)
@@ -54,7 +56,8 @@ const Items = props => {
 
   // fetchMore logic
   const next = () => fetch(searchTerm, offset)
-
+  const mod = items.length % columns
+  console.log('MOD', mod)
   return (
     <Cards>
       <InfiniteScroll
@@ -65,15 +68,17 @@ const Items = props => {
         endMessage={<EndMessage />}
       >
         {Array.isArray(items) &&
-          items.map((item, index) => (
-            <Card
-              type={type}
-              key={index}
-              item={item}
-              showIframe={showIframe}
-              resetIframe={resetIframe}
-            />
-          ))}
+          items
+            .map((item, index) => (
+              <Card
+                type={type}
+                key={index}
+                item={item}
+                showIframe={showIframe}
+                resetIframe={resetIframe}
+              />
+            ))
+            .concat(mod === 2 ? <EmptyCard key={items.length} /> : null)}
       </InfiniteScroll>
     </Cards>
   )

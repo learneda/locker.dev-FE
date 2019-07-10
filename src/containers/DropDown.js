@@ -57,7 +57,7 @@ DropDown.propTypes = {
 }
 const StyledDropDown = styled.div`
   position: absolute;
-  width: 180px;
+  width: 140px;
   bottom: 45px;
   right: 0px;
   z-index: 1;

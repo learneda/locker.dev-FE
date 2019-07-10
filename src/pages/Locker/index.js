@@ -8,10 +8,13 @@ import BookmarkSVG from 'assets/svg/bookmark-drawing.svg'
 import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
 import SubNav from 'components/Bars/SubNav'
 import Card from 'components/Card/index'
+import EmptyCard from 'components/Card/EmptyCard'
+
 import { pickType } from 'helpers'
 import { fetchCollections } from 'actions'
 
 const Locker = props => {
+  const columns = 3
   const { location } = props
   const [typeFilter, setTypeFilter] = useState('')
 
@@ -50,15 +53,21 @@ const Locker = props => {
         return post.type_id === typeFilter
       }
     })
-
+    const mod = filterTypeCollections.length % columns
     return (
       <>
         <ScrollToTopOnMount />
         <SubNav />
         <Container>
-          {filterTypeCollections.map((post, index) => {
-            return <Card type='locker' key={index} item={post} />
-          })}
+          {filterTypeCollections
+            .map((post, index) => {
+              return <Card type='locker' key={index} item={post} />
+            })
+            .concat(
+              mod === 2 ? (
+                <EmptyCard key={filterTypeCollections.length} />
+              ) : null
+            )}
         </Container>
       </>
     )
