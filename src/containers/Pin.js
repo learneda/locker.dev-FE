@@ -1,23 +1,36 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
+import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { elevations } from 'styles/utils'
 import PinSVG from 'assets/react-svg/PinSVG.js'
 import Dropdown from 'components/Dropdown'
+import { useSelector } from 'react-redux'
+import useOnClickOutside from 'use-onclickoutside'
 
 const Pin = props => {
+  const dropdownRef = useRef()
+  const searchTerm = useSelector(({ search }) => search.searchTerm)
   const [isDropdown, setDropdown] = useState(false)
   const [isPinned, setPinned] = useState(false)
+  useOnClickOutside(dropdownRef, () => setDropdown(false))
 
+  useEffect(() => {
+    return () => {
+      setDropdown(false)
+      setPinned(false)
+    }
+  }, [props.location.pathname, searchTerm])
   return (
     <>
       {isDropdown ? (
         <Container
           className='dropdown-wrapper'
+          ref={dropdownRef}
           onMouseLeave={() => setDropdown(false)}
           onClick={() => {
-            setDropdown(false)
             setPinned(true)
+            setDropdown(false)
           }}
         >
           <Dropdown
@@ -43,7 +56,7 @@ const Pin = props => {
 
 Pin.propTypes = {}
 
-export default Pin
+export default withRouter(Pin)
 const Container = styled.div`
   position: absolute;
   top: 0px;
@@ -66,13 +79,13 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   position: absolute;
-  top: ${({ isDropdown }) => (isDropdown ? '0px' : '10px')};
-  right: ${({ isDropdown }) => (isDropdown ? '0px' : '10px')};
+  top: ${props => (props.isDropdown ? '0px' : '10px')};
+  right: ${props => (props.isDropdown ? '0px' : '10px')};
   z-index: 1;
   padding: 10px;
   border-radius: 50%;
   overflow: hidden;
-  opacity: ${({ isPinned }) => (isPinned ? '1' : '0.65')};
+  opacity: ${props => (props.isPinned ? '1' : '0.65')};
   background-color: #fdfdfd;
   ${elevations[1]};
   transition: all 250ms ease;

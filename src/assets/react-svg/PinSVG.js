@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 const PinSVG = ({ active }) => {
-  const color = active ? 'orangered' : 'dodgerblue'
+  const color = active ? 'orangered' : 'black'
   return (
     <svg
       style={{ position: 'relative', top: 1 }}
