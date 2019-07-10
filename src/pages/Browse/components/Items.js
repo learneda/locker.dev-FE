@@ -57,7 +57,6 @@ const Items = props => {
   // fetchMore logic
   const next = () => fetch(searchTerm, offset)
   const mod = items.length % columns
-  console.log('MOD', mod)
   return (
     <Cards>
       <InfiniteScroll

@@ -10,7 +10,7 @@ const Pin = props => {
   const [isPinned, setPinned] = useState(false)
 
   return (
-    <div>
+    <>
       {isDropdown ? (
         <Container
           className='dropdown-wrapper'
@@ -33,7 +33,7 @@ const Pin = props => {
           <PinSVG active={isPinned} />
         </Wrapper>
       )}
-    </div>
+    </>
   )
 }
 
@@ -44,6 +44,7 @@ const Container = styled.div`
   position: absolute;
   top: 0px;
   right: 0px;
+  z-index: 1;
   background-color: white;
   opacity: 0;
   transition: all 400ms ease;
@@ -57,6 +58,7 @@ const Wrapper = styled.div`
   position: absolute;
   top: ${({ isDropdown }) => (isDropdown ? '0px' : '10px')};
   right: ${({ isDropdown }) => (isDropdown ? '0px' : '10px')};
+  z-index: 1;
   padding: 10px;
   border-radius: 50%;
   overflow: hidden;
