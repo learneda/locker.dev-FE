@@ -27,11 +27,6 @@ const DropDown = props => {
             Mute {smartTruncate(`@${username}`, 15)}
           </li>
         )}
-        {isActive && authId !== userId && (
-          <li className='dropdown-item'>
-            Block {smartTruncate(`@${username}`, 15)}
-          </li>
-        )}
         {authId === userId && (
           <li
             className='dropdown-item'
