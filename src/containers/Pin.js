@@ -21,6 +21,7 @@ const Pin = props => {
       setPinned(false)
     }
   }, [props.location.pathname, searchTerm])
+
   const handleClick = e => {
     const text = e.target.innerText
     const num = text === 'tommorrow' ? 1 : text === 'one week' ? 2 : 3

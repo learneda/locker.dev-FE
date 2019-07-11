@@ -23,9 +23,8 @@ export const selectLogo = url => {
       'alligator',
       'leighhalliday',
     ]
-    const newUrl = url.includes('http') ? url : `http://www.udemy.com${url}`
 
-    const logo = logos.find(logo => newUrl.includes(logo))
+    const logo = logos.find(logo => url.includes(logo))
     switch (logo) {
       case 'youtube':
         return (
@@ -162,23 +161,21 @@ export const selectLogo = url => {
 
 //* Returns a link to rootUrl
 export const printRootUrl = url => {
+  console.log('yes url', url)
   if (!url) {
     return
   }
-  //TODO: FIX UDEMY HACK
-  const newUrl = url.includes('http') ? url : `http://www.udemy.com${url}`
 
   let rootUrl
   try {
-    rootUrl = new URL(newUrl)
+    rootUrl = new URL(url)
   } catch (error) {}
 
-  rootUrl =
-    rootUrl &&
-    rootUrl.hostname.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '').split('/')[0]
+  rootUrl = rootUrl && rootUrl.host.replace(/^www./, '')
 
   return rootUrl && rootUrl.includes('listen') ? null : (
     <a href={`https://${rootUrl}`} target='_blank' rel='noopener noreferrer'>
+      {console.log('cake rootUrl', rootUrl)}
       <span className='attribution-url'>{rootUrl}</span>
     </a>
   )

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as actions from 'actions'
@@ -16,6 +16,7 @@ const ActionBar = props => {
     type,
     authId,
     className,
+    searchTerm,
     location,
     item,
     insertItem,
@@ -31,6 +32,13 @@ const ActionBar = props => {
   const [shareText, setShareText] = useState('Share')
   const [saveText, setSaveText] = useState('Save')
   const [dropDownActive, setDropDownActive] = useState(false)
+
+  useEffect(() => {
+    return () => {
+      setSaveActive(false)
+      setShareActive(false)
+    }
+  }, [location.pathname, searchTerm])
 
   const saveToLocker = async () => {
     if (!insertItem.post_url) {
@@ -188,8 +196,9 @@ ActionBar.propTypes = {
   deletePostFromFeed: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = ({ auth }) => ({
+const mapStateToProps = ({ auth, search }) => ({
   authId: auth.id,
+  searchTerm: search.searchTerm,
 })
 
 export default connect(

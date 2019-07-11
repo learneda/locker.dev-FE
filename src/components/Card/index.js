@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { smartTruncate } from 'styles'
 import { useMedia } from 'use-media'
@@ -9,6 +9,7 @@ import CoverVideo from './CoverVideo'
 import AttributionBar from 'components/Bars/AttributionBar'
 import ActionBar from 'containers/ActionBar'
 import Pin from 'containers/Pin'
+import Goal from 'containers/Goal'
 import he from 'he'
 
 const Card = props => {
@@ -16,7 +17,7 @@ const Card = props => {
   // showIframe only needed for videos
   const { showIframe } = props
   const isSingle = useMedia({ maxWidth: 820 })
-
+  const [isPin, setPin] = useState(false)
   let insertItem
 
   switch (type) {
@@ -30,14 +31,13 @@ const Card = props => {
       }
       break
     case 'course':
-      const tempUrl = `https://www.udemy.com${item.url}`
       item.thumbnail = item.image_480x270
       item.description = item.headline
       insertItem = {
         type,
         title: item.title,
         description: item.headline,
-        post_url: tempUrl,
+        post_url: item.url,
         thumbnail_url: item.image_480x270,
       }
       break
@@ -91,7 +91,7 @@ const Card = props => {
 
   return (
     <Container>
-      <Pin />
+      {false ? <Pin /> : <Goal />}
       {type === 'book' ? (
         <CoverBook item={item} />
       ) : type === 'podcast' ? (
@@ -117,6 +117,7 @@ const Card = props => {
         <p>{smartTruncate(item.description, cropDesc)}</p>
       </div>
       <div className='card-bar'>
+        {console.log(item.url)}
         <AttributionBar url={item.url} />
         <ActionBar type={type} item={item} insertItem={insertItem} />
       </div>
