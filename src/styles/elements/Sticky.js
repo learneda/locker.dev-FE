@@ -10,4 +10,7 @@ export const Sticky = styled.div`
   top: 0;
   left: 0;
   z-index: 5;
+  @media (max-width: 500px) {
+    padding-right: 1.5rem;
+  }
 `

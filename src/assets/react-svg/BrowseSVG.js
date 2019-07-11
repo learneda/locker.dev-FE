@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const BrowseSVG = ({ browseColor }) => {
+const BrowseSVG = ({ active }) => {
+  const color = active ? 'dodgerblue' : 'black'
+
   return (
     <svg
       version='1.0'
@@ -16,7 +18,7 @@ const BrowseSVG = ({ browseColor }) => {
       </metadata>
       <g
         transform='translate(0.000000,422.000000) scale(0.100000,-0.100000)'
-        fill={browseColor}
+        fill={color}
         stroke='none'
       >
         <path

@@ -12,13 +12,8 @@ const SubNav = props => {
       <Tabs>
         {isLocker() && (
           <Tab>
-            <NavLink
-              className='locker'
-              activeClassName='locker-active'
-              exact
-              to={match.url}
-            >
-              Locker
+            <NavLink className='locker' exact to={match.url}>
+              All
             </NavLink>
           </Tab>
         )}
@@ -88,9 +83,7 @@ const Tab = styled.li`
     color: dodgerblue;
     border-bottom: 2px solid dodgerblue;
   }
-  .locker {
-    color: orangered;
-  }
+
   .locker-active {
     border-bottom: 2xp solid orangered;
   }

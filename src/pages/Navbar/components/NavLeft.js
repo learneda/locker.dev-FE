@@ -1,60 +1,32 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { NavLink, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import BrowseSVG from 'assets/react-svg/BrowseSVG'
 import HomeSVG from 'assets/react-svg/HomeSVG'
 import LockerSVG from 'assets/react-svg/Locker04SVG'
-// import Bell from 'containers/Bell'
 
 const NavLeft = props => {
   const { location } = props
-  const [homeColor, setHomeColor] = useState('black')
-  const [browseColor, setBrowseColor] = useState('black')
-  const [lockerColor, setLockerColor] = useState(false)
-
-  useEffect(() => {
-    switch (location.pathname) {
-      case '/':
-        setHomeColor('dodgerblue')
-        setBrowseColor('black')
-        setLockerColor(false)
-        break
-      case '/browse':
-        setHomeColor('black')
-        setBrowseColor('dodgerblue')
-        setLockerColor(false)
-        break
-      case '/locker':
-        setHomeColor('black')
-        setBrowseColor('black')
-        setLockerColor(true)
-        break
-      default:
-        setHomeColor('black')
-        setBrowseColor('black')
-        setLockerColor(false)
-    }
-  }, [location.pathname])
 
   return (
     <StyledNavLeft>
       <ul>
         <li>
           <NavLink exact to='/'>
-            <HomeSVG homeColor={homeColor} />
+            <HomeSVG active={location.pathname === '/'} />
             <span>Home</span>
           </NavLink>
         </li>
         <li>
           <NavLink to='/browse'>
-            <BrowseSVG browseColor={browseColor} />
+            <BrowseSVG active={location.pathname.includes('browse')} />
             <span className='browse-span'>Browse</span>
           </NavLink>
         </li>
         <li>
           <NavLink to='/locker'>
-            <LockerSVG active={lockerColor} />
+            <LockerSVG active={location.pathname.includes('locker')} />
             <span>Locker</span>
           </NavLink>
         </li>
@@ -90,6 +62,9 @@ const StyledNavLeft = styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
+      }
+      @media (max-width: 500px) {
+        padding: 0 15px;
       }
       span {
         margin-left: 5px;
