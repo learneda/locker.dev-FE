@@ -91,7 +91,7 @@ const Card = props => {
 
   return (
     <Container>
-      {false ? <Pin /> : <Goal />}
+      {/* {false ? <Pin /> : <Goal />} */}
       {type === 'book' ? (
         <CoverBook item={item} />
       ) : type === 'podcast' ? (

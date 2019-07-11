@@ -51,10 +51,10 @@ const StyledNavLeft = styled.div`
       height: 100%;
       justify-content: center;
       align-items: center;
-      border-bottom: 3px solid transparent;
-      transition: all 0.3s ease;
       padding: 0 10px;
       color: rgb(102, 117, 127);
+      transition: border-bottom 0.3s ease;
+      border-bottom: 3px solid transparent;
       &:hover {
         border-bottom: 3px solid dodgerblue;
       }
