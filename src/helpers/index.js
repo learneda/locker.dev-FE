@@ -161,7 +161,6 @@ export const selectLogo = url => {
 
 //* Returns a link to rootUrl
 export const printRootUrl = url => {
-  console.log('yes url', url)
   if (!url) {
     return
   }
@@ -175,7 +174,6 @@ export const printRootUrl = url => {
 
   return rootUrl && rootUrl.includes('listen') ? null : (
     <a href={`https://${rootUrl}`} target='_blank' rel='noopener noreferrer'>
-      {console.log('cake rootUrl', rootUrl)}
       <span className='attribution-url'>{rootUrl}</span>
     </a>
   )

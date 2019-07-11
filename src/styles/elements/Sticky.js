@@ -6,7 +6,7 @@ export const Sticky = styled.div`
   width: 100%;
   background-color: #ffffff;
   border-bottom: 1px solid #bfbfbf;
-  padding: 0 2rem;
+  padding-right: 1rem;
   top: 0;
   left: 0;
   z-index: 5;

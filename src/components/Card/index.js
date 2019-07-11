@@ -117,7 +117,6 @@ const Card = props => {
         <p>{smartTruncate(item.description, cropDesc)}</p>
       </div>
       <div className='card-bar'>
-        {console.log(item.url)}
         <AttributionBar url={item.url} />
         <ActionBar type={type} item={item} insertItem={insertItem} />
       </div>

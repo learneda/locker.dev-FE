@@ -12,6 +12,7 @@ import ShareModal from './ActionBarModal'
 import DropDown from './DropDown'
 
 const ActionBar = props => {
+  // console.log('PROPS', props)
   const {
     type,
     authId,
@@ -98,13 +99,20 @@ const ActionBar = props => {
     setMoreActive(prev => !prev)
   }
 
+  const showSave = () => {
+    if (item) {
+      return item.user_id !== authId
+    } else {
+      return insertItem.user_id !== authId
+    }
+  }
   const handleSaveSvg = () => {
     // do not render saveSvg on locker route
     if (window.location.pathname.includes('locker')) return
     // on feed only render saveSvg when the post is not yours
     // on Browse user_id is undefined therefore condition is true & will render
     return (
-      insertItem.user_id !== authId && (
+      showSave() && (
         <div className='wrap-svg save' onClick={handleSaveClick}>
           <LockerSVG className='icon' active={saveActive} />
           <span className='label'>{saveText}</span>

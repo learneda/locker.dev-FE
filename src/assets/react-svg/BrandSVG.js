@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 const BrandSVG = ({ active }) => {
-  const color = active ? 'orangered' : 'dodgerblue'
+  const color = active ? 'dodgerblue' : 'black'
   return (
     <svg
       version='1.1'
       id='Layer_1'
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 503.60699462890625 503.60699462890625'
-      width='30pt'
-      height='30pt'
+      width='18pt'
+      height='18pt'
     >
       <g fill={color}>
         <path d='M32.574,443.852h193.049c4.197,0,8.393-3.357,8.393-8.393V32.574c0-5.036-3.357-8.393-8.393-8.393H32.574     c-5.036,0-8.393,3.357-8.393,8.393v402.885C24.18,440.495,27.538,443.852,32.574,443.852z M40.967,40.967h176.262v386.098H40.967     V40.967z' />

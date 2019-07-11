@@ -1,76 +1,20 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import ProfileDropDown from './ProfileDropDown'
 import styled from 'styled-components'
 import AddLink from 'containers/AddLink'
 import Search from 'containers/Search'
-import { useMedia } from 'use-media'
 import SearchSVG from 'assets/react-svg/SearchSVG'
-import useOnClickOutside from 'use-onclickoutside'
+import { useMedia } from 'use-media'
 
 const NavRight = props => {
-  const {
-    user,
-    search: { searchTerm, isSearch },
-    toggleSearch,
-    setSearchOff,
-    resetSearchTerm,
-  } = props
-  const ref = useRef()
-  const isSmall = useMedia({ maxWidth: 900 })
-  const [active, setActive] = useState(false)
-  useOnClickOutside(ref, e => {
-    if (e.target.className === 'search-wrap') {
-      return
-    }
-    if (e.target.id === 'search-input') {
-      return
-    }
-    if (e.target.className || e.target.className.includes('dd-search')) {
-      return
-    }
-    if (isSearch) {
-      setActive(false)
-      setSearchOff()
-    }
-  })
+  const { user } = props
+  const isLarge = useMedia({ minWidth: 650 })
 
-  useEffect(() => {
-    if (!isSmall) {
-      if (isSearch) {
-        setSearchOff()
-        setActive(false)
-      }
-      if (searchTerm.length) {
-        resetSearchTerm()
-      }
-    }
-    if (searchTerm.length) {
-      resetSearchTerm()
-    }
-  }, [isSmall])
   return (
     <StyledNavRight>
-      {isSmall ? (
-        <div
-          ref={ref}
-          className='search-wrap'
-          style={
-            active
-              ? { border: '1px solid dodgerblue' }
-              : { border: '1px solid rgb(191, 197, 201)' }
-          }
-          onClick={() => {
-            setActive(prev => !prev)
-            toggleSearch()
-          }}
-        >
-          <SearchSVG active={active} />
-        </div>
-      ) : (
-        <Search />
-      )}
-      <AddLink />
+      <Search />
+      {isLarge && <AddLink />}
       <ProfileDropDown user={user} />
     </StyledNavRight>
   )
@@ -78,13 +22,6 @@ const NavRight = props => {
 
 NavRight.propTypes = {
   user: PropTypes.object.isRequired,
-  search: PropTypes.shape({
-    searchTerm: PropTypes.string.isRequired,
-    isSearch: PropTypes.bool.isRequired,
-  }).isRequired,
-  toggleSearch: PropTypes.func.isRequired,
-  setSearchOff: PropTypes.func.isRequired,
-  resetSearchTerm: PropTypes.func.isRequired,
 }
 
 export default NavRight
@@ -93,15 +30,9 @@ const StyledNavRight = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  width: 330px;
-  .search-wrap {
-    /* border: 1px solid red; */
-    border-radius: 50%;
-    &:hover {
-      border: 1px solid dodgerblue;
-    }
-  }
-  @media (max-width: 900px) {
-    width: 150px;
+  width: 300px;
+  height: 100%;
+  @media (max-width: 650px) {
+    width: 250px;
   }
 `

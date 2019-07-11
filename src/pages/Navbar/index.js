@@ -5,7 +5,7 @@ import { Sticky } from 'styles/elements'
 import { NavLink, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import NavLeft from './components/NavLeft'
-import BrandSVG from 'assets/react-svg/BrandSVG'
+// import BrandSVG from 'assets/react-svg/Locker04SVG'
 import NavRight from './components/NavRight'
 import Search from 'containers/Search'
 import { customLayout } from 'styles'
@@ -25,13 +25,6 @@ const Navbar = props => {
     <Sticky>
       <Nav>
         <NavLeft />
-        {search.isSearch ? (
-          <Search />
-        ) : (
-          <NavLink activeClassName='locker' to='/locker'>
-            <BrandSVG active={active} />
-          </NavLink>
-        )}
         <NavRight user={user} {...props} />
       </Nav>
     </Sticky>

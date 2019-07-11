@@ -112,7 +112,7 @@ const Tab = styled.li`
       cursor: pointer;
       border-bottom: 2px solid dodgerblue;
     }
-    @media (max-width: 620px) {
+    @media (max-width: 650px) {
       padding: 0 1.1rem;
     }
   }

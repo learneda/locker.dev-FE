@@ -114,7 +114,6 @@ const App = props => {
       <CSSReset />
       <CSSTransitions />
       {showNavbar() && <Navbar />}
-
       <Suspense fallback={null}>
         <Switch>
           <Route exact path='/' component={index(Home)} />

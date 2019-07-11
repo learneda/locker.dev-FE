@@ -4,35 +4,36 @@ import { NavLink, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import BrowseSVG from 'assets/react-svg/BrowseSVG'
 import HomeSVG from 'assets/react-svg/HomeSVG'
-import Bell from 'containers/Bell'
+import LockerSVG from 'assets/react-svg/Locker04SVG'
+// import Bell from 'containers/Bell'
 
 const NavLeft = props => {
   const { location } = props
   const [homeColor, setHomeColor] = useState('black')
   const [browseColor, setBrowseColor] = useState('black')
-  const [bellColor, setBellColor] = useState('black')
+  const [lockerColor, setLockerColor] = useState(false)
 
   useEffect(() => {
     switch (location.pathname) {
       case '/':
         setHomeColor('dodgerblue')
         setBrowseColor('black')
-        setBellColor('black')
+        setLockerColor(false)
         break
       case '/browse':
         setHomeColor('black')
         setBrowseColor('dodgerblue')
-        setBellColor('black')
+        setLockerColor(false)
         break
-      case '/notifications':
+      case '/locker':
         setHomeColor('black')
         setBrowseColor('black')
-        setBellColor('dodgerblue')
+        setLockerColor(true)
         break
       default:
         setHomeColor('black')
         setBrowseColor('black')
-        setBellColor('black')
+        setLockerColor(false)
     }
   }, [location.pathname])
 
@@ -52,9 +53,9 @@ const NavLeft = props => {
           </NavLink>
         </li>
         <li>
-          <NavLink to='/notifications'>
-            <Bell bellColor={bellColor} />
-            <span>Notifications</span>
+          <NavLink to='/locker'>
+            <LockerSVG active={lockerColor} />
+            <span>Locker</span>
           </NavLink>
         </li>
       </ul>
@@ -69,7 +70,6 @@ NavLeft.propTypes = {
 }
 
 const StyledNavLeft = styled.div`
-  width: 330px;
   height: 100%;
   ul {
     height: 100%;
@@ -79,8 +79,6 @@ const StyledNavLeft = styled.div`
       height: 100%;
       justify-content: center;
       align-items: center;
-      position: relative;
-      border: none;
       border-bottom: 3px solid transparent;
       transition: all 0.3s ease;
       padding: 0 10px;
@@ -88,23 +86,24 @@ const StyledNavLeft = styled.div`
       &:hover {
         border-bottom: 3px solid dodgerblue;
       }
+      @media (max-width: 650px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
       span {
         margin-left: 5px;
         font-size: 1.3rem;
         line-height: 1.3rem;
         font-weight: bold;
         letter-spacing: 1px;
+        @media (max-width: 650px) {
+          margin-left: 0px;
+        }
+        @media (max-width: 500px) {
+          display: none;
+        }
       }
-    }
-  }
-  @media (max-width: 900px) {
-    width: 150px;
-    a {
-      width: 50px;
-      padding: 0;
-    }
-    span {
-      display: none;
     }
   }
   .active {
