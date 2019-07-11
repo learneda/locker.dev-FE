@@ -217,11 +217,15 @@ const DropDown = styled.div`
   flex-direction: column;
   position: absolute;
   top: 50px;
-  width: 250px;
+  right: -10px;
+  width: 300px;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   font-weight: 500;
   max-height: 500px;
   overflow: auto;
+  @media (max-width: 500px) {
+    right: -15px;
+  }
 `
