@@ -114,7 +114,7 @@ const Cards = styled.div`
       justify-content: space-evenly;
     }
     @media (max-width: 570px) {
-      width: 100vw;
+      width: 98vw;
     }
   }
 `

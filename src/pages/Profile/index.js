@@ -292,7 +292,9 @@ const Container = styled.div`
   .profile-main {
     display: flex;
     height: 100%;
+    width: 100%;
     justify-content: space-between;
+    /* border: 1px solid red; */
     @media (max-width: 1200px) {
       justify-content: flex-start;
     }
@@ -303,9 +305,11 @@ const Container = styled.div`
       width: 260px;
       padding-left: 40px;
       padding-top: 20px;
+      /* border: 1px solid red; */
       @media (max-width: 860px) {
         display: none;
       }
+
       img {
         width: 18px;
         height: 18px;
@@ -335,8 +339,12 @@ const Container = styled.div`
     }
     .profile-center {
       width: 580px;
+      /* border: 1px solid red; */
       @media (max-width: 860px) {
         margin-top: 10px;
+      }
+      @media (max-width: 570px) {
+        width: 100%;
       }
     }
     .profile-right {

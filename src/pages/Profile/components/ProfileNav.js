@@ -158,6 +158,10 @@ const Nav = styled.nav`
     display: flex;
     justify-content: space-between;
     min-width: 260px;
+    /* border: 1px solid red; */
+    @media (max-width: 570px) {
+      min-width: 225px;
+    }
   }
   .profile-avatar {
     position: relative;
@@ -190,6 +194,9 @@ const Nav = styled.nav`
     font-weight: bold;
     letter-spacing: 0.5px;
     color: #14171a;
+    @media (max-width: 570px) {
+      font-size: 1.4rem;
+    }
   }
   .profile-username {
     color: dodgerblue;
@@ -198,6 +205,7 @@ const Nav = styled.nav`
     height: 100%;
     width: 580px;
     display: flex;
+    /* border: 1px solid red; */
     @media (max-width: 600px) {
       width: 100%;
     }
@@ -248,6 +256,10 @@ const Tab = styled.li`
     width: 100%;
     padding: 0 2rem;
     transition: 300ms ease;
+    @media (max-width: 570px) {
+      font-size: 1.3rem;
+      padding: 0 0.8rem;
+    }
     &:hover {
       cursor: pointer;
       border-bottom: 2px solid dodgerblue;
