@@ -71,7 +71,7 @@ const OtherFollowers = props => {
             <img src={ele.profile_picture} alt='fan' />
           </Link>
           {renderSuggestion(ele.id, index)}
-          {ele.bio ? <p>{ele.bio}</p> : <p>User has no bio.</p>}
+          {/* {ele.bio ? <p>{ele.bio}</p> : <p>User has no bio.</p>} */}
         </div>
       ))}
     </StyledFollow>
