@@ -162,6 +162,9 @@ const Nav = styled.nav`
     @media (max-width: 570px) {
       min-width: 225px;
     }
+    @media (max-width: 500px) {
+      display: none;
+    }
   }
   .profile-avatar {
     position: relative;
@@ -208,6 +211,9 @@ const Nav = styled.nav`
     /* border: 1px solid red; */
     @media (max-width: 600px) {
       width: 100%;
+    }
+    @media (max-width: 500px) {
+      margin-left: 10px;
     }
   }
   .nav-right {
@@ -265,7 +271,7 @@ const Tab = styled.li`
       border-bottom: 2px solid dodgerblue;
     }
     @media (max-width: 620px) {
-      padding: 0 1.1rem;
+      padding: 0 1rem;
     }
   }
 `
