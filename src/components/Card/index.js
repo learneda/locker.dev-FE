@@ -153,7 +153,8 @@ const Container = styled.div`
   }
   @media (max-width: 570px) {
     width: 100%;
-    margin: 10px 5px;
+    margin: 10px;
+    height: 420px;
   }
   .card-cover {
     img {
@@ -164,6 +165,9 @@ const Container = styled.div`
       object-fit: cover;
       @media (max-width: 820px) {
         height: 260px;
+      }
+      @media (max-width: 570px) {
+        height: 230px;
       }
     }
   }

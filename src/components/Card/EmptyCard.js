@@ -18,7 +18,4 @@ const StyledEmptyCard = styled.div`
   @media (max-width: 820px) {
     display: none;
   }
-  @media (max-width: 570px) {
-    display: none;
-  }
 `

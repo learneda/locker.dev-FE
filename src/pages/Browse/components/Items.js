@@ -113,5 +113,8 @@ const Cards = styled.div`
     @media (max-width: 1218px) {
       justify-content: space-evenly;
     }
+    @media (max-width: 570px) {
+      width: 100vw;
+    }
   }
 `
