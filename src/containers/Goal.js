@@ -19,10 +19,7 @@ const Goal = props => {
     <div>
       {isModal && (
         <ReusablePortal onKeyDownCapture={e => console.log(e.which)}>
-          <Wrapper
-            style={{ border: '1px solid red' }}
-            onKeyDownCapture={e => console.log(e.which)}
-          >
+          <Wrapper onKeyDownCapture={e => console.log(e.which)}>
             <GoalModal close={setModal} />
           </Wrapper>
         </ReusablePortal>

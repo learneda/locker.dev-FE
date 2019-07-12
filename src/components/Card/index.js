@@ -149,10 +149,11 @@ const Container = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   @media (max-width: 820px) {
     width: 500px;
-    height: 450px;
+    height: 440px;
   }
   @media (max-width: 570px) {
     width: 100%;
+    margin: 10px 5px;
   }
   .card-cover {
     img {

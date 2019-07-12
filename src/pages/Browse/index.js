@@ -177,6 +177,7 @@ Browse.propTypes = {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `
 const Container = styled.div`
   display: flex;

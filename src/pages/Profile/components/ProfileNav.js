@@ -154,7 +154,6 @@ const Nav = styled.nav`
   }
   .nav-left {
     height: 100%;
-    border: 1px solid red;
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -199,7 +198,6 @@ const Nav = styled.nav`
     height: 100%;
     width: 580px;
     display: flex;
-    border: 1px solid red;
     @media (max-width: 600px) {
       width: 100%;
     }
