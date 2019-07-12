@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const BellSVG = ({ bellColor }) => {
+const BellSVG = ({ active }) => {
+  const color = active ? 'dodgerblue' : 'black'
   return (
     <svg
       version='1.0'
       xmlns='http://www.w3.org/2000/svg'
-      width='18.000000pt'
-      height='18.000000pt'
+      width='17.000000pt'
+      height='17.000000pt'
       viewBox='0 0 374.000000 406.000000'
       preserveAspectRatio='xMidYMid meet'
     >
@@ -16,7 +17,7 @@ const BellSVG = ({ bellColor }) => {
       </metadata>
       <g
         transform='translate(0.000000,406.000000) scale(0.100000,-0.100000)'
-        fill={bellColor}
+        fill={color}
         stroke='none'
       >
         <path

@@ -9,7 +9,7 @@ import useOnClickOutside from 'use-onclickoutside'
 
 //Only an SVG atm ... disabled popup notification (readNotifications)
 const Bell = props => {
-  const { user, posts, notifications, bellColor } = props
+  const { user, posts, notifications, active } = props
   const ref = useRef()
   const [isModalOpen, setIsModalOpen] = useState(false)
   useOnClickOutside(ref, e => {
@@ -34,7 +34,7 @@ const Bell = props => {
   return (
     <StyledNotifications>
       {/* Removed onClick modal */}
-      <BellSVG bellColor={bellColor} />
+      <BellSVG active={active} />
       <p className='count'>{count ? count : null}</p>
       {isModalOpen && (
         <div className='modal-portal bell-modal' ref={ref}>
@@ -106,7 +106,7 @@ Bell.propTypes = {
       type: PropTypes.string.isRequired,
     })
   ).isRequired,
-  bellColor: PropTypes.string.isRequired,
+  active: PropTypes.bool.isRequired,
 }
 const StyledNotifications = styled.div`
   display: flex;
@@ -121,7 +121,12 @@ const StyledNotifications = styled.div`
     }
   }
   .count {
-    color: #3f65f2;
+    position: absolute;
+    left: 27px;
+    top: -5px;
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: dodgerblue;
   }
   .modal-portal {
     display: flex;
