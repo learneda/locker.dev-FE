@@ -287,7 +287,6 @@ const Wrapper = styled.div`
 `
 const Container = styled.div`
   max-width: 1200px;
-  min-width: 900px;
   width: 100%;
   margin: 30px auto;
   .profile-main {
@@ -295,10 +294,18 @@ const Container = styled.div`
     height: 100%;
     justify-content: space-between;
     @media (max-width: 1200px) {
-      justify-content: space-evenly;
+      justify-content: flex-start;
+    }
+    @media (max-width: 860px) {
+      justify-content: center;
     }
     .profile-left {
       width: 260px;
+      padding-left: 40px;
+      padding-top: 20px;
+      @media (max-width: 860px) {
+        display: none;
+      }
       img {
         width: 18px;
         height: 18px;
@@ -319,6 +326,7 @@ const Container = styled.div`
           font-size: 1.3rem;
           letter-spacing: 0.9;
           padding: 8px 15px;
+          margin-bottom: 10px;
           &:hover {
             background-color: #e8f4fb;
           }
@@ -327,6 +335,9 @@ const Container = styled.div`
     }
     .profile-center {
       width: 580px;
+      @media (max-width: 860px) {
+        margin-top: 10px;
+      }
     }
     .profile-right {
       width: 260px;

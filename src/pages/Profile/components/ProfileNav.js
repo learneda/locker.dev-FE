@@ -129,15 +129,15 @@ const Nav = styled.nav`
   border-bottom: 1px solid #bfbfbf;
   top: 50px;
   z-index: 4;
-  .navlink-item{
-    display:flex;
+  .navlink-item {
+    display: flex;
     flex-direction: column;
     justify-content: center;
   }
   .count {
     align-self: center;
     font-size: 17px;
-    }
+  }
   .nav-container {
     max-width: 1200px;
     width: 100%;
@@ -145,23 +145,20 @@ const Nav = styled.nav`
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    @media (max-width: 1000px) {
+    @media (max-width: 1200px) {
       justify-content: flex-start;
     }
     @media (max-width: 860px) {
       justify-content: center;
-      }
+    }
   }
   .nav-left {
-      height: 100%;
-      width: 100%;
-      position: relative;
-      display: flex:
-      justify-content: space-between;
-      width: 260px;
-      @media (max-width: 860px) {
-        display: none;
-      }
+    height: 100%;
+    border: 1px solid red;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    min-width: 260px;
   }
   .profile-avatar {
     position: relative;
@@ -192,8 +189,8 @@ const Nav = styled.nav`
     margin-bottom: 5px;
     font-size: 1.8rem;
     font-weight: bold;
-    letter-spacing: .5px;
-    color: #14171A;
+    letter-spacing: 0.5px;
+    color: #14171a;
   }
   .profile-username {
     color: dodgerblue;
@@ -202,9 +199,10 @@ const Nav = styled.nav`
     height: 100%;
     width: 580px;
     display: flex;
+    border: 1px solid red;
     @media (max-width: 600px) {
       width: 100%;
-    }    
+    }
   }
   .nav-right {
     height: 100%;
@@ -226,7 +224,6 @@ const Nav = styled.nav`
         background: #e8f4fb;
       }
     }
- 
   }
 `
 
