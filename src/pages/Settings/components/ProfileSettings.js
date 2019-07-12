@@ -173,7 +173,7 @@ const ProfileSettings = props => {
                   type='text'
                   onChange={handleChange}
                   placeholder='Add bio'
-                  value={profile.bio}
+                  value={profile.bio || ''}
                   name='bio'
                 />
               </label>
@@ -327,6 +327,7 @@ const FormGroup = styled.form`
           color: gray;
           input,
           textarea {
+            font-size: 1.4rem;
             width: 100%;
             border: 1px solid rgba(0, 0, 0, 0.33);
             margin-top: 10px;
