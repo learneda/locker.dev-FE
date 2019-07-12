@@ -9,10 +9,16 @@ const GoalModal = props => {
   useLockBodyScroll()
   useOnClickOutside(modalRef, () => props.close(false))
 
+  const handelSubmit = e => {
+    e.preventDefault()
+    props.close(false)
+    setTimeout(() => alert('Goal Success! Auto-post achievememt to Feed'), 500)
+  }
+
   return (
     <StyledGoalModal ref={modalRef}>
       <header className='goal-heading'>Completed?</header>
-      <form className='goal-form' onSubmit={null}>
+      <form className='goal-form' onSubmit={handelSubmit}>
         <div className='goal-assessment'>
           <div className='goal-survey goal-comprehension'>
             Mastery:<span>😞</span>
@@ -23,8 +29,15 @@ const GoalModal = props => {
           </div>
         </div>
         <div className='goal-btn-wrapper'>
-          <button className='goal-btn goal-btn-cancel'>Not Yet</button>
-          <button className='goal-btn goal-btn-submit'>Yes!</button>
+          <button
+            onClick={() => props.close(false)}
+            className='goal-btn goal-btn-cancel'
+          >
+            Not Yet
+          </button>
+          <button type='submit' className='goal-btn goal-btn-submit'>
+            Yes!
+          </button>
         </div>
       </form>
     </StyledGoalModal>

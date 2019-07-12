@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { smartTruncate } from 'styles'
 import { useMedia } from 'use-media'
@@ -13,7 +14,7 @@ import Goal from 'containers/Goal'
 import he from 'he'
 
 const Card = props => {
-  const { type, item } = props
+  const { type, item, location } = props
   // showIframe only needed for videos
   const { showIframe } = props
   const isSingle = useMedia({ maxWidth: 820 })
@@ -93,6 +94,7 @@ const Card = props => {
     <Container>
       {/* UI for PinFeature */}
       {true ? <Pin /> : <Goal />}
+      {location.pathname.includes('locker') && <Goal />}
       {type === 'book' ? (
         <CoverBook item={item} />
       ) : type === 'podcast' ? (
@@ -136,7 +138,7 @@ Card.propTypes = {
   showIframe: PropTypes.func,
 }
 
-export default Card
+export default withRouter(Card)
 
 const Container = styled.div`
   display: flex;

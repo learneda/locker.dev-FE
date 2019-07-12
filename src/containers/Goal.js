@@ -9,10 +9,8 @@ import GoalModal from './GoalModal'
 const Goal = props => {
   const [isModal, setModal] = useState(false)
   const closeOnEsc = e => {
-    console.log('closed')
     if (e.which === 27) {
       setModal(false)
-      console.log('closed')
     }
   }
   return (

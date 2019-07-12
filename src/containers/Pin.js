@@ -25,6 +25,14 @@ const Pin = props => {
   const handleClick = e => {
     const text = e.target.innerText
     const num = text === 'tommorrow' ? 1 : text === 'one week' ? 2 : 3
+    setTimeout(
+      () =>
+        alert(
+          'PinGoal created and saved to Locker; If deadline expires; Goal Failure auto-post to Feed'
+        ),
+      500
+    )
+
     // this.function(num)
   }
   return (
@@ -52,7 +60,9 @@ const Pin = props => {
         <Wrapper
           isDropdown={isDropdown}
           isPinned={isPinned}
-          onClick={() => setDropdown(true)}
+          onClick={() => {
+            setDropdown(true)
+          }}
         >
           <PinSVG active={isPinned} />
         </Wrapper>
