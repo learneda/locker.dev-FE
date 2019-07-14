@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { StyledFollow } from 'components/profile/StyledFollow'
+import { StyledFollow } from './StyledFollow'
 
-const OtherFollowing = props => {
+const Following = props => {
   const {
     userId,
     following,
@@ -77,9 +77,9 @@ const OtherFollowing = props => {
   )
 }
 
-export default OtherFollowing
+export default Following
 
-OtherFollowing.propTypes = {
+Following.propTypes = {
   userId: PropTypes.number.isRequired,
   following: PropTypes.arrayOf(
     PropTypes.shape({

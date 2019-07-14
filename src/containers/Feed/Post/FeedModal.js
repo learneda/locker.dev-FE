@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import ReuseablePortal from 'components/utils/ModalPortal'
+import ReuseablePortal from 'components/Utils/ModalPortal'
 import useOnClickOutside from 'use-onclickoutside'
 import { ReactComponent as X } from 'assets/svg/x.svg'
 import axios from 'apis/axiosAPI'

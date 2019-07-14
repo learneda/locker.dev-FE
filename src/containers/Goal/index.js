@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { elevations } from 'styles/utils'
 import { useSelector } from 'react-redux'
-import ReusablePortal from 'components/utils/ModalPortal'
+import ReusablePortal from 'components/Utils/ModalPortal'
 import GoalModal from './GoalModal'
 
 const Goal = props => {

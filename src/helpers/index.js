@@ -205,22 +205,22 @@ export function createPopup(
   const left = (width - w) / 2 + dualScreenLeft
   const top = (height - h) / 2 + dualScreenTop
   // Creates and opens auth popup.
-  const newWindow = window.open(
+  const popUpWindow = window.open(
     url,
     title,
     `resizable=no,titlebar=yes,menubar=no,dependent=no,scrollbars=no,width=${w},height=${h},top=${top},left=${left}`
   )
 
   // Sets focus on the auth popup if window exist
-  if (window.focus && !newWindow) newWindow.focus()
+  if (window.focus && !popUpWindow) popUpWindow.focus()
   // Check to see if auth popup has closed every 0.5s. If so, clear interval interval
   // and force refresh to root to check if user has successfully authenticated.
   const timer = setInterval(() => {
-    if (newWindow.closed) {
+    if (popUpWindow.closed) {
       window.location.assign(redirectUrl)
       clearInterval(timer)
     }
-  }, 500)
+  }, 1000)
 }
 
 //* Determine offset in Items component based on type using a switch statement

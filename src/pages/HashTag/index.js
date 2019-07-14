@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import Feed from 'containers/Feed'
+import Feed from 'containers/Feed/index'
 import HashTagHeader from './components/TagHeader'
 import * as tagActions from './store/tagActions'
 

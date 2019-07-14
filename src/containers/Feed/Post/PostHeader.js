@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
-import CardAttributionBar from 'components/Bars/AttributionBar'
+import { AttributionBar } from 'components/Bars'
 import styled from 'styled-components'
 
 const PostHeader = props => {
@@ -29,7 +29,7 @@ const PostHeader = props => {
       </div>
       <div className='post-header-right'>
         <div className='post-root-url'>
-          <AttributionBar className={className} url={post.url} />
+          <StyledAttributionBar className={className} url={post.url} />
         </div>
       </div>
     </Container>
@@ -114,7 +114,7 @@ const Container = styled.div`
   }
 `
 
-const AttributionBar = styled(CardAttributionBar)`
+const StyledAttributionBar = styled(AttributionBar)`
   display: flex;
   justify-content: flex-end;
   width: 100%;

@@ -4,12 +4,11 @@ import { connect } from 'react-redux'
 import { withRouter, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
 import Moment from 'react-moment'
-import Suggested from 'components/sidebar/Suggested'
-import OtherFollowing from 'components/profile/OtherFollowing'
-import OtherFollowers from 'components/profile/OtherFollowers'
+import { Suggested } from 'components/Sidebar/'
+import Feed from 'containers/Feed/index'
+import { Following, Followers } from 'components/Profile'
 import ProfileHeader from './components/ProfileHeader'
 import ProfileNav from './components/ProfileNav'
-import Feed from 'containers/Feed'
 import locationSvg from 'assets/svg/location.svg'
 import linkSvg from 'assets/svg/link-symbol.svg'
 import calendarSvg from 'assets/svg/calendar.svg'
@@ -203,7 +202,7 @@ const Profile = props => {
                     exact
                     path={`${match.path}/following`}
                     render={props => (
-                      <OtherFollowing
+                      <Following
                         {...props}
                         userId={auth.id}
                         following={profile.following}
@@ -218,7 +217,7 @@ const Profile = props => {
                     exact
                     path={`${match.path}/followers`}
                     render={props => (
-                      <OtherFollowers
+                      <Followers
                         {...props}
                         userId={auth.id}
                         following={social.following}

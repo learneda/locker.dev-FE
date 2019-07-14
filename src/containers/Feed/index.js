@@ -4,12 +4,12 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import socket from 'App/socket'
 import styled from 'styled-components'
-import HelpScreen from 'components/screens/HelpScreen'
+import HelpScreen from 'components/Screens/HelpScreen'
 import OnlineFriendsSVG from 'assets/svg/online_friends.svg'
-import PostContainer from 'components/posts/index'
+import PostContainer from './Post/'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import ScrollToTopOnMount from 'components/utils/ScrollToTopOnMount'
-import FeedPlaceholder from 'components/posts/FeedPlaceholder'
+import ScrollToTopOnMount from 'components/Utils/ScrollToTopOnMount'
+import FeedPlaceholder from './Post/FeedPlaceholder'
 
 const Feed = props => {
   const {

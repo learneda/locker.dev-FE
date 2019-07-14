@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import MoreBtn from 'components/utils/MoreBtn'
+import Trash from './Trash'
 import styled from 'styled-components'
 import { customLayout } from 'styles'
 import Moment from 'react-moment'
@@ -60,7 +60,7 @@ const CommentBox = props => {
                     </h2>
                     <span>{comment.content}</span>
                   </div>
-                  <MoreBtn
+                  <Trash
                     handleDeleteComment={handleDeleteComment}
                     comment_id={comment.id}
                     post_id={post_id}

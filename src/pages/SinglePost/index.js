@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import axios from 'apis/axiosAPI'
 import styled from 'styled-components'
-import Feed from 'containers/Feed'
+import Feed from 'containers/Feed/index'
 import { createCollection } from 'actions'
 
 const SinglePost = props => {

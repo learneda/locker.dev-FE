@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import PostHeader from './PostHeader'
 import PostContent from './PostContent'
-import CommentBox from 'components/comments'
+import CommentBox from '../CommentBox'
 import FeedBar from './FeedBar'
 import ActionBar from 'containers/ActionBar'
 

@@ -1,22 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { ReactComponent as Trash } from 'assets/svg/trash-2.svg'
+import { ReactComponent as TrashSVG } from 'assets/svg/trash-2.svg'
 
-const DeleteComment = props => {
+const Trash = props => {
   const { handleDeleteComment } = props
   return (
     <TrashContainer>
-      <Trash
+      <TrashSVG
         onClick={() => handleDeleteComment(props.comment_id, props.post_id)}
       />
     </TrashContainer>
   )
 }
 
-export default DeleteComment
+export default Trash
 
-DeleteComment.propTypes = {
+Trash.propTypes = {
   handleDeleteComment: PropTypes.func.isRequired,
 }
 

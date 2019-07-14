@@ -8,9 +8,9 @@ import CoverBook from './CoverBook'
 import CoverPodcast from './CoverPodcast'
 import CoverVideo from './CoverVideo'
 import AttributionBar from 'components/Bars/AttributionBar'
-import ActionBar from 'containers/ActionBar'
+import ActionBar from 'containers/ActionBar/index'
 import Pin from 'containers/Pin'
-import Goal from 'containers/Goal'
+import Goal from 'containers/Goal/index'
 import he from 'he'
 
 const Card = props => {
