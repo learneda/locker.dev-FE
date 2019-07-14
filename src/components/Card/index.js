@@ -93,8 +93,8 @@ const Card = props => {
   return (
     <Container>
       {/* UI for PinFeature */}
-      {true ? <Pin /> : <Goal />}
-      {location.pathname.includes('locker') && <Goal />}
+      {/* {true ? <Pin /> : <Goal />} */}
+      {/* {location.pathname.includes('locker') && <Goal />} */}
       {type === 'book' ? (
         <CoverBook item={item} />
       ) : type === 'podcast' ? (
