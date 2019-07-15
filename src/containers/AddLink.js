@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import ReusablePortal from 'components/utils/ModalPortal'
+import ReusablePortal from 'components/Utils/ModalPortal'
 import { createCollection } from 'actions'
 import { ReactComponent as X } from 'assets/svg/x.svg'
 import { useAlert } from 'react-alert'
@@ -212,6 +212,4 @@ const ModalWrapper = styled.div`
   .modal_close:hover {
     cursor: pointer;
   }
-
- 
 `
