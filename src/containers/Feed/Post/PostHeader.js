@@ -11,7 +11,7 @@ const PostHeader = props => {
   const isLarge = useMedia({ minWidth: 580 })
   const isMobile = useMedia({ maxWidth: 500 })
 
-  const cropText = isLarge ? 170 : isMobile ? 90 : 140
+  const cropText = isLarge ? 170 : isMobile ? 80 : 140
   const { className, post } = props
   return (
     <Container isMobile={isMobile}>
@@ -124,7 +124,7 @@ const Container = styled.div`
   }
   .post-thought {
     height: 65%;
-    font-size: ${({ isMobile }) => (isMobile ? '1.3rem' : '1.6rem')};
+    font-size: ${({ isMobile }) => (isMobile ? '1.4rem' : '1.6rem')};
     letter-spacing: 0.5px;
     line-height: 2rem;
     hyphens: auto;

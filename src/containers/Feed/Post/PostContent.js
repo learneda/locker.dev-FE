@@ -57,6 +57,11 @@ const Container = styled.div`
     &:hover {
       color: dodgerblue;
     }
+    @media (max-width: 500px) {
+      font-size: 1.8rem;
+      line-height: 2rem;
+      font-weight: bold;
+    }
   }
   p {
     line-height: 1.3;
