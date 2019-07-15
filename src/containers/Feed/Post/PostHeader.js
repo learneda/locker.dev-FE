@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import { AttributionBar } from 'components/Bars'
+import { smartTruncate } from 'styles'
 import styled from 'styled-components'
 
 const PostHeader = props => {
@@ -16,21 +17,23 @@ const PostHeader = props => {
           alt='avatar'
         />
       </Link>
-      <div className='post-header-middle'>
-        <Link to={`/profile/${post.user_id}`} className='post-user-info'>
-          <span className='post-display-name'>{post.display_name}</span>
-          <span className='post-username'>{`@${post.username}`}</span>
-          <span>&#183;</span>
-          <Moment className='post-date' fromNow>
-            {post.posted_at_date}
-          </Moment>
-        </Link>
-        <p className='post-thought'>{post.user_thoughts}</p>
-      </div>
-      <div className='post-header-right'>
-        <div className='post-root-url'>
-          <StyledAttributionBar className={className} url={post.url} />
+      <div class='right'>
+        <div className='post-header-right-top'>
+          <div className='post-header-middle'>
+            <Link to={`/profile/${post.user_id}`} className='post-user-info'>
+              <span className='post-display-name'>{post.display_name}</span>
+              <span className='post-username'>{`@${post.username}`}</span>
+              <span>&#183;</span>
+              <Moment className='post-date' fromNow>
+                {post.posted_at_date}
+              </Moment>
+            </Link>
+          </div>
+          <div className='post-header-right'>
+            <StyledAttributionBar className={className} url={post.url} />
+          </div>
         </div>
+        <p className='post-thought'>{smartTruncate(post.user_thoughts, 170)}</p>
       </div>
     </Container>
   )
@@ -54,39 +57,42 @@ export default PostHeader
 
 const Container = styled.div`
   display: flex;
-  height: 100px;
-  border-bottom: 1px solid #e6ecf0;
   position: relative;
   .post-header-left {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 80px;
+    width: 85px;
+    height: 100%;
+    padding: 10px 0;
     .post-avatar {
-      position: relative;
-      top: 4px;
-      width: 60px;
-      height: 60px;
+      width: 66px;
+      height: 66px;
       border-radius: 50%;
     }
   }
-
-  .post-header-middle {
+  .right {
     display: flex;
-    position: relative;
-    top: 5px;
-    height: 100%;
     flex-direction: column;
+    height: 35%;
+    width: 500px;
+  }
+  .post-header-right-top {
+    display: flex;
+    justify-content: space-between;
+  }
+  .post-header-middle {
+    position: relative;
     flex-wrap: nowrap;
     width: 340px;
+    display: flex;
+    align-items: center;
     .post-user-info {
       color: #657786;
       font-size: 1.2rem;
-      padding: 8px 0px 5px;
       .post-display-name {
         font-size: 1.3rem;
-        font-weight: 600;
+        font-weight: 700;
         letter-spacing: 0.5px;
         color: #14171a;
       }
@@ -97,22 +103,20 @@ const Container = styled.div`
         margin-left: 6px;
       }
     }
-    .post-thought {
-      font-size: 1.6rem;
-      letter-spacing: 0.5px;
-      line-height: 2rem;
-      word-break: break-all;
-      hyphens: auto;
-    }
   }
-
   .post-header-right {
-    position: relative;
-    top: 5px;
-    right: 10px;
-    height: 100%;
-    justify-self: flex-end;
     flex-grow: 1;
+    display: flex;
+    align-items: center;
+  }
+  .post-thought {
+    height: 65%;
+    font-size: 1.6rem;
+    letter-spacing: 0.5px;
+    line-height: 2rem;
+    hyphens: auto;
+    padding-right: 50px;
+    padding-bottom: 8px;
   }
 `
 
@@ -121,6 +125,6 @@ const StyledAttributionBar = styled(AttributionBar)`
   justify-content: flex-end;
   width: 100%;
   margin: 0;
-  padding-right: 8px;
+  padding-right: 10px;
   height: 30px;
 `
