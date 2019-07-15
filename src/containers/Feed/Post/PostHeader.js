@@ -102,6 +102,7 @@ const Container = styled.div`
       letter-spacing: 0.5px;
       line-height: 2rem;
       word-break: break-all;
+      hyphens: auto;
     }
   }
 
