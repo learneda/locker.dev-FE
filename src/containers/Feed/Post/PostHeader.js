@@ -4,36 +4,49 @@ import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import { AttributionBar } from 'components/Bars'
 import { smartTruncate } from 'styles'
+import { useMedia } from 'use-media'
 import styled from 'styled-components'
 
 const PostHeader = props => {
+  const isLarge = useMedia({ minWidth: 580 })
+  const isMobile = useMedia({ maxWidth: 500 })
+
+  const cropText = isLarge ? 170 : isMobile ? 90 : 140
   const { className, post } = props
   return (
-    <Container>
-      <Link to={`/profile/${post.user_id}`} className='post-header-left'>
-        <img
-          className='post-avatar'
-          src={`${post.profile_picture}`}
-          alt='avatar'
-        />
-      </Link>
+    <Container isMobile={isMobile}>
+      {!isMobile && (
+        <Link to={`/profile/${post.user_id}`} className='post-header-left'>
+          <img
+            className='post-avatar'
+            src={`${post.profile_picture}`}
+            alt='avatar'
+          />
+        </Link>
+      )}
       <div class='right'>
         <div className='post-header-right-top'>
           <div className='post-header-middle'>
             <Link to={`/profile/${post.user_id}`} className='post-user-info'>
               <span className='post-display-name'>{post.display_name}</span>
-              <span className='post-username'>{`@${post.username}`}</span>
-              <span>&#183;</span>
-              <Moment className='post-date' fromNow>
-                {post.posted_at_date}
-              </Moment>
+              <span className='post-username'>
+                {!isMobile ? `@${post.username}` : null}
+              </span>
+              {!isMobile && <span>&#183;</span>}
+              {!isMobile && (
+                <Moment className='post-date' fromNow>
+                  {post.posted_at_date}
+                </Moment>
+              )}
             </Link>
           </div>
           <div className='post-header-right'>
             <StyledAttributionBar className={className} url={post.url} />
           </div>
         </div>
-        <p className='post-thought'>{smartTruncate(post.user_thoughts, 170)}</p>
+        <p className='post-thought'>
+          {smartTruncate(post.user_thoughts, cropText)}
+        </p>
       </div>
     </Container>
   )
@@ -58,13 +71,14 @@ export default PostHeader
 const Container = styled.div`
   display: flex;
   position: relative;
+  padding-left: ${({ isMobile }) => (isMobile ? '10px' : null)};
   .post-header-left {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 85px;
     height: 100%;
-    padding: 10px 0;
+    padding: 10px;
     .post-avatar {
       width: 66px;
       height: 66px;
@@ -84,7 +98,6 @@ const Container = styled.div`
   .post-header-middle {
     position: relative;
     flex-wrap: nowrap;
-    width: 340px;
     display: flex;
     align-items: center;
     .post-user-info {
@@ -111,11 +124,11 @@ const Container = styled.div`
   }
   .post-thought {
     height: 65%;
-    font-size: 1.6rem;
+    font-size: ${({ isMobile }) => (isMobile ? '1.3rem' : '1.6rem')};
     letter-spacing: 0.5px;
     line-height: 2rem;
     hyphens: auto;
-    padding-right: 50px;
+    padding-right: ${({ isMobile }) => (isMobile ? '10px' : '20px')};
     padding-bottom: 8px;
   }
 `
