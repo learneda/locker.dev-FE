@@ -54,7 +54,7 @@ export default PostHeader
 
 const Container = styled.div`
   display: flex;
-  height: 90px;
+  height: 100px;
   border-bottom: 1px solid #e6ecf0;
   position: relative;
   .post-header-left {
@@ -100,7 +100,8 @@ const Container = styled.div`
     .post-thought {
       font-size: 1.6rem;
       letter-spacing: 0.5px;
-      line-height: 1.9rem;
+      line-height: 2rem;
+      word-break: break-all;
     }
   }
 

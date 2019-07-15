@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { smartTruncate } from 'styles'
@@ -8,23 +8,25 @@ import styled from 'styled-components'
 const PostContent = props => {
   const { post } = props
   return (
-    <>
+    <Fragment>
       <Container>
         <a href={post.url} target='_blank' rel='noopener noreferrer'>
           <h2>{smartTruncate(post.title, 100)}</h2>
         </a>
         <p>{smartTruncate(post.description, 180)}</p>
       </Container>
-      <TagBar>
-        {post.tags.map((tag, index) => {
-          return (
-            <Link key={index} className='tag' to={`/tag/${tag.hashtag}`}>{`#${
-              tag.hashtag
-            }`}</Link>
-          )
-        })}
-      </TagBar>
-    </>
+      {!!post.tags.length && (
+        <TagBar>
+          {post.tags.map((tag, index) => {
+            return (
+              <Link key={index} className='tag' to={`/tag/${tag.hashtag}`}>{`#${
+                tag.hashtag
+              }`}</Link>
+            )
+          })}
+        </TagBar>
+      )}
+    </Fragment>
   )
 }
 
@@ -64,7 +66,7 @@ const Container = styled.div`
 `
 
 const TagBar = styled.div`
-  padding: 15px;
+  padding: 0 15px 10px;
   display: flex;
   align-items: center;
   overflow: hidden;
