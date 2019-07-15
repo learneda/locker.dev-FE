@@ -41,7 +41,9 @@ const Locker = props => {
             .toLowerCase()
             .includes(searchTerm.toLowerCase())) ||
         (post.description &&
-          post.description.toLowerCase().includes(searchTerm.toLowerCase()))
+          post.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (post.root_url &&
+          post.root_url.toLowerCase().includes(searchTerm.toLowerCase()))
       )
     })
     // Filters based on type
