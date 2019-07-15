@@ -124,7 +124,7 @@ const Container = styled.div`
   }
   .post-thought {
     height: 65%;
-    font-size: ${({ isMobile }) => (isMobile ? '1.4rem' : '1.6rem')};
+    font-size: 1.6rem;
     letter-spacing: 0.5px;
     line-height: 2rem;
     hyphens: auto;
