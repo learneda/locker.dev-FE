@@ -78,7 +78,7 @@ const NavRight = props => {
       )}
       {isLarge && <AddLink />}
       <NavLink
-        to='notifications'
+        to='/notifications'
         style={
           location.pathname.includes('notifications')
             ? { border: '1px solid dodgerblue' }

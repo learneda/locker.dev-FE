@@ -36,7 +36,6 @@ const Profile = props => {
     fetchSuggested,
     fetchFollowers,
     fetchPostCount,
-    postCount,
   } = props
   const id = Number(match.params.id)
   const dispatch = useDispatch()

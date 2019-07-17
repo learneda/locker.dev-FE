@@ -96,10 +96,9 @@ const Home = props => {
   return (
     <Container>
       <CookieBanner
-        dismissOnScrollThreshold={10}
+        dismissOnScrollThreshold={200}
         message={message}
         styles={styles}
-        dismissOnScrollThreshold={10}
         link={<a href='#'>Cookie Policy</a>}
       />
       <WrapperLeft>

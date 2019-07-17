@@ -6,9 +6,9 @@ import socket from 'App/socket'
 import styled from 'styled-components'
 import HelpScreen from 'components/Screens/HelpScreen'
 import OnlineFriendsSVG from 'assets/svg/online_friends.svg'
-import PostContainer from './Post/'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import ScrollToTopOnMount from 'components/Utils/ScrollToTopOnMount'
+import PostContainer from './Post/'
 import FeedPlaceholder from './Post/FeedPlaceholder'
 
 const Feed = props => {

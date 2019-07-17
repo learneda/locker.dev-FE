@@ -10,6 +10,7 @@ import socket from './socket'
 import * as appActions from './store/appActions'
 import { receivingNotifications } from 'pages/Notifications/store/notificationActions'
 import Navbar from 'pages/Navbar'
+// Dynamic imports to enable code-splitting
 const LandingPage = lazy(() => import('pages/Landing'))
 const Home = lazy(() => import('pages/Home'))
 const Browse = lazy(() => import('pages/Browse'))
@@ -34,21 +35,19 @@ const App = props => {
     ponyUp,
     ponyDown,
   } = props
-  // initial fetchAuth on browser refresh
+  // initial fetchAuth on browser mount
   useEffect(() => {
     fetchAuth().then(user => {
       if (user.id) {
         // on mount socket will emit to all other sockets online that this user connected
         socket.emit('join', { user_id: user.id })
         // join namespace contains all the current users who are online
-
         socket.on('join', data => {
           receivingNotifications(data)
         })
-        // socket is listening on comments event & will receive an obj
+        // socket is listening on comments event & will receive a msg obj
         socket.on('comments', msg => {
           // msg obj contains properties of content, action, post_id, user_id, username, created_at, & updated_at
-
           switch (msg.action) {
             // when action type === destroy
             case 'destroy':
@@ -64,10 +63,9 @@ const App = props => {
               break
           }
         })
-        // socket is listening on like event & will receive an obj
+        // socket is listening on like event & will receive a data obj
         socket.on('like', data => {
-          // obj contains postOwnerId, post_id, user_id, username
-          // console.log('in like socket connection', data)
+          // data obj contains postOwnerId, post_id, user_id, username
           switch (data.action) {
             case 'unlike':
               // invoke action creator unlikePost & pass in msg obj
@@ -82,8 +80,7 @@ const App = props => {
           }
         })
         socket.on('pony', data => {
-          // obj contains postOwnerId, post_id, user_id, username
-          // console.log('in like socket connection', data)
+          // data obj contains postOwnerId, post_id, user_id, username
           switch (data.action) {
             case 'pony_down':
               // invoke action creator ponyDown & pass in msg obj
@@ -104,7 +101,7 @@ const App = props => {
     }
   }, [])
 
-  // Only show Navbar if logged in and not within popup modal
+  // Only show Navbar if logged in and not within popup modal(/success route)
   const showNavbar = () => {
     return auth && window.location.pathname !== '/success'
   }

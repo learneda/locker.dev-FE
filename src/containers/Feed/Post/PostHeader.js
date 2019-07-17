@@ -11,7 +11,7 @@ const PostHeader = props => {
   const isLarge = useMedia({ minWidth: 580 })
   const isMobile = useMedia({ maxWidth: 500 })
 
-  const cropText = isLarge ? 170 : isMobile ? 100 : 140
+  const cropText = isLarge ? 170 : 140
   const { className, post } = props
   return (
     <Container isMobile={isMobile}>

@@ -8,7 +8,7 @@ import Dropdown from 'components/Dropdown'
 import { useSelector } from 'react-redux'
 import useOnClickOutside from 'use-onclickoutside'
 
-const Pin = props => {
+const Pin = ({ location }) => {
   const dropdownRef = useRef()
   const searchTerm = useSelector(({ search }) => search.searchTerm)
   const [isDropdown, setDropdown] = useState(false)
@@ -20,7 +20,7 @@ const Pin = props => {
       setDropdown(false)
       setPinned(false)
     }
-  }, [props.location.pathname, searchTerm])
+  }, [location.pathname, searchTerm])
 
   const handleClick = e => {
     const text = e.target.innerText
@@ -71,7 +71,9 @@ const Pin = props => {
   )
 }
 
-Pin.propTypes = {}
+Pin.propTypes = {
+  location: PropTypes.object.isRequired,
+}
 
 export default withRouter(Pin)
 const Container = styled.div`
