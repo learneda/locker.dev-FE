@@ -10,6 +10,7 @@ import { notificationsReducer as notifications } from 'pages/Notifications/store
 import { searchReducer as search } from 'pages/Navbar/store/searchReducer'
 import { authModalReducer as modal } from 'pages/Landing/store/authModalReducer'
 import { tagReducer as tagPosts } from 'pages/HashTag/store/tagReducer'
+import { goalReducer as goals } from './goalReducer'
 
 export default combineReducers({
   auth,
@@ -23,4 +24,5 @@ export default combineReducers({
   search,
   modal,
   tagPosts,
+  goals,
 })

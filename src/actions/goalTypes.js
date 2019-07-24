@@ -1,0 +1,4 @@
+export const CREATE_GOAL = 'CREATE_GOAL'
+export const FETCH_GOALS = 'FETCH_GOALS'
+export const DELETE_GOAL = 'DELETE_GOALS'
+export const FETCH_ALL_GOALS = 'FETCH_ALL_GOALS'

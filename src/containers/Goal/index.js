@@ -5,9 +5,14 @@ import { elevations } from 'styles/utils'
 import { useSelector } from 'react-redux'
 import ReusablePortal from 'components/Utils/ModalPortal'
 import GoalModal from './GoalModal'
+import { moment } from 'config/'
 
 const Goal = props => {
+  const { itemId } = props
   const [isModal, setModal] = useState(false)
+  const { goal_due } = useSelector(({ goals }) =>
+    goals.find(goal => goal.post_id === itemId)
+  )
   const closeOnEsc = e => {
     if (e.which === 27) {
       setModal(false)
@@ -23,7 +28,7 @@ const Goal = props => {
         </ReusablePortal>
       )}
       <Container onClick={() => setModal(prev => !prev)}>
-        <span className='goal-text'>soon</span>
+        <span className='goal-text'>{moment(goal_due).fromNow()}</span>
       </Container>
     </div>
   )

@@ -14,13 +14,14 @@ import Goal from 'containers/Goal/index'
 import he from 'he'
 
 const Card = props => {
-  const { type, item, location } = props
-  // showIframe only needed for videos
+  const { type, item, location, isGoal } = props
+  // showIframe is only needed for Videos
   const { showIframe } = props
   const isSingle = useMedia({ maxWidth: 820 })
   const [isPin, setPin] = useState(false)
   let insertItem
 
+  //TODO: Clean insertItem logic
   switch (type) {
     case 'article':
       insertItem = {
@@ -92,8 +93,11 @@ const Card = props => {
 
   return (
     <Container>
-      {/* UI for PinFeature */}
-      {/* {true ? <Pin /> : <Goal />} */}
+      {location.pathname.includes('browse') ? null : isGoal ? (
+        <Goal itemId={item.id} />
+      ) : (
+        <Pin item={item} />
+      )}
       {/* {location.pathname.includes('locker') && <Goal />} */}
       {type === 'book' ? (
         <CoverBook item={item} />

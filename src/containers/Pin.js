@@ -5,12 +5,17 @@ import styled from 'styled-components'
 import { elevations } from 'styles/utils'
 import PinSVG from 'assets/react-svg/PinSVG.js'
 import Dropdown from 'components/Dropdown'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import useOnClickOutside from 'use-onclickoutside'
+import { createGoal, fetchGoals, deleteGoal } from 'actions/goalActions'
 
-const Pin = ({ location }) => {
+const Pin = ({ location, item }) => {
   const dropdownRef = useRef()
-  const searchTerm = useSelector(({ search }) => search.searchTerm)
+  const { userId, searchTerm } = useSelector(({ auth, search }) => ({
+    userId: auth.id,
+    searchTerm: search.searchTerm,
+  }))
+  const dispatch = useDispatch()
   const [isDropdown, setDropdown] = useState(false)
   const [isPinned, setPinned] = useState(false)
   useOnClickOutside(dropdownRef, () => setDropdown(false))
@@ -22,18 +27,12 @@ const Pin = ({ location }) => {
     }
   }, [location.pathname, searchTerm])
 
-  const handleClick = e => {
+  const handleClick = async e => {
     const text = e.target.innerText
-    const num = text === 'tommorrow' ? 1 : text === 'one week' ? 2 : 3
-    setTimeout(
-      () =>
-        alert(
-          'PinGoal created and saved to Locker; If deadline expires; Goal Failure auto-post to Feed'
-        ),
-      500
-    )
-
-    // this.function(num)
+    const goal = text === 'tomorrow' ? 1 : text === 'one week' ? 2 : 3
+    const postId = item.id
+    await dispatch(createGoal({ postId, goal }))
+    await dispatch(fetchGoals(userId))
   }
   return (
     <>

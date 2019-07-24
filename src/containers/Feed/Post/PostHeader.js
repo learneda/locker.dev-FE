@@ -24,7 +24,7 @@ const PostHeader = props => {
           />
         </Link>
       )}
-      <div class='right'>
+      <div className='right'>
         <div className='post-header-right-top'>
           <div className='post-header-middle'>
             <Link to={`/profile/${post.user_id}`} className='post-user-info'>

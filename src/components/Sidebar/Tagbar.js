@@ -8,18 +8,18 @@ const Tagbar = props => {
   return (
     <Container>
       <h3>My Tags</h3>
-      {myTags.map(tag => {
+      {myTags.map((tag, index) => {
         return (
-          <div className='tag' key={tag.id}>
+          <div className='tag' key={index}>
             <Link to={`tag/${tag.hashtag}`}>#{tag.hashtag}</Link>
             <br />
           </div>
         )
       })}
       <h3>Top Tags</h3>
-      {topTags.map(tag => {
+      {topTags.map((tag, index) => {
         return (
-          <div className='tag' key={tag.id}>
+          <div className='tag' key={index}>
             <Link to={`tag/${tag.hashtag}`}>#{tag.hashtag}</Link>
             <br />
           </div>

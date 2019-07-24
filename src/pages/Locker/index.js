@@ -11,6 +11,7 @@ import Card from 'components/Card'
 import EmptyCard from 'components/Card/EmptyCard'
 import { pickType } from 'helpers'
 import { fetchCollections } from 'actions'
+import { fetchGoals } from 'actions/goalActions'
 
 const Locker = props => {
   const columns = 3
@@ -18,15 +19,19 @@ const Locker = props => {
   const [typeFilter, setTypeFilter] = useState('')
 
   const dispatch = useDispatch()
-  const { searchTerm, collections } = useSelector(
-    ({ search, collections }) => ({
+  const { userId, searchTerm, collections, goals } = useSelector(
+    ({ search, collections, auth, goals }) => ({
+      userId: auth.id,
       searchTerm: search.searchTerm,
       collections,
+      goals,
     })
   )
+  const goalPostIds = goals.map(goal => goal.post_id)
 
   useEffect(() => {
     dispatch(fetchCollections())
+    dispatch(fetchGoals(userId))
     setTypeFilter(pickType(location))
   }, [location.pathname])
 
@@ -62,7 +67,14 @@ const Locker = props => {
         <Container>
           {filterTypeCollections
             .map((post, index) => {
-              return <Card type='locker' key={index} item={post} />
+              return (
+                <Card
+                  type='locker'
+                  key={index}
+                  item={post}
+                  isGoal={goalPostIds.includes(post.id)}
+                />
+              )
             })
             .concat(
               mod === 2 ? (
