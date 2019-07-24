@@ -3,10 +3,28 @@ import PropTypes from 'prop-types'
 import Trash from './Trash'
 import styled from 'styled-components'
 import { customLayout } from 'styles'
-import Moment from 'react-moment'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 const CommentBox = props => {
+  //TODO: Make DRY
+  moment.updateLocale('en', {
+    relativeTime: {
+      future: 'in %s',
+      past: '%s ago',
+      s: 'just now',
+      ss: '%d seconds',
+      m: 'a minute',
+      mm: '%d minutes',
+      h: 'an hour',
+      hh: '%d hours',
+      d: 'a day',
+      dd: '%d days',
+      M: 'a month',
+      MM: '%d months',
+      y: 'a year',
+      yy: '%d years',
+    },
+  })
   const {
     post_comments,
     user_id,
@@ -46,14 +64,12 @@ const CommentBox = props => {
                   <div className='comment-text'>
                     <h2>
                       <Link to={`/profile/${comment.user_id}`}>
-                        {comment.username}{' '}
+                        {comment.username}
                         <span className='comment-date'>
-                          <Moment fromNow>
-                            {moment(comment.created_at).subtract(
-                              '30',
-                              'seconds'
-                            )}
-                          </Moment>
+                          <span> &#183; </span>
+                          {moment(comment.created_at)
+                            .subtract('30', 'seconds')
+                            .fromNow()}
                           :
                         </span>
                       </Link>
@@ -75,12 +91,9 @@ const CommentBox = props => {
                       <Link to={`/profile/${comment.user_id}`}>
                         {comment.username}{' '}
                         <span className='comment-date'>
-                          <Moment fromNow>
-                            {moment(comment.created_at).subtract(
-                              '30',
-                              'seconds'
-                            )}
-                          </Moment>
+                          {moment(comment.created_at)
+                            .subtract('30', 'seconds')
+                            .fromNow()}
                           :
                         </span>
                       </Link>

@@ -5,9 +5,29 @@ import { elevations } from 'styles/utils'
 import { useSelector } from 'react-redux'
 import ReusablePortal from 'components/Utils/ModalPortal'
 import GoalModal from './GoalModal'
-import { moment } from 'config/'
+import moment from 'moment'
 
 const Goal = props => {
+  //TODO: Make DRY
+  moment.updateLocale('en', {
+    relativeTime: {
+      future: '%s',
+      past: '%s',
+      s: 'soon!!!',
+      ss: '%ds',
+      m: '1m',
+      mm: '%dm',
+      h: '1h',
+      hh: '%dh',
+      d: '1d',
+      dd: '%dd',
+      M: '1m',
+      MM: '%dm',
+      y: '1y',
+      yy: '%dy',
+    },
+  })
+
   const { itemId } = props
   const [isModal, setModal] = useState(false)
   const { goal_due } = useSelector(({ goals }) =>

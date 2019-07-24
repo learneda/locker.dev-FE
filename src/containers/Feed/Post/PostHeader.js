@@ -1,13 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import Moment from 'react-moment'
+import moment from 'moment'
 import { AttributionBar } from 'components/Bars'
 import { smartTruncate } from 'styles'
 import { useMedia } from 'use-media'
 import styled from 'styled-components'
 
 const PostHeader = props => {
+  //TODO: Make DRY
+  moment.updateLocale('en', {
+    relativeTime: {
+      future: '%s',
+      past: '%s',
+      s: 'now',
+      ss: '%ds',
+      m: '1m',
+      mm: '%dm',
+      h: '1h',
+      hh: '%dh',
+      d: '1d',
+      dd: '%dd',
+      M: '1m',
+      MM: '%dm',
+      y: '1y',
+      yy: '%dy',
+    },
+  })
+
   const isLarge = useMedia({ minWidth: 580 })
   const isMobile = useMedia({ maxWidth: 500 })
 
@@ -34,9 +54,9 @@ const PostHeader = props => {
               </span>
               {!isMobile && <span>&#183;</span>}
               {!isMobile && (
-                <Moment className='post-date' fromNow>
-                  {post.posted_at_date}
-                </Moment>
+                <time className='post-date'>
+                  {moment(post.posted_at_date).fromNow()}
+                </time>
               )}
             </Link>
           </div>
