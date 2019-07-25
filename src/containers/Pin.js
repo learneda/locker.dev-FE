@@ -29,7 +29,7 @@ const Pin = ({ location, item }) => {
 
   const handleClick = async e => {
     const text = e.target.innerText
-    const goal = text === 'tomorrow' ? 1 : text === 'one week' ? 2 : 3
+    const goal = text === ' by tomorrow' ? 1 : text === 'in one week' ? 2 : 3
     const postId = item.id
     await dispatch(createGoal({ postId, goal }))
     await dispatch(fetchGoals(userId))
@@ -48,8 +48,8 @@ const Pin = ({ location, item }) => {
         >
           <Dropdown
             items={[
-              { text: 'tomorrow' },
-              { text: 'one week' },
+              { text: 'by tomorrow' },
+              { text: 'in one week' },
               { text: 'this.month' },
             ]}
             handleClick={handleClick}

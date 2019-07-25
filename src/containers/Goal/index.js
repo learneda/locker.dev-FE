@@ -12,7 +12,7 @@ const Goal = props => {
   moment.updateLocale('en', {
     relativeTime: {
       future: '%s',
-      past: '%s',
+      past: '😢',
       s: 'soon!!!',
       ss: '%ds',
       m: '1m',
