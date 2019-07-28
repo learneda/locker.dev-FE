@@ -7,11 +7,13 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 const CommentBox = props => {
   //TODO: Make DRY
+  moment.relativeTimeThreshold('s', 40)
+  moment.relativeTimeThreshold('ss', 10)
   moment.updateLocale('en', {
     relativeTime: {
       future: 'in %s',
       past: '%s ago',
-      s: 'just now',
+      s: 'a few seconds',
       ss: '%d seconds',
       m: 'a minute',
       mm: '%d minutes',
@@ -67,10 +69,7 @@ const CommentBox = props => {
                         {comment.username}
                         <span className='comment-date'>
                           <span> &#183; </span>
-                          {moment(comment.created_at)
-                            .subtract('30', 'seconds')
-                            .fromNow()}
-                          :
+                          {moment(comment.created_at).fromNow()}:
                         </span>
                       </Link>
                     </h2>
@@ -91,10 +90,7 @@ const CommentBox = props => {
                       <Link to={`/profile/${comment.user_id}`}>
                         {comment.username}{' '}
                         <span className='comment-date'>
-                          {moment(comment.created_at)
-                            .subtract('30', 'seconds')
-                            .fromNow()}
-                          :
+                          {moment(comment.created_at).fromNow()}:
                         </span>
                       </Link>
                     </h2>
