@@ -14,7 +14,8 @@ const SinglePost = props => {
     axios.get(`/newsfeed/${match.params.id}`).then(res => {
       setPost([res.data.post])
     })
-  }, [post])
+  }, [])
+
   return (
     <Container>
       <Feed
