@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { Nav, Body, Footer, Auth } from './components'
 import { transitionClasses } from 'helpers/transitionClasses'
 import * as authModalActions from './store/authModalActions'
+import { fetchAuth } from 'App/store/appActions'
 
 const Landing = props => {
   const {
@@ -32,7 +33,7 @@ const mapStateToProps = ({ modal }) => ({ modal })
 
 export default connect(
   mapStateToProps,
-  { ...authModalActions }
+  { ...authModalActions, fetchAuth }
 )(Landing)
 
 Landing.propTypes = {
