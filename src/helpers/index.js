@@ -190,6 +190,7 @@ export const selectRandom = arr => {
 export function createPopup(
   url,
   redirectUrl = '/',
+  redirectCallback,
   title = 'OAuth',
   w = 460,
   h = 560
@@ -217,7 +218,9 @@ export function createPopup(
   // and force refresh to root to check if user has successfully authenticated.
   const timer = setInterval(() => {
     if (popUpWindow.closed) {
-      window.location.assign(redirectUrl)
+      // window.location.assign(redirectUrl)
+      // window.location.href = 'http://localhost:3000/'
+      redirectCallback()
       clearInterval(timer)
     }
   }, 1000)

@@ -16,7 +16,7 @@ const AuthForm = props => {
         <button
           onClick={e => {
             e.preventDefault()
-            createPopup(`${authURL}/google`, clientUrl)
+            createPopup(`${authURL}/google`, clientUrl, props.redirectCallback)
           }}
         >
           <img src={googleSvg} alt='google signup' />
@@ -27,7 +27,7 @@ const AuthForm = props => {
         <button
           onClick={e => {
             e.preventDefault()
-            createPopup(`${authURL}/github`, clientUrl)
+            createPopup(`${authURL}/github`, clientUrl, props.redirectCallback)
           }}
         >
           <img src={githubSvg} alt='github signup' />
@@ -41,7 +41,7 @@ const AuthForm = props => {
         <button
           onClick={e => {
             e.preventDefault()
-            createPopup(`${authURL}/google`, clientUrl)
+            createPopup(`${authURL}/google`, clientUrl, props.redirectCallback)
           }}
         >
           <img src={googleSvg} alt='google-login' />
@@ -52,7 +52,7 @@ const AuthForm = props => {
         <button
           onClick={e => {
             e.preventDefault()
-            createPopup(`${authURL}/github`, clientUrl)
+            createPopup(`${authURL}/github`, clientUrl, props.redirectCallback)
           }}
         >
           <img src={githubSvg} alt='github-login' />
