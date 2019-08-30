@@ -4,13 +4,22 @@ import AuthForm from './AuthForm'
 import styled from 'styled-components'
 import useOnClickOutside from 'use-onclickoutside'
 import useLockBodyScroll from 'hooks/useLockBodyScroll'
+import { withRouter } from 'react-router-dom'
 
 const Auth = props => {
-  const { modal, authModalClose, modalSignUp, modalLogin } = props
+  const { modal, authModalClose, modalSignUp, modalLogin, fetchAuth } = props
   const { isSignUp } = modal
   const ref = useRef(null)
   useOnClickOutside(ref, authModalClose)
   useLockBodyScroll()
+
+  const redirectCallback = async () => {
+    const isAuth = await fetchAuth()
+    if (isAuth.id) {
+      props.history.push('/')
+    }
+  }
+
   return (
     <AuthModalContainer
       className='login'
@@ -32,13 +41,13 @@ const Auth = props => {
         >
           Login
         </span>
-        <AuthForm isSignUp={isSignUp} />
+        <AuthForm isSignUp={isSignUp} redirectCallback={redirectCallback} />
       </div>
     </AuthModalContainer>
   )
 }
 
-export default Auth
+export default withRouter(Auth)
 
 Auth.propTypes = {
   modal: PropTypes.shape({ isSignUp: PropTypes.bool.isRequired }).isRequired,
