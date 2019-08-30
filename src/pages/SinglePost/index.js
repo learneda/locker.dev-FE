@@ -15,7 +15,6 @@ const SinglePost = props => {
       setPost([res.data.post])
     })
   }, [])
-
   return (
     <Container>
       <Feed
