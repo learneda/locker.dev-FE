@@ -58,9 +58,7 @@ const Bell = props => {
                       src={user.profile_picture}
                       alt='avatar'
                     />
-                    <span className='text bell-modal'>{`${obj.invoker} ${
-                      obj.type
-                    } on your post`}</span>
+                    <span className='text bell-modal'>{`${obj.invoker} ${obj.type} on your post`}</span>
                   </div>
                   <img
                     className='notification-post-thumbnail bell-modal'
@@ -83,10 +81,7 @@ const mapStateToProps = ({ user, home, notifications }) => ({
   posts: home.posts,
 })
 
-export default connect(
-  mapStateToProps,
-  { ...notificationActions }
-)(Bell)
+export default connect(mapStateToProps, { ...notificationActions })(Bell)
 
 Bell.propTypes = {
   user: PropTypes.shape({

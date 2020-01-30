@@ -17,7 +17,7 @@ const Locker01SVG = ({ active }) => {
         Created by potrace 1.15, written by Peter Selinger 2001-2017
       </metadata>
       <g
-        transform='translate(0.000000,370.000000) scale(0.100000,-0.100000)'
+        // transform='translate(0.000000,370.000000) scale(0.100000,-0.100000)'
         fill={color}
         stroke='none'
       >

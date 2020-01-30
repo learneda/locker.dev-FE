@@ -104,10 +104,7 @@ const AddLink = props => {
   )
 }
 
-export default connect(
-  null,
-  { createCollection }
-)(AddLink)
+export default connect(null, { createCollection })(AddLink)
 
 AddLink.propTypes = {
   createCollection: PropTypes.func.isRequired,
@@ -125,15 +122,9 @@ const Container = styled.div`
     align-items: center;
     font-size: 3rem;
     font-weight: 700;
-    border: 1px solid #bfc5c9;
-    border-radius: 50%;
+
     cursor: pointer;
     transition: 300ms ease;
-    &:hover {
-      border: 1px solid dodgerblue;
-    }
-    border: ${props =>
-      props.isModalOpen ? '1px solid dodgerblue' : ' 1px solid #bfc5c9'};
   }
 `
 const ModalWrapper = styled.div`

@@ -115,12 +115,12 @@ const StyledNavRight = styled.div`
     }
   }
   .bell-wrap {
-    border-radius: 50%;
-    border: 1px solid rgb(191, 197, 201);
+    // border-radius: 50%;
+    // border: 1px solid rgb(191, 197, 201);
     padding: 3px;
     margin-left: 20px;
-    &:hover {
-      border: 1px solid dodgerblue;
-    }
+    // &:hover {
+    //   border: 1px solid dodgerblue;
+    // }
   }
 `
