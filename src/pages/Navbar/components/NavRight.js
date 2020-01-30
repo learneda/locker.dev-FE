@@ -79,11 +79,11 @@ const NavRight = props => {
       {isLarge && <AddLink />}
       <NavLink
         to='/notifications'
-        style={
-          location.pathname.includes('notifications')
-            ? { border: '1px solid dodgerblue' }
-            : null
-        }
+        // style={
+        //   location.pathname.includes('notifications')
+        //     ? { border: '1px solid dodgerblue' }
+        //     : null
+        // }
         className='bell-wrap'
       >
         <Bell active={location.pathname.includes('notifications')} />
@@ -115,12 +115,7 @@ const StyledNavRight = styled.div`
     }
   }
   .bell-wrap {
-    // border-radius: 50%;
-    // border: 1px solid rgb(191, 197, 201);
     padding: 3px;
     margin-left: 20px;
-    // &:hover {
-    //   border: 1px solid dodgerblue;
-    // }
   }
 `
