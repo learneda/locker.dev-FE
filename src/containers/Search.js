@@ -174,10 +174,9 @@ const mapStateToProps = ({ search }) => ({
   searchTerm: search.searchTerm,
 })
 
-export default connect(
-  mapStateToProps,
-  { ...searchActions }
-)(withRouter(Search))
+export default connect(mapStateToProps, { ...searchActions })(
+  withRouter(Search)
+)
 
 Search.propTypes = {
   searchTerm: PropTypes.string.isRequired,
@@ -198,7 +197,7 @@ const Container = styled.div`
     outline: none;
     border-radius: 21px;
     background-color: #f5f8fa;
-    border: 1px solid powderblue;
+    border: 1px solid lightgrey;
     transition: all 0.2s ease-in-out;
     padding: 8px 32px 8px 12px;
     color: #14171a;

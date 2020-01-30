@@ -54,7 +54,7 @@ const StyledGoalModal = styled.div`
   width: 400px;
   height: 350px;
   border-radius: 6px;
-  border: 2px solid powderblue;
+  border: 2px solid lightgrey;
   background-color: white;
   .goal-heading {
     display: flex;
@@ -65,7 +65,7 @@ const StyledGoalModal = styled.div`
     letter-spacing: 1.2px;
     font-weight: thin;
     color: dodgerblue;
-    border-bottom: 1px solid powderblue;
+    border-bottom: 1px solid lightgrey;
   }
   .goal-form {
     height: 350px;
@@ -104,7 +104,7 @@ const StyledGoalModal = styled.div`
       justify-content: space-evenly;
       align-items: center;
       height: 90px;
-      border-top: 1px solid powderblue;
+      border-top: 1px solid lightgrey;
       .goal-btn {
         font-size: 1.8rem;
         font-weight: bold;

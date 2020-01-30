@@ -81,7 +81,7 @@ const Container = styled.div`
   right: 0px;
   z-index: 1;
   background-color: white;
-  border: 1px solid powderblue;
+  border: 1px solid lightgrey;
   animation: grow 300ms ease;
   @keyframes grow {
     0% {

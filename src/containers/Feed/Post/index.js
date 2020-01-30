@@ -167,12 +167,11 @@ PostContainer.propTypes = {
 }
 const Container = styled.div`
   position: relative;
+  margin-top: 10px;
   background: #fff;
-  border: 1px solid powderblue;
-  border-bottom: none;
+  border: 1px solid lightgrey;
   @media (max-width: 580px) {
-    border: none;
-    border-top: 1px solid powderblue;
+    border: 1px solid lightgrey;
   }
   .post-bar {
     display: flex;

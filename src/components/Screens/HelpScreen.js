@@ -37,10 +37,11 @@ HelpScreen.propTypes = {
 
 export const Container = styled.div`
   position: relative;
-  border: 1px solid powderblue;
+  border: 1px solid lightgrey;
   padding: 20px 0;
   background-color: white;
   text-align: center;
+  margin-top: 10px;
 
   img {
     width: 35%;

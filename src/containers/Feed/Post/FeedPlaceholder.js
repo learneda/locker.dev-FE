@@ -45,5 +45,5 @@ export default styled(FeedPlaceholder)`
   width: 580px;
   height: 600px;
   background: #fff;
-  border: 1px solid powderblue;
+  border: 1px solid lightgrey;
 `

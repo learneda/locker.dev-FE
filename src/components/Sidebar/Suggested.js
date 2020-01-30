@@ -171,7 +171,7 @@ const StyledCard = styled.div`
   }
 
   .suggested-item {
-    border-bottom: 1px solid powderblue;
+    border-bottom: 1px solid lightgrey;
   }
 
   .recommended-follow-container {
@@ -179,7 +179,7 @@ const StyledCard = styled.div`
     background: #fff;
     /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     border-radius: 6px; */
-    border: 1px solid powderblue;
+    border: 1px solid lightgrey;
     border-bottom: none;
 
   }
@@ -197,7 +197,7 @@ const StyledCard = styled.div`
         width: 60px;
         height: 60px;
         border-radius: 50%;
-        border: 1px solid powderblue;
+        border: 1px solid lightgrey;
         display: block;
         margin: auto;
         bottom: 20px;

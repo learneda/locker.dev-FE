@@ -104,7 +104,7 @@ const Profile = styled.div`
   top: 66px;
   width: 100%;
   background: #fff;
-  border: 1px solid powderblue;
+  border: 1px solid lightgrey;
 
   .count {
     margin: 10px 0;

@@ -88,7 +88,7 @@ const ModalWrapper = styled.div`
     width: 400px;
     height: 400px;
     border-radius: 6px;
-    border: 2px solid powderblue;
+    border: 2px solid lightgrey;
   }
 
   .modal-top {
@@ -138,7 +138,7 @@ const ModalWrapper = styled.div`
   }
   .type-img {
     border-radius: 50%;
-    border: 1px solid powderblue;
+    border: 1px solid lightgrey;
     width: 45px;
     height: 45px;
   }

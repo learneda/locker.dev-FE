@@ -62,7 +62,7 @@ const Home = props => {
       fontWeight: 'thin',
       display: 'flex',
       alignItems: 'center',
-      borderTop: '1px solid powderblue',
+      borderTop: '1px solid lightgrey',
     },
     button: {
       border: '1px solid dodgerblue',
@@ -139,13 +139,10 @@ const mapStateToProps = ({ auth, user, home, social }) => ({
   ...social,
 })
 
-export default connect(
-  mapStateToProps,
-  {
-    ...socialActions,
-    ...homeActions,
-  }
-)(withRouter(Home))
+export default connect(mapStateToProps, {
+  ...socialActions,
+  ...homeActions,
+})(withRouter(Home))
 
 Home.propTypes = {
   auth: PropTypes.any,

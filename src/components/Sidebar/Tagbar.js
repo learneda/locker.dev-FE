@@ -55,7 +55,7 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid powderblue;
+  border: 1px solid lightgrey;
   background: #fff;
   h3 {
     background: #e8f4fb;
