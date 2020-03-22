@@ -1,0 +1,12 @@
+export const FETCH_FEED = 'FETCH_FEED'
+export const INCREMENT_OFFSET = 'INCREMENT_OFFSET'
+export const TOGGLE_HAS_MORE = 'TOGGLE_HAS_MORE'
+export const FETCH_MORE_FEED = 'FETCH_MORE_FEED'
+export const FETCH_LOCKER = 'FETCH_LOCKER'
+
+export const FETCH_TOP_TAGS = 'FETCH_TOP_TAGS'
+export const FETCH_MY_TAGS = 'FETCH_MY_TAGS'
+export const ADD_TO_MY_TAGS = 'ADD_TO_MY_TAGS'
+export const REMOVE_FROM_MY_TAGS = 'REMOVE_FROM_MY_TAGS'
+
+export const RESET_POSTS = 'RESET_POSTS'
