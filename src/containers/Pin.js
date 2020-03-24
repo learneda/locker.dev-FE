@@ -48,9 +48,9 @@ const Pin = ({ location, item }) => {
         >
           <Dropdown
             items={[
-              { text: 'by tomorrow' },
-              { text: 'in one week' },
-              { text: 'this.month' },
+              { text: 'Lockers' },
+              { text: 'Placeholder1' },
+              { text: 'Placeholder2' },
             ]}
             handleClick={handleClick}
           />
@@ -100,17 +100,18 @@ const Wrapper = styled.div`
   top: ${props => (props.isDropdown ? '0px' : '10px')};
   right: ${props => (props.isDropdown ? '0px' : '10px')};
   z-index: 1;
-  padding: 10px;
-  border-radius: 50%;
+  padding: 3px;
+  border-radius: 10%;
   overflow: hidden;
-  opacity: ${props => (props.isPinned ? '1' : '0.65')};
-  background-color: #fdfdfd;
+  opacity: ${props => (props.isPinned ? '1' : '0.7')};
+  background-color: #1e90ff;
   ${elevations[1]};
   transition: all 250ms ease;
   cursor: pointer;
   &:hover {
     opacity: 1;
     transform: scale(1.05);
-    ${elevations[2]};
+    ${elevations[4]};
+    text-color: dodgerblue;
   }
 `

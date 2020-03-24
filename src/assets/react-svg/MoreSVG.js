@@ -15,7 +15,7 @@ const MoreSVG = ({ active }) => {
       <metadata>
         Created by potrace 1.15, written by Peter Selinger 2001-2017
       </metadata>
-      <g fill='none' stroke={color} strokeMiterlimit='10' strokeWidth='28px'>
+      <g fill={color} stroke={color} strokeMiterlimit='10' strokeWidth='28px'>
         <circle cx='256' cy='256' r='32' />
         <circle cx='416' cy='256' r='32' />
         <circle cx='96' cy='256' r='32' />
