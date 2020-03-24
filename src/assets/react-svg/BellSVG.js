@@ -1,9 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+// Styles
+import { black, primary } from '../../styles/utils/colors'
+
 const BellSVG = ({ active }) => {
   const fill = 'none'
-  const stroke = active ? 'dodgerblue' : 'black'
+  const stroke = active ? primary : black
   return (
     <svg
       version='1.0'
@@ -11,7 +14,7 @@ const BellSVG = ({ active }) => {
       width='22.000000pt'
       height='22.000000pt'
       viewBox='0 0 512 512'
-      // preserveAspectRatio='xMidYMid meet'
+      preserveAspectRatio='xMidYMid meet'
     >
       <metadata>
         Created by potrace 1.15, written by Peter Selinger 2001-2017

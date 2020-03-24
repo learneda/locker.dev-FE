@@ -1,8 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+// Styles
+import { primary, black } from '../../styles/utils/colors'
+
 const MoreSVG = ({ active }) => {
-  const color = active ? 'dodgerblue' : 'black'
+  const color = active ? primary : black
   return (
     <svg
       version='1.0'

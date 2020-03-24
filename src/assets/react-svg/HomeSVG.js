@@ -1,8 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+// Styles
+import { black, primary } from '../../styles/utils/colors'
+
 const HomeSVG = ({ active }) => {
-  const color = active ? 'dodgerblue' : 'black'
+  const color = active ? primary : black
 
   return (
     <svg
@@ -17,12 +20,15 @@ const HomeSVG = ({ active }) => {
         Created by potrace 1.15, written by Peter Selinger 2001-2017
       </metadata>
       <g
-        // transform='translate(0.000000,468.000000) scale(0.100000,-0.100000)'
-        fill={color}
-        stroke='none'
+        fill='none'
+        stroke={color}
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='32px'
       >
-        <path d='M258.5 104.1c-1.5-1.2-3.5-1.2-5 0l-156 124.8c-.9.8-1.5 1.9-1.5 3.1v230c0 1.1.9 2 2 2h108c1.1 0 2-.9 2-2V322c0-1.1.9-2 2-2h92c1.1 0 2 .9 2 2v140c0 1.1.9 2 2 2h108c1.1 0 2-.9 2-2V232c0-1.2-.6-2.4-1.5-3.1l-156-124.8z' />
-        <path d='M458.7 204.2l-189-151.4C265.9 49.7 261 48 256 48s-9.9 1.7-13.7 4.8L160 119.7V77.5c0-1.1-.9-2-2-2H98c-1.1 0-2 .9-2 2v92.2l-42.7 35.1c-3.1 2.5-5.1 6.2-5.3 10.2-.2 4 1.3 7.9 4.1 10.7 2.6 2.6 6.1 4.1 9.9 4.1 3.2 0 6.3-1.1 8.8-3.1l183.9-148c.5-.4.9-.4 1.3-.4s.8.1 1.3.4l183.9 147.4c2.5 2 5.6 3.1 8.8 3.1 3.7 0 7.2-1.4 9.9-4.1 2.9-2.8 4.4-6.7 4.2-10.7-.3-4-2.2-7.7-5.4-10.2z' />
+        <path d='M80,212V448a16,16,0,0,0,16,16h96V328a24,24,0,0,1,24-24h80a24,24,0,0,1,24,24V464h96a16,16,0,0,0,16-16V212' />
+        <path d='M480,256,266.89,52c-5-5.28-16.69-5.34-21.78,0L32,256' />
+        <polyline points='400 179 400 64 352 64 352 133' />
       </g>
     </svg>
   )

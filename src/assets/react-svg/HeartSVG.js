@@ -2,10 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
+// Styles
+import { red, primary } from '../../styles/utils/colors'
+
 const HeartSVG = ({ active }) => {
-  const color = active ? '#e94856' : 'dodgerblue'
+  const color = active ? red : primary
   const fill = active ? color : 'none'
-  const stroke = active ? '#e94856' : 'dodgerblue'
+  const stroke = active ? red : primary
 
   // Conditionally render heart outline svg vs heart fill depending on active status
   const dAttrib = active

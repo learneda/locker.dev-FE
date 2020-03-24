@@ -1,9 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+// Styles
+import { primary } from '../../styles/utils/colors'
+
 const CommentSVG = ({ active }) => {
   const fill = 'none'
-  const stroke = 'dodgerblue'
+  const stroke = primary
 
   return (
     <svg

@@ -1,8 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+// Styles
+import { black, primary } from '../../styles/utils/colors'
+
 const DeleteSVG = ({ active }) => {
-  const color = active ? 'dodgerblue' : 'black'
+  const color = active ? primary : black
   return (
     <svg
       version='1.0'

@@ -1,8 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+// Styles
+import { black, primary } from '../../styles/utils/colors'
+
 const AddLinkSVG = ({ active }) => {
-  const color = active ? 'dodgerblue' : 'black'
+  const stroke = active ? primary : black
+  const fill = 'none'
   return (
     <svg
       version='1.1'
@@ -13,9 +17,8 @@ const AddLinkSVG = ({ active }) => {
       viewBox='0 0 512 512'
     >
       <g
-        // transform='translate(0.000000,548.000000) scale(0.100000,-0.100000)'
-        fill='none'
-        stroke={color}
+        fill={fill}
+        stroke={stroke}
         strokeLinecap='round'
         strokeLinejoin='round'
         strokeWidth='32px'
