@@ -3,10 +3,17 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const HeartSVG = ({ active }) => {
-  const color = active ? '#e94856' : 'black'
+  const color = active ? '#e94856' : 'dodgerblue'
+  const fill = active ? color : 'none'
+  const stroke = active ? '#e94856' : 'dodgerblue'
+
+  // Conditionally render heart outline svg vs heart fill depending on active status
+  const dAttrib = active
+    ? 'M256,448a32,32,0,0,1-18-5.57c-78.59-53.35-112.62-89.93-131.39-112.8-40-48.75-59.15-98.8-58.61-153C48.63,114.52,98.46,64,159.08,64c44.08,0,74.61,24.83,92.39,45.51a6,6,0,0,0,9.06,0C278.31,88.81,308.84,64,352.92,64,413.54,64,463.37,114.52,464,176.64c.54,54.21-18.63,104.26-58.61,153-18.77,22.87-52.8,59.45-131.39,112.8A32,32,0,0,1,256,448Z'
+    : 'M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z'
   return (
     <Wrapper>
-      {/* <svg
+      <svg
         version='1.0'
         xmlns='http://www.w3.org/2000/svg'
         width='20.000000pt'
@@ -18,13 +25,15 @@ const HeartSVG = ({ active }) => {
           Created by potrace 1.15, written by Peter Selinger 2001-2017
         </metadata>
         <g
-          // transform='translate(0.000000,354.000000) scale(0.100000,-0.100000)'
-          fill={color}
-          stroke='none'
+          fill={fill}
+          stroke={stroke}
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          strokeWidth='32px'
         >
-          <path d='M349.6 64c-36.4 0-70.7 16.7-93.6 43.9C233.1 80.7 198.8 64 162.4 64 97.9 64 48 114.2 48 179.1c0 79.5 70.7 143.3 177.8 241.7L256 448l30.2-27.2C393.3 322.4 464 258.6 464 179.1 464 114.2 414.1 64 349.6 64zm-80.8 329.3l-4.2 3.9-8.6 7.8-8.6-7.8-4.2-3.9c-50.4-46.3-94-86.3-122.7-122-28-34.7-40.4-63.1-40.4-92.2 0-22.9 8.4-43.9 23.7-59.3 15.2-15.4 36-23.8 58.6-23.8 26.1 0 52 12.2 69.1 32.5l24.5 29.1 24.5-29.1c17.1-20.4 43-32.5 69.1-32.5 22.6 0 43.4 8.4 58.7 23.8 15.3 15.4 23.7 36.5 23.7 59.3 0 29-12.5 57.5-40.4 92.2-28.8 35.7-72.3 75.7-122.8 122z' />
+          <path d={dAttrib} />
         </g>
-      </svg> */}
+      </svg>
     </Wrapper>
   )
 }
@@ -36,12 +45,5 @@ HeartSVG.propTypes = {
 export default HeartSVG
 
 const Wrapper = styled.div`
-  width: 100px;
-  height: 100px;
-  background: url('https://cssanimation.rocks/images/posts/steps/heart.png')
-    no-repeat;
-  background-position: 0 0;
   cursor: pointer;
-  transition: background-position 1s steps(28);
-  transition-duration: 0s;
 `

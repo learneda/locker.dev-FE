@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const PonySVG = ({ active }) => {
-  const color = active ? 'magenta' : 'black'
+  const color = active ? 'magenta' : 'dodgerblue'
   return (
     <svg
       version='1.0'
