@@ -6,6 +6,9 @@ import BrowseSVG from 'assets/react-svg/BrowseSVG'
 import HomeSVG from 'assets/react-svg/HomeSVG'
 import LockerSVG from 'assets/react-svg/Locker04SVG'
 
+// Styles
+import { primary } from '../../../styles/utils/colors'
+
 const NavLeft = props => {
   const { location } = props
 
@@ -56,7 +59,7 @@ const StyledNavLeft = styled.div`
       transition: border-bottom 0.3s ease;
       border-bottom: 3px solid transparent;
       &:hover {
-        border-bottom: 3px solid dodgerblue;
+        border-bottom: 3px solid ${primary};
       }
       @media (max-width: 650px) {
         display: flex;
@@ -82,7 +85,7 @@ const StyledNavLeft = styled.div`
     }
   }
   .active {
-    color: dodgerblue;
-    border-bottom: 3px solid dodgerblue;
+    color: ${primary};
+    border-bottom: 3px solid ${primary};
   }
 `

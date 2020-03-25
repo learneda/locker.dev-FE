@@ -5,6 +5,9 @@ import ContentLoader from 'react-content-loader'
 import styled from 'styled-components'
 import { smartTruncate } from 'styles'
 
+// Styles
+import { primary } from '../../styles/utils/colors'
+
 const MyLoader = () => (
   <ContentLoader
     height={150}
@@ -214,8 +217,8 @@ const StyledCard = styled.div`
         border: transparent;
         border-radius: 50px;
         background-color: white;
-        border: 1px solid dodgerblue;
-        color: dodgerblue;
+        border: 1px solid ${primary};
+        color: ${primary};
         cursor: pointer;
         transition: 200ms ease-out;
         font-size: 1.3rem;

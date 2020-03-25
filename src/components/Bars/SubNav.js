@@ -2,6 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { NavLink, withRouter } from 'react-router-dom'
+
+// Styles
+import { primary } from '../../styles/utils/colors'
+
 const SubNav = props => {
   const { match, location } = props
   const isLocker = () => {
@@ -81,8 +85,8 @@ const Tab = styled.li`
   transition: 300ms ease;
   .active {
     font-weight: bold;
-    color: dodgerblue;
-    border-bottom: 2px solid dodgerblue;
+    color: ${primary};
+    border-bottom: 2px solid ${primary};
   }
 
   .locker-active {
@@ -104,7 +108,7 @@ const Tab = styled.li`
     transition: 300ms ease;
     &:hover {
       cursor: pointer;
-      border-bottom: 2px solid dodgerblue;
+      border-bottom: 2px solid ${primary};
     }
     @media (max-width: 650px) {
       padding: 0 1.1rem;

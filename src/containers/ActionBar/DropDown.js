@@ -5,6 +5,9 @@ import { elevations } from 'styles/utils'
 import { withRouter } from 'react-router-dom'
 import { smartTruncate } from 'styles/index'
 
+// Styles
+import { primary, bgHover } from '../../styles/utils/colors'
+
 const DropDown = props => {
   const {
     location,
@@ -71,11 +74,11 @@ const StyledDropDown = styled.div`
     height: 40px;
     width: 100%;
     padding: 10px;
-    color: dodgerblue;
+    color: ${primary};
     transitions: all 400ms ease;
     &:hover {
-      background: #e8f4fb;
-      color: dodgerblue;
+      background: ${bgHover};
+      color: ${primary};
     }
   }
 `

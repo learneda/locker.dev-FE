@@ -9,6 +9,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import useOnClickOutside from 'use-onclickoutside'
 import { createGoal, fetchGoals, deleteGoal } from 'actions/goalActions'
 
+// Styles
+import { primary } from '../styles/utils/colors'
+
 const Pin = ({ location, item }) => {
   const dropdownRef = useRef()
   const { userId, searchTerm } = useSelector(({ auth, search }) => ({
@@ -104,7 +107,7 @@ const Wrapper = styled.div`
   border-radius: 10%;
   overflow: hidden;
   opacity: ${props => (props.isPinned ? '1' : '0.7')};
-  background-color: #1e90ff;
+  background-color: ${primary};
   ${elevations[1]};
   transition: all 250ms ease;
   cursor: pointer;
@@ -112,6 +115,6 @@ const Wrapper = styled.div`
     opacity: 1;
     transform: scale(1.05);
     ${elevations[4]};
-    text-color: dodgerblue;
+    text-color: ${primary};
   }
 `

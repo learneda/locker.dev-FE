@@ -5,6 +5,9 @@ import ReuseablePortal from 'components/Utils/ModalPortal'
 import useOnClickOutside from 'use-onclickoutside'
 import { ReactComponent as X } from 'assets/svg/x.svg'
 
+// Styles
+import { primary } from '../../styles/utils/colors'
+
 const ShareModal = props => {
   const { isActive, setIsActive, handleSubmit } = props
   const textareaRef = useRef()
@@ -99,7 +102,7 @@ const ModalWrapper = styled.div`
     width: 500px;
     height: 400px;
     border-radius: 6px;
-    border: 3px solid dodgerblue;
+    border: 3px solid ${primary};
   }
   .tags {
     height: 30px;
@@ -145,20 +148,20 @@ const ModalWrapper = styled.div`
     width: 100%;
     resize: none;
     &:focus {
-      border: 1px solid dodgerblue;
+      border: 1px solid ${primary};
     }
   }
   .add-btn {
     padding: 5px 30px;
     border-radius: 5px;
-    color: dodgerblue;
+    color: ${primary};
     font-size: 1.6rem;
     letter-spacing: 1px;
     transition: 200ms ease-out;
     cursor: pointer;
     &:hover {
       background-color: #e8f4fb;
-      border: 1px solid dodgerblue;
+      border: 1px solid ${primary};
     }
   }
 

@@ -7,6 +7,9 @@ import * as notificationActions from 'pages/Notifications/store/notificationActi
 import styled from 'styled-components'
 import useOnClickOutside from 'use-onclickoutside'
 
+// Styles
+import { primary } from '../styles/utils/colors'
+
 //Only an SVG atm ... disabled popup notification (readNotifications)
 const Bell = props => {
   const { user, posts, notifications, active } = props
@@ -121,7 +124,7 @@ const StyledNotifications = styled.div`
     top: -5px;
     font-weight: bold;
     font-size: 1.6rem;
-    color: dodgerblue;
+    color: ${primary};
   }
   .modal-portal {
     display: flex;
@@ -131,7 +134,7 @@ const StyledNotifications = styled.div`
     max-height: 250px;
     width: 450px;
     overflow: auto;
-    border: 1px solid dodgerblue;
+    border: 1px solid ${primary};
     background-color: rgba(255, 255, 255, 0.98);
     border-radius: 5px;
     top: 52px;

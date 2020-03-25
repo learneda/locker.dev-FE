@@ -2,8 +2,10 @@ import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { smartTruncate } from 'styles'
-
 import styled from 'styled-components'
+
+// Styles
+import { primary } from '../../../styles/utils/colors'
 
 const PostContent = props => {
   const { post } = props
@@ -19,9 +21,11 @@ const PostContent = props => {
         <TagBar>
           {post.tags.map((tag, index) => {
             return (
-              <Link key={index} className='tag' to={`/tag/${tag.hashtag}`}>{`#${
-                tag.hashtag
-              }`}</Link>
+              <Link
+                key={index}
+                className='tag'
+                to={`/tag/${tag.hashtag}`}
+              >{`#${tag.hashtag}`}</Link>
             )
           })}
         </TagBar>
@@ -55,7 +59,7 @@ const Container = styled.div`
     letter-spacing: 0.5px;
     transition: color 300ms ease;
     &:hover {
-      color: dodgerblue;
+      color: ${primary};
     }
     @media (max-width: 500px) {
       font-size: 1.8rem;
@@ -81,7 +85,7 @@ const TagBar = styled.div`
     padding-right: 10px;
     transition: color 0.3s ease;
     &:hover {
-      color: dodgerblue;
+      color: ${primary};
     }
   }
 `

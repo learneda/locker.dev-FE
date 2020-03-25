@@ -4,6 +4,9 @@ import styled from 'styled-components'
 import useLockBodyScroll from 'hooks/useLockBodyScroll'
 import useOnClickOutside from 'use-onclickoutside'
 
+// Styles
+import { primary } from '../../styles/utils/colors'
+
 const GoalModal = props => {
   const modalRef = useRef()
   useLockBodyScroll()
@@ -64,7 +67,7 @@ const StyledGoalModal = styled.div`
     font-size: 2.2rem;
     letter-spacing: 1.2px;
     font-weight: thin;
-    color: dodgerblue;
+    color: ${primary};
     border-bottom: 1px solid lightgrey;
   }
   .goal-form {
@@ -126,13 +129,13 @@ const StyledGoalModal = styled.div`
       .goal-btn-submit {
         height: 50px;
         width: 150px;
-        color: dodgerblue;
+        color: ${primary};
         background: none;
-        border: 1px solid dodgerblue;
+        border: 1px solid ${primary};
         transition: all 300ms ease;
         &:hover {
           color: white;
-          background: dodgerblue;
+          background: ${primary};
         }
       }
     }

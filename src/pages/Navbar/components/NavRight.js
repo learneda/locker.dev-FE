@@ -10,6 +10,9 @@ import useOnClickOutside from 'use-onclickoutside'
 import { useMedia } from 'use-media'
 import Bell from 'containers/Bell'
 
+// Styles
+import { primary } from '../../../styles/utils/colors'
+
 const NavRight = props => {
   const {
     user,
@@ -63,7 +66,7 @@ const NavRight = props => {
           className='search-wrap'
           style={
             active
-              ? { border: '1px solid dodgerblue' }
+              ? { border: `1px solid ${primary}` }
               : { border: '1px solid rgb(191, 197, 201)' }
           }
           onClick={() => {
@@ -111,7 +114,7 @@ const StyledNavRight = styled.div`
   .search-wrap {
     border-radius: 50%;
     &:hover {
-      border: 1px solid dodgerblue;
+      border: 1px solid ${primary};
     }
   }
   .bell-wrap {

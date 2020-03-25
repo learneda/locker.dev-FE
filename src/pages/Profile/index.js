@@ -17,6 +17,9 @@ import * as profileActions from 'pages/Profile/store/profileActions'
 import * as homeActions from 'pages/Home/store/homeActions'
 import { useDispatch } from 'react-redux'
 
+// Styles
+import { primary, bgHover } from '../../styles/utils/colors'
+
 const Profile = props => {
   const {
     className,
@@ -249,14 +252,11 @@ const Profile = props => {
 const mapStateToProps = ({ auth, profile, social, home }) => {
   return { auth, profile, social, feed: home }
 }
-export default connect(
-  mapStateToProps,
-  {
-    ...homeActions,
-    ...profileActions,
-    ...socialActions,
-  }
-)(withRouter(Profile))
+export default connect(mapStateToProps, {
+  ...homeActions,
+  ...profileActions,
+  ...socialActions,
+})(withRouter(Profile))
 
 Profile.propTypes = {
   className: PropTypes.string,
@@ -321,8 +321,8 @@ const Container = styled.div`
           border: transparent;
           border-radius: 50px;
           background-color: white;
-          border: 1px solid dodgerblue;
-          color: dodgerblue;
+          border: 1px solid ${primary};
+          color: ${primary};
           cursor: pointer;
           transition: 200ms ease-out;
           font-size: 1.3rem;
@@ -330,7 +330,7 @@ const Container = styled.div`
           padding: 8px 15px;
           margin-bottom: 10px;
           &:hover {
-            background-color: #e8f4fb;
+            background-color: ${bgHover};
           }
         }
       }

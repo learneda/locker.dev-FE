@@ -35,7 +35,7 @@ const Container = styled.div`
     color: darkslategray;
     transition: color 0.1 ease;
     &:hover {
-      color: dodgerblue;
+      color: primary;
     }
   }
 `

@@ -4,6 +4,9 @@ import { NavLink, Link, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import { smartTruncate } from 'styles'
 
+// Styles
+import { primary, bgHover } from '../../../styles/utils/colors'
+
 const ProfileNav = ({
   auth,
   user,
@@ -202,7 +205,7 @@ const Nav = styled.nav`
     }
   }
   .profile-username {
-    color: dodgerblue;
+    color: ${primary};
   }
   .nav-center {
     height: 100%;
@@ -227,13 +230,13 @@ const Nav = styled.nav`
       display: none;
     }
     .edit-profile {
-      border: 1px solid dodgerblue;
+      border: 1px solid ${primary};
       padding: 10px 15px;
       border-radius: 20px;
-      color: dodgerblue;
+      color: ${primary};
       cursor: pointer;
       &:hover {
-        background: #e8f4fb;
+        background: ${bgHover};
       }
     }
   }
@@ -245,8 +248,8 @@ const Tab = styled.li`
   list-style: none;
   .active {
     font-weight: bold;
-    color: dodgerblue;
-    border-bottom: 2px solid dodgerblue;
+    color: ${primary};
+    border-bottom: 2px solid ${primary};
   }
   a {
     border-bottom: 2px solid transparent;
@@ -268,7 +271,7 @@ const Tab = styled.li`
     }
     &:hover {
       cursor: pointer;
-      border-bottom: 2px solid dodgerblue;
+      border-bottom: 2px solid ${primary};
     }
     @media (max-width: 620px) {
       padding: 0 1rem;

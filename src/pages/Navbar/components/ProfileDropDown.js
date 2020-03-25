@@ -7,6 +7,9 @@ import { ReactComponent as Logout } from 'assets/svg/logout2.svg'
 import { authURL } from 'services'
 import useOnClickOutside from 'use-onclickoutside'
 
+// Styles
+import { primary, bgHover } from '../../../styles/utils/colors'
+
 const ProfileDropDown = props => {
   const { user } = props
   const ref = useRef()
@@ -24,7 +27,7 @@ const ProfileDropDown = props => {
         <img
           style={
             toggle
-              ? { border: '1px solid dodgerblue' }
+              ? { border: `1px solid ${primary}` }
               : { border: '1px solid transparent' }
           }
           src={user.profile_picture}
@@ -88,13 +91,13 @@ const DropDown = styled.ul`
   border-radius: 5px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   font-weight: 500;
-  border: 1px solid dodgerblue;
+  border: 1px solid ${primary};
   li {
     height: 40px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     &:hover {
-      background-color: #e8f4fb;
+      background-color: ${bgHover};
     }
     a {
       letter-spacing: 1px;

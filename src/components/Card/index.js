@@ -13,6 +13,9 @@ import Pin from 'containers/Pin'
 import Goal from 'containers/Goal/index'
 import he from 'he'
 
+// Styles
+import { primary } from '../../styles/utils/colors'
+
 const Card = props => {
   const { type, item, location, isGoal } = props
   // showIframe is only needed for Videos
@@ -193,7 +196,7 @@ const Container = styled.div`
       padding: 6px 10px 0px;
       cursor: pointer;
       &:hover {
-        color: dodgerblue;
+        color: ${primary};
       }
     }
     p {

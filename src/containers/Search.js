@@ -7,6 +7,9 @@ import SearchUsersDropDown from 'pages/Navbar/components/SearchUsersDropDown'
 import * as searchActions from 'pages/Navbar/store/searchActions'
 import useOnClickOutside from 'use-onclickoutside'
 
+// Styles
+import { primary } from '../styles/utils/colors'
+
 const Search = props => {
   const { searchTerm, location, setSearchTerm, resetSearchTerm } = props
   const ref = useRef()
@@ -205,10 +208,10 @@ const Container = styled.div`
       width: 150px;
     }
     &:hover {
-      border: 1px solid dodgerblue;
+      border: 1px solid ${primary};
     }
     &:focus {
-      border: 1px solid dodgerblue;
+      border: 1px solid ${primary};
       background-color: #fff;
       color: #14171a;
     }

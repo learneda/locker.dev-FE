@@ -11,6 +11,9 @@ import DeleteSVG from 'assets/react-svg/DeleteSVG'
 import ShareModal from './ActionBarModal'
 import DropDown from './DropDown'
 
+// Styles
+import { primary, black } from '../../styles/utils/colors'
+
 const ActionBar = props => {
   // console.log('PROPS', props)
   const {
@@ -209,10 +212,7 @@ const mapStateToProps = ({ auth, search }) => ({
   searchTerm: search.searchTerm,
 })
 
-export default connect(
-  mapStateToProps,
-  { ...actions }
-)(withRouter(ActionBar))
+export default connect(mapStateToProps, { ...actions })(withRouter(ActionBar))
 
 const StyledActionBar = styled.div`
   font-size: 1.2rem;
@@ -228,7 +228,7 @@ const StyledActionBar = styled.div`
     width: 60px;
     transition: 0.1s ease-in-out;
     &:hover {
-      color: dodgerblue;
+      color: ${primary};
     }
   }
   .delete {
@@ -240,10 +240,10 @@ const StyledActionBar = styled.div`
     }
   }
   .save {
-    color: ${props => (props.saveActive ? 'dodgerblue' : 'black')};
+    color: ${props => (props.saveActive ? primary : black)};
   }
   .share {
-    color: ${props => (props.shareActive ? 'dodgerblue' : 'black')};
+    color: ${props => (props.shareActive ? primary : black)};
   }
   .label {
     font-weight: 600;
