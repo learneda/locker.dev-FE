@@ -30,7 +30,7 @@ const NavLeft = props => {
         <li>
           <NavLink to='/locker'>
             <LockerSVG active={location.pathname.includes('locker')} />
-            <span>Locker</span>
+            <span>Lockers</span>
           </NavLink>
         </li>
       </ul>
