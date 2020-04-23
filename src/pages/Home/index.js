@@ -10,6 +10,9 @@ import { Tagbar, Sidebar, Footer, Suggested } from 'components/Sidebar'
 import * as socialActions from 'actions/socialActions'
 import * as homeActions from './store/homeActions'
 
+// Styles
+import { primary, black, red, bgHover } from '../../styles/utils/colors'
+
 const Home = props => {
   const {
     auth,
@@ -57,21 +60,21 @@ const Home = props => {
       position: 'fixed',
       left: '0px',
       bottom: '0px',
-      background: '#e8f4fb  20px 50% no-repeat',
+      background: `${bgHover} 20px 50% no-repeat`,
       fontSize: '1.4rem',
       fontWeight: 'thin',
       display: 'flex',
       alignItems: 'center',
-      borderTop: '1px solid powderblue',
+      borderTop: '1px solid lightgrey',
     },
     button: {
-      border: '1px solid dodgerblue',
+      border: `1px solid ${primary}`,
       borderRadius: 4,
       width: 66,
       height: 32,
       lineHeight: '32px',
       background: 'transparent',
-      color: 'dodgerblue',
+      color: `${primary}`,
       fontSize: '14px',
       fontWeight: 600,
       opacity: 1,
@@ -84,12 +87,12 @@ const Home = props => {
       lineHeight: 1.5,
       textAlign: 'left',
       marginRight: 244,
-      color: '#141619',
+      color: `${black}`,
     },
     link: {
       textDecoration: 'none',
       fontWeight: 'bold',
-      color: 'orangered',
+      color: `${red}`,
       fontSize: '1.2rem',
     },
   }
@@ -139,13 +142,10 @@ const mapStateToProps = ({ auth, user, home, social }) => ({
   ...social,
 })
 
-export default connect(
-  mapStateToProps,
-  {
-    ...socialActions,
-    ...homeActions,
-  }
-)(withRouter(Home))
+export default connect(mapStateToProps, {
+  ...socialActions,
+  ...homeActions,
+})(withRouter(Home))
 
 Home.propTypes = {
   auth: PropTypes.any,

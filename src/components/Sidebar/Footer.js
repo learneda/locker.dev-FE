@@ -24,7 +24,7 @@ const Container = styled.section`
   position: sticky;
   top: 485px;
   width: 100%;
-  border: 1px solid powderblue;
+  border: 1px solid lightgrey;
   z-index: 1;
   font-size: 1.2rem;
   display: flex;

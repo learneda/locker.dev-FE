@@ -1,15 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+// Styles
+import { primary, magenta } from '../../styles/utils/colors'
+
 const PonySVG = ({ active }) => {
-  const color = active ? 'magenta' : 'black'
+  const color = active ? magenta : primary
   return (
     <svg
       version='1.0'
       xmlns='http://www.w3.org/2000/svg'
       width='20.000000pt'
       height='20.000000pt'
-      viewBox='0 0 490.000000 490.000000'
+      viewBox='0 0 512.000000 512.000000'
       preserveAspectRatio='xMidYMid meet'
     >
       <metadata>

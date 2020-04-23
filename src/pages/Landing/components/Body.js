@@ -7,6 +7,9 @@ import videosSVG from 'assets/svg/youtube2.svg'
 import shareSVG from 'assets/svg/sharenew.svg'
 import learnLocker from 'assets/svg/brand45.svg'
 
+// Styles
+import { primary } from '../../../styles/utils/colors'
+
 const Body = props => {
   const { authModalOpen, modalSignUp } = props
 
@@ -126,7 +129,7 @@ const StyledFeature = styled.div`
       cursor: pointer;
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
       transform: translateY(-1px) scale(1.02);
-      border: 1px solid dodgerblue;
+      border: 1px solid ${primary};
     }
   }
 `

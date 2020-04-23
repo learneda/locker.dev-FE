@@ -6,6 +6,9 @@ import PonySVG from 'assets/react-svg/PonySVG'
 import styled from 'styled-components'
 import FeedModal from './FeedModal'
 
+// Styles
+import { primary } from '../../../styles/utils/colors'
+
 const FeedBar = props => {
   const { user_id, username, post, handleClick, handlePony } = props
   const [heart, setHeart] = useState(false)
@@ -149,7 +152,7 @@ const Container = styled.div`
     align-items: center;
     cursor: pointer;
     &:hover {
-      color: dodgerblue;
+      color: ${primary};
     }
   }
   .svg {

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { ReactComponent as TrashSVG } from 'assets/svg/trash-2.svg'
+import { ReactComponent as TrashSVG } from 'assets/svg/trash-3.svg'
 
 const Trash = props => {
   const { handleDeleteComment } = props

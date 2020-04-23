@@ -7,6 +7,9 @@ import SearchUsersDropDown from 'pages/Navbar/components/SearchUsersDropDown'
 import * as searchActions from 'pages/Navbar/store/searchActions'
 import useOnClickOutside from 'use-onclickoutside'
 
+// Styles
+import { primary } from '../styles/utils/colors'
+
 const Search = props => {
   const { searchTerm, location, setSearchTerm, resetSearchTerm } = props
   const ref = useRef()
@@ -174,10 +177,9 @@ const mapStateToProps = ({ search }) => ({
   searchTerm: search.searchTerm,
 })
 
-export default connect(
-  mapStateToProps,
-  { ...searchActions }
-)(withRouter(Search))
+export default connect(mapStateToProps, { ...searchActions })(
+  withRouter(Search)
+)
 
 Search.propTypes = {
   searchTerm: PropTypes.string.isRequired,
@@ -198,7 +200,7 @@ const Container = styled.div`
     outline: none;
     border-radius: 21px;
     background-color: #f5f8fa;
-    border: 1px solid powderblue;
+    border: 1px solid lightgrey;
     transition: all 0.2s ease-in-out;
     padding: 8px 32px 8px 12px;
     color: #14171a;
@@ -206,10 +208,10 @@ const Container = styled.div`
       width: 150px;
     }
     &:hover {
-      border: 1px solid dodgerblue;
+      border: 1px solid ${primary};
     }
     &:focus {
-      border: 1px solid dodgerblue;
+      border: 1px solid ${primary};
       background-color: #fff;
       color: #14171a;
     }

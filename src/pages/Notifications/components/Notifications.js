@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom'
 import HelpScreen from 'components/Screens/HelpScreen'
 import OnlineFriendsSVG from 'assets/svg/online_friends.svg'
 
+// Styles
+import { primary, black } from '../../../styles/utils/colors'
+
 const Notifications = props => {
   const { notifications, readNotifications } = props
   useEffect(() => {
@@ -18,7 +21,7 @@ const Notifications = props => {
             <div
               key={n.id}
               style={{
-                border: '2px solid dodgerblue',
+                border: `2px solid ${primary}`,
                 marginBottom: '50px',
                 padding: '30px',
                 display: 'flex',
@@ -62,7 +65,7 @@ const Notifications = props => {
             <div
               key={n.id}
               style={{
-                border: '2px solid black',
+                border: `2px solid ${black}`,
                 marginBottom: '50px',
                 padding: '30px',
                 display: 'flex',
@@ -108,7 +111,7 @@ const Notifications = props => {
     displayNotifications = (
       <div
         style={{
-          border: '2px solid black',
+          border: `2px solid ${black}`,
           marginBottom: '50px',
           padding: '30px',
           display: 'flex',

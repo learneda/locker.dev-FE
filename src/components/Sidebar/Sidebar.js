@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom'
 import ContentLoader from 'react-content-loader'
 import styled from 'styled-components'
 import { smartTruncate } from 'styles'
+
+// Styles
+import { primary } from '../../styles/utils/colors'
+
 const MyLoader = () => (
   <ContentLoader
     height={451}
@@ -104,13 +108,13 @@ const Profile = styled.div`
   top: 66px;
   width: 100%;
   background: #fff;
-  border: 1px solid powderblue;
+  border: 1px solid lightgrey;
 
   .count {
     margin: 10px 0;
     font-size: 2rem;
     font-weight: bold;
-    color: dodgerblue;
+    color: ${primary};
   }
   .count-label {
     font-weight: bold;
@@ -122,7 +126,7 @@ const Profile = styled.div`
     position: relative;
     padding-left: 10px;
     height: 80px;
-    background-color: dodgerblue;
+    background-color: ${primary};
   }
   .sidebar-avatar {
     position: absolute;

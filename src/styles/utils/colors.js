@@ -1,5 +1,7 @@
 export const primary = '#1E90FF'
 export const secondary = '#FF4500'
+export const red = '#e94856'
+export const magenta = '#FF00FF'
 export const black = '#141619'
 export const primaryPH = '#F3F3F3'
 export const secondaryPH = '#FCFCFC'

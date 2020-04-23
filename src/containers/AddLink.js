@@ -11,6 +11,9 @@ import useOnClickOutside from 'use-onclickoutside'
 import { transitionClasses } from 'helpers/transitionClasses'
 import { CSSTransition } from 'react-transition-group'
 
+// Styles
+import { primary } from '../styles/utils/colors'
+
 const AddLink = props => {
   const { createCollection } = props
   const inputRef = useRef()
@@ -104,10 +107,7 @@ const AddLink = props => {
   )
 }
 
-export default connect(
-  null,
-  { createCollection }
-)(AddLink)
+export default connect(null, { createCollection })(AddLink)
 
 AddLink.propTypes = {
   createCollection: PropTypes.func.isRequired,
@@ -125,15 +125,9 @@ const Container = styled.div`
     align-items: center;
     font-size: 3rem;
     font-weight: 700;
-    border: 1px solid #bfc5c9;
-    border-radius: 50%;
+
     cursor: pointer;
     transition: 300ms ease;
-    &:hover {
-      border: 1px solid dodgerblue;
-    }
-    border: ${props =>
-      props.isModalOpen ? '1px solid dodgerblue' : ' 1px solid #bfc5c9'};
   }
 `
 const ModalWrapper = styled.div`
@@ -155,7 +149,7 @@ const ModalWrapper = styled.div`
     transform: translate(-250px, -70px);
     max-width: 500px;
     border-radius: 6px;
-    border: 3px solid dodgerblue;
+    border: 3px solid ${primary};
   }
   .top {
     display: flex;
@@ -192,20 +186,20 @@ const ModalWrapper = styled.div`
     margin-right: 10px;
     outline: none;
     &:focus {
-      border: 1px solid dodgerblue;
+      border: 1px solid ${primary};
     }
   }
   .add-btn {
     padding: 5px 30px;
     border-radius: 5px;
-    color: dodgerblue;
+    color: ${primary};
     font-size: 1.6rem;
     letter-spacing: 1px;
     transition: 200ms ease-out;
     cursor: pointer;
     &:hover {
       background-color: #e8f4fb;
-      border: 1px solid dodgerblue;
+      border: 1px solid ${primary};
     }
   }
 

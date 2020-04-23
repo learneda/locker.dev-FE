@@ -2,6 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
+// Styles
+import { primary } from '../../styles/utils/colors'
+
 const Dropdown = ({ items, handleClick }) => {
   const renderItems = items => {
     return items.map((item, index) => <li key={index}>{item.text}</li>)
@@ -24,7 +27,7 @@ const List = styled.ul`
     padding: 15px;
     border-bottom: 1px solid powerblue;
     background-color: white;
-    color: dodgerblue;
+    color: ${primary};
     cursor: pointer;
     transition: all 300ms ease;
     &:hover {

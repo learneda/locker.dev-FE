@@ -3,6 +3,9 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import FollowingPlaceHolder from './FollowingPlaceholder'
 
+// Styles
+import { primary } from '../../../styles/utils/colors'
+
 const HashTagHeader = props => {
   const { isFollowing, tag, followTag, unfollowTag } = props
   return isFollowing !== null ? (
@@ -46,7 +49,7 @@ const Flex = styled.div`
   align-items: center;
   height: 70px;
   z-index: 1;
-  border: 1px solid dodgerblue;
+  border: 1px solid ${primary};
   margin-bottom: 20px;
   .tag-heading {
     font-size: 1.8rem;
@@ -63,7 +66,7 @@ const Flex = styled.div`
     justify-content: center;
     cursor: pointer;
     &:hover {
-      color: ${props => (props.isFollowing ? 'crimson' : 'dodgerblue')};
+      color: ${props => (props.isFollowing ? 'crimson' : primary)};
     }
   }
 `

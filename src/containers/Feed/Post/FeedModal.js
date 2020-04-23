@@ -6,6 +6,9 @@ import useOnClickOutside from 'use-onclickoutside'
 import { ReactComponent as X } from 'assets/svg/x.svg'
 import axios from 'apis/axiosAPI'
 
+// Styles
+import { primary, bgHover } from '../../../styles/utils/colors'
+
 const FeedModal = props => {
   const { setActive, postId, type } = props
   const modalRef = useRef()
@@ -88,7 +91,7 @@ const ModalWrapper = styled.div`
     width: 400px;
     height: 400px;
     border-radius: 6px;
-    border: 2px solid powderblue;
+    border: 2px solid lightgrey;
   }
 
   .modal-top {
@@ -138,7 +141,7 @@ const ModalWrapper = styled.div`
   }
   .type-img {
     border-radius: 50%;
-    border: 1px solid powderblue;
+    border: 1px solid lightgrey;
     width: 45px;
     height: 45px;
   }
@@ -170,15 +173,15 @@ const ModalWrapper = styled.div`
     border: transparent;
     border-radius: 50px;
     background-color: white;
-    border: 1px solid dodgerblue;
-    color: dodgerblue;
+    border: 1px solid ${primary};
+    color: ${primary};
     cursor: pointer;
     margin-right: 15px;
     transition: 200ms ease-out;
     font-size: 1.3rem;
     letter-spacing: 0.9;
     &:hover {
-      background-color: #e8f4fb;
+      background-color: ${bgHover};
     }
   }
 `

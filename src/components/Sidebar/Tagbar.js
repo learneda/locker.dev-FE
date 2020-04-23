@@ -3,6 +3,9 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
+// Styles
+import { primary } from '../../styles/utils/colors'
+
 const Tagbar = props => {
   const { topTags, myTags } = props
   return (
@@ -55,7 +58,7 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid powderblue;
+  border: 1px solid lightgrey;
   background: #fff;
   h3 {
     background: #e8f4fb;
@@ -76,7 +79,7 @@ const Container = styled.section`
     a {
       cursor: pointer;
       &:hover {
-        color: dodgerblue;
+        color: ${primary};
       }
     }
   }

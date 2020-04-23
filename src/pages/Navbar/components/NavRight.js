@@ -10,6 +10,9 @@ import useOnClickOutside from 'use-onclickoutside'
 import { useMedia } from 'use-media'
 import Bell from 'containers/Bell'
 
+// Styles
+import { primary } from '../../../styles/utils/colors'
+
 const NavRight = props => {
   const {
     user,
@@ -63,7 +66,7 @@ const NavRight = props => {
           className='search-wrap'
           style={
             active
-              ? { border: '1px solid dodgerblue' }
+              ? { border: `1px solid ${primary}` }
               : { border: '1px solid rgb(191, 197, 201)' }
           }
           onClick={() => {
@@ -79,11 +82,11 @@ const NavRight = props => {
       {isLarge && <AddLink />}
       <NavLink
         to='/notifications'
-        style={
-          location.pathname.includes('notifications')
-            ? { border: '1px solid dodgerblue' }
-            : null
-        }
+        // style={
+        //   location.pathname.includes('notifications')
+        //     ? { border: '1px solid dodgerblue' }
+        //     : null
+        // }
         className='bell-wrap'
       >
         <Bell active={location.pathname.includes('notifications')} />
@@ -111,16 +114,11 @@ const StyledNavRight = styled.div`
   .search-wrap {
     border-radius: 50%;
     &:hover {
-      border: 1px solid dodgerblue;
+      border: 1px solid ${primary};
     }
   }
   .bell-wrap {
-    border-radius: 50%;
-    border: 1px solid rgb(191, 197, 201);
     padding: 3px;
     margin-left: 20px;
-    &:hover {
-      border: 1px solid dodgerblue;
-    }
   }
 `
