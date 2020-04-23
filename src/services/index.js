@@ -1,11 +1,6 @@
-const baseURL =
-  process.env.NODE_ENV === 'production'
-    ? 'https://learned-a.herokuapp.com'
-    : 'http://localhost:8000'
-const clientUrl =
-  process.env.NODE_ENV === 'production'
-    ? 'https://learnlocker.dev'
-    : 'http://localhost:3000'
+const baseURL = process.env.BASE_URL
+
+const clientUrl = process.env.CLIENT_URL
 
 const authURL = `${baseURL}/auth`
 const apiURL = `${baseURL}/api`
