@@ -1,6 +1,6 @@
-const baseURL = process.env.BASE_URL
+const baseURL = process.env.REACT_BASE_URL
 
-const clientUrl = process.env.CLIENT_URL
+const clientUrl = process.env.REACT_CLIENT_URL
 
 const authURL = `${baseURL}/auth`
 const apiURL = `${baseURL}/api`
