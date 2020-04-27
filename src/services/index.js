@@ -2,6 +2,8 @@ const baseURL = process.env.REACT_APP_BASE_URL
 
 const clientUrl = process.env.REACT_APP_CLIENT_URL
 
+console.log('baseURL', baseURL)
+
 const authURL = `${baseURL}/auth`
 const apiURL = `${baseURL}/api`
 const postURL = `${baseURL}/api/post/?url=`
