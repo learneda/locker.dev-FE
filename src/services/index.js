@@ -1,7 +1,5 @@
 const baseURL =
-  process.env.NODE_ENV === 'production'
-    ? 'https://learned-a.herokuapp.com'
-    : 'http://localhost:8000'
+  process.env.REACT_APP_LEARN_LOCKER_API_URL
 const clientUrl =
   process.env.NODE_ENV === 'production'
     ? 'https://learnlocker.dev'
