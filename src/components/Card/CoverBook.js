@@ -4,7 +4,8 @@ import styled from 'styled-components'
 
 const CoverBook = ({ item }) => {
   if (!item.thumbnail) {
-    item.thumbnail = 'https://source.unsplash.com/random/128x190'
+    // FIXME: This is no longer redirecting properly
+    // item.thumbnail = 'https://source.unsplash.com/random/128x190'
   }
   return (
     <Container url={item.thumbnail}>

@@ -41,9 +41,13 @@ export const fetchCourses = (q, page) => async dispatch => {
   if (!q) {
     q = selectRandom(topics)
   }
-  const res = await axios.get(`/courses?page=${page}&search=${q}`)
-  dispatch({ type: types.FETCH_COURSES, payload: res.data.results })
-  dispatch({ type: types.SET_COURSE_PAGE, payload: page + pageStep })
+  try {
+    const res = await axios.get(`/courses?page=${page}&search=${q}`)
+    dispatch({ type: types.FETCH_COURSES, payload: res.data.results })
+    dispatch({ type: types.SET_COURSE_PAGE, payload: page + pageStep })
+  } catch (error) {
+    console.error('FetchCourses Error', error)
+  }
 }
 export const searchCourses = (q, page) => async dispatch => {
   const pageStep = 1
@@ -57,16 +61,24 @@ export const fetchVideos = (q, pageToken) => async dispatch => {
   if (!q) {
     q = selectRandom(topics)
   }
-  const res = await axios.post('/youtube', { q, pageToken })
+  try {
+    const res = await axios.post('/youtube', { q, pageToken })
 
-  //Adds isThumbnail property to each video; default to true
-  const videosWithThumbnailState = res.data.items.map(video => {
-    video.isThumbnail = true
-    return video
-  })
-  dispatch({ type: types.FETCH_VIDEOS, payload: videosWithThumbnailState })
-  dispatch({ type: types.SET_VIDEO_PAGETOKEN, payload: res.data.nextPageToken })
+    //Adds isThumbnail property to each video; default to true
+    const videosWithThumbnailState = res.data.items.map(video => {
+      video.isThumbnail = true
+      return video
+    })
+    dispatch({ type: types.FETCH_VIDEOS, payload: videosWithThumbnailState })
+    dispatch({
+      type: types.SET_VIDEO_PAGETOKEN,
+      payload: res.data.nextPageToken,
+    })
+  } catch (error) {
+    console.log('video error', error)
+  }
 }
+
 export const searchVideos = q => async dispatch => {
   const res = await axios.post('/youtube', { q })
   const videosWithThumbnailState = res.data.items.map(video => {

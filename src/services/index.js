@@ -1,8 +1,7 @@
-const baseURL =
-  process.env.REACT_APP_LEARN_LOCKER_API_URL
+const baseURL = process.env.REACT_APP_LEARN_LOCKER_API_URL
 const clientUrl =
   process.env.NODE_ENV === 'production'
-    ? 'https://learnlocker.dev'
+    ? 'https://learnlocker.app'
     : 'http://localhost:3000'
 
 const authURL = `${baseURL}/auth`

@@ -43,15 +43,19 @@ const ProfileSettings = props => {
     if (header) {
       const fd = new FormData()
       fd.append('profile_pic', header)
-      const res = await axios.post(`/images/header`, fd)
-      if (res.data.success) {
-        if (res.data.user.header_picture) {
-          // update redux store here
-          store.dispatch({
-            type: types.UPDATE_HEADER_PICTURE,
-            payload: res.data.user.header_picture,
-          })
+      try {
+        const res = await axios.post(`/images/header`, fd)
+        if (res.data.success) {
+          if (res.data.user.header_picture) {
+            // update redux store here
+            store.dispatch({
+              type: types.UPDATE_HEADER_PICTURE,
+              payload: res.data.user.header_picture,
+            })
+          }
         }
+      } catch (error) {
+        console.log('Header upload error', error)
       }
     }
   }

@@ -110,7 +110,9 @@ const Card = props => {
           <a href={item.url} target='_blank' rel='noopener noreferrer'>
             <img
               src={
-                item.thumbnail || 'https://source.unsplash.com/random/345x180'
+                item.thumbnail
+                // FIXME: The random photo link no longer works properly
+                // item.thumbnail || 'https://source.unsplash.com/random/345x180'
               }
               alt={`${type}-thumbnail`}
             />
