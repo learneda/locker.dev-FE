@@ -1,8 +1,8 @@
-# locker.dev [![Netlify Status](https://api.netlify.com/api/v1/badges/7d863733-ed9f-4379-97a1-749fb22d6723/deploy-status)](https://app.netlify.com/sites/learnedadev/deploys)
+# learnlocker.app [![Netlify Status](https://api.netlify.com/api/v1/badges/15443576-9a68-4058-b202-d9766bce30a4/deploy-status)](https://app.netlify.com/sites/learnlocker/deploys)
 
-**[locker.dev (formerly LearnLocker)](https://learnlocker.dev/)** is an application that reduces your time searching through scattered resources all over the internet by keeping all of it in one place.
+**[LearnLocker](https://learnlocker.app)** is an application that reduces your time searching through scattered resources all over the internet by keeping all of it in one place.
 
-[![LearnLocker](./src/assets/img/splash2.png)](https://learnlocker.dev/)
+[![LearnLocker](./src/assets/img/splash2.png)](https://learnlocker.app)
 
 ## Table of Contents
 - [Team](#team)
