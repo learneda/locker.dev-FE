@@ -10,7 +10,7 @@ const NavLanding = props => {
   return (
     <Nav>
       <h1>
-        <Link to='/'>locker.dev</Link>
+        <Link to='/'>learnlocker.app</Link>
       </h1>
       <img src={brand} alt='brand' />
       <ul>

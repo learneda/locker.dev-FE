@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <Container>
       <div className='top'>
-        <div className='a'>&copy;2019 locker.dev About Help Terms</div>
+        <div className='a'>&copy;2021 learnlocker.app About Help Terms</div>
         <div className='a'>Privacy Cookies Funding Status</div>
         <div className='a'>Blog Developers Code Suggestions</div>
       </div>

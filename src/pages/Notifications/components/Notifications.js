@@ -119,7 +119,7 @@ const Notifications = props => {
         }}
       >
         <HelpScreen
-          headerText='Welcome to locker.dev! Start by introducing yourself in the welcome hashtag.'
+          headerText='Welcome to learnlocker.app! Start by introducing yourself in the welcome hashtag.'
           imgSource={OnlineFriendsSVG}
         />
       </div>
