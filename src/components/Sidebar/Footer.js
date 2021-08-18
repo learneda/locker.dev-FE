@@ -46,8 +46,9 @@ const Container = styled.section`
   }
   .a {
     margin-bottom: 11px;
-    &:last-child:
-    margin-bottom: 0px;
+    &:last-child {
+      margin-bottom: 0px;
+    }
   }
   svg {
     height: 13px;
