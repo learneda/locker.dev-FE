@@ -5,9 +5,9 @@ import axios from 'apis/axiosAPI'
 // Fetches userID on App mount
 export const fetchAuth = () => async dispatch => {
   const res = await axiosAuth.get(`/current_user`)
-  const { id, ...user } = res.data
-  if (id) {
-    dispatch({ type: types.FETCH_AUTH, payload: { id } })
+  const { ...user } = res.data
+  if (user.id) {
+    dispatch({ type: types.FETCH_AUTH, payload: { id: user.id } })
     dispatch({ type: types.FETCH_USER, payload: user })
   } else {
     dispatch({ type: types.FETCH_AUTH, payload: false })
