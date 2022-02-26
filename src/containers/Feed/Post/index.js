@@ -11,9 +11,7 @@ const PostContainer = props => {
   const {
     post,
     className,
-    user_id,
-    username,
-    profile_picture,
+    currentUser,
     handleSubmit,
     handleReactionClick,
     handleDeleteComment,
@@ -123,8 +121,7 @@ const PostContainer = props => {
       <PostContent post={post} />
       <div className='post-bar'>
         <FeedBar
-          user_id={user_id}
-          username={username}
+          currentUser={currentUser}
           post={post}
           handleReactionClick={handleReactionClick}
         />
@@ -134,9 +131,8 @@ const PostContainer = props => {
         post_comments={post.comments}
         post_id={post.id}
         handleSubmit={handleSubmit}
-        profile_picture={profile_picture}
         handleDeleteComment={handleDeleteComment}
-        user_id={user_id}
+        currentUser={currentUser}
         postOwnerId={post.user_id}
       />
     </Container>
@@ -156,7 +152,6 @@ PostContainer.propTypes = {
   className: PropTypes.string,
   user_id: PropTypes.number.isRequired,
   username: PropTypes.string.isRequired,
-  profile_picture: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   handleReactionClick: PropTypes.func.isRequired,
   handleDeleteComment: PropTypes.func.isRequired,

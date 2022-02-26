@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import FeedModal from './FeedModal'
 
 const FeedBar = props => {
-  const { user_id, post, handleReactionClick } = props
+  const { currentUser, post, handleReactionClick } = props
   const [heart, setHeart] = useState(false)
   const [pony, setPony] = useState(false)
   const [isLikeModal, setLikeModal] = useState(false)
@@ -39,7 +39,7 @@ const FeedBar = props => {
     }
     const data = {
       id: post.id,
-      user_id,
+      user_id: currentUser.id,
       reaction,
     }
     handleReactionClick(data)
@@ -100,7 +100,7 @@ const FeedBar = props => {
 }
 
 FeedBar.propTypes = {
-  user_id: PropTypes.number.isRequired,
+  currentUser: PropTypes.object.isRequired,
   post: PropTypes.shape({
     id: PropTypes.number.isRequired,
     hasLiked: PropTypes.bool.isRequired,

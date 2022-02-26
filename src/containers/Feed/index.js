@@ -82,9 +82,7 @@ const Feed = props => {
             handleSubmit={handleSubmit}
             handleReactionClick={handleReactionClick}
             post={post}
-            user_id={auth.id}
-            username={user.username}
-            profile_picture={user.profile_picture}
+            currentUser={user}
             handleDeleteComment={handleDeleteComment}
           />
         ))}
