@@ -10,7 +10,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import ScrollToTopOnMount from 'components/Utils/ScrollToTopOnMount'
 import PostContainer from './Post/'
 import FeedPlaceholder from './Post/FeedPlaceholder'
-
+import { handlePostReactions } from 'App/store/appActions'
 const Feed = props => {
   const {
     auth,
@@ -21,6 +21,7 @@ const Feed = props => {
     hasmore,
     fetchMoreFeed,
     fetchMoreTagFeed,
+    handlePostReactions,
   } = props
 
   const handleSubmit = (event, post_id, comment, postOwnerId) => {
@@ -46,12 +47,8 @@ const Feed = props => {
     })
   }
 
-  const handleClick = data => {
-    socket.emit('like', data)
-  }
-
-  const handlePony = data => {
-    socket.emit('pony', data)
+  const handleReactionClick = data => {
+    handlePostReactions(data)
   }
 
   const next = () =>
@@ -83,13 +80,12 @@ const Feed = props => {
           <PostContainer
             key={index}
             handleSubmit={handleSubmit}
-            handleClick={handleClick}
+            handleReactionClick={handleReactionClick}
             post={post}
             user_id={auth.id}
             username={user.username}
             profile_picture={user.profile_picture}
             handleDeleteComment={handleDeleteComment}
-            handlePony={handlePony}
           />
         ))}
       </InfiniteScroll>
@@ -100,10 +96,9 @@ const Feed = props => {
 // export default Feed
 const mapStateToProps = ({ auth, user }) => ({ auth, user })
 
-export default connect(
-  mapStateToProps,
-  null
-)(withRouter(Feed))
+export default connect(mapStateToProps, { handlePostReactions })(
+  withRouter(Feed)
+)
 
 Feed.propTypes = {
   auth: PropTypes.any,
@@ -118,6 +113,7 @@ Feed.propTypes = {
   hasmore: PropTypes.bool.isRequired,
   fetchMoreFeed: PropTypes.func,
   fetchMoreTagFeed: PropTypes.func,
+  handlePostReactions: PropTypes.func,
 }
 // Controls Feed dimensions
 const Container = styled.div`

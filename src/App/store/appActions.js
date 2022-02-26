@@ -33,19 +33,26 @@ export const deleteComment = commentData => async dispatch => {
   dispatch({ type: types.DELETE_COMMENT, payload: commentData })
 }
 
-export const likePost = postData => async dispatch => {
-  // console.log(commentData)
-  dispatch({ type: types.LIKE_POST, payload: postData })
-}
-
-export const unlikePost = postData => async dispatch => {
-  dispatch({ type: types.UNLIKE_POST, payload: postData })
-}
-
-export const ponyUp = data => dispatch => {
-  dispatch({ type: types.PONY_UP, payload: data })
-}
-
-export const ponyDown = data => dispatch => {
-  dispatch({ type: types.PONY_DOWN, payload: data })
+export const handlePostReactions = postData => async dispatch => {
+  const { id, reaction, user_id } = postData
+  await axios.post('/posts/reaction', {
+    reaction,
+    user_id,
+    post_id: id,
+  })
+  switch (reaction) {
+    case 'like':
+      dispatch({ type: types.LIKE_POST, payload: postData })
+      break
+    case 'unlike':
+      dispatch({ type: types.UNLIKE_POST, payload: postData })
+      break
+    case 'pony_up':
+      dispatch({ type: types.PONY_UP, payload: postData })
+      break
+    case 'pony_down':
+      dispatch({ type: types.PONY_DOWN, payload: postData })
+    default:
+      break
+  }
 }

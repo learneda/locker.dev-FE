@@ -15,8 +15,7 @@ const PostContainer = props => {
     username,
     profile_picture,
     handleSubmit,
-    handleClick,
-    handlePony,
+    handleReactionClick,
     handleDeleteComment,
   } = props
 
@@ -127,15 +126,13 @@ const PostContainer = props => {
           user_id={user_id}
           username={username}
           post={post}
-          handleClick={handleClick}
-          handlePony={handlePony}
+          handleReactionClick={handleReactionClick}
         />
         <StyledActionBar insertItem={post} className={className} />
       </div>
       <CommentBox
         post_comments={post.comments}
         post_id={post.id}
-        handleClick={handleClick}
         handleSubmit={handleSubmit}
         profile_picture={profile_picture}
         handleDeleteComment={handleDeleteComment}
@@ -161,8 +158,7 @@ PostContainer.propTypes = {
   username: PropTypes.string.isRequired,
   profile_picture: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  handleClick: PropTypes.func.isRequired,
-  handlePony: PropTypes.func.isRequired,
+  handleReactionClick: PropTypes.func.isRequired,
   handleDeleteComment: PropTypes.func.isRequired,
 }
 const Container = styled.div`
