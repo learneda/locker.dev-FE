@@ -30,10 +30,6 @@ const App = props => {
     receivingNotifications,
     createComment,
     deleteComment,
-    likePost,
-    unlikePost,
-    ponyUp,
-    ponyDown,
   } = props
   // initial fetchAuth on browser mount
   useEffect(() => {
@@ -58,37 +54,6 @@ const App = props => {
             case 'create':
               // invoke action creator createComment & pass in msg obj
               createComment(msg)
-              break
-            default:
-              break
-          }
-        })
-        // socket is listening on like event & will receive a data obj
-        socket.on('like', data => {
-          // data obj contains postOwnerId, post_id, user_id, username
-          switch (data.action) {
-            case 'unlike':
-              // invoke action creator unlikePost & pass in msg obj
-              unlikePost(data)
-              break
-            case 'like':
-              // invoke action creator likePost & pass in msg obj
-              likePost(data)
-              break
-            default:
-              break
-          }
-        })
-        socket.on('pony', data => {
-          // data obj contains postOwnerId, post_id, user_id, username
-          switch (data.action) {
-            case 'pony_down':
-              // invoke action creator ponyDown & pass in msg obj
-              ponyDown(data)
-              break
-            case 'pony_up':
-              // invoke action creator ponyUp & pass in msg obj
-              ponyUp(data)
               break
             default:
               break
@@ -132,20 +97,16 @@ const App = props => {
 
 const mapStateToProps = ({ auth }) => ({ auth })
 
-export default connect(
-  mapStateToProps,
-  { ...appActions, receivingNotifications }
-)(App)
+export default connect(mapStateToProps, {
+  ...appActions,
+  receivingNotifications,
+})(App)
 
 App.propTypes = {
   auth: PropTypes.any,
   fetchAuth: PropTypes.func.isRequired,
   receivingNotifications: PropTypes.func.isRequired,
   createComment: PropTypes.func.isRequired,
-  likePost: PropTypes.func.isRequired,
-  unlikePost: PropTypes.func.isRequired,
-  ponyUp: PropTypes.func.isRequired,
-  ponyDown: PropTypes.func.isRequired,
 }
 
 const Container = styled.div`
