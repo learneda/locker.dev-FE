@@ -14,7 +14,7 @@ const Footer = () => (
       Cookies
     </a>
     <Link to='#'>Help</Link>
-    <Link to='#'>&copy; 2021 learnlocker.app</Link>
+    <Link to='#'>&copy; {new Date().getFullYear()} learnlocker.app</Link>
   </Nav>
 )
 
