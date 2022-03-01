@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import FeedModal from './FeedModal'
 
 const FeedBar = props => {
-  const { user_id, username, post, handleClick, handlePony } = props
+  const { currentUser, post, handleReactionClick } = props
   const [heart, setHeart] = useState(false)
   const [pony, setPony] = useState(false)
   const [isLikeModal, setLikeModal] = useState(false)
@@ -24,49 +24,25 @@ const FeedBar = props => {
     }
   }, [])
 
-  const handleHeartClick = (e, post_id, post) => {
-    const postOwnerId = post.user_id
-
-    if (heart) {
-      const data = {
-        id: post_id,
-        user_id: user_id,
-        action: 'unlike',
-      }
-      handleClick(data)
-    } else {
-      const data = {
-        id: post_id,
-        user_id: user_id,
-        action: 'like',
-        postOwnerId,
-        username: username,
-      }
-      handleClick(data)
+  const handleClick = (hasReaction, reactionType) => {
+    let reaction = null
+    switch (reactionType) {
+      case 'like':
+        reaction = hasReaction ? 'unlike' : 'like'
+        setHeart(prev => !prev)
+        break
+      case 'pony':
+        reaction = hasReaction ? 'pony_down' : 'pony_up'
+        setPony(prev => !prev)
+      default:
+        break
     }
-    setHeart(prev => !prev)
-  }
-
-  const handlePonyClick = (e, post_id, post) => {
-    const postOwnerId = post.user_id
-    if (pony) {
-      const data = {
-        id: post_id,
-        user_id: user_id,
-        action: 'pony_down',
-      }
-      handlePony(data)
-    } else {
-      const data = {
-        id: post_id,
-        user_id: user_id,
-        action: 'pony_up',
-        postOwnerId,
-        username: username,
-      }
-      handlePony(data)
+    const data = {
+      post: post,
+      user: currentUser,
+      reaction,
     }
-    setPony(prev => !prev)
+    handleReactionClick(data)
   }
 
   return (
@@ -87,7 +63,7 @@ const FeedBar = props => {
         <span
           className='svg'
           onClick={e => {
-            handleHeartClick(e, post.id, post)
+            handleClick(heart, 'like')
           }}
         >
           <HeartSVG active={heart} />
@@ -105,7 +81,7 @@ const FeedBar = props => {
         <span
           className='svg'
           onClick={e => {
-            handlePonyClick(e, post.id, post)
+            handleClick(pony, 'pony')
           }}
         >
           <PonySVG active={pony} />
@@ -124,8 +100,7 @@ const FeedBar = props => {
 }
 
 FeedBar.propTypes = {
-  user_id: PropTypes.number.isRequired,
-  user_name: PropTypes.string,
+  currentUser: PropTypes.object.isRequired,
   post: PropTypes.shape({
     id: PropTypes.number.isRequired,
     hasLiked: PropTypes.bool.isRequired,
@@ -135,8 +110,7 @@ FeedBar.propTypes = {
     likes: PropTypes.number.isRequired,
     ponyCount: PropTypes.number.isRequired,
   }).isRequired,
-  handleClick: PropTypes.func.isRequired,
-  handlePony: PropTypes.func.isRequired,
+  handleReactionClick: PropTypes.func.isRequired,
 }
 
 export default FeedBar

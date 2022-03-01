@@ -33,19 +33,37 @@ export const deleteComment = commentData => async dispatch => {
   dispatch({ type: types.DELETE_COMMENT, payload: commentData })
 }
 
-export const likePost = postData => async dispatch => {
-  // console.log(commentData)
-  dispatch({ type: types.LIKE_POST, payload: postData })
-}
+export const handlePostReactions = postData => dispatch => {
+  const { post, reaction, user } = postData
+  axios.post('/posts/reaction', {
+    reaction,
+    user_id: user.id,
+    post_id: post.id,
+  })
+  // do not create notification if reacted on own post (for example i like my own post)
+  if (post.user_id !== user.id) {
+    // deletes & or creates notification
+    axios.post('/notifications', {
+      post_id: post.id,
+      user_id: post.user_id,
+      type: reaction,
+      invoker: user.username,
+    })
+  }
 
-export const unlikePost = postData => async dispatch => {
-  dispatch({ type: types.UNLIKE_POST, payload: postData })
-}
-
-export const ponyUp = data => dispatch => {
-  dispatch({ type: types.PONY_UP, payload: data })
-}
-
-export const ponyDown = data => dispatch => {
-  dispatch({ type: types.PONY_DOWN, payload: data })
+  switch (reaction) {
+    case 'like':
+      dispatch({ type: types.LIKE_POST, payload: postData })
+      break
+    case 'unlike':
+      dispatch({ type: types.UNLIKE_POST, payload: postData })
+      break
+    case 'pony_up':
+      dispatch({ type: types.PONY_UP, payload: postData })
+      break
+    case 'pony_down':
+      dispatch({ type: types.PONY_DOWN, payload: postData })
+    default:
+      break
+  }
 }

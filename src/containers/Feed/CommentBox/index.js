@@ -29,14 +29,14 @@ const CommentBox = props => {
   })
   const {
     post_comments,
-    user_id,
+    currentUser,
     post_id,
     postOwnerId,
-    profile_picture,
     handleDeleteComment,
     handleSubmit,
     inputCommentRef,
   } = props
+  const { profile_picture } = currentUser
   const [itemsToRender, setRender] = useState(-2)
   const [commentInput, setCommentInput] = useState('')
 
@@ -60,7 +60,7 @@ const CommentBox = props => {
             </button>
           )}
           {post_comments.slice(itemsToRender).map((comment, index) => {
-            if (comment.user_id === user_id) {
+            if (comment.user_id === currentUser.id) {
               return (
                 <div key={comment.id} className='comment'>
                   <div className='comment-text'>
@@ -134,10 +134,9 @@ export default CommentBox
 
 CommentBox.propTypes = {
   post_comments: PropTypes.arrayOf(PropTypes.object).isRequired,
-  user_id: PropTypes.number.isRequired,
+  currentUser: PropTypes.object.isRequired,
   post_id: PropTypes.number.isRequired,
   postOwnerId: PropTypes.number.isRequired,
-  profile_picture: PropTypes.string.isRequired,
   handleDeleteComment: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   inputCommentRef: PropTypes.node,

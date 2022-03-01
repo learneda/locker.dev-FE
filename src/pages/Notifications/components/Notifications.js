@@ -9,6 +9,16 @@ const Notifications = props => {
   useEffect(() => {
     return () => readNotifications()
   }, [])
+  function getNotificationMsg(type) {
+    switch (type) {
+      case 'like':
+        return 'liked'
+      case 'pony_up':
+        return 'pony'
+      case 'comment':
+        return 'commented on'
+    }
+  }
   let displayNotifications
   if (notifications.length) {
     displayNotifications = notifications
@@ -42,7 +52,7 @@ const Notifications = props => {
               />
               <Link to={`/status/${n.post_id}`}>
                 <h1 style={{ fontSize: '30px' }}>
-                  {n.invoker} {n.type} on your post
+                  {n.invoker} {getNotificationMsg(n.type)} on your post
                 </h1>
               </Link>
               <img
@@ -86,7 +96,7 @@ const Notifications = props => {
               />
               <Link to={`/status/${n.post_id}`}>
                 <h1 style={{ fontSize: '30px' }}>
-                  {n.invoker} {n.type} on your post
+                  {n.invoker} {getNotificationMsg(n.type)} your post
                 </h1>
               </Link>
               <img
