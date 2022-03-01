@@ -34,12 +34,20 @@ export const deleteComment = commentData => async dispatch => {
 }
 
 export const handlePostReactions = postData => async dispatch => {
-  const { id, reaction, user_id } = postData
-  await axios.post('/posts/reaction', {
+  const { post, reaction, user } = postData
+  axios.post('/posts/reaction', {
     reaction,
-    user_id,
-    post_id: id,
+    user_id: user.id,
+    post_id: post.id,
   })
+  if (post.user_id !== user.id) {
+    axios.post('/notifications', {
+      post_id: post.id,
+      user_id: post.user_id,
+      type: reaction,
+      invoker: user.username,
+    })
+  }
   switch (reaction) {
     case 'like':
       dispatch({ type: types.LIKE_POST, payload: postData })

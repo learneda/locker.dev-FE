@@ -59,7 +59,7 @@ export const homeReducer = (state = initialState, action) => {
       //  payload will be the comment obj that contains which post it belongs to & how many like it has
       const updateLikePosts = state.posts.map(post => {
         // if a post id in our state arr matches the payload post id
-        if (post.id === action.payload.id) {
+        if (post.id === action.payload.post.id) {
           // increment post likes
           post.likes = post.likes + 1
         }
@@ -70,7 +70,7 @@ export const homeReducer = (state = initialState, action) => {
       //  payload will be the comment obj that contains which post it belongs to & how many like it has
       const unlikePost = state.posts.map(post => {
         // if a post id in our state arr matches the payload post id
-        if (post.id === action.payload.id) {
+        if (post.id === action.payload.post.id) {
           // decrement post likes
           post.likes = post.likes - 1
         }
@@ -79,7 +79,7 @@ export const homeReducer = (state = initialState, action) => {
       return { ...state, posts: unlikePost }
     case appTypes.PONY_UP:
       const ponyUp = state.posts.map(post => {
-        if (post.id === action.payload.id) {
+        if (post.id === action.payload.post.id) {
           post.ponyCount = post.ponyCount + 1
         }
         return post
@@ -87,7 +87,7 @@ export const homeReducer = (state = initialState, action) => {
       return { ...state, posts: ponyUp }
     case appTypes.PONY_DOWN:
       const ponyDown = state.posts.map(post => {
-        if (post.id === action.payload.id) {
+        if (post.id === action.payload.post.id) {
           post.ponyCount = post.ponyCount - 1
         }
         return post

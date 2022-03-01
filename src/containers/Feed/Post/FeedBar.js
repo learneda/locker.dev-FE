@@ -38,8 +38,8 @@ const FeedBar = props => {
         break
     }
     const data = {
-      id: post.id,
-      user_id: currentUser.id,
+      post: post,
+      user: currentUser,
       reaction,
     }
     handleReactionClick(data)
