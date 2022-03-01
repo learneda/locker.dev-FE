@@ -33,14 +33,16 @@ export const deleteComment = commentData => async dispatch => {
   dispatch({ type: types.DELETE_COMMENT, payload: commentData })
 }
 
-export const handlePostReactions = postData => async dispatch => {
+export const handlePostReactions = postData => dispatch => {
   const { post, reaction, user } = postData
   axios.post('/posts/reaction', {
     reaction,
     user_id: user.id,
     post_id: post.id,
   })
+  // do not create notification if reacted on own post (for example i like my own post)
   if (post.user_id !== user.id) {
+    // deletes & or creates notification
     axios.post('/notifications', {
       post_id: post.id,
       user_id: post.user_id,
@@ -48,6 +50,7 @@ export const handlePostReactions = postData => async dispatch => {
       invoker: user.username,
     })
   }
+
   switch (reaction) {
     case 'like':
       dispatch({ type: types.LIKE_POST, payload: postData })
