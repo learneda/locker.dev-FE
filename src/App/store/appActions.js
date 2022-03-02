@@ -44,7 +44,7 @@ export const handlePostReactions = postData => dispatch => {
   if (post.user_id !== user.id) {
     // deletes & or creates notification
     axios.post('/notifications', {
-      post_id: post.id,
+      newsfeed_id: post.id,
       user_id: post.user_id,
       type: reaction,
       invoker: user.username,
