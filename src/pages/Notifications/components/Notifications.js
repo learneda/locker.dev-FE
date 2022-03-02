@@ -50,7 +50,7 @@ const Notifications = props => {
                 }}
                 alt='sender-thumbnail'
               />
-              <Link to={`/status/${n.post_id}`}>
+              <Link to={`/status/${n.newsfeed_id}`}>
                 <h1 style={{ fontSize: '30px' }}>
                   {n.invoker} {getNotificationMsg(n.type)} on your post
                 </h1>
@@ -94,7 +94,7 @@ const Notifications = props => {
                 }}
                 alt='sender-thumbnail'
               />
-              <Link to={`/status/${n.post_id}`}>
+              <Link to={`/status/${n.newsfeed_id}`}>
                 <h1 style={{ fontSize: '30px' }}>
                   {n.invoker} {getNotificationMsg(n.type)} your post
                 </h1>
