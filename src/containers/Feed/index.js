@@ -10,7 +10,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import ScrollToTopOnMount from 'components/Utils/ScrollToTopOnMount'
 import PostContainer from './Post/'
 import FeedPlaceholder from './Post/FeedPlaceholder'
-import { handlePostReactions } from 'App/store/appActions'
+import { handlePostReactions, createComment } from 'App/store/appActions'
 const Feed = props => {
   const {
     auth,
@@ -22,6 +22,7 @@ const Feed = props => {
     fetchMoreFeed,
     fetchMoreTagFeed,
     handlePostReactions,
+    createComment,
   } = props
 
   const handleSubmit = (event, post_id, comment, postOwnerId) => {
@@ -35,7 +36,7 @@ const Feed = props => {
         username: user.username,
         postOwnerId,
       }
-      socket.emit('comments', comment)
+      createComment(comment)
     }
   }
 
@@ -94,7 +95,7 @@ const Feed = props => {
 // export default Feed
 const mapStateToProps = ({ auth, user }) => ({ auth, user })
 
-export default connect(mapStateToProps, { handlePostReactions })(
+export default connect(mapStateToProps, { handlePostReactions, createComment })(
   withRouter(Feed)
 )
 

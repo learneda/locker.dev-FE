@@ -26,7 +26,8 @@ export const fetchNotifications = notifications => ({
 })
 
 export const createComment = commentData => async dispatch => {
-  dispatch({ type: types.CREATE_COMMENT, payload: commentData })
+  const { data } = await axios.post('/comments', commentData)
+  dispatch({ type: types.CREATE_COMMENT, payload: data[0] })
 }
 
 export const deleteComment = commentData => async dispatch => {
