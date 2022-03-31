@@ -41,24 +41,6 @@ const App = props => {
         socket.on('join', data => {
           receivingNotifications(data)
         })
-        // socket is listening on comments event & will receive a msg obj
-        socket.on('comments', msg => {
-          // msg obj contains properties of content, action, post_id, user_id, username, created_at, & updated_at
-          switch (msg.action) {
-            // when action type === destroy
-            case 'destroy':
-              // invoke action creator deleteComment & pass in msg obj
-              deleteComment(msg)
-              break
-            // when action type === create
-            case 'create':
-              // invoke action creator createComment & pass in msg obj
-              createComment(msg)
-              break
-            default:
-              break
-          }
-        })
       }
     })
     return () => {
