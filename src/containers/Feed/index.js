@@ -13,7 +13,6 @@ import FeedPlaceholder from './Post/FeedPlaceholder'
 import { handlePostReactions, createComment } from 'App/store/appActions'
 const Feed = props => {
   const {
-    auth,
     user,
     tag,
     posts,
@@ -31,7 +30,7 @@ const Feed = props => {
       const comment = {
         action: 'create',
         content: body,
-        user_id: auth.id,
+        user_id: user.id,
         post_id: post_id,
         username: user.username,
         postOwnerId,
@@ -93,14 +92,13 @@ const Feed = props => {
 }
 
 // export default Feed
-const mapStateToProps = ({ auth, user }) => ({ auth, user })
+const mapStateToProps = ({ user }) => ({ user })
 
 export default connect(mapStateToProps, { handlePostReactions, createComment })(
   withRouter(Feed)
 )
 
 Feed.propTypes = {
-  auth: PropTypes.any,
   user: PropTypes.shape({
     username: PropTypes.string.isRequired,
     profile_picture: PropTypes.string.isRequired,
