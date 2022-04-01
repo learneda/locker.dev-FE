@@ -24,13 +24,7 @@ const Success = lazy(() => import('pages/Success'))
 const NoMatch = lazy(() => import('pages/NoMatch'))
 
 const App = props => {
-  const {
-    auth,
-    fetchAuth,
-    receivingNotifications,
-    createComment,
-    deleteComment,
-  } = props
+  const { auth, fetchAuth, receivingNotifications } = props
   // initial fetchAuth on browser mount
   useEffect(() => {
     fetchAuth().then(user => {
@@ -88,7 +82,6 @@ App.propTypes = {
   auth: PropTypes.any,
   fetchAuth: PropTypes.func.isRequired,
   receivingNotifications: PropTypes.func.isRequired,
-  createComment: PropTypes.func.isRequired,
 }
 
 const Container = styled.div`
