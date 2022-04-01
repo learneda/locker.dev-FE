@@ -9,7 +9,8 @@ import useOnClickOutside from 'use-onclickoutside'
 
 //Only an SVG atm ... disabled popup notification (readNotifications)
 const Bell = props => {
-  const { user, posts, notifications, active } = props
+  const { user, posts, notifications, active, getNotifications } = props
+  getNotifications()
   const ref = useRef()
   const [isModalOpen, setIsModalOpen] = useState(false)
   useOnClickOutside(ref, e => {
@@ -58,9 +59,7 @@ const Bell = props => {
                       src={user.profile_picture}
                       alt='avatar'
                     />
-                    <span className='text bell-modal'>{`${obj.invoker} ${
-                      obj.type
-                    } on your post`}</span>
+                    <span className='text bell-modal'>{`${obj.invoker} ${obj.type} on your post`}</span>
                   </div>
                   <img
                     className='notification-post-thumbnail bell-modal'
@@ -83,10 +82,7 @@ const mapStateToProps = ({ user, home, notifications }) => ({
   posts: home.posts,
 })
 
-export default connect(
-  mapStateToProps,
-  { ...notificationActions }
-)(Bell)
+export default connect(mapStateToProps, { ...notificationActions })(Bell)
 
 Bell.propTypes = {
   user: PropTypes.shape({
