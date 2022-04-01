@@ -32,6 +32,8 @@ export const createComment = commentData => async dispatch => {
 }
 
 export const deleteComment = commentData => async dispatch => {
+  const { id } = commentData
+  const resp = await axios.delete(`/comments/${id}`)
   dispatch({ type: types.DELETE_COMMENT, payload: commentData })
 }
 
