@@ -24,13 +24,7 @@ const Success = lazy(() => import('pages/Success'))
 const NoMatch = lazy(() => import('pages/NoMatch'))
 
 const App = props => {
-  const {
-    auth,
-    fetchAuth,
-    receivingNotifications,
-    createComment,
-    deleteComment,
-  } = props
+  const { auth, fetchAuth, receivingNotifications } = props
   // initial fetchAuth on browser mount
   useEffect(() => {
     fetchAuth().then(user => {
@@ -40,24 +34,6 @@ const App = props => {
         // join namespace contains all the current users who are online
         socket.on('join', data => {
           receivingNotifications(data)
-        })
-        // socket is listening on comments event & will receive a msg obj
-        socket.on('comments', msg => {
-          // msg obj contains properties of content, action, post_id, user_id, username, created_at, & updated_at
-          switch (msg.action) {
-            // when action type === destroy
-            case 'destroy':
-              // invoke action creator deleteComment & pass in msg obj
-              deleteComment(msg)
-              break
-            // when action type === create
-            case 'create':
-              // invoke action creator createComment & pass in msg obj
-              createComment(msg)
-              break
-            default:
-              break
-          }
         })
       }
     })
@@ -106,7 +82,6 @@ App.propTypes = {
   auth: PropTypes.any,
   fetchAuth: PropTypes.func.isRequired,
   receivingNotifications: PropTypes.func.isRequired,
-  createComment: PropTypes.func.isRequired,
 }
 
 const Container = styled.div`

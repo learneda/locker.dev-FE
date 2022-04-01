@@ -10,10 +10,13 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import ScrollToTopOnMount from 'components/Utils/ScrollToTopOnMount'
 import PostContainer from './Post/'
 import FeedPlaceholder from './Post/FeedPlaceholder'
-import { handlePostReactions, createComment } from 'App/store/appActions'
+import {
+  handlePostReactions,
+  createComment,
+  deleteComment,
+} from 'App/store/appActions'
 const Feed = props => {
   const {
-    auth,
     user,
     tag,
     posts,
@@ -23,6 +26,7 @@ const Feed = props => {
     fetchMoreTagFeed,
     handlePostReactions,
     createComment,
+    deleteComment,
   } = props
 
   const handleSubmit = (event, post_id, comment, postOwnerId) => {
@@ -31,7 +35,7 @@ const Feed = props => {
       const comment = {
         action: 'create',
         content: body,
-        user_id: auth.id,
+        user_id: user.id,
         post_id: post_id,
         username: user.username,
         postOwnerId,
@@ -41,11 +45,7 @@ const Feed = props => {
   }
 
   const handleDeleteComment = (comment_id, post_id) => {
-    socket.emit('comments', {
-      action: 'destroy',
-      comment_id: comment_id,
-      post_id: post_id,
-    })
+    deleteComment({ id: comment_id, post_id })
   }
 
   const handleReactionClick = data => {
@@ -93,14 +93,15 @@ const Feed = props => {
 }
 
 // export default Feed
-const mapStateToProps = ({ auth, user }) => ({ auth, user })
+const mapStateToProps = ({ user }) => ({ user })
 
-export default connect(mapStateToProps, { handlePostReactions, createComment })(
-  withRouter(Feed)
-)
+export default connect(mapStateToProps, {
+  handlePostReactions,
+  createComment,
+  deleteComment,
+})(withRouter(Feed))
 
 Feed.propTypes = {
-  auth: PropTypes.any,
   user: PropTypes.shape({
     username: PropTypes.string.isRequired,
     profile_picture: PropTypes.string.isRequired,
