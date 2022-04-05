@@ -9,8 +9,7 @@ import useOnClickOutside from 'use-onclickoutside'
 
 //Only an SVG atm ... disabled popup notification (readNotifications)
 const Bell = props => {
-  const { user, posts, notifications, active, getNotifications } = props
-  getNotifications()
+  const { user, posts, notifications, active } = props
   const ref = useRef()
   const [isModalOpen, setIsModalOpen] = useState(false)
   useOnClickOutside(ref, e => {
