@@ -5,28 +5,11 @@ import styled from 'styled-components'
 import { customLayout } from 'styles'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
+import { updateMomentLocale } from 'components/Utils/momentjs/timestampUpdatedLocale'
 const CommentBox = props => {
-  //TODO: Make DRY
   moment.relativeTimeThreshold('s', 40)
   moment.relativeTimeThreshold('ss', 10)
-  moment.updateLocale('en', {
-    relativeTime: {
-      future: 'in %s',
-      past: '%s ago',
-      s: 'a few seconds',
-      ss: '%d seconds',
-      m: 'a minute',
-      mm: '%d minutes',
-      h: 'an hour',
-      hh: '%d hours',
-      d: 'a day',
-      dd: '%d days',
-      M: 'a month',
-      MM: '%d months',
-      y: 'a year',
-      yy: '%d years',
-    },
-  })
+  updateMomentLocale(moment)
   const {
     post_comments,
     currentUser,

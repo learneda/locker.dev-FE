@@ -2,31 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
+import { updateMomentLocale } from 'components/Utils/momentjs/timestampUpdatedLocale'
 import { AttributionBar } from 'components/Bars'
 import { smartTruncate } from 'styles'
 import { useMedia } from 'use-media'
 import styled from 'styled-components'
 
 const PostHeader = props => {
-  //TODO: Make DRY
-  moment.updateLocale('en', {
-    relativeTime: {
-      future: '%s',
-      past: '%s',
-      s: 'now',
-      ss: '%ds',
-      m: '1m',
-      mm: '%dm',
-      h: '1h',
-      hh: '%dh',
-      d: '1d',
-      dd: '%dd',
-      M: '1month',
-      MM: '%dmonth',
-      y: '1y',
-      yy: '%dy',
-    },
-  })
+  updateMomentLocale(moment)
 
   const isLarge = useMedia({ minWidth: 580 })
   const isMobile = useMedia({ maxWidth: 500 })
